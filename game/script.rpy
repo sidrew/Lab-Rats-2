@@ -3678,19 +3678,19 @@ init -2 python:
 
         def is_item_unanchored(self, the_clothing): #Returns true if the clothing item passed is unanchored, ie. could be logically taken off.
             if the_clothing in self.upper_body:
-                if not the_clothing.is_extension and the_clothing in self.get_upper_unanchored():
+                if the_clothing in self.get_upper_unanchored():
                     return True
                 else:
                     return False
 
             elif the_clothing in self.lower_body:
-                if not the_clothing.is_extension and the_clothing in self.get_lower_unanchored():
+                if the_clothing in self.get_lower_unanchored():
                     return True
                 else:
                     return False
 
             elif the_clothing in self.feet:
-                if not the_clothing.is_extension and the_clothing in self.get_foot_unanchored():
+                if the_clothing in self.get_foot_unanchored():
                     return True
                 else:
                     return False
@@ -3701,8 +3701,11 @@ init -2 python:
         def get_upper_unanchored(self):
             return_list = []
             for top in reversed(sorted(self.upper_body, key=lambda clothing: clothing.layer)):
-                if top.has_extension is None or self.is_item_unanchored(top.has_extension):
+                if top.has_extension is None:
                     return_list.append(top)
+                elif self.is_item_unanchored(top.has_extension):
+                    return_list.append(top)
+
 
                 if top.anchor_below:
                     break #Search the list, starting at the outermost item, until you find something that anchors the stuff below it.
