@@ -7958,22 +7958,20 @@ label talk_person(the_person):
 
     python:
         change_titles_action.args = [the_person]
-        change_titles_action.requirement_args = [the_person]
+        change_titles_action.requirement_args = [the_person.obedience]
         small_talk_action.args = [the_person]
-        small_talk_action.requirement_args = [the_person]
         compliment_action.args = [the_person]
-        compliment_action.requirement_args = [the_person]
+        compliment_action.requirement_args = [the_person.love]
         flirt_action.args = [the_person]
-        flirt_action.requirement_args = [the_person]
+        flirt_action.requirement_args = [the_person.love]
         date_action.args = [the_person]
-        date_action.requirement_args = [the_person]
+        date_action.requirement_args = [the_person.love, the_person.relationship, the_person.get_opinion_score("cheating on men")]
 
         wardrobe_change_action.args = [the_person]
-        wardrobe_change_action.requirement_args = [the_person]
+        wardrobe_change_action.requirement_args = [the_person.obedience]
         serum_give_action.args = [the_person]
-        serum_give_action.requirement_args = [the_person]
         seduce_action.args = [the_person]
-        seduce_action.requirement_args = [the_person]
+        seduce_action.requirement_args = [the_person.sluttiness]
 
         special_role_actions = ["Special Actions"]
         roles_that_need_people_args = []

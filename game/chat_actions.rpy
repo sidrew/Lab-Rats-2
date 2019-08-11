@@ -1,46 +1,46 @@
 init -2 python:
-    def change_titles_requirement(the_person):
-        if the_person.obedience < 110:
+    def change_titles_requirement(obedience = 0):
+        if obedience < 110:
             return "Requires: 110 Obedience"
         else:
             return True
 
-    def small_talk_requirement(the_person):
+    def small_talk_requirement():
         if time_of_day >= 4:
             return "Too late to chat."
         else:
             return True
 
-    def compliment_requirement(the_person):
+    def compliment_requirement(love = 0):
         if time_of_day >= 4:
             return "Too late to chat."
-        elif the_person.love < 10:
+        elif love < 10:
             return "Requires: 10 Love"
         else:
             return True
 
-    def flirt_requirement(the_person):
+    def flirt_requirement(love = 0):
         if time_of_day >= 4:
             return "Too late to chat."
-        elif the_person.love < 10:
+        elif love < 10:
             return "Requires: 10 Love"
         else:
             return True
 
-    def date_requirement(the_person):
+    def date_requirement(love = 0, relationship = "", cheat_score = 0):
         love_requirement = 20
-        if the_person.relationship == "Girlfriend":
+        if relationship == "Girlfriend":
             love_requirement += 20
-        elif the_person.relationship == "Fiancée":
+        elif relationship == "Fiancée":
             love_requirement += 30
-        elif the_person.relationship == "Married":
+        elif relationship == "Married":
             love_requirement += 40
 
-        love_requirement += -10*the_person.get_opinion_score("cheating on men")
+        love_requirement += -10 * cheat_score
         if love_requirement < 20:
             love_requirement = 20
 
-        if the_person.love < love_requirement:
+        if love < love_requirement:
             return "Requires: " + str(love_requirement) + " Love"
         elif mc.business.event_triggers_dict.get("date_scheduled", False):
             return "You already have a date planned!"
@@ -52,21 +52,21 @@ init -2 python:
             return True
         return False
 
-    def wardrobe_change_requirment(the_person):
-        if the_person.obedience < 120:
+    def wardrobe_change_requirment(obedience = 0):
+        if obedience < 120:
             return "Requires: Obedience 120"
         else:
             return True
 
-    def serum_give_requirement(the_person):
+    def serum_give_requirement():
         #the_person parameter passed to match other actions and for future proofing.
         if mc.inventory.get_any_serum_count() <= 0:
             return "Requires: Serum in inventory"
         else:
             return True
 
-    def seduce_requirement(the_person):
-        if the_person.sluttiness < 15:
+    def seduce_requirement(sluttiness = 0):
+        if sluttiness < 15:
             return "Requires: {image=gui/heart/three_quarter_red_quarter_empty_heart.png}"
         elif mc.current_stamina <= 0:
             return "Requires: 1 Stamina"
