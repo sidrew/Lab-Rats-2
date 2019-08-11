@@ -93,6 +93,8 @@ init -2 python:
             return False
         elif mc.business.research_tier != 1: #This event is used to get to tier 2, so if you're already past that it doesn't matter.
             return False
+        elif nora_suggest_up in list_of_traits: #Prevent you from visiting nora twice
+            return False            
         elif the_person.love < 15:
             return "Requires: 15 Love"
         else:
