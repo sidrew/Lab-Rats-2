@@ -240,6 +240,8 @@ label pay_strip_scene(the_person):
         # Low obedience characters will strip off less when told but can be left to run the show on their own and will remove some.
         python:
             for item in the_person.outfit.get_unanchored():
+                if item.is_extension: # don't show extension items in strip menu
+                    continue
                 test_outfit = the_person.outfit.get_copy()
                 test_outfit.remove_clothing(item)
                 new_willingness = the_person.sluttiness + (5*the_person.get_opinion_score("not wearing anything")) - test_outfit.slut_requirement
