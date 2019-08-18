@@ -85,8 +85,6 @@ init -2 python:
     def visit_nora_intro_requirement(the_person):
         if steph_role not in the_person.special_role: #Only Stephanie gets to have this event trigger while she is head researcher.
             return False
-        elif not mc.business.event_triggers_dict.get("intro_nora", False): #TODO: Also make sure you can't visit her again after you accept her quest.
-            return False
         elif mc.location != mc.business.r_div:
             return False
         elif not mc.business.is_open_for_business():
@@ -98,8 +96,14 @@ init -2 python:
         elif the_person.love < 15:
             return "Requires: 15 Love"
         else:
-            return True
+            return mc.business.event_triggers_dict.get("intro_nora", False)
 
+    def contact_nora_requirement(the_person):
+        if steph_role not in the_person.special_role: #Only Stephanie gets to have this event trigger while she is head researcher.
+            return False
+        elif nora_suggest_up in list_of_traits:
+            return False
+        return not mc.business.event_triggers_dict.get("intro_nora", False)
 
 #####HEAD RESEARCHER ACTION LABELS#####
 
@@ -208,7 +212,7 @@ label advanced_serum_stage_1_label(the_person):
     the_person.char "Well, I've seen a few papers floating around that make it seem like other groups are working with the same basic techniques as us."
     the_person.char "I'd like to reach out to them and see about securing a prototype of some sort, to see if we can learn anything from its effects."
     the_person.char "These academic types can get very defensive about their research, so I don't think we'll get anything for free."
-    if steph_role in the_person.special_role and not mc.business.event_triggers_dict.get("intro_nora", False):
+    if contact_nora_requirement(the_person):
         the_person.char "I suppose there's one person we could ask..."
         mc.name "Do you mean [nora.title]?"
         "[the_person.title] nods."
@@ -230,7 +234,7 @@ label advanced_serum_stage_1_label(the_person):
         "Try and secure a prototype serum.\n{size=22}Costs $2000{/size} (disabled)" if mc.business.funds < 2000:
             pass
 
-        "Contact Nora."if steph_role in the_person.special_role and not mc.business.event_triggers_dict.get("intro_nora", False):
+        "Contact Nora." if contact_nora_requirement(the_person):
             $ mc.business.event_triggers_dict["intro_nora"] = True
             mc.name "I think [nora.title] is the right choice."
             the_person.char "I'll call and see when she's available. Come back and talk to me when you want to go visit her."
