@@ -789,7 +789,7 @@ label photo_naked(the_person):
             $ the_person.change_slut_temp(2)
             $ the_person.review_outfit()
             "[the_person.title] collects her things and you finish up the photo shoot."
-            return return the_person.outfit.slut_requirement
+            return the_person.outfit.slut_requirement
     return _return
 
 label photo_touch(the_person):
