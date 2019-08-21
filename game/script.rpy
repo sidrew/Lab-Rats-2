@@ -621,15 +621,15 @@ init -2 python:
                 sluttiness_multiplier = (slut_modifier/100.0) + 1
                 serum_value_multiplier = serum_value_multiplier * (sluttiness_multiplier)
 
-            multipilers_used = {} #Generate a dict with only the current max multipiers of each catagory.
+            multipliers_used = {} #Generate a dict with only the current max multipiers of each catagory.
             for multiplier_source in self.sales_multipliers:
-                if not multiplier_source[0] in multipilers_used:
-                    multipilers_used[multiplier_source[0]] = multiplier_source[1]
+                if not multiplier_source[0] in multipliers_used:
+                    multipliers_used[multiplier_source[0]] = multiplier_source[1]
                 elif multiplier_source[1] > multipliers_used.get(multiplier_source[0]):
-                    multipilers_used[multiplier_source[0]] = multiplier_source[1]
+                    multipliers_used[multiplier_source[0]] = multiplier_source[1]
 
-            for maxed_multiplier in multipilers_used:
-                value_change = multipilers_used.get(maxed_multiplier)
+            for maxed_multiplier in multipliers_used:
+                value_change = multipliers_used.get(maxed_multiplier)
                 serum_value_multiplier = serum_value_multiplier * value_change
                 if value_change > 1:
                     self.add_normal_message("+" + str((value_change-1)*100) + "% serum value due to " + maxed_multiplier + ".")
