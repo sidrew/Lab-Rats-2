@@ -7924,8 +7924,8 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                     $ the_greeter.draw_person()
                     $ the_greeter.call_dialogue("work_enter_greeting")
                     $ renpy.scene("Active")
-
-            $ del the_greeter
+                $ del the_greeter
+                
             $ del a_person
 
         $ del new_location
