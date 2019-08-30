@@ -227,6 +227,7 @@ label broken_AC_crisis_label:
                     $ list_of_other_girls.remove(the_person) #We already watched her strip.
                     call screen person_choice(list_of_other_girls, person_prefix = "Watch", person_suffix = "Strip.")
                     $ girl_choice = _return
+                    $ del list_of_other_girls
 
                         # strip_watch_list = format_person_list(list_of_other_girls)
                         # for a_choice in strip_watch_list:
@@ -256,6 +257,9 @@ label broken_AC_crisis_label:
                         $ removed_something = True
                         $ the_clothing = test_outfit.remove_random_any(top_layer_first = True, exclude_feet = True)
 
+                    $ del test_outfit
+                    $ del the_clothing
+
                     if removed_something:
                         if girl_choice.outfit.tits_visible() and girl_choice.outfit.vagina_visible():
                             "Once she's done stripping [girl_choice.possessive_title] is practically naked."
@@ -276,8 +280,7 @@ label broken_AC_crisis_label:
                         "[girl_choice.title] fiddles with some of her clothing, then shrugs meekly."
                         girl_choice.char "I'm not sure I'm comfortable taking any of this off... I'm sure I'll be fine in the heat for a little bit."
 
-
-
+                    $ del girl_choice
                     "The girls laugh and tease each other as they strip down, and they all seem to be more comfortable with the heat once they are less clothed."
                     "For a while all of the girls work in various states of undress while under your watchful eye."
                     "The repair man shows up early, and you lead him directly to the the AC unit. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
@@ -1020,14 +1023,15 @@ label trait_for_side_effect_label():
     $ the_person = mc.business.head_researcher
     $ the_design = mc.business.active_research_design
 
-    $ list_of_valid_traits = []
     python:
+        list_of_valid_traits = []
         for trait in list_of_traits:
             if trait.researched and trait not in the_design.traits:
                 list_of_valid_traits.append(trait)
 
-    $ the_trait = get_random_from_list(list_of_valid_traits) #Note that this can generate normally impossible designs!
-    $ the_side_effect = get_random_from_list(list_of_side_effects)
+        the_trait = get_random_from_list(list_of_valid_traits) #Note that this can generate normally impossible designs!
+        the_side_effect = get_random_from_list(list_of_side_effects)
+        del list_of_valid_traits
 
     if the_trait is None or the_side_effect is None: #If it turns out this event is impossible just flub out.
         return
@@ -1043,8 +1047,8 @@ label trait_for_side_effect_label():
         "You head to your R&D lab and meet [the_person.title]. She leads you over to her lab bench."
 
     the_person.char "I've been working on the design you set out for [the_design.name] and one of the test batches developed some very interesting side effects."
-    "You look over the notes [the_person.possessive_title] has taken. The varient she has created includes an extra serum trait as well as a negative side effect."
-    "It doesn't seem like there will be any way to detangle the effects."
+    "You look over the notes [the_person.possessive_title] has taken. The variant she has created includes an extra serum trait as well as a negative side effect."
+    "It doesn't seem like there will be any way to untangle the effects."
     #TODO: Make sure these actually display the traits properly.
     show screen trait_list_tooltip([the_trait, the_side_effect])
     menu:
@@ -1059,7 +1063,12 @@ label trait_for_side_effect_label():
             mc.name "I don't think the side effects are acceptable. Revert back to a more stable version and keep going from there."
 
     the_person.char "Understood sir, I'll make the changes to all of the documentation."
-    $ renpy.scene("Active")
+
+    python:
+        del the_trait
+        del the_side_effect
+        del the_design
+        renpy.scene("Active")
     return
 
 label water_spill_crisis_label():
@@ -2257,8 +2266,15 @@ label cat_fight_crisis_label():
                     "[winner.title] takes a look down at herself."
                     winner.char "I should probably go get cleaned up too. Sorry about all of this sir."
                     "[winner.title] leaves and you get back to work."
+            python:
+                del winner
+                del loser
 
-
+    python:
+        del list_of_possible_people
+        del person_one
+        del person_two
+    
     $ renpy.scene("Active")
     return
 
@@ -2470,6 +2486,8 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
     else: #There's nobody else in the lab, guess you've done all the hard work yourself!
         "You finish work on your new serum design, dubbing it \"[the_serum.name]\". The lab is empty, so you celebrate by yourself."
         return
+
+    $ del rd_staff        
     return #We should always have returned by this point anyways, but just in case we'll catch it here.
 
 #################
@@ -2689,6 +2707,8 @@ label mom_outfit_help_crisis_label():
             $ the_person.draw_animated_removal(strip_choice)
             "You watch as [the_person.possessive_title] take off her [strip_choice.name]."
             $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
+
+        $ del strip_choice
         "Once she's stripped naked she grabs another outfit and starts to put it on."
 
     $ the_person.outfit = second_outfit
@@ -2801,7 +2821,11 @@ label mom_outfit_help_crisis_label():
     mc.name "Any time, I'm just glad to help."
     "You leave [the_person.possessive_title] in her room as she starts to pack her clothes away."
 
-    $ renpy.scene("Active")
+    python:
+        del first_outfit
+        del second_outfit
+        del third_outfit
+        renpy.scene("Active")
     return
 
 init 1 python:
@@ -3049,6 +3073,7 @@ label mom_selfie_label():
                 $ the_person.draw_person(emotion = "default")
                 "[the_person.possessive_title] sends you a short video of herself walking around your home. Her bare tits bounce with each step."
                 the_person.char "You don't happen to know where it is, do you? I'm wandering around looking for it and it's getting chilly!"
+            $ del the_clothing
 
     elif lowest_stat >= 20:
         #Sends you normal texts but talks about wanting to get away to talk to you instead
@@ -3324,6 +3349,7 @@ label mom_morning_surprise_label():
             $ the_person.outfit.remove(bottom_list[index])
             $ removed_something = True
             $ the_index += 1
+        $ del bottom_list
         "You're woken up by your bed shifting under you and a sudden weight around your waist."
         $ the_person.draw_person(position = "cowgirl", emotion = "happy")
         "[the_person.possessive_title] has pulled down your sheets and underwear and is straddling you. The tip of your morning wood is brushing against her pussy."
@@ -3385,15 +3411,16 @@ label lily_new_underwear_crisis_label():
     # Lily has some new underwear she wants to demo for you.
     # We base the underwear sluttiness on Lily's sluttiness and use Love+Sluttiness to see if she'll show you as a "full outfit".
     $ the_person = lily #Just so we can keep
-    $ valid_underwear_options = []
     $ the_underwear = None
     python:
+        valid_underwear_options = []
         for underwear in default_wardrobe.get_underwear_sets_list():
             #She picks underwear that is in the top 20 sluttiness of what she considers slutty underwear AND that she would feel comfortable wearing in front of her (hopefully loving) brother.
             if underwear.get_underwear_slut_score() <= the_person.sluttiness and underwear.get_underwear_slut_score() >= the_person.sluttiness-20 and the_person.judge_outfit(underwear, the_person.love+30):
                 valid_underwear_options.append(underwear)
 
         the_underwear = get_random_from_list(valid_underwear_options)
+        del valid_underwear_options
     if the_underwear is None:
         return #Lily doesn't have any skimpy underwear to show us :(
 
@@ -3482,6 +3509,7 @@ label lily_new_underwear_crisis_label():
             $ renpy.scene("Active")
             "She leaves and closes your door behind her."
 
+    $ del the_underwear
     $ renpy.scene("Active")
     return
 
@@ -3820,5 +3848,8 @@ label family_morning_breakfast_label():
         "You enjoy a relaxing breakfast bonding with your mother and sister. Your mom seems particularly happy she gets to spend time with you."
         "When you're done you help Mom put the dirty dishes away and get on with your day."
 
-    $ renpy.scene("Active")
+    python:
+        del the_mom
+        del the_sister
+        renpy.scene("Active")
     return

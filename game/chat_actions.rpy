@@ -690,6 +690,7 @@ label wardrobe_change_label(the_person):
                     $ the_person.add_outfit(new_outfit,outfit_type)
                     $ the_person.call_dialogue("clothing_accept")
 
+                $ del new_outfit
             else:
                 mc.name "On second thought, nevermind."
 

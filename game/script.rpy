@@ -7862,6 +7862,8 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
 
     call screen main_choice_display([people_list,actions_list])
 
+    $ del people_list
+
     $ picked_option = _return
     if isinstance(picked_option, Person):
         # mc.can_skip_time = False
@@ -7923,6 +7925,10 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                     $ the_greeter.call_dialogue("work_enter_greeting")
                     $ renpy.scene("Active")
 
+            $ del the_greeter
+            $ del a_person
+
+        $ del new_location
     elif picked_option == "Wait":
         if time_of_day == 4:
             $ mc.change_location(bedroom)
@@ -8653,7 +8659,9 @@ label interview_action_description:
             else:
                 "You decide against hiring anyone new for now."
 
-            $ candidates = None # Release variables
+            $ del candidates
+            $ del a_candidate
+            $ del new_person
             call advance_time from _call_advance_time_6
         "Nevermind.":
             $ temp = 0 #NOTE: just here so that this isn't technically an empty block.
@@ -8967,7 +8975,6 @@ label advance_time:
         mc.business.run_turn()
         mc.run_turn()
 
-
     #We make sure that all mandatory crises are run here. Mandatory crises always trigger as soon as they are able, possibly with multiple crises triggering in a single turn.
     $ count = 0
     $ max = len(mc.business.mandatory_crises_list)
@@ -9064,6 +9071,7 @@ label advance_time:
         for (people,place) in people_to_process: #Now move everyone to where the should be in the next time chunk. That may be home, work, etc.
             people.run_move(place)
 
+    $ del people_to_process
     #$mc.can_skip_time = True #Now give the player the ability to skip time again, because they should be back in control.
     return
 
