@@ -1232,6 +1232,7 @@ label home_fuck_crisis_label():
             if person.sluttiness >= 15:
                 meets_sluttiness_list.append(person)
     $ the_person = get_random_from_list(meets_sluttiness_list)
+    $ del meets_sluttiness_list
 
     "Some time late in the night, you're awoken by the buzz of your phone getting a text. You roll over and ignore it."
     "A few minutes later it buzzes again, then again. You're forced to wake up and see what is the matter."
@@ -2339,7 +2340,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
     if mc.business.head_researcher:
         $ rd_staff = mc.business.head_researcher
     else:
-        $ rd_staff = get_random_from_list(mc.business.r_div.people) #Get a random researcher from the R&D department. TODO: Repalce this with the head researcher position.
+        $ rd_staff = get_random_from_list(mc.business.r_div.people) #Get a random researcher from the R&D department. TODO: Replace this with the head researcher position.
 
     if rd_staff is not None and not mc.business.is_weekend():
         if mc.location == mc.business.r_div: # The MC is in the lab, just physically get them.
@@ -2393,7 +2394,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
         ## Test the serum out on someone.
         "[rd_staff.title] brings you to her work bench. A centrifuge is finished a cycle and spinning down."
         $ technobabble = get_random_from_list(technobabble_list)
-        rd_staff.title "Perfect, it's just finishing now. I had this flash of inspiration and realised all I needed to do was [technobabble]."
+        rd_staff.title "Perfect, it's just finishing now. I had this flash of inspiration and realized all I needed to do was [technobabble]."
         "[rd_staff.possessive_title] opens the centrifuge lid and takes out a small glass vial. She holds it up to the light and nods approvingly, then hands it to you."
         menu:
             "Give the serum back for final testing.":
@@ -2431,6 +2432,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                     $ selected_person.draw_person()
                     selected_person.char "You wanted me sir?"
                     $ rd_staff = selected_person
+                $ del selected_person
 
                 mc.name "How confident in your work are you [rd_staff.title]? Before we send this along to production I think we should put it through one final test."
                 if rd_staff.obedience < 80:
@@ -2439,7 +2441,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                     $ rd_staff.change_obedience(-5)
                     rd_staff.char "Really? I'm just suppose to take a completely untested drug because it might make you more money? That's fucking ridiculous and we both know it."
                     "[rd_staff.possessive_title] puts the serum down on the lab bench and crosses her arms."
-                    rd_staff.char "Just get out of here and I'll finish the initial testing in a safe enviroment."
+                    rd_staff.char "Just get out of here and I'll finish the initial testing in a safe environment."
                     mc.name "Fine, just make sure you get it done."
                     rd_staff.char "That's what I'm paid for, isn't it?"
                     "You leave [rd_staff.title] to her to work in the lab and return to what you were doing."

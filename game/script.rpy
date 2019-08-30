@@ -7862,8 +7862,6 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
 
     call screen main_choice_display([people_list,actions_list])
 
-    $ del people_list
-
     $ picked_option = _return
     if isinstance(picked_option, Person):
         # mc.can_skip_time = False
@@ -7924,11 +7922,7 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                     $ the_greeter.draw_person()
                     $ the_greeter.call_dialogue("work_enter_greeting")
                     $ renpy.scene("Active")
-                $ del the_greeter
-                
-            $ del a_person
 
-        $ del new_location
     elif picked_option == "Wait":
         if time_of_day == 4:
             $ mc.change_location(bedroom)
