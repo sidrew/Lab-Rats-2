@@ -1,46 +1,46 @@
 init -2 python:
-    def change_titles_requirement(obedience = 0):
-        if obedience < 110:
+    def change_titles_requirement(the_person):
+        if the_person.obedience < 110:
             return "Requires: 110 Obedience"
         else:
             return True
 
-    def small_talk_requirement():
+    def small_talk_requirement(the_person):
         if time_of_day >= 4:
             return "Too late to chat."
         else:
             return True
 
-    def compliment_requirement(love = 0):
+    def compliment_requirement(the_person):
         if time_of_day >= 4:
             return "Too late to chat."
-        elif love < 10:
+        elif the_person.love < 10:
             return "Requires: 10 Love"
         else:
             return True
 
-    def flirt_requirement(love = 0):
+    def flirt_requirement(the_person):
         if time_of_day >= 4:
             return "Too late to chat."
-        elif love < 10:
+        elif the_person.love < 10:
             return "Requires: 10 Love"
         else:
             return True
 
-    def date_requirement(love = 0, relationship = "", cheat_score = 0):
+    def date_requirement(the_person):
         love_requirement = 20
-        if relationship == "Girlfriend":
+        if the_person.relationship == "Girlfriend":
             love_requirement += 20
-        elif relationship == "Fiancée":
+        elif the_person.relationship == "Fiancée":
             love_requirement += 30
-        elif relationship == "Married":
+        elif the_person.relationship == "Married":
             love_requirement += 40
 
-        love_requirement += -10 * cheat_score
+        love_requirement += -10*the_person.get_opinion_score("cheating on men")
         if love_requirement < 20:
             love_requirement = 20
 
-        if love < love_requirement:
+        if the_person.love < love_requirement:
             return "Requires: " + str(love_requirement) + " Love"
         elif mc.business.event_triggers_dict.get("date_scheduled", False):
             return "You already have a date planned!"
@@ -52,21 +52,21 @@ init -2 python:
             return True
         return False
 
-    def wardrobe_change_requirment(obedience = 0):
-        if obedience < 120:
+    def wardrobe_change_requirment(the_person):
+        if the_person.obedience < 120:
             return "Requires: Obedience 120"
         else:
             return True
 
-    def serum_give_requirement():
+    def serum_give_requirement(the_person):
         #the_person parameter passed to match other actions and for future proofing.
         if mc.inventory.get_any_serum_count() <= 0:
             return "Requires: Serum in inventory"
         else:
             return True
 
-    def seduce_requirement(sluttiness = 0):
-        if sluttiness < 15:
+    def seduce_requirement(the_person):
+        if the_person.sluttiness < 15:
             return "Requires: {image=gui/heart/three_quarter_red_quarter_empty_heart.png}"
         elif mc.current_stamina <= 0:
             return "Requires: 1 Stamina"
@@ -74,9 +74,10 @@ init -2 python:
             return True
 
 
-label person_introduction(the_person):
+label person_introduction(the_person, girl_introduction = True):
 
-    $ the_person.call_dialogue("introduction")
+    if girl_introduction:
+        $ the_person.call_dialogue("introduction")
 
     #She's given us her name, now she asks for yours.
     $ title_tuple = []
@@ -120,7 +121,6 @@ label new_title_menu(the_person):
     python:
         for title in get_titles(the_person):
             title_tuple.append([title,title])
-        
         title_tuple.append(["Do not change her title.","Back"])
         title_choice = renpy.display_menu(title_tuple,True,"Choice")
     return title_choice
@@ -141,7 +141,6 @@ label new_possessive_title_menu(the_person):
     python:
         for title in get_possessive_titles(the_person):
             title_tuple.append([title,title])
-        
         title_tuple.append(["Do not change your title.","Back"])
         title_choice = renpy.display_menu(title_tuple,True,"Choice")
     return title_choice
@@ -149,7 +148,7 @@ label new_possessive_title_menu(the_person):
 label person_new_title(the_person): #She wants a new title or to give you a new title.
     if __builtin__.len(get_titles(the_person)) <= 1: #There's only the one title available to them. Don't bother asking to change
         return
-    $ randomised_obedience = the_person.obedience + renpy.random.randint(-30,30) #Randomize their effective obedience a little so they sometimes ask, sometimes demand
+    $ randomised_obedience = the_person.obedience + renpy.random.randint(0,30) - 15 #Randomize their effective obedience a little so they sometimes ask, sometimes demand
 
     if randomised_obedience > 120: #She just asks you for something "fresh". Her obedience is high enough that we already have control over this.
         the_person.char "[the_person.mc_title], do you think [the_person.title] is getting a little old? I think something new might be fun!"
@@ -239,7 +238,7 @@ label person_new_title(the_person): #She wants a new title or to give you a new 
 label person_new_mc_title(the_person):
     if __builtin__.len(get_player_titles(the_person)) <= 1: #There's only the one title available to them. Don't bother asking to change
         return
-    $ randomised_obedience = the_person.obedience + renpy.random.randint(-30, 30) #Randomize their effective obedience a little so they sometimes ask, sometimes demand
+    $ randomised_obedience = the_person.obedience + renpy.random.randint(0,30) - 15 #Randomize their effective obedience a little so they sometimes ask, sometimes demand
     if randomised_obedience > 120: #She just asks you for something "fresh". Her obedience is high enough that we already have control over this.
         the_person.char "I was just thinking that I've called you [the_person.mc_title] for a pretty long time. If you're getting tired of it I could call you something else."
         menu:
@@ -510,11 +509,9 @@ label date_person(the_person): #You invite them out on a proper date
         "Plan a date for Friday night.":
             mc.name "It's a date. I'm already looking forward to it."
             the_person.char "Me too!"
-            python:
-                dinner_action.args = [the_person]
-                dinner_action.requirement_args = [4]
-                mc.business.mandatory_crises_list.append(dinner_action)
-                mc.business.event_triggers_dict["date_scheduled"] = True
+            $ dinner_action = Action("Dinner date", dinner_date_requirement, "dinner_date", args=the_person, requirement_args=4) #it happens on a friday, so day%7 == 4
+            $ mc.business.mandatory_crises_list.append(dinner_action)
+            $ mc.business.event_triggers_dict["date_scheduled"] = True
 
         "Maybe some other time.":
             mc.name "I'm busy on Friday unfortunately."
@@ -833,7 +830,14 @@ label serum_give_label(the_person):
 
 label seduce_label(the_person):
     mc.name "[the_person.title], I've been thinking about you all day. I just can't get you out of my head."
-    $ the_person.call_dialogue("seduction_response")
+
+    if prostitute_role in the_person.special_role and the_person.love < 20:
+        the_person.char "I've been thinking about you too, but I've got bills to pay and I can't do this for free."
+        return
+    elif prostitute_role in the_person.special_role and the_person.love >= 20:
+        the_person.char "I should really make you pay for this... but you're one of my favourites and I'm curious what you had in mind."
+    else:
+        $ the_person.call_dialogue("seduction_response")
     $ random_chance = renpy.random.randint(0,100)
     $ chance_service_her = the_person.sluttiness - 20 - (the_person.obedience - 100) + (mc.charisma * 4) + (the_person.get_opinion_score("taking control") * 4)
     $ chance_both_good = the_person.sluttiness - 10 + mc.charisma * 4
@@ -854,7 +858,7 @@ label seduce_label(the_person):
     elif chance_service_him < 0:
         $ chance_service_him = 0
 
-    $ seduced = False #Flip to true if our approach works
+    $ seduced = False #Flip to true if the approach works
     menu:
         "I want to make you feel good.\n{size=22}Success Chance: [chance_service_her]%%\nModifiers: +10 Sluttiness, -5 Obedience{/size} (tooltip)Suggest you will focus on her. She will be sluttier for the encounter, but more likely to make demands and take control. More likely to succeed with less obedient girls.": #Bonus to her sluttiness, penalty to obedience
             "You lean in close whisper what you want to do to her."
@@ -884,6 +888,8 @@ label seduce_label(the_person):
                 $ the_person.discover_opinion("being submissive")
             else:
                 pass
+
+
 
     if seduced and the_person.sexed_count < 1:
 
