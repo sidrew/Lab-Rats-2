@@ -8151,7 +8151,7 @@ label fuck_person(the_person, private=True, start_position = None, start_object 
             if renpy.random.randint(0,the_person.arousal) + 50 < the_person.obedience:
                 $ the_person.call_dialogue("sex_take_control")
                 $ the_person.change_obedience(-3)
-                call fuck_person(the_person, private, start_position, start_object, skip_intro = True, girl_in_charge = True) from _call_fuck_person_18
+                call fuck_person(the_person, private, start_position, start_object, skip_intro = True, girl_in_charge = True, hide_leave = hide_leave, position_locked = position_locked) from _call_fuck_person_18
 
             elif the_person.arousal > 80:
                 # They're close to their orgasm and beg you to help them finish.
@@ -8159,7 +8159,7 @@ label fuck_person(the_person, private=True, start_position = None, start_object 
                 menu:
                     "Keep going.":
                         $ the_person.change_obedience(2)
-                        call fuck_person(the_person, private, start_position, start_object, skip_intro = True, hide_leave = True) from _call_fuck_person_19 #Redo all of this but don't let them leave. Start position and start_object will normally be None
+                        call fuck_person(the_person, private, start_position, start_object, skip_intro = True, girl_in_charge = girl_in_charge, hide_leave = True, position_locked = position_locked) from _call_fuck_person_19 #Redo all of this but don't let them leave. Start position and start_object will normally be None
 
                     "Leave.":
                         $ the_person.call_dialogue("sex_end_early")
@@ -8198,7 +8198,7 @@ label fuck_person(the_person, private=True, start_position = None, start_object 
         $ start_round = 0
         if skip_intro:
             $ start_round = 1
-        call sex_description(the_person, position_choice, object_choice, start_round, private=private, girl_in_charge = girl_in_charge, position_locked = position_locked) from _call_sex_description
+        call sex_description(the_person, position_choice, object_choice, start_round, private = private, girl_in_charge = girl_in_charge, position_locked = position_locked) from _call_sex_description
 
 
     $ the_person.clear_situational_slut("love_modifier")
@@ -8221,7 +8221,7 @@ label sex_description(the_person, the_position, the_object, round, private = Tru
             if the_position.skill_tag == "Vaginal": #She may demand you put on a condom.
                 call condom_ask(the_person) from _call_condom_ask
                 if not _return:
-                    call fuck_person(the_person, private = private, girl_in_charge = girl_in_charge) from _call_fuck_person_20
+                    call fuck_person(the_person, private = private, girl_in_charge = girl_in_charge, position_locked = position_locked) from _call_fuck_person_20
                     return
 
             $ the_position.call_intro(the_person, mc.location, the_object, round)
@@ -8234,7 +8234,7 @@ label sex_description(the_person, the_position, the_object, round, private = Tru
                 if the_position.skill_tag == "Vaginal":
                     call condom_ask(the_person) from _call_condom_ask_1
                     if not _return:
-                        call fuck_person(the_person, private = private, girl_in_charge = girl_in_charge) from _call_fuck_person_21
+                        call fuck_person(the_person, private = private, girl_in_charge = girl_in_charge, position_locked = position_locked) from _call_fuck_person_21
                         return
                 $ the_position.redraw_scene(the_person)
                 $ change_amount = the_position.slut_requirement - the_person.sluttiness
@@ -8361,7 +8361,7 @@ label sex_description(the_person, the_position, the_object, round, private = Tru
     elif position_choice == "Strip":
         call strip_menu(the_person) from _call_strip_menu
         $ the_position.redraw_scene(the_person)
-        call sex_description(the_person, the_position, the_object, round+1, private = private) from _call_sex_description_1
+        call sex_description(the_person, the_position, the_object, round+1, private = private, girl_in_charge = girl_in_charge, position_locked = position_locked) from _call_sex_description_1
 
     elif position_choice == "Pull Out": #Also how you leave if you don't want to fuck till you cum.
         $ the_position.current_modifier = None
@@ -8400,7 +8400,7 @@ label sex_description(the_person, the_position, the_object, round, private = Tru
                         $ position_choice.call_transition(the_position, the_person, mc.location, the_object, round)
                         $ position_choice = the_position
 
-        call sex_description(the_person, position_choice, the_object, round+1, private = private, girl_in_charge = girl_in_charge) from _call_sex_description_2
+        call sex_description(the_person, position_choice, the_object, round+1, private = private, girl_in_charge = girl_in_charge, position_locked = position_locked) from _call_sex_description_2
 
     return
 
