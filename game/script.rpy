@@ -2437,8 +2437,7 @@ init -2 python:
                 for act in role.actions:
                     if act.is_action_enabled(self) or act.is_disabled_slug_shown(self): #We should also check if a non-action disabled slug would be available so that the player can check what the requirement would be.
                         count += 1
-                return count
-
+            return count
 
         def create_formatted_title(self, the_title):
             formatted_title = "{color=" + self.char.who_args["color"] + "}" + "{font=" + self.char.what_args["font"] + "}" + the_title + "{/font}{/color}"
