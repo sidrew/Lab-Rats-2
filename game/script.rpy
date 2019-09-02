@@ -7775,6 +7775,8 @@ label check_business_inventory_loop:
     return
 
 init -2 python:
+    predicted_displayables = []
+
     def indent(elem, level=0):
         i = "\n" + level*"    "
         if len(elem):
@@ -7929,14 +7931,6 @@ label outfit_master_manager(): #WIP new outfit manager that centralizes exportin
 
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
     # $ mc.can_skip_time = True
-
-    python:
-        predicted_displayables = []
-        for person in mc.location.people:
-            predicted_displayables.append(person.build_person_displayable())
-        renpy.start_predict(*predicted_displayables)
-
-
     $ people_list = ["Talk to Someone"]
     $ people_list.extend(mc.location.people)
 
@@ -7982,6 +7976,13 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
         call screen map_manager
         $ new_location = _return
         call change_location(new_location) from _call_change_location #_return is the location returned from the map manager.
+
+        # stop predicting displayables for current location
+        python:
+            if predicted_displayables:
+                renpy.stop_predict(*predicted_displayables)
+                predicted_displayables = []
+
         if new_location.people: #There are people in the room, let's see if there are any room events
             $ picked_event = pick_room_enter_event(new_location)
             if picked_event: #If there are room events to take care of run those right now.
@@ -7993,7 +7994,16 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                 if the_greeter:
                     $ the_greeter.draw_person()
                     $ the_greeter.call_dialogue("work_enter_greeting")
+                    $ del the_greeter
                     $ renpy.scene("Active")
+
+        # start predicting for current location
+        python:
+            for person in new_location.people:
+                predicted_displayables.append(person.build_person_displayable())
+            renpy.start_predict(*predicted_displayables)
+            
+        $del new_location
 
     elif picked_option == "Wait":
         if time_of_day == 4:
@@ -8516,29 +8526,32 @@ label examine_room(the_room):
 
         renpy.say("",room_names) ##This is the actual print statement!!
 
-        connections_here = the_room.connections # Now we format the output for the connections so that it is readable.
-        if len(connections_here) == 0:
-            connect_names = "There are no exits from here. You're trapped!" #Shouldn't ever happen, hopefully."
-        elif len(connections_here) == 1:
-            connect_names = "From here your only option is to head to "
-            connect_names += connections_here[0].name
-            connect_names += "."
-        elif len(connections_here) == 2:
-            connect_names = "From here you can head to either "
-            connect_names += connections_here[0].name
-            connect_names += " or "
-            connect_names += connections_here[1].name
-            connect_names += "."
-        else:
-            connect_names = "From here you can go to "
-            for place in connections_here[0:len(connections_here)-1]:
-                connect_names += place.name
-                connect_names += ", "
-            last_place = connections_here[len(connections_here)-1].name
-            connect_names += "and "
-            connect_names += last_place
-            connect_names += "."
-        renpy.say("",connect_names) ##This is the actual print statement!!
+        # connections_here = the_room.connections # Now we format the output for the connections so that it is readable.
+        # if len(connections_here) == 0:
+        #     connect_names = "There are no exits from here. You're trapped!" #Shouldn't ever happen, hopefully."
+        # elif len(connections_here) == 1:
+        #     connect_names = "From here your only option is to head to "
+        #     connect_names += connections_here[0].name
+        #     connect_names += "."
+        # elif len(connections_here) == 2:
+        #     connect_names = "From here you can head to either "
+        #     connect_names += connections_here[0].name
+        #     connect_names += " or "
+        #     connect_names += connections_here[1].name
+        #     connect_names += "."
+        # else:
+        #     connect_names = "From here you can go to "
+        #     for place in connections_here[0:len(connections_here)-1]:
+        #         connect_names += place.name
+        #         connect_names += ", "
+        #     last_place = connections_here[len(connections_here)-1].name
+        #     connect_names += "and "
+        #     connect_names += last_place
+        #     connect_names += "."
+        # renpy.say("",connect_names) ##This is the actual print statement!!
+        # del connections_here
+
+        del people_here
 
     "That's all there is to see nearby."
 
@@ -9089,6 +9102,8 @@ label advance_time:
         $ the_crisis = get_random_from_weighted_list(possible_crisis_list)
         if the_crisis:
             $ the_crisis.call_action()
+            $ del the_crisis
+        $ del possible_crisis_list
 
     $ renpy.scene("Active")
     $ renpy.scene()
@@ -9148,6 +9163,8 @@ label advance_time:
             $ the_morning_crisis = get_random_from_weighted_list(possible_morning_crises)
             if the_morning_crisis:
                 $ the_morning_crisis.call_action()
+                $ del the_morning_crisis
+            $ del possible_morning_crises
 
     else:
         $ time_of_day += 1 ##Otherwise, just run the end of day code.
