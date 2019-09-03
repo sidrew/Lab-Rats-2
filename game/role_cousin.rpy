@@ -60,8 +60,8 @@ init -2 python:
             return False
         elif time_of_day == 4:
             return "Too late to search thoroughly."
-        elif the_person in mc.location.people:
-            return "[the_person.title] is in the room."
+        elif mc.location.people > 0:
+            return "Wait until you are alone in the room."
         else:
             return
 
@@ -576,7 +576,7 @@ label cousin_search_room_label(the_cousin, the_aunt):
             mc.name "I'm looking for clues about what your daughter has been up to."
             the_aunt.char "Oh. I'm not sure she would appreciate you searching through all of her things though."
             mc.name "I doubt she would, but we both want information, right?"
-            if the_aunt.obedince < 130:
+            if the_aunt.obedience < 130:
                 the_aunt.char "I do, but not like this. You're going to have to stop."
                 $ the_aunt.change_love(-1)
                 "You're forced to abandon your search. [the_aunt.possessive_title] escorts you to the living room."
