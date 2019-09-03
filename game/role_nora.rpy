@@ -1,10 +1,10 @@
 # All of the role specific actions for Nora
 # Nora acts as an alternate way of unlocking serum research progress and allows the player to unlock special serum traits.
 
-# Nora needs the player to help her cut through beurocratic red tape and test serum traits that she can't.
+# Nora needs the player to help her cut through bureaucratic red tape and test serum traits that she can't.
 # She gives the player (temporary) access to a serum trait with a very high side effect chance, strange/extreme effects, and minimal sale value.
 # The player needs to raise the mastery value of the trait to a certain level, after which they can "turn in" the request for a reward.
-# Initially this reward will be acces to higher serum tech tiers or unlocks of other serum traits without having to research them.
+# Initially this reward will be access to higher serum tech tiers or unlocks of other serum traits without having to research them.
 # Later it may let you unlock unique serum traits.
 
 init -2 python:
@@ -239,7 +239,8 @@ label nora_research_cash_first_time(the_person):
         $ the_trait = get_random_from_list(list_of_nora_traits)
         $ mc.business.event_triggers_dict["nora_cash_research_trait"] = the_trait
         $ list_of_traits.append(the_trait)
-
+        $ the_trait.researched = True
+        $ del the_trait
 
     else:
         the_person.char "Do you have your finished research for me?"
@@ -284,10 +285,12 @@ label nora_research_cash(the_person):
 
     if list_of_nora_traits:
         #There are still items in the list, get one, give it to the player to study.
-        the_person.char "I have another trait I would like studied, if you are still interested. I will send you the production details." #I'll mark the location of the setlement on your mp
+        the_person.char "I have another trait I would like studied, if you are still interested. I will send you the production details." #I'll mark the location of the settlement on your mp
         $ the_new_trait = get_random_from_list(list_of_nora_traits)
         $ mc.business.event_triggers_dict["nora_cash_research_trait"] = the_new_trait
         $ list_of_traits.append(the_new_trait)
+        $ the_new_trait.researched = True
+        $ del the_new_trait
         mc.name "Okay, I'll see what I can do. Thank you for your business, [the_person.title]."
         "You say goodbye to [the_person.possessive_title] and split up. Your payment is sent soon after."
 
@@ -300,7 +303,7 @@ label nora_research_cash(the_person):
         the_person.char "But I have an idea we may both benefit from."
         mc.name "Go on, you always have interesting ideas for me."
         the_person.char "In my studies I have found that people with extreme personalities, mindsets, backgrounds, or beliefs can offer insights into new serum traits."
-        the_person.char "I will provide you with a detailed questionnaire. Have an intersting person fill it out, or interview them and fill it out yourself, and bring it back to me."
+        the_person.char "I will provide you with a detailed questionnaire. Have an interesting person fill it out, or interview them and fill it out yourself, and bring it back to me."
         the_person.char "If I find any hints pointing towards an trait I will share the research with you. I improve my research, and you may discover useful applications for your business."
         mc.name "That sounds like a good deal for both of us."
         the_person.char "My thoughts exactly, I'm glad you agree."
@@ -311,7 +314,7 @@ label nora_research_cash(the_person):
         $ mc.main_character_actions.append(study_person_action)
 
         $ turn_in_person_research_action = Action("Turn in a research questionnaire.", special_research_requirement, "nora_special_research", args = the_person, requirement_args = the_person,
-            menu_tooltip = "Turn in the research questionnaire you had filled out. If the person is particularly unique or extreme she may be able to discover unqiue serum traits for you to research.")
+            menu_tooltip = "Turn in the research questionnaire you had filled out. If the person is particularly unique or extreme she may be able to discover unique serum traits for you to research.")
         $ university.actions.append(turn_in_person_research_action)
     $ mc.business.funds += 2000
     $ renpy.scene("Active")
@@ -357,7 +360,7 @@ label nora_special_research(the_person):
 
     elif nora_role in the_subject.special_role and the_subject.core_sluttiness > 75 and nora_reward_nora_trait not in list_of_traits:
         the_person.char "Well I suppose your out-of-the-box thinking is why I appreciate your scientific input, [the_person.mc_title]."
-        the_person.char "I ran your report on myself, and much to my suprise I think there may be something here for us both to study."
+        the_person.char "I ran your report on myself, and much to my surprise I think there may be something here for us both to study."
         the_person.char "My own sexual drive seems to be linked quite heavily to the intelligence of the person I am talking to."
         the_person.char "It may be possible to develop a serum that replicates this in another person, with the effect being more pronounced if  the larger the intelligence difference."
         "She hands you her research on the matter, unlocking a new serum trait for you to research."
@@ -366,13 +369,13 @@ label nora_special_research(the_person):
     elif the_subject.love > 85 and nora_reward_high_love_trait not in list_of_traits:
         the_person.char "This was certainly an interesting case, and I have a development for you."
         the_person.char "The subject reported an intense love for you, to the exclusion of all others."
-        the_person.char "Moral objections aside, this effect would have obvious appplications if you could find a way to apply it to others."
+        the_person.char "Moral objections aside, this effect would have obvious applications if you could find a way to apply it to others."
         "She hands you her research on the matter, unlocking a new serum trait for you to research."
         $ list_of_traits.append(nora_reward_high_love_trait)
 
     elif the_subject.love < -50 and nora_reward_low_love_trait not in list_of_traits:
         the_person.char "This was certainly an interesting case, and I have a development for you."
-        the_person.char "I'm suprised you were able to convince the subject to produce any answers at all for you. She reported a burning, almost single minded hatred of you."
+        the_person.char "I'm surprised you were able to convince the subject to produce any answers at all for you. She reported a burning, almost single minded hatred of you."
         the_person.char "I don't know how useful it will be, but with some further research work you may be able to replicate that level of absolute disgust in whomever you want."
         "She hands you her research on the matter, unlocking a new serum trait for you to research."
         $ list_of_traits.append(nora_reward_low_love_trait)
@@ -380,7 +383,7 @@ label nora_special_research(the_person):
     elif the_subject.obedience > 180 and nora_reward_high_obedience_trait not in list_of_traits:
 
         the_person.char "This was certainly an interesting case, and I have a development for you."
-        the_person.char "I'm not suprised you were able to extract such detailed information from the subject, her obedience to you seems to be almost complete."
+        the_person.char "I'm not surprised you were able to extract such detailed information from the subject, her obedience to you seems to be almost complete."
         the_person.char "She seems content with her lack of independence, which you might be able to replicate and harness with some further research work."
         "She hands you her research on the matter, unlocking a new serum trait for you to research."
         $ list_of_traits.append(nora_reward_high_obedience_trait)
