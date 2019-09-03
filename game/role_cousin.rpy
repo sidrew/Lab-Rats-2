@@ -60,10 +60,10 @@ init -2 python:
             return False
         elif time_of_day == 4:
             return "Too late to search thoroughly."
-        elif mc.location.people > 0:
-            return "Wait until you are alone in the room."
+        elif the_person in mc.location.people:
+            return the_person.title + " is in the room."
         else:
-            return
+            return True
 
     def blackmail_2_confront_requirement(the_person):
         if the_person.event_triggers_dict.get("blackmail_level", -1) != 1:
