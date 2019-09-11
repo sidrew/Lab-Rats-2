@@ -3256,7 +3256,7 @@ init -2 python:
                     body_type = "standard_body"
 
                 image_set = self.position_sets.get(position) # The image set we are using should corrispond to the set named "positon".
-                if image_set == None: # If no image set is found with that name in the dict, use the default standing one instead. Standing should always exist.
+                if image_set is None: # If no image set is found with that name in the dict, use the default standing one instead. Standing should always exist.
                     image_set = self.position_sets.get("stand3") #Position names are always lowercase.
 
                 if self.draws_breasts:
@@ -4382,7 +4382,7 @@ init -2 python:
     def research_work_action_requirement():
         if time_of_day >= 4:
             return "Too late to work."
-        elif mc.business.active_research_design == None:
+        elif mc.business.active_research_design is None:
             return "No research project set."
         else:
             return True
@@ -4932,7 +4932,7 @@ screen business_ui(): #Shows some information about your business.
                 action NullAction()
                 sensitive True
 
-            if not mc.business.active_research_design == None:
+            if not mc.business.active_research_design is None:
                 text "  Current Research: " style "menu_text_style"
                 textbutton "    [mc.business.active_research_design.name] (" + str(__builtin__.int(mc.business.active_research_design.current_research))+"/[mc.business.active_research_design.research_needed])":
                     ysize 28
@@ -6162,7 +6162,7 @@ screen serum_select_ui: #How you select serum and trait research
         frame:
             background "#888888"
             xsize 1000
-            if not mc.business.active_research_design == None:
+            if not mc.business.active_research_design is None:
                 text "Current Research: [mc.business.active_research_design.name] ([mc.business.active_research_design.current_research]/[mc.business.active_research_design.research_needed])" style "menu_text_style" size 25 xanchor 0.5 xalign 0.5
             else:
                 text "Current Research: None!" style "menu_text_style" size 25 xanchor 0.5 xalign 0.5
