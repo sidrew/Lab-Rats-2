@@ -8712,15 +8712,16 @@ label interview_action_description:
                 if recruitment_knowledge_two_policy.is_owned():
                     reveal_count += 2
                 if recruitment_knowledge_three_policy.is_owned():
-                    reveal_count += 1
+                    reveal_count += 2
                     reveal_sex = True
                 if recruitment_knowledge_four_policy.is_owned():
-                    reveal_count += 1
-
+                    reveal_count += 2
 
                 for a_candidate in candidates:
                     for x in __builtin__.range(0,reveal_count): #Reveal all of their opinions based on our policies.
-                        a_candidate.discover_opinion(a_candidate.get_random_opinion(include_known = False, include_sexy = reveal_sex),add_to_log = False) #Get a random opinion and reveal it.
+                        opinion = a_candidate.get_random_opinion(include_known = False, include_sexy = reveal_sex)
+                        if not opinion is None:
+                            a_candidate.discover_opinion(opinion, add_to_log = False) #Get a random opinion and reveal it.
 
                 show_candidate(candidates[0]) #Show the first candidate, updates are taken care of by actions within the screen.
 
