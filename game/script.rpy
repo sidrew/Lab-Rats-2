@@ -3267,7 +3267,7 @@ init -2 python:
 
                 converted_mask_image = None
                 inverted_mask_image = None
-                if self.pattern is not None:
+                if self.pattern is not None and position + "_" + self.pattern in self.pattern_sets:
                     if self.draws_breasts:
                         mask_image = self.pattern_sets.get(position+"_"+self.pattern).get_image(body_type, tit_size)
                     else:
@@ -3278,7 +3278,8 @@ init -2 python:
                     else:
                         inverted_mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1,1]) #Generate the masks that will be used to determine what is colour A and B
                         mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,1,0])
-
+                else:
+                    self.pattern = None
 
 
                 brightness_matrix = im.matrix.brightness(self.whiteness_adjustment)
