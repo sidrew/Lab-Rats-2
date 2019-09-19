@@ -422,7 +422,7 @@ label no_uniform_punishment_label():
                     $ the_person.change_obedience(5)
                     $ the_person.change_happiness(-10)
                     $ the_person.salary += -pay_percent
-                    $ mc.log_event("[the_person.title] -$[pay_percent]/day Salary","float_text_green")
+                    $ mc.log_event(the_person.title +" -$[pay_percent]/day Salary","float_text_green")
                     the_person.char "What? Come on [the_person.mc_title], that's bullshit!"
                     mc.name "I can't be making rules exceptions just for you. Go get changed and get back to work, we can talk about this later."
                     "[the_person.title] huffs and walks off."
@@ -802,27 +802,27 @@ label special_training_crisis_label():
             menu:
                 "Improve HR Skill (Current [the_person.hr_skill])":
                     $ the_person.hr_skill += 2
-                    $ mc.log_event("[the_person.title]: +2 HR Skill", "float_text_grey")
+                    $ mc.log_event(the_person.title + ": +2 HR Skill", "float_text_grey")
                     "[the_person.title] leaves work for a few hours to attend the training seminar. When she comes back she has learned several useful business structuring techniques."
 
                 "Improve Marketing Skill (Current [the_person.market_skill])":
                     $ the_person.market_skill += 2
-                    $ mc.log_event("[the_person.title]: +2 Marketing Skill", "float_text_grey")
+                    $ mc.log_event(the_person.title + ": +2 Marketing Skill", "float_text_grey")
                     "[the_person.title] leaves work for a few hours to attend the training seminar. When she comes back she is far more familiar with local market demands."
 
                 "Improve Researching Skill (Current [the_person.research_skill])":
                     $ the_person.research_skill += 2
-                    $ mc.log_event("[the_person.title]: +2 Researching Skill", "float_text_grey")
+                    $ mc.log_event(the_person.title + ": +2 Researching Skill", "float_text_grey")
                     "[the_person.title] leaves work for a few hours to attend the training seminar. When she comes back she has several interesting new researching technqiues to test."
 
                 "Improve Production Skill (Current [the_person.production_skill])":
                     $ the_person.production_skill += 2
-                    $ mc.log_event("[the_person.title]: +2 Production Skill", "float_text_grey")
+                    $ mc.log_event(the_person.title + ": +2 Production Skill", "float_text_grey")
                     "[the_person.title] leaves work for a few hours to attend the training seminar. When she comes back she has a few new ideas for streamlining production."
 
                 "Improve Supply Skill (Current [the_person.supply_skill])":
                     $ the_person.supply_skill += 2
-                    $ mc.log_event("[the_person.title]: +2 Supply Skill", "float_text_grey")
+                    $ mc.log_event(the_person.title + ": +2 Supply Skill", "float_text_grey")
                     "[the_person.title] leaves work for a few hours to attend the training seminar. When she comes back she is far more familiar with local suppliers and their goods."
 
 
@@ -2453,7 +2453,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                     $ rd_staff.change_obedience(-5)
                     rd_staff.char "Really? I'm just suppose to take a completely untested drug because it might make you more money? That's fucking ridiculous and we both know it."
                     "[rd_staff.possessive_title] puts the serum down on the lab bench and crosses her arms."
-                    rd_staff.char "Just get out of here and I'll finish the initial testing in a safe enviroment."
+                    rd_staff.char "Just get out of here and I'll finish the initial testing in a safe environment."
                     mc.name "Fine, just make sure you get it done."
                     rd_staff.char "That's what I'm paid for, isn't it?"
                     "You leave [rd_staff.title] to her to work in the lab and return to what you were doing."
@@ -2466,7 +2466,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                     $ raise_amount = int(rd_staff.salary*0.1)
                     menu:
                         "Give [rd_staff.title] a 10%% raise. (+$[raise_amount]/day)":
-                            $ mc.log_event("[rd_staff.title]: +$[raise_amount]/day Salary", "float_text_green")
+                            $ mc.log_event(rd_staff.title + ": +$[raise_amount]/day Salary", "float_text_green")
                             mc.name "Alright, you've got yourself a deal. I'll have the books updated by the end of the day."
                             $ rd_staff.salary += raise_amount
                             rd_staff.char "Good to hear it. Let's get right to it then."

@@ -141,7 +141,7 @@ init -1:
                 if (add_to_log):
                     mc.log_event(the_person.title + ": Intelligence reduced to 1", "float_text_blue")
             the_person.personality = bimbo_personality
-            mc.log_event("[the_person.char]: Personality changed. Now: Bimbo", "float_text_pink")
+            mc.log_event(the_person.title +  ": Personality changed. Now: Bimbo", "float_text_pink")
 
 
         ## nora_serum_up_trait ##

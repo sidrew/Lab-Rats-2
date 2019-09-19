@@ -300,7 +300,7 @@ label advanced_serum_stage_2_label(the_person):
     $ slut_report = the_person.change_slut_temp(20)
     $ old_personality = the_person.personality
     $ the_person.personality = bimbo_personality
-    $ mc.log_event("[the_person.title]: Personality changed. Now: Bimbo", "float_text_pink")
+    $ mc.log_event(the_person.title + ": Personality changed. Now: Bimbo", "float_text_pink")
     "[the_person.title] reaches her hand down to your waist and runs her fingers along your cock through your pants."
     menu:
         "Have sex with [the_person.title].":
@@ -358,10 +358,10 @@ label advanced_serum_stage_2_label(the_person):
     $ the_person.change_happiness(-15)
     # $ the_person.remove_status_effects([bliss,ditzy])
     $ the_person.personality = old_personality
-    $ mc.log_event("[the_person.title]: Suggestability removed.", "float_text_blue")
-    $ mc.log_event("[the_person.title]: - Ditzy", "float_text_blue")
-    $ mc.log_event("[the_person.title]: - Blissful", "float_text_blue")
-    $ mc.log_event("[the_person.title]: Personality Restored", "float_text_blue")
+    $ mc.log_event(the_person.title + ": Suggestibility removed.", "float_text_blue")
+    $ mc.log_event(the_person.title + ": - Ditzy", "float_text_blue")
+    $ mc.log_event(the_person.title + ": - Blissful", "float_text_blue")
+    $ mc.log_event(the_person.title + ": Personality Restored", "float_text_blue")
     "After another moment [the_person.title] shakes her head and looks at you. She seems suddenly more alert, more aware."
     the_person.char "Ugh, that's given me a serious headache. I'm not sure if I should blame their stuff or mine."
     mc.name "Glad to have you back. Are you feeling like yourself again?"
