@@ -180,7 +180,7 @@ label pay_strip_scene(the_person):
     $ pose_list = [["Turn around","walking_away"],["Turn around and look back","back_peek"],["Hands down, ass up.","standing_doggy"],["Be flirty","stand2"],["Be casual","stand3"],["Strike a pose","stand4"],["Move your hands out of the way","stand5"]]
 
     $ picked_pose = the_person.idle_pose #She starts in her idle pose (which is a string)
-    $ rand_strip_desc = renpy.random.randint(0,3) #Produce 4 different descriptions at each level to help keep this interesting.
+    $ ran_num = renpy.random.randint(0,3) #Produce 4 different descriptions at each level to help keep this interesting.
 
     # strip_willingness is a measure of how into the whole strip process the girl is. The less dressed she get the more embarassed she'll get,
     # the more slutty the more she'll tease you, take clothing off willingly, etc.
@@ -192,14 +192,14 @@ label pay_strip_scene(the_person):
     while keep_stripping:
         $ the_person.draw_person(position = picked_pose)
         if strip_willingness < 0:
-            if rand_strip_desc == 0:
+            if ran_num == 0:
                 "[the_person.title] blushes intensely while you watch her."
-            elif rand_strip_desc == 1:
+            elif ran_num == 1:
                 if the_person.has_large_tits():
                     "[the_person.title] instinctively tries to cover herself with her hands, but her large tits make it a difficult task."
                 else:
                     "[the_person.title] instinctively tries to cover herself with her hands."
-            elif rand_strip_desc == 2:
+            elif ran_num == 2:
                 the_person.char "Oh my god..."
                 "[the_person.title] covers her eyes for a moment and looks away."
             else:
@@ -207,21 +207,21 @@ label pay_strip_scene(the_person):
                 the_person.char "I can't believe I'm doing this..."
 
         elif strip_willingness < 20:
-            if rand_strip_desc == 0:
+            if ran_num == 0:
                 "[the_person.title] stands awkwardly in front of you and avoids making eye contact."
-            elif rand_strip_desc == 1:
+            elif ran_num == 1:
                 if the_person.has_large_tits():
                     "[the_person.title] shifts her weight from side to side while you watch her. The small movements still make her big tits jiggle around."
                 else:
                     "[the_person.title] shifts her weight from side to side while you watch her."
-            elif rand_strip_desc == 2:
+            elif ran_num == 2:
                 "You get a good look at [the_person.title] while she stands in front of you."
             else:
                 "[the_person.title] blushes and looks around the room to avoid making eye contact."
 
         elif strip_willingness < 60:
             $tease_clothing = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True) #She's slutty enough that she wants to tease you a little more
-            if rand_strip_desc == 0:
+            if ran_num == 0:
                 if tease_clothing is not None:
                     "[the_person.title] pulls at her [tease_clothing.name] seductively."
                     the_person.char "Mmm, I bet you want me to take this off, right?"
@@ -229,13 +229,13 @@ label pay_strip_scene(the_person):
                     "[the_person.title] runs her hands down her body seductively."
                     the_person.char "Mmm, I bet you want to get your hands on me now, right?"
 
-            elif rand_strip_desc == 1:
+            elif ran_num == 1:
                 if the_person.has_large_tits():
                     "[the_person.title] moves her body side to side for you, letting her large tits bounce and jiggle while you watch."
                 else:
                     "[the_person.title] moves her body side to side for you while you watch."
 
-            elif rand_strip_desc == 2:
+            elif ran_num == 2:
                 if tease_clothing is not None:
                     "[the_person.title] slips a hand under her [tease_clothing.name] and starts to pull it off."
                     the_person.char "Maybe I should just... slip this off. What do you think?"
@@ -250,7 +250,7 @@ label pay_strip_scene(the_person):
 
         else: #strip_willingness >= 60
             $tease_clothing = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True) #She's slutty enough that she wants to tease you a little more
-            if rand_strip_desc == 0:
+            if ran_num == 0:
                 if tease_clothing is not None:
                     "[the_person.title] pulls at her [tease_clothing.name]."
                     the_person.char "I'm going to have to get this out of the way before we can have any fun."
@@ -258,10 +258,10 @@ label pay_strip_scene(the_person):
                     "[the_person.title] runs her hands over her own body."
                     the_person.char "Oh [the_person.mc_title], I think I'm going to need more than your eyes on me soon..."
 
-            elif rand_strip_desc == 1:
+            elif ran_num == 1:
                 "[the_person.title] puts her hands up in the air and spins around. You get a great look at her body as she enjoys herself."
 
-            elif rand_strip_desc == 2:
+            elif ran_num == 2:
                 if tease_clothing is not None:
                     the_person.char "Don't you just think all of this clothing is just useless? How about I take it all off for you... would you like that?"
                 else:
