@@ -20,8 +20,8 @@ label intro_cowgirl(the_girl, the_location, the_object, the_round):
     if the_girl.outfit.vagina_visible():
         "She leans back and grinds herself against you. The shaft of your cock rubs against the lips of her pussy."
     else:
-        $ blocking_item = the_girl.outift.get_visible_lower()[0]
-        "She leans back and grinds herself against you. Underneath her [blocking_item.name] you can feel the lips of her pussy sliding along the length of your shaft."
+        $ the_clothing = the_girl.outfit.get_lower_top_layer()
+        "She leans back and grinds herself against you. Underneath her [the_clothing.name] you can feel the lips of her pussy sliding along the length of your shaft."
     the_girl.char "Ready?"
     if the_girl.sex_skills["Vaginal"] >= 3:
         "You nod. She grinds forward one last time, then lifts herself up and lets your tip fall into place. With one smooth movement she slides you deep into her tight cunt."
@@ -49,20 +49,20 @@ label scene_cowgirl_2(the_girl, the_location, the_object, the_round):
     "[the_girl.title] speeds up, working her thighs to pump herself up and down your cock."
     if the_girl.has_large_tits():
         if the_girl.outfit.tits_visible():
-            "Her large, unconstrained tits bouncse up and down with each stroke."
+            "Her large, unconstrained tits bounces up and down with each stroke."
             the_girl.char "Fuck, hold onto these!"
             "[the_girl.possessive_title] reaches down and grabs your hands. She brings them up to her tits and plants them there."
             "She moans and grinds your hands into her breasts, then puts her hands on your chest and focuses on fucking you."
         else:
-            $ the_clothing = the_girl.outfit.get_visible_upper[0]
+            $ the_clothing = the_girl.outfit.get_upper_top_layer()
             "Her large tits are barely contained by her [the_clothing.name]. You watch them bounce around as she fucks you vigorously."
     else:
         if the_girl.outfit.tits_visible():
             "She reaches up and grabs onto one of her own small tits, squeezing it while she rides you."
             the_girl.char "Ah!"
         else:
-            $ the_clothing = the_girl.outfit.get_visible_upper[0]
-            "She reaches up and grabs onto one of her small tits through her [the_clothing.name]. She kneeds it through the fabric and moans loudly while she rides you."
+            $ the_clothing = the_girl.outfit.get_upper_top_layer()
+            "She reaches up and grabs onto one of her small tits through her [the_clothing.name]. She kneads it through the fabric and moans loudly while she rides you."
             the_girl. char "Ah!"
     return
 
@@ -119,13 +119,13 @@ label outro_cowgirl(the_girl, the_location, the_object, the_round):
     else:
         #She hesitates and you can decide to pull her down or not.
         #There is no condom branch here because 100% of the condom branches go to the first version.
-        "[the_girl.title] starts to pull up and off of you. She hesistates with the tip of your cock just inside of her pussy."
+        "[the_girl.title] starts to pull up and off of you. She hesitates with the tip of your cock just inside of her pussy."
         the_girl.char "I... I really shouldn't let you..."
         "She bites her lip and moans, unsure of what to do."
         menu:
             "Pull her down and cum inside her.":
                 "You reach up and grab [the_girl.possessive_title] by the hips. With one confident pull she plunges back onto your cock, gasping with pleasure."
-                "The feeling of her warm, wet pussy sliding down and englufing your cock again pushes you over the edge. You pull [the_girl.title] tight against you and unload inside of her."
+                "The feeling of her warm, wet pussy sliding down and engulfing your cock again pushes you over the edge. You pull [the_girl.title] tight against you and unload inside of her."
                 the_girl.char "Ah! Just... Just this once..."
                 $ the_girl.change_obedience(3)
                 "You give a few half-hearted pumps when you're done, then tap [the_girl.title] on the ass. She slides off of your dick and collapses beside you."
