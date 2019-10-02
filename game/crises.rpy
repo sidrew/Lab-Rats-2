@@ -2587,12 +2587,9 @@ label daughter_work_crisis_label():
                 valid_people_list.append(person)
 
     $ the_person = get_random_from_list(valid_people_list) #Pick someone appropriate from the company.
+    $ del valid_people_list
     if the_person is None:
         return #We couldn't find anyone to be a parent, so the event fails.
-
-
-    $ the_daughter = the_person.generate_daughter() #Produces a person who has a high chance to share characteristics with her mother.
-
 
     $ the_person.draw_person()
     the_person.char "[the_person.mc_title], could I talk to you for a moment in your office?"
@@ -2644,7 +2641,7 @@ label daughter_work_crisis_label():
                             "[the_person.possessive_title] hurries out of your office."
                         else:
                             mc.name "I'm not hiring right now, and that's final. Now I'm sure you have work to do."
-                            $ the_prson.change_obedience(1)
+                            $ the_person.change_obedience(1)
                             "She takes the resume back and steps away from your desk, defeated."
                             the_person.char "Right, of course. Sorry for wasting up your time."
                         $ renpy.scene("Active")
@@ -2653,14 +2650,14 @@ label daughter_work_crisis_label():
                 the_person.char "There's nothing I could do? Nothing at all?"
                 "She moves to run a hand down your shirt, but you shove the resume back into her hand."
                 if the_person.love < 10:
-                    mc.name "If I want to fuck you I wouldn't need to hire your daughter to do it. Give it up, you look desparate"
+                    mc.name "If I want to fuck you I wouldn't need to hire your daughter to do it. Give it up, you look desperate."
                     $ the_person.change_obedience(3)
                     "She steps back and looks away."
                     the_person.char "Uh, right. Sorry for taking up your time."
                     "[the_person.possessive_title] hurries out of your office."
                 else:
                     mc.name "I'm not hiring right now, and that's final. Now I'm sure you have work to do."
-                    $ the_prson.change_obedience(1)
+                    $ the_person.change_obedience(1)
                     "She takes the resume back and steps away from your desk, defeated."
                     the_person.char "Right, of course. Sorry for wasting up your time."
                 $ renpy.scene("Active")
@@ -2674,8 +2671,26 @@ label daughter_work_crisis_label():
                 $ renpy.scene("Active")
                 return
 
-    call screen interview_ui([the_daugther]) #Hire her or reject her.
+    $ the_daughter = the_person.generate_daughter() #Produces a person who has a high chance to share characteristics with her mother.
 
+    $ renpy.scene("Active")
+    hide screen main_ui #NOTE: We have to hide all of these screens because we are using a fake (aka. non-screen) background for this. We're doing that so we can use the normal draw_person call for them.
+    hide screen phone_hud_ui
+    hide screen business_ui
+    hide screen goal_hud_ui
+    show bg paper_menu_background #Show a paper background for this scene.
+
+    call screen interview_ui([the_daughter, "dummy"], 1) #Hire her or reject her.
+
+    $ renpy.scene()
+    show screen phone_hud_ui
+    show screen business_ui
+    show screen goal_hud_ui
+    show screen main_ui
+    $ renpy.scene("Active")
+    $ mc.location.show_background()
+    $ the_person.draw_person()
+    
     if _return == the_daughter: #You've chosen to hire her.
         if promised_sex:
             mc.name "Alright, I'll admit this looks promising, but I need some convincing."
@@ -2714,6 +2729,7 @@ label daughter_work_crisis_label():
             $ the_person.change_obedience(1)
             the_person.char "I understand, thank you for at least taking a look for me."
 
+    $ del the_daughter
     $ renpy.scene("Active")
     return
 
