@@ -2572,8 +2572,8 @@ init 1 python:
                     return True
         return False
 
-        daughter_work_crisis = Action("Daughter Work Crisis", daughter_work_crisis_requirement,"daughter_work_crisis_label")
-        crisis_list.append([daughter_work_crisis,2])
+    daughter_work_crisis = Action("Daughter Work Crisis", daughter_work_crisis_requirement,"daughter_work_crisis_label")
+    crisis_list.append([daughter_work_crisis,2])
 
 
 label daughter_work_crisis_label():
