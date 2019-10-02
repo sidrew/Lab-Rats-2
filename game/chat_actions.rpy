@@ -545,7 +545,7 @@ label lunch_date_plan_label(the_person):
     elif not (the_person.relationship == "Single" or the_person.get_opinion_score("cheating on men") > 0): #IF she likes cheating she doesn't even mention she's in a relationship
         mc.name "[the_person.title], I was going to get some lunch, would you like to join me? Maybe just grab a coffee and hang out for a while?"
         $ so_title = SO_relationship_to_title(the_person.relationship)
-        the_person.char "That sounds nice, [the_person.title]."
+        the_person.char "That sounds nice, [the_person.mc_title]."
         "She pauses and seems to consider something for a moment."
         the_person.char "Just so we're on the same page, this is just as friends, right? I have a [so_title], I don't want to get anything confused here."
         mc.name "Of course! I just want to hang out and talk, that's all."
