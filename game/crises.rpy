@@ -2705,25 +2705,23 @@ label daughter_work_crisis_label():
             $ the_person.change_obedience(2)
             $ the_person.review_outfit()
             the_person.char "Are we all done then?"
-            mc.name "For now. You can call your daughter and give her the good news. I won't give her any preferential treatment from here on out though."
+            mc.name "For now. You can call your daughter and tell her she can start tomorrow. I won't give her any preferential treatment from here on out though."
             the_person.char "Of course. Thank you."
             call hire_someone(the_daughter) from _call_hire_someone_1
         else:
-            mc.name "Alright [the_person.title], this looks promising. I can't give her any preferential treatment, but I'll give her a try."
+            mc.name "Alright [the_person.title], this looks promising, she can start tomorrow. I can't give her any preferential treatment, but I'll give her a try."
             $ the_person.change_happiness(5)
             $ the_person.change_love(2)
             the_person.char "Thank you so much!"
             call hire_someone(the_daughter) from _call_hire_someone_2
     else: #is "None
-        if promised_sex: #You promised to do it for sex but don't want to hire her, mom is dissapointed.
+        if promised_sex: #You promised to do it for sex but don't want to hire her, mom is disappointed.
             mc.name "I'm sorry but her credentials just aren't what they need to be. I could never justify hiring your daughter."
             $ the_person.change_happiness(-5)
             $ the_person.change_love(-1)
             $ the_person.draw_person(emotion = "sad")
             "[the_person.possessive_title] seems to deflate. She nods sadly."
             the_person.char "I understand. Thank you for the time."
-
-
         else:
             mc.name "I'm sorry but I don't think her skills are where I would need them to be."
             $ the_person.change_obedience(1)
