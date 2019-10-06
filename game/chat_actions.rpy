@@ -877,7 +877,7 @@ label movie_date_label(the_person):
                                 "You hurry into the women's bathroom and lock yourselves in an empty stall."
                                 call fuck_person(the_person, private = True) from _call_fuck_person_28
                                 $ the_person.reset_arousal()
-                                $ the_person.judge_outfit()
+                                $ the_person.review_outfit()
                                 $ renpy.show("Theater", what = theater_background)
                                 "You slip out of the bathroom as quickly as possible and return to your seats with some time pleasantly passed."
 
@@ -886,7 +886,7 @@ label movie_date_label(the_person):
                                 "She purrs in your ear and slides back down to her knees again. Her warm mouth wraps itself around your shaft and she starts to blow you again."
                                 "It doesn't take long for her to bring you to the edge of your orgasm."
                                 "You clutch at the movie seat arm rests and suppress a grunt as you climax, blowing your hot load into [the_person.title]'s mouth and down her throat."
-                                $ the_person.cum_mouth()
+                                $ the_person.call_dialogue("cum_mouth")
                                 "She waits until you're finished, then pulls off your cock, wipes her lips on the back of her hand, and sits down next to you."
                                 $ the_person.change_slut(3)
                                 the_person.char "Thank you, that was fun."
