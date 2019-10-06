@@ -2450,9 +2450,9 @@ init -2 python:
         def cum_in_ass(self):
             mc.listener_system.fire_event("sex_cum_ass", the_person = self)
             #TODO: Add anal cumshot clothing item once we have rendering support for it
-            self.change_slut_temp(5*self.get_opinion_score("creampies"))
-            self.change_happiness(5*self.get_opinion_score("creampies"))
-            self.discover_opinion("creampies")
+            self.change_slut_temp(5*self.get_opinion_score("anal creampies"))
+            self.change_happiness(5*self.get_opinion_score("anal creampies"))
+            self.discover_opinion("anal creampies")
 
         def cum_on_tits(self):
             if self.outfit.can_add_accessory(tits_cum):
