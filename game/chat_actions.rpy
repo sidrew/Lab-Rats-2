@@ -888,7 +888,7 @@ label movie_date_label(the_person):
                                 "You clutch at the movie seat arm rests and suppress a grunt as you climax, blowing your hot load into [the_person.title]'s mouth and down her throat."
                                 $ the_person.call_dialogue("cum_mouth")
                                 "She waits until you're finished, then pulls off your cock, wipes her lips on the back of her hand, and sits down next to you."
-                                $ the_person.change_slut(3)
+                                $ the_person.change_slut_temp(3)
                                 the_person.char "Thank you, that was fun."
                                 "She takes your hand and holds it. You lean back, thoroughly spent, and zone out for the rest of the movie."
 
