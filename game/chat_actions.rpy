@@ -27,7 +27,9 @@ init -2 python:
         else:
             return True
 
-    def date_option_requirement(the_person): #TODO Decide if there's any reason this option shouldn't always be enabled.
+    def date_option_requirement(the_person):
+        if the_person.love < 20:
+            return "Requires: 20 Love"
         return True
 
     def lunch_date_requirement(the_person):
