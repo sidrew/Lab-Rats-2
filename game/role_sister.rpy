@@ -213,6 +213,8 @@ label strip_explanation(the_person):
             "You pull a hundred dollars out of your wallet and hand it over to [the_person.possessive_title]. She tucks it away and gets ready."
             call pay_strip_scene(the_person) from _call_pay_strip_scene
 
+            $ the_person.review_outfit()    # make sure she puts on outfit after stripping
+
         "Ask her to strip for you.\n{size=22}Requires: $100{/size} (disabled)" if mc.business.funds < 100:
             pass
 
@@ -234,6 +236,8 @@ label sister_strip_label(the_person):
     "You nod and sit down on [the_person.possessive_title]'s bed. She holds her hand out and you hand over her money."
     "She tucks the money away and gets ready in front of you."
     call pay_strip_scene(the_person) from _call_pay_strip_scene_1
+    
+    $ the_person.review_outfit()    # make sure she puts on outfit after stripping
     return
 
 label sister_instathot_intro_label(the_person):

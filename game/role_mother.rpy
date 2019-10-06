@@ -81,6 +81,8 @@ label mom_weekly_pay_label(the_person):
 
                 call pay_strip_scene(the_person) from _call_pay_strip_scene_2
 
+                $ the_person.review_outfit()    # make sure she puts on outfit after stripping
+
             "Have strip for you. -$100 (disabled)" if mc.business.funds <100:
                 pass
 
