@@ -628,9 +628,8 @@ label aunt_share_drinks_label(the_person):
                 "You top up your own drink while you're in the kitchen and head back to [the_person.title]. You hand over her new drink and sit down."
                 the_person.char "Now, where were we..."
                 "You and [the_person.possessive_title] keep talking. After her first glass she seems more relaxed, and the second one is already having it's effect."
-                $ the_person.add_situational_slut("Drunk", 20, "More than a little tipsy.")
-                $ decision_score = the_person.sluttiness + renpy.random.randint(0,25) #Her choice in this check is up to 25 points more slutty than she is.
-                if decision_score <= 35:
+                $ the_person.add_situational_slut("Drunk", 10, "More than a little tipsy.")
+                if the_person.sluttiness <= 35:
                     # She talks about her ex and then falls asleep.
                     "As [the_person.title] gets deeper into her drink she starts to rant about her now ex husband."
                     the_person.char "I don't even know what he saw in that little skank... You've never seen her, but she was this flat chested little thing."
@@ -687,7 +686,7 @@ label aunt_share_drinks_label(the_person):
                             mc.name "No problem, I'll clean up our glasses and head out."
                             "She rolls over on the couch and is asleep again before you're out the door."
 
-                elif decision_score <= 45:
+                elif the_person.sluttiness <= 45:
                     # She talks to you about stuff she finds sexy. Reveal a sex opinion
                     "[the_person.title] talks more about herself, and it seems like being a little drunk seems to have removed any inhibitions she might have had."
                     $ her_opinion = the_person.get_random_opinion(include_known = False, include_sexy = True, include_normal = False)
@@ -707,7 +706,7 @@ label aunt_share_drinks_label(the_person):
                     the_person.char "That's a good boy. Now I think I should stop drinking this wine while I still can. It was nice talking, come by any time and we can do it again."
                     "She walks you to the door and you say goodbye."
 
-                elif decision_score <= 55:
+                elif the_person.sluttiness <= 55:
                     # She wants your opinion on some outfits
                     the_person.char "So [the_person.mc_title], now that I'm back on the market I think I need your help with something."
                     mc.name "With what?"
@@ -825,7 +824,7 @@ label aunt_share_drinks_label(the_person):
                     $ renpy.scene("Active")
                     call change_location(aunt_apartment) from _call_change_location_3
 
-                elif decision_score <= 65:
+                elif the_person.sluttiness <= 65:
                     # She wants your opinion about some underwear
                     the_person.char "So [the_person.mc_title], since you're here I could use some help with something. It's a little... delicate."
                     mc.name "What do you need?"
@@ -926,7 +925,7 @@ label aunt_share_drinks_label(the_person):
                     $ renpy.scene("Active")
                     call change_location(aunt_apartment) from _call_change_location_4
                     # Same as above but she strips down and asks you for underwear sets.
-                elif decision_score <= 75:
+                elif the_person.sluttiness <= 75:
                     # She wants to strip for you.
                     the_person.char "[the_person.mc_title], does it feel warm in here or is it just me?"
                     "[the_person.title] takes a sip from her glass of wine and stands up."
@@ -1022,6 +1021,7 @@ label aunt_share_drinks_label(the_person):
 
 
                 $ the_person.reset_arousal()
+                $ the_person.review_outfit()
                 $ the_person.clear_situational_slut("Drunk")
 
             else:
