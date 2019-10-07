@@ -29,7 +29,7 @@ label intro_cowgirl(the_girl, the_location, the_object, the_round):
         "You nod and she lifts herself up. She reaches down with one hand and holds onto your cock to hold it steady."
         "When she has you in place she lowers herself down slowly, sliding you inch by inch into her tight cunt."
     the_girl.char "Ah..."
-    "After pausing for a second to adjust [the_girl.possessive_title starts to ride your dick."
+    "After pausing for a second to adjust [the_girl.possessive_title] starts to ride your dick."
     return
 
 label scene_cowgirl_1(the_girl, the_location, the_object, the_round):
