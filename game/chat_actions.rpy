@@ -871,7 +871,7 @@ label movie_date_label(the_person):
                                 $ movie_bathroom.show_background()
                                 $ movie_bathroom.add_object(make_wall())
                                 $ movie_bathroom.add_object(make_floor())
-                                $ mc.change_location(bathroom)
+                                $ mc.change_location(movie_bathroom)
                                 $ the_person.change_arousal(20 + (the_person.get_opinion_score("public sex") * 10))
                                 $ mc.change_arousal(40)
                                 "You hurry into the women's bathroom and lock yourselves in an empty stall."

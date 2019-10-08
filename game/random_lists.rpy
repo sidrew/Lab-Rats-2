@@ -287,11 +287,11 @@ init -2:
             return get_random_from_list(list_of_faces)
 
         list_of_eyes = []
-        list_of_eyes.append(["dark blue",[0.206, 0.437, 0.559, 1.0]])
-        list_of_eyes.append(["light blue",[0.631, 0.792, 0.945, 1.0]])
-        list_of_eyes.append(["green",[0.245, 0.734, 0.269, 1.0]])
-        list_of_eyes.append(["brown",[0.476, 0.347, 0.311, 1.0]])
-        list_of_eyes.append(["grey",[0.571, 0.696, 0.739, 1.0]])
+        list_of_eyes.append(["dark blue",[0.32, 0.60, 0.82, 1.0]]) # (["dark blue",[0.18, 0.33, 0.44, 1.0]])
+        list_of_eyes.append(["light blue",[0.60, 0.75, 0.98, 1.0]]) # 0.25, 0.32, 0.37, 1.0]])
+        list_of_eyes.append(["green",[0.35, 0.68, 0.40, 1.0]])
+        list_of_eyes.append(["brown",[0.6, 0.5, 0.3, 1.0]])
+        list_of_eyes.append(["grey",[0.95, 0.98, 0.98, 1.0]])
 
         def get_random_eye():
             return get_random_from_list(list_of_eyes)
@@ -352,6 +352,10 @@ init -2:
                 return list_of_tits[current_index+1][0]
             else:
                 return current_tits #This is as large as they can get on our current chart.
+
+        def rank_tits(the_tits): #Useful if you need to know exactly who has larger tits and want to compare ints. Also see Person.has_large_tits(), for a flat definition of large tits as D or larger
+            if the_tits in list_of_tits:
+                return list_of_tits.index(the_tits) #Ranges from 0 (AA) to 9 (FF).
 
         list_of_jobs = []
         list_of_jobs.append("scientist")
@@ -612,6 +616,24 @@ init -2:
         def get_random_player_title(the_person):
             return get_random_from_list(get_player_titles(the_person))
 
+        def format_group_of_people(list_of_people): # Returns a string made up of people titles like "PersonA, PersonB, and PersonC." or just "PersonA and PersonB" if there are two people. (or PersonA if it's just one person)
+            #Note: the list is formatted in the order it is handed over. renpy.random.scramble() it beforehand if you want it in a random order.
+            return_string = ""
+            if len(list_of_people) == 1:
+                return_string += list_of_people[0].title
+            elif len(list_of_people) == 2:
+                return_string += list_of_people[0].title + " and " + list_of_people[1].title
+            else:
+                for a_person in list_of_people:
+                    if a_person is not list_of_people[-1]: #If they're not the last person:
+                        return_string += a_person.title + ", "
+                    else:
+                        return_string += "and " + a_person.title
+
+            #TODO: Add a varient of this that lets you set a max number of people. A kind of "blah, blah, blah, and 7 more people..." response.
+            return return_string
+
+
 init 1 python:
     def generate_premade_list():
         global list_of_premade_characters
@@ -653,7 +675,7 @@ init 1 python:
 
         global stephanie
         stephanie = create_random_person(name = "Stephanie", age = 29, body_type = "standard_body", face_style = "Face_3",  tits="C", height = 0.94, hair_colour="brown", hair_style = messy_short_hair, skin="white" , \
-            eyes = "green", personality = stephanie_personality, name_color = "#cf3232", dial_color = "#cf3232" , starting_wardrobe = stephanie_wardrobe, \
+            eyes = "brown", personality = stephanie_personality, name_color = "#cf3232", dial_color = "#cf3232" , starting_wardrobe = stephanie_wardrobe, \
             stat_array = [3,4,3], skill_array = [1,1,4,2,1], sex_array = [3,4,2,1], start_sluttiness = 24, start_obedience = 12, start_happiness = 119, start_love = 7, \
             title = "Stephanie", possessive_title = "Your friend", mc_title = mc.name, relationship = "Single", kids = 0)
         stephanie.generate_home()
