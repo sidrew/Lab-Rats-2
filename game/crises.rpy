@@ -2938,10 +2938,11 @@ label horny_at_work_crisis_label():
                         "You pull your pants up and get back to work, basking in your post orgasm clarity."
 
                 else:
+                    $ the_person = _return
                     "You stand up, pants around your ankles, and motion for [_return.title] to come over to you."
-                    call fuck_person(_return, private = False) from _call_fuck_person_29
-                    $ _return.reset_arousal()
-                    $ _return.review_outfit()
+                    call fuck_person(the_person, private = False) from _call_fuck_person_29
+                    $ the_person.reset_arousal()
+                    $ the_person.review_outfit()
 
                     if mc.arousal != 0:
                         "You still haven't gotten off, so you stroke your cock until you cum. With that finally taken care of, you get yourself cleaned up and get back to work."
