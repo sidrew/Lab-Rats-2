@@ -37,7 +37,7 @@
             return relaxed_titles(the_person) #If we don't have a special possessive just use their normal title.
         def relaxed_player_titles(the_person):
             return mc.name
-        #Default personality is a well rounded personaity, without any strong tendencies. Default "Lily" personality.
+        #Default personality is a well rounded personalty, without any strong tendencies. Default "Lily" personality.
         relaxed_personality = Personality("relaxed", #Lily style personality
         common_likes = ["skirts", "the weekend", "small talk", "the colour pink", "HR work", "supply work", "flirting","punk","pop"],
         common_sexy_likes = ["missionary style sex", "kissing", "masturbating", "being submissive", "drinking cum", "cum facials"],
@@ -375,7 +375,7 @@ label relaxed_sex_responses_foreplay(the_person):
     elif the_person.arousal < 50:
         if the_person.sluttiness > 50:
             the_person.char "Oh that's it. Mmm."
-            "She purs warmly."
+            "She purrs warmly."
         else:
             the_person.char "Oh my god..."
             "It seems like she's trying not to moan too loudly."
@@ -538,7 +538,7 @@ label relaxed_clothing_accept(the_person):
     if the_person.obedience > 130:
         the_person.char "It's for me? Thank you [the_person.mc_title], I'll add it to my wardrobe."
     else:
-        the_person.char "Oh, it's cute! Thank's [the_person.mc_title]!"
+        the_person.char "Oh, it's cute! Thanks [the_person.mc_title]!"
     return
 
 label relaxed_clothing_reject(the_person):
@@ -630,7 +630,7 @@ label relaxed_seduction_accept_crowded(the_person):
         if the_person.sluttiness < 20:
             the_person.char "I suppose we could sneak away for a few minutes. There's nothing wrong with that, right?"
         elif the_person.sluttiness < 50:
-            the_person.char "Come on, let's go find someplace quiet where we won't be interupted."
+            the_person.char "Come on, let's go find someplace quiet where we won't be interrupted."
         else:
             the_person.char "No point waisting any time then, right? Let's get to it!"
     else:
@@ -929,7 +929,7 @@ label relaxed_sex_end_early(the_person):
     else:
         if the_person.love > 40:
             if the_person.arousal > 60:
-                the_person.char "You don't want to take this any further? I thought we had a real connction."
+                the_person.char "You don't want to take this any further? I thought we had a real connection."
             else:
                 the_person.char "That's all? Well, maybe we can try again some other time."
         else:
@@ -956,7 +956,7 @@ label relaxed_improved_serum_unlock(the_person):
     the_person.char "Okay, how can I help?"
     mc.name "All of our research and development up until this point has been based on the limited notes I have from my university days. I'm sure there's more we could learn, and I want you to look into it for me."
     "[the_person.title] smiles mischievously."
-    the_person.char "I've got an idea that you might want to hear then. It's not the most... orthodox testing procedure but I think it is nessesary if we want to see rapid results."
+    the_person.char "I've got an idea that you might want to hear then. It's not the most... orthodox testing procedure but I think it is necessary if we want to see rapid results."
     mc.name "Go on, I'm interested."
     the_person.char "Our testing procedures focus on human safety, which I'll admit is important, but it doesn't leave us with much information about the subjective effects of our creations."
     the_person.char "What I want to do is take a dose of our serum myself, then have you record me while you run me through some questions."
@@ -1012,7 +1012,7 @@ label reserved_sex_responses_foreplay(the_person):
 
     elif the_person.arousal < 75:
         if the_person.sluttiness > 50:
-            the_person.char "Oh gods above taht feels amazing!"
+            the_person.char "Oh gods above that feels amazing!"
         else:
             the_person.char "Oh lord... I could get use to you touching me like this!"
     else:
@@ -1295,7 +1295,7 @@ label reserved_seduction_refuse(the_person):
 label reserved_flirt_response(the_person):
     if the_person.obedience > 130:
         if the_person.sluttiness > 50:
-            the_person.char "It would be so improper, but for you I'm sure I could arange something special."
+            the_person.char "It would be so improper, but for you I'm sure I could arrange something special."
         else:
             the_person.char "Thank you for the compliment, [the_person.mc_title], I appreciate it."
 
@@ -1385,7 +1385,7 @@ label reserved_talk_busy(the_person):
     if the_person.obedience > 120:
         the_person.char "I'd love to chat some more, but I've already spent far to much time getting distracted. Maybe we can catch up some other day, okay?"
     else:
-        the_person.char "Sorry to interupt, but I've got some work I really need to see to. I'd love to catch up some other time though."
+        the_person.char "Sorry to interrupt, but I've got some work I really need to see to. I'd love to catch up some other time though."
     return
 
 label reserved_sex_strip(the_person):
@@ -2432,7 +2432,7 @@ label introvert_sex_accept(the_person):
 
 label introvert_sex_obedience_accept(the_person):
     if the_person.sluttiness > 70:
-        "[the_person.possessive_title] seems nervious but nods."
+        "[the_person.possessive_title] seems nervous but nods."
         the_person.char "Okay."
     else:
         if the_person.obedience > 130:
@@ -2742,7 +2742,7 @@ label introvert_date_seduction(the_person):
                 "[the_person.title] stays close to you, before touching your arm to get your attention."
                 the_person.char "I had a really good time. I... was wondering if you wanted to come home with me..."
             else:
-                "[the_person.title] wrings her hands together nerviously, as if working up the courage to speak."
+                "[the_person.title] wrings her hands together nervously, as if working up the courage to speak."
                 the_person.char "I like you, and I want you to come home with me so I don't have to say goodbye. Do you... want to?"
     else:
         $ so_title = SO_relationship_to_title(the_person.relationship)
@@ -2756,7 +2756,7 @@ label introvert_date_seduction(the_person):
                 "[the_person.title] stays close to you, before touching your arm to get your attention."
                 the_person.char "My [so_title] is never around. Do you want to come home with me? I would be happy if you did..."
             else:
-                "[the_person.title] wrings her hands together nerviously, as if working up the courage to speak."
+                "[the_person.title] wrings her hands together nervously, as if working up the courage to speak."
                 the_person.char "I really like you. I have a [so_title], but I want to spend more time with you too."
                 the_person.char "Do you... want to come home with me? He won't be around."
     return
@@ -2772,7 +2772,7 @@ label introvert_sex_end_early(the_person):
             if the_person.arousal > 60:
                 the_person.char "Fuck, I was hoping you'd make me cum."
             else:
-                "[the_person.title] stays silent but seems dissapointed that you're finishing up early."
+                "[the_person.title] stays silent but seems disappointed that you're finishing up early."
 
     else:
         if the_person.love > 40:
@@ -2828,7 +2828,7 @@ label bimbo_introduction(the_person):
     $ title_choice = get_random_title(the_person)
     $ formatted_title = the_person.create_formatted_title(title_choice)
     if the_person.has_large_tits():
-        the_person.char "And you liked my titss? Yeah, I get that a lot. I'm [formatted_title], it's nice to meet you!"
+        the_person.char "And you liked my tits? Yeah, I get that a lot. I'm [formatted_title], it's nice to meet you!"
     else:
         the_person.char "And you liked my ass? Yeah, I get that a lot. I'm [formatted_title], it's nice to meet you!"
     #the_person.char "Well then, I suppose I shouldn't disappoint you. You can call me [formatted_title]."
@@ -3025,7 +3025,7 @@ label bimbo_clothing_reject(the_person):
     else:
         if the_person.sluttiness > 60:
             the_person.char "That's not really an outfit, is it? I like something a little cuter - some heels, add a dash of pink, and a top to show off my tits!"
-            "[the_person.title] looks the outfit over again for a momnt and shakes her head."
+            "[the_person.title] looks the outfit over again for a moment and shakes her head."
             the_person.char "Yeah, this just isn't going to do it. Thanks for the thought though!"
         else:
             the_person.char "Aww, I don't think I could ever wear something like that! I wish I could though, could you imagine the looks I would get? It would be. So. Hot."
@@ -3055,7 +3055,7 @@ label bimbo_strip_reject(the_person):
 label bimbo_sex_accept(the_person):
     if the_person.sluttiness > 70:
         if the_person.obedience < 70:
-            the_person.char "Oh yeah, that's one of my favourite things to do! Come on, let's do it!"
+            the_person.char "Oh yeah, that's one of my favorite things to do! Come on, let's do it!"
         else:
             the_person.char "Yeah, let's do it! You're so cute when you're horny, did you know that?"
     else:
@@ -3090,7 +3090,7 @@ label bimbo_sex_angry_reject(the_person):
         "[the_person.title] glares at you you and walks away."
     else:
         the_person.char "Eew! No, no, no! I will NEVER do that with ANYONE! Eew!"
-        "[the_person.title] shakes her head and stalkes away."
+        "[the_person.title] shakes her head and walks away."
     return
 
 label bimbo_seduction_response(the_person):
@@ -3450,7 +3450,7 @@ label stephanie_improved_serum_unlock(the_person):
     mc.name "[the_person.title], now that you've had some time in the lab there's something I wanted to talk to you about."
     the_person.char "Okay, how can I help?"
     mc.name "All of our research and development up until this point has been based on the limited notes you and I have from our days at the lab. I wanted to ask if you think there's more we could be doing."
-    "[the_person.title] smiles mischieviously."
+    "[the_person.title] smiles mischievously."
     the_person.char "I've got an idea then, I'm sure it's something you'll like."
     mc.name "What's your plan?"
     the_person.char "All of the testing that I've been doing so far focuses on not getting people killed, which is important, but I really need to know more about what subjective effects there are."
@@ -3760,7 +3760,7 @@ label lily_sex_watch(the_person, the_sex_person, the_position):
     else:
         $ the_person.draw_person(emotion = "happy")
         the_person.char "Give it to her [the_person.mc_title], don't hold back just because I'm here."
-        the_person.char "You're not nervious because your sister is watching, are you?"
+        the_person.char "You're not nervous because your sister is watching, are you?"
         "[the_person.title] watches eagerly while you and [the_sex_person.name] [the_position.verb]."
 
     return
@@ -4254,4 +4254,4 @@ label aunt_sex_beg_finish(the_person):
 #TODO: Write some bimbo answers for the head researcher's new personality (and possibly as a personality you can give someone with a serum later.
 #TODO: Add a screen to let you select a new Head Researcher.
 #TODO: Add a tutorial!
-#Idea for turorial: Add a crisis style mandatory event for each major thing we want the player to experience.
+#Idea for tutorial: Add a crisis style mandatory event for each major thing we want the player to experience.
