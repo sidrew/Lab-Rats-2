@@ -597,11 +597,13 @@ label lunch_date_label(the_person): #Could technically be included in the planni
     python:
         for item in opinion_question_list:
             formatted_opinion_list.append(["Chat about " + item, item])
-
+    $ del opinion_question_list
 
     $ conversation_choice = renpy.display_menu(formatted_opinion_list,True,"Choice")
     $ the_person.discover_opinion(conversation_choice)
     $ score = the_person.get_opinion_score(conversation_choice)
+    $ kiss_after = False
+    $ del formatted_opinion_list
     if score > 0:
         "You steer the conversation towards [conversation_choice] and [the_person.title] seems more interested and engaged."
         $ kiss_after = True
