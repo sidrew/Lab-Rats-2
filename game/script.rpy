@@ -8399,8 +8399,9 @@ label change_location(the_place):
     $ the_place.show_background()
     if the_place.trigger_tutorial and the_place.tutorial_label is not None and mc.business.event_triggers_dict.get("Tutorial_Section",False):
         $ the_place.trigger_tutorial = False
-        $ renpy.call(the_place.tutorial_label)
-
+        python:
+            if renpy.has_label(the_place.tutorial_label):
+                renpy.call(the_place.tutorial_label)
     return
 
 label talk_person(the_person):
