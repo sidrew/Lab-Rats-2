@@ -867,7 +867,7 @@ label movie_date_label(the_person):
                         "She comes up for air slides up your body, whispering into your ear."
                         the_person.char "Do you want to go to the bathroom and fuck me, or do you want to finish in my mouth right here?"
                         menu:
-                            "Fuck her.":
+                            "Fuck her." if mc.current_stamina > 0:
                                 "You zip up your pants and stand up. [the_person.title] takes your hand and you rush out of the theater."
                                 $ movie_bathroom = Room("theater bathroom", "Theater Bathroom", [], bathroom_background, [], [], [], False, [0,0], visible = False) #TODO: Decide if we need any objects in the bathroom
                                 $ movie_bathroom.show_background()
@@ -882,6 +882,9 @@ label movie_date_label(the_person):
                                 $ the_person.review_outfit()
                                 $ renpy.show("Theater", what = theater_background)
                                 "You slip out of the bathroom as quickly as possible and return to your seats with some time pleasantly passed."
+                            
+                            "Fuck her. (disabled)" if mc.current_stamina == 0:
+                                pass
 
                             "Cum right here.":
                                 mc.name "I want you to finish me here."

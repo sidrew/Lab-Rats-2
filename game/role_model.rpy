@@ -529,7 +529,7 @@ label photo_blowjob(the_person):
         $ slut_willingness += the_person.obedience - 100
     $ slut_willingness += the_person.get_opinion_score("vaginal sex") * 5
     menu:
-        "Fuck her." if the_person.sluttiness >= 80:
+        "Fuck her." if mc.current_stamina > 0 and the_person.sluttiness >= 80:
             mc.name "We've come this far, there's only one more thing we can do. Lie down so I can fuck you."
             $ the_person.draw_person(position = "blowjob")
             call photo_sex(the_person) from _call_photo_sex_1
