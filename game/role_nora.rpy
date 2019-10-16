@@ -141,7 +141,6 @@ label nora_intro_label(the_steph):
 
     $ the_trait = get_random_from_list(list_of_nora_traits)
     $ the_trait.researched = True
-    $ the_trait.mastery_level = 1
     $ mc.business.event_triggers_dict["nora_trait_researched"] = the_trait
     $ list_of_traits.append(the_trait)
 
@@ -238,11 +237,10 @@ label nora_research_cash_first_time(the_person):
         the_person.char "Good. I'll send you the manufacturing details that we have prepared right away. Come and see me when your report is complete."
         $ the_trait = get_random_from_list(list_of_nora_traits)
         $ the_trait.researched = True
-        $ the_trait.mastery_level = 1
         $ mc.business.event_triggers_dict["nora_cash_research_trait"] = the_trait
         $ list_of_traits.append(the_trait)
         $ del the_trait
-
+        
     else:
         the_person.char "Do you have your finished research for me?"
         mc.name "I don't. My lab went in another direction and we found the breakthrough we were looking for."
@@ -278,6 +276,7 @@ label nora_research_cash(the_person):
     $ list_of_traits.remove(the_trait)
     $ list_of_nora_traits.remove(the_trait) #Clear it from Nora's list as well so it cannot be randomly obtained again.
     $ mc.business.event_triggers_dict["nora_cash_research_trait"] = None
+    $ del the_trait
 
     mc.name "I have your research report prepared. The effects of the trait you designed were... {i}interesting{/i}."
     "You hand her a folder you've put together containing the information you collected from your test subjects. She takes it and tucks it under her arm."
@@ -287,7 +286,6 @@ label nora_research_cash(the_person):
         #There are still items in the list, get one, give it to the player to study.
         the_person.char "I have another trait I would like studied, if you are still interested. I will send you the production details." #I'll mark the location of the settlement on your mp
         $ the_trait = get_random_from_list(list_of_nora_traits)
-        $ the_trait.mastery_level = 1
         $ the_trait.researched = True
         $ mc.business.event_triggers_dict["nora_cash_research_trait"] = the_trait
         $ list_of_traits.append(the_trait)
