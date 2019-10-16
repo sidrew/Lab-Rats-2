@@ -58,7 +58,7 @@ init -2 python:
 
 ###AUNT ACTION LABELS###
 label aunt_intro_label():
-    #NOTE: Doesn't technically countain the aunt, but intoduces the concept of her when she appears the next day
+    #NOTE: Doesn't technically contain the aunt, but introduces the concept of her when she appears the next day
     $ bedroom.show_background()
     mom.char "Hey [mom.mc_title], do you have a moment?"
     $ mom.draw_person()
@@ -165,7 +165,7 @@ label aunt_intro_phase_two_label():
             aunt.schedule[i] = aunt.home #Hide them in their bedroom off the map until they're ready.
             cousin.schedule[i] = cousin.home
 
-        #Your aunt is a homebody, but your cousin goes wandering during the day (Eventually to be repalced with going to class sometimes.)
+        #Your aunt is a homebody, but your cousin goes wandering during the day (Eventually to be replaced with going to class sometimes.)
         cousin.schedule[1] = None
         cousin.schedule[2] = None
         cousin.schedule[3] = None
@@ -215,7 +215,7 @@ label aunt_intro_moving_apartment_label(the_person):
     aunt.char "Oh [aunt.mc_title], your help would be amazing. Here, let's go look at what we have to move."
     if aunt.event_triggers_dict.get("moving_apartment") == 0:
         #You help them and get a brief overview of what they're bringing in the future
-        "You follow [aunt.possessive_title] to the stack of boxes, luggage, and furnature that are being stored in the garage."
+        "You follow [aunt.possessive_title] to the stack of boxes, luggage, and furniture that are being stored in the garage."
         aunt.char "With your help I think we can manage this in four trips. Today we'll rent a truck and move all of the big stuff in."
         aunt.char "Once that's done we can move all of my things into my room, then we move [cousin.title]'s stuff."
         aunt.char "And then last we move in the kitchen things and get the place all tidied up. Sound good?"
@@ -271,7 +271,7 @@ label aunt_intro_moving_apartment_label(the_person):
         "You and [aunt.title] head to the garage and look over the stuff that still needs to be moved."
         aunt.char "I think we can my things over today. If I need something I can always borrow it from your mother."
         aunt.char "She always hated when I borrowed her clothes when we were younger. She said I stretched out her tops."
-        aunt.char "I think she was just jelious I got the nice tits."
+        aunt.char "I think she was just jealous I got the nice tits."
         "[aunt.possessive_title] laughs and blushes."
         $ aunt.change_slut_temp(1)
         aunt.char "Sorry, I shouldn't be talking about your mom's chest like that. It's different when you're sisters, you know?"
@@ -294,7 +294,7 @@ label aunt_intro_moving_apartment_label(the_person):
                 "You clear out a couple of boxes, putting away shirts, skirts, and pants for [aunt.title]. [aunt.possessive_title] reaches for the last box, marked \"Private\" then hesitates."
                 aunt.char "I can go through this one myself, it's all my underwear and that's probably the last thing you want to be digging through."
                 mc.name "We're both adults, it's no big deal."
-                "[aunt.possessive_title] shrugs and opens the box and starts to sort through it. She hands you a pile of colourful panties."
+                "[aunt.possessive_title] shrugs and opens the box and starts to sort through it. She hands you a pile of colorful panties."
                 aunt.char "Okay, put these in that drawer on the left..."
                 "You slide the garments into their drawer. Next [aunt.title] hands you a stack of lacey bras and small thongs."
                 aunt.char "This goes to the side... and then... Oh my."
@@ -334,7 +334,7 @@ label aunt_intro_moving_apartment_label(the_person):
         aunt.char "Let's get this show on the road! I know [cousin.title] is excited to a room to herself again, aren't you sweetheart."
         $ cousin.draw_person()
         cousin.char "I'm not your sweetheart Mom. Let's just get this over with."
-        "She sulks over to [aunt.title]'s car and gets in the passanger seat."
+        "She sulks over to [aunt.title]'s car and gets in the passenger seat."
         $ aunt.draw_person()
         aunt.char "Sorry about that [aunt.mc_title], she doesn't always play nice with others and this whole move has been tough on her. Could you help me load up the car?"
         mc.name "Sure. Just tell me where to put things."
@@ -401,7 +401,7 @@ label aunt_intro_moving_apartment_label(the_person):
 
 
     elif aunt.event_triggers_dict.get("moving_apartment") == 3:
-        #You help them move their kitcehn stuff in. Your aunt gets dirty/sweaty and wants to chance now that her clothes are here. She asks you to wait around whlie hse takes a shower, then
+        #You help them move their kitchen stuff in. Your aunt gets dirty/sweaty and wants to chance now that her clothes are here. She asks you to wait around while she takes a shower, then
         #the landlord shows up and needs some documents from her, so you have to come into her bathroom and get a chance to see her naked/just in her underwear or something.
         #mc.name "Okay, I'm going to get a drink and catch my breath."
         #$ renpy.scene("Active")
@@ -539,7 +539,7 @@ label aunt_intro_phase_final_label():
         for i in range(0,5):
             aunt.schedule[i] = aunt.home #Change their home locations.
             cousin.schedule[i] = cousin.home
-        #Your aunt is a homebody, but your cousin goes wandering during the day (Eventually to be repalced with going to class sometimes.)
+        #Your aunt is a homebody, but your cousin goes wandering during the day (Eventually to be replaced with going to class sometimes.)
         aunt.schedule[2] = aunt_apartment
         aunt.schedule[3] = aunt_apartment
 
@@ -560,7 +560,7 @@ label aunt_intro_phase_final_label():
 
 
 label aunt_share_drink_intro_label(the_person):
-    # On talk trigger after she has a certain love score (and she's moved out. Add this crisis to her lsit once she moves out)
+    # On talk trigger after she has a certain love score (and she's moved out. Add this crisis to her list once she moves out)
     # She invites you over to share some drinks. You can come by in the afternoon and share a drink with her.
     the_person.char "[the_person.mc_title], I'm so happy to see you! Come here, give me a hug."
     "[the_person.possessive_title] gives you a tight hug."
@@ -596,14 +596,14 @@ label aunt_share_drinks_label(the_person):
             the_person.char "It sounds like you're a very important person, doing some very important work. I'm proud of you [the_person.mc_title]"
 
         "Talk about girls.":
-            mc.name "Well, I've been trying to meet soneone lately..."
+            mc.name "Well, I've been trying to meet someone lately..."
             "You talk to [the_person.possessive_title] about your love life. She listens intently."
             $ the_person.change_slut_temp(1)
             the_person.char "I've always thought it's important to be adventurous. You might connect with someone who you wouldn't expect."
 
         "Talk about her.":
             mc.name "Oh, it's been pretty quiet lately actually. What about you? I know you've been through a lot."
-            "You get [the_person.possessive_title] talking about herself. She tells you about her failed mariage."
+            "You get [the_person.possessive_title] talking about herself. She tells you about her failed marriage."
             $ the_person.change_love(1)
             the_person.char "... and when I told him I knew he was plowing his secretary every day he kicked us out."
             "She takes another sip from her wine."
@@ -678,7 +678,7 @@ label aunt_share_drinks_label(the_person):
                                 "When it starts to seem like she's waking up you retreat to your seat on the couch."
 
                             else:
-                                "She moans sofly when you make first contact with her pussy. You start to move your hand around, feeling for her clit."
+                                "She moans softly when you make first contact with her pussy. You start to move your hand around, feeling for her clit."
                                 $ the_person.change_slut_temp(1)
                                 "You're inexperienced and perhaps a little overeager. [the_person.title] starts to wake up and you make a hasty retreat to your spot on the couch."
 
@@ -693,7 +693,7 @@ label aunt_share_drinks_label(the_person):
                     if her_opinion:
                         $ the_person.discover_opinion(her_opinion)
                         $ opinion_string = opinion_score_to_string(the_person.get_opinion_score(her_opinion))
-                        "Through her suprisingly erotic ramblings you discover that she [opinion_string] [her_opinion]."
+                        "Through her surprisingly erotic ramblings you discover that she [opinion_string] [her_opinion]."
                     else:
                         #We know everything.
                         "You don't learn anything new, but hearing [the_person.possessive_title] talk this way is certainly eye opening."
@@ -714,7 +714,7 @@ label aunt_share_drinks_label(the_person):
                     the_person.char "Would you help me? It'll just take a few minutes."
                     mc.name "Of course. Come on, show me what you've got."
                     "She smiles, drinks the last of her wine, and leads you into her bedroom."
-                    call change_location(aunt_bedroom) from _call_change_location_1 #Changbe our location so that the background is correct,
+                    call change_location(aunt_bedroom) from _call_change_location_1 #Change our location so that the background is correct,
                     the_person.char "Okay, so here's what I have to work with. Tell me what you think."
                     "She opens her wardrobe and stands back, giving you room to look around."
                     call screen outfit_creator(Outfit("New Outfit"))
@@ -832,7 +832,7 @@ label aunt_share_drinks_label(the_person):
                     the_person.char "I've got plenty of lingerie, but I need to know what looks good on me. Can I trust you to give me an honest opinion?"
                     mc.name "Of course, I'll tell you exactly what I think."
                     "She smiles, drinks the last of her wine, and leads you into her bedroom."
-                    call change_location(aunt_bedroom) from _call_change_location_2 #Changbe our location so that the background is correct,
+                    call change_location(aunt_bedroom) from _call_change_location_2 #Change our location so that the background is correct,
                     the_person.char "Okay, so I have a few things I want your opinion on. You just tell me what looks good and that I should keep around."
                     "She starts to strip down, then pauses and looks at you."
                     the_person.char "Don't tell my sister I'm doing this with you. We're both adults, but I don't think she'd understand."
@@ -845,7 +845,7 @@ label aunt_share_drinks_label(the_person):
                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
 
                     the_person.char "Okay, first one."
-                    $ lingerie = default_wardrobe.get_random_appropriate_underwear(the_person.sluttiness, the_person.sluttiness-30, guarantee_output = True)
+                    $ lingerie = default_wardrobe.get_random_appropriate_underwear(the_person.sluttiness - 10, the_person.sluttiness - 40, guarantee_output = True)
                     $ the_person.outfit = lingerie.get_copy()
                     $ the_person.draw_person()
                     "She slips on her new set of underwear."
@@ -869,7 +869,7 @@ label aunt_share_drinks_label(the_person):
                         "You watch as [the_person.possessive_title] take off her [strip_choice.name]."
                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
 
-                    $ lingerie = default_wardrobe.get_random_appropriate_underwear(the_person.sluttiness, the_person.sluttiness-25, guarantee_output = True)
+                    $ lingerie = default_wardrobe.get_random_appropriate_underwear(the_person.sluttiness - 5, the_person.sluttiness - 35, guarantee_output = True)
                     $ the_person.outfit = lingerie.get_copy()
                     $ the_person.draw_person()
                     "She slips on the next set of lingerie."
@@ -893,7 +893,7 @@ label aunt_share_drinks_label(the_person):
                         "You watch as [the_person.possessive_title] take off her [strip_choice.name]."
                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
 
-                    $ lingerie = default_wardrobe.get_random_appropriate_underwear(the_person.sluttiness, the_person.sluttiness-20, guarantee_output = True)
+                    $ lingerie = default_wardrobe.get_random_appropriate_underwear(the_person.sluttiness, the_person.sluttiness - 30, guarantee_output = True)
                     $ the_person.outfit = lingerie.get_copy()
                     $ the_person.draw_person()
                     "She slips on the last set of underwear she has to show you."
