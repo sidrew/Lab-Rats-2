@@ -54,7 +54,7 @@ init -2 python:
             return "Too early to visit [nora.title]."
         elif time_of_day == 4:
             return "Too late to visit [nora.title]."
-        elif round(mc.business.event_triggers_dict.get("nora_cash_research_trait").mastery_level) < 2:
+        elif round(mc.business.event_triggers_dict.get("nora_cash_research_trait").mastery_level, 1) < 2:
             trait_name = mc.business.event_triggers_dict.get("nora_cash_research_trait").name
             return "Trait Mastery Level of " + trait_name + " must be 2 or higher."
         else:
@@ -95,7 +95,7 @@ label nora_intro_label(the_steph):
     "You navigate to the old lab and knock on the door. You hear the click of high heels approaching from the other side."
     "Your old lab director opens the door and smiles at you and [the_steph.title]. Inside the room is bustling with activity."
     $ the_nora.draw_person(emotion = "happy")
-    the_nora.char "[the_nora.mc_title], [the_steph.title], I'm glad you stopped by."
+    the_nora.char "[the_nora.mc_title], [the_steph.title], I'm glad you both stopped by."
     mc.name "It's nice to see you [the_nora.title]."
     $ the_steph.draw_person(emotion = "happy")
     the_steph.char "Hey [the_nora.title]. Good to be back."
@@ -118,7 +118,7 @@ label nora_intro_label(the_steph):
     "[the_nora.title] looks up from her notes."
     $ the_nora.draw_person(position = "sitting")
     the_nora.char "Do I know? Of course! I haven't just been twiddling my thumbs since you two left!"
-    the_nora.char "The problem is that all of my research is suppose to be kept within the university now. No sharing with outside organisations."
+    the_nora.char "The problem is that all of my research is suppose to be kept within the university now. No sharing with outside organizations."
     the_nora.char "I wish I could help, but it's my job at risk."
     mc.name "Come on [the_nora.title], we're counting on you here."
     $ the_steph.draw_person(position = "sitting")
@@ -139,11 +139,11 @@ label nora_intro_label(the_steph):
     the_nora.char "I hope to hear from you soon. Good luck."
     "She hugs [the_steph.title] goodbye, and you go your separate ways."
 
-    $ randomly_selected_trait = get_random_from_list(list_of_nora_traits)
-    $ mc.business.event_triggers_dict["nora_trait_researched"] = randomly_selected_trait
-
-    $ list_of_traits.append(randomly_selected_trait)
-    $ randomly_selected_trait.researched = True
+    $ the_trait = get_random_from_list(list_of_nora_traits)
+    $ the_trait.researched = True
+    $ the_trait.mastery_level = 1
+    $ mc.business.event_triggers_dict["nora_trait_researched"] = the_trait
+    $ list_of_traits.append(the_trait)
 
     "When you get back to the office [the_steph.title] has a new file detailing an untested serum trait."
     the_steph.char "Without [the_nora.title]'s research notes all we'll be able to do is put this trait into a serum and manufacture it."
@@ -157,7 +157,7 @@ label nora_intro_label(the_steph):
     $ university.actions.append(university_research_action)
     $ university.visible = True
 
-    $ nora_research_visit = Action("Vist Nora's lab.", visit_lab_intro_requirement, "nora_research_cash_first_time", args = the_nora, requirement_args = the_nora,
+    $ nora_research_visit = Action("Visit Nora's lab.", visit_lab_intro_requirement, "nora_research_cash_first_time", args = the_nora, requirement_args = the_nora,
         menu_tooltip = "Visit your old lab and talk to Nora about serum research.")
 
     $ university.actions.append(nora_research_visit) #Prepare this so if we visit the university again under the proper conditions we can start studying traits for her for money.
@@ -238,9 +238,9 @@ label nora_research_cash_first_time(the_person):
         the_person.char "Good. I'll send you the manufacturing details that we have prepared right away. Come and see me when your report is complete."
         $ the_trait = get_random_from_list(list_of_nora_traits)
         $ the_trait.researched = True
+        $ the_trait.mastery_level = 1
         $ mc.business.event_triggers_dict["nora_cash_research_trait"] = the_trait
         $ list_of_traits.append(the_trait)
-        $ the_trait.researched = True
         $ del the_trait
 
     else:
@@ -275,24 +275,23 @@ label nora_research_cash(the_person):
     $ university.show_background()
     "You walk upstairs together to make sure none of [the_person.possessive_title]'s co-workers are around."
     $ the_trait = mc.business.event_triggers_dict.get("nora_cash_research_trait") #We know won't be None from our initial event check.
-    $ mc.business.event_triggers_dict["nora_cash_research_trait"] = None
-
     $ list_of_traits.remove(the_trait)
     $ list_of_nora_traits.remove(the_trait) #Clear it from Nora's list as well so it cannot be randomly obtained again.
+    $ mc.business.event_triggers_dict["nora_cash_research_trait"] = None
 
     mc.name "I have your research report prepared. The effects of the trait you designed were... {i}interesting{/i}."
-    "You hand her a folder you've put together containing the information you collected from your test subjects. She takes it and tuckes it under her arm."
+    "You hand her a folder you've put together containing the information you collected from your test subjects. She takes it and tucks it under her arm."
     the_person.char "Thank you, I'll look through this later and send your payment if everything is in order."
 
     if list_of_nora_traits:
         #There are still items in the list, get one, give it to the player to study.
         the_person.char "I have another trait I would like studied, if you are still interested. I will send you the production details." #I'll mark the location of the settlement on your mp
-        $ the_new_trait = get_random_from_list(list_of_nora_traits)
-        $ mc.business.event_triggers_dict["nora_cash_research_trait"] = the_new_trait
-        $ the_new_trait.researched = True
-        $ list_of_traits.append(the_new_trait)
-        $ the_new_trait.researched = True
-        $ del the_new_trait
+        $ the_trait = get_random_from_list(list_of_nora_traits)
+        $ the_trait.mastery_level = 1
+        $ the_trait.researched = True
+        $ mc.business.event_triggers_dict["nora_cash_research_trait"] = the_trait
+        $ list_of_traits.append(the_trait)
+        $ del the_trait
         mc.name "Okay, I'll see what I can do. Thank you for your business, [the_person.title]."
         "You say goodbye to [the_person.possessive_title] and split up. Your payment is sent soon after."
 
