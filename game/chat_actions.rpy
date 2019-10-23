@@ -1081,7 +1081,7 @@ label dinner_date_label(the_person):
                     mc.name "That sounds like a great idea."
                     $ mc.change_location(the_person.home)
                     $ mc.location.show_background()
-                    if not the_person.home in mc.known_home_locations:
+                    if not the_person.home in mc.known_home_locations + [lily_bedroom, mom_bedroom, aunt_bedroom, cousin_bedroom]:
                         $ mc.known_home_locations.append(the_person.home) #You know where she lives and can visit her.
                     "You join [the_person.possessive_title] when her taxi arrives. It's not a far ride to her house, and she invites you in."
                     "She pours you a drink and gives you a tour. When the tour ends in her bedroom you aren't surprised."
