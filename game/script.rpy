@@ -8400,7 +8400,7 @@ label change_location(the_place):
     if the_place.trigger_tutorial and the_place.tutorial_label is not None and mc.business.event_triggers_dict.get("Tutorial_Section",False):
         $ the_place.trigger_tutorial = False
         python:
-            if renpy.has_label(the_place.tutorial_label):
+            if isinstance(the_place.tutorial_label, basestring) and renpy.has_label(the_place.tutorial_label):
                 renpy.call(the_place.tutorial_label)
     return
 
