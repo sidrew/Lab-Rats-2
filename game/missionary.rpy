@@ -7,7 +7,7 @@
         "transition_default_missionary",
         "strip_missionary", "strip_ask_missionary",
         "orgasm_missionary",
-        opinion_tags = ["missionary style sex","vaginal sex"])
+        opinion_tags = ["missionary style sex","vaginal sex"], record_class = "Vaginal Sex")
         list_of_positions.append(missionary)
 
 init 1:
@@ -87,7 +87,7 @@ label scene_missionary_2(the_girl, the_location, the_object, the_round):
 
             "Fuck her hard anyways.":
                 mc.name "Don't worry, just relax and it'll all come naturally to you."
-                "You speed up and fuck [the_girl.title]s tight little cunt. She lets out a suprised gasp."
+                "You speed up and fuck [the_girl.title]s tight little cunt. She lets out a surprised gasp."
                 if the_girl.get_opinion_score("being submissive") > 0:
                     "[the_girl.possessive_title] grabs at your back and moans right into your ear."
                     the_girl.char "Wait... I don't think I can... handle your big cock!"
@@ -100,7 +100,7 @@ label scene_missionary_2(the_girl, the_location, the_object, the_round):
                         $ the_girl.discover_opinion("bareback sex")
                     else:
                         the_girl.char "Oh my god... I'm just a worthless, dirty slut to you..."
-                    "She shivers again, apparantly turned on by the thought."
+                    "She shivers again, apparently turned on by the thought."
                     "You fuck [the_girl.possessive_title] hard and fast for as long as you can manage, but eventually you need to slow down to a more maintainable pace."
 
                 else:
@@ -108,7 +108,7 @@ label scene_missionary_2(the_girl, the_location, the_object, the_round):
                     mc.name "You can manage."
                     $ the_girl.change_arousal(-1+the_girl.get_opinion_score("being submissive"))
                     $ the_girl.change_obedience(-1+the_girl.get_opinion_score("being submissive"))
-                    "[the_girl.title] pushes against you and foces you to slide out of her pussy."
+                    "[the_girl.title] pushes against you and forces you to slide out of her pussy."
                     the_girl.char "No, really, I need you to go slower or I can't do this"
                     "You finally nod and she lets you slide back inside of her. This time you move more slowly, and after a few moments you've moved past the incident."
 
@@ -160,7 +160,7 @@ label scene_missionary_2(the_girl, the_location, the_object, the_round):
                     the_girl.char "Don't stop..."
 
                 elif the_girl.get_opinion_score("being submissive") < 0:
-                    the_girl.char "Woah, easy there..."
+                    the_girl.char "Whoah, easy there..."
                     mc.name "Keep those legs spread for me."
                     "She rolls her eyes and spreads her legs. You start to fuck her hard and fast."
                     the_girl.char "Let my hands go, I want to be able to feel you. I want to touch you."

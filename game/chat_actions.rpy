@@ -112,7 +112,6 @@ init -2 python:
 
 
 label person_introduction(the_person, girl_introduction = True):
-
     if girl_introduction:
         $ the_person.call_dialogue("introduction")
 
@@ -384,25 +383,25 @@ label small_talk_person(the_person): #Tier 0. Useful for discovering a character
             $ love_gain = 4
             $ prediction = 0
             menu:
-                "I hate [opinion_learned].":
-                    $ prediction = -2
-                    mc.name "I'll be honest, I absolutely hate [opinion_learned]. I just can't stand it."
-
-                "I don't like [opinion_learned].":
-                    $ prediction = -1
-                    mc.name "I'm not a fan, that's for sure."
-
-                "I don't have any opinion about [opinion_learned].":
-                    $ prediction = 0
-                    mc.name "I don't really have any thoughts on it, I guess I just don't think it's a big deal."
+                "I love [opinion_learned].":
+                    $ prediction = 2
+                    mc.name "Me? I love [opinion_learned]. Absolutely love it."
 
                 "I like [opinion_learned].":
                     $ prediction = 1
                     mc.name "I really like [opinion_learned]."
 
-                "I love [opinion_learned].":
-                    $ prediction = 2
-                    mc.name "Me? I love [opinion_learned]. Absolutely love it."
+                "I don't have any opinion about [opinion_learned].":
+                    $ prediction = 0
+                    mc.name "I don't really have any thoughts on it, I guess I just don't think it's a big deal."
+
+                "I don't like [opinion_learned].":
+                    $ prediction = -1
+                    mc.name "I'm not a fan, that's for sure."
+
+                "I hate [opinion_learned].":
+                    $ prediction = -2
+                    mc.name "I'll be honest, I absolutely hate [opinion_learned]. I just can't stand it."
 
             $ prediction_difference = abs(prediction - opinion_state[0])
             if prediction_difference == 4: #as wrong as possible
@@ -443,7 +442,8 @@ label small_talk_person(the_person): #Tier 0. Useful for discovering a character
         else:
             the_person.char "Oh, not much honestly. How about you?"
             $ the_person.change_happiness(smalltalk_opinion)
-            "[the_person.possessive_title] seems happy to chitchat, and you spend a couple of hours just hanging out. You don't feel like you've learned much about her, but least she seems to have enjoyed talking."
+            "[the_person.possessive_title] seems happy to chitchat, and you spend a couple of hours just hanging out."
+            "You don't feel like you've learned much about her, but least she seems to have enjoyed talking."
 
     $ the_person.apply_serum_study()
     call advance_time from _call_advance_time_21
@@ -1296,6 +1296,7 @@ label seduce_label(the_person):
         the_person.char "I should really make you pay for this... but you're one of my favorites and I'm curious what you had in mind."
     else:
         $ the_person.call_dialogue("seduction_response")
+
     $ ran_num = renpy.random.randint(0,100)
     $ chance_service_her = the_person.sluttiness - 20 - (the_person.obedience - 100) + (mc.charisma * 4) + (the_person.get_opinion_score("taking control") * 4)
     $ chance_both_good = the_person.sluttiness - 10 + mc.charisma * 4
@@ -1370,6 +1371,9 @@ label seduce_label(the_person):
 
         $ mc.current_stamina += -1
         call fuck_person(the_person,private = in_private) from _call_fuck_person
+
+        #TODO: This is where we put stuff for her being in a relationship but wants to start an affair with you.
+
         $ the_person.reset_arousal()
         $ the_person.review_outfit()
 

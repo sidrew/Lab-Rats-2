@@ -7,7 +7,7 @@
         "transition_default_doggy",
         "strip_doggy", "strip_ask_doggy",
         "orgasm_doggy",
-        opinion_tags = ["doggy style sex","vaginal sex"])
+        opinion_tags = ["doggy style sex","vaginal sex"], record_class = "Vaginal Sex")
         list_of_positions.append(doggy)
 
 init 1:
@@ -91,7 +91,7 @@ label scene_doggy_1(the_girl, the_location, the_object, the_round):
             else:
                 the_girl.char "Ah!"
                 "You enjoy the way her tight ass jiggles and spank it again."
-            "You leave a hand planted on [the_girl.possessive_title]'s butt while you fuck her, kneeding it and giving it the occasional slap."
+            "You leave a hand planted on [the_girl.possessive_title]'s butt while you fuck her, kneading it and giving it the occasional slap."
 
 
 
@@ -124,7 +124,7 @@ label scene_doggy_2(the_girl, the_location, the_object, the_round):
                     $ the_girl.change_arousal(the_girl.get_opinion_score("being submissive"))
                 else:
                     the_girl.char "Oh!"
-                "You lean over [the_girl.possessive_title] and fuck her hard, slamming your cock deeep inside her."
+                "You lean over [the_girl.possessive_title] and fuck her hard, slamming your cock deep inside her."
                 if the_girl.arousal > 80:
                     "[the_girl.title] tries to speak, but her words become nothing more than moans and panting while you fuck her stupid."
                 else:
@@ -135,7 +135,7 @@ label scene_doggy_2(the_girl, the_location, the_object, the_round):
                 "You pull [the_girl.title]'s hips towards you and pump into her as fast as you can manage."
                 the_girl.char "That's it, give it to me [the_girl.mc_title]!"
                 if the_girl.has_large_tits() and the_girl.outfit.tits_visible():
-                    "You reach around and grag a handful of [the_girl.possessive_title]'s big tits."
+                    "You reach around and grab a handful of [the_girl.possessive_title]'s big tits."
                 "You keep up the pace as long as you can, but eventually you need to slow down. You settle back into a rhythm you can sustain."
 
     else:
@@ -165,7 +165,7 @@ label scene_doggy_2(the_girl, the_location, the_object, the_round):
             the_girl.char "I... I want you to keep going."
             "Fuck her hard anyways.":
                 mc.name "Don't worry, just relax and you'll manage."
-                "You pull hard on her hips and fuck her hard. She yelps in a combination of suprise and pain."
+                "You pull hard on her hips and fuck her hard. She yelps in a combination of surprise and pain."
                 if the_girl.get_opinion_score("being submissive") > 0:
                     $ the_girl.discover_opinion("being submissive")
                     $ the_girl.change_obedience(the_girl.get_opinion_score("being submissive"))
@@ -265,9 +265,9 @@ label transition_doggy_doggy_anal(the_girl, the_location, the_object, the_round)
 
             else:
                 the_girl.char "Oh fuck! FUCK!"
-                "She yells out in suprise and pain. You bottom out and hold still, giving her a second to get use to your size."
+                "She yells out in surprise and pain. You bottom out and hold still, giving her a second to get use to your size."
                 the_girl.char "Fuck... I hate that part..."
-                mc.name "It's just like ripping off a bandaid. You'll get use to it."
+                mc.name "It's just like ripping off a bandage. You'll get use to it."
                 "You wait a moment, then start to move again. Using her pussy juices as lube you've soon got a good rhythm going."
 
         "Take it slow.":

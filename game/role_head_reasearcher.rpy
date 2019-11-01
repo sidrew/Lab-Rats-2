@@ -122,7 +122,7 @@ label improved_serum_unlock_label(the_person):
     menu:
         "Assist [the_person.title]":
             mc.name "I think you're right, this is the only way forward. What do you need me to do?"
-            "[the_person.title] opens the door to one of the small offices attached to the reserach lab. The two of you step inside and she closes the door."
+            "[the_person.title] opens the door to one of the small offices attached to the research lab. The two of you step inside and she closes the door."
             the_person.char "First, we're going to need a test dose of serum."
             call give_serum(the_person) from _call_give_serum_6
             if not _return:
@@ -137,11 +137,11 @@ label improved_serum_unlock_label(the_person):
                 mc.name "Was it an overpowering taste?"
                 the_person.char "Not particularly, no."
                 "You scribble down [the_person.possessive_title]'s name at the top of your notes page then add some bullet points listing her responses."
-                mc.name "My old research suggested that these serums could make people more suggestable. Do you feel like you are more suggestable than normal?"
+                mc.name "My old research suggested that these serums could make people more suggestible. Do you feel like you are more suggestible than normal?"
                 "[the_person.title] thinks for a moment before responding."
                 the_person.char "Maybe? No? God, that's hard question to answer objectively, isn't it?"
                 if mc.charisma > 4:
-                    "You take a keen look at [the_person.title]. She might not be able to tell but you certainly can. You mark her down as \"Highly Suggestive\"."
+                    "You take a keen look at [the_person.title]. She might not be able to tell but you certainly can. You mark her down as \"Highly Suggestible\"."
                 else:
                     "You can't tell any better than [the_person.title]. You put down \"Suggestability Uncertain\" on your notepad."
                 mc.name "That's fine, you're doing great."
@@ -152,7 +152,7 @@ label improved_serum_unlock_label(the_person):
                 "[the_person.title]'s eyes are fixed firmly on yours. This seems like a good chance to impress upon her your goals for the company."
                 menu:
                     "Stress the importance of obedience. (tooltip)Likely to raise her obedience.":
-                        mc.name "A highly organised workplace is important, especially in a lab setting. I need employees who are able to listen to my instructions and follow them."
+                        mc.name "A highly organized workplace is important, especially in a lab setting. I need employees who are able to listen to my instructions and follow them."
                         "[the_person.possessive_title] nods in agreement."
                         mc.name "As the leader of the research team I need you to be especially loyal. Do you understand?"
                         $ the_person.change_obedience(10)
@@ -175,7 +175,7 @@ label improved_serum_unlock_label(the_person):
 
                     "Stress the importance of your relationship. (tooltip)Likely to raise her love for you.":
                         mc.name "Through everything we're going to do together I want you to know that your friendship means the world to me."
-                        mc.name "I need you to stick by my side throught it all."
+                        mc.name "I need you to stick by my side through it all."
                         $ the_person.change_love(5)
                         "[the_person.possessive_title] nods in agreement."
                         the_person.char "Yes, absolutely. Our friendship means everything to me too."
@@ -199,7 +199,7 @@ label advanced_serum_stage_1_label(the_person):
     mc.name "[the_person.title], the research department has been doing an incredible job lately. I wanted to say thank you."
     $ the_person.draw_person(emotion = "happy")
     the_person.char "Thank you sir, it's been my pleasure. It's my job after all."
-    mc.name "On the topic of research: I was wondering if there was anything you needed here to push your discoveries even furthur."
+    mc.name "On the topic of research: I was wondering if there was anything you needed here to push your discoveries even further."
     "[the_person.possessive_title] thinks for a moment."
     the_person.char "We have everything we need for our basic research, but our theoretical work has hit a wall."
     mc.name "Tell me what you need and I'll do what I can."
@@ -237,7 +237,7 @@ label advanced_serum_stage_1_label(the_person):
     return
 
 label advanced_serum_stage_2_label(the_person):
-    #TODO: Add a special section where the head researcher aknowledges the work of her predecesor if the person who is handed over here is not the head researcher any more.
+    #TODO: Add a special section where the head researcher acknowledges the work of her predecessor if the person who is handed over here is not the head researcher any more.
     if mc.location != mc.business.r_div:
         "Your phone buzzes, alerting you to a work email."
         the_person.char "I have news about the prototype serum you asked me to retrieve. Meet me in the R&D department when you have a moment."
@@ -267,7 +267,7 @@ label advanced_serum_stage_2_label(the_person):
     mc.name "I agree, this seems like our most likely way forward."
     the_person.char "I'm glad you agree. Okay, I don't know what effect this will have on me so I want to record it."
     "[the_person.title] leaves the room for a moment, then returns with a small tripod. She mounts her phone on it and sets it up on the table facing both of you."
-    "When she turns back she hands a second vial of liquid over to you. This one is in the familiar labware you use every day."
+    "When she turns back she hands a second vial of liquid over to you. This one is in the familiar lab-ware you use every day."
     the_person.char "I prepared this just in case, it counteracts any effects of the prototype serum. Use it if something is going wrong, but remember this might be the only chance we get to try this."
     "You take the second vial of serum and tuck it in your back pocket."
     mc.name "Are you ready?"
@@ -330,7 +330,7 @@ label advanced_serum_stage_2_label(the_person):
                     mc.name "Okay [the_person.title], we're all done here."
                     "Her eyebrows knit together, like a child's attempt to concentrate."
                     the_person.char "I... wasn't there something I was suppose to do first? Or have done? Uh... I'm sorry [the_person.mc_title], I'm having a real hard time thinking right."
-                    "She sticks out her tounge, then giggles and shrugs."
+                    "She sticks out her tongue, then giggles and shrugs."
                     the_person.char "Oh well, how important can it be, right? Glad I could help you with your science. And all that fun other stuff."
                     mc.name "And thank you for all that help."
                     "[the_person.possessive_title] gives you a wink and leaves the room. "
@@ -351,7 +351,7 @@ label advanced_serum_stage_2_label(the_person):
     the_person.char "Aww, do I have to? I really like the way I feel right now."
     mc.name "Drink up."
     "She frowns but does as she's told. She drinks the content of the vial."
-    $ int_to_add = old_int - the_person.int #Calculate what we need to add back, almost certainly 3 but wierd things might happen.
+    $ int_to_add = old_int - the_person.int #Calculate what we need to add back, almost certainly 3 but weird things might happen.
     $ the_person.change_int(int_to_add)
     $ the_person.change_slut_core(-25)
     $ the_person.change_slut_temp(-50)
@@ -413,7 +413,7 @@ label advanced_serum_stage_3_label(the_person):
 
 label futuristic_serum_stage_1_label(the_person):
     mc.name "[the_person.title], what do you think about the current state of our R&D? Is there anything we could be doing better?"
-    the_person.char "We seem to be pressed right up against the boundry of knowledge for medical science. Before we can come up with anything new we need data, and there just isn't any."
+    the_person.char "We seem to be pressed right up against the boundary of knowledge for medical science. Before we can come up with anything new we need data, and there just isn't any."
     the_person.char "What I need right now are test subjects. Girls who have taken a few doses of serum and been affected by it. If we can do that I can build up some data and maybe discover something new."
     mc.name "It's probably best these girls come from inside the company. How many test subjects do you need?"
     the_person.char "Not including me: three. I'll need them to be obedient and open to... intimate testing procedures."

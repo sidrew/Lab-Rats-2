@@ -7,7 +7,8 @@
         "transition_default_deepthroat",
         "strip_deepthroat", "strip_ask_deepthroat",
         "orgasm_deepthroat",
-        opinion_tags = ["giving blowjobs","being submissive"])
+        verb = "throat fuck",
+        opinion_tags = ["giving blowjobs","being submissive"], record_class = "Blowjobs")
         list_of_positions.append(deepthroat)
 
 init 1:
@@ -362,7 +363,7 @@ label outro_deepthroat(the_girl, the_location, the_object, the_round):
                 $ the_girl.cum_on_face()
                 $ deepthroat.redraw_scene(the_girl)
                 "You let out a shudder moaning as you cum, pumping your sperm onto [the_girl.title]'s face. She flinches as the first splash of warm liquid lands on her cheek, but doesn't pull away entirely."
-            "You take a deep breath to steady yourself once you've finised orgasming. [the_girl.possessive_title] looks up at you from her knees, face covered in your semen."
+            "You take a deep breath to steady yourself once you've finished cumming. [the_girl.possessive_title] looks up at you from her knees, face covered in your semen."
             $ the_girl.call_dialogue("cum_face")
 
         "Cum in her mouth.":
@@ -418,7 +419,7 @@ label transition_deepthroat_blowjob(the_girl, the_location, the_object, the_roun
     return
 
 label transition_default_deepthroat(the_girl, the_location, the_object, the_round):
-    "[the_girl.title] gets ready in front of you, on her knees with her mouth open. You place a hand on the back of her head and pull her towards you, slidding your cock down her throat."
+    "[the_girl.title] gets ready in front of you, on her knees with her mouth open. You place a hand on the back of her head and pull her towards you, sliding your cock down her throat."
     "After giving her a second to get use to your size you start to guide her back and forth, keeping yourself buried nice and deep in her mouth."
     return
 
@@ -486,7 +487,7 @@ label orgasm_deepthroat(the_girl, the_location, the_object, the_round):
             else:
                 $ blowjob.current_modifier = None
                 $ blowjob.redraw_scene(the_girl)
-                "When she's finsihed cumming you let [the_girl.title] pull back off your shaft. She gasps loudly for air and rubs her throat."
+                "When she's finished cumming you let [the_girl.title] pull back off your shaft. She gasps loudly for air and rubs her throat."
                 $ the_girl.change_obedience(1)
                 $ the_girl.change_happiness(-2)
                 the_girl.char "Ah... fuck. Go a little easier on me next time, okay?"

@@ -7,7 +7,7 @@
         "transition_default_piledriver",
         "strip_piledriver", "strip_ask_piledriver",
         "orgasm_piledriver",
-        opinion_tags = ["missionary style sex","vaginal sex","being submissive"])
+        opinion_tags = ["missionary style sex","vaginal sex","being submissive"], record_class = "Vaginal Sex")
         list_of_positions.append(piledriver)
 
 init 1:
@@ -278,7 +278,7 @@ label strip_ask_piledriver(the_girl, the_clothing, the_location, the_object, the
                 "She grinds her hips back into you and moans ecstatically."
     return
 
-label orgasm_piledriver(the_girl, the_location, the_obejct, the_round):
+label orgasm_piledriver(the_girl, the_location, the_object, the_round):
     "[the_girl.title] takes a sharp breath in and you feel her legs try and clench together."
     $ the_girl.call_dialogue("climax_responses_vaginal")
     "You keep fucking [the_girl.possessive_title] through her climax, enjoying her sopping wet cunt while she twitches and moans underneath you."

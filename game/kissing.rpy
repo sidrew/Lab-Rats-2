@@ -1,6 +1,6 @@
 ﻿init:
     python:
-        kissing = Position("Kissing",10,40,"kissing","Stand","None","Foreplay",14,14,[],
+        kissing = Position("Kissing",10,40,"kissing","Stand","None","Foreplay",8,3,[],
         "intro_kissing",
         ["scene_kissing_1","scene_kissing_2"],
         "outro_kissing",
@@ -48,7 +48,7 @@ label scene_kissing_1(the_girl, the_location, the_object, the_round):
                     the_girl.char "Mmm, don't you want to spread those cheeks and fuck me? I'd let you, you know. Just say the word and you can fuck me."
                     $ kissing.current_modifier = "kissing"
                     $ kissing.redraw_scene(the_girl)
-                    "She grinds her hips against you and kisses you agressively."
+                    "She grinds her hips against you and kisses you aggressively."
                 else:
                     if the_girl.get_opinion_score("being submissive") > 0:
                         $ the_girl.discover_opinion("being submissive")
@@ -94,7 +94,7 @@ label scene_kissing_1(the_girl, the_location, the_object, the_round):
                 $ kissing.current_modifier = "kissing"
                 $ kissing.redraw_scene(the_girl)
                 "You put your arms around [the_girl.possessive_title] and pull her against you. Press your lips to hers and give her a long, passionate kiss."
-                "She seems taken by suprise at first, but after a few moments returns the kiss. Bit by bit she begins to open her lips and lets your tongue inside her mouth."
+                "She seems taken by surprise at first, but after a few moments returns the kiss. Bit by bit she begins to open her lips and lets your tongue inside her mouth."
                 if the_girl.get_opinion_score("kissing") > 0:
                     $ the_girl.discover_opinion("kissing")
                     "[the_girl.title] presses her body against yours. She trembles and moans quietly as you make out."

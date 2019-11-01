@@ -11,7 +11,7 @@ init -1 python:
             return True
 
 label instantiate_roles(): #This section instantiates all of the key roles in the game. It is placed here to ensure it is properly created, saved, ect. by Renpy.
-    #All of the role labels and requirements are defined in their own file, but their Action representitions are stored here for saving purposes.
+    #All of the role labels and requirements are defined in their own file, but their Action representations are stored here for saving purposes.
     python:
         #EMPLOYEE ACTIONS#
         move_employee_action = Action("Move her to a new division", move_employee_requirement, "move_employee_label",
@@ -29,33 +29,33 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
 
         #HEAD RESEARCHER ACTIONS#
         improved_serum_unlock = Action("Ask about advancing your research.", improved_serum_unlock_requirement, "improved_serum_unlock_label",
-            menu_tooltip = "Your basic initial research can only take you so far. You will need a breakthrough to discover new serum traits.")
+            menu_tooltip = "Your basic initial research can only take you so far. You will need a breakthrough to discover new serum traits.", priority = 10)
 
         visit_nora_intro = Action("Visit Nora to try and advance your research.", visit_nora_intro_requirement, "nora_intro_label",
-            menu_tooltip = "Have your head researcher reach out to your old mentor to see if she can help advance your research.")
+            menu_tooltip = "Have your head researcher reach out to your old mentor to see if she can help advance your research.", priority = 10)
 
         advanced_serum_unlock_stage_1 = Action("Ask about advancing your research.", advanced_serum_stage_1_requirement, "advanced_serum_stage_1_label",
-            menu_tooltip = "Another breakthrough will unlock new serum traits.")
+            menu_tooltip = "Another breakthrough will unlock new serum traits.", priority = 10)
 
         advanced_serum_unlock_stage_3 = Action("Present with recording of prototype serum test.", advanced_serum_stage_3_requirement, "advanced_serum_stage_3_label",
-            menu_tooltip = "Your new head researcher will have to take over now, and this recording should help them.")
+            menu_tooltip = "Your new head researcher will have to take over now, and this recording should help them.", priority = 10)
 
         futuristic_serum_unlock_stage_1 = Action("Ask about advancing your research.", futuristic_serum_stage_1_requirement, "futuristic_serum_stage_1_label",
-            menu_tooltip = "You will need another breakthrough to unlock new serum traits.") #First time you ask about it
+            menu_tooltip = "You will need another breakthrough to unlock new serum traits.", priority = 10) #First time you ask about it
 
         futuristic_serum_unlock_stage_2 = Action("Talk about the test subjects.", futuristic_serum_stage_2_requirement, "futuristic_serum_stage_2_label",
-            menu_tooltip = "Your head researcher needs willing, dedicated test subjects to advance your research any further.") #Talk to her to either select test subjects or get a refresher on what you need.
+            menu_tooltip = "Your head researcher needs willing, dedicated test subjects to advance your research any further.", priority = 10) #Talk to her to either select test subjects or get a refresher on what you need.
 
 
-        fire_head_researcher_action = Action("Remove her as head reseracher.", fire_head_researcher_requirement, "fire_head_researcher",
-            menu_tooltip = "Remove her as your head researcher so you can select another. Without a head researcher your R&D department will be less efficent.")
+        fire_head_researcher_action = Action("Remove her as head researcher.", fire_head_researcher_requirement, "fire_head_researcher",
+            menu_tooltip = "Remove her as your head researcher so you can select another. Without a head researcher your R&D department will be less efficient.")
 
         head_researcher = Role("Head Researcher", [fire_head_researcher_action,improved_serum_unlock,advanced_serum_unlock_stage_1, visit_nora_intro, advanced_serum_unlock_stage_3,futuristic_serum_unlock_stage_1, futuristic_serum_unlock_stage_2])
 
 
         #MODEL ACTIONS#
 
-        model_ad_photo_list = Action("Shoot pictures for an advertisement. {image=gui/heart/Time_Advance.png}", model_photography_list_requirement, "model_photography_list_label")
+        model_ad_photo_list = Action("Shoot pictures for an advertisement. {image=gui/heart/Time_Advance.png}", model_photography_list_requirement, "model_photography_list_label", priority = 5)
 
         fire_model_action = Action("Remove her as your company model.", fire_model_requirment, "fire_model_label",
             menu_tooltip = "Remove her as your company model so you can give the position to someone else. Effects from existing ad campaigns will continue until they expire.")
@@ -68,7 +68,7 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         steph_role = Role("Stephanie", [], hidden = True) #Used to hold any Stephanie specific actions not tied to another role, and to guarantee this is Steph even if she undergoes a personality change.
 
         #NORA ROLE#
-
+        # Note: Nora's role actions are assigned through Stephanie's events.
         nora_role = Role("Nora", [], hidden = True)
 
         #ALEXIA ACTIONS#
@@ -90,38 +90,38 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
             menu_tooltip = "She was eager to make some money, maybe she will be willing to strip for you if you pay her.")
 
         sister_strip_action = Action("Ask her to strip for you.", sister_strip_requirement, "sister_strip_label",
-            menu_tooltip = "Have your sister strip for you, in exchange for some money.")
+            menu_tooltip = "Have your sister strip for you, in exchange for some money.", priority = 5)
 
         sister_role = Role("Sister", [sister_reintro_action, sister_serum_test_action, sister_strip_reintro_action, sister_strip_action])
 
 
         #MOTHER ACTIONS#
         mother_offer_make_dinner = Action("Offer to make dinner. {image=gui/heart/Time_Advance.png}", mom_offer_make_dinner_requirement, "mom_offer_make_dinner_label",
-            menu_tooltip = "Earn some good will by making dinner for your mother and sister.")
+            menu_tooltip = "Earn some good will by making dinner for your mother and sister.", priority = 5)
 
         mother_role = Role("Mother", [mother_offer_make_dinner])
 
 
         #AUNT ACTIONS#
         aunt_help_move = Action("Help her move into her apartment. {image=gui/heart/Time_Advance.png}", aunt_intro_moving_apartment_requirement, "aunt_intro_moving_apartment_label",
-            menu_tooltip = "Help your aunt and your cousin move their stuff from your house to their new apartment. They're sure to be grateful, and it would give you a chance to snoop around.")
+            menu_tooltip = "Help your aunt and your cousin move their stuff from your house to their new apartment. They're sure to be grateful, and it would give you a chance to snoop around.", priority = 5)
 
         aunt_share_drinks_action = Action("Share a glass of wine. {image=gui/heart/Time_Advance.png}", aunt_share_drinks_requirement, "aunt_share_drinks_label",
-            menu_tooltip = "Sit down with your aunt and share a glass or two of wine. Maybe a little bit of alcohol will loosen her up a bit.")
+            menu_tooltip = "Sit down with your aunt and share a glass or two of wine. Maybe a little bit of alcohol will loosen her up a bit.", priority = 10)
 
         aunt_role = Role("Aunt", [aunt_help_move,aunt_share_drinks_action])
 
 
         #COUSIN ACTIONS#
         cousin_blackmail_action = Action("Blackmail her.", cousin_blackmail_requirement, "cousin_blackmail_label",
-            menu_tooltip = "Threaten to tell her mother about what she's been doing and see what you can get out of her.")
+            menu_tooltip = "Threaten to tell her mother about what she's been doing and see what you can get out of her.", priority = 10)
 
         cousin_role = Role("Cousin", [cousin_blackmail_action])
 
 
 
         ####################
-        #RELATIONSHIP ROLES# TODO TODO TODO
+        #RELATIONSHIP ROLES#
         ####################
 
         #GIRLFRIEND ACTIONS#
@@ -135,18 +135,21 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         # Adds more love to seduction attempts (reduce love from other sources)
         # Fallout if your girlfriend catches you with someone else.
 
+        ask_break_up_action = Action("Break up with her.", ask_break_up_requirement, "ask_be_girlfriend_label", menu_tooltip = "Breaking up may break her heart, but it'll be easier on her than catching you with another woman.")
 
-        girlfrind_role = Role("Girlfriend", []) #Your girlfriend, and she's not in a relationship with anyone else
+        girlfriend_role = Role("Girlfriend", [ask_break_up_action]) #Your girlfriend, and she's not in a relationship with anyone else
         #Getting married is some kind of victory for the game?
 
 
-        #AFFAIRE ACTIONS
+        #affair ACTIONS
         # Sneaky versions of all of the normal girlfriend stuff
         # Have her get money from her (b/f/h) and give it to you.
         # Convince her to leave her (boyfriend/fiance/husband) for you. Changes to her being your girlfriend.
         # Start to blackmail her for money or sex.
 
-        affaire_role = Role("Affaire", []) #A women who, if she were single, would be your girlfriend but is in a relationship.
+        plan_fuck_date_action = Action("Plan a fuck date at her place.", fuck_date_requirement, "plan_fuck_date_label", menu_tooltip = "Pick a night to go over there and spend nothing but \"quality time\" with each other.")
+        ask_leave_SO_action = Action("Ask her to leave her significant other for you.", ask_leave_SO_requirement, "ask_leave_SO_label", menu_tooltip = "This affair has been secret long enough! Ask her to leave her significant other and make your relationship official.")
+        affair_role = Role("Paramour", [plan_fuck_date_action, ask_leave_SO_action]) #A woman who is in a relationship but also wants to fuck you because of love (rather than pure sluttiness, where she thinks that's normal)
 
 
         ###################
@@ -164,7 +167,7 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
 
 label pay_strip_scene(the_person):
     # TODO: Figure out where this scene should go, since this file should be a pure role-define section.
-    #A loop where someone strips if you pay them. Not nessicarily limited to the Lily-MC relationship.
+    #A loop where someone strips if you pay them. Not necessarily limited to the Lily-MC relationship.
     #Concept: tell the girl what position to stand in and ask her to take things off for you. If her outfit is conservative she'll strip for free, when it starts to get slutty she'll want extra cash.
     #High obedience will sub in for sluttiness; an obedient girl will strip just because you ask.
     #Compliment, insult, etc. to change some of her stats.
@@ -175,14 +178,14 @@ label pay_strip_scene(the_person):
     #Requirements: Person will demand some amount of $$$ while stripping if they feel it's slutty.
     #Requirements: Person will have different descriptions of stripping/dancing depending on sluttiness.
     #Optional: Some way to ask the person to change into a different outfit.
-    #Optional: Way to progress from strip tease to sex and/or mastribation.
+    #Optional: Way to progress from strip tease to sex and/or masturbation.
 
     $ pose_list = [["Turn around","walking_away"],["Turn around and look back","back_peek"],["Hands down, ass up.","standing_doggy"],["Be flirty","stand2"],["Be casual","stand3"],["Strike a pose","stand4"],["Move your hands out of the way","stand5"]]
 
     $ picked_pose = the_person.idle_pose #She starts in her idle pose (which is a string)
     $ ran_num = renpy.random.randint(0,3) #Produce 4 different descriptions at each level to help keep this interesting.
 
-    # strip_willingness is a measure of how into the whole strip process the girl is. The less dressed she get the more embarassed she'll get,
+    # strip_willingness is a measure of how into the whole strip process the girl is. The less dressed she get the more embarrassed she'll get,
     # the more slutty the more she'll tease you, take clothing off willingly, etc.
     $ strip_willingness = the_person.sluttiness + (5*the_person.get_opinion_score("not wearing anything")) - the_person.outfit.slut_requirement
     #If there are other things that influence how willing a person is to strip they go here!
@@ -272,7 +275,7 @@ label pay_strip_scene(the_person):
                 "[the_person.title] wiggles her hips side to side and bites her bottom lip, as if imagining some greater pleasure yet to come."
 
         $menu_list = [] #Tuple of menu things.
-        # High obedience characters are more willing to be told to strip down (althoug they still expect to be paid for it)
+        # High obedience characters are more willing to be told to strip down (although they still expect to be paid for it)
         # Low obedience characters will strip off less when told but can be left to run the show on their own and will remove some.
         python:
             for item in the_person.outfit.get_unanchored():
@@ -312,7 +315,7 @@ label pay_strip_scene(the_person):
             if renpy.random.randint(0,1) == 0:
                 $ tease_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True) #The clothing item she's considering taking off
                 $ free_spirit_threshold = 40 + (100 - the_person.obedience)
-                if renpy.random.randint(0,100) < free_spirit_threshold: #She's independant enough to strip, change pose, etc. on her own.
+                if renpy.random.randint(0,100) < free_spirit_threshold: #She's independent enough to strip, change pose, etc. on her own.
                     if tease_item is not None and new_willingness >= (the_person.obedience-100): #A more obedient person is less willing to strip without being told to. A less obedient person will strip further on their own.
                         $ test_outfit = the_person.outfit.get_copy()
                         $ test_outfit.remove_clothing(tease_item)

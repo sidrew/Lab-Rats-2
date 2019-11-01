@@ -46,11 +46,17 @@
 # Investment Opportunity
 # Mastery Boost
 # Random trait for side effect
+# horny at work
 # Mom changing
 # Lily new underwear
 # Mom selfies
 # Daughter introduction
+
+
+### RELATIONSHIP CRISES ###
 # Friend state change
+
+
 
 #todo: teach lily how to deepthroat/ role to teach her how to fuck
 #todo: girl who loves you sends you sexy selfies
@@ -419,7 +425,7 @@ label no_uniform_punishment_label():
                 "Reduce her pay. -$[pay_percent]/day":
                     mc.name "This is honestly unacceptable [the_person.title]. You knew what the uniform policy was and chose to violate it anyway."
                     the_person.char "It won't happen again, I'll go get changed right now."
-                    mc.name "I'm sorry, but that's not good enough. I'm going to have to reduce your pay until your behaviour improves."
+                    mc.name "I'm sorry, but that's not good enough. I'm going to have to reduce your pay until your behavior improves."
                     $ the_person.draw_person(emotion="angry")
                     $ the_person.change_obedience(5)
                     $ the_person.change_happiness(-10)
@@ -465,7 +471,7 @@ label no_uniform_punishment_label():
                         else:
                             $ the_person.draw_person(emotion = "angry")
                             the_person.char "You can't make me do that!"
-                            mc.name "Actually I can. You're welcome to check your contract - the latest uniform changes everyone signed off on made it offical company policy."
+                            mc.name "Actually I can. You're welcome to check your contract - the latest uniform changes everyone signed off on made it official company policy."
                             "[the_person.possessive_title] stammers for a moment."
                             the_person.char "Ugh! Fine!"
                             $ renpy.scene("Active")
@@ -648,7 +654,7 @@ label office_flirt_label():
                 $ the_person.draw_person(position = "back_peek")
                 "[the_person.possessive_title] looks over her shoulder at you."
                 the_person.char "What? I..."
-                "She realises that she's got her ass pointed right at you. She stands up quickly."
+                "She realizes that she's got her ass pointed right at you. She stands up quickly."
                 $ the_person.draw_person(emotion="angry")
                 the_person.char "Oh my god, have you been watching me this whole time?!"
                 mc.name "No, I was just... waiting to see if you needed any help. What where you looking for?"
@@ -664,7 +670,7 @@ label office_flirt_label():
                 "[the_person.title] looks over her shoulder at you."
                 the_person.char "What? I... Oh."
                 $ the_person.draw_person(position = "back_peek", emotion="happy")
-                "She realises that she's got her ass pointed right at you. She smiles and wiggles her butt a little."
+                "She realizes that she's got her ass pointed right at you. She smiles and wiggles her butt a little."
                 the_person.char "Do you like what you see? I didn't mean to put on a show, but if I'm already here..."
                 $ the_person.draw_person(position="walking_away")
                 "[the_person.possessive_title] spreads her legs and bends her knees, waving her ass side to side and up and down for you."
@@ -858,7 +864,7 @@ label lab_accident_crisis_label():
 
     if mc.location == mc.business.r_div:
         $ the_place.show_background()
-        "There's a sudden crash and sharp yell of suprise as you're working in the lab."
+        "There's a sudden crash and sharp yell of surprise as you're working in the lab."
         $the_person.call_dialogue("suprised_exclaim")
         the_person.char "[the_person.mc_title], I think I need you for a moment."
 
@@ -902,7 +908,7 @@ label production_accident_crisis_label():
 
     if mc.location == mc.business.p_div:
         $ the_place.show_background()
-        "There's a sudden crash and sharp yell of suprise as you're working in the lab."
+        "There's a sudden crash and sharp yell of surprise as you're working in the lab."
         $the_person.call_dialogue("suprised_exclaim")
         the_person.char "[the_person.mc_title], I think I need you for a moment."
 
@@ -1110,7 +1116,7 @@ label water_spill_crisis_label():
         "After a few minutes she's back, with her [the_clothing.name] dried off and no longer transparent."
         $ the_person.draw_person()
         $ slut_report = the_person.change_slut_temp(1)
-        the_person.char "Ugh, that was so embarrasing. Lets just forget about that, okay?"
+        the_person.char "Ugh, that was so embarrassing. Lets just forget about that, okay?"
         mc.name "Of course, back to your taxes then, right?"
         "You help [the_person.possessive_title] sort out her tax issues, then get back to work."
     else:
@@ -1130,7 +1136,7 @@ label water_spill_crisis_label():
                     "You help [the_person.possessive_title] with her tax questions while she stands topless beside your desk."
 
                 "Keep going..." if minimal_coverage_uniform_policy.is_owned():
-                    mc.name "You might as well keep going. All this tax talk is boring and I'd appreciate somthing pleasant to look at while I help you."
+                    mc.name "You might as well keep going. All this tax talk is boring and I'd appreciate something pleasant to look at while I help you."
                     if the_person.outfit.tits_visible() and the_person.outfit.vagina_visible():
                         mc.name "Not that there's much I can't see already..."
                     elif the_person.outfit.tits_visible():
@@ -1184,7 +1190,7 @@ label water_spill_crisis_label():
                     "After a few minutes she's back, with her [the_clothing.name] dried off and no longer transparent."
                     $ the_person.draw_person()
                     $ slut_report = the_person.change_slut_temp(1)
-                    the_person.char "Ugh, that was so embarrasing. Lets just forget about that, okay?"
+                    the_person.char "Ugh, that was so embarrassing. Lets just forget about that, okay?"
                     mc.name "Of course, back to your taxes then, right?"
                     "You help [the_person.possessive_title] sort out her tax issues, then get back to work."
 
@@ -1228,7 +1234,7 @@ init 1 python:
     crisis_list.append([home_fuck_crisis,3])
 
 label home_fuck_crisis_label():
-    ## A horny employee comes to your house at night and wants you to fuck them. They're drunk, with bonus sluttiness, and will tkae a pay cut if you make them cum.
+    ## A horny employee comes to your house at night and wants you to fuck them. They're drunk, with bonus sluttiness, and will take a pay cut if you make them cum.
     $ meets_sluttiness_list = []
     python:
         for person in mc.business.get_employee_list():
@@ -1259,7 +1265,7 @@ label home_fuck_crisis_label():
     the_person.char "We were getting along so well, so I went home with him. We get to his place and make out in his car for a while..."
     "You stay silent, listening to [the_person.title]'s rambling story."
     $ the_person.draw_person(emotion = "angry")
-    the_person.char "Then he tells me, suprise, he's married and his wife is home."
+    the_person.char "Then he tells me, surprise, he's married and his wife is home."
     if the_person.get_opinion_score("cheating on men") < 0:
         the_person.char "I don't want to be a home wrecker, so I got out of there as fast as I could. I'm here because I'm still a little horny, and you're the first guy I thought of."
     elif the_person.get_opinion_score("cheating on men") > 0:
@@ -1338,7 +1344,7 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
     "You open up the email and read through the body."
     the_person.char "[the_person.mc_title], there's something important I need to talk to you about. When can we have a meeting?"
     $ the_place = mc.business.h_div
-    if mc.location == mc.business.h_div: #If you're arleady in your office just kick back and relax.
+    if mc.location == mc.business.h_div: #If you're already in your office just kick back and relax.
         $ the_place.show_background()
         "You type up a response."
         mc.name "I'm in my office right now, come over whenever you would like."
@@ -1356,7 +1362,7 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
     if the_person.happiness < 100:
         the_person.char "I've been doing my best to keep my head up lately, but honestly I just have been hating working here. I've decided that today is going to be my last day."
     elif the_person.salary < the_person.calculate_base_salary():
-        the_person.char "I've been looking into other positions, and the pay I'm recieving here just isn't high enough. I've decided to accept another offer; today will be my last day."
+        the_person.char "I've been looking into other positions, and the pay I'm receiving here just isn't high enough. I've decided to accept another offer; today will be my last day."
     else:
         the_person.char "I've been looking for a change in my life, and I feel like this job is holding me back. I've decided that today is going to be my last day."
 
@@ -1426,7 +1432,7 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
 
 init 1 python:
     def invest_opportunity_crisis_requirement():
-        #Be at work during work hours with at least two other peopel with relatively low obedience
+        #Be at work during work hours with at least two other people with relatively low obedience
         if mc.business.research_tier > 0 and mc.business.is_open_for_business() and not invest_opportunity_crisis in mc.business.mandatory_crises_list:
             if mc.is_at_work():
                 return True
@@ -1439,12 +1445,12 @@ init 1 python:
         if day == trigger_day:
             if mc.is_at_work():
                 return True
-            elif time_of_day == 3: #End of day, return True only so the event fires and you get an angry phonecall.
+            elif time_of_day == 3: #End of day, return True only so the event fires and you get an angry phone call.
                 return True
         return False
 
 label invest_opportunity_crisis_label():
-    #You receive a call asking for a tour of your facilities. Once there the investvestment agent can be "persuaded" to impress them.
+    #You receive a call asking for a tour of your facilities. Once there the investment agent can be "persuaded" to impress them.
     "Your phone rings while you're busy working. You lean back in your chair and answer it."
     mc.name "[mc.business.name] here, [mc.name] speaking."
     $ rep_name = get_random_male_name()
@@ -1455,7 +1461,7 @@ label invest_opportunity_crisis_label():
         "Offer [rep_name] a tour.":
             mc.name "That sounds like a wonderful idea. Would you be available this coming Monday?"
             rep_name "Monday will be fine. Thank you for your time [mc.name], we will be in touch again soon."
-            "[rep_name] hangs up the phone. You make a note on your calander for next Monday, leaving a reminder to be in the office during working hours."
+            "[rep_name] hangs up the phone. You make a note on your calender for next Monday, leaving a reminder to be in the office during working hours."
             $ invest_rep_visit = Action("Investment Representative Visit",invest_rep_visit_requirement,"invest_rep_visit_label", args = rep_name, requirement_args = [day + 7 - (day%7)]) #Set the trigger day for the next monday. Monday is day%7 == 0
             $ mc.business.mandatory_crises_list.append(invest_rep_visit) #Add the event here so that it pops when the requirements are met.
 
@@ -1470,18 +1476,18 @@ label invest_opportunity_crisis_label():
 label invest_rep_visit_label(rep_name):
     #There are two possible ways this event is triggered. First we will handle if the player is late to the meeting (aka not at work on the day in question). They get an angry phonecall and the event ends.
     if time_of_day == 3:
-        "Your phone rings. When you check it you recognise the name [rep_name], the representative of a mutual fund that you had promised a tour. You answer your phone."
+        "Your phone rings. When you check it you recognize the name [rep_name], the representative of a mutual fund that you had promised a tour. You answer your phone."
         mc.name "[rep_name], I'm so sorry to have kept you waiting, I..."
         rep_name "Don't bother, I've been waiting here all day but if you can't be bothered to show up to your own office for a planned tour I want nothing to do with your business. Good day."
         "[rep_name] hangs up. You doubt he will be interested in rescheduling."
     else:
         #The event was triggered properly, aka the MC was at their office during the next Monday, so they meet rep_name and give them a tour of the facilities.
-        "Your phone rings. When you check it you recognise the name [rep_name], the represntative of a mutual fund that you had promised a tour. You answer your phone."
+        "Your phone rings. When you check it you recognize the name [rep_name], the representative of a mutual fund that you had promised a tour. You answer your phone."
         mc.name "[rep_name], good to hear from you. How are you doing?"
         rep_name "I'm doing well. I'm just pulling into your parking lot now, do I need to check in at security?"
         mc.name "Don't worry about it, I'll come out and meet you and we can start the tour."
         "You hurry out to the parking lot and spot a man you assume to be [rep_name] getting out his car. He's middle aged, not particularly handsome, and dressed conservatively in a suit and tie."
-        rep_name "Good to finaly meet you in person."
+        rep_name "Good to finally meet you in person."
         "He reaches out his hand and you shake it."
         rep_name "Before we get started I wanted to ask you some questions about what you do here."
         mc.name "I'll answer whatever I can."
@@ -1667,7 +1673,7 @@ label work_chat_crisis_label:
     if the_person is None:
         return #Everyone here must hate small talk. Oh well.
 
-    #She stikes up a conversation while you're working. "So what have you been up to"/"Do anything fun recently?"/"It's nice to have some company (only if only person in room)", etc.
+    #She strikes up a conversation while you're working. "So what have you been up to"/"Do anything fun recently?"/"It's nice to have some company (only if only person in room)", etc.
     #If low sluttiness you just have a nice chat. Add options to flirt, nothing major. Maybe talk about opinion stuff.
     #If moderate sluttiness she may flash you, bend over provocatively, touch herself, etc. Maybe asks to see your cock if nobody else is around.
     #If high sluttiness and low/moderate obedience she will ask you to fuck her. If high obedience she will ask if you need any "stress relief". Other people around act accordingly.
@@ -1694,7 +1700,7 @@ label work_chat_crisis_label:
                 if the_person.get_opinion_score("sports") > 0:
                     the_person.char "Well, there's a big football game coming in a couple days that I'm excited for. The tournament so far has been..."
                     $ the_person.discover_opinion("sports")
-                    "[the_person.possessive_title] gives a passionate story about her favourite teams recent success. You listen and nod, keeping most of your attention on your own work."
+                    "[the_person.possessive_title] gives a passionate story about her favorite teams recent success. You listen and nod, keeping most of your attention on your own work."
                     the_person.char "...But we'll see if all of that pays off."
 
                 elif the_person.get_opinion_score("hiking") > 0:
@@ -1764,7 +1770,7 @@ label work_chat_crisis_label:
                             "[the_person.possessive_title] wiggles her butt at you."
                             the_person.char "I guess everyone's already had a good look at my ass anyways..."
                             $the_person.draw_person()
-                            "[the_person.anme] stands up suddenly and turns back towards you."
+                            "[the_person.name] stands up suddenly and turns back towards you."
                             the_person.char "I'm sorry, I don't know what came over me [the_person.mc_title]. I'll just... I'll just sit down again."
 
                         $the_person.draw_person(position="sitting")
@@ -2108,12 +2114,12 @@ label cat_fight_crisis_label():
 
 
         "Stop the argument, side with no one.":
-            #Obedience boost to both, happinss drop to both. At high sluttiness have them "kiss and make up"
+            #Obedience boost to both, happiness drop to both. At high sluttiness have them "kiss and make up"
             mc.name "Enough! I can't be the arbitrator for every single conflict we have in this office. You two are going to have to figure this out between yourselves."
             $ person_one.draw_person(emotion = "sad")
             person_one.char "But sir..."
             if person_one.sluttiness > 50 and person_two.sluttiness > 50:
-                mc.name "I said nough. Clearly you need help sorting this out."
+                mc.name "I said enough. Clearly you need help sorting this out."
                 "You stand up and take [person_one.title]'s hand in your right hand, then take [person_two.title]'s hand in your left."
                 mc.name "The two of you are part of a larger team. I need you to work together."
                 "You bring the girls hands together and wrap yours around both of theirs."
@@ -2156,7 +2162,7 @@ label cat_fight_crisis_label():
             "Both of the girls look at you, waiting to see who's side you take."
             mc.name "This isn't my fight. You two are going to have to sort this out yourselves."
             $ town_relationships.worsen_relationship(person_one, person_two)
-            if renpy.random.randint(0,1) == 0: #Establish a winner and loser for the fight, random here so that the earlieer section of the event doesn't suggest which one it is.
+            if renpy.random.randint(0,1) == 0: #Establish a winner and loser for the fight, random here so that the earlier section of the event doesn't suggest which one it is.
                 $ winner = person_one
                 $ loser = person_two
             else:
@@ -2165,7 +2171,7 @@ label cat_fight_crisis_label():
 
             if person_one.sluttiness < 40 or person_two.sluttiness < 40:
                 #Catfight starts! Neither is particularly slutty, fight ends once one has their clothing damaged (if they're wearing some clothing, make sure to account for that).
-                #Random piece of clothing is lost from a random member of the fight, after which time they run off to get things organised again.
+                #Random piece of clothing is lost from a random member of the fight, after which time they run off to get things organized again.
                 $ winner.draw_person(emotion = "angry")
                 winner.char "Hear that? We're going to have to sort this out, right here. Right now."
                 "[winner.title] takes a step towards [loser.title], invading her personal space."
@@ -2219,7 +2225,7 @@ label cat_fight_crisis_label():
                     "She smooths her hair back and gets back to work. You decide to do the same."
 
             else: #both >= 40
-                #Girls start pulling clothing off of eachother on purpose until one is naked enough to be very embarassed, then they give up.
+                #Girls start pulling clothing off of each other on purpose until one is naked enough to be very embarrassed, then they give up.
                 $ winner.draw_person(emotion = "angry")
                 winner.char "Hear that? We're going to have to sort this out, right here. Right now."
                 "[winner.title] takes a step towards [loser.title], invading her personal space."
@@ -2295,14 +2301,14 @@ label cat_fight_crisis_label():
                     "[winner.title] isn't going easy on [loser.title]. She shivers and bucks against [winner.title]."
                     $ loser.change_arousal(25)
                     $ loser.draw_person()
-                    "[winner.title] speeds up, pumping her fingers in and out of [loser.title]'s exposded cunt. She moans loudly and rolls her hips against [winner.title]'s."
+                    "[winner.title] speeds up, pumping her fingers in and out of [loser.title]'s exposed cunt. She moans loudly and rolls her hips against [winner.title]'s."
                     $ loser.change_arousal(25)
                     $ winner.draw_person()
                     winner.char "You thought you could get away easy, huh? Well now I'm going to make you cum right here, you dirty little slut!"
                     $ loser.change_arousal(25)
                     $ loser.draw_person()
                     "[loser.title] looks right into your eyes. She doesn't look embarrassed - in fact it looks like she's turned on by you watching her get finger banged right in the middle of the office."
-                    loser.char "I'm goint to... I'm going to... AH!"
+                    loser.char "I'm going to... I'm going to... AH!"
                     $ loser.change_arousal(25)
                     $ loser.draw_person(emotion = "orgasm")
                     winner.char "That's it, cum for me slut!"
@@ -2381,7 +2387,7 @@ label research_reminder_crisis_label():
 
     $ the_person = mc.business.head_researcher
 
-    "While you're working you recieve an email from your head researcher [the_person.title]. It reads:"
+    "While you're working you receive an email from your head researcher [the_person.title]. It reads:"
 
     $ researched_all_at_level = True
     python:
@@ -2408,7 +2414,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
     if mc.business.head_researcher:
         $ rd_staff = mc.business.head_researcher
     else:
-        $ rd_staff = get_random_from_list(mc.business.r_div.people) #Get a random researcher from the R&D department. TODO: Repalce this with the head researcher position.
+        $ rd_staff = get_random_from_list(mc.business.r_div.people) #Get a random researcher from the R&D department. TODO: Replace this with the head researcher position.
 
     if rd_staff is not None and not mc.business.is_weekend():
         if mc.location == mc.business.r_div: # The MC is in the lab, just physically get them.
@@ -2433,7 +2439,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                     return
 
         else: # The MC is somewhere else, bring them to the lab for this.
-            "Your phone buzzes, grabbing your attention. It's a call from the R&D section of your buisness."
+            "Your phone buzzes, grabbing your attention. It's a call from the R&D section of your business."
             "As soon as you answer you hear the voice of [rd_staff.title]."
             show screen person_info_ui(rd_staff)
             rd_staff.title "[rd_staff.mc_title], I've had a breakthrough! The first test dose of serum \"[the_serum.name]\" is coming out right now!"
@@ -2478,10 +2484,10 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                     "You give [rd_staff.title] a pat on the back."
                     mc.name "I'm sure you will. Keep up the good work."
                 elif rd_staff.sluttiness < 80:
-                    "You give [rd_staff.title] a quick slap on the ass. She gasps softly in suprise."
+                    "You give [rd_staff.title] a quick slap on the ass. She gasps softly in surprise."
                     mc.name "I'm sure you will. Keep up the good work."
                 else:
-                    "You grab [rd_staff.title]'s ass and squeeze it hard. She gasps in suprise, then moans softly."
+                    "You grab [rd_staff.title]'s ass and squeeze it hard. She gasps in surprise, then moans softly."
                     mc.name "I'm sure you will. Keep up the good work."
 
                 "You leave [rd_staff.title] to to her work in the lab and return to what you were doing."
@@ -2564,9 +2570,9 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
 
 init 1 python:
     def daughter_work_crisis_requirement():
-        # Requres you to have an employee over a certain age, with at least one kid, who hasn't been introduced to the game yet.
+        # Requires you to have an employee over a certain age, with at least one kid, who hasn't been introduced to the game yet.
         # Requires you and her to be at work.
-        # Requries you to have a free slot in the company
+        # Requires you to have a free slot in the company
         if mc.business.is_open_for_business() and mc.is_at_work() and mc.business.get_employee_count() < mc.business.max_employee_count:
             for person in mc.business.get_employee_list():
                 if person.kids != 0 and person.age >= 34 and person.kids > town_relationships.get_existing_child_count(person): #At least one person fits the criteria we need to select a mother, the crisis is valid.
@@ -2635,7 +2641,7 @@ label daughter_work_crisis_label():
 
                     "Tell her you aren't hiring.":
                         if the_person.love < 10:
-                            mc.name "If I want to fuck you I wouldn't need to hire your daughter to do it. Give it up, you look desparate"
+                            mc.name "If I want to fuck you I wouldn't need to hire your daughter to do it. Give it up, you look desperate."
                             $ the_person.change_obedience(3)
                             "She steps back and looks away."
                             the_person.char "Uh, right. Sorry for taking up your time."
@@ -3573,11 +3579,11 @@ label mom_lingerie_surprise_label():
     "[the_person.possessive_title] is standing by the door, wearing some very revealing lingerie. She walks over to your bed and sits down beside you."
     $ the_person.draw_person(position = "sitting")
     mc.name "What did you want to ask?"
-    the_person.char "I know you've been busy with work, and I'm very pround, but sometimes I worry you're not having your needs met."
+    the_person.char "I know you've been busy with work, and I'm very proud, but sometimes I worry you're not having your needs met."
     "She places a hand on your arm and slides it up to your chest, caressing you with her soft fingers."
     the_person.char "Your physical needs, I mean. I know I'm your mother, but I thought I could dress up and you could pretend I was someone else. Someone not related to you."
     menu:
-        "Ask for her help. (tooltip)Ask your mother to help satisfy your phsyical desires." if mc.current_stamina > 0:
+        "Ask for her help. (tooltip)Ask your mother to help satisfy your physical desires." if mc.current_stamina > 0:
             mc.name "That would be amazing Mom, I could really use your help."
             $ the_person.change_slut_temp(2)
             "[the_person.possessive_title] smiles and bounces slightly on your bed."
@@ -3588,7 +3594,7 @@ label mom_lingerie_surprise_label():
                 the_person.char "Excellent! Don't think of me as your mother, just think of me as a sexy mom from down the street. A real milf, right?"
 
             else:
-                the_person.char "Excellent! Now don't think of me as your mom, just think of me as your private, slutty milf. I'll do wahtever your cock wants me to do, okay?"
+                the_person.char "Excellent! Now don't think of me as your mom, just think of me as your private, slutty milf. I'll do whatever your cock wants me to do, okay?"
             "You nod and she slides closer to you on the bed."
 
             $ the_person.add_situational_obedience("crisis_stuff", 25, "I'm doing it for my family.")
@@ -3623,9 +3629,9 @@ label mom_lingerie_surprise_label():
 
 init 1 python:
     def mom_selfie_requirement():
-        if not mc_at_home() and not (time_of_day == 0 or time_of_day == 4): #She always sents you text while you're not at home for the middle part of the day
+        if not mc_at_home() and not (time_of_day == 0 or time_of_day == 4): #She always sends you text while you're not at home for the middle part of the day
             if not mom in mc.location.people: #Obviously don't do it if she's right there with you.
-                if mom.love >= 30:
+                if mom.love >= 15:
                     return True
         return False
 
@@ -3643,7 +3649,7 @@ label mom_selfie_label():
     "While you're going about your day you get a text from your mother."
     if lowest_stat >= 100:
         #Both love and sluttiness are very high, she sends you super slutty selfies and says she can't wait till you come home, fuck her, and make her your woman.
-        $ ran_num = renpy.random.randint(0,2) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
+        $ ran_num = renpy.random.randint(0,2) #Used to determine which variant we use to avoid spamming the player with the exact same texts.
         if ran_num == 0:
             if mc.business.is_weekend():
                 $ the_person.outfit = lingerie_wardrobe.pick_random_outfit()
@@ -3671,7 +3677,7 @@ label mom_selfie_label():
 
     elif lowest_stat >= 80:
         #Both are high. Sends you slutty selfies and talks about how she wants to fuck you. Sends them from work, etc.
-        $ ran_num = renpy.random.randint(0,1) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
+        $ ran_num = renpy.random.randint(0,1) #Used to determine which variant we use to avoid spamming the player with the exact same texts.
         if ran_num == 0:
             if mc.business.is_weekend():
                 the_person.char "I'm here at home and wishing it was you could help me take these pictures..."
@@ -3698,7 +3704,7 @@ label mom_selfie_label():
 
     elif lowest_stat >= 60:
         #Sends you nudes and talks about how she'll help you blow off steam later.
-        $ ran_num = renpy.random.randint(0,3) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
+        $ ran_num = renpy.random.randint(0,3) #Used to determine which variant we use to avoid spamming the player with the exact same texts.
         if ran_num == 0:
             if mc.business.is_weekend():
                 the_person.char "I was just about to get in the shower and I thought you might like a peek. Love you [the_person.mc_title]!"
@@ -3747,7 +3753,7 @@ label mom_selfie_label():
             if mc.business.is_weekend():
                 the_person.char "I'm so glad it's the weekend, I can finally let these girls out..."
                 $ the_person.draw_person(emotion = "happy")
-                "She sends you a selfie fron the kitchen with her top off."
+                "She sends you a selfie from the kitchen with her top off."
                 the_person.char "I hope your day is going well, love you!"
 
             else:
@@ -3758,7 +3764,7 @@ label mom_selfie_label():
 
     elif lowest_stat >= 40:
         #Sends you teasing pictures (ie. no shirt or something) and talks about how much she loves you.
-        $ ran_num = renpy.random.randint(0,2) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
+        $ ran_num = renpy.random.randint(0,2) #Used to determine which variant we use to avoid spamming the player with the exact same texts.
         if ran_num == 0:
             the_person.char "You're such a hard worker [the_person.mc_title]. Here's a little gift from the woman who loves you most in the world!"
             $ the_person.outfit.remove_random_upper(top_layer_first = True)
@@ -3793,7 +3799,7 @@ label mom_selfie_label():
                     "You get a selfie from [the_person.possessive_title] wearing a slightly transparent top."
                 the_person.char "Oh well, I can still wear it when I'm doing chores around the house. Hope your day is going better, love you!"
             else:
-                the_person.char "I've looked everywhere, but I just can't find my favourite bra!"
+                the_person.char "I've looked everywhere, but I just can't find my favorite bra!"
                 $ the_person.draw_person(emotion = "default")
                 "[the_person.possessive_title] sends you a short video of herself walking around your home. Her bare tits bounce with each step."
                 the_person.char "You don't happen to know where it is, do you? I'm wandering around looking for it and it's getting chilly!"
@@ -3801,7 +3807,7 @@ label mom_selfie_label():
 
     elif lowest_stat >= 20:
         #Sends you normal texts but talks about wanting to get away to talk to you instead
-        $ ran_num = renpy.random.randint(0,4) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
+        $ ran_num = renpy.random.randint(0,4) #Used to determine which variant we use to avoid spamming the player with the exact same texts.
         if ran_num == 0:
             the_person.char "I hope I'm not interrupting, I just wanted to say hi and check in. I'm stuck here at work but wish I could spend more time with you."
             the_person.char "Have a great day, see you later tonight. Love, Mom."
@@ -3836,7 +3842,7 @@ label mom_selfie_label():
 
     else:
         #Sends you normal motherly texts.
-        $ ran_num = renpy.random.randint(0,2) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
+        $ ran_num = renpy.random.randint(0,2) #Used to determine which variant we use to avoid spamming the player with the exact same texts.
         if ran_num == 0:
             the_person.char "I hope I'm not interrupting your busy day [the_person.mc_title]. I just wanted to let you know that I'm proud of you and you're doing great work."
             the_person.char "Keep it up! Dinner will be at the normal time."
@@ -3863,7 +3869,6 @@ init 1 python:
     morning_crisis_list.append([mom_morning_surprise_crisis, 5])
 
 label mom_morning_surprise_label():
-    #TODO: Finish all of the side functionalit this event requires to be implemented.
     $ the_person = mom
     if the_person.sluttiness < 50:
         the_person.char "[the_person.mc_title], it's time to wake up."
@@ -3954,7 +3959,7 @@ label mom_morning_surprise_label():
                                     the_person.char "Maybe you're right... Now hurry up and get dressed before you're late!"
                                     # TODO: She should seem a little shocked, but otherwise okay with how things turned out
 
-                        "Order her to get on her kness.\nRequires: 130 Obedience (disabled)" if the_person.obedience < 130:
+                        "Order her to get on her knees.\nRequires: 130 Obedience (disabled)" if the_person.obedience < 130:
                             pass
 
                         "Climax.":
@@ -3985,7 +3990,7 @@ label mom_morning_surprise_label():
         mc.name "Right, of course. Thanks Mom."
         "You lie back, relax, and enjoy the feeling of your mothers hand caressing your hard shaft."
         the_person.char "Anything for you [the_person.mc_title], I just want to make sure you're happy and successful."
-        "After a few minutes you can feel your orgasm starting to build. Mom rubs your precum over your shaft and keeps stroking."
+        "After a few minutes you can feel your orgasm starting to build. Mom rubs your pre-cum over your shaft and keeps stroking."
         menu:
             "Order her to take your cum in her mouth." if the_person.obedience >= 130:
                 mc.name "I'm almost there Mom, I need to cum in your mouth."
@@ -3999,7 +4004,7 @@ label mom_morning_surprise_label():
                 pass
             "Climax":
                 mc.name "I'm almost there Mom, keep going!"
-                "She nods and strokes your dick as fast as she can manage, pusing you over the edge."
+                "She nods and strokes your dick as fast as she can manage, pushing you over the edge."
                 "You grunt and fire your hot load into up into the air. It falls back down onto your stomach and [the_person.possessive_title]'s hand."
                 "Mom strokes you slowly for a few seconds, then lets go and places her hand on her lap while you take a second to recover."
 
@@ -4035,7 +4040,7 @@ label mom_morning_surprise_label():
         "You arch your back and grunt as you climax, firing a shot of cum into [the_person.possessive_title]'s mouth."
         $ the_person.cum_in_mouth()
         $ the_person.draw_person(position = "blowjob")
-        "She pulls back until the tip of your cock is just inside her lips and holds there, collecting each new spurt of semem until you're completely spent."
+        "She pulls back until the tip of your cock is just inside her lips and holds there, collecting each new spurt of semen until you're completely spent."
         "When you're done she pulls up and off, keeping her lips tight to avoid spilling any onto you."
         menu:
             "Order her to swallow." if the_person.obedience >= 130:
@@ -4184,7 +4189,7 @@ label lily_new_underwear_crisis_label():
             "She turns around to give you a good look from behind."
             menu:
                 "She looks beautiful.": #Raises love
-                    mc.name "You look beautiful [the_person.title]. You're a heartstopper."
+                    mc.name "You look beautiful [the_person.title]. You're a heart-stopper."
                     $ the_person.change_love(2)
                     the_person.char "Aww, you really think so?"
 
@@ -4194,7 +4199,7 @@ label lily_new_underwear_crisis_label():
                     the_person.char "Ooh, I like being sexy. Rawr!"
 
                 "She looks elegant.": #Raises obedience
-                    mc.name "It makes you look very elegent, [the_person.title]. Like a proper lady."
+                    mc.name "It makes you look very elegant, [the_person.title]. Like a proper lady."
                     $ the_person.change_obedience(2)
                     the_person.char "It's not too uptight, is it? Do you think Mom would wear something like this?"
 
@@ -4247,22 +4252,22 @@ init 1 python:
     morning_crisis_list.append([lily_morning_encounter_crisis, 5])
 
 label lily_morning_encounter_label():
-    # You run into Lily early in the morning as she's going to get some fresh laundry. At low sluttiness she is embarassed, at high she is completely naked.
+    # You run into Lily early in the morning as she's going to get some fresh laundry. At low sluttiness she is embarrassed, at high she is completely naked.
     $ the_person = lily
-    if the_person.sluttiness >= 60:
-        $ the_person.outfit = default_wardrobe.get_outfit_with_name("Nude 1") #If sh's very slutty she doesn't mind being naked.
+    if the_person.sluttiness >= 70:
+        $ the_person.outfit = default_wardrobe.get_outfit_with_name("Nude 1") #If she's very slutty she doesn't mind being naked.
     else:
         $ the_person.outfit = the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True) # Otherwise get an underwear set she would wear.
 
     "You wake up in the morning to your alarm. You get dressed and leave your room to get some breakfast."
     $ the_person.draw_person()
     if not the_person.outfit.wearing_panties():
-        "The door to [the_person.possessive_title]'s room opens as you're walking past. She steps out, completeley naked."
+        "The door to [the_person.possessive_title]'s room opens as you're walking past. She steps out, completely naked."
     else:
         "The door to [the_person.possessive_title]'s room opens as you're walking past. She steps out, wearing nothing but her underwear."
 
     if the_person.sluttiness < 20:
-        #She's startled and embarassed.
+        #She's startled and embarrassed.
         "[the_person.title] closes her door behind her, then notices you. She gives a startled yell."
         the_person.char "Ah! [the_person.mc_title], what are you doing here?"
         "She tries to cover herself with her hands and fumbles with her door handle."
@@ -4287,7 +4292,7 @@ label lily_morning_encounter_label():
         menu:
             "Compliment her.":
                 #Bonus love and happiness
-                mc.name "Well, I'm glad I ran into you. Seing you is a pretty good way to start my day."
+                mc.name "Well, I'm glad I ran into you. Seeing you is a pretty good way to start my day."
                 $ the_person.change_love(2)
                 $ the_person.change_happiness(5)
                 the_person.char "You're just saying that because you get to see me naked, you perv."
@@ -4313,7 +4318,7 @@ label lily_morning_encounter_label():
 
     else: #sluttiness >= 50
         #She likes being watched and teases you a little while you walk together.
-        "[the_person.title] closes her door behing her, then notices you."
+        "[the_person.title] closes her door behind her, then notices you."
         the_person.char "Morning [the_person.mc_title], I was wondering if you were going to be up now."
         mc.name "Yep, early start today. What are you up to?"
         the_person.char "I was just going to get some laundry out of the machine."
@@ -4437,7 +4442,7 @@ label family_morning_breakfast_label():
         $ the_sister.draw_person(position = "sitting")
         the_sister.char "Thanks Mom, you're the best!"
         $ the_mom.draw_person(position="sitting")
-        the_mom.char "No problem, I'm just happy to spend my morning relaxing with my two favourite people!"
+        the_mom.char "No problem, I'm just happy to spend my morning relaxing with my two favorite people!"
         "You enjoy a relaxing breakfast bonding with your mother and sister. [the_mom.possessive_title] seems particularly happy she gets to spend time with you."
         "Neither [the_sister.title] or [the_mom.possessive_title] seem to think it's strange to relax in their underwear."
         $ the_sister.change_love(3)
@@ -4450,7 +4455,7 @@ label family_morning_breakfast_label():
 
 
     elif mom_slutty and not sis_slutty:
-        #Lily thinks her mom is embarassing and weird but Mom pulls rank.
+        #Lily thinks her mom is embarrassing and weird but Mom pulls rank.
         the_sister.char "Oh my god Mom, what are you wearing?"
         $ the_mom.draw_person(position = "back_peek")
         the_mom.char "What? It's the weekend and it's just the three of us. I didn't think anyone would mind if I was a little more casual."
@@ -4477,7 +4482,7 @@ label family_morning_breakfast_label():
                     "[the_sister.title] looks at the two of you like you're crazy then sighs dramatically."
                     the_sister.char "Fine, but this is really weird, okay?"
                     $ the_mom.draw_person(position = "sitting")
-                    "[the_mom.possessive_title] dishes out three portions and sits down at the table with you. [the_sister.title] eventaully gets use to her mothers outfit and joins in on your conversation."
+                    "[the_mom.possessive_title] dishes out three portions and sits down at the table with you. [the_sister.title] eventually gets used to her mothers outfit and joins in on your conversation."
                     $ the_sister.change_slut_temp(5)
                     $ the_mom.change_happiness(10)
 
@@ -4509,12 +4514,12 @@ label family_morning_breakfast_label():
             $ the_sister.change_slut_temp(5)
             $ the_mom.change_happiness(10)
             $ the_mom.draw_person(position = "sitting")
-            "[the_mom.possessive_title] gives everyone a plate and sits down. [the_sister.title] eventaully gets use to her mothers outfit and joins in on your conversation."
+            "[the_mom.possessive_title] gives everyone a plate and sits down. [the_sister.title] eventually gets used to her mothers outfit and joins in on your conversation."
             "When you're done you help Mom put the dirty dishes away and get on with your day."
 
 
     elif sis_slutty and not mom_slutty:
-        #MOm thinks lilly is way too underdressed and sends her back to get dressed.
+        #Mom thinks lilly is way too underdressed and sends her back to get dressed.
         $ the_sister.draw_person(position = "sitting")
         "Your mother turns around and gasps."
         $ the_mom.draw_person(emotion = "angry")
@@ -4576,4 +4581,122 @@ label family_morning_breakfast_label():
         del the_mom
         del the_sister
         renpy.scene("Active")
+    return
+
+init 1 python:
+    def so_relationship_improve_requirement():
+        for place in list_of_places:
+            for a_person in place.people:
+                if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Married":
+                    if not affair_role in a_person.special_role and not mother_role in a_person.special_role and not sister_role in a_person.special_role and not cousin_role in a_person.special_role and not aunt_role in a_person.special_role:
+                    # You have at least one person you know who is in a relationship. People you're having an affair never have it get better.
+                    # Your also family never forms relationships, because we do that through direct story stuff.
+                        return True
+        return False
+
+    def so_relationship_worsen_requirement():
+        for place in list_of_places:
+            for a_person in place.people:
+                if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Single":
+                    if not mother_role in a_person.special_role and not sister_role in a_person.special_role and not cousin_role in a_person.special_role and not aunt_role in a_person.special_role:
+                    # We only change thse relationships in events. If we can find anyone who meets the requirements the event can proceed.
+                        return True
+        return False
+
+    so_relationship_improve_crisis = Action("Friend SO relationship improve", so_relationship_improve_requirement, "so_relationship_improve_label")
+    crisis_list.append([so_relationship_improve_crisis, 3])
+
+    so_relationship_worsen_crisis = Action("Friend SO relationship worsen", so_relationship_worsen_requirement, "so_relationship_worsen_label")
+    crisis_list.append([so_relationship_worsen_crisis, 1])
+
+label so_relationship_improve_label():
+    $ potential_people = []
+    python:
+        for place in list_of_places:
+            for a_person in place.people:
+                if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Married":
+                    if not mother_role in a_person.special_role and not sister_role in a_person.special_role and not cousin_role in a_person.special_role and not aunt_role in a_person.special_role:
+                        potential_people.append(a_person)
+
+    $ the_person = get_random_from_list(potential_people)
+    if the_person is None:
+        return #Something's changed and there is no longer a valid person
+
+    if the_person.relationship == "Single":
+        $ the_person.change_happiness(10)
+        "You get a notification on your phone."
+        $ guy_name = get_random_male_name()
+        "[the_person.title] has just changed her status on social media. She's now in a relationship with someone named [guy_name]."
+        $ the_person.relationship = "Girlfriend"
+        $ the_person.SO_name = guy_name
+
+    elif the_person.relationship == "Girlfriend":
+        $ the_person.change_happiness(20)
+        if the_person.love > 30: #You're a good friend.
+            "You get a text from [the_person.title]."
+            the_person.char "Hey [the_person.mc_title], I have some exciting news!"
+            the_person.char "My boyfriend proposed, me and [the_person.SO_name] are getting married! I'm so excited, I just had to tell you!"
+            menu:
+                "Congratulate her.":
+                    "You text back."
+                    mc.name "Congratulations! I'm sure you're the happiest girl in the world."
+                    $ the_person.change_love(1)
+                    the_person.char "I am! I've got other people to tell now, talk to you later!"
+
+                "Warn her against it.":
+                    "You text back."
+                    mc.name "I don't know if that's such a good idea. Do you even know him that well?"
+                    "Her response is near instant."
+                    the_person.char "What? What do you even mean by that?"
+                    mc.name "I mean, what if he isn't who you think he is? Maybe he isn't the one for you."
+                    $ the_person.change_happiness(-10)
+                    the_person.char "I wasn't telling you because I wanted your opinion. If you can't be happy for me, you can at least be quiet."
+                    $ the_person.change_love(-5)
+                    "She seems pissed, so you take her advice and leave her alone."
+        else: #You see it on social media
+            "You get a notification on your phone."
+            "It seems [the_person.title] has gotten engaged to her boyfriend, [the_person.SO_name]. You take a moment to add your own well wishes to her social media pages."
+        $ the_person.relationship = "Fiancée"
+
+    elif the_person.relationship == "Fiancée":
+        #TODO: Add an event where you're invited to their wedding and fuck the bride.
+        "You get a notification on your phone."
+        "It seems [the_person.title]'s just had her wedding to her Fiancé, [the_person.SO_name]. You take a moment to add your congratulations to her wedding photo."
+        $ the_person.relationship = "Married"
+
+    $ potential_people = []
+    return
+
+
+
+label so_relationship_worsen_label():
+    $ potential_people = []
+    python:
+        for place in list_of_places:
+            for a_person in place.people:
+                if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Single":
+                    if not mother_role in a_person.special_role and not sister_role in a_person.special_role and not cousin_role in a_person.special_role and not aunt_role in a_person.special_role:
+                        potential_people.append(a_person)
+
+    $ the_person = get_random_from_list(potential_people)
+    if the_person is None:
+        return #Something's changed and there is no longer a valid person
+
+    $ so_title = SO_relationship_to_title(the_person.relationship)
+    if affair_role in the_person.special_role:
+        "You get a call from [the_person.title]. When you pick up she sounds tired, but happy."
+        the_person.char "Hey [the_person.mc_title], I've got some news. Me and my [so_title], [the_person.SO_name], had a fight. We aren't together any more."
+        the_person.char "We don't have to hide what's going on between us any more."
+        call transform_affair(the_person) from _call_transform_affair
+        mc.name "That's good news! I'm sure you'll want some rest, so we can talk more later. I love you."
+        $ the_person.change_love(5)
+        the_person.char "I love you too. Bye."
+
+    else:
+        $ the_person.change_happiness(-20)
+        "You get a notification on your phone."
+        "It looks like [the_person.title] has left her [so_title] and is single now."
+
+    $ the_person.relationship = "Single"
+    $ the_person.SO_name = None
     return
