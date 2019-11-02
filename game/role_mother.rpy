@@ -162,7 +162,7 @@ label mom_high_sluttiness_weekly_pay(the_person):
 
         "Have her suck you off. -$300" if mc.business.funds >= 300 and the_person.sluttiness >= 30:
             mc.name "Alright, I'll pay you to give me a blowjob."
-            if the_person.sex_record.get("Blowjobs",0) > 0 or the_person.sluttinss >= 60:
+            if the_person.sex_record.get("Blowjobs",0) > 0 or the_person.sluttiness >= 60:
                 the_person.char "If that's what you need."
                 "You pull out your wallet and count out her cash while [the_person.possessive_title] gets onto her knees in front of you."
                 $ the_person.draw_person(position = "blowjob")
