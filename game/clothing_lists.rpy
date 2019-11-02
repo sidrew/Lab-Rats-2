@@ -183,7 +183,7 @@ init -1:
         booty_shorts = Clothing("Booty Shorts", 2, True, True, "Booty_Shorts", False, False, 6, whiteness_adjustment = 0.25, contrast_adjustment = 1.1)
         pants_list.append(booty_shorts)
 
-        jean_hotpants = Clothing("Jean Hotpants", 2, True, True, "Jean_Hotpants", False, False, 4, whiteness_adjustment = 0.1)
+        jean_hotpants = Clothing("Denim Shorts", 2, True, True, "Jean_Hotpants", False, False, 4, whiteness_adjustment = 0.1)
         pants_list.append(jean_hotpants)
 
         daisy_dukes = Clothing("Daisy Dukes", 2, True, True, "Daisy_Dukes", False, False, 6)
@@ -219,27 +219,27 @@ init -1:
 
 
         ##Dresses
-        #TODO: Check if the extension or the main piece should have the whiteness adjusments etc.
+        #TODO: Check if the extension or the main piece should have the whiteness adjustments etc.
         dress_list = []
 
-        sweater_dress_bottom = Clothing("sweater dress", 2, True, False, "Sweater_Dress", False, False, 0, is_extension = True)
-        sweater_dress = Clothing("sweater dress", 2, True, True, "Sweater_Dress", True, False, 0, has_extension = sweater_dress_bottom, whiteness_adjustment = 0.2, contrast_adjustment = 1.2, supported_patterns = {"Two Toned":"Pattern_1", "Hearts":"Pattern_2"})
+        sweater_dress_bottom = Clothing("Sweater Dress", 2, True, False, "Sweater_Dress", False, False, 0, is_extension = True)
+        sweater_dress = Clothing("Sweater Dress", 2, True, True, "Sweater_Dress", True, False, 0, has_extension = sweater_dress_bottom, whiteness_adjustment = 0.2, contrast_adjustment = 1.2, supported_patterns = {"Two Toned":"Pattern_1", "Hearts":"Pattern_2"})
         dress_list.append(sweater_dress)
 
-        two_part_dress_bottom = Clothing("two part dress", 2, True, False, "Two_Piece_Dress", False, False, 0, is_extension = True)
-        two_part_dress = Clothing("two part dress", 2, True, True, "Two_Piece_Dress", True, False, 6, has_extension = two_part_dress_bottom)
+        two_part_dress_bottom = Clothing("Two Part Dress", 2, True, False, "Two_Piece_Dress", False, False, 0, is_extension = True)
+        two_part_dress = Clothing("Two Part Dress", 2, True, True, "Two_Piece_Dress", True, False, 6, has_extension = two_part_dress_bottom)
         dress_list.append(two_part_dress)
 
-        thin_dress_bottom = Clothing("thin dress", 2, False, False, "Thin_Dress", False, False, 0, is_extension = True)
-        thin_dress = Clothing("thin dress", 2, True, True, "Thin_Dress", True, False, 4, has_extension = thin_dress_bottom, whiteness_adjustment = 0.3, contrast_adjustment = 1.15)
+        thin_dress_bottom = Clothing("Thin Dress", 2, False, False, "Thin_Dress", False, False, 0, is_extension = True)
+        thin_dress = Clothing("Thin Dress", 2, True, True, "Thin_Dress", True, False, 4, has_extension = thin_dress_bottom, whiteness_adjustment = 0.3, contrast_adjustment = 1.15)
         dress_list.append(thin_dress)
 
-        summer_dress_bottom = Clothing("summer dress", 2, False, False, "Summer_Dress", False, False, 0, is_extension = True)
-        summer_dress = Clothing("summer dress", 2, False, False, "Summer_Dress", True, False, 0, has_extension = summer_dress_bottom, whiteness_adjustment = 0.1)
+        summer_dress_bottom = Clothing("Summer Dress", 2, False, False, "Summer_Dress", False, False, 0, is_extension = True)
+        summer_dress = Clothing("Summer Dress", 2, False, False, "Summer_Dress", True, False, 0, has_extension = summer_dress_bottom, whiteness_adjustment = 0.1)
         dress_list.append(summer_dress)
 
-        evening_dress_bottom = Clothing("evening dress", 2, False, False, "Evening_Dress", False, False, 0, is_extension = True)
-        evening_dress = Clothing("evening dress", 2, False, False, "Evening_Dress", True, False, 2, has_extension = evening_dress_bottom, whiteness_adjustment = 0.4)
+        evening_dress_bottom = Clothing("Evening Dress", 2, False, False, "Evening_Dress", False, False, 0, is_extension = True)
+        evening_dress = Clothing("Evening Dress", 2, False, False, "Evening_Dress", True, False, 2, has_extension = evening_dress_bottom, whiteness_adjustment = 0.4)
         dress_list.append(evening_dress)
 
         leotard_bottom = Clothing("Leotard", 2, True, True, "Leotard", False, False, 0, is_extension = True)
@@ -254,12 +254,12 @@ init -1:
         bath_robe = Clothing("Bathrobe", 2, False, True, "Bath_Robe", True, True, 1, has_extension = bath_robe_bottom, supported_patterns = {"Flowers":"Pattern_1"})
         dress_list.append(bath_robe)
 
-        lacy_one_piece_underwear_bottom = Clothing("lacy one piece", 1, True, True, "Lacy_One_Piece_Underwear", False, True, 0, is_extension = True)
-        lacy_one_piece_underwear = Clothing("lacy one piece", 1, True, True, "Lacy_One_Piece_Underwear", True, True, 4, tucked = True, has_extension = lacy_one_piece_underwear_bottom, whiteness_adjustment = 0.2)
+        lacy_one_piece_underwear_bottom = Clothing("Lacey One Piece", 1, True, True, "Lacy_One_Piece_Underwear", False, True, 0, is_extension = True)
+        lacy_one_piece_underwear = Clothing("Lacey One Piece", 1, True, True, "Lacy_One_Piece_Underwear", True, True, 4, tucked = True, has_extension = lacy_one_piece_underwear_bottom, whiteness_adjustment = 0.2)
         dress_list.append(lacy_one_piece_underwear)
 
-        lingerie_one_piece_bottom = Clothing("lingerie one piece", 1, True, True, "Lingerie_One_Piece", False, True, 0, is_extension = True)
-        lingerie_one_piece = Clothing("lingerie one piece", 1, True, True, "Lingerie_One_Piece", True, True, 8, tucked = True, has_extension = lingerie_one_piece_bottom, supported_patterns = {"Flowers":"Pattern_1"})
+        lingerie_one_piece_bottom = Clothing("Lingerie One Piece", 1, True, True, "Lingerie_One_Piece", False, True, 0, is_extension = True)
+        lingerie_one_piece = Clothing("Lingerie One Piece", 1, True, True, "Lingerie_One_Piece", True, True, 8, tucked = True, has_extension = lingerie_one_piece_bottom, supported_patterns = {"Flowers":"Pattern_1"})
         dress_list.append(lingerie_one_piece)
 
         towel_bottom = Clothing("Towel", 1, True, True, "Towel", False, False, 0, is_extension = True)
@@ -273,7 +273,7 @@ init -1:
         ##Shirts
         shirts_list = []
 
-        tshirt = Clothing("Tshirt", 2, True, True, "Tshirt", True, False, 1, whiteness_adjustment = 0.35, supported_patterns = {"Striped":"Pattern_2"})
+        tshirt = Clothing("Cropped T-Shirt", 2, True, True, "Tshirt", True, False, 1, whiteness_adjustment = 0.35, supported_patterns = {"Striped":"Pattern_2"})
         shirts_list.append(tshirt)
 
         lace_sweater = Clothing("Lace Sweater", 2, True, True, "Lace_Sweater", True, False, 2, opacity_adjustment = 1.08, whiteness_adjustment = 0.18)
@@ -285,7 +285,7 @@ init -1:
         sleeveless_top = Clothing ("Sleeveless Top", 2, True, True, "Sleveless_Top", True, False, 0, tucked = True)
         shirts_list.append(sleeveless_top)
 
-        long_tshirt = Clothing("Long Tshirt", 2, True, True, "Long_Tshirt", True, False, 0, whiteness_adjustment = 0.25, supported_patterns = {"Two Toned":"Pattern_1"})
+        long_tshirt = Clothing("Long T-shirt", 2, True, True, "Long_Tshirt", True, False, 0, whiteness_adjustment = 0.25, supported_patterns = {"Two Toned":"Pattern_1"})
         shirts_list.append(long_tshirt)
 
         sweater = Clothing("Sweater", 2, True, True, "Sweater", True, False, 1, whiteness_adjustment = 0.1)
@@ -297,7 +297,7 @@ init -1:
         lace_crop_top = Clothing("Lace Crop Top", 2, True, True, "Lace_Crop_Top", True, False, 2, whiteness_adjustment = 0.1, contrast_adjustment = 1.1)
         shirts_list.append(lace_crop_top)
 
-        tanktop = Clothing("Tanktop", 2, True, True, "Tanktop", True, False, 3)
+        tanktop = Clothing("Tank Top", 2, True, True, "Tanktop", True, False, 3)
         shirts_list.append(tanktop)
 
         camisole = Clothing("Camisole", 2, True, True, "Camisole", True, False, 1, whiteness_adjustment = 0.2, supported_patterns = {"Two Toned":"Pattern_1"})
