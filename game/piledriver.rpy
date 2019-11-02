@@ -18,7 +18,7 @@ label intro_piledriver(the_girl, the_location, the_object, the_round):
     mc.name "[the_girl.title], I want you to lie down for me."
     "[the_girl.possessive_title] nods, glancing briefly at the bulge in your pants. She gets onto the [the_object.name] and waits for you."
     the_girl.char "How's this?"
-    "You get your hard cock out and kneel down in front of her. She yelps in suprise when you grab her ankles and bring them up and over her waist."
+    "You get your hard cock out and kneel down in front of her. She yelps in surprise when you grab her ankles and bring them up and over her waist."
     mc.name "There we go, this will be even better."
     "You rub the tip of your cock against her clit a few times, then press forward and slide yourself inside of her."
     $the_girl.call_dialogue("sex_responses_vaginal")
@@ -63,7 +63,7 @@ label scene_piledriver_1(the_girl, the_location, the_object, the_round):
                     if the_girl.arousal < 50:
                         "Her pussy is tight around your cock, but she's still getting wet. You slow down again to give her some more time."
                         the_girl.char "I wasn't ready for how... deep you would be going."
-                        "You push her ankles to the side, spreading her legs so you have a great look of her pussy impailed by your cock. You take a few slow thrusts and listen to her moan."
+                        "You push her ankles to the side, spreading her legs so you have a great look of her pussy impaled by your cock. You take a few slow thrusts and listen to her moan."
                         "After a few moments she nods up at you."
                         the_girl.char "Okay, I think I'm ready. Take it slow, please."
                         "You pump your hips again, slowly this time, and soon [the_girl.possessive_title] is enjoying being fucked again."
@@ -144,8 +144,8 @@ label scene_piledriver_2(the_girl, the_location, the_object, the_round):
                 if the_girl.outfit.tits_available():
                     "You reach down between [the_girl.title]'s legs with one hand to grab onto one of her tits. It's soft and weighty in your hand."
                     "You give her tit a squeeze and she moans in pleasure. After a few seconds you feel her nipple getting hard."
-                    the_girl.char "Be gentle with them, they're sensative."
-                    "You play with [the_girl.possessive_title]'s nice big tits for a few seconds. When you're done with that you shift yoru focus back to pounding her tight pussy."
+                    the_girl.char "Be gentle with them, they're sensitive."
+                    "You play with [the_girl.possessive_title]'s nice big tits for a few seconds. When you're done with that you shift your focus back to pounding her tight pussy."
 
                 else:
                     $top_clothing = the_girl.outfit.get_upper_ordered()[-1]
@@ -157,7 +157,7 @@ label scene_piledriver_2(the_girl, the_location, the_object, the_round):
             else:
                 if the_girl.outfit.tits_available():
                     "You reach down between [the_girl.title]'s legs with one hand and grab onto one of her small tits. It's nice and perky, bouncing around when you play with it."
-                    "After a little stimulation her nipples get hard. You pinch them with between your thumb and fore finger, making her squeek."
+                    "After a little stimulation her nipples get hard. You pinch them with between your thumb and fore finger, making her squeak."
                     the_girl.char "Ah! Easy, those are sensitive you know."
                     "You play with [the_girl.possessive_title]'s cute tits for a little while longer, then shift your focus back to pounding her tight pussy."
 

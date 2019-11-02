@@ -3348,7 +3348,7 @@ label bimbo_sex_end_early(the_person):
     if the_person.sluttiness > 50:
         if the_person.love > 40:
             if the_person.arousal > 60:
-                the_person.char "Aww sweety, I was just getting close to cumming and you're done?!"
+                the_person.char "Aww darling, I was just getting close to cumming and you're done?!"
             else:
                 the_person.char "That's all? Aww, I hope you had a good time with me..."
         else:
@@ -3841,9 +3841,9 @@ label lily_date_seduction(the_person):
 label mom_greetings(the_person):
     if the_person.obedience > 130:
         if the_person.sluttiness > 60:
-            the_person.char "Hello sweetheart. Is there anything your mother can take care of for you?"
+            the_person.char "Hello [the_person.mc_title]. Is there anything your mother can take care of for you?"
         else:
-            the_person.char "Hello sweetheart. I hope everything is going well, if there's anything I can help with let me know."
+            the_person.char "Hello [the_person.mc_title]. I hope everything is going well, if there's anything I can help with let me know."
     else:
         if the_person.sluttiness > 60:
             the_person.char "Hello [the_person.mc_title], how has your day been? I was... well, I was thinking about you, that's all."
@@ -4033,14 +4033,14 @@ label mom_cum_mouth(the_person):
 label mom_cum_vagina(the_person):
     if mc.condom:
         if the_person.sluttiness > 75 or the_person.get_opinion_score("creampies") > 0:
-            the_person.char "Give me your cum sweetheart! I don't care if the condom works, I want to feel your seed in me!"
+            the_person.char "Give me your cum [the_person.mc_title]! I don't care if the condom works, I want to feel your seed in me!"
         else:
-            the_person.char "Pump it out into that condom sweetheart, it's perfectly fine to cum in me as long as it's on!"
+            the_person.char "Pump it out into that condom [the_person.mc_title], it's perfectly fine to cum in me as long as it's on!"
     elif the_person.sluttiness > 75 or the_person.get_opinion_score("creampies") > 0:
             the_person.char "Give mommy your cum, I want every last drop inside of me! Try and get mommy pregnant!"
 
     else:
-        the_person.char "Oh sweety, you can't cum inside of me! You're so young and virile, it wouldn't take much to get mommy pregnant."
+        the_person.char "Oh [the_person.mc_title], you can't cum inside of me! You're so young and virile, it wouldn't take much to get mommy pregnant."
 
     return
 
@@ -4180,7 +4180,7 @@ label mom_climax_responses_vaginal(the_person):
         "She closes her eyes as she tenses up. She freezes for a long second, then lets out a long, slow breath."
     else:
         the_person.char "Oh god, I shouldn't be... I shouldn't be feeling like this..."
-        the_person.char "I'm going to cum sweetheart, you're about to make mommy cum! Ah!"
+        the_person.char "I'm going to cum [the_person.mc_title], you're about to make mommy cum! Ah!"
     return
 
 label mom_climax_responses_anal(the_person):

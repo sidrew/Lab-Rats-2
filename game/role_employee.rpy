@@ -79,7 +79,7 @@ label employee_pay_cash_bonus(the_person):
             if change_amount < 0:
                 $ change_amount = 0
             $ the_person.change_happiness(change_amount)
-            "[the_person.title] looks visibly disapointed."
+            "[the_person.title] looks visibly disappointed."
             the_person.char "Right, of course."
 
         "Give her a days wages. -$[the_person.salary]" if mc.business.funds >= the_person.salary:
@@ -137,7 +137,7 @@ label employee_performance_review(the_person):
     $ office.show_background()
     $ mc.location.move_person(the_person, office)
 
-    "You lead [the_person.title] into your office and close the door behing her. You take your seat at your desk and motion to a chair opposite you."
+    "You lead [the_person.title] into your office and close the door behind her. You take your seat at your desk and motion to a chair opposite you."
     $ the_person.draw_person(position = "sitting")
     mc.name "So [the_person.title], tell me what you think about your job."
 
@@ -191,7 +191,7 @@ label employee_performance_review(the_person):
                     call fuck_person(the_person,private = True) from _call_fuck_person_11
                     $ the_person.clear_situational_slut("seduction_approach")
                     $ the_person.clear_situational_obedience("seduction_approach")
-                    if the_person.arousal >= 100: #We made her cum! Congradulations!
+                    if the_person.arousal >= 100: #We made her cum! Congratulations!
                         $ the_person.change_happiness(20)
                         $ the_person.change_slut_temp(5)
                         $ the_person.change_love(2)
@@ -315,7 +315,7 @@ label employee_performance_review(the_person):
                     call fuck_person(the_person,private = True) from _call_fuck_person_13
                     $ the_person.clear_situational_slut("seduction_approach")
                     $ the_person.clear_situational_obedience("seduction_approach")
-                    if the_person.arousal >= 100: #We made her cum! Congradulations!
+                    if the_person.arousal >= 100: #We made her cum! Congratulations!
                         $ the_person.change_happiness(5)
                         $ the_person.change_obedience(-10)
                         the_person.char "You just can't resist pleasing me, can you [the_person.mc_title]? I thought I wasn't suppose to cum?"

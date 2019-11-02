@@ -40,7 +40,7 @@ init -1:
 label instantiate_side_effect_traits(): #Creates all of the default LR2 serum trait objects.
     python:
         depressant_side_effect = SerumTrait(name = "Depressant",
-            desc = "An unintended interaction produces a sudden and noticable drop in the recipients mood without any corresponding improvement when the serum expires.",
+            desc = "An unintended interaction produces a sudden and noticeable drop in the recipients mood without any corresponding improvement when the serum expires.",
             positive_slug = "None",
             negative_slug = "-20 Happiness When Applied, -$5 Value",
             value_added = -5,
@@ -62,7 +62,7 @@ label instantiate_side_effect_traits(): #Creates all of the default LR2 serum tr
             is_side_effect = True)
 
         unstable_reaction = SerumTrait(name = "Unstable Reaction",
-            desc = "The reaction used to create this serum was less stable than initialy hypothesised. Reduces serum duration by two turns.",
+            desc = "The reaction used to create this serum was less stable than initially hypothesized. Reduces serum duration by two turns.",
             positive_slug = "None",
             negative_slug = "-2 Turn Duration, -$5 Value",
             value_added = -5,

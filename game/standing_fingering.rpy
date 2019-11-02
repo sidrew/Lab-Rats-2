@@ -16,7 +16,7 @@ init 1:
         standing_finger.link_positions(standing_grope,"transition_standing_fingering_standing_grope")
 
 label intro_standing_finger(the_girl, the_location, the_object, the_round):
-    "You stand behind [the_girl.title] and put yoru arms around her, pulling her close against you."
+    "You stand behind [the_girl.title] and put your arms around her, pulling her close against you."
     if the_girl.outfit.vagina_available():
         "You don't waste any time pushing your hand between her legs, teasing her cute, exposed pussy with your fingers."
         "She moans quietly as you slide two fingers inside of her wet hole."
@@ -73,7 +73,7 @@ label outro_standing_finger(the_girl, the_location, the_object, the_round):
         "It takes both of you a moment to recover from your orgasms."
     else:
         "Feeling [the_girl.title]'s hot, tight pussy squeezing your fingers is enough to push you that little bit further, past the point of no return."
-        "You grasp her tightly with your free hand as you cum, shoving your fingers deep into her cunt and making her gasp in suprise."
+        "You grasp her tightly with your free hand as you cum, shoving your fingers deep into her cunt and making her gasp in surprise."
         "When you've recovered you recover you slide them out."
         the_girl.char "Did you just... Cum?"
         mc.name "Yeah."
@@ -88,7 +88,7 @@ label transition_standing_fingering_standing_grope(the_girl, the_location, the_o
         "She moans and takes hold of your hand, bringing it up to her mouth. She slides your fingers, fresh from her cunt, into her mouth."
         "Her tongue wraps around them as she sucks gently on your fingers. She works her hips, grinding your erection against her ass."
     else:
-        "She moans and works her hips back against you, grinding your ereciton against her ass."
+        "She moans and works her hips back against you, grinding your erection against her ass."
     return
 
 label transition_default_standing_finger(the_girl, the_location, the_object, the_round):

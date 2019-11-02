@@ -218,16 +218,16 @@ init -1:
                 the_person.change_slut_core(amount, add_to_log)
 
         def nora_reward_genius_trait_on_apply(the_person, add_to_log):
-            the_person.charisma = 5
-            the_person.int = 5
-            the_person.focus = 5
+            the_person.charisma = 7
+            the_person.int = 7
+            the_person.focus = 7
 
 
 label instantiate_serum_traits(): #Creates all of the default LR2 serum trait objects.
     python:
 
         #####
-        # Serum Trait template. Copy and paste this, fill in the fields that are requried and add it to the list_of_traits list to add a serum trait to LR2.
+        # Serum Trait template. Copy and paste this, fill in the fields that are required and add it to the list_of_traits list to add a serum trait to LR2.
         #####
         #
         # the_serum = SerumTrait(name = "serum name",
@@ -293,7 +293,7 @@ label instantiate_serum_traits(): #Creates all of the default LR2 serum trait ob
             research_needed = 200)
 
         suggestion_drugs_trait = SerumTrait(name = "Suggestion Drugs",
-            desc = "Carefully selected mind altering agents amplify the preexisting effects of the serum, making the recipient more vulnurable to behavioural changes.",
+            desc = "Carefully selected mind altering agents amplify the preexisting effects of the serum, making the recipient more vulnerable to behavioral changes.",
             positive_slug = "+$15 Value, +10 Suggestibility",
             negative_slug = "+50 Serum Research.",
             value_added = 15,
@@ -391,8 +391,8 @@ label instantiate_serum_traits(): #Creates all of the default LR2 serum trait ob
             tier = 1,
             research_needed = 350)
 
-        aphrodisiac = SerumTrait(name = "Distilled Aprodisac",
-            desc = "Careful distilation can concentrate the active ingredient from common aprodisiacs, producing a sudden spike in sluttiness when consumed. The sexual frustration linked to this effect tends to make the recipient less obedient over time as well.",
+        aphrodisiac = SerumTrait(name = "Distilled Aphrodisiac",
+            desc = "Careful distillation can concentrate the active ingredient from common aphrodisiacs, producing a sudden spike in sluttiness when consumed. The sexual frustration linked to this effect tends to make the recipient less obedient over time as well.",
             positive_slug = "+$20 Value, +15 Sluttiness",
             negative_slug = "-2 Obedience/Turn, +60 Serum Research",
             value_added = 20,
@@ -408,7 +408,7 @@ label instantiate_serum_traits(): #Creates all of the default LR2 serum trait ob
         love_potion = SerumTrait(name = "Love Potion",
             desc = "A carefully balanced combination of chemicals can replicate the brains response to loved ones. Produces an immediate but temporary feeling of love. This trait is particularly prone to introducing side effects.",
             positive_slug = "+$20 Value, +20 Love",
-            negative_slug = "+75 Seum Research",
+            negative_slug = "+75 Serum Research",
             value_added = 20,
             research_added = 75,
             base_side_effect_chance = 75,
@@ -582,7 +582,7 @@ label instantiate_serum_traits(): #Creates all of the default LR2 serum trait ob
         # Tier 3 traits produce large effects at a cost or moderate ones for free.
 
         futuristic_serum_prod = SerumTrait(name = "Futuristic Serum Production",
-            desc = "Space age technology makes the serum incredibly versitle. Adds seven serum trait slots at an increased production cost.",
+            desc = "Space age technology makes the serum incredibly versatile. Adds seven serum trait slots at an increased production cost.",
             positive_slug = "7 Trait Slots, 3 Turn Duration, $2 Value",
             negative_slug = "+500 Serum Research, 135 Production/Batch",
             value_added = 2,
@@ -715,7 +715,7 @@ label instantiate_serum_traits(): #Creates all of the default LR2 serum trait ob
             start_researched = False,
             research_needed = 750)
 
-        nora_reward_aunt_trait = SerumTrait(name = "Auntly Potential",
+        nora_reward_aunt_trait = SerumTrait(name = "Aunty Potential",
             desc = "A special serum trait developed by Nora after studying your aunt. Increases the number of traits a serum design may contain by 2.",
             positive_slug = "+2 Extra Trait Slots",
             negative_slug = "+300 Serum Research",
@@ -790,8 +790,8 @@ label instantiate_serum_traits(): #Creates all of the default LR2 serum trait ob
             research_needed = 750)
 
         nora_reward_genius_trait = SerumTrait(name = "Natural Talent",
-            desc = "A special serum trait developed by Nora after studying someone who was a genius. Instantly and permanetly sets the recipients Intelligence, Charisma, and Focus to 5.",
-            positive_slug = "Sets Charisma, Intelligence, Focus to 5, +$50 Value",
+            desc = "A special serum trait developed by Nora after studying someone who was a genius. Instantly and permanently sets the recipients Intelligence, Charisma, and Focus to 7.",
+            positive_slug = "Sets Charisma, Intelligence, Focus to 7, +$50 Value",
             negative_slug = "+1000 Serum Research",
             value_added = 50,
             research_added = 1000,

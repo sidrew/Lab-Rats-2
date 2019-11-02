@@ -27,7 +27,7 @@ label ask_break_up_label(the_person):
 
     mc.name "There's no easy way to say this, so I'll just say it: I think we should break up."
     $ the_person.draw_person(emotion = "sad")
-    #TODO: Add a varient whre you've passed below the girlfriend threshold and she feels the same way.
+    #TODO: Add a variant where you've passed below the girlfriend threshold and she feels the same way.
 
     $ the_person.change_happiness(-(the_person.love - 40)) #TODO: Double check this vs. the girlfriend love threshold.
     "She seems to be in shock for a long moment, before slowly nodding her head."
@@ -38,7 +38,7 @@ label ask_break_up_label(the_person):
     return
 
 label ask_be_girlfriend_label(the_person):
-    #Requires high love, if successful she becomes your girlfriend (which unlocks many other options). Requires high lvoe and her not being in a relationship.
+    #Requires high love, if successful she becomes your girlfriend (which unlocks many other options). Requires high love and her not being in a relationship.
     #Hide this event at low love, show it when it at it's lowest love possibility and let it fail out for specific reasons (thus informing the player WHY it failed out).
 
     mc.name "[the_person.title], can I talk to you about something important?"
@@ -97,7 +97,7 @@ label ask_be_girlfriend_label(the_person):
 
 
     elif any(relationship in [sister_role,mother_role,aunt_role,cousin_role] for relationship in the_person.special_role):
-        # She's related to you, so she won't do it. Note that we aren't using has_family_taboo(), which would allow for a postiive incest opinion to allow this.
+        # She's related to you, so she won't do it. Note that we aren't using has_family_taboo(), which would allow for a positive incest opinion to allow this.
         # Future events will let you make this happen somehow (and in that case an incest opinion will make those events easier/trigger earlier, so training a girl makes sense).
         if sister_role in the_person.special_role:
             the_person.char "I love you like a brother... but just as a brother, you know?"
@@ -120,7 +120,7 @@ label ask_be_girlfriend_label(the_person):
             the_person.char "So yeah, that's going to be a no from me."
 
     else:
-        # She agrees, you're now in a relationship! Congradulations!
+        # She agrees, you're now in a relationship! Congratulations!
         $ the_person.draw_person(emotion = "happy")
         $ the_person.change_happiness(15)
         $ the_person.change_love(5)

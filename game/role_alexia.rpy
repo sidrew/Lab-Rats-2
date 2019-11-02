@@ -163,7 +163,7 @@ label alexia_intro_phase_two_label(the_person):
     $ the_person.draw_person(position = "sitting")
     the_person.char "I think I remembered how you like your coffee. Do you remember all the afternoons we spent together, just hanging out and having coffee together?"
     mc.name "Of course, they're some of my best memories. I just wish we had stayed in touch, what happened to you?"
-    "She looks out the window and swirles her coffee cup with one hand."
+    "She looks out the window and swirls her coffee cup with one hand."
     the_person.char "Something about that summer was just confusing. I didn't know what I wanted to do, but biology wasn't it any more."
     the_person.char "So I didn't come back for my last year. I did some traveling, a lot of thinking, and now I'm back here."
     "You sip at your coffee and listen to [the_person.possessive_title] talk."
@@ -223,7 +223,7 @@ label alexia_intro_phase_two_label(the_person):
             mc.name "Oh, [the_person.title] didn't even mention she was seeing anyone until now."
             $ the_person.change_love(-1)
             $ the_person.change_obedience(1)
-            the_person.char "Sorry sweety, we got talking about [the_person.mc_title]'s work and it never came up."
+            the_person.char "Sorry honey, we got talking about [the_person.mc_title]'s work and it never came up."
             "She glares at you for a moment, but [the_person.SO_name] doesn't seem to notice."
             the_person.SO_name "Well we'll have to fix that. If you two are friends we should have dinner together, so you can catch up."
 
@@ -341,7 +341,7 @@ label alexia_ad_suggest_label(the_person):
     return
 
 label alexia_ad_suggest_reintro_label(the_person):
-    mc.name "[the_person.title], I want you to order in whatever camera equipment you think is best for your ad photoshoot."
+    mc.name "[the_person.title], I want you to order in whatever camera equipment you think is best for your ad photo shoot."
     the_person.char "Okay. I'll get right on that and order it A.S.A.P!"
     mc.name "Send me any receipts and I'll cover the cost."
     $ mc.business.funds += -500
@@ -362,11 +362,11 @@ label alexia_ad_camera_label(the_person):
 
 label alexia_photography_intro_label(the_person):
     # You shoot your business cards. Results in a minor (%1) boost in sales values and gives you an opportunity to tell Alexia to pose for you.
-    mc.name "Are you ready for our photoshoot?"
+    mc.name "Are you ready for our photo shoot?"
     the_person.char "As ready as I'll ever be I suppose. I found a good spot in the storage room, plenty of light and a blank wall."
     mc.name "Excellent. Let's go."
     # TODO: Change location? Just change background art?
-    "You and [the_person.possessive_title] go to the stoarge room. Once you get there she hands you the new camera."
+    "You and [the_person.possessive_title] go to the storage room. Once you get there she hands you the new camera."
 
     the_person.char "Here you go [the_person.mc_title]. How do you want to do this?"
     mc.name "Let's start with some basic shots of you. Just act natural and look into the camera."

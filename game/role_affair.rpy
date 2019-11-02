@@ -4,8 +4,8 @@ init -1 python:
     def so_morning_breakup_requirement(the_person):
         return True #ALways valid for now.
 
-    def leave_SO_love_calculation(the_person): #Standalone calculation so we can use these values in multiple dfferent events
-        love_required = 80 - (the_person.get_opinion_score("cheating on men") * 10) #This should never be lower than the love reuqirement for her being your girlfriend.
+    def leave_SO_love_calculation(the_person): #Standalone calculation so we can use these values in multiple different events
+        love_required = 80 - (the_person.get_opinion_score("cheating on men") * 10) #This should never be lower than the love requirement for her being your girlfriend.
         if the_person.relationship == "Fiancée":
             love_required += 10
         elif the_person.relationship == "Married":
@@ -82,7 +82,7 @@ label plan_fuck_date_label(the_person):
 
 label fuck_date_label(the_person):
     #You go to her home and fuck her as much as your stamina can support. Small chance her SO either calls or walks in.
-    # Occures at night. You go to her place.
+    # Occurs at night. You go to her place.
 
     $ mc.business.event_triggers_dict["date_scheduled"] = False #Deflag this event so you can schedule a date with another person for next week.
     if the_person.relationship == "Single":
@@ -113,8 +113,8 @@ label fuck_date_label(the_person):
     mc.name "I'm here. Are you ready?"
     the_person.char "Come on in, the door is unlocked. I'm in the bedroom"
     $ mc.location.show_background()
-    "You go inside. All of the lights are off, except for one roomthat has it's door cracked open. When you swing it open you see [the_person.title] waiting."
-    $ the_person.add_situational_slut("Date", 20, "There's no reason to hold back, he's here to fuck me!") # Bonus to sluttiness since you're in an affair and this is blatently a date to get fucked on.
+    "You go inside. All of the lights are off, except for one room that has it's door cracked open. When you swing it open you see [the_person.title] waiting."
+    $ the_person.add_situational_slut("Date", 20, "There's no reason to hold back, he's here to fuck me!") # Bonus to sluttiness since you're in an affair and this is blatantly a date to get fucked on.
     #Figure out her outfit for this
     if the_person.get_opinion_score("not wearing anything") > the_person.get_opinion_score("lingerie"):
         #She's wearing nothing at all. nothing at all. nothing at all...
@@ -123,7 +123,7 @@ label fuck_date_label(the_person):
         #She's just wearing lingerie for the evening.
         $ the_person.outfit = lingerie_wardrobe.get_random_appropriate_outfit(the_person.sluttiness + 20, 0 + (the_person.sluttiness/2), guarantee_output = True) #She picks an outfit with a minimum of half and max of slut+20 for her lingerie.
     else:
-        #She picks a slutty outfit, but nothing truely "special".
+        #She picks a slutty outfit, but nothing truly "special".
         $ the_person.outfit = the_person.wardrobe.decide_on_outfit(the_person.sluttiness, 0)
 
 
@@ -207,7 +207,7 @@ label fuck_date_label(the_person):
                                 else:
                                     "Without many options you rush to her closet. You force your way past coats and dresses, pressing yourself to the very back."
                                     "You pull the flimsy closet doors closed behind you, peering nervously through the crack left between them."
-                                    "[the_eprson.title] lies down on her bed and waits. You both listen as her [so_title] opens the front door, then walk through the house towards you."
+                                    "[the_person.title] lies down on her bed and waits. You both listen as her [so_title] opens the front door, then walk through the house towards you."
                                     $ hiding_under_bed = False
 
                                 "The door to the bedroom opens."
@@ -222,7 +222,7 @@ label fuck_date_label(the_person):
                                     else:
                                         "You watch her [so_title] slide onto the bed beside her and run a hand from her shoulder down her arm."
                                     the_person.SO_name "I'm so lucky you were going to wait for me like this. Now we have all night to spend with each other."
-                                    the_person.char "Yes... Of course! Of course, I knew you would be late but I wanted to suprise you when you got home!"
+                                    the_person.char "Yes... Of course! Of course, I knew you would be late but I wanted to surprise you when you got home!"
 
                                     if hiding_under_bed:
                                         "You hear [the_person.title]'s [so_title] kissing her above you. Soon enough you feel them shift and the bed begins to rise and sink rhythmically."
@@ -301,14 +301,14 @@ label fuck_date_label(the_person):
                                 "You don't waste any time, ramming your cock home. [the_person.title] gasps as you bottom out inside her warm cunt, then start to pump back and forth."
                                 "You hear [the_person.title]'s [so_title] come inside and close the door."
                                 the_person.SO_name "I'm home! Good news, the client pushed the project back so I'll be out late less often!"
-                                the_person.char "Oh god... I odn't know if we should do this... Oh god."
+                                the_person.char "Oh god... I don't know if we should do this... Oh god."
                                 "You place a hand on her shoulder and push her into the bed. She rolls her hips up against you, her body enjoying itself despite her moral dilemma."
                                 mc.name "Shh, it's going to be okay. Just do what you know is right."
                                 "She moans into the bed. You can hear her [so_title] approaching the bedroom and speed up."
                                 "The bedroom door opens and [the_person.title] glances up at it."
                                 the_person.SO_name "Are you in here sweetheart... Oh my..."
                                 the_person.char "I'm so sorry, you weren't suppose to see me like this! Oh my god I'm so sorry!"
-                                "Her [so_title] freezes in the door, eyes wide, transfixed by what he's seeing. [the_person.titl] lifts herself up onto her arms."
+                                "Her [so_title] freezes in the door, eyes wide, transfixed by what he's seeing. [the_person.title] lifts herself up onto her arms."
                                 the_person.char "I'm sorry, but he just makes me feel so good! His cock drives me mad and it's all I can think about!"
                                 "You hold onto her hips and fuck her from behind. Her [so_title] just stares."
                                 mc.name "You should go, there's nothing for you here."
@@ -416,7 +416,7 @@ label fuck_date_label(the_person):
                                 $ wanted_condom = False
                                 if the_person.effective_sluttiness() < the_person.get_no_condom_threshold():
                                     $ wanted_condom = True
-                                    "She pauses and points towards your cock and mouthes \"C-O-N-D-O-M\""
+                                    "She pauses and points towards your cock and mouthing \"C-O-N-D-O-M\""
                                 else:
                                     "She reaches down with her free hand and strokes your hard cock, sliding the tip against her wet slit."
 
@@ -511,7 +511,7 @@ label so_morning_breakup(the_person): #Used as a mandatory event after a girls S
     return
 
 label caught_affair_cheating_label(the_other_girl, the_girlfriend):
-    #TODO: She confronts you about being with another owman. You point out that she's ALSO with another guy. She asks you to tone it down a bit, she wants to be your main thing.
+    #TODO: She confronts you about being with another woman. You point out that she's ALSO with another guy. She asks you to tone it down a bit, she wants to be your main thing.
     # OR, if you lose enough Love, she ends the affair.
 
     if affair_role not in the_girlfriend.special_role:

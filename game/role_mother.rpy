@@ -57,7 +57,7 @@ label mom_low_sluttiness_weekly_pay(the_person):
             $ the_person.change_happiness(-5)
             $ the_person.change_love(-1)
             $ the_person.draw_person(position = "sitting", emotion = "sad")
-            the_person.char "Okay swetheart, I understand. I'll talk with Lily and let her know that we have to cut back on non essentials."
+            the_person.char "Okay sweetheart, I understand. I'll talk with Lily and let her know that we have to cut back on non essentials."
 
         "Help out.\n{size=22}-$100{/size}" if mc.business.funds >= 100:
             "You pull out your wallet and count out some cash, but hesitate before you hand it over."
@@ -190,7 +190,7 @@ label mom_high_sluttiness_weekly_pay(the_person):
                 mc.name "I didn't know you were going to enjoy that so much. Maybe you should be paying me next time."
                 the_person.char "Ah... I hope we can come to some sort of deal... Ah... In the future..."
             else:
-                "You pull your pants up while [the_person.possessive_title] gets off of her kness and cleans herself up."
+                "You pull your pants up while [the_person.possessive_title] gets off of her knees and cleans herself up."
             $ the_person.reset_arousal()
             $ the_person.review_outfit()
             $ the_person.change_obedience(4)

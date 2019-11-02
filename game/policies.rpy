@@ -71,7 +71,7 @@ init 1300 python:
             return False
 
     minimal_coverage_uniform_policy = Policy(name = "Minimal Coverage Corporate Uniforms",
-        desc = "Corporate dress code is broadened further. Uniforms must now only meet a \"minumum coverage\" requirement, generally nothing more than a set of bra and panties. Full uniforms can have a sluttiness score of 60, underwear sets can go up to 15.",
+        desc = "Corporate dress code is broadened further. Uniforms must now only meet a \"minimum coverage\" requirement, generally nothing more than a set of bra and panties. Full uniforms can have a sluttiness score of 60, underwear sets can go up to 15.",
         cost = 10000,
         requirement = minimal_coverage_uniform_policy_requirement)
 
@@ -136,7 +136,7 @@ init 1300 python:
             return False
 
     mandatory_unpaid_serum_testing_policy = Policy(name = "Mandatory Unpaid Serum Testing",
-        desc = "Updates to your employe contracts will remove the requirement for compensation when they are asked to test serums.",
+        desc = "Updates to your employee contracts will remove the requirement for compensation when they are asked to test serums.",
         cost = 2000,
         requirement = mandatory_unpaid_serum_testing_policy_requirement)
 
@@ -149,7 +149,7 @@ init 1300 python:
             return False
 
     daily_serum_dosage_policy = Policy(name = "Daily Serum Dosage",
-        desc = "Mandatory serum testing is expanded into a full scale daily dosage program. Each employee will recieve a dose of the selected serum for their department, if one is currently in the stockpile.",
+        desc = "Mandatory serum testing is expanded into a full scale daily dosage program. Each employee will receive a dose of the selected serum for their department, if one is currently in the stockpile.",
         cost = 5000,
         requirement = daily_serum_dosage_policy_requirement)
 
@@ -176,7 +176,7 @@ init 1300 python:
             return False
 
     serum_size_2_policy = Policy(name = "Batch Size Improvement 2",
-        desc = "Improved recycling of waste materials allows for a boost in production efficency. Increases serum batch size by 2.",
+        desc = "Improved recycling of waste materials allows for a boost in production efficiency. Increases serum batch size by 2.",
         cost = 2500,
         requirement = batch_size_2_requirement,
         on_buy_function = batch_size_increase,
@@ -190,7 +190,7 @@ init 1300 python:
             return False
 
     serum_size_3_policy = Policy(name = "Batch Size Improvement 3",
-        desc = "Another improvement to the lab equipment allows for even more impressive boosts in production efficency and speed. Increases serum batch size by 2.",
+        desc = "Another improvement to the lab equipment allows for even more impressive boosts in production efficiency and speed. Increases serum batch size by 2.",
         cost = 10000,
         requirement = batch_size_3_requirement,
         on_buy_function = batch_size_increase,
@@ -232,7 +232,7 @@ init 1300 python:
         return True
 
     recruitment_batch_one_policy = Policy(name = "Recruitment Batch Size Improvement One",
-        desc = "More efficent hiring software will allow you to interview up to review up to four resumes in a single recruitment batch.",
+        desc = "More efficient hiring software will allow you to interview up to review up to four resumes in a single recruitment batch.",
         cost = 200,
         requirement = recruitment_batch_one_requirement)
 
@@ -268,7 +268,7 @@ init 1300 python:
         return True
 
     recruitment_knowledge_one_policy = Policy(name = "Applicant Questionnaire",
-        desc = "A simple questionnaire required from each applicant reveals some of their likes and dislikes, helpying to determine if they would a good fit for your company culture. Reveals two opinions on an applicants resume.",
+        desc = "A simple questionnaire required from each applicant reveals some of their likes and dislikes, helping to determine if they would a good fit for your company culture. Reveals two opinions on an applicants resume.",
         cost = 400,
         requirement = recruitment_knowledge_one_requirement)
     recruitment_policies_list.append(recruitment_knowledge_one_policy)
@@ -304,7 +304,7 @@ init 1300 python:
             return False
 
     recruitment_knowledge_four_policy = Policy(name = "Applicant Sexual History Survey",
-        desc = "A detailed questionnaire focused on sex, fetishes, and kinks produces even more information about an applicants sexaul preferences. It can also be used as a suprisingly accurate predictor of sexual experience. Reveals one more opinion, and sex skills are now displayed on an applicants resume.",
+        desc = "A detailed questionnaire focused on sex, fetishes, and kinks produces even more information about an applicants sexual preferences. It can also be used as a surprisingly accurate predictor of sexual experience. Reveals more opinions, and sex skills are now displayed on an applicants resume.",
         cost = 2500,
         requirement = recruitment_knowledge_four_requirement)
     recruitment_policies_list.append(recruitment_knowledge_four_policy)
@@ -313,7 +313,7 @@ init 1300 python:
         return True
 
     recruitment_skill_improvement_policy = Policy(name = "Recruitment Skill Improvement",
-        desc = "Restricting your recruitment search to university and college graduates improves their skill across all disiplines. Raises all skill caps when hiring new employees by two.",
+        desc = "Restricting your recruitment search to university and college graduates improves their skill across all disciplines. Raises all skill caps when hiring new employees by two.",
         cost = 800,
         requirement = recruitment_skill_improvement_requirement)
 
@@ -325,7 +325,7 @@ init 1300 python:
         else:
             return False
 
-    recruitment_stat_improvement_policy = Policy(name = "Recruitment Stat Improvment",
+    recruitment_stat_improvement_policy = Policy(name = "Recruitment Stat Improvement",
         desc = "A wide range of networking connections can put you in touch with the best and brightest in the industry. Raises all statistic caps when hiring new employees by two.",
         cost = 1500,
         requirement = recruitment_stat_improvement_requirement)
@@ -346,7 +346,7 @@ init 1300 python:
         return True
 
     recruitment_obedience_improvement_policy = Policy(name = "High Obedience Recruits",
-        desc = "A highly regimented business appeals to some people. By improving your corporate image and stressing company stability new recruits will have a starting obedince 10 points higher than normal.",
+        desc = "A highly regimented business appeals to some people. By improving your corporate image and stressing company stability new recruits will have a starting obedience 10 points higher than normal.",
         cost = 600,
         requirement = recruitment_obedience_improvement_requirement)
 
@@ -358,7 +358,7 @@ init 1300 python:
         else:
             return False
 
-    recruitment_slut_improvement_policy = Policy(name = "High Sluttiness Recruites",
+    recruitment_slut_improvement_policy = Policy(name = "High Sluttiness Recruits",
         desc = "Narrowing your resume search parameters to include previous experience at strip clubs, bars, and modeling agencies produces a batch of potential employees with a much higher initial slutiness value. Increases starting sluttiness by 20.",
         cost = 1200,
         requirement = recruitment_slut_improvement_requirement)
@@ -429,7 +429,7 @@ init 1300 python:
         return True
 
     public_advertising_license_policy = Policy(name = "Public Advertising License",
-        desc = "After filling out the proper paperwork and familiarizing yourself with publishing regultions you will be ready to advertise your product in print publications. Allows you to pick a girl as your company model and launch ad campaigns.",
+        desc = "After filling out the proper paperwork and familiarizing yourself with publishing regulations you will be ready to advertise your product in print publications. Allows you to pick a girl as your company model and launch ad campaigns.",
         cost = 2500,
         requirement = public_advertising_license_requirement)
 

@@ -125,7 +125,7 @@ label cousin_house_phase_two_label(the_person):
     $ the_person.draw_person(position = "sitting")
     mc.name "Uh... Hey."
     the_person.char "Hey."
-    "She glances up from the TV for the breifest moment then goes back to ignoring you."
+    "She glances up from the TV for the briefest moment then goes back to ignoring you."
     mc.name "What's up? Why are you over here?"
     the_person.char "Your mom said I could come over whenever I wanted. My mom won't stop bothering me and our crappy apartment is tiny."
     "[the_person.possessive_title] shrugs and turns her full attention to her TV show."
@@ -327,7 +327,7 @@ label cousin_blackmail_list(the_person):
                     $ the_person.draw_person(position  = "back_peek")
                     the_person.char "Look all you want... I bet you're creaming your pants thinking about touching me."
                     "She wiggles her butt in your direction. Her tits swing back and forth with the same movement."
-                    the_person.char "Well keep dreaming. I'm not that fucking desparate."
+                    the_person.char "Well keep dreaming. I'm not that fucking desperate."
                     "Once you've gotten your fill [the_person.title] gets dressed again."
                     $ the_person.outfit = the_person.planned_outfit.get_copy()
                     $ the_person.draw_person()
@@ -614,7 +614,7 @@ label cousin_blackmail_level_2_confront_label(the_person):
     mc.name "So I was at [club_name] and I saw something really interesting."
     "Her eyes go wide and lock with yours."
     the_person.char "Uh... What were you doing there? That's a weird place for you to be."
-    mc.name "I was enjoying the talent. Imagine my suprise when I see you walk out."
+    mc.name "I was enjoying the talent. Imagine my surprise when I see you walk out."
     $ the_person.change_happiness(-5)
     the_person.char "... Fuck."
     mc.name "So this was what you were hiding, huh? I'm sure your mom is going to be thrilled when she hears about this."
@@ -661,7 +661,7 @@ label stripclub_dance():
                     cousin_role.actions.append(blackmail_2_confront_action)
                     the_person.event_triggers_dict["seen_cousin_stripping"] = True
 
-                "It takes you a moment to recognise your cousin, [the_person.title], as she struts out onto the stage."
+                "It takes you a moment to recognize your cousin, [the_person.title], as she struts out onto the stage."
                 if not the_person.event_triggers_dict.get("found_stripping_clue", False):
                     "[the_person.possessive_title]'s late nights and secret keeping suddenly make a lot more sense."
 
@@ -669,22 +669,22 @@ label stripclub_dance():
 
 
             else:
-                "You recognise your cousin almost as soon as she steps out onto the stage."
+                "You recognize your cousin almost as soon as she steps out onto the stage."
 
         elif sister_role in the_person.special_role:
-            "You recognise your little sister almost as soon as she steps out onto the stage."
+            "You recognize your little sister almost as soon as she steps out onto the stage."
 
         elif aunt_role in the_person.special_role:
-            "You recognise your aunt as she steps into the stage spotlights."
+            "You recognize your aunt as she steps into the stage spotlights."
 
         elif mother_role in the_person.special_role:
-            "You recognise your own mother up on the stage as soon as she comes into the light."
+            "You recognize your own mother up on the stage as soon as she comes into the light."
 
         elif employee_role in the_person.special_role:
-            "You recognise [performer_title] as one of your employees."
+            "You recognize [performer_title] as one of your employees."
 
         else:
-            "You recognise her as [performer_title]."
+            "You recognize her as [performer_title]."
 
         $ performer_title = the_person.possessive_title #Change to their possessive title, because that sounds better in the following dialogue
 
@@ -706,7 +706,7 @@ label stripclub_dance():
         "As the music builds [performer_title]'s dance becomes more energetic. She runs her own hands over her tight body, accentuating her curves."
     call stripshow_strip(the_person) from _call_stripshow_strip_2
     $ the_person.draw_person(position = get_random_from_list(pose_list))
-    "Her music hits its crescendo and her danacing does the same. [performer_title] holds onto the pole in the middle of the stage and spins herself around it."
+    "Her music hits its crescendo and her dancing does the same. [performer_title] holds onto the pole in the middle of the stage and spins herself around it."
     call stripshow_strip(the_person) from _call_stripshow_strip_3
     $ the_person.draw_person(position = "doggy")
     if the_person.outfit.vagina_visible():

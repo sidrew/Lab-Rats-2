@@ -83,7 +83,7 @@ label scene_deepthroat_1(the_girl, the_location, the_object, the_round):
                     "She looks at your dick and gives it a light kiss on the side, then looks back up at you."
                     the_girl.char "Look how big it is... and I'm going to slide it all down my throat. I'll take every last inch, just for you."
                 else:
-                    "[the_girl.possessive_title] wraps her hand around your wet cock and starts to stroke you off. You enjoy the sound of her heavy breathing and the quiet, wet slop of her handjob."
+                    "[the_girl.possessive_title] wraps her hand around your wet cock and starts to stroke you off. You enjoy the sound of her heavy breathing and the quiet, wet slop of her hand job."
 
 
             "Bounce your cock on her face.":
@@ -195,7 +195,7 @@ label scene_deepthroat_2(the_girl, the_location, the_object, the_round):
                     "She pulls off your dick and shrugs."
                     the_girl.char "No more practice than other girls, I guess."
                     mc.name "Uh huh, and how much dick do you think other girls suck? You don't get this good by accident."
-                    "You press the tip of your cock against her lips and put a litttle bit of pressure on the back of her head. She takes the hint and goes back to sucking you off."
+                    "You press the tip of your cock against her lips and put a little bit of pressure on the back of her head. She takes the hint and goes back to sucking you off."
 
 
             "Force her even deeper.":
@@ -287,7 +287,7 @@ label scene_deepthroat_3(the_girl, the_location, the_object, the_round):
                                                     "[the_girl.possessive_title]'s body doesn't stop reacting to you and your cock. Her tongue licks lazily at the base of your shaft and she keeps moaning softly."
                                                     "Satisfied, you take your hand off of [the_girl.title]'s head. She doesn't move and keeps sucking on you in her oxygen deprived stupor."
                                                     mc.name "That's enough [the_girl.title], you've done enough."
-                                                    "You put your hand under her chin and pull her back. She leaves yoru cock with a satisfying, wet pop followed by a huge gasp for air."
+                                                    "You put your hand under her chin and pull her back. She leaves your cock with a satisfying, wet pop followed by a huge gasp for air."
                                                     "It takes a few long moments until [the_girl.title] shakes her head and comes to her senses."
                                                     the_girl.char "I... Oh my god... How long was I... Ah... Ah..."
                                                     $ the_girl.change_arousal(the_girl.get_opinion_score("being submissive"))

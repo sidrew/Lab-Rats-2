@@ -75,7 +75,7 @@ label scene_blowjob_1(the_girl, the_location, the_object, the_round):
                         "[the_girl.title] slides you back into her mouth and sucks your dick with renewed vigor."
                     else:
                         "You relax for a little while while [the_girl.possessive_title] services your cock, stroking your shaft and sucking gently on your tip."
-                        "You're pleasantly suprised when she reaches her other hand up and starts to gently play with your balls. You run your fingers through her hair and sigh contentedly."
+                        "You're pleasantly surprised when she reaches her other hand up and starts to gently play with your balls. You run your fingers through her hair and sigh contentedly."
 
 
     else: #competent at blowjobs.
@@ -158,7 +158,7 @@ label scene_blowjob_2(the_girl, the_location, the_object, the_round):
                     "[the_girl.title] keeps on licking your cock. You enjoy the feeling for awhile, but you're glad when she finally opens her mouth and starts to blow you again."
                 else:
                     "[the_girl.title] keeps on licking your cock. Her tongue hits all the right places and sends shivers up your spine."
-                    "You're almost disapointed when she opens her mouth wide and starts to blow you again."
+                    "You're almost disappointed when she opens her mouth wide and starts to blow you again."
 
 
 
@@ -188,7 +188,7 @@ label scene_blowjob_2(the_girl, the_location, the_object, the_round):
                 "She sighs and slips your cock back into her mouth."
 
             else:
-                "You grab hold of your dick with one hand and bounce it against [the_girl.title]'s face. She gasps in suprise."
+                "You grab hold of your dick with one hand and bounce it against [the_girl.title]'s face. She gasps in surprise."
                 if the_girl.sex_skills["Foreplay"] > 3:
                     the_girl.char "Filthy cocksucker, huh? Is that what you want me to be?"
                     "She leans forward and rubs her cheek against your wet cock, nuzzling it like a cat."
@@ -201,7 +201,7 @@ label scene_blowjob_2(the_girl, the_location, the_object, the_round):
                     "She opens her mouth and slides you inside."
                 else:
                     the_girl.char "Hey, I'm..."
-                    "You interupt her and flop your cock onto her face again."
+                    "You interrupt her and flop your cock onto her face again."
                     the_girl.char "Ugh, fine. Go to town."
                     "She closes her eyes and points her face up. You enjoy a few moments rubbing your cock all over [the_girl.possessive_title]'s face."
                     the_girl.char "Happy now?"

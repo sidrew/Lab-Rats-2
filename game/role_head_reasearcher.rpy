@@ -143,7 +143,7 @@ label improved_serum_unlock_label(the_person):
                 if mc.charisma > 4:
                     "You take a keen look at [the_person.title]. She might not be able to tell but you certainly can. You mark her down as \"Highly Suggestible\"."
                 else:
-                    "You can't tell any better than [the_person.title]. You put down \"Suggestability Uncertain\" on your notepad."
+                    "You can't tell any better than [the_person.title]. You put down \"Suggestibility Uncertain\" on your notepad."
                 mc.name "That's fine, you're doing great."
                 mc.name "Next question: Early research has suggested that our serums might deliver performance enhancing effects. What do you think about this?"
                 the_person.char "Well, I think I need to know more about it. I suppose that's why I'm doing this - to learn more."

@@ -57,7 +57,7 @@ label model_photography_list_label(the_person):
             if the_person.sluttiness < 20 and the_person.relationship != "Single":
                 the_person.char "Nothing too crazy though, okay? I don't want my boyfriend to freak out when he hears about this."
             else:
-                the_person.char "Sex sells, right, so it should be something skimpy. Did you have somethign in mind?"
+                the_person.char "Sex sells, right, so it should be something skimpy. Did you have something in mind?"
                 "She seems excited to see what you have in mind."
 
 
@@ -169,7 +169,7 @@ label model_photography_list_label(the_person):
     the_person.char "What do you think [the_person.mc_title]? Should I get this ad made up and sent out?"
     menu:
         "Pay for the ad space. -$300" if mc.business.funds >=300:
-            mc.name "The picutres look good, get to work and get that pushed out as soon as possible."
+            mc.name "The pictures look good, get to work and get that pushed out as soon as possible."
             the_person.char "You got it!"
             $ mc.business.funds += -300
             $ mc.business.add_sales_multiplier("Ad Campaign", ad_multiplier)
@@ -337,7 +337,7 @@ label photo_flash(the_person):
 label photo_naked(the_person):
     $ the_person.event_triggers_dict["camera_naked"] = True
     if the_person.sluttiness >= 50:
-        the_person.char "You got it [the_person.mc_title], I'm up for a little taseful nudity."
+        the_person.char "You got it [the_person.mc_title], I'm up for a little tasteful nudity."
         "You make sure to get some pictures as she strips off her underwear."
     else:
         the_person.char "Okay... I think I can do that..."
@@ -407,7 +407,7 @@ label photo_naked(the_person):
 label photo_touch(the_person):
     $ the_person.event_triggers_dict["camera_touch"] = True
     if the_person.sluttiness >= 60:
-        "[the_person.title] doesn't hesistate at all. She takes a step back and leans against the wall, spreading her legs slightly."
+        "[the_person.title] doesn't hesitate at all. She takes a step back and leans against the wall, spreading her legs slightly."
     else:
         the_person.char "Touch myself? What do you... what do you mean [the_person.mc_title]? I couldn't... do that in front of you."
         "[the_person.title] looks nervous. She seems suddenly self conscious, turning side-on to the camera to limit how much it can see."
@@ -444,7 +444,7 @@ label photo_touch(the_person):
     the_person.char "Ah..."
     "She hesitates for a second, then slips her middle finger into herself with a soft, throaty moan."
     "You take a few steps closer and take some more pictures."
-    "[the_person.title]'s other hand comes up subconciously and cradles a breast as she starts to slowly finger herself."
+    "[the_person.title]'s other hand comes up subconsciously and cradles a breast as she starts to slowly finger herself."
     "Without any prompting she starts to speed up. Her breathing gets louder and she slides a second finger inside."
 
     $ slut_willingness = the_person.sluttiness
@@ -520,7 +520,7 @@ label photo_blowjob(the_person):
         the_person.char "Sweet Jesus..."
     $ the_person.draw_person(position = "blowjob", special_modifier = "blowjob")
     "She licks at the tip a couple of times, then slips it into her mouth."
-    "You feel [the_person.title]'s tounge lick at the bottom of your shaft as she starts to move her head, bobbing it back and forth."
+    "You feel [the_person.title]'s tongue lick at the bottom of your shaft as she starts to move her head, bobbing it back and forth."
     "You try to stay focused and snap a few more pictures as she sucks you off."
 
 

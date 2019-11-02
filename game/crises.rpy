@@ -3274,7 +3274,7 @@ label mom_outfit_help_crisis_label():
     $ first_outfit = the_person.wardrobe.decide_on_outfit(the_person.sluttiness) # A normal outfit for her, made from her wardrobe.
     $ second_outfit = None # Changes her goals based on how you respond to the first one (ie. she tones it down, makes it sluttier, or keeps it the way it is)
     $ third_outfit = None # She asks you to put something together from her wardrobe. If it's reasonable for her she'll add it to her wardrobe.
-    $ caught = False #Did you get cuaght watching her strip
+    $ caught = False #Did you get caught watching her strip
 
     if the_person.sluttiness + the_person.love < 35: #She really doesn't want you to see anything
         the_person.char "Okay, I'll need a moment to get changed."

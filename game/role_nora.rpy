@@ -83,7 +83,7 @@ init -2 python:
 
 label nora_intro_label(the_steph):
     $ the_nora = nora
-    $ mc.business.event_triggers_dict["intro_nora"] = False #We've already intro'd her, so we don't have to do this again.
+    $ mc.business.event_triggers_dict["intro_nora"] = False #We've already introduced her, so we don't have to do this again.
     mc.name "[the_steph.title], have you talked to [the_nora.title] yet?"
     "She nods."
     the_steph.char "I did, she said we would be welcome by any time."
