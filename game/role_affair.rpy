@@ -149,7 +149,7 @@ label fuck_date_label(the_person):
     while done == False:
         if the_person.arousal > 100: #TODO: Have some variation to this based on how many times we've looped around.
             $ the_person.change_love(2 + the_person.get_opinion_score("cheating on men"))
-            $ the_person.change_slut(1)
+            $ the_person.change_slut_temp(1)
             the_person.char "Oh god... That was amazing. You're so much better at that than my [so_title]."
             "[the_person.title] lies down on her bed and catches her breath."
             the_person.char "Ready to get back to it?"
