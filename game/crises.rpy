@@ -4615,7 +4615,7 @@ label so_relationship_improve_label():
         for place in list_of_places:
             for a_person in place.people:
                 if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Married":
-                    if not mother_role in a_person.special_role and not sister_role in a_person.special_role and not cousin_role in a_person.special_role and not aunt_role in a_person.special_role:
+                    if not any(x in a_person.special_role for x in [mother_role, sister_role, cousin_role, aunt_role, girlfriend_role]):
                         potential_people.append(a_person)
 
     $ the_person = get_random_from_list(potential_people)
