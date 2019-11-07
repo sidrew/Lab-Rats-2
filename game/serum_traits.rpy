@@ -146,10 +146,10 @@ init -1:
 
         ## nora_serum_up_trait ##
         def nora_suggest_up_on_apply(the_person, add_to_log):
-            the_person.add_suggest_effect(50, add_to_log)
+            the_person.add_suggest_effect(40, add_to_log)
 
         def nora_suggest_up_on_remove(the_person, add_to_log):
-            the_person.remove_suggest_effect(50)
+            the_person.remove_suggest_effect(40)
 
         def nora_nightmares_on_day(the_person, add_to_log):
             the_person.change_happiness(-15, add_to_log)
