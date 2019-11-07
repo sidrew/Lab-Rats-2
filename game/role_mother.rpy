@@ -57,7 +57,7 @@ label mom_low_sluttiness_weekly_pay(the_person):
             $ the_person.change_happiness(-5)
             $ the_person.change_love(-1)
             $ the_person.draw_person(position = "sitting", emotion = "sad")
-            the_person.char "Okay sweetheart, I understand. I'll talk with Lily and let her know that we have to cut back on non essentials."
+            the_person.char "Okay [the_person.mc_title], I understand. I'll talk with Lily and let her know that we have to cut back on non essentials."
 
         "Help out.\n{size=22}-$100{/size}" if mc.business.funds >= 100:
             "You pull out your wallet and count out some cash, but hesitate before you hand it over."
@@ -128,14 +128,14 @@ label mom_high_sluttiness_weekly_pay(the_person):
                     "You hand the serum to [the_person.possessive_title], followed by the cash."
                     the_person.char "Okay, so that's all for now?"
                     mc.name "That's all. I'll just be keeping an eye on you in the future, but you don't need to worry about that."
-                    the_person.char "Well thank you sweetheart, this money will really make a difference. I'm so proud of you!"
+                    the_person.char "Well thank you [the_person.mc_title], this money will really make a difference. I'm so proud of you!"
                 else:
                     mc.name "Actually, I don't have anything right now. Maybe next wek though, okay?"
-                    the_person.char "Okay sweetheart, thanks for at least thinking about it."
+                    the_person.char "Okay [the_person.mc_title], thanks for at least thinking about it."
             else:
                 $ mc.business.event_triggers_dict["Mom_Serum_Test"] = 1
                 mc.name "I have something you could help me with Mom."
-                the_person.char "What is it sweetheart? I'll do whatever I can for you."
+                the_person.char "What is it [the_person.mc_title]? I'll do whatever I can for you."
                 mc.name "We have a little bit of a research bottleneck at work. I have something I'd like you to test for me."
                 the_person.char "Oh, okay. If it helps I can be your for hire test subject!"
                 mc.name "Excellent, let me just see if I have anything with me right now..."
@@ -145,10 +145,10 @@ label mom_high_sluttiness_weekly_pay(the_person):
                     "You hand the serum to [the_person.possessive_title], followed by the cash."
                     the_person.char "Okay, so that's all for now?"
                     mc.name "That's all. I'll just be keeping an eye on you in the future, but you don't need to worry about that."
-                    the_person.char "Well thank you sweetheart, this money will really make a difference. I'm so proud of you!"
+                    the_person.char "Well thank you [the_person.mc_title], this money will really make a difference. I'm so proud of you!"
                 else:
                     mc.name "Actually, I don't have anything right now. Maybe next wek though, okay?"
-                    the_person.char "Okay sweetheart, thanks for at least thinking about it."
+                    the_person.char "Okay [the_person.mc_title], thanks for at least thinking about it."
 
         # "I want to make some changes around here." if the_person.obedience >= 120:
         #     #TODO: Requires obedience, but unlocks a bunch of other options, like having your Mom bring you breakfast every morning, not wearing anything at home, etc.
@@ -166,7 +166,7 @@ label mom_high_sluttiness_weekly_pay(the_person):
                 the_person.char "If that's what you need."
                 "You pull out your wallet and count out her cash while [the_person.possessive_title] gets onto her knees in front of you."
                 $ the_person.draw_person(position = "blowjob")
-                the_person.char "Remember, not a word to anyone else though. Okay>"
+                the_person.char "Remember, not a word to anyone else though. Okay?"
                 mc.name "Of course, this is just between you and me."
 
             else:
@@ -181,7 +181,7 @@ label mom_high_sluttiness_weekly_pay(the_person):
                 $ the_person.draw_person(position = "blowjob")
                 "She sighs and kneels down in front of you. You unzip your pants and pull your cock out for your mother."
                 mc.name "Don't worry, it won't bite."
-                the_person.char "This isn't my exactly my first blowjob sweety, I'm not worried."
+                the_person.char "This isn't my exactly my first blowjob [the_person.mc_title], I'm not worried."
 
             "With that she opens her mouth and slides the tip of your hard cock inside. Her tongue swirls around the tip, sending a jolt of pleasure up your spine."
             call fuck_person(the_person, private = True, start_position = blowjob, skip_intro = True, position_locked = True) from _call_fuck_person_33
@@ -201,7 +201,7 @@ label mom_high_sluttiness_weekly_pay(the_person):
         "Nothing this week.":
             mc.name "Sorry Mom, but I'm tight on cash right now as well. Maybe next week, okay?"
             "[the_person.possessive_title] nods and turns back to her bills."
-            the_person.char "I understand sweetheart. Now don't let me keep you, I'm sure you were up to something important."
+            the_person.char "I understand [the_person.mc_title]. Now don't let me keep you, I'm sure you were up to something important."
             pass
 
         #TODO: pay her to fuck you.
