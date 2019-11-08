@@ -267,8 +267,8 @@ label fuck_date_label(the_person):
                                 else:
                                     "[the_person.title] rushes to the door to intercept her [so_title]. You hear her stalling for you as you open the side door and break into the night."
 
-                            "Fuck her anyways!" if the_person.love + the_person.effective_sluttiness() >= leave_SO_love_calculation + 60:
-                                # You assert dominance and fuck her as he comes in. He breaks down as you claim her as your own.
+                            "Fuck her anyways!" if the_person.love + the_person.effective_sluttiness() >= leave_SO_love_calculation(the_person) + 60:
+                                # You assert dominance and fuck her as he comes in. She breaks down as you claim her as your own.
 
                                 mc.name "Well, I think I'm still going to bend you over and fuck you. He was going to find out eventually, right?"
                                 the_person.char "What? Oh my god..."

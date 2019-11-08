@@ -152,7 +152,6 @@ label mom_high_sluttiness_weekly_pay(the_person):
 
         # "I want to make some changes around here." if the_person.obedience >= 120:
         #     #TODO: Requires obedience, but unlocks a bunch of other options, like having your Mom bring you breakfast every morning, not wearing anything at home, etc.
-        #     #TODO TODO TODO
         #     mc.name "Now that I'm the man of the house, I want to make some changes around the house."
         #     the_person.char "What sorts of changes?"
         #     call mom_make_house_changes(the_person)
@@ -216,9 +215,9 @@ label mom_high_sluttiness_weekly_pay(the_person):
 # label mom_make_house_changes(the_person):
 #     # A list of house rules to put into place.
 #     menu:
-#         "TODOTODOTODO":
-#             #TODO: Decide what sort of house wide changes the player is able to make.
-#             pass
+#         "I want breakfast in my room every morning.":
+#
+#         "I want
 #
 #         "Never mind.":
 #             call mom_high_sluttiness_weekly_pay(the_person) #Go back and pick something else.
