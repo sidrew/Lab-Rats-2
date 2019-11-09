@@ -139,7 +139,7 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         # Adds more love to seduction attempts (reduce love from other sources)
         # Fallout if your girlfriend catches you with someone else.
 
-        ask_break_up_action = Action("Break up with her.", ask_break_up_requirement, "ask_be_girlfriend_label", menu_tooltip = "Breaking up may break her heart, but it'll be easier on her than catching you with another woman.")
+        ask_break_up_action = Action("Break up with her.", ask_break_up_requirement, "ask_break_up_label", menu_tooltip = "Breaking up may break her heart, but it'll be easier on her than catching you with another woman.")
 
         ask_get_boobjob_action = Action("Ask her to get a boob job. -$7000", ask_get_boobjob_requirement, "ask_get_boobjob_label", menu_tooltip = "A little silicone goes a long way. Ask her to get breast enhancement surgery for you.")
 
