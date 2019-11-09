@@ -289,7 +289,7 @@ label alexia_ad_suggest_label(the_person):
     "[the_person.title] is at your office door."
     mc.name "For you, always. What's up?"
     the_person.char "So I was getting some boxes ready for shipping and I had a thought."
-    the_person.char "I know this might be silly, but back at the coffee shop when we had to-go orders we would add a little flier."
+    the_person.char "I know this might be silly, but back at the coffee shop when we had to-go orders we would add a little flyer."
     "You nod and listen, noticing now that she has a business card sized piece of paper."
     the_person.char "I put together this mockup, super rough, to show you. I think it would really help boost sales."
     "She hands over her example business card. It has [mc.business.name] written in bold across the top and [the_person.title] posing with a vial of serum."
