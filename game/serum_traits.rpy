@@ -629,7 +629,7 @@ label instantiate_serum_traits(): #Creates all of the default LR2 serum trait ob
         ### Nora research traits ###
         nora_suggest_up = SerumTrait(name = "Nora's Research Trait",
             desc = "The manufacturing details for a serum trait developed by Nora. Raises suggestibility significantly, but is guaranteed to generate a side effect and negatively effects value.",
-            positive_slug = "+50 Suggestibility",
+            positive_slug = "+40 Suggestibility",
             negative_slug = "+75 Serum Research, -$150 Value",
             value_added = -150,
             research_added = 75,
