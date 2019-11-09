@@ -95,7 +95,7 @@ init -1:
         curly_bun = Clothing("Curly Bun Hair", 1, True, True, "Curly_Bun", False, False, 0, whiteness_adjustment = 0.1, contrast_adjustment = 1.15)
         hair_styles.append(curly_bun)
 
-        windswept_hair = Clothing("Messy Short Hair", 1, True, True, "Wind_Swept_Hair", False, False, 0, whiteness_adjustment = 0.15, contrast_adjustment = 1.25)
+        windswept_hair = Clothing("Windswept Short Hair", 1, True, True, "Wind_Swept_Hair", False, False, 0, whiteness_adjustment = 0.15, contrast_adjustment = 1.25)
         hair_styles.append(windswept_hair)
 
         bow_hair = Clothing("Bow Hair", 1, True, True, "Bow_Hair", False, False, 0) #NO IMAGES
