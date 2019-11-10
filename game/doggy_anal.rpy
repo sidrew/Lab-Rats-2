@@ -1,8 +1,8 @@
 init:
     python:
         doggy_anal = Position("Anal Doggy",70,90,"doggy","Lay","Vagina","Anal",20,18,[],
-        "intro_doggy",
-        ["scene_doggy_1","scene_doggy_anal_2"],
+        "intro_doggy_anal",
+        ["scene_doggy_anal_1","scene_doggy_anal_2"],
         "outro_doggy_anal",
         "transition_default_doggy_anal",
         "strip_doggy_anal", "strip_ask_doggy_anal",
