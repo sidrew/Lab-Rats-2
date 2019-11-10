@@ -58,7 +58,6 @@ init -2:
         list_of_names.append("Melanie")
         list_of_names.append("Tina")
         list_of_names.append("Raven")
-        list_of_names.append("Sarah")
         list_of_names.append("Antonia")
         list_of_names.append("Mina")
         list_of_names.append("Marisha")
