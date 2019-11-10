@@ -48,6 +48,8 @@ label ask_leave_SO_label(the_person): #
     "You put your arms around her waist and she kisses you immediately. When you break the kiss she's grinning ear to ear."
     $ ex_title = so_title[:4]
     the_person.char "It feels so good to not have to hide anything anymore! I'll break the news to my [ex_title]... My ex-[so_title] later today."
+    $ the_person.relationship = "Single"
+    $ the_person.SO_name = None
     return
 
 label plan_fuck_date_label(the_person):
