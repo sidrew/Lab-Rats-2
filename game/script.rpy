@@ -8413,7 +8413,7 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
 
     $ people_list.insert(0, "Talk to Someone")
     $ actions_list.insert(0, "Do Something")
-    call screen main_choice_display([people_list,actions_list])
+    call screen main_choice_display(build_menu_items([people_list,actions_list]))
 
     $ picked_option = _return
     if isinstance(picked_option, Person):
@@ -8542,7 +8542,7 @@ label talk_person(the_person):
         special_role_actions.sort(key = sort_display_list, reverse = True)
         special_role_actions.insert(0,"Special Actions")
 
-    call screen main_choice_display([chat_list,specific_action_list, special_role_actions])
+    call screen main_choice_display(build_menu_items([chat_list,specific_action_list, special_role_actions]))
 
     if isinstance(_return, Action):
         $ starting_time_of_day = time_of_day
