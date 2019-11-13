@@ -321,9 +321,7 @@ init -2 python:
         return result
 
     def show_menu_person(item):
-        renpy.scene("Active")
-        if item.display_key:
-            renpy.show(item.display_key, at_list=[character_right, item.display_scale], layer="Active", what=item.displayable, tag=item.display_key)
+        renpy.show(item.display_key, at_list=[character_right, item.display_scale], layer="Active", what=item.displayable, tag=item.display_key)
 
 screen main_choice_display(elements_list): #Elements_list is a list of lists, with each internal list recieving an individual column
     #The first element in a column should be the title, either text or a displayable. After that it should be a tuple of (displayable/text, return_value).
@@ -372,8 +370,9 @@ screen main_choice_display(elements_list): #Elements_list is a list of lists, wi
                                     text_size 18
                                     text_style "textbutton_text_style"
                                     text_align (0.5,0.5)
-                                    hovered [Function(show_menu_person, item)]
-                                    unhovered [Function(renpy.scene, "Active")]
+                                    if item.display_key:                                    
+                                        hovered [Function(show_menu_person, item)]
+                                        unhovered [Function(renpy.scene, "Active")]
                                     action Return(item.return_value)
                                     tooltip item.the_tooltip
                                     sensitive item.is_sensitive
