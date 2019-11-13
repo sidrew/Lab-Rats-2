@@ -1649,18 +1649,18 @@ init -2 python:
 
         def generate_home(self, set_home_time = True): #Creates a home location for this person and adds it to the master list of locations so their turns are processed.
             if self.home is None:
-                start_home = Room(self.name+"'s home", self.name+"'s home", [], standard_bedroom_backgrounds[:], [],[],[],False,[0.5,0.5], visible = False, hide_in_known_house_map = False, lighting_conditions = standard_indoor_lighting)
+                start_home = Room(self.name + " " + self.last_name +" home", self.name + " " + self.last_name + " home", [], standard_bedroom_backgrounds[:], [],[],[],False,[0.5,0.5], visible = False, hide_in_known_house_map = False, lighting_conditions = standard_indoor_lighting)
                 #start_home.link_locations_two_way(downtown)
 
                 start_home.add_object(make_wall())
                 start_home.add_object(make_floor())
                 start_home.add_object(make_bed())
                 start_home.add_object(make_window())
-
                 self.home = start_home
-                if set_home_time:
-                    self.set_schedule([0,4], start_home)
                 list_of_places.append(start_home)
+
+            if set_home_time:
+                self.set_schedule([0,4], self.home)
             return self.home
 
         def generate_daughter(self): #Generates a random person who shares a number of similarities to the mother
