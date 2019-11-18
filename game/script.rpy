@@ -8642,7 +8642,7 @@ label fuck_person(the_person, private=True, start_position = None, start_object 
             if renpy.random.randint(0,the_person.arousal) + 50 < the_person.obedience:
                 $ the_person.call_dialogue("sex_take_control")
                 $ the_person.change_obedience(-3)
-                call fuck_person(the_person, private, start_position, start_object, skip_intro = True, girl_in_charge = True, hide_leave = hide_leave, position_locked = position_locked record_log = record_log, affair_ask_after = False) from _call_fuck_person_18
+                call fuck_person(the_person, private, start_position, start_object, skip_intro = True, girl_in_charge = True, hide_leave = hide_leave, position_locked = position_locked, record_log = record_log, affair_ask_after = False) from _call_fuck_person_18
 
             elif the_person.arousal > 80:
                 # They're close to their orgasm and beg you to help them finish.
