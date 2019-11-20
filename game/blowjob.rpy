@@ -370,7 +370,7 @@ label orgasm_blowjob(the_girl, the_location, the_object, the_round):
             "[the_girl.possessive_title] pulls off your cock as she climaxes. She nuzzles up against your hot, wet shaft as her body shivers uncontrollably."
             "You stroke her hair and wait until she's over the worst of it."
             $ the_girl.change_happiness(2)
-            the_girl.name "Wow... Thanks for waiting, that was really intens."
+            the_girl.name "Wow... Thanks for waiting, that was really intense."
             "She licks your shaft and looks up at you."
             the_girl.name "Should I get going again?"
             "She doesn't wait for an answer and starts sucking your cock again."
