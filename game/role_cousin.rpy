@@ -71,7 +71,7 @@ init -2 python:
         else:
             return True
 
-    def cousin_boobjob_ask_requirement(start_day, the_person):
+    def cousin_boobjob_ask_requirement(the_person, start_day):
         if day < start_day:
             return False
         elif the_person.event_triggers_dict.get("getting boobjob", False):
