@@ -27,6 +27,7 @@ style gui_text:
     font gui.interface_font
     color gui.interface_text_color
     size gui.interface_text_size
+    yanchor 0.0
 
 
 style button:
@@ -460,7 +461,7 @@ screen choice(items):
     viewport:
         scrollbars "vertical"
         mousewheel True
-        child_size (1920,600+125*(len(items)//2))
+        child_size (1920,400+125*(len(items)//2))
         vbox:
             xalign 0.34
             yalign 0.5
@@ -500,9 +501,9 @@ screen choice(items):
 define config.narrator_menu = True
 
 
-style choice_vbox is vbox
-style choice_button is button
-style choice_button_text is button_text
+# style choice_vbox is vbox
+# style choice_button is button
+# style choice_button_text is button_text
 
 style choice_vbox:
     xalign 0.5
