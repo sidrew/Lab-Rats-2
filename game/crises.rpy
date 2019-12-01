@@ -4712,7 +4712,7 @@ label girl_shower_enter(the_person, suprised):
 
             else:
                 the_person.char "What is this?"
-                "She wiggles her butt and strokes your tip agianst her cheeks."
+                "She wiggles her butt and strokes your tip against her cheeks."
                 the_person.char "Well we need to take care of this, don't we..."
                 "She turns around and faces you. It might be the hot water, but her face is flush."
                 $ the_person.change_slut_temp(2)
@@ -4738,6 +4738,7 @@ label girl_shower_enter(the_person, suprised):
                         else:
                             the_person.char "Well maybe we can pick this up some other time. See you later."
 
+                        $ del bathroom
                         $ renpy.scene("Active")
                         "She leaves the room and you finish your shower alone, feeling refreshed by the water."
                         $ mc.change_location(bedroom)
