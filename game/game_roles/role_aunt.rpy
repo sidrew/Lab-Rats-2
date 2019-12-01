@@ -1016,8 +1016,6 @@ label aunt_share_drinks_label(the_person):
                             mc.name "That may be for the best. Maybe we can do this again some other time though."
                             "You take the glasses of wine to the kitchen for [the_person.possessive_title] and say goodbye."
 
-
-                $ the_person.reset_arousal()
                 $ the_person.review_outfit()
                 $ the_person.clear_situational_slut("Drunk")
 
