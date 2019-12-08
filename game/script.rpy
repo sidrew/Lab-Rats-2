@@ -1480,7 +1480,11 @@ init -2 python:
 
 
         def log_event(self, the_text, the_text_style):
-            #Event_tuple is a tuple of text_string,colour_string,person
+            if the_text is None: # Make sure we're not passing None items accidentily, which could cause crashes for the main hud.
+                the_text = "???"
+            if the_text_style is None:
+                the_text_style = "float_text_grey"
+
             event_tuple = (the_text, the_text_style, time.time()) #Stores the unix time the event was added so we can run a little animation.
             self.log_items.insert(0,event_tuple)
             while len(self.log_items) > self.log_max_size:
@@ -1620,11 +1624,13 @@ init -2 python:
 
 
             self.on_room_enter_event_list = [] #Checked when you enter a room with this character. If an event is in this list and enabled it is run (and no other event is until the room is reentered)
-            self.on_talk_event_list = [] #Checked when you start to interact with a character. If an event is in this list and enabled it is run (and no other event is until you talk to the character again.)
+                # If handed a list of [action, positive_int], the integer is how many turns this action is kept around before being removed, triggered or not.
+            self.on_talk_event_list = [] #Checked when you start to interact with a character. If an event is in this list and enabled it is run (and no other event is until you talk to the character again.)\
+                # If handed a list of [action, positive_int], the integer is how many turns this action is kept around before being removed, triggered or not.
 
             self.event_triggers_dict = {} #A dict used to store extra parameters used by events, like how many days has it been since a performance review.
             self.event_triggers_dict["employed_since"] = 0
-            self.event_triggers_dict["wants_titlechange"] = False
+            #self.event_triggers_dict["wants_titlechange"] = False
 
             ##Mental stats##
             #Mental stats are generally fixed and cannot be changed permanently. Ranges from 1 to 5 at start, can go up or down (min 0)
@@ -1816,7 +1822,6 @@ init -2 python:
         def run_move(self,location): #Move to the apporpriate place for the current time unit, ie. where the player should find us.
 
             #Move the girl the appropriate location on the map. For now this is either a division at work (chunks 1,2,3) or downtown (chunks 0,5). TODO: add personal homes to all girls that you know above a certain amount.
-
             self.sexed_count = 0 #Reset the counter for how many times you've been seduced, you might be seduced multiple times in one day!
 
             if time_of_day == 0: #It's a new day, get a new outfit out to wear!
@@ -1884,15 +1889,29 @@ init -2 python:
                 self.change_slut_temp(lingerie_bonus, add_to_log = False)
 
 
+            for event_list in [self.on_room_enter_event_list, self.on_talk_event_list]: #Go through both of these lists and curate them, ie trim out events that should have expired.
+                removal_list = [] #So we can iterate through without removing and damaging the list.
+                for an_action in event_list:
+                    if isinstance(an_action, Limited_Time_Action): #It's a LTA holder, so it has a turn counter
+                        an_action.turns_valid += -1
+                        if an_action.turns_valid <= 0:
+                            removal_list.append(an_action)
+
+                for action_to_remove in removal_list:
+                    event_list.remove(action_to_remove)
+
+
+
         def run_day(self): #Called at the end of the day.
             #self.outfit = self.wardrobe.decide_on_outfit(self.sluttiness) #Put on a new outfit for the day!
 
             self.change_energy(60, add_to_log = False)
 
-            if renpy.random.randint(0,100) < 8 and self.title: #There's an 8% chance they want a title change on any given day, if they are already introduced. TODO: Tweak this or make it dependent on other stuff.
-                self.event_triggers_dict["wants_titlechange"] = True
-            else:
-                self.event_triggers_dict["wants_titlechange"] = False
+            # if renpy.random.randint(0,100) < 8 and self.title: #There's an 8% chance they want a title change on any given day, if they are already introduced. TODO: Tweak this or make it dependent on other stuff.
+            #     self.event_triggers_dict["wants_titlechange"] = True
+            # else:
+            #     self.event_triggers_dict["wants_titlechange"] = False
+            #     #TODO: Change this
 
             #Now we will normalize happiness towards 100 over time. Every 5 points of happiness above or below 100 results in a -+1 per time chunk, rounded towards 0.
             hap_diff = self.happiness - 100
@@ -2118,19 +2137,22 @@ init -2 python:
 
 
         def discover_opinion(self, topic, add_to_log = True): #topic is a string matching the topics given in our random list (ie. "the colour blue"). If the opinion is in either of our opinion dicts we will set it to known, otherwise we do nothing. Returns True if the opinion was updated, false if nothing was changed.
+            display_name = self.create_formatted_title("???")
             updated = False
+            if self.title:
+                display_name = self.title
             if topic in self.opinions:
                 if not self.opinions[topic][1]:
                     updated = True
-                    if add_to_log:
-                        mc.log_event("Discovered: " + self.title + " " + opinion_score_to_string(self.opinions[topic][0]) + " " + topic,"float_text_grey")
+                    if add_to_log and self.title is not None:
+                        mc.log_event("Discovered: " + display_name + " " + opinion_score_to_string(self.opinions[topic][0]) + " " + topic,"float_text_grey")
                 self.opinions[topic][1] = True
 
             if topic in self.sexy_opinions:
                 if not self.sexy_opinions[topic][1]:
                     updated = True
-                    if add_to_log:
-                        mc.log_event("Discovered: " + self.title + " " + opinion_score_to_string(self.sexy_opinions[topic][0]) + " " + topic,"float_text_grey")
+                    if add_to_log and self.title is not None:
+                        mc.log_event("Discovered: " + display_name + " " + opinion_score_to_string(self.sexy_opinions[topic][0]) + " " + topic,"float_text_grey")
                 self.sexy_opinions[topic][1] = True
 
             return updated
@@ -3118,6 +3140,9 @@ init -2 python:
             # Negative: Rival, Nemesis*
 
         def update_relationship(self, person_a, person_b, type_a, type_b = None, visible = None): #Note that type_a is required, but if you want to do just one half of a relationship you can flip the person order around.
+            if person_a is person_b: #Don't form relationships with yourself!
+                return
+
             the_relationship = self.get_relationship(person_a, person_b)
             if the_relationship is None: #No relationship exists yet, make one.
                 self.relationships.append(Relationship(person_a, person_b, type_a, type_b, visible))
@@ -3353,12 +3378,9 @@ init -2 python:
         def get_lighting_conditions(self):
             return self.lighting_conditions[time_of_day]
 
-
-
-
     class Action(renpy.store.object): #Contains the information about actions that can be taken in a room. Dispayed when you are asked what you want to do somewhere.
         # Also used for crises, those are not related to any partiular room and are not displayed in a list. They are forced upon the player when their requirement is met.
-        def __init__(self,name,requirement,effect,args = None, requirement_args = None, menu_tooltip = None, priority = 0):
+        def __init__(self,name,requirement,effect,args = None, requirement_args = None, menu_tooltip = None, priority = 0, event_duration = 99999):
             self.name = name
 
             # A requirement returns False if the action should be hidden, a string if the action should be disabled but visible (the string is the reason it is not enabled), and True if the action is enabled
@@ -3382,6 +3404,8 @@ init -2 python:
 
             self.menu_tooltip = menu_tooltip # A string added to any menu item where this action is displayed
             self.priority = priority #Used to order actions when displayed in a list. Higher priority actions are displaybed before lower ones, and disabled actions are shown after enabled actions.
+
+            self.event_duration = event_duration # Used for actions turned into limtied time actions as the starting duration.
 
         def __cmp__(self,other): ##This and __hash__ are defined so that I can use "if Action in List" and have it find identical actions that are different instances.
             if isinstance(other, Action):
@@ -3440,6 +3464,15 @@ init -2 python:
 
             renpy.call(self.effect,*(self.args+extra_args))
             renpy.return_statement()
+
+    class Limited_Time_Action(Action): #A wrapper class that holds an action and the amount of time it will be valid. This acts like an action everywhere
+        #except it also has a turns_valid value to decide when to get rid of this reference to the underlying action
+        def __init__(self, the_action, turns_valid):
+            self.the_action = the_action
+            self.turns_valid = turns_valid
+
+        def __getattr__(self, attr): # If we try and access an attribute not in this class return the matching attribute from the action. This is likely going to be a funciton like "check_is_active" or "call_action"
+            return getattr(self.the_action, attr)
 
     def sort_display_list(the_item): #Function to use when sorting lists of actions (and potentially people or strings)
         extra_args = None
@@ -5418,26 +5451,27 @@ screen phone_hud_ui():
             null height 5
 
             for log_item in mc.log_items:
-                $ fade_time = 5
-                $ time_diff = time.time() - log_item[2]
-                if time_diff > fade_time:
-                    $ time_diff = fade_time
+                if log_item is not None: #Minor hack to try and prevent any crashes. In theory log items should always exist.
+                    $ fade_time = 5
+                    $ time_diff = time.time() - log_item[2]
+                    if time_diff > fade_time:
+                        $ time_diff = fade_time
 
-                frame:
-                    background "#33333388"
-                    xsize 320
-                    padding (0,0)
-                    text log_item[0] style log_item[1] size 18 xsize 320 first_indent 20
-                frame:
-                    background "#ff0000aa"
-                    xsize 320
-                    ysize 8
-                    yanchor 1.0
-                    yalign 0.95
-                    xpadding 0
-                    ypadding 0
-                    at background_fade(5, time_diff)
-                null height 4
+                    frame:
+                        background "#33333388"
+                        xsize 320
+                        padding (0,0)
+                        text log_item[0] style log_item[1] size 18 xsize 320 first_indent 20
+                    frame:
+                        background "#ff0000aa"
+                        xsize 320
+                        ysize 8
+                        yanchor 1.0
+                        yalign 0.95
+                        xpadding 0
+                        ypadding 0
+                        at background_fade(5, time_diff)
+                    null height 4
 
 
 
@@ -8128,7 +8162,7 @@ label start:
         "I am not over 18.":
             $renpy.full_restart()
 
-    "Vren" "v0.23.0 represents an early iteration of Lab Rats 2. Expect to run into limited content, unexplained features, and unbalanced game mechanics."
+    "Vren" "v0.23.1 represents an early iteration of Lab Rats 2. Expect to run into limited content, unexplained features, and unbalanced game mechanics."
     "Vren" "Would you like to view the FAQ?"
     menu:
         "View the FAQ.":
@@ -8629,20 +8663,34 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
         call screen map_manager
         $ new_location = _return
         call change_location(new_location) from _call_change_location #_return is the location returned from the map manager.
-
         if new_location.people: #There are people in the room, let's see if there are any room events
-            $ picked_event = pick_room_enter_event(new_location)
-            if picked_event: #If there are room events to take care of run those right now.
+            $ enabled_room_events = []
+            python: #Scan through all the people and...
+                for a_person in new_location.people:
+                    for possible_room_event in a_person.on_room_enter_event_list:
+                        if isinstance(possible_room_event, Limited_Time_Action):
+                            possible_room_event
+                        if possible_room_event.is_action_enabled(a_person): #See what events the are enabled...
+                            enabled_room_events.append([a_person, possible_room_event]) #Then keep track of the person so we know who to remove it from if it triggers.
+
+            if enabled_room_events: #If there are room events to take care of run those right now.
+                $ picked_event = get_random_from_list(enabled_room_events)
                 $ picked_event[0].on_room_enter_event_list.remove(picked_event[1]) #Remove the event from their list since we will be running it.
                 $ picked_event[1].call_action(picked_event[0]) #Run the action with the person as an extra argument.
 
             elif new_location in [mc.business.m_div, mc.business.p_div, mc.business.r_div, mc.business.s_div, mc.business.h_div]: #There are no room events, so generate a quick room greeting from an employee if one is around.
-                $ the_greeter = pick_room_greeting_event(new_location)
+                $ possible_greetings = []
+                python:
+                    for a_person in new_location.people:
+                        if mc.business.get_employee_title(a_person) != "None":
+                            possible_greetings.append(a_person)
+                $ the_greeter = get_random_from_list(possible_greetings)
                 if the_greeter:
                     $ the_greeter.draw_person()
                     $ the_greeter.call_dialogue("work_enter_greeting")
-                    $ del the_greeter
                     $ renpy.scene("Active")
+                    $ del the_greeter
+                $ del possible_greetings
 
         $del new_location
     elif picked_option == "Wait":
@@ -8672,15 +8720,17 @@ label talk_person(the_person):
     if the_person.title is None:
         call person_introduction(the_person) from _call_person_introduction #If their title is none we assume it is because we have never met them before. We have a special introduction scene for new people.
         #Once that's done we continue to talk to the person.
-    elif the_person.event_triggers_dict.get("wants_titlechange",False):
-        if renpy.random.randint(0,1) == 0: #50% of the time she wants a new title, otherwise she wants to give you a new title.
-            call person_new_title(the_person) from _call_person_new_title
-        else:
-            call person_new_mc_title(the_person) from _call_person_new_mc_title
-        $ the_person.event_triggers_dict["wants_titlechange"] = False
 
 
-    $ change_titles_action = Action("Change how to address each other", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
+    # elif the_person.event_triggers_dict.get("wants_titlechange",False):
+    #     if renpy.random.randint(0,1) == 0: #50% of the time she wants a new title, otherwise she wants to give you a new title.
+    #         call person_new_title(the_person) from _call_person_new_title
+    #     else:
+    #         call person_new_mc_title(the_person) from _call_person_new_mc_title
+    #     $ the_person.event_triggers_dict["wants_titlechange"] = False
+
+
+    $ change_titles_action = Action("Talk about what you call each other.", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
         menu_tooltip = "Manage how you refer to this girl and tell her how she should refer to you. Differnet combinations of stats, roles, and personalityes unlock different titles.", priority = -5)
     $ small_talk_action = Action("Make small talk.\n-15 {image=gui/extra_images/energy_token.png}", requirement = small_talk_requirement, effect = "small_talk_person", args=the_person, requirement_args=the_person,
         menu_tooltip = "A pleasant chat about your likes and dislikes. A good way to get to know someone and the first step to building a lasting relationship. Provides a chance to study the effects of active serum traits and raise their mastery level.")
@@ -9420,6 +9470,23 @@ label advance_time:
     python:
         for (people,place) in people_to_process: #Now move everyone to where the should be in the next time chunk. That may be home, work, etc.
             people.run_move(place)
+
+            if people.title is not None: #We don't assign events to people we haven't met.
+                if renpy.random.randint(0,100) < 7: #Only assign one to 12% of people, to cut down on the number of people we're checking.
+                    possible_crisis_list = []
+                    for crisis in limited_time_event_pool:
+                        if crisis[0].is_action_enabled(people): #Get the first element of the weighted tuple, the action.
+                            possible_crisis_list.append(crisis) #Build a list of valid crises from ones that pass their requirement.
+
+                    the_crisis = get_random_from_weighted_list(possible_crisis_list, return_everything = True)
+                    if the_crisis is not None:
+                        limited_time_event = Limited_Time_Action(the_crisis[0], the_crisis[0].event_duration) #Wraps the action so that we can have an instanced duration counter and add/remove it easily.\
+                        #renpy.notify("Created event: " + the_crisis[0].name + " for " + people.name)
+                        if the_crisis[2] == "on_talk":
+                            people.on_talk_event_list.append(limited_time_event)
+
+                        elif the_crisis[2] == "on_enter":
+                            people.on_room_enter_event_list.append(limited_time_event)
 
     $ del people_to_process
     $ renpy.free_memory()

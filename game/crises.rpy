@@ -62,9 +62,9 @@
 #todo: girl who loves you sends you sexy selfies
 #todo: Lily invites you to a university party as her +1.
 #todo: Help Lily study, punish/reward her answers (maybe work a little quiz mini-game into it too?)
-#todo: early morning shower event
 #todo: friends help friends be sluts
 #todo: write something "special" on her performance review. "great cock sucker.", "very tight pussy"
+#todo, cousin sends you a text asking you to beg for nudes.
 
 
 ### SPECIAL CRISES ###
@@ -76,6 +76,7 @@
 # Mom morning surprise
 # Lily morning encounter
 # Family Breakfast
+# Morning Shower
 
 
 ## Crises are stored in a weighted list, to be polled each turn to see if something triggers (and if so, what).
@@ -837,7 +838,7 @@ label special_training_crisis_label():
 init 1 python:
     def lab_accident_requirement():
         if in_research_with_other():
-            if mc.business.active_research_design and type(mc.business.active_research_design) is SerumDesign:
+            if mc.business.active_research_design and isinstance(mc.business.active_research_design, SerumDesign):
                 return True
         return False
 
@@ -848,7 +849,7 @@ label lab_accident_crisis_label():
     ## Some quick checks to make sure the crisis is still valid (for example, a serum being finished before this event can trigger)
     if not mc.business.active_research_design:
         return
-    if not type(mc.business.active_research_design) is SerumDesign:
+    if not isinstance(mc.business.active_research_design, SerumDesign):
         return
 
     $ the_serum = mc.business.active_research_design
@@ -2055,7 +2056,7 @@ label cat_fight_crisis_label():
     if not cat_fight_crisis_requirement(): #If something has changed since we added this crisis as a valid one just return. Should not happen often.
         return
 
-    $ the_relationship = get_random_from_list(own_relationships.get_business_relationships(["Rival","Nemesis"])) #Get a random rival or nemesis relationship within the company
+    $ the_relationship = get_random_from_list(town_relationships.get_business_relationships(["Rival","Nemesis"])) #Get a random rival or nemesis relationship within the company
     if the_relationship is None:
         return #Just in case something goes wrong getting a relationship we'll exit gracefully.
     if renpy.random.randint(0,1) == 1: #Randomize the order so that repeated events with the same people alternate who is person_one and two.
@@ -4059,7 +4060,7 @@ label mom_morning_surprise_label():
         $ bottom_list = the_person.outfit.get_lower_ordered()
         $ removed_something = False
         $ the_index = 0
-        while not the_person.outfit.vagina_available and the_index < __builtin__.len(bottom_list):
+        while not the_person.outfit.vagina_available() and the_index < __builtin__.len(bottom_list):
             $ the_person.outfit.remove(bottom_list[index])
             $ removed_something = True
             $ the_index += 1
