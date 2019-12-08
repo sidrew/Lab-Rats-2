@@ -91,7 +91,7 @@ label fuck_person(the_person, private= True, start_position = None, start_object
                     option_list.append(["Keep " + position_choice.verbing + " her.","Continue"]) #Note: you're prevented from continuing if the energy cost would be too high by the pre-round checks.
                     option_list.append(["Pause and strip her down.","Strip"])
 
-                    if not position_locked:
+                    if not position_locked and object_choice:
                         option_list.append(["Pause and change position.\n-5 {image=gui/extra_images/arousal_token.png}","Change"])
                         for position in position_choice.connections:
                             if object_choice.has_trait(position.requires_location):
@@ -119,14 +119,11 @@ label fuck_person(the_person, private= True, start_position = None, start_object
                 else:
                     $ position_choice = start_position
 
-                if start_object is None:
-                    call pick_object(the_person, position_choice) from _call_pick_object
-                    $ object_choice = _return
-                else:
-                    call pick_object(the_person, position_choice, forced_object = start_object) from _call_pick_object_1
+                call pick_object(the_person, position_choice, forced_object = start_object) from _call_pick_object
+                $ object_choice = _return
 
                 if position_choice and object_choice:
-                    call check_position_willingness(the_person, position_choice) from _call_check_position_willingness
+                    call check_position_willingness(the_person, position_choice, skip_dialog = True) from _call_check_position_willingness
                     if not _return: #If she wasn't willing for whatever reason (too slutty a position, not willing to wear a condom) we clear our settings and try again.
                         $ position_choice = None
                         $ object_choice = None
@@ -300,10 +297,11 @@ label pick_object(the_person, the_position, forced_object = None):
     $ the_person.add_situational_obedience("sex_object",picked_object.obedience_modifier, the_position.verbing + " on a " + picked_object.name)
     return picked_object
 
-label check_position_willingness(the_person, the_position): #Returns if hte person is willing to do this position or not, and charges the appropriate happiness hit if they needed obedience to be willing.
+label check_position_willingness(the_person, the_position, skip_dialog = False): #Returns if hte person is willing to do this position or not, and charges the appropriate happiness hit if they needed obedience to be willing.
     $ willing = True
     if the_person.effective_sluttiness() >= the_position.slut_requirement:
-        $ the_person.call_dialogue("sex_accept")
+        if not skip_dialog:
+            $ the_person.call_dialogue("sex_accept")
 
     elif the_person.effective_sluttiness() + (the_person.obedience-100) >= the_position.slut_requirement:
         # She's willing to be commanded to do it. Reduce her happiness by the difference (increase arousal if she likes being submissive)
