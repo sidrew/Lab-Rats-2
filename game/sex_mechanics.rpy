@@ -291,7 +291,11 @@ label pick_object(the_person, the_position, forced_object = None):
                 if object.has_trait(position_choice.requires_location):
                     object_option_list.append([object.get_formatted_name(),object]) #Displays a list of objects in the room related to that position and their appropriate bonuses/penalties
 
-            picked_object = renpy.display_menu(object_option_list,True,"Choice")
+            # if we have only one object to pick for position, select it automatically (saves the user for selecting the only obvious choice)
+            if len(object_option_list) == 1:
+                picked_object = object_option_list[0][1]
+            else:
+                picked_object = renpy.display_menu(object_option_list,True,"Choice")
 
     $ the_person.add_situational_slut("sex_object", picked_object.sluttiness_modifier, the_position.verbing + " on a " + picked_object.name)
     $ the_person.add_situational_obedience("sex_object",picked_object.obedience_modifier, the_position.verbing + " on a " + picked_object.name)
@@ -444,6 +448,7 @@ label watcher_check(the_person, the_position, the_object, the_report): # Check t
                     renpy.say("",a_person.title + " gasps when she sees what you and " + the_person.title + " are doing.")
 
     $ watcher = get_random_from_list(other_people) #Get a random person from the people in the area, if there are any.
+    $ del other_people
     if watcher:
         # NOTE: the dialogue here often draws the person talking with various emotions or positions, so we redraw the scene after we call them.
         $ watcher.call_dialogue("sex_watch", the_sex_person = the_person, the_position = the_position) #Get the watcher's reaction to the people having sex. This might include dialogue calls from other personalities as well!
