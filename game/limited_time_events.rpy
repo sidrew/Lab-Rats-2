@@ -283,7 +283,7 @@ label nude_walk_in_label(the_person):
         "You open the door to [the_person.possessive_title]'s room and find her sitting on her bed, wearing nothing but her underwear."
         if the_person.effective_sluttiness() < (40 - (the_person.get_opinion_score("not wearing anything")*10)):
             the_person.char "Oh! One second, I'm not dressed!"
-            $ the_person.scene("Active")
+            $ renpy.scene("Active")
             "She hurries to the door and closes it in your face, locking it quickly. You can hear her quickly getting dressed on the other side."
             $ the_person.outfit = the_person.planned_outfit.get_copy()
             $ the_person.draw_person()
