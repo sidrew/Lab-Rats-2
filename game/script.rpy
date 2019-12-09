@@ -1400,7 +1400,7 @@ init -2 python:
 
         def run_day(self):
             self.listener_system.fire_event("end_of_day")
-            self.change_energy(60, add_to_log = False)
+            self.change_energy(self.max_energy, add_to_log = False)
             self.reset_arousal()
             self.scrap_goal_available = True
 
@@ -1905,7 +1905,7 @@ init -2 python:
         def run_day(self): #Called at the end of the day.
             #self.outfit = self.wardrobe.decide_on_outfit(self.sluttiness) #Put on a new outfit for the day!
 
-            self.change_energy(60, add_to_log = False)
+            self.change_energy(self.max_energy, add_to_log = False)
 
             # if renpy.random.randint(0,100) < 8 and self.title: #There's an 8% chance they want a title change on any given day, if they are already introduced. TODO: Tweak this or make it dependent on other stuff.
             #     self.event_triggers_dict["wants_titlechange"] = True
