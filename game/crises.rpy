@@ -4212,7 +4212,7 @@ label lily_new_underwear_crisis_label():
             the_person.char "Okay, it's getting cold. I'm going to go put some clothes on!"
             $ renpy.scene("Active")
             "[the_person.title] slips out into the hall, leaving you alone in your room."
-
+            $ the_person.outfit = the_person.planned_outfit.get_copy()  # restore original clothing
 
         "Send her away.":
             mc.name "Sorry [the_person.title], but I'm busy right now. You'll have to figure out if you like it by yourself."
