@@ -86,7 +86,7 @@ label outro_tit_fuck(the_girl, the_location, the_object, the_round):
                 the_girl.char "What's wrong? I...!"
                 "You grunt and climax, blasting thick ropes of cum over [the_girl.title]'s suprised face. She jerks back, then waits until you're finished."
             $ the_girl.cum_on_face()
-            $ tit_fuck.redraw_scene()
+            $ tit_fuck.redraw_scene(the_girl)
 
     the_girl.char "Ah... Wow..."
     return
