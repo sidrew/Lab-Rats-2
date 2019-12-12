@@ -3005,7 +3005,7 @@ label horny_at_work_crisis_label():
                         mc.name "If I wanted you to come I would have told you to. I'd like some privacy, please."
                         $ your_follower.change_happiness(-5)
                         $ your_follower.change_obedience(2)
-                        $ your_follower.draw-person(emotion = "sad")
+                        $ your_follower.draw_person(emotion = "sad")
                         your_follower.char "I... Oh, I'm sorry [your_follower.mc_title], I don't know what I was thinking..."
                         $ renpy.scene("Active")
                         "She blushes and turns around, leaving quickly. You pull up some porn on your phone and get comfortable, jerking yourself off until you cum."
