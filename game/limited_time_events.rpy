@@ -97,7 +97,7 @@ label sister_walk_in_label(the_person):
         "Laptop" "Ah! Fuck me! Ah! Yes!"
         the_person.char "Oh my god, no!"
         "She sprints to her bed, opening up her laptop and turning it off as quickly as possible."
-        mc.name "Am I interupting?"
+        mc.name "Am I interrupting?"
         "[the_person.possessive_title] spins around, beet red, and stammers for a moment."
         the_person.char "I... I don't... Umm... I think my laptop has a virus, all these crazy popups!"
         mc.name "Mmmhm? Do you want me to take a look?"
@@ -143,7 +143,7 @@ label sister_walk_in_label(the_person):
                 mc.name "Having a good time?"
                 if the_person.effective_sluttiness() < 50:
                     the_person.char "Hmm? Oh my god!"
-                    "She opens her eyes slowly, before yelling in suprise and grabbing desperately for her blankets in an attempt to salvage her decency."
+                    "She opens her eyes slowly, before yelling in surprise and grabbing desperately for her blankets in an attempt to salvage her decency."
                     the_person.char "Oh my god, [the_person.mc_title]! What are you... I... Get out of here!"
                     mc.name "Don't be so dramatic [the_person.title], I just want to know if you want some help."
                     the_person.char "Help?! Ew, oh god!"
@@ -155,7 +155,7 @@ label sister_walk_in_label(the_person):
                 else:
                     the_person.char "Hmm?"
                     if the_person.effective_sluttiness() < 70:
-                        "She opens her eyes slowly, then gasps in suprise. She grabs a pillow and uses it to cover herself."
+                        "She opens her eyes slowly, then gasps in surprise. She grabs a pillow and uses it to cover herself."
                         the_person.char "Oh my god, [the_person.mc_title]! What are you doing, I'm..."
                         "She blushes a little."
                         the_person.char "Well, you know."
@@ -170,7 +170,7 @@ label sister_walk_in_label(the_person):
                         mc.name "I don't need anything, but it looks like you might. Do you need a hand with that?"
                         "She nods and gives you \"fuck me\" eyes."
 
-                    "You slide onto the bed and run your fingers alng [the_person.title]'s body, moving down towards her already-wet pussy."
+                    "You slide onto the bed and run your fingers along [the_person.title]'s body, moving down towards her already-wet pussy."
                     "When you first touch her she gasps and quivers, and when you slide your middle finger into her pussy she moans."
                     "She slides her body against you, and when you pull her off the bed she doesn't argue."
                     "You stand behind her, one hand grasping a breast and the other gently pumping a finger in and out of her."
@@ -196,7 +196,7 @@ label sister_walk_in_label(the_person):
 
                     else:
                         the_person.char "So... are you finished?"
-                        mc.name "Heh, yeah. Sorry [the_person.mc_title], I'm just not feeling it."
+                        mc.name "Heh, yeah. Sorry [the_person.title], I'm just not feeling it."
                         "She frowns, but nods. She gathers her blankets over herself."
                         $ the_person.change_obedience(-2)
 
@@ -224,8 +224,8 @@ label sister_walk_in_label(the_person):
 
                     if the_person.effective_sluttiness() < 70: #She's a little unsure about it, but goes for it
                         the_person.char "Really? I... I mean, do you really want to see me like this?"
-                        "[the_person.possessive_title] relaxes a little, her hand unconciously drifting back between her legs."
-                        mc.name "I think it's hot, keep touching yoruself for me."
+                        "[the_person.possessive_title] relaxes a little, her hand unconsciously drifting back between her legs."
+                        mc.name "I think it's hot, keep touching yourself for me."
                         "She shrugs and nods, spreading her legs and sliding a finger along her wet slit."
                         $ the_person.change_obedience(2)
                     else:
@@ -305,7 +305,7 @@ label mom_house_work_nude_label(the_person):
     # When she's in the kitchen (or any other part of the house, for later events) she'll work in her underwear or (later) nude.
     $ effective_slut = the_person.effective_sluttiness() + (the_person.get_opinion_score("not wearing anything")*10)
     if effective_slut < 20: #TODO: This method of adding clothing with specific colours is dumb. (I suppose we could do the apron as being an overwear and then add it to underwear, but we should still have a system for it).
-        # She's in her underwear but self concious about it
+        # She's in her underwear but self conscious about it
         $ the_person.outfit = the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True)
         $ coloured_apron = apron.get_copy()
         $ coloured_apron.colour = [0.74,0.33,0.32,1.0]
