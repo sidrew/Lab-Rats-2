@@ -2,8 +2,8 @@
     python:
         blowjob = Position(name = "Blowjob", slut_requirement = 40, slut_cap = 60, requires_hard = True, requires_large_tits = False,
             position_tag = "blowjob", requires_location = "Kneel", requires_clothing = "None", skill_tag = "Oral",
-            girl_arousal = 3, girl_energy = 15,
-            guy_arousal = 15, guy_energy = 5,
+            girl_arousal = 3, girl_energy = 10,
+            guy_arousal = 15, guy_energy = 3,
             connections = [],
             intro = "intro_blowjob",
             scenes = ["scene_blowjob_1","scene_blowjob_2"],

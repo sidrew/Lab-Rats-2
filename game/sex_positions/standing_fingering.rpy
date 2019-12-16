@@ -2,8 +2,8 @@ init:
     python:
         standing_finger = Position(name = "Fingering", slut_requirement = 25, slut_cap = 50, requires_hard = False, requires_large_tits = False,
             position_tag = "walking_away", requires_location = "Stand", requires_clothing = "None", skill_tag = "Foreplay",
-            girl_arousal = 15, girl_energy = 5,
-            guy_arousal = 5, guy_energy = 20,
+            girl_arousal = 16, girl_energy = 3,
+            guy_arousal = 5, guy_energy = 14,
             connections = [],
             intro = "intro_standing_finger",
             scenes = ["scene_standing_finger_1","scene_standing_finger_2"],

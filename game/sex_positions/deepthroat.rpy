@@ -2,8 +2,8 @@
     python:
         deepthroat = Position(name = "Deepthroat", slut_requirement = 55, slut_cap = 80, requires_hard = True, requires_large_tits = False,
             position_tag = "blowjob", requires_location = "Kneel", requires_clothing = "None", skill_tag = "Oral",
-            girl_arousal = 3, girl_energy = 20,
-            guy_arousal = 23, guy_energy = 5,
+            girl_arousal = 3, girl_energy = 13,
+            guy_arousal = 23, guy_energy = 3,
             connections = [],
             intro = "intro_deepthroat",
             scenes = ["scene_deepthroat_1","scene_deepthroat_2","scene_deepthroat_3"],
