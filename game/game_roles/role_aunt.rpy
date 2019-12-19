@@ -937,8 +937,9 @@ label aunt_share_drinks_label(the_person):
                         mc.name "No, go right ahead."
                         if the_person.outfit.remove_random_lower(do_not_remove = True):
                             $ strip_choice = the_person.outfit.remove_random_lower(top_layer_first = True, do_not_remove = True)
-                            $ the_person.draw_animated_removal(strip_choice)
-                            "She takes off her [strip_choice.name] next and throws it onto the couch too."
+                            if not strip_choice is None:
+                                $ the_person.draw_animated_removal(strip_choice)
+                                "She takes off her [strip_choice.name] next and throws it onto the couch too."
                     the_person.char "[the_person.mc_title], can I ask you a question? Do you think I'm still attractive?"
                     $ the_person.draw_person(position = "back_peek")
                     "She spins around in front of you, showing you her butt."
