@@ -435,7 +435,7 @@ label cousin_blackmail_list(the_person):
             mc.name "You know we aren't. Come here."
             $ the_person.add_situational_obedience("blackmail", 30, "This will keep him quiet.")
 
-            call fuck_person(the_person, start_position = kissing, start_object = mc.location.objects_with_trait("Stand"), position_locked = True) from _call_fuck_person_24
+            call fuck_person(the_person, start_position = kissing, start_object = make_floor(), position_locked = True) from _call_fuck_person_24
             $ the_report = _return
             if the_report.get("girl orgasms", 0) > 0:
                 "[the_person.title] is left flush and panting when you're finished making out."
