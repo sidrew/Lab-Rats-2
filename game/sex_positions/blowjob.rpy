@@ -11,7 +11,7 @@
             transition_default = "transition_default_blowjob",
             strip_description = "strip_blowjob", strip_ask_description = "strip_ask_blowjob",
             orgasm_description = "orgasm_blowjob",
-            verb = "throat",
+            verb = "mouth fuck",
             opinion_tags = ["giving blowjobs"], record_class = "Blowjobs")
 
         list_of_positions.append(blowjob)

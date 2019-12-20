@@ -11,6 +11,7 @@ init:
             transition_default = "transition_default_doggy_anal",
             strip_description = "strip_doggy_anal", strip_ask_description = "strip_ask_doggy_anal",
             orgasm_description = "orgasm_doggy_anal",
+            verb = "ass fuck",
             opinion_tags = ["doggy style sex","anal sex"], record_class = "Anal Sex")
 
         list_of_positions.append(doggy_anal)

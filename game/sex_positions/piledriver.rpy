@@ -11,6 +11,7 @@
             transition_default = "transition_default_piledriver",
             strip_description = "strip_piledriver", strip_ask_description = "strip_ask_piledriver",
             orgasm_description = "orgasm_piledriver",
+            verb = "piledrive", verbing = "piledriving",
             opinion_tags = ["missionary style sex","vaginal sex","being submissive"], record_class = "Vaginal Sex")
         list_of_positions.append(piledriver)
 
