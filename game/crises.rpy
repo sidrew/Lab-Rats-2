@@ -4736,9 +4736,9 @@ label girl_shower_enter(the_person, suprised):
                         $ the_person.outfit.add_dress(towel.get_copy())
                         $ the_person.draw_person()
                         "When you're finished [the_person.title] steps out of the shower and grabs a towel. She dries herself off, then wraps herself in it then turns to you."
-                        if the_report.get("girl_orgasms",0)>0:
+                        if the_report.get("girl orgasms",0)>0:
                             the_person.char "Well that a good way to start the day. See you later."
-                        elif the_report.get("guy_orgasms",0)>0:
+                        elif the_report.get("guy orgasms",0)>0:
                             the_person.char "Well I hope you enjoyed your start to the day. See you later."
                         else:
                             the_person.char "Well maybe we can pick this up some other time. See you later."

@@ -151,7 +151,7 @@ label fuck_date_label(the_person):
     $ so_called = False
     $ energy_gain_amount = 50 #Drops each round, representing your flagging endurance.
     while done == False:
-        if the_report.get("girl_orgasms", 0) > 0: #TODO: Have some variation to this based on how many times we've looped around.
+        if the_report.get("girl orgasms", 0) > 0: #TODO: Have some variation to this based on how many times we've looped around.
             $ the_person.change_love(2 + the_person.get_opinion_score("cheating on men"))
             $ the_person.change_slut_temp(1)
             the_person.char "Oh god... That was amazing. You're so much better at that than my [so_title]."

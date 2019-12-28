@@ -176,7 +176,7 @@ label sister_walk_in_label(the_person):
                     "You stand behind her, one hand grasping a breast and the other gently pumping a finger in and out of her."
                     call fuck_person(the_person, start_position = standing_finger, private = True) from _call_fuck_person_2
                     $ the_record = _return
-                    if the_record.get("girl_orgasms", 0) > 0:
+                    if the_record.get("girl orgasms", 0) > 0:
                         "[the_person.possessive_title] falls back on her bed and sighs happily."
                         $ the_person.change_love(2)
                         $ the_person.change_obedience(1)
@@ -185,7 +185,7 @@ label sister_walk_in_label(the_person):
                         "You step out of the room to give her some time to recover."
                         $ mc.change_location(hall)
 
-                    elif the_record.get("guy_orgasms", 0) > 0:
+                    elif the_record.get("guy orgasms", 0) > 0:
                         the_person.char "So... Is that it?"
                         mc.name "What do you mean?"
                         $ the_person.change_love(-2)
