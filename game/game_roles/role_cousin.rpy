@@ -113,6 +113,11 @@ init -2 python:
         else:
             return True
 
+    def cousin_serum_boobjob_check_requirement(the_person, the_tits, the_day):
+        if day < the_day:
+            return False
+        return True        
+
 
 
 ###COUSIN ACTION LABELS###
