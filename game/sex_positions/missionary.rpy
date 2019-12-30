@@ -204,7 +204,7 @@ label outro_missionary(the_girl, the_location, the_object, the_round):
                 "You take a moment to catch your breath, then roll off of [the_girl.possessive_title] and lie beside her. Your condom is ballooned with your seed and hangs to one side."
                 if the_girl.get_opinion_score("drinking cum") > 0 and the_girl.sluttiness > 50:
                     $ the_girl.discover_opinion("drinking cum")
-                    "[the_girl.possessive_title] reaches over for your cock. With delicate fingers she slides the condom off of you, pinching it off do your cum doesn't spill out."
+                    "[the_girl.possessive_title] reaches over for your cock. With delicate fingers she slides the condom off of you, pinching it off so your cum doesn't spill out."
                     the_girl.char "It would be a shame to waste all of this, right?"
                     "She smiles and brings the condom to her mouth. She tips the bottom up and drains it into her mouth."
                     $ the_girl.change_slut_temp(the_girl.get_opinion_score("drinking cum"))
