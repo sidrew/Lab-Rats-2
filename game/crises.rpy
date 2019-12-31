@@ -2708,10 +2708,10 @@ label daughter_work_crisis_label():
             $ the_person.change_love(2)
             the_person.char "Thank you so much!"
             call hire_someone(the_daughter) from _call_hire_someone_2
-            # make sure to set titles for the daughter (prevent introduction dialogs)
-            $ the_daughter.set_mc_title(get_random_from_list(get_player_titles(the_daughter)))
-            $ the_daughter.set_title(get_random_title(the_daughter))
-            $ the_daughter.set_possessive_title(get_random_possessive_title(the_daughter))
+        # make sure to set titles for the daughter (prevent introduction dialogs)
+        $ the_daughter.set_mc_title(get_random_from_list(get_player_titles(the_daughter)))
+        $ the_daughter.set_title(get_random_title(the_daughter))
+        $ the_daughter.set_possessive_title(get_random_possessive_title(the_daughter))
     else: #is "None
         if promised_sex: #You promised to do it for sex but don't want to hire her, mom is disappointed.
             mc.name "I'm sorry but her credentials just aren't what they need to be. I could never justify hiring your daughter."
