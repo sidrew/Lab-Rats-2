@@ -9030,7 +9030,7 @@ label hire_someone(new_person, add_to_location = False): # Breaks out some of th
             town_relationships.begin_relationship(new_person, other_employee) #They are introduced to everyone at work, with a starting value of "Acquaintance"
         del other_employee
 
-    "You complete the nessesary paperwork and hire [_return.name]. What division do you assign them to?"
+    "You complete the nessesary paperwork and hire [new_person.name]. What division do you assign them to?"
     menu:
         "Research and Development.":
             $ mc.business.add_employee_research(new_person)
