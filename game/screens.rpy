@@ -292,6 +292,9 @@ init -2 python:
                     mi.display_scale = scale_person(item.height)
                     mi.displayable = item.build_person_displayable(lighting = mc.location.get_lighting_conditions(), **person_preview_args)
 
+                    # prevent overlapping images of girls
+                    renpy.scene("Active")
+
                 if isinstance(item, Action):
                     mi.title = ""
                     mi.return_value = item
