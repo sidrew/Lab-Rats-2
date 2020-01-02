@@ -232,6 +232,7 @@ label cousin_blackmail_intro_label(the_person):
             the_person.char "Okay. I better not find out you told someone."
             mc.name "Your secret's safe with me."
 
+    $ the_person.schedule[2] = hall
     $ the_person.event_triggers_dict["blackmail_level"] = 1
 
     $ blackmail_2_event = Action("Blackmail hint", blackmail_hint_requirement, "aunt_cousin_hint_label", args = [aunt, the_person], requirement_args = [the_person, day + renpy.random.randint(2,4)])
