@@ -2767,9 +2767,11 @@ init -2 python:
             common_likes = None, common_dislikes = None, common_sexy_likes = None, common_sexy_dislikes = None,
             titles_function = None, possessive_titles_function = None, player_titles_function = None):
 
-
             self.personality_type_prefix = personality_type_prefix
-            self.default_prefix = default_prefix
+            if default_prefix is None:
+                self.default_prefix = personality_type_prefix
+            else:
+                self.default_prefix = default_prefix
 
             self.titles_function = titles_function
             self.possessive_titles_function = possessive_titles_function
