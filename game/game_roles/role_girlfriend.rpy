@@ -42,7 +42,7 @@ init -1 python:
             return False
         elif the_person.obedience < 110:
             return False
-        elif the_person.obedience < the_person.obedience_required:
+        elif the_person.obedience < obedience_required:
             return "Requires: " + str(obedience_required)
         else:
             return True
