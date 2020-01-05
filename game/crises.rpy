@@ -3535,7 +3535,7 @@ label friends_help_friends_be_sluts_label():
                 if person_two.sex_record.get("Blowjobs", 0) == 0:
                     person_one.char "[person_two.title] has always wanted to suck your cock, but was too scared to ask."
                 else:
-                    person_two.char "[person_one.title] really liked sucking your cock and wants to do it again, but was too scared to ask."
+                    person_one.char "[person_two.title] really liked sucking your cock and wants to do it again, but was too scared to ask."
                 $ person_two.draw_person()
                 if person_two.get_opinion_score("giving blowjobs") < 0:
                     $ person_two.discover_opinion("giving blowjobs")
@@ -3558,7 +3558,7 @@ label friends_help_friends_be_sluts_label():
 
 
             menu:
-                "Let [person_one.title] give you a blowjob.":
+                "Let [person_two.title] give you a blowjob.":
                     mc.name "I'm not about to say no to an offer like that."
                     $ person_one.draw_person()
                     if girlfriend_role in person_one.special_role or affair_role in person_one.special_role:
@@ -3572,6 +3572,8 @@ label friends_help_friends_be_sluts_label():
                         "She gives [person_two.title] a smack on the ass as she leaves the room."
                         person_one.char "Go get him girl."
 
+                    $ mc.change_arousal(40)
+                    $ person_two.change_arousal(40)
                     $ person_two.draw_person()
                     call fuck_person(person_two, start_position = blowjob,  position_locked = True, affair_ask_after = True) from _call_fuck_person_18
                     $ the_report = _return
