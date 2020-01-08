@@ -14,13 +14,10 @@
 # Expand the existing crises with more options and levels, ect. (Tax option is top priority)
 # Bulk order demand for a large number of a single type of serum comes in (10 + 2*diff) due in 7 days.
 # Walk past one of your girls bending over. Quick check to see if you just pass by, slap her ass, or pull down her pants and fuck her.
-# You're horny at work and can't get anything done. Jerk off or call someone in to help you.
-#
 
 
 #We want to add more at home morning crises so that we don't have the same ones triggering over and over
 #We want more crises that deal with other characters in the game
-#We want to figure out how we're going to do "one off" on enter crises, like walking in on a girl masturbating.
 
 
 ## Potential Policies ##
@@ -203,9 +200,10 @@ label broken_AC_crisis_label:
             while the_clothing and the_person.judge_outfit(test_outfit, temp_sluttiness_increase): #This will loop over and over until she is out of things to remove OR nolonger can strip something that is appropriate.
                 #Note: there can be some variation in this event depending on if the upper or lower was randomly checked first.
                 $ the_person.draw_animated_removal(the_clothing) #Draw the item being removed from our current outfit
-                $ the_person.outfit = test_outfit.get_copy() #Swap our current outfit out for the test outfit.
-                $ ran_num = renpy.random.randint(0,4)
-                if ran_num == 0 or not removed_something:
+                #$ the_person.outfit = test_outfit.get_copy() #Swap our current outfit out for the test outfit. Changed in v0.24.1
+                $ the_person.apply_outfit(test_outfit, ignore_base = True) #Swap our current outfit out for the test outfit.
+                $ random_strip_descrip = renpy.random.randint(0,4)
+                if random_strip_descrip == 0 or not removed_something:
                     "[the_person.title] pulls off her [the_clothing.name] and puts it aside." #Always called first.
                 elif ran_num == 1:
                     "[the_person.title] takes off her [the_clothing.name] and adds it to the pile of clothing."
@@ -255,9 +253,10 @@ label broken_AC_crisis_label:
                     while the_clothing and girl_choice.judge_outfit(test_outfit, temp_sluttiness_increase): #This will loop over and over until she is out of things to remove OR nolonger can strip something that is appropriate.
                         #Note: there can be some variation in this event depending on if the upper or lower was randomly checked first.
                         $ girl_choice.draw_animated_removal(the_clothing) #Animate the removal.
-                        $ girl_choice.outfit = test_outfit.get_copy() #Swap outfits so we can keep updating
-                        $ ran_num = renpy.random.randint(0,4)
-                        if ran_num == 0 or not removed_something:
+                        # $ girl_choice.outfit = test_outfit.get_copy() #Swap outfits so we can keep updating Changed v0.24.1
+                        $ girl_choice.apply_outfit(test_outfit, ignore_base = True) #Ignore base because it's already a copy with their accessories added.
+                        $ random_strip_descrip = renpy.random.randint(0,4)
+                        if random_strip_descrip == 0 or not removed_something:
                             "[girl_choice.title] pulls off her [the_clothing.name] and puts it aside." #Always called first.
                         elif ran_num == 1:
                             "[girl_choice.title] takes off her [the_clothing.name] and adds it to the pile of clothing."
@@ -391,7 +390,8 @@ label no_uniform_punishment_label():
         "Test"
         return #We must have fixed up any obedience problems, they'll all be in uniform.
     else:
-        $ the_person.outfit = the_person.planned_outfit.get_copy() #Put them in their non-work outfit.
+        $ the_person.apply_outfit(the_person.planned_outfit) #Put them in their non-work outfit.
+        # $ the_person.outfit = the_person.planned_outfit.get_copy() Changed v0.24.1
 
     "You decide to take a break and stretch your legs. You start walking around the office, peeking in on your different divisions. You turn a corner and run into [the_person.title]."
     $ the_person.draw_person()
@@ -3726,7 +3726,8 @@ label mom_outfit_help_crisis_label():
             $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
         "Once she's stripped naked she grabs her new outfit and starts to put it on."
 
-    $ the_person.outfit = first_outfit
+    #$ the_person.outfit = first_outfit changed v0.24.1
+    $ the_person.apply_outfit(first_outfit)
     $ the_person.draw_person()
     the_person.char "Well, what do you think?"
     "You take a moment to think before responding."
@@ -3827,7 +3828,8 @@ label mom_outfit_help_crisis_label():
         $ del strip_choice
         "Once she's stripped naked she grabs another outfit and starts to put it on."
 
-    $ the_person.outfit = second_outfit
+    $ the_person.apply_outfit(second_outfit)
+    #$ the_person.outfit = second_outfit changed v0.24.1
     $ the_person.draw_person()
 
     the_person.char "Alright, there we go! Now, do you think this is better or worse than what I was just wearing?"
@@ -3925,7 +3927,8 @@ label mom_outfit_help_crisis_label():
                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
                     "Once she's stripped naked she grabs another outfit and starts to put it on."
 
-                $ the_person.outfit = third_outfit
+                $ the_person.apply_outfit(third_outfit)
+                #$ the_person.outfit = third_outfit changed v0.24.1
                 $ the_person.draw_person()
                 $ the_person.change_happiness(5)
                 $ the_person.change_obedience(5)
@@ -3959,7 +3962,8 @@ label mom_lingerie_surprise_label():
     $ the_person = mom
     "You are woken up in the middle of the night by the sound of your bedroom door closing."
     "You sit up and turn on the lamp beside your bed."
-    $ the_person.outfit = lingerie_wardrobe.pick_random_outfit()
+    $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
+    #$ the_person.outfit = lingerie_wardrobe.pick_random_outfit() changed v0.24.1
     $ the_person.draw_person(position = "stand4")
     the_person.char "I'm sorry to wake you up [the_person.mc_title], but I wanted to ask you something."
     "[the_person.possessive_title] is standing by the door, wearing some very revealing lingerie. She walks over to your bed and sits down beside you."
@@ -4034,7 +4038,8 @@ label mom_selfie_label():
         $ ran_num = renpy.random.randint(0,2) #Used to determine which variant we use to avoid spamming the player with the exact same texts.
         if ran_num == 0:
             if mc.business.is_weekend():
-                $ the_person.outfit = lingerie_wardrobe.pick_random_outfit()
+                $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
+                # $ the_person.outfit = lingerie_wardrobe.pick_random_outfit() chyanged v0.24.1
                 $ the_person.draw_person(position = "missionary", emotion = "happy")
                 "Her first message is a selfie of herself lying down on your bed in lingerie."
                 the_person.char "I can't wait until you come home and make love to me. I wish I could spend every minute of every day worshiping your cock like a good mother should."
@@ -4123,7 +4128,8 @@ label mom_selfie_label():
             "[the_person.possessive_title] doesn't wait for a reply and starts sending selfies."
             python:
                 for i in range(3):
-                    the_person.outfit = the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True)
+                    the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True))
+                    #the_person.outfit = the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True) changed v0.24.1
                     the_person.draw_person(emotion = "happy")
                     renpy.say("","")
             the_person.char "I hope you think your mommy looks sexy in her underwear ;)"
@@ -4236,7 +4242,8 @@ label mom_selfie_label():
             the_person.char "Hi [the_person.mc_title], I'm just checking in to make sure you're doing okay. I hope you don't mind your "
 
     "It's so sweet of her to think of you."
-    $ the_person.outfit = the_person.planned_outfit.get_copy() #Make sure to reset their outfits so they're dressed properly.
+    $ the_person.apply_outfit(the_person.planned_outfit)
+    # $ the_person.outfit = the_person.planned_outfit.get_copy() #Make sure to reset their outfits so they're dressed properly. changed v0.24.1
     $renpy.scene("Active")
     return
 
@@ -4559,7 +4566,8 @@ label lily_new_underwear_crisis_label():
             #TODO: Have an option where she puts it on right in front of you."
             $ renpy.scene("Active")
             "[the_person.title] skips out of your room, closing the door behind her."
-            $ the_person.outfit = the_underwear.get_copy()
+            $ the_person.apply_outfit(the_underwear)
+            # $ the_person.outfit = the_underwear.get_copy() changed v0.24.1
             "You're left waiting for a few minutes. Finally, your door cracks open and [the_person.title] slips inside."
             $ the_person.draw_person(emotion="happy")
             the_person.char "Here we go. What do you think?"
@@ -4632,10 +4640,12 @@ init 1 python:
 label lily_morning_encounter_label():
     # You run into Lily early in the morning as she's going to get some fresh laundry. At low sluttiness she is embarrassed, at high she is completely naked.
     $ the_person = lily
-    if the_person.sluttiness >= 70:
-        $ the_person.outfit = default_wardrobe.get_outfit_with_name("Nude 1") #If she's very slutty she doesn't mind being naked.
+    if the_person.sluttiness >= 60:
+        $ the_person.apply_outfit(Outfit("Nude"))
+        # $ the_person.outfit = default_wardrobe.get_outfit_with_name("Nude 1") #If sh's very slutty she doesn't mind being naked. Chnaged v0.24.1
     else:
-        $ the_person.outfit = the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True) # Otherwise get an underwear set she would wear.
+        $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True))
+        # $ the_person.outfit = the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True) # Otherwise get an underwear set she would wear. changed v0.24.1
 
     "You wake up in the morning to your alarm. You get dressed and leave your room to get some breakfast."
     $ the_person.draw_person()
@@ -4738,7 +4748,8 @@ label lily_morning_encounter_label():
         mc.name "Maybe we'll follow up on this later."
         "[the_person.possessive_title]'s face is flush. She nods and heads towards the laundry room. You get to watch her ass as she goes."
 
-    $ the_person.outfit = the_person.planned_outfit.get_copy() #Make sure to reset their outfits for the day.
+    $ the_person.apply_outfit(the_person.planned_outfit)
+    #$ the_person.outfit = the_person.planned_outfit.get_copy() #Make sure to reset their outfits for the day. changed v0.24.1
     $ renpy.scene("Active")
     return
 
@@ -4761,11 +4772,13 @@ label family_morning_breakfast_label():
     $ sis_slutty = False
     if the_mom.sluttiness > 40:
         $ mom_slutty = True
-        $ the_mom.outfit = the_mom.wardrobe.get_random_appropriate_underwear(the_mom.sluttiness, guarantee_output = True)
+        $ the_mom.apply_outfit(the_mom.wardrobe.get_random_appropriate_underwear(the_mom.sluttiness, guarantee_output = True))
+    #    $ the_mom.outfit = the_mom.wardrobe.get_random_appropriate_underwear(the_mom.sluttiness, guarantee_output = True) changed v0.24.1
 
     if the_sister.sluttiness > 40:
         $ sis_slutty = True
-        $ the_sister.outfit = the_sister.wardrobe.get_random_appropriate_underwear(the_sister.sluttiness, guarantee_output = True)
+        $ the_sister.apply_outfit(the_sister.wardrobe.get_random_appropriate_underwear(the_sister.sluttiness, guarantee_output = True))
+        #$ the_sister.outfit = the_sister.wardrobe.get_random_appropriate_underwear(the_sister.sluttiness, guarantee_output = True) Changed v0.24.1
     $ bedroom.show_background()
     "You're woken up in the morning by a knock at your door."
     mc.name "Uh, come in."
@@ -4874,7 +4887,8 @@ label family_morning_breakfast_label():
                     the_mom.char "Oh you two, you're so silly. Fine, I'll be back in a moment. [the_sister.title], could you watch the eggs?"
                     $ the_sister.draw_person(position = "walking_away")
                     "Your mother leaves to get dressed. [the_sister.possessive_title] ends up serving out breakfast for all three of you."
-                    $ the_mom.outfit = the_mom.planned_outfit.get_copy()
+                    $ the_mom.apply_outfit(the_mom.planned_outfit)
+                    # $ the_mom.outfit = the_mom.planned_outfit.get_copy() changed v0.24.1
                     the_sister.char "She's been so weird lately. I don't know what's going on with her..."
                     $ the_mom.draw_person(position = "sitting")
                     $ the_sister.change_happiness(5)
@@ -4929,7 +4943,8 @@ label family_morning_breakfast_label():
             "[the_sister.title] sulks out of the kitchen."
             $ the_mom.draw_person()
             the_mom.char "I don't know how I manage to survive with you two around!"
-            $ the_sister.outfit = the_sister.planned_outfit.get_copy()
+            $ the_sister.apply_outfit(the_sister.planned_outfit)
+            #$ the_sister.outfit = the_sister.planned_outfit.get_copy() changed v0.24.1
             $ the_sister.change_obedience(10)
             $ the_sister.change_happiness(-5)
             $ the_mom.change_obedience(-2)
@@ -5007,7 +5022,8 @@ label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
                     call girl_shower_leave(the_person) from _call_girl_shower_leave_1
                 elif the_person.effective_sluttiness <= 30:
                     #She's angry that you've barged in on her (but she doesn't mind enough to have locked the door).
-                    $ the_person.outfit = Outfit("Nude")
+                    $ the_person.apply_outfit(Outfit("Nude"))
+                    #$ the_person.outfit = Outfit("Nude") #changed v0.24.1
                     $ the_person.draw_person(emotion = "angry")
                     "You open the door. [the_person.possessive_title] is standing naked in the shower. She spins around and yells in suprise."
                     the_person.char "[the_person.mc_title]! I'm already in here, what are you doing?"
@@ -5021,14 +5037,16 @@ label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
                 else:
                     call girl_shower_enter(the_person, suprised = True) from _call_girl_shower_enter_1 #TODO: Decide if we need different dialogue for this (maybe just a "suprised" tag we can pass)
 
-        $ the_person.outfit = initial_outfit #put her back in her normal outfit after her shower
+        $ the_person.apply_outfit(initial_outfit)
+        #$ the_person.outfit = initial_outfit #put her back in her normal outfit after her shower #changed v0.24.1
 
     $ renpy.scene("Active")
     return
 
 label girl_shower_leave(the_person):
     "After a short pause the shower stops and you hear movement on the other side of the door."
-    $ the_person.outfit = towel_outfit
+    #$ the_person.outfit = towel_outfit changed v0.24.1
+    $ the_person.apply_outfit(towel_outfit)
     $ the_person.draw_person()
     "The bathroom door opens and [the_person.possessive_title] steps out from the steamy room in a towel."
     if the_person is mom:
@@ -5040,7 +5058,8 @@ label girl_shower_leave(the_person):
     return
 
 label girl_shower_enter(the_person, suprised):
-    $ the_person.outfit = Outfit("Nude")
+    $ the_person.apply_outfit(Outfit("Nude"))
+    #$ the_person.outfit = Outfit("Nude") changed v0.24.1
     $ the_person.draw_person(position = "back_peek")
     "You open the door and see [the_person.possessive_title] in the shower."
     if suprised:
@@ -5064,8 +5083,10 @@ label girl_shower_enter(the_person, suprised):
                 $ the_person.change_obedience(1)
 
             "Soon enough she's finished. She steps out and grabs a towel, but leaves the shower running for you."
-            $ the_person.outfit = Outfit("Towel")
-            $ the_person.outfit.add_dress(towel.get_copy())
+
+            $ the_person.apply_outfit(towel_outfit)
+            #$ the_person.outfit = Outfit("Towel") changed v0.24.1
+        #    $ the_person.outfit.add_dress(towel.get_copy())
             $ the_person.draw_person()
             the_person.char "There you go. Enjoy!"
             $ renpy.scene("Active")
@@ -5093,8 +5114,9 @@ label girl_shower_enter(the_person, suprised):
                 "She wiggles her butt and strokes your tip against her cheeks."
                 $ the_person.change_slut_temp(3 + the_person.get_opinion_score("showing her ass"))
                 "She steps out of the shower and grabs a towel."
-                $ the_person.outfit = Outfit("Towel")
-                $ the_person.outfit.add_dress(towel.get_copy())
+                $ the_person.apply_outfit(towel_outfit)
+                # $ the_person.outfit = Outfit("Towel") changed v0.24.1
+                # $ the_person.outfit.add_dress(towel.get_copy())
 
             # elif the_person.effective_sluttiness() <= 60: #TODO: Add a "hot dog" position and make it a starting position for this.
             #     "She wiggles her butt and strokes your tip against her cheeks."
@@ -5124,8 +5146,9 @@ label girl_shower_enter(the_person, suprised):
                         call fuck_person(the_person, skip_intro = True) from _call_fuck_person_1
                         $ the_report = _return
 
-                        $ the_person.outfit = Outfit("Towel")
-                        $ the_person.outfit.add_dress(towel.get_copy())
+                        $ the_person.apply_outfit(towel_outfit)
+                        # $ the_person.outfit = Outfit("Towel") changed v0.24.1
+                        # $ the_person.outfit.add_dress(towel.get_copy())
                         $ the_person.draw_person()
                         "When you're finished [the_person.title] steps out of the shower and grabs a towel. She dries herself off, then wraps herself in it then turns to you."
                         if the_report.get("girl orgasms",0)>0:
@@ -5155,6 +5178,82 @@ label girl_shower_enter(the_person, suprised):
 
 
     return
+#
+# init 1 python: #TODO: Finish this for v0.25
+#     def cousin_tease_crisis_requirement():
+#         if cousin.effective_sluttiness() >= 30 and cousin.obedience < 120 and cousin.love < 10 and cousin not in mc.location.people:
+#             return True
+#         return False
+#     cousin_tease_crisis = Action("Cousin text tease", cousin_tease_crisis_requirement, "cousin_tease_crisis_label")
+#     crisis_list.append([cousin_tease_crisis, 3])
+#
+# label cousin_tease_crisis_label():
+#     $ the_person = cousin
+#     #TODO: This event. She texts you and asks you to beg for some nudes because she's horny.
+#     "You get a text from [the_person.title]."
+#     if the_person.effective_sluttiness() < 50: #She'll want money
+#         the_person.char "Hey [the_person.mc_title], I need some cash. Do you have a hundred bucks?"
+#         menu:
+#             "Send [the_person.title] some money.\n-$100" if mc.business.funds >= 100:
+#                 $ mc.business.funds += -100
+#                 "You pull up your banking app and send [the_person.possessive_title] some money, then text back."
+#                 mc.name "There you go, sent."
+#                 the_person.char "Just like that? Well, thanks I guess."
+#                 mc.name "It's just money, I'd rather you were happy."
+#                 $ the_person.change_obedience(-4)
+#                 $ the_person.change_happiness(5)
+#                 $ the_person.change_love(1)
+#                 "You wait for a response, but she never sends one."
+#
+#
+#             "Send [the_person.title] some money.\n-$100 (disabled)" if mc.business.funds < 100:
+#                 pass
+#
+#             "Ask why she needs it.":
+#                 mc.name "What do you need it for?"
+#                 the_person.char "Why do you care? Come on, I need some cash quick."
+#                 the_person.char "Come on you horny perv, I'll give you a picture of my tits if you send me the cash."
+#                 $ the_person.draw_person()
+#                 if the_person.outfit.tits_visible():
+#                     "She sends you a picture, but her tits are already out and on display."
+#                     the_person.char "Fuck, delete that. That wasn't one wasn't for you..."
+#                     mc.name "No, I think I've gotten everything I want already."
+#                     $ the_person.change_slut_temp(1)
+#                     $ the_person.change_obedience(1)
+#                     "She types, then deletes several messages, but never sends anything else to you."
+#                 else:
+#                     "She sends you a picture from her phone, obviously trying to tease you a little."
+#                     menu:
+#                         "Send [the_person.title] some money.\n-$100" if mc.business.funds >= 100:
+#                             $ mc.business.funds += -100
+#                             #TODO: Topless shot
+#
+#                         "Send [the_person.title] some money.\n-$100 (disabled)" if mc.business.funds < 100:
+#                             pass
+#
+#                         "":
+#                             $ the_person.event_triggers_dict["last_blackmailed"] = day
+#
+#
+#                         "Tell her no.":
+#                             mc.name "You think I'd want to pay to see your tits? You should be paying me."
+#                             $ the_person.change_love(-1)
+#                             the_person.char "Whatever, I can make the cash somewhere else."
+#                             "You don't recieve any more messages from her."
+#
+#
+#
+#             "Tell her no.":
+#                 mc.name "For you? Of course not."
+#                 $ the_person.change_obedience(1)
+#                 the_person.char "Oh my god, you're the worst. Whatever."
+#
+#     else:
+#         the_person.char "Hey,"
+#
+#     # She may ask for you to beg (lowers her obedience), ask for cash (lowers money, duh). You can blackmail her if you haven't recently and get what you want, or just refuse and she may get honry and send it anyways.
+#     $ renpy.scene("Active")
+#     return
 
 init 1 python:
     def so_relationship_improve_requirement():

@@ -36,7 +36,7 @@ init -1 python:
         else:
             return True
 
-    def  girlfriend_ask_trim_pubes_requirement(the_person):
+    def girlfriend_ask_trim_pubes_requirement(the_person):
         obedience_required = 125 - (5*the_person.get_opinion_score("being submissive"))
         if the_person.sluttiness < 30:
             return False
@@ -383,8 +383,6 @@ label girlfriend_do_trim_pubes_label(the_person, the_style):
         new_pubes.colour_pattern = the_person.pubes_style.colour_pattern
         the_person.pubes_style = new_pubes #And assign it to them.
         the_person.event_triggers_dict["trimming_pubes"] = None
-
-
     return
 
 label girlfriend_pubes_comment(the_person):
