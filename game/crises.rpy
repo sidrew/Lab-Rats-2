@@ -4464,7 +4464,7 @@ label mom_morning_surprise_label():
         $ removed_something = False
         $ the_index = 0
         while not the_person.outfit.vagina_available() and the_index < __builtin__.len(bottom_list):
-            $ the_person.outfit.remove_clothing(bottom_list[index])
+            $ the_person.outfit.remove_clothing(bottom_list[the_index])
             $ removed_something = True
             $ the_index += 1
         $ del bottom_list
