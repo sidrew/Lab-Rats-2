@@ -9601,7 +9601,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
         list_of_places = [] #By having this in an init block it may be set to null each time the game is reloaded, because the initialization stuff below is only called once.
 
         ##Actions##
-        hr_work_action = Action("Spend time orgainizing your business. {image=gui/heart/Time_Advance.png}",hr_work_action_requirement,"hr_work_action_description",
+        hr_work_action = Action("Spend time organizing your business. {image=gui/heart/Time_Advance.png}",hr_work_action_requirement,"hr_work_action_description",
             menu_tooltip = "Raises business efficency, which drops over time based on how many employees the business has.\n+3*Charisma + 2*Skill + 1*Intelligence + 5 Efficency.")
         research_work_action = Action("Spend time researching in the lab. {image=gui/heart/Time_Advance.png}",research_work_action_requirement,"research_work_action_description",
             menu_tooltip = "Contributes research points towards the currently selected project.\n+3*Intelligence + 2*Skill + 1*Focus + 10 Research Points.")
