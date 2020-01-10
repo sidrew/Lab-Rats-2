@@ -340,8 +340,8 @@ label sister_instathot_label(the_person):
     the_person.char "I keep my stuff here so Mom doesn't find it. Okay, let's put this on!"
     $ the_person.draw_person(emotion = "happy")
     "[the_person.title] gets dressed in her new outfit and turns to you, smiling."
-    $ the_person.apply_outfit(insta_ouftit)
-    #$ the_person.outfit = insta_ouftit changed v0.24.1
+    $ the_person.apply_outfit(insta_outfit)
+    #$ the_person.outfit = insta_outfit changed v0.24.1
     $ the_person.draw_person(emotion = "happy")
     the_person.char "Well, do you think they'll like it?"
     menu:
