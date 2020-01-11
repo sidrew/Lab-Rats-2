@@ -3857,7 +3857,7 @@ init -2 python:
                 else:
                     the_image = image_set.get_image(body_type, "AA")
 
-
+                mask_image = None
                 converted_mask_image = None
                 inverted_mask_image = None
                 if self.pattern is not None and position + "_" + self.pattern in self.pattern_sets:
@@ -3886,7 +3886,7 @@ init -2 python:
                 shader_image = im.MatrixColor(greyscale_image, alpha_matrix * colour_matrix) #Now colour the final greyscale image
 
 
-                if self.pattern is not None:
+                if self.pattern and mask_image:
                     colour_pattern_matrix = im.matrix.tint(self.colour_pattern[0], self.colour_pattern[1], self.colour_pattern[2]) * im.matrix.tint(*lighting)
                     pattern_alpha_matrix = im.matrix.opacity(self.colour_pattern[3] * self.colour[3]) #The opacity of the pattern is relative to the opacity of the entire piece of clothing.
                     shader_pattern_image = im.MatrixColor(greyscale_image, pattern_alpha_matrix * colour_pattern_matrix)
@@ -3894,7 +3894,7 @@ init -2 python:
                     final_image = AlphaBlend(mask_image, shader_image, shader_pattern_image, alpha=False)
 
 
-                if self.pattern: #If we have been able to generate a pattern we present the composited single displayable item.
+                if self.pattern and mask_image: #If we have been able to generate a pattern we present the composited single displayable item.
                     return final_image
                 else: #Otherwise it was either a no-pattern piece of clothing OR we failed to produce the correct pattern.
                     return shader_image
