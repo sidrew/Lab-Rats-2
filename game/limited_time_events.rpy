@@ -64,7 +64,7 @@ init -1 python:
             return False
         if the_person.love < (75 - (10*the_person.get_opinion_score("creampies"))):
             return False
-        renpy.notify("Event exists!")
+        #renpy.notify("Event exists!")
         return True
 
     ask_new_title_action = Action("Ask new title", ask_new_title_requirement, "ask_new_title_label", event_duration = 5)
