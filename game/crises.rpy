@@ -4996,7 +4996,6 @@ label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
 
     else:
         "You head to the bathroom, but hear the shower already running inside when you arrive."
-        $ initial_outfit = the_person.outfit.get_copy()
         $ towel_outfit = Outfit("Towel")
         $ towel_outfit.add_dress(towel.get_copy()) #TODO: Decide if we want a head towel here, maybe just for mom or just for Lily
 
@@ -5009,7 +5008,7 @@ label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
                 "You knock on the door a couple of times and wait for a response."
                 if the_person.effective_sluttiness() > 30:
                     the_person.char "It's open, come on in!"
-                    call girl_shower_enter(the_person, suprised = False) from _call_girl_shower_enter
+                    call girl_shower_enter(the_person) from _call_girl_shower_enter
                 else:
                     the_person.char "Just a second!"
                     call girl_shower_leave(the_person) from _call_girl_shower_leave
@@ -5029,7 +5028,7 @@ label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
                     the_person.char "[the_person.mc_title]! I'm already in here, what are you doing?"
                     mc.name "The door was unlocked, I thought you might have already been finished."
                     the_person.char "Knock next time, okay? I'll be done in a minute."
-                    "She shoos you out of the room, seeming more upset about being interupted than being seen naked."
+                    "She shoos you out of the room, seeming more upset about being interrupted than being seen naked."
                     $ renpy.scene("Active")
                     $ the_person.change_love(-1)
                     $ the_person.change_slut_temp(2)
@@ -5037,8 +5036,7 @@ label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
                 else:
                     call girl_shower_enter(the_person, suprised = True) from _call_girl_shower_enter_1 #TODO: Decide if we need different dialogue for this (maybe just a "suprised" tag we can pass)
 
-        $ the_person.apply_outfit(initial_outfit)
-        #$ the_person.outfit = initial_outfit #put her back in her normal outfit after her shower #changed v0.24.1
+        $ the_person.apply_outfit(the_person.planned_outfit)
 
     $ renpy.scene("Active")
     return
@@ -5057,7 +5055,7 @@ label girl_shower_leave(the_person):
         "She steps past you and heads to her room."
     return
 
-label girl_shower_enter(the_person, suprised):
+label girl_shower_enter(the_person, suprised = False):
     $ the_person.apply_outfit(Outfit("Nude"))
     #$ the_person.outfit = Outfit("Nude") changed v0.24.1
     $ the_person.draw_person(position = "back_peek")
