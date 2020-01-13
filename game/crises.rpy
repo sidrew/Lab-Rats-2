@@ -4491,7 +4491,7 @@ label mom_morning_surprise_label():
                     "She reaches down to help you up. She smiles at you longingly, eyes lingering on your crotch, and leaves you alone in your room."
                 else:
                     the_person.char "I'm glad I could help [the_person.mc_title]. Now you should hurry up before you're late!"
-                    "[the_person.possessive_title kisses you on the forehead and stands up to leave."
+                    "[the_person.possessive_title] kisses you on the forehead and stands up to leave."
                     "You get yourself put together and rush to make up for lost time."
                 $ the_person.review_outfit()
 
