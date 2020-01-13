@@ -8741,7 +8741,7 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                     "You approach [picked_option.title] and chat for a little bit."
                     $ picked_option.call_dialogue("greetings")
 
-                call talk_person(picked_option) from _call_talk_person
+            call talk_person(picked_option) from _call_talk_person
 
     elif isinstance(picked_option, Action):
         $ picked_option.call_action()
