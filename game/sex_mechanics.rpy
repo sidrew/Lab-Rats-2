@@ -70,7 +70,7 @@ label fuck_person(the_person, private= True, start_position = None, start_object
             if position_choice is None: #There's no position we can take
                 "[the_person.title] can't think of anything more to do with you."
                 $ round_choice = "Girl Leave"
-            if object_choice is None:
+            elif object_choice is None:
                 "[the_person.title] looks around, but can't see anywhere to have fun with you."
                 $ round_choice = "Girl Leave"
             elif report_log.get("guy orgasms", 0) > 0 and report_log.get("girl orgasms", 0) > 0: #Both parties have been satisfied
