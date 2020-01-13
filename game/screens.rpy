@@ -448,7 +448,7 @@ screen person_choice(people, draw_hearts = False, person_prefix = None, person_s
 
                     $ person_displayable = j.build_person_displayable(lighting = mc.location.get_lighting_conditions(), **person_preview_args)
                     textbutton her_title:
-                        action Return(i)
+                        action Return(j)
                         if show_person_preview:
                             hovered Function(renpy.show, j.name, at_list=[character_right, scale_person(j.height)],layer="Active",what=person_displayable,tag=j.name)
                             unhovered Function(renpy.scene,"Active")
