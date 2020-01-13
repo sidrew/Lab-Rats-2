@@ -3476,7 +3476,7 @@ label friends_help_friends_be_sluts_label():
                             $ person_two.draw_person()
                             "She gets behind her friend and cups her breasts, giving them a squeeze."
 
-                        person_two.char "Hey, go easy on them! Well then [person_two.mc_name], who's your pick? Me or [person_one.title]?"
+                        person_two.char "Hey, go easy on them! Well then [person_two.mc_title], who's your pick? Me or [person_one.title]?"
                     menu:
                         "[person_one.title] has nicer tits.": #She's already slutty, but gets a love boost
                             "You take a moment to consider both of their naked racks, then nod towards [person_one.title]."
