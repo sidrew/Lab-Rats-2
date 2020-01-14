@@ -2612,7 +2612,7 @@ init -2 python:
                 self.outfit.add_accessory(the_cumshot)
 
             self.change_slut_temp(5*self.get_opinion_score("drinking cum"))
-            self.change_happiness(5*self.get_opinion_score("drinking_cum"))
+            self.change_happiness(5*self.get_opinion_score("drinking cum"))
             self.discover_opinion("drinking cum")
 
             self.sex_record["Cum in Mouth"] += 1
