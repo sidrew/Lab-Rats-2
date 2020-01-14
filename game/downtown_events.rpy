@@ -43,8 +43,11 @@ label downtown_search_label(advance_time = True):
                 if possible_event[0].is_action_enabled():
                     possible_downtown_events.append(possible_event)
 
+            del list_of_downtown_events
             the_event = get_random_from_weighted_list(possible_downtown_events)
+            del possible_downtown_events
             the_event.call_action()
+            del the_event
 
     if advance_time:
         call advance_time from _call_advance_time_26

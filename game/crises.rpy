@@ -384,7 +384,7 @@ label no_uniform_punishment_label():
                 if mc.business.get_uniform_wardrobe(mc.business.get_employee_title(person)).get_count()>0: #Make sure we're getting only people who should be wearing a uniform.
                     disobedient_people.append(person)
         the_person = get_random_from_list(disobedient_people)
-
+        del disobedient_people
 
     if the_person is None:
         "Test"
@@ -1940,6 +1940,7 @@ label work_chat_crisis_label:
                             if person is not the_person:
                                 other_people.append(person)
                     $ other_person = get_random_from_list(other_people)
+                    $ del other_people
                     the_person.char "I can't focus and need to do this to relax. Keep your voice down, I don't want [other_person.name] to know."
                 "She bites her lip and moans softly."
                 if the_person.get_opinion_score("giving handjobs") > 0:
@@ -2747,7 +2748,7 @@ label horny_at_work_crisis_label():
     else:
         $ the_cause = "nothing"
         $ the_person = None
-
+    $ del potential_cause
 
     if the_cause == "slutty_outfit":
         $ the_person.draw_person(position = "walking_away")
@@ -5336,7 +5337,6 @@ label so_relationship_improve_label():
         "It seems [the_person.title]'s just had her wedding to her Fiancé, [the_person.SO_name]. You take a moment to add your congratulations to her wedding photo."
         $ the_person.relationship = "Married"
 
-    $ potential_people = []
     return
 
 
@@ -5351,6 +5351,7 @@ label so_relationship_worsen_label():
                         potential_people.append(a_person)
 
     $ the_person = get_random_from_list(potential_people)
+    $ del potential_people
     if the_person is None:
         return #Something's changed and there is no longer a valid person
 

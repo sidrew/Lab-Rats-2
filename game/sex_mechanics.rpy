@@ -265,6 +265,7 @@ label pick_position(the_person, allow_none = True):
             position_option_list.append(["Nothing", "Nothing"])
 
     $ picked_position = renpy.display_menu(position_option_list,True,"Choice")
+    $ del position_option_list
     if picked_position == "Nothing":
         $ picked_position = None
 
@@ -278,6 +279,7 @@ label girl_choose_position(the_person):
                 if position.her_position_willingness_check(the_person):
                     position_option_list.append(position)
         picked_position = get_random_from_list(position_option_list)
+    $ del position_option_list
     return picked_position
 
 label girl_choose_object(the_person, the_position):
@@ -291,6 +293,7 @@ label girl_choose_object(the_person, the_position):
             possible_object_list.append(an_object)
 
     $ picked_object = get_random_from_list(possible_object_list)
+    $ del possible_object_list
     $ the_person.add_situational_slut("sex_object", picked_object.sluttiness_modifier, the_position.verbing + " on a " + picked_object.name)
     $ the_person.add_situational_obedience("sex_object",picked_object.obedience_modifier, the_position.verbing + " on a " + picked_object.name)
     return picked_object
@@ -320,6 +323,7 @@ label pick_object(the_person, the_position, forced_object = None):
             else:
                 picked_object = renpy.display_menu(object_option_list,True,"Choice")
 
+    $ del object_option_list
     $ the_person.add_situational_slut("sex_object", picked_object.sluttiness_modifier, the_position.verbing + " on a " + picked_object.name)
     $ the_person.add_situational_obedience("sex_object",picked_object.obedience_modifier, the_position.verbing + " on a " + picked_object.name)
     return picked_object
@@ -549,6 +553,7 @@ label strip_menu(the_person, the_verbing = "fucking"): #TODO: Add an arousal cos
                 second_tuple_list.append(["Take off " + clothing.name + ".",clothing])
         second_tuple_list.append(["Go back to " + the_verbing + " her.","Finish"])
         strip_choice = renpy.display_menu(second_tuple_list,True,"Choice")
+        del second_tuple_list
 
     if not strip_choice == "Finish":
         $ test_outfit = the_person.outfit.get_copy()

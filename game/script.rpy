@@ -8762,7 +8762,7 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                 $ picked_event = get_random_from_list(enabled_room_events)
                 $ picked_event[0].on_room_enter_event_list.remove(picked_event[1]) #Remove the event from their list since we will be running it.
                 $ picked_event[1].call_action(picked_event[0]) #Run the action with the person as an extra argument.
-
+                $ del enabled_room_events
             elif new_location in [mc.business.m_div, mc.business.p_div, mc.business.r_div, mc.business.s_div, mc.business.h_div]: #There are no room events, so generate a quick room greeting from an employee if one is around.
                 $ possible_greetings = []
                 python:
@@ -9568,6 +9568,7 @@ label advance_time:
                             possible_crisis_list.append(crisis) #Build a list of valid crises from ones that pass their requirement.
 
                     the_crisis = get_random_from_weighted_list(possible_crisis_list, return_everything = True)
+                    del possible_crisis_list
                     if the_crisis is not None:
                         limited_time_event = Limited_Time_Action(the_crisis[0], the_crisis[0].event_duration) #Wraps the action so that we can have an instanced duration counter and add/remove it easily.\
                         #renpy.notify("Created event: " + the_crisis[0].name + " for " + people.name)
@@ -9576,6 +9577,7 @@ label advance_time:
 
                         elif the_crisis[2] == "on_enter":
                             people.on_room_enter_event_list.append(limited_time_event)
+                        del the_crisis
 
     $ del people_to_process
     $ renpy.free_memory()

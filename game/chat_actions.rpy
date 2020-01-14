@@ -123,6 +123,7 @@ label person_introduction(the_person, girl_introduction = True):
     $ title_choice = renpy.display_menu(title_tuple,True,"Choice")
     mc.name "[title_choice], it's a pleasure to meet you."
     $ the_person.set_mc_title(title_choice)
+    $ del title_tuple
     return
 
 label change_titles_person(the_person):
@@ -157,6 +158,7 @@ label new_title_menu(the_person):
             title_tuple.append([title,title])
         title_tuple.append(["Do not change her title.","Back"])
         title_choice = renpy.display_menu(title_tuple,True,"Choice")
+        del title_tuple
     return title_choice
 
 label new_mc_title_menu(the_person):
@@ -167,6 +169,7 @@ label new_mc_title_menu(the_person):
             title_tuple.append([title,title])
         title_tuple.append(["Do not change your title.","Back"])
         title_choice = renpy.display_menu(title_tuple,True,"Choice")
+        del title_tuple
     return title_choice
 
 label new_possessive_title_menu(the_person):
@@ -177,6 +180,7 @@ label new_possessive_title_menu(the_person):
             title_tuple.append([title,title])
         title_tuple.append(["Do not change your title.","Back"])
         title_choice = renpy.display_menu(title_tuple,True,"Choice")
+        del title_tuple
     return title_choice
 
 label person_new_title(the_person): #She wants a new title or to give you a new title.
@@ -514,8 +518,7 @@ label date_person(the_person): #You invite them out on a proper date
     $ dinner_date_action = Action("Ask her out to a romantic dinner.", dinner_date_requirement, "dinner_date_plan_label", args=the_person, requirement_args=the_person,
         menu_tooltip = "Plan a romantic, expensive dinner with her. Impress her and you might find yourself in a more intimate setting.")
 
-    $ date_list = [lunch_date_action, movie_date_action, dinner_date_action, "Never mind."]
-    $ return_value = call_formated_action_choice(date_list)
+    $ return_value = call_formated_action_choice([lunch_date_action, movie_date_action, dinner_date_action, "Never mind."])
     if return_value == "Never mind.":
         return
     else: #It's an action, so it's one of the date actions (and must have been enabled).
@@ -561,8 +564,7 @@ label lunch_date_plan_label(the_person):
 
 label lunch_date_label(the_person): #Could technically be included in the planning phase, but broken out to fit the structure of the other events.
     the_person.char "So, where do you want to go?"
-    $ food_types = ["chinese food","thai food","italian food","sushi","korean barbecue","pizza","sandwiches"]
-    $ the_type = get_random_from_list(food_types)
+    $ the_type = get_random_from_list(["chinese food","thai food","italian food","sushi","korean barbecue","pizza","sandwiches"])
     mc.name "I know a nice place nearby. How do you like [the_type]?"
     the_person.char "No complaints, as long as it's good!"
     mc.name "Alright, let's go then!"
@@ -761,32 +763,28 @@ label movie_date_label(the_person):
     $ likes_movie = False
     menu:
         "Watch an action movie.":
-            $ action_movie_list = ["The Revengers", "Raiders of the Found Ark", "Die Difficult", "Mission: Improbable", "Wonderful Woman", "John Wicked: Part 3", "The Destructonator", "Waterman"]
-            $ the_choice = get_random_from_list(action_movie_list)
+            $ the_choice = get_random_from_list(["The Revengers", "Raiders of the Found Ark", "Die Difficult", "Mission: Improbable", "Wonderful Woman", "John Wicked: Part 3", "The Destructonator", "Waterman"])
             $ movie_type = "action"
             if the_person.personality is wild_personality or the_person.personality.default_prefix == wild_personality.personality_type_prefix: #If it's a wild or wild derived personality type
                 $ likes_movie = True
             mc.name "Yeah, I've wanted to see [the_choice] for a while. I'll go get us tickets."
 
         "Watch a comedic movie.":
-            $ comedy_movie_list = ["Spooky Movie", "Aaron Powers", "Dumber and Dumberest-er", "Ghostblasters", "Shaun of the Undead"]
-            $ the_choice = get_random_from_list(comedy_movie_list)
+            $ the_choice = get_random_from_list(["Spooky Movie", "Aaron Powers", "Dumber and Dumberest-er", "Ghostblasters", "Shaun of the Undead"])
             $ movie_type = "comedy"
             if the_person.personality is relaxed_personality or the_person.personality.default_prefix == relaxed_personality.personality_type_prefix:
                 $ likes_movie = True
             mc.name "I thought we'd both enjoy [the_choice]. I'll go get us tickets."
 
         "Watch a romantic movie.":
-            $ romance_movie_list = ["Olympic", "Britannic","The Workbook", "East Side Tale", "Pottery Poltergeist"]
-            $ the_choice = get_random_from_list(romance_movie_list)
+            $ the_choice = get_random_from_list(["Olympic", "Britannic","The Workbook", "East Side Tale", "Pottery Poltergeist"])
             $ movie_type = "romantic"
             if the_person.personality is reserved_personality or the_person.personality.default_prefix == reserved_personality.personality_type_prefix:
                 $ likes_movie = True
             mc.name "I thought [the_choice] would be a good fit for us. You just wait here, I'll go get us tickets."
 
         "Watch a foreign film.":
-            $ foreign_movie_list = ["that one in French", "that one in Italian", "that one in Russian", "that one in Japanese", "that one in Mandarin", "that one that's silent"]
-            $ the_choice = get_random_from_list(foreign_movie_list)
+            $ the_choice = get_random_from_list(["that one in French", "that one in Italian", "that one in Russian", "that one in Japanese", "that one in Mandarin", "that one that's silent"])
             $ movie_type = "foreign"
             if the_person.personality is introvert_personality or the_person.personality.default_prefix == introvert_personality.personality_type_prefix:
                 $ likes_movie = True

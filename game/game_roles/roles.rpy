@@ -280,7 +280,7 @@ label pay_strip_scene(the_person):
             else:
                 "[the_person.title] wiggles her hips side to side and bites her bottom lip, as if imagining some greater pleasure yet to come."
 
-        $menu_list = [] #Tuple of menu things.
+        $ menu_list = [] #Tuple of menu things.
         # High obedience characters are more willing to be told to strip down (although they still expect to be paid for it)
         # Low obedience characters will strip off less when told but can be left to run the show on their own and will remove some.
         python:
@@ -381,7 +381,7 @@ label pay_strip_scene(the_person):
         elif strip_choice == "Pose":
             #You ask her to change into a different pose
             mc.name "I want to see you from a different angle."
-            $pose_menu_tuple = []
+            $ pose_menu_tuple = []
             python:
                 for pose_tuple in pose_list:
                     if not pose_tuple[1] == picked_pose:
@@ -395,9 +395,11 @@ label pay_strip_scene(the_person):
 
             else:
                 mc.name "Nevermind, you look perfect like this."
+            $ del pose_menu_tuple
 
         elif strip_choice == "Finish":
             $ keep_stripping = False
+            $ del menu_list
             mc.name "That was fun [the_person.title], I think that's enough."
             if strip_willingness < 0:
                 "[the_person.title] sighs happily."
