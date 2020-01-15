@@ -415,7 +415,7 @@ label cousin_blackmail_list(the_person):
                     "She gives you an overly dramatic pout."
                     mc.name "Fine, that'll do."
                     the_person.char "Fucking finally..."
-                    $ the_person.apply_outfit(planned_outfit)
+                    $ the_person.apply_outfit(the_person.planned_outfit)
                     #$ the_person.outfit = the_person.planned_outfit.get_copy() changed v0.24.1
                     $ the_person.draw_person()
                     $ the_person.change_slut_temp(5)
