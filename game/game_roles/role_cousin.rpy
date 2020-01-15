@@ -895,9 +895,9 @@ label cousin_talk_boobjob_again_label(the_person):
                 $ cousin_serum_boobjob_check_action = Action("Cousin serum boobjob check", cousin_serum_boobjob_check_requirement, "cousin_serum_boobjob_label", args = [the_person, the_person.tits], requirement_args = [the_person, the_person.tits, day + 3])
                 $ mc.business.mandatory_crises_list.append(cousin_serum_boobjob_check_action)
                 python:
-                    for an_action in cousin_role:
+                    for an_action in cousin_role.actions:
                         if an_action == cousin_talk_boobjob_again_action: #Find and remove this action.
-                            cousin_role.remove(an_action)
+                            cousin_role.actions.remove(an_action)
                             break
                 return
 
