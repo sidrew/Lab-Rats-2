@@ -3420,7 +3420,7 @@ label friends_help_friends_be_sluts_label():
                         $ the_item = person_one.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
                         "[person_one.title] doesn't hesitate to strip off her [the_item.name]."
                         while the_item is not None and not person_one.outfit.tits_visible():
-                            $ person_one.outfit.remove(the_item)
+                            $ person_one.outfit.remove_clothing(the_item)
                             $ person_one.draw_person()
                             $ the_item = person_one.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
                         "She pulls her tits out for you, displaying them proudly."
@@ -3460,7 +3460,7 @@ label friends_help_friends_be_sluts_label():
                             "[person_one.title] moves behind [person_two.title] and starts to dress her down, starting with her [the_item.name]."
 
                         while the_item is not None and not person_two.outfit.tits_visible():
-                            $ person_two.outfit.remove(the_item)
+                            $ person_two.outfit.remove_clothing(the_item)
                             $ person_two.draw_person()
                             $ the_item = person_two.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
 
