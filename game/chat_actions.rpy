@@ -555,7 +555,7 @@ label lunch_date_plan_label(the_person):
         the_person.char "Okay, let's go then!"
 
     else:
-        mc.name "Would you like to go get a coffee, maybe a little lunch, and just chat for a while? I fel like I want to get to know you better."
+        mc.name "Would you like to go get a coffee, maybe a little lunch, and just chat for a while? I feel like I want to get to know you better."
         the_person.char "That sounds nice, I think I'd like to get to know you better too."
         the_person.char "If you're ready to go right now I suppose I am too. Let's go!"
 
