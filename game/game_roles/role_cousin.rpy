@@ -501,6 +501,12 @@ label cousin_blackmail_list(the_person):
 
 
 label aunt_cousin_hint_label(the_aunt, the_cousin):
+    # prevent event from triggering twice
+    python:
+        if any(x.effect == "cousin_search_room_label" for x in cousin.bedroom.actions):
+            renpy.return_statement()
+        
+
     #Your aunt calls at night to ask if you know where Gabrielle is. Hints that she's up to something late at night.
     "You get a call on your phone. It's [the_aunt.possessive_title]."
     mc.name "Hey [the_aunt.title], is everything alright?"
