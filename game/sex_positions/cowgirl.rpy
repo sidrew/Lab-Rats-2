@@ -12,7 +12,8 @@
             strip_description = "strip_cowgirl", strip_ask_description = "strip_ask_cowgirl",
             orgasm_description = "orgasm_cowgirl",
             verb = "ride", verbing = "riding",
-            opinion_tags = ["taking control"], record_class = "Vaginal Sex")
+            opinion_tags = ["taking control"], record_class = "Vaginal Sex",
+            default_animation = blowjob_bob)
 
         list_of_girl_positions.append(cowgirl)
 

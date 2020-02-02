@@ -67,6 +67,7 @@ label fuck_person(the_person, private= True, start_position = None, start_object
                     # We need to make sure we're using an appopriate object
                     call girl_choose_object(the_person, position_choice) from _call_girl_choose_object
                     $ object_choice = _return
+
             if position_choice is None: #There's no position we can take
                 "[the_person.title] can't think of anything more to do with you."
                 $ round_choice = "Girl Leave"
@@ -214,9 +215,6 @@ label fuck_person(the_person, private= True, start_position = None, start_object
                 #TODO: Add some personality specfic dialogue
                 pass
 
-
-
-
         elif round_choice == "Girl Leave":
             $ finished = True
         $ round_choice = None #Get rid of our round choice at the end of the round to prepare for the next one. By doing this at the end instead of the begining of the loop we can set a mandatory choice for the first one.
@@ -265,6 +263,7 @@ label pick_position(the_person, allow_none = True):
             position_option_list.append(["Nothing", "Nothing"])
 
     $ picked_position = renpy.display_menu(position_option_list,True,"Choice")
+
     $ del position_option_list
     if picked_position == "Nothing":
         $ picked_position = None
@@ -317,11 +316,13 @@ label pick_object(the_person, the_position, forced_object = None):
                 if object.has_trait(position_choice.requires_location):
                     object_option_list.append([object.get_formatted_name(),object]) #Displays a list of objects in the room related to that position and their appropriate bonuses/penalties
 
+
             # if we have only one object to pick for position, select it automatically (saves the user for selecting the only obvious choice)
             if len(object_option_list) == 1:
                 picked_object = object_option_list[0][1]
             else:
                 picked_object = renpy.display_menu(object_option_list,True,"Choice")
+
 
     $ del object_option_list
     $ the_person.add_situational_slut("sex_object", picked_object.sluttiness_modifier, the_position.verbing + " on a " + picked_object.name)
@@ -552,6 +553,7 @@ label strip_menu(the_person, the_verbing = "fucking"): #TODO: Add an arousal cos
             if not clothing.is_extension: #Extension clothing is placeholder for multi-slot items like dresses.
                 second_tuple_list.append(["Take off " + clothing.name + ".",clothing])
         second_tuple_list.append(["Go back to " + the_verbing + " her.","Finish"])
+
         strip_choice = renpy.display_menu(second_tuple_list,True,"Choice")
         del second_tuple_list
 

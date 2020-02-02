@@ -12,7 +12,8 @@ init:
             strip_description = "strip_tit_fuck", strip_ask_description = "strip_ask_tit_fuck",
             orgasm_description = "orgasm_tit_fuck",
             verb = "tit fuck",
-            opinion_tags = ["giving tit fucks"], record_class = "Tit Fucks")
+            opinion_tags = ["giving tit fucks"], record_class = "Tit Fucks",
+            default_animation = blowjob_bob)
 
         list_of_positions.append(tit_fuck) #TODO: Decide if this should be a girl_position too.
 
