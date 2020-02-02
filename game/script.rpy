@@ -9846,7 +9846,6 @@ label advance_time:
                             people.on_room_enter_event_list.append(limited_time_event)
                         del the_crisis
 
-    $ del people_to_process
     $ renpy.free_memory()
     $ mc.location.show_background()
     if mandatory_advance_time: #If a crisis has told us to advance time after it we do so.
