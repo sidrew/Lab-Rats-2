@@ -503,7 +503,7 @@ label cousin_blackmail_list(the_person):
 label aunt_cousin_hint_label(the_aunt, the_cousin):
     # prevent event from triggering twice
     python:
-        if any(x.effect == "cousin_search_room_label" for x in cousin.bedroom.actions):
+        if any(x.effect == "cousin_search_room_label" for x in cousin.home.actions):
             renpy.return_statement()
         
 
