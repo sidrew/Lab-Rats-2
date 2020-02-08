@@ -309,7 +309,6 @@ label girlfriend_got_boobjob_label(the_person):
 
 label girlfriend_boob_brag_label(the_person): #TODO: Decide if we need a little alt-dialogue for the affair side of things.
     the_person.char "Hey [the_person.mc_title], what do you think?"
-
     if the_person.get_opinion_score("showing her tits") < 0:
         "She puts her arms behind her, revealing her newly enlarged chest."
         the_person.char "These feel so... excessive. It feels like everyone is staring at them all the time now."
