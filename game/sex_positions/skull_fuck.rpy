@@ -2,8 +2,8 @@ init:
     python:
         skull_fuck = Position(name = "Skull Fuck", slut_requirement = 65, slut_cap = 100, requires_hard = True, requires_large_tits = False,
             position_tag = "blowjob", requires_location = "Kneel", requires_clothing = "None", skill_tag = "Oral",
-            girl_arousal = 5, girl_energy = 10, #TODO: Balance energy costs
-            guy_arousal = 25, guy_energy = 12,
+            girl_arousal = 5, girl_energy = 15, #TODO: Balance energy costs
+            guy_arousal = 25, guy_energy = 8,
             connections = [],
             intro = "intro_skull_fuck",
             scenes = ["scene_skull_fuck_1","scene_skull_fuck_2","scene_skull_fuck_3"],
@@ -62,7 +62,7 @@ label scene_skull_fuck_3(the_girl, the_location, the_object, the_round):
 
     "You slow down and enjoy every inch of [the_girl.possessive_title]'s tight throat."
     "You keep one hand firm on the back of her head and move the other down to her throat, wrapping your fingers around it."
-    "You can feelt it bulge as you slide your full length inside of her."
+    "You can feel it bulge as you slide your full length inside of her."
     "She sputters as you throat her. Her spit bubbles around your shaft and drips down her chin, dropping onto her tits below."
     mc.name "That's it, gag on it you cock slut!"
     "You massage her throat with your hand and can feel the pressure on your own cock."
@@ -87,7 +87,7 @@ label outro_skull_fuck(the_girl, the_location, the_object, the_round):
             if the_girl.get_opinion_score("drinking cum") > 0:
                 "When you're done she closes her mouth and happily gulps down all of the cum you had landed in there."
             else:
-                "When you're done she lets your cum dripple out of her mouth, down her chin, and finally between her tits."
+                "When you're done she lets your cum drizzle out of her mouth, down her chin, and finally between her tits."
             $ the_girl.call_dialogue("cum_face")
 
 
@@ -112,7 +112,7 @@ label outro_skull_fuck(the_girl, the_location, the_object, the_round):
                     $ the_girl.call_dialogue("cum_mouth")
             else:
                 "With both hands firmly on [the_girl.possessive_title]'s head you pull her as far down your cock as she'll go."
-                "[the_girl.title]'s eyes go wide as she  realises you don't intend to her off your cock as you cum."
+                "[the_girl.title]'s eyes go wide as she realizes you don't intend to let her off your cock as you cum."
                 "She tries to pull her head back, but you hold it in place as you begin to unload your hot, sticky load directly into her throat."
                 "For a brief second she manages to keep up with the torrent of cum, then it overwhelms her."
                 "She spasms and gags. A mix of her spit and your semen bubble around the base of your cock, collecting in drops that roll down her chin and onto her tits."
@@ -145,7 +145,7 @@ label transition_default_skull_fuck(the_girl, the_location, the_object, the_roun
     mc.name "Ready?"
     the_girl.char "Take me however you want."
     "She kisses the tip. You pull her head hard towards you and push your hips forward, slamming your cock to it's base in a single stroke."
-    "Her eyes go wide and she gags loudly"
+    "Her eyes go wide and she gags loudly."
     the_girl.char "Guaaah!"
     "Her arms come up instinctively, but she struggles against the urge to push you away. She balls her fists and holds them close against her body."
 
@@ -158,7 +158,7 @@ label strip_skull_fuck(the_girl, the_clothing, the_location, the_object, the_rou
     "You give her throat one last thrust, then let her slide back until the tip of your cock clears her lips."
     the_girl.char "Ah... One... Sec..."
     $ the_girl.call_dialogue("sex_strip")
-    $ the_girl.draw_animated_removal(the_clothing, position = deepthroat.position_tag)
+    $ the_girl.draw_animated_removal(the_clothing, position = skull_fuck.position_tag)
     "She gasps for air while pulling off her [the_clothing.name]. She drops it to the ground, then nods up at you."
     the_girl.char "Much better. Well, what are you waiting for?"
     "She opens her mouth and you slam your dick back down her throat."
@@ -175,7 +175,7 @@ label strip_ask_skull_fuck(the_girl, the_clothing, the_location, the_object, the
     menu:
         "Let her strip.":
             mc.name "Take it off."
-            $ the_girl.draw_animated_removal(the_clothing, position = blowjob.position_tag)
+            $ the_girl.draw_animated_removal(the_clothing, position = skull_fuck.position_tag)
             "[the_girl.possessive_title] strips out of her [the_clothing.name], your hard shaft hovering inches from her face."
             "When she drops it to the side you press yourself forward, parting her lips and sliding your cock back down her throat."
 
