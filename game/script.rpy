@@ -9310,8 +9310,6 @@ label interview_action_description:
             else:
                 "You decide against hiring anyone new for now."
            
-            $ del candidates
-
             call advance_time from _call_advance_time_6
         "Nevermind.":
             pass
