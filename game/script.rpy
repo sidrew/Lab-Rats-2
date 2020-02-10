@@ -4766,12 +4766,12 @@ init -2 python:
 
         def strip_to_tits(self, visible_enough = True): #Removes all clothing from this item until breasts are visible.
             if visible_enough:
-                while not test_outfit.tits_visible():
+                while not self.tits_visible():
                     the_item = self.remove_random_upper(top_layer_first = True)
                     if not the_item:
                         break
             else:
-                while not (test_outfit.tits_visible() and test_outfit.tits_available()):
+                while not (self.tits_visible() and self.tits_available()):
                     the_item = self.remove_random_upper(top_layer_first = True)
                     if not the_item:
                         break
