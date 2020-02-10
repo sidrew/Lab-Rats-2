@@ -5647,7 +5647,7 @@ label girlfriend_nudes_label():
         else:
             the_person.char "I wish I could twerk this ass for you in person. Swing by some time, okay?"
 
-    elif the_person.effecitve_sluttiness() < 60:
+    elif the_person.effective_sluttiness() < 60:
         $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
         "You get a text from [the_person.possessive_title], followed shortly by a video."
         the_person.char "Here's a little gift for you, hope you like it!"
