@@ -2030,7 +2030,9 @@ init -2 python:
             surface_file = io.BytesIO()
 
             renpy.display.module.save_png(the_surface, surface_file, 0)
-            static_image = im.Data(surface_file.getvalue(), "animation_temp_image.png")
+            # scale image to actual screen size
+            static_image = im.FactorScale(im.Data(surface_file.getvalue(), "animation_temp_image.png"), renpy.config.screen_width * 1.0 / renpy.get_physical_size()[0])
+            #static_image = im.Data(surface_file.getvalue(), "animation_temp_image.png")
             surface_file.close()
 
             the_image_name = self.name + " | " + str(time.time())
