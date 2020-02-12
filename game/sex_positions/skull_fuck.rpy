@@ -18,7 +18,7 @@ init:
 
 init 1:
     python:
-        skull_fuck.link_positions(deepthroat,"transition_skull_fuck_deepthroat")
+        skull_fuck.link_positions(deepthroat,"transition_skull_fuck_deepthroat_blowjob")
 
 
 label intro_skull_fuck(the_girl, the_location, the_object, the_round):
