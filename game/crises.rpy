@@ -517,7 +517,7 @@ label no_uniform_punishment_label():
                     "The closer you can bring [the_person.possessive_title] to orgasm without allowing her to the more effective this will be."
                     call fuck_person(the_person) from _call_fuck_person_6
                     $ the_report = _return
-                    if the_report.get("girl orgasms") > 0:
+                    if the_report.get("girl orgasms", 0) > 0:
                         #You made her cum, she gets even more disobedient
                         the_person.char "Oh wow... I need to ignore this uniform thing more often. That felt amazing."
                         mc.name "Please, I need you to at least try and follow the rules [the_person.title]."
@@ -1996,7 +1996,7 @@ label work_chat_crisis_label:
                     $ the_person.discover_opinion("taking control")
                     call fuck_person(the_person,private = False) from _call_fuck_person_9
                     $ the_report = _return
-                    if the_report.get("girl orgasms") > 0:
+                    if the_report.get("girl orgasms", 0) > 0:
                         the_person.char "Ah... I think I'll actually be able to focus after that. Thanks [the_person.mc_title]."
                     else:
                         the_person.char "Fuck... I don't think that's made the situation any better. All I can think about is getting off..."
@@ -3992,7 +3992,7 @@ label mom_lingerie_surprise_label():
             $ the_person.add_situational_obedience("crisis_stuff", 25, "I'm doing it for my family.")
             call fuck_person(the_person) from _call_fuck_person_14
             $ the_report = _return
-            if the_report.get("girl orgasms", 0):
+            if the_report.get("girl orgasms", 0) > 0:
                 "[the_person.possessive_title] needs a few minutes to lie down when you're finished. Bit by bit her breathing slows down."
                 $ the_person.change_love(5)
                 the_person.char "Oh [the_person.mc_title], that was magical. I've never felt so close to you before..."
