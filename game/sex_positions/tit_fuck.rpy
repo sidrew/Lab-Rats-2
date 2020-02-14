@@ -74,7 +74,7 @@ label outro_tit_fuck(the_girl, the_location, the_object, the_round):
                 "Your cum splatters down over [the_girl.title]'s [blocker.name]. She gasps as the warm liquid covers her and drips back down between her tits."
             else:
                 "Your cum splatters down over the top of [the_girl.title]'s tits. She gasps as the warm liquid covers her and drips back down between her tits."
-
+            $ del blocker
             $ the_person.cum_on_tits()
             $ tit_fuck.redraw_scene(the_girl)
 

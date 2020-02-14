@@ -100,6 +100,7 @@ label outro_handjob(the_girl, the_location, the_object, the_round):
                 "She aims your cock and strokes you to completion. You fire your load in thick ropes over the shape of her tits and onto her [blocker.name]."
             else:
                 "She strokes you to completion and you fire your load onto her tits." # just in case something weird happens and we get None.
+            $ del blocker
         #TODO: Add a "cum_tits" dialogue section for personalities.
 
     else:

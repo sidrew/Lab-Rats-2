@@ -1647,6 +1647,8 @@ label work_relationship_change_label():
         if mc.is_at_work():
             "While working you notice [person_one.title] and [person_two.title] aren't getting along with each other. They seem to have developed an unfriendly rivalry."
 
+    $ del person_one
+    $ del person_two
     return
 
 init 1 python:
@@ -1944,6 +1946,7 @@ label work_chat_crisis_label:
                     $ other_person = get_random_from_list(other_people)
                     $ del other_people
                     the_person.char "I can't focus and need to do this to relax. Keep your voice down, I don't want [other_person.name] to know."
+                    $ del other_person
                 "She bites her lip and moans softly."
                 if the_person.get_opinion_score("giving handjobs") > 0:
                     the_person.char "Can I... touch your cock? I'm so close and I want to feel it."
@@ -2837,6 +2840,7 @@ label horny_at_work_crisis_label():
                 elif len(unhappy_people) == 1:
                     $ other_person = get_random_from_list(unhappy_people)
                     "[other_person.title] joins her as she leaves, giving you the same look of disgust."
+                    $ del other_person
                 else:
                     #There are two or more people. Let's construct a title string!
                     $ unhappy_string = format_group_of_people(unhappy_people) + " storm out of the room with her."

@@ -162,6 +162,7 @@ label nora_intro_label(the_steph):
     $ university.actions.append(nora_research_visit) #Prepare this so if we visit the university again under the proper conditions we can start studying traits for her for money.
 
     $ mc.location.show_background()
+    $ del the_nora
     return
 
 label nora_research_up_label(the_person):
@@ -420,7 +421,7 @@ label nora_profile_person(the_person):
 
             "Keep the report on [the_other_person.title].":
                 return
-
+        $ del the_other_person
 
     if the_person.love < 0:
         "[the_person.title]'s obvious dislike of you makes it difficult to fill out the survey [nora.title] gave to you, but with a little guess work and some clever questions you fill it all in."

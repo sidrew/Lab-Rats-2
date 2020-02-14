@@ -256,6 +256,7 @@ label pay_strip_scene(the_person):
             else:
                 the_person.char "I hope you're enjoying the show [the_person.mc_title]."
                 "She wiggles her hips for you and winks."
+            $ del tease_clothing
 
         else: #strip_willingness >= 60
             $tease_clothing = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True) #She's slutty enough that she wants to tease you a little more
@@ -279,6 +280,7 @@ label pay_strip_scene(the_person):
 
             else:
                 "[the_person.title] wiggles her hips side to side and bites her bottom lip, as if imagining some greater pleasure yet to come."
+            $ del tease_clothing
 
         $ menu_list = [] #Tuple of menu things.
         # High obedience characters are more willing to be told to strip down (although they still expect to be paid for it)
