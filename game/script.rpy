@@ -9008,12 +9008,13 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
         $ new_location = _return
         call change_location(new_location) from _call_change_location #_return is the location returned from the map manager.
         if new_location.people: #There are people in the room, let's see if there are any room events
-            $ enabled_room_events = []
             python: #Scan through all the people and...
+                enabled_room_events = []
                 for a_person in new_location.people:
                     for possible_room_event in a_person.on_room_enter_event_list:
                         if possible_room_event.is_action_enabled(a_person): #See what events the are enabled...
                             enabled_room_events.append([a_person, possible_room_event]) #Then keep track of the person so we know who to remove it from if it triggers.
+                a_person = None
 
             if enabled_room_events: #If there are room events to take care of run those right now.
                 $ picked_event = get_random_from_list(enabled_room_events)
@@ -9021,12 +9022,14 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                 $ picked_event[1].call_action(picked_event[0]) #Run the action with the person as an extra argument.
                 $ del enabled_room_events
             elif new_location in [mc.business.m_div, mc.business.p_div, mc.business.r_div, mc.business.s_div, mc.business.h_div]: #There are no room events, so generate a quick room greeting from an employee if one is around.
-                $ possible_greetings = []
                 python:
+                    possible_greetings = []
                     for a_person in new_location.people:
                         if mc.business.get_employee_title(a_person) != "None":
                             possible_greetings.append(a_person)
-                $ the_greeter = get_random_from_list(possible_greetings)
+                    the_greeter = get_random_from_list(possible_greetings)
+                    a_person = None
+
                 if the_greeter:
                     $ the_greeter.draw_person()
                     $ the_greeter.call_dialogue("work_enter_greeting")
@@ -9034,7 +9037,6 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                     $ del the_greeter
                 $ del possible_greetings
 
-        $del new_location
     elif picked_option == "Wait":
         if time_of_day == 4:
             $ mc.change_location(bedroom)
@@ -9043,16 +9045,23 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
         call advance_time from _call_advance_time_15
         $ mc.location.show_background() #Redraw the background in case it has changed due to the new time.
 
+    python:
+        picked_option = None
+        picked_event = None
+        new_location = None
+        talk_action = None
+
     jump game_loop
 
 
 
 label change_location(the_place):
-    $ renpy.scene()
-    $ the_place.show_background()
-    if the_place.trigger_tutorial and the_place.tutorial_label is not None and mc.business.event_triggers_dict.get("Tutorial_Section",False):
-        $ the_place.trigger_tutorial = False
-        python:
+    python:
+        renpy.scene()
+        the_place.show_background()
+        if the_place.trigger_tutorial and the_place.tutorial_label is not None and mc.business.event_triggers_dict.get("Tutorial_Section",False):
+            the_place.trigger_tutorial = False
+
             if isinstance(the_place.tutorial_label, basestring) and renpy.has_label(the_place.tutorial_label):
                 renpy.call(the_place.tutorial_label)
     return
@@ -9298,6 +9307,8 @@ label interview_action_description:
                 for a_candidate in candidates:
                     for x in __builtin__.range(0,reveal_count): #Reveal all of their opinions based on our policies.
                         a_candidate.discover_opinion(a_candidate.get_random_opinion(include_known = False, include_sexy = reveal_sex),add_to_log = False) #Get a random opinion and reveal it.
+                a_candidate = None
+            
             call hire_select_process(candidates) from _call_hire_select_process
             $ candidates = [] #Prevent it from using up extra memory
 

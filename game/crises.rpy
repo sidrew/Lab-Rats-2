@@ -2727,15 +2727,8 @@ init 1 python:
 
         return False
 
-    horny_at_work_crisis = Action("Horny at work crisis", horny_at_work_crisis_requirement, "horny_at_work_crisis_label")
-    crisis_list.append([horny_at_work_crisis,8])
-
-
-
-label horny_at_work_crisis_label():
-    #Let's see if we can find a cause in the room somewhere.
-    $ potential_cause = []
-    python:
+    def horny_at_work_get_person_and_cause():
+        potential_cause = []
         for a_person in mc.location.people:
             if a_person.outfit.slut_requirement >= 20:
                 potential_cause.append([a_person, "slutty_outfit"])
@@ -2746,14 +2739,20 @@ label horny_at_work_crisis_label():
             if a_person.outfit.tits_visible():
                 potential_cause.append([a_person, "tits_visible"])
 
-    if potential_cause:
-        $ the_cause_tuple = get_random_from_list(potential_cause)
-        $ the_person = the_cause_tuple[0]
-        $ the_cause = the_cause_tuple[1]
-    else:
-        $ the_cause = "nothing"
-        $ the_person = None
-    $ del potential_cause
+        if potential_cause:
+            the_cause = get_random_from_list(potential_cause)
+            return (the_cause[0], the_cause[1])
+
+        return (None, "nothing")
+
+
+    horny_at_work_crisis = Action("Horny at work crisis", horny_at_work_crisis_requirement, "horny_at_work_crisis_label")
+    crisis_list.append([horny_at_work_crisis,8])
+
+
+
+label horny_at_work_crisis_label():
+    $ (the_person, the_cause) = horny_at_work_get_person_and_cause()
 
     if the_cause == "slutty_outfit":
         $ the_person.draw_person(position = "walking_away")
@@ -2922,7 +2921,7 @@ label horny_at_work_crisis_label():
                         licker.char "Right away!"
                         $ licker.change_obedience(2)
                         "She licks your still-warm cum directly off of the floor, drinking it down eagerly. When she's finished she stands up and wipes her lips with the back of her hand."
-
+                        $ licker = None
                     else:
                         "You pull your pants up and get back to work, basking in your post orgasm clarity."
 
@@ -2954,19 +2953,21 @@ label horny_at_work_crisis_label():
                 del neutral_people
                 del masturbating_people
                 del helpful_people
+                a_person = None
 
         "Sneak away to the bathroom and jerk off. (tooltip)A few minutes in private should fix this right up." if mc.location.people: #If there are people around here's an option to jerk off. There might
             $ renpy.scene("Active")
             "You're going to need to get this taken care of if you want to get any work done."
             "You get up from your desk and head for the washrooms, attempting to hide your erection from your staff as you go."
 
-            $ potential_follower = []
             python:
+                potential_follower = []
                 for a_person in mc.location.people:
                     if a_person.sluttiness >= 30 and renpy.random.randint(0,10) < a_person.focus:
                         potential_follower.append(a_person)
-            $ your_follower = get_random_from_list(potential_follower)
-            $ del potential_follower
+                your_follower = get_random_from_list(potential_follower)
+                del potential_follower
+                a_person = None
 
             if your_follower is not None:
                 #You were followed.
@@ -5449,16 +5450,17 @@ init 1 python:
     crisis_list.append([so_relationship_worsen_crisis, 1])
 
 label so_relationship_improve_label():
-    $ potential_people = []
     python:
+        potential_people = []
         for place in list_of_places:
             for a_person in place.people:
                 if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Married":
                     if not any(x in a_person.special_role for x in [mother_role, sister_role, cousin_role, aunt_role, girlfriend_role, affair_role]):
                         potential_people.append(a_person)
 
-    $ the_person = get_random_from_list(potential_people)
-    $ del potential_people
+        the_person = get_random_from_list(potential_people)
+        del potential_people
+        a_person = None
 
     if the_person is None:
         return #Something's changed and there is no longer a valid person
@@ -5510,16 +5512,18 @@ label so_relationship_improve_label():
 
 
 label so_relationship_worsen_label():
-    $ potential_people = []
     python:
+        potential_people = []
         for place in list_of_places:
             for a_person in place.people:
                 if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Single":
                     if not mother_role in a_person.special_role and not sister_role in a_person.special_role and not cousin_role in a_person.special_role and not aunt_role in a_person.special_role:
                         potential_people.append(a_person)
 
-    $ the_person = get_random_from_list(potential_people)
-    $ del potential_people
+        the_person = get_random_from_list(potential_people)
+        del potential_people
+        a_person = None
+
     if the_person is None:
         return #Something's changed and there is no longer a valid person
 
@@ -5556,13 +5560,17 @@ init 1 python:
 
 
 label affair_dick_pick_label():
-    $ possible_people = []
     python:
+        possible_people = []
         for place in list_of_places:
             for a_person in place.people:
                 if affair_role in a_person.special_role and a_person not in mc.location.people: #Soemone is in an affair with you and wants a dic pic
                     possible_people.append(a_person)
-    $ the_person = get_random_from_list(possible_people)
+    
+        the_person = get_random_from_list(possible_people)
+        del possible_people
+        a_person = None
+    
     if the_person is None:
         return
 
@@ -5624,13 +5632,16 @@ init 1 python:
     crisis_list.append([girlfriend_nudes_crisis, 5])
 
 label girlfriend_nudes_label():
-    $ possible_people = []
     python:
+        possible_people = []
         for place in list_of_places:
             for a_person in place.people:
                 if girlfriend_role in a_person.special_role and a_person not in mc.location.people: #Soemone is in an affair with you and wants a dic pic
                     possible_people.append(a_person)
-    $ the_person = get_random_from_list(possible_people)
+        the_person = get_random_from_list(possible_people)
+        del possible_people
+        a_person = None
+
     if the_person is None:
         return
 
