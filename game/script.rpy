@@ -8942,6 +8942,27 @@ label outfit_master_manager(): #WIP new outfit manager that centralizes exportin
     call outfit_master_manager() from _call_outfit_master_manager #Loop around until the player decides they want to leave.
     return
 
+init -2 python:
+    def build_actions_list():
+        actions_list = []
+        if time_of_day == 4:
+            if sleep_action not in mc.location.actions: #If they're in a location they can sleep we shouldn't show this because they can just sleep here.
+                actions_list.append(["Go home and sleep.{image=gui/heart/Time_Advance.png}{image=gui/heart/Time_Advance.png} (tooltip)It's late. Go home and sleep.", "Wait"])
+        else:
+            actions_list.append(["Wait here {image=gui/heart/Time_Advance.png}\n+10 Extra {image=gui/extra_images/energy_token.png} (tooltip)Kill some time and wait around. Recovers more energy than working.", "Wait"])
+        actions_list.append(["Go somewhere else.", "Travel"])
+        actions_list.extend(mc.location.get_valid_actions())
+        actions_list.sort(key = sort_display_list, reverse = True)
+        actions_list.insert(0, "Do Something")
+        return actions_list
+
+    def build_people_list():
+        people_list = []
+        people_list.extend(mc.location.people)
+        people_list.sort(key = sort_display_list, reverse = True)
+        people_list.insert(0, "Talk to Someone")
+        return people_list
+
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
     # $ mc.can_skip_time = True
 
@@ -8951,30 +8972,11 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
     #         predicted_displayables.append(person.build_person_displayable())
     #     renpy.start_predict(*predicted_displayables)
 
-
     #$ people_list = ["Talk to Someone"] # Don't add the titles first because we want to sort the list.
-    $ people_list = []
-    $ people_list.extend(mc.location.people)
 
-    # python:
-    #     for person in people_list:
-    #         person.predict_person()
+    $ people_list = build_people_list()
+    $ actions_list = build_actions_list()
 
-    #$ actions_list = ["Do Something"]
-    $ actions_list = []
-    if time_of_day == 4:
-        if sleep_action not in mc.location.actions: #If they're in a location they can sleep we shouldn't show this because they can just sleep here.
-            $ actions_list.append(["Go home and sleep.{image=gui/heart/Time_Advance.png}{image=gui/heart/Time_Advance.png} (tooltip)It's late. Go home and sleep.", "Wait"])
-    else:
-        $ actions_list.append(["Wait here {image=gui/heart/Time_Advance.png}\n+10 Extra {image=gui/extra_images/energy_token.png} (tooltip)Kill some time and wait around. Recovers more energy than working.", "Wait"])
-    $ actions_list.append(["Go somewhere else.", "Travel"])
-    $ actions_list.extend(mc.location.get_valid_actions())
-
-    $ people_list.sort(key = sort_display_list, reverse = True)
-    $ actions_list.sort(key = sort_display_list, reverse = True)
-
-    $ people_list.insert(0, "Talk to Someone")
-    $ actions_list.insert(0, "Do Something")
     call screen main_choice_display(build_menu_items([people_list,actions_list]))
 
     $ picked_option = _return
@@ -9066,42 +9068,39 @@ label change_location(the_place):
                 renpy.call(the_place.tutorial_label)
     return
 
-label talk_person(the_person):
-    $ the_person.draw_person()
-    if the_person.title is None:
-        call person_introduction(the_person) from _call_person_introduction #If their title is none we assume it is because we have never met them before. We have a special introduction scene for new people.
-        #Once that's done we continue to talk to the person.
+init -2 python:
+    def build_chat_action_list(the_person):
+        change_titles_action = Action("Talk about what you call each other.", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
+            menu_tooltip = "Manage how you refer to this girl and tell her how she should refer to you. Differnet combinations of stats, roles, and personalityes unlock different titles.", priority = -5)
+        small_talk_action = Action("Make small talk.\n-15 {image=gui/extra_images/energy_token.png}", requirement = small_talk_requirement, effect = "small_talk_person", args=the_person, requirement_args=the_person,
+            menu_tooltip = "A pleasant chat about your likes and dislikes. A good way to get to know someone and the first step to building a lasting relationship. Provides a chance to study the effects of active serum traits and raise their mastery level.")
+        compliment_action = Action("Compliment her.\n-15 {image=gui/extra_images/energy_token.png}", requirement = compliment_requirement, effect = "compliment_person", args=the_person, requirement_args=the_person,
+            menu_tooltip = "Lay the charm on thick and heavy. A great way to build a relationship, and every girl is happy to recieve a compliment! Provides a chance to study the effects of active serum traits and raise their mastery level.")
+        flirt_action = Action("Flirt with her.\n-15 {image=gui/extra_images/energy_token.png}", requirement = flirt_requirement, effect = "flirt_person", args=the_person, requirement_args=the_person,
+            menu_tooltip = "A conversation filled with innuendo and double entendre. Both improves your relationship with a girl and helps make her a little bit sluttier. Provides a chance to study the effects of active serum traits and raise their mastery level.")
+        date_action = Action("Ask her on a date.", requirement = date_option_requirement, effect = "date_person", args=the_person, requirement_args=the_person,
+            menu_tooltip = "Ask her out on a date. The more you impress her the closer you'll grow. If you play your cards right you might end up back at her place.")
+        make_girlfriend_action = Action("Ask her to be your girlfriend.", requirement = ask_girlfriend_requirement, effect = "ask_be_girlfriend_label", args = the_person, requirement_args = the_person,
+            menu_tooltip = "Ask her to start an official, steady relationship and be your girlfriend.", priority = 10)
+        chat_actions = [change_titles_action, small_talk_action, compliment_action, flirt_action, date_action, make_girlfriend_action]
+        chat_list.sort(key = sort_display_list, reverse = True)
+        chat_list.insert(0,"Chat with her")
+        return chat_list
 
+    def build_specific_action_list(the_person):
+        #TODO: "Do something specific", change existing sections into actions, store in chat_actions.rpy
+        wardrobe_change_action = Action("Ask to change her wardrobe.", requirement = wardrobe_change_requirment, effect = "wardrobe_change_label", args = the_person, requirement_args = the_person,
+            menu_tooltip = "Add and remove outfits from her wardrobe, or ask her to put on a specific outfit.", priority = -5)
+        serum_give_action = Action("Try to give her a dose of serum.", requirement = serum_give_requirement, effect = "serum_give_label", args = the_person, requirement_args = the_person,
+            menu_tooltip = "Demand she take a dose, ask her politely, or just try and slip it into something she'll drink. Failure may result in her trusting you less or being immediately unhappy.")
+        seduce_action = Action("Try to seduce her.", requirement = seduce_requirement, effect = "seduce_label", args = the_person, requirement_args = the_person,
+            menu_tooltip = "Try and seduce her right here and now. Love, sluttiness, obedience, and your own charisma all play a factor in how likely she is to be seduced.", priority = 5)
+        specific_action_list = ["Say goodbye.", wardrobe_change_action, serum_give_action, seduce_action]
+        specific_action_list.sort(key = sort_display_list, reverse = True)
+        specific_action_list.insert(0,"Do something specific")
+        return specific_action_list
 
-
-    $ change_titles_action = Action("Talk about what you call each other.", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
-        menu_tooltip = "Manage how you refer to this girl and tell her how she should refer to you. Differnet combinations of stats, roles, and personalityes unlock different titles.", priority = -5)
-    $ small_talk_action = Action("Make small talk.\n-15 {image=gui/extra_images/energy_token.png}", requirement = small_talk_requirement, effect = "small_talk_person", args=the_person, requirement_args=the_person,
-        menu_tooltip = "A pleasant chat about your likes and dislikes. A good way to get to know someone and the first step to building a lasting relationship. Provides a chance to study the effects of active serum traits and raise their mastery level.")
-    $ compliment_action = Action("Compliment her.\n-15 {image=gui/extra_images/energy_token.png}", requirement = compliment_requirement, effect = "compliment_person", args=the_person, requirement_args=the_person,
-        menu_tooltip = "Lay the charm on thick and heavy. A great way to build a relationship, and every girl is happy to recieve a compliment! Provides a chance to study the effects of active serum traits and raise their mastery level.")
-    $ flirt_action = Action("Flirt with her.\n-15 {image=gui/extra_images/energy_token.png}", requirement = flirt_requirement, effect = "flirt_person", args=the_person, requirement_args=the_person,
-        menu_tooltip = "A conversation filled with innuendo and double entendre. Both improves your relationship with a girl and helps make her a little bit sluttier. Provides a chance to study the effects of active serum traits and raise their mastery level.")
-    $ date_action = Action("Ask her on a date.", requirement = date_option_requirement, effect = "date_person", args=the_person, requirement_args=the_person,
-        menu_tooltip = "Ask her out on a date. The more you impress her the closer you'll grow. If you play your cards right you might end up back at her place.")
-    $ make_girlfriend_action = Action("Ask her to be your girlfriend.", requirement = ask_girlfriend_requirement, effect = "ask_be_girlfriend_label", args = the_person, requirement_args = the_person,
-        menu_tooltip = "Ask her to start an official, steady relationship and be your girlfriend.", priority = 10)
-    $ chat_list = [change_titles_action, small_talk_action, compliment_action, flirt_action, date_action, make_girlfriend_action]
-
-
-    #TODO: "Do something specific", change existing sections into actions, store in chat_actions.rpy
-    $ wardrobe_change_action = Action("Ask to change her wardrobe.", requirement = wardrobe_change_requirment, effect = "wardrobe_change_label", args = the_person, requirement_args = the_person,
-        menu_tooltip = "Add and remove outfits from her wardrobe, or ask her to put on a specific outfit.", priority = -5)
-    $ serum_give_action = Action("Try to give her a dose of serum.", requirement = serum_give_requirement, effect = "serum_give_label", args = the_person, requirement_args = the_person,
-        menu_tooltip = "Demand she take a dose, ask her politely, or just try and slip it into something she'll drink. Failure may result in her trusting you less or being immediately unhappy.")
-    $ seduce_action = Action("Try to seduce her.", requirement = seduce_requirement, effect = "seduce_label", args = the_person, requirement_args = the_person,
-        menu_tooltip = "Try and seduce her right here and now. Love, sluttiness, obedience, and your own charisma all play a factor in how likely she is to be seduced.", priority = 5)
-    $ specific_action_list = ["Say goodbye.", wardrobe_change_action, serum_give_action, seduce_action]
-
-
-
-
-    python:
+    def build_special_role_actions_list(the_person):
         special_role_actions = []
         roles_that_need_people_args = []
         for role in the_person.special_role:
@@ -9113,14 +9112,20 @@ label talk_person(the_person):
             special_role_actions.append([act,the_person])
             roles_that_need_people_args.append(act)
 
-        chat_list.sort(key = sort_display_list, reverse = True)
-        chat_list.insert(0,"Chat with her")
-
-        specific_action_list.sort(key = sort_display_list, reverse = True)
-        specific_action_list.insert(0,"Do something specific")
-
         special_role_actions.sort(key = sort_display_list, reverse = True)
         special_role_actions.insert(0,"Special Actions")
+        return special_role_actions
+
+label talk_person(the_person):
+    $ the_person.draw_person()
+    if the_person.title is None:
+        call person_introduction(the_person) from _call_person_introduction #If their title is none we assume it is because we have never met them before. We have a special introduction scene for new people.
+        #Once that's done we continue to talk to the person.
+
+    python:
+        chat_list = build_chat_action_list(the_person)
+        specific_action_list = build_specific_action_list(the_person)
+        special_role_actions = build_special_role_actions_list(the_person)
 
     call screen main_choice_display(build_menu_items([chat_list,specific_action_list, special_role_actions]))
 
@@ -9133,6 +9138,11 @@ label talk_person(the_person):
 
         if the_person in mc.location.people and time_of_day == starting_time_of_day:
             call talk_person(the_person) from _call_talk_person_1 #If we're in the same place and time hasn't advanced keep talking to them until we stop talking on purpose.
+
+    python:
+        chat_list = []
+        specific_action_list = []
+        special_role_actions = []
 
     $ renpy.scene("Active")
     return
