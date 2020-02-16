@@ -494,6 +494,7 @@ label fuck_date_label(the_person):
     #As soon as done is True we finish looping. This means each path should narrate it's own end of encounter stuff.
     #Generic stuff to make sure we don't keep showing anyone.
     $ the_person.clear_situational_slut("Date")
+    $ mc.change_location(bedroom) # go home
     $ renpy.scene("Active")
     return "Advance Time"
 
