@@ -9082,7 +9082,7 @@ init -2 python:
             menu_tooltip = "Ask her out on a date. The more you impress her the closer you'll grow. If you play your cards right you might end up back at her place.")
         make_girlfriend_action = Action("Ask her to be your girlfriend.", requirement = ask_girlfriend_requirement, effect = "ask_be_girlfriend_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Ask her to start an official, steady relationship and be your girlfriend.", priority = 10)
-        chat_actions = [change_titles_action, small_talk_action, compliment_action, flirt_action, date_action, make_girlfriend_action]
+        chat_list = [change_titles_action, small_talk_action, compliment_action, flirt_action, date_action, make_girlfriend_action]
         chat_list.sort(key = sort_display_list, reverse = True)
         chat_list.insert(0,"Chat with her")
         return chat_list
@@ -9114,7 +9114,7 @@ init -2 python:
 
         special_role_actions.sort(key = sort_display_list, reverse = True)
         special_role_actions.insert(0,"Special Actions")
-        return special_role_actions
+        return (special_role_actions, roles_that_need_people_args)
 
 label talk_person(the_person):
     $ the_person.draw_person()
@@ -9125,7 +9125,7 @@ label talk_person(the_person):
     python:
         chat_list = build_chat_action_list(the_person)
         specific_action_list = build_specific_action_list(the_person)
-        special_role_actions = build_special_role_actions_list(the_person)
+        (special_role_actions, roles_that_need_people_args) = build_special_role_actions_list(the_person)
 
     call screen main_choice_display(build_menu_items([chat_list,specific_action_list, special_role_actions]))
 
@@ -9143,6 +9143,7 @@ label talk_person(the_person):
         chat_list = []
         specific_action_list = []
         special_role_actions = []
+        roles_that_need_people_args = []
 
     $ renpy.scene("Active")
     return
