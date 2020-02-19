@@ -3318,12 +3318,12 @@ label friends_help_friends_be_sluts_label():
 
 
     else:
-        "You decide to take a walk, both to stretch your legs and to make sure your staff are staying on task."
-        "When you pass by the break room you overhear [person_one.title] and [person_two.title] chatting. You stop at the door and listen for a moment."
         if person_two.effective_sluttiness() < 20:
             # The sluttier girl is talking about how horny she's feeling today when you walk in. Her friend seems embarrassed to be hearing about it.
             # The sluttier girl then spanks/plays with the less slutty girls ass for your benefit.
             # When you walk in the sluttier girl makes some passes at you that her friend apologizes for, but that you reenforce.
+            "You're thinking about taking a break and stretching your legs when you see [person_one.title] and [person_two.title] through your office door."
+            "They're talking quietly with each other, totally oblivious of the fact that you can hear what they are saying."
             $ person_one.draw_person()
             person_one.char "I can't wait to get home, I've been feeling so worked up all day I just want to get naked and have some me time."
             person_one.char "I got a new vibrator and it's mind blowing. I want to be riding it all day long now."
@@ -3359,6 +3359,8 @@ label friends_help_friends_be_sluts_label():
             $ person_two.change_obedience(2)
 
         elif person_two.effective_sluttiness() < 40:
+            "You decide to take a walk, both to stretch your legs and to make sure your staff are staying on task."
+            "When you pass by the break room you overhear [person_one.title] and [person_two.title] chatting. You stop at the door and listen for a moment."
             # The sluttier girl is talking about the less slutty girls tits when you walk in. She wants you to give a comparison, the less slutty girl begrudgingly agrees
             # Note: At high love she hints that she's doing this as a favour to you.
             $ person_one.draw_person()
@@ -3609,6 +3611,7 @@ label friends_help_friends_be_sluts_label():
     python:
         del person_one
         del person_two
+        del the_relationship
         renpy.scene("Active")
     return
 
