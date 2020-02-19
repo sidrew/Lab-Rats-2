@@ -55,7 +55,7 @@ label outro_cunnilingus(the_girl, the_location, the_object, the_round): #With lo
 
 
 label transition_default_cunnilingus(the_girl, the_location, the_object, the_round):
-    "You get down on your knees in front of [the_girl.title] and push her legs open. She leans back and lets you spread them."
+    "You get down on your knees in front of [the_girl.title] and push her legs open. She leans back on [the_object.name] and lets you spread them."
     "You move in and lick her pussy, tasting her sweet juices and making her twitch from the sudden pleasure."
     "She places a hand on the top of your head and moans."
     return
