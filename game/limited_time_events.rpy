@@ -381,7 +381,7 @@ label mom_house_work_nude_label(the_person):
         $ the_person.draw_person(position = "back_peek")
         "You find [the_person.possessive_title] in the kitchen, completely nude except for her apron. She glances over her shoulder when you enter."
         the_person.char "Hi [the_person.mc_title], I hope you've had a great day. Dinner should be ready soon!"
-        "SHe turns back to her work and sings happily to herself, wiggling her butt as she works."
+        "She turns back to her work and sings happily to herself, wiggling her butt as she works."
 
     $ the_person.discover_opinion("not wearing anything")
     $renpy.scene("Active")
