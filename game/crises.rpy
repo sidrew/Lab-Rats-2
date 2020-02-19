@@ -2864,9 +2864,9 @@ label horny_at_work_crisis_label():
 
                 if masturbating_people:
                     $ renpy.random.shuffle(masturbating_people)
-                    if len(masturbating_people) == 0:
+                    if len(masturbating_people) == 1:
                         $ masturbating_string = format_group_of_people(masturbating_people) + " even joins in, quietly sliding her hand down to her crotch and rubbing her pussy."
-                    elif len(masturbating_people) == 1:
+                    elif len(masturbating_people) == 2:
                         $ masturbating_string = format_group_of_people(masturbating_people) + " even join in, both sliding their hands down to their pussies and rubbing them quietly."
                     else:
                         $ masturbating_string =  format_group_of_people(masturbating_people) + " all quietly join in as well, quietly sliding hands down to their pussies and joining the group masturbation session."
@@ -2927,7 +2927,7 @@ label horny_at_work_crisis_label():
 
                 else:
                     "You stand up, pants around your ankles, and motion for [the_choice.title] to come over to you."
-                    call fuck_person(the_choice, private = False) from _call_fuck_person_29
+                    call fuck_person(the_choice, private = False, skip_intro = True) from _call_fuck_person_29
                     $ the_report = _return
                     $ the_choice.review_outfit()
 
