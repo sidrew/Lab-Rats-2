@@ -2895,7 +2895,7 @@ label horny_at_work_crisis_label():
                 else:
                     $ exit_option = "Just have her watch."
 
-                call screen person_choice(helpful_people, person_prefix = "Pick") #Shows a list of people w/ predictive imaging when you hover
+                call screen person_choice(helpful_people + [exit_option], person_prefix = "Pick") #Shows a list of people w/ predictive imaging when you hover
                 $ the_choice = _return
                 if the_choice == exit_option:
                     #Power move, just jerk yourself off as they watch.
