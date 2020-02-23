@@ -167,8 +167,6 @@ label sister_walk_in_label(the_person):
                     "She grabs a pillow and throws it at you."
                     the_person.char "Get out! Get out!"
                     "You retreat from the room before [mom.title] hears what's happening and comes to investigate."
-                    $ the_person.apply_outfit(the_person.planned_outfit)
-                    #$ the_person.outfit = the_person.planned_outfit.get_copy() changed v0.24.1
 
                 else:
                     the_person.char "Hmm?"
@@ -201,7 +199,6 @@ label sister_walk_in_label(the_person):
                         the_person.char "Thank you [the_person.mc_title], that's exactly what I wanted. Ahh..."
                         "She rolls over and gathers up a collection of pink blankets on top of herself, quickly falling asleep."
                         "You step out of the room to give her some time to recover."
-                        $ mc.change_location(hall)
 
                     elif the_record.get("guy orgasms", 0) > 0:
                         the_person.char "So... Is that it?"
@@ -210,12 +207,11 @@ label sister_walk_in_label(the_person):
                         $ the_person.change_obedience(-2)
                         "She scoffs and falls back onto her bed, pulling her blankets over herself."
                         the_person.char "Nothing, I'm glad you enjoyed yourself at least. Get out of here so I can get off."
-                        $ mc.change_location(hall)
 
                     else:
                         the_person.char "So... are you finished?"
                         mc.name "Heh, yeah. Sorry [the_person.title], I'm just not feeling it."
-                        "She frowns, but nods. She gathers her blankets over herself."
+                        "She frowns, but nods. She gathers her blankets over herself as you are walking out of her room."
                         $ the_person.change_obedience(-2)
 
 
@@ -232,8 +228,6 @@ label sister_walk_in_label(the_person):
                     "She grabs a pillow and throws it at you."
                     the_person.char "Get out! Get out!"
                     "You retreat from the room before [mom.title] hears what's happening and comes to investigate."
-                    $ the_person.apply_outfit(the_person.planned_outfit)
-                    #$ the_person.outfit = the_person.planned_outfit.get_copy() changd v0.24.1
 
                 else: #Otherwise she lets you stay long enough for you to tell her to keep going.
                     the_person.char "Oh my god, [the_person.mc_title]! What are you doing, I'm..."
@@ -258,18 +252,17 @@ label sister_walk_in_label(the_person):
                     "Her body spasms as she cums, fingers buried deep inside of herself. She holds them there for a long moment, eyes shut tight."
                     "Finally she relaxes and pulls her fingers out, trailing her own juices behind them. She glances up at you and smiles weakly."
                     the_person.char "Ah... That was good."
+                    "You smile at her and walk out of the room."
                     $ the_person.change_slut_temp(2+the_person.get_opinion_score("masturbating"))
                     $ the_person.discover_opinion("masturbating")
 
             "Leave her alone.":
                 $ renpy.scene("Active")
-                "You take a quick step back and, as quietly as you can manage, close her door."
-                $ mc.change_location(hall)
-                $ the_person.apply_outfit(the_person.planned_outfit)
-                #$ the_person.outfit = the_person.planned_outfit.get_copy() changed v0.24.1
+                "You take a quick step back and, as quietly as you can manage and close her door."
 
-
-
+    $ mc.change_location(hall)
+    $ mc.location.show_background()
+    $ the_person.apply_outfit(the_person.planned_outfit)
     $ renpy.scene("Active")
     return
 
