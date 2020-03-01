@@ -1984,9 +1984,9 @@ init -2 python:
             x_size = __builtin__.int(the_size[0])
             y_size = __builtin__.int(the_size[1])
 
-            hair_backplate = im.Blur(self.hair_style.generate_item_displayable("standard_body",self.tits,position, lighting = lighting),2) #Add a hair backplage
-
-            displayable_list.insert(0, ((0,0),hair_backplate)) #The hair plate is what we want to actually be displayed first, but we need to know the XY sizes of the body first
+            if background_fill: #If we have a background add hair backplate.
+                hair_backplate = im.Blur(self.hair_style.generate_item_displayable("standard_body",self.tits,position, lighting = lighting),2) #Add a hair backplage
+                displayable_list.insert(0, ((0,0),hair_backplate)) #The hair plate is what we want to actually be displayed first, but we need to know the XY sizes of the body first
 
             displayable_list.extend(self.outfit.generate_draw_list(self,position,emotion,special_modifier, lighting = lighting)) #Get the displayables for everything we wear. Note that extnsions do not return anything because they have nothing to show.
             displayable_list.append(self.hair_style.generate_item_displayable("standard_body",self.tits,position, lighting = lighting)) #Get hair
@@ -1996,7 +1996,6 @@ init -2 python:
             if background_fill: #If we have a background add it now.
                 composite_list.append((0,0))
                 composite_list.append(Solid(background_fill))
-
 
             for display in displayable_list:
                 if isinstance(display, __builtin__.tuple):
@@ -2009,9 +2008,7 @@ init -2 python:
                 composite_list.append((0,0))
                 composite_list.append(Frame("/gui/Character_Window_Frame.png", 12, 12))
 
-            final_image = Composite(*composite_list) # Create a composite image using all of the displayables
-
-            return final_image
+            return Composite(*composite_list) # Create a composite image using all of the displayables
 
         def build_person_animation(self, the_animation, position, emotion, special_modifier, lighting, background_fill = None, animation_effect_strength = 1.0):
             if background_fill is None:
