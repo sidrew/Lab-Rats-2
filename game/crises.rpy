@@ -4069,7 +4069,7 @@ label mom_selfie_label():
 
         elif ran_num == 2:
             #Blowjob pose, she tells you to face fuck her, as is her duty
-            $ the_person.draw_person(position = blowjob, emotion = "happy", special_modifier = "blowjob")
+            $ the_person.draw_person(position = "blowjob", emotion = "happy", special_modifier = "blowjob")
             "You get a selfie from [the_person.possessive_title]. She's on her knees, mouth open wide."
             the_person.char "My mouth is yours to use however you want [the_person.mc_title]."
             the_person.char "It's my duty to take care of you, so grab and use it whenever you want."
