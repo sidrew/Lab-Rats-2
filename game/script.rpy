@@ -8960,23 +8960,31 @@ init -2 python:
         people_list.insert(0, "Talk to Someone")
         return people_list
 
+    def main_loop_pick_room_event(location):
+        enabled_room_events = []
+        for a_person in location.people:
+            for possible_room_event in a_person.on_room_enter_event_list:
+                if possible_room_event.is_action_enabled(a_person): #See what events the are enabled...
+                    enabled_room_events.append([a_person, possible_room_event]) #Then keep track of the person so we know who to remove it from if it triggers.
+
+        if enabled_room_events:
+            chosen = get_random_from_list(enabled_room_events)
+            chosen[0].on_room_enter_event_list.remove(chosen[1]) #Remove the event from their list since we will be running it.
+            return chosen
+        return None
+
+    def main_loop_select_greeter(location):
+        possible_greetings = []
+        for a_person in new_location.people:
+            if mc.business.get_employee_title(a_person) != "None":
+                possible_greetings.append(a_person)
+        return get_random_from_list(possible_greetings)
+
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
-    # $ mc.can_skip_time = True
 
-    # python:
-    #     predicted_displayables = []
-    #     for person in mc.location.people:
-    #         predicted_displayables.append(person.build_person_displayable())
-    #     renpy.start_predict(*predicted_displayables)
-
-    #$ people_list = ["Talk to Someone"] # Don't add the titles first because we want to sort the list.
-
-    $ people_list = build_people_list()
-    $ actions_list = build_actions_list()
-
-    call screen main_choice_display(build_menu_items([people_list,actions_list]))
-
+    call screen main_choice_display(build_menu_items([build_people_list(), build_actions_list()]))
     $ picked_option = _return
+
     if isinstance(picked_option, Person):
         # mc.can_skip_time = False
         if picked_option == "Back":
@@ -9007,34 +9015,16 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
         $ new_location = _return
         call change_location(new_location) from _call_change_location #_return is the location returned from the map manager.
         if new_location.people: #There are people in the room, let's see if there are any room events
-            python: #Scan through all the people and...
-                enabled_room_events = []
-                for a_person in new_location.people:
-                    for possible_room_event in a_person.on_room_enter_event_list:
-                        if possible_room_event.is_action_enabled(a_person): #See what events the are enabled...
-                            enabled_room_events.append([a_person, possible_room_event]) #Then keep track of the person so we know who to remove it from if it triggers.
-                a_person = None
-
-            if enabled_room_events: #If there are room events to take care of run those right now.
-                $ picked_event = get_random_from_list(enabled_room_events)
-                $ picked_event[0].on_room_enter_event_list.remove(picked_event[1]) #Remove the event from their list since we will be running it.
+            $ picked_event = main_loop_pick_room_event(new_location)
+            if picked_event: #If there are room events to take care of run those right now.
                 $ picked_event[1].call_action(picked_event[0]) #Run the action with the person as an extra argument.
-                $ del enabled_room_events
-            elif new_location in [mc.business.m_div, mc.business.p_div, mc.business.r_div, mc.business.s_div, mc.business.h_div]: #There are no room events, so generate a quick room greeting from an employee if one is around.
-                python:
-                    possible_greetings = []
-                    for a_person in new_location.people:
-                        if mc.business.get_employee_title(a_person) != "None":
-                            possible_greetings.append(a_person)
-                    the_greeter = get_random_from_list(possible_greetings)
-                    a_person = None
-
+            elif renpy.random.randint(0,2) == 0 and new_location in [mc.business.m_div, mc.business.p_div, mc.business.r_div, mc.business.s_div, mc.business.h_div]: #There are no room events, so generate a quick room greeting from an employee if one is around.
+                $ the_greeter = main_loop_select_greeter(new_location)
                 if the_greeter:
                     $ the_greeter.draw_person()
                     $ the_greeter.call_dialogue("work_enter_greeting")
                     $ renpy.scene("Active")
                     $ del the_greeter
-                $ del possible_greetings
 
     elif picked_option == "Wait":
         if time_of_day == 4:
@@ -9119,12 +9109,9 @@ label talk_person(the_person):
         call person_introduction(the_person) from _call_person_introduction #If their title is none we assume it is because we have never met them before. We have a special introduction scene for new people.
         #Once that's done we continue to talk to the person.
 
-    python:
-        chat_list = build_chat_action_list(the_person)
-        specific_action_list = build_specific_action_list(the_person)
-        (special_role_actions, roles_that_need_people_args) = build_special_role_actions_list(the_person)
+    $ (special_role_actions, roles_that_need_people_args) = build_special_role_actions_list(the_person)
 
-    call screen main_choice_display(build_menu_items([chat_list,specific_action_list, special_role_actions]))
+    call screen main_choice_display(build_menu_items([build_chat_action_list(the_person), build_specific_action_list(the_person), special_role_actions]))
 
     if isinstance(_return, Action):
         $ starting_time_of_day = time_of_day
@@ -9136,12 +9123,8 @@ label talk_person(the_person):
         if the_person in mc.location.people and time_of_day == starting_time_of_day:
             call talk_person(the_person) from _call_talk_person_1 #If we're in the same place and time hasn't advanced keep talking to them until we stop talking on purpose.
 
-    python:
-        chat_list = []
-        specific_action_list = []
-        special_role_actions = []
-        roles_that_need_people_args = []
-
+    $ special_role_actions = []
+    $ roles_that_need_people_args = []
     $ renpy.scene("Active")
     return
 

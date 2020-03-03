@@ -128,6 +128,11 @@ init 1 python:
                     return True
         return False
 
+    def broken_AC_crisis_get_watch_list_menu(person):
+        people_list = [x for x in mc.business.production_team if not x is person]
+        people_list.insert(0, "Watch")
+        return people_list
+
     broken_AC_crisis = Action("Crisis Test",broken_AC_crisis_requirement,"broken_AC_crisis_label")
     crisis_list.append([broken_AC_crisis,5])
 
@@ -236,17 +241,10 @@ label broken_AC_crisis_label:
                 if removed_something:
                     "The rest of the department follows the lead of [the_person.title], stripping off various amounts of clothing."
                         #Gives you the chance to watch one of the other girls in the department strip.
-                    $ list_of_other_girls = list(mc.business.production_team)
-                    $ list_of_other_girls.remove(the_person) #We already watched her strip.
-                    call screen person_choice(list_of_other_girls, person_prefix = "Watch", person_suffix = "Strip.")
+                    
+                    call screen main_choice_display(build_menu_items([broken_AC_crisis_get_watch_list_menu(the_person)]))
                     $ girl_choice = _return
-                    $ del list_of_other_girls
 
-                        # strip_watch_list = format_person_list(list_of_other_girls)
-                        # for a_choice in strip_watch_list:
-                        #     a_choice[0] = "Watch " + a_choice[0] + " Strip."
-                        # girl_choice = renpy.display_menu(strip_watch_list)
-                        # girl_choice.draw_person()
                     "You pay special attention to [girl_choice.title] as she follows the lead of [the_person.possessive_title]."
                     $ test_outfit = girl_choice.outfit.get_copy()
                     $ removed_something = False
@@ -2745,6 +2743,12 @@ init 1 python:
 
         return (None, "nothing")
 
+    def build_helpful_people_menu(helpful_people, exit_option):
+        people = []
+        people.extend(helpful_people)
+        people.insert(0, "Pick")
+        people.extend([exit_option])
+        return people
 
     horny_at_work_crisis = Action("Horny at work crisis", horny_at_work_crisis_requirement, "horny_at_work_crisis_label")
     crisis_list.append([horny_at_work_crisis,8])
@@ -2895,7 +2899,7 @@ label horny_at_work_crisis_label():
                 else:
                     $ exit_option = "Just have her watch."
 
-                call screen person_choice(helpful_people + [exit_option], person_prefix = "Pick") #Shows a list of people w/ predictive imaging when you hover
+                call screen main_choice_display(build_menu_items([build_helpful_people_menu(helpful_people, exit_option)])) #Shows a list of people w/ predictive imaging when you hover
                 $ the_choice = _return
                 if the_choice == exit_option:
                     #Power move, just jerk yourself off as they watch.
