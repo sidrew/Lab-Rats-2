@@ -108,80 +108,69 @@ init -2 python:
         else:
             return True
 
+    def lunch_date_create_topics_menu(the_person):
+        opinion_question_list = []
+         #Generates a list with a few (usually 4, unless there's some opinion collision, but it's not important enough to filter things out more intelligently) opinions, one of which she likes
+        for x in __builtin__.range(3):
+            possible_opinions = get_random_opinion()
+            if possible_opinions not in opinion_question_list:
+                opinion_question_list.append(possible_opinions)
+
+        key_opinion = the_person.get_random_opinion(only_positive = True)
+
+        if key_opinion is not None and key_opinion not in opinion_question_list:
+            opinion_question_list.append(key_opinion)
+
+        renpy.random.shuffle(opinion_question_list)
+
+        formatted_opinion_list = []
+        for item in opinion_question_list:
+            formatted_opinion_list.append(["Chat about " + item, item])
+        return formatted_opinion_list
+
+    def build_person_introduction_titles():
+        title_tuple = []
+        for title in get_player_titles(the_person):
+            title_tuple.append([title,title])
+        return title_tuple
+
+    def show_new_title_menu(title_list):
+        title_tuple = []
+        for title in title_list:
+            title_tuple.append([title,title])
+        title_tuple.append(["Do not change her title.","Back"])
+        return renpy.display_menu(title_tuple,True,"Choice")
 
 label person_introduction(the_person, girl_introduction = True):
     if girl_introduction:
         $ the_person.call_dialogue("introduction")
 
     #She's given us her name, now she asks for yours.
-    $ title_tuple = []
-    $ title_choice = None
-    python:
-        for title in get_player_titles(the_person):
-            title_tuple.append([title,title])
-
-    $ title_choice = renpy.display_menu(title_tuple,True,"Choice")
+    $ title_choice = renpy.display_menu(build_person_introduction_titles(),True,"Choice")
     mc.name "[title_choice], it's a pleasure to meet you."
     $ the_person.set_mc_title(title_choice)
-    $ del title_tuple
     return
 
 label change_titles_person(the_person):
     menu:
         "Change what you call her. (tooltip)Change the title you have for her. This may just be her name, an honorific such as \"Miss.\", or a complete nickname such as \"Cocksleeve\". Different combinations of stats, roles, and personalities unlock different titles.":
-            call new_title_menu(the_person) from _call_new_title_menu
-            $ title_choice = _return
+            $ title_choice = show_new_title_menu(get_titles(the_person))
             if not (title_choice == "Back" or the_person.title == the_person.create_formatted_title(title_choice)):
                 "You tell [the_person.name] [the_person.last_name] that you are going to call her [title_choice] instead of [the_person.title]."
                 $ the_person.set_title(title_choice)
 
         "Change what she calls you. (tooltip)Change the title she has for you. This may just be your name, an honorific such as \"Mr.\", or a complete nickname such as \"Master\". Different combinations of stats, roles, and personalities unlock different titles.":
-            call new_mc_title_menu(the_person) from _call_new_mc_title_menu
-            $ title_choice = _return
+            $ title_choice = show_new_title_menu(get_player_titles(the_person))
             if not (title_choice == "Back" or the_person.mc_title == title_choice):
                 "You tell [the_person.title] to stop calling you [the_person.mc_title] and to refer to you as [title_choice] instead."
                 $ the_person.set_mc_title(title_choice)
 
         "Change how you refer to her. (tooltip)Change your possessive title for this girl. A possessive title takes the form \"your employee\", \"your sister\", etc. It can also just be their name repeated. Different combinations of stats, roles, and personalities unlock different titles.":
-            call new_possessive_title_menu(the_person) from _call_new_possessive_title_menu
-            $ title_choice = _return
+            $ title_choice = show_new_title_menu(get_possessive_titles(the_person))
             if not (title_choice == "Back" or the_person.possessive_title ==  the_person.create_formatted_title(title_choice)):
                 "You decide to start referring [the_person.name] [the_person.last_name] as [title_choice] instead of [the_person.possessive_title] when you're talking about her."
                 $ the_person.set_possessive_title(title_choice)
     return
-
-label new_title_menu(the_person):
-    $ title_tuple = []
-    $ title_choice = None
-    python:
-        for title in get_titles(the_person):
-            title_tuple.append([title,title])
-        title_tuple.append(["Do not change her title.","Back"])
-        title_choice = renpy.display_menu(title_tuple,True,"Choice")
-        del title_tuple
-    return title_choice
-
-label new_mc_title_menu(the_person):
-    $ title_tuple = []
-    $ title_choice = None
-    python:
-        for title in get_player_titles(the_person):
-            title_tuple.append([title,title])
-        title_tuple.append(["Do not change your title.","Back"])
-        title_choice = renpy.display_menu(title_tuple,True,"Choice")
-        del title_tuple
-    return title_choice
-
-label new_possessive_title_menu(the_person):
-    $ title_tuple = []
-    $ title_choice = None
-    python:
-        for title in get_possessive_titles(the_person):
-            title_tuple.append([title,title])
-        title_tuple.append(["Do not change your title.","Back"])
-        title_choice = renpy.display_menu(title_tuple,True,"Choice")
-        del title_tuple
-    return title_choice
 
 label person_new_title(the_person): #She wants a new title or to give you a new title.
     if __builtin__.len(get_titles(the_person)) <= 1: #There's only the one title available to them. Don't bother asking to change
@@ -193,8 +182,7 @@ label person_new_title(the_person): #She wants a new title or to give you a new 
         menu:
             "Change what you call her":
                 #TODO: present the player with a list. TODO: Refactor the event above to be a generic way of presenting a list, w/ the dialogue separated.
-                call new_title_menu(the_person) from _call_new_title_menu_1
-                $ title_choice = _return
+                $ title_choice = show_new_title_menu(get_titles(the_person))
                 if not (title_choice == "Back" or the_person.title == the_person.create_formatted_title(title_choice)):
                     mc.name "I think [title_choice] would really suit you."
                     $ the_person.set_title(title_choice)
@@ -282,8 +270,7 @@ label person_new_mc_title(the_person):
         menu:
             "Change what she calls you.":
                 #TODO: present the player with a list. TODO: Refactor the event above to be a generic way of presenting a list, w/ the dialogue separated.
-                call new_mc_title_menu(the_person) from _call_new_mc_title_menu_1
-                $ title_choice = _return
+                $ title_choice = show_new_title_menu(get_possessive_titles(the_person))
                 if not (title_choice == "Back" or title_choice == the_person.mc_title):
                     mc.name "I think you should call me [title_choice] from now on."
                     $ the_person.set_mc_title(title_choice)
@@ -579,31 +566,11 @@ label lunch_date_label(the_person): #Could technically be included in the planni
     "When it's ready you bring it over to [the_person.title] and sit down at the table across from her."
     the_person.char "Mmm, it looks delicious. Or maybe I'm just really hungry. Either way, let's eat!"
     "You dig into your lunch, chatting between bites about this and that. What do you talk about?"
-    $ opinion_question_list = []
-    python: #Generates a list with a few (usually 4, unless there's some opinion collision, but it's not important enough to filter things out more intelligently) opinions, one of which she likes
-        for x in __builtin__.range(3):
-            possible_opinions = get_random_opinion()
-            if possible_opinions not in opinion_question_list:
-                opinion_question_list.append(possible_opinions)
 
-        key_opinion = the_person.get_random_opinion(only_positive = True)
-
-        if key_opinion is not None and key_opinion not in opinion_question_list:
-            opinion_question_list.append(key_opinion)
-
-        renpy.random.shuffle(opinion_question_list)
-
-    $ formatted_opinion_list = []
-    python:
-        for item in opinion_question_list:
-            formatted_opinion_list.append(["Chat about " + item, item])
-    $ del opinion_question_list
-
-    $ conversation_choice = renpy.display_menu(formatted_opinion_list,True,"Choice")
+    $ conversation_choice = renpy.display_menu(lunch_date_create_topics_menu(the_person),True,"Choice")
     $ the_person.discover_opinion(conversation_choice)
     $ score = the_person.get_opinion_score(conversation_choice)
     $ kiss_after = False
-    $ del formatted_opinion_list
     if score > 0:
         "You steer the conversation towards [conversation_choice] and [the_person.title] seems more interested and engaged."
         $ kiss_after = True
@@ -875,6 +842,7 @@ label movie_date_label(the_person):
                                 "You hurry into the women's bathroom and lock yourselves in an empty stall."
                                 call fuck_person(the_person, private = True) from _call_fuck_person_28
                                 $ the_person.review_outfit()
+                                $ del movie_bathroom
                                 $ renpy.show("Theater", what = theater_background)
                                 "You slip out of the bathroom as quickly as possible and return to your seats with some time pleasantly passed."                           
 
