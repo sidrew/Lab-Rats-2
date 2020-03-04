@@ -138,7 +138,7 @@ init -2 python:
         title_tuple = []
         for title in title_list:
             title_tuple.append([title,title])
-        title_tuple.append(["Do not change her title.","Back"])
+        title_tuple.append(["Do not change title.","Back"])
         return renpy.display_menu(title_tuple,True,"Choice")
 
 label person_introduction(the_person, girl_introduction = True):
@@ -270,7 +270,7 @@ label person_new_mc_title(the_person):
         menu:
             "Change what she calls you.":
                 #TODO: present the player with a list. TODO: Refactor the event above to be a generic way of presenting a list, w/ the dialogue separated.
-                $ title_choice = show_new_title_menu(get_possessive_titles(the_person))
+                $ title_choice = show_new_title_menu(get_player_titles(the_person))
                 if not (title_choice == "Back" or title_choice == the_person.mc_title):
                     mc.name "I think you should call me [title_choice] from now on."
                     $ the_person.set_mc_title(title_choice)
