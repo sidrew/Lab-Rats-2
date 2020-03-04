@@ -137,25 +137,38 @@ init 1 python:
     crisis_list.append([broken_AC_crisis,5])
 
 
+init 2 python:
+    def broken_AC_crisis_get_sluttiest_person():
+        person = get_random_from_list(mc.business.production_team)
+        for girl in mc.business.production_team:
+            if girl.sluttiness > person.sluttiness:
+                person = girl
+        return person
+
+    def broken_AC_crisis_update_stats(happiness, obedience):
+        for person in mc.business.production_team:
+            person.change_happiness(happiness)
+            person.change_obedience(obedience)
+        return
+
+    def broken_AC_crisis_update_sluttiness():
+        for person in mc.business.production_team:
+            person.change_slut_temp(10, add_to_log = False)
+        mc.log_event("All Production Staff: +10 Sluttiness","float_text_pink")
+        return
+
 label broken_AC_crisis_label:
-    $ temp_sluttiness_increase = 20 #This is a bonus to sluttiness when stripping down because of the heat.
+    $ the_person = broken_AC_crisis_get_sluttiest_person()
+    if the_person is None:
+        return
 
     "There is a sudden bang in the office, followed by a strange silence. A quick check reveals the air conditioning has died!"
     "The machines running at full speed in the production department kick out a significant amount of heat. Without air condition the temperature quickly rises to uncomfortable levels."
     $ mc.business.p_div.show_background()
     #We're going to use the most slutty girl of the group lead the pack. She'll be the one we pay attention to.
-    python:
-        the_person = None
-        for girl in mc.business.production_team:
-            if not the_person:
-                the_person = girl
-            else:
-                if girl.sluttiness > the_person.sluttiness:
-                    the_person = girl
     $ the_person.draw_person()
     if len(mc.business.production_team) == 0:
-        $ sole_worker = mc.business.production_team[0].name
-        "The air conditioner was under warranty, and a quick call has one of their repair men over in a couple of hours. Until then [sole_worker] wants to know what to do."
+        "The air conditioner was under warranty, and a quick call has one of their repair men over in a couple of hours. Until then [the_person.name] wants to know what to do."
     else:
         "The air conditioner was under warranty, and a quick call has one of their repair men over in a couple of hours. Until then, the production staff want to know what to do."
 
@@ -163,18 +176,12 @@ label broken_AC_crisis_label:
         "Take a break.":
             "You tell everyone in the production lab to take a break for a few hours while the air conditioning is repaired."
             "The unexpected break raises moral and makes the production staff feel more independent."
-            python:
-                for person in mc.business.production_team:
-                    person.change_happiness(5)
-                    person.change_obedience(-2)
+            $ broken_AC_crisis_update_stats(5, -2)
             "The repair man shows up early and it turns out to be an easy fix. The lab is soon back up and running."
 
         "It's not that hot, get back to work!":
             "Nobody's happy working in the heat, but exercising your authority will make your production staff more likely to obey in the future."
-            python:
-                for person in mc.business.production_team:
-                    person.change_happiness(-5)
-                    person.change_obedience(2)
+            $ broken_AC_crisis_update_stats(-5, 2)
             "The repair man shows up early and it turns out to be an easy fix. The lab is soon back up and running."
 
         "Tell everyone to strip down and keep working." if casual_uniform_policy.is_owned():
@@ -190,7 +197,6 @@ label broken_AC_crisis_label:
                     the_person.char "Let's do it girls! I can't be the only one who loves an excuse to flash her tits, right?"
 
             else: #There's just one person here, have them strip down.
-                $ the_person = mc.business.production_team[0] #Get the one person, the crisis requires we have at least 1 person in here so this should always be true.
                 $ the_person.draw_person()
                 mc.name "[the_person.title], I know it's uncomfortable in here right now, but we're going to have to make due."
                 mc.name "If you feel like it would help to take something off, I'm lifting the dress code until the air condition is fixed."
@@ -204,7 +210,7 @@ label broken_AC_crisis_label:
             $ removed_something = False
 
             $ the_clothing = test_outfit.remove_random_any(top_layer_first = True, exclude_feet = True) #Remove something from our test outfit.
-            while the_clothing and the_person.judge_outfit(test_outfit, temp_sluttiness_increase): #This will loop over and over until she is out of things to remove OR nolonger can strip something that is appropriate.
+            while the_clothing and the_person.judge_outfit(test_outfit, 20): #This will loop over and over until she is out of things to remove OR nolonger can strip something that is appropriate.
                 #Note: there can be some variation in this event depending on if the upper or lower was randomly checked first.
                 $ the_person.draw_animated_removal(the_clothing) #Draw the item being removed from our current outfit
                 #$ the_person.outfit = test_outfit.get_copy() #Swap our current outfit out for the test outfit. Changed in v0.24.1
@@ -250,7 +256,7 @@ label broken_AC_crisis_label:
                     $ removed_something = False
 
                     $ the_clothing = test_outfit.remove_random_any(top_layer_first = True, exclude_feet = True) #Remove something from our test outfit.
-                    while the_clothing and girl_choice.judge_outfit(test_outfit, temp_sluttiness_increase): #This will loop over and over until she is out of things to remove OR nolonger can strip something that is appropriate.
+                    while the_clothing and girl_choice.judge_outfit(test_outfit, 20): #This will loop over and over until she is out of things to remove OR nolonger can strip something that is appropriate.
                         #Note: there can be some variation in this event depending on if the upper or lower was randomly checked first.
                         $ girl_choice.draw_animated_removal(the_clothing) #Animate the removal.
                         # $ girl_choice.outfit = test_outfit.get_copy() #Swap outfits so we can keep updating Changed v0.24.1
@@ -308,10 +314,7 @@ label broken_AC_crisis_label:
                     "The repair man shows up early, and you lead him directly to the the AC unit. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
 
             if removed_something:
-                python:
-                    for person in mc.business.production_team:
-                        person.change_slut_temp(10, add_to_log = False)
-                $ mc.log_event("All Production Staff: +10 Sluttiness","float_text_pink")
+                $ broken_AC_crisis_update_sluttiness();
 
         "Tell everyone to strip down and keep working.\n{size=22}Requires: [casual_uniform_policy.name] (disabled)" if not casual_uniform_policy.is_owned():
             pass
@@ -2750,9 +2753,15 @@ init 1 python:
         people.extend([exit_option])
         return people
 
+    def horny_at_work_get_follower():
+        potential_follower = []
+        for a_person in mc.location.people:
+            if a_person.sluttiness >= 30 and renpy.random.randint(0,10) < a_person.focus:
+                potential_follower.append(a_person)
+        return get_random_from_list(potential_follower)
+
     horny_at_work_crisis = Action("Horny at work crisis", horny_at_work_crisis_requirement, "horny_at_work_crisis_label")
     crisis_list.append([horny_at_work_crisis,8])
-
 
 
 label horny_at_work_crisis_label():
@@ -2964,15 +2973,7 @@ label horny_at_work_crisis_label():
             "You're going to need to get this taken care of if you want to get any work done."
             "You get up from your desk and head for the washrooms, attempting to hide your erection from your staff as you go."
 
-            python:
-                potential_follower = []
-                for a_person in mc.location.people:
-                    if a_person.sluttiness >= 30 and renpy.random.randint(0,10) < a_person.focus:
-                        potential_follower.append(a_person)
-                your_follower = get_random_from_list(potential_follower)
-                del potential_follower
-                a_person = None
-
+            $ your_follower = horny_at_work_get_follower()
             if your_follower is not None:
                 #You were followed.
                 $ old_location = mc.location
