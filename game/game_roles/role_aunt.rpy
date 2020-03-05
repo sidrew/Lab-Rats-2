@@ -55,6 +55,37 @@ init -2 python:
         else:
             return True
 
+    def add_aunt_intro_phase_two_action():
+        aunt_intro_phase_two = Action("Aunt introduction phase two", aunt_intro_phase_two_requirement, "aunt_intro_phase_two_label")
+        mc.business.mandatory_morning_crises_list.append(aunt_intro_phase_two) #Aunt and cousin will be visiting tomorrow in the morning
+        return
+
+    def add_aunt_phase_three_action():
+        aunt.home.move_person(aunt, hall)
+        aunt.home = hall
+        for i in range(0,5):
+            aunt.schedule[i] = aunt.home
+
+        aunt_intro_phase_three = Action("aunt_intro_phase_three", aunt_intro_phase_three_requirement, "aunt_intro_phase_three_label", requirement_args = day + renpy.random.randint(6,10))
+        mc.business.mandatory_morning_crises_list.append(aunt_intro_phase_three)
+        return
+
+    def add_cousin_phase_one_action():
+        cousin.home.move_person(cousin,lily_bedroom)
+        cousin.home = lily_bedroom
+        cousin.set_schedule([0,4], cousin.home)
+        cousin.set_schedule([1,2,3], None)
+
+        cousin_intro_phase_one = Action("cousin_intro_phase_one", cousin_intro_phase_one_requirement, "cousin_intro_phase_one_label", requirement_args = day + renpy.random.randint(2,5))
+        mc.business.mandatory_crises_list.append(cousin_intro_phase_one)
+        return
+
+    def add_aunt_moving_actions():
+        aunt.event_triggers_dict["moving_apartment"] = 0 #If it's a number it's the number of times you've helped her move. If it doesn't exist or is negative the event isn't enabled
+        moving_finished_action = Action("Moving finished", aunt_intro_phase_five_requirement, "aunt_intro_phase_final_label", requirement_args = day + 7)
+        mc.business.mandatory_morning_crises_list.append(moving_finished_action)
+        return
+
 
 ###AUNT ACTION LABELS###
 label aunt_intro_label():
@@ -100,8 +131,7 @@ label aunt_intro_label():
             "[mom.possessive_title] gives you one last smile as she closes your door. You hear her talking to your sister outside while you get ready for bed."
 
     $ renpy.scene("Active")
-    $ aunt_intro_phase_two = Action("Aunt introduction phase two", aunt_intro_phase_two_requirement, "aunt_intro_phase_two_label")
-    $ mc.business.mandatory_morning_crises_list.append(aunt_intro_phase_two) #Aunt and cousin will be visiting tomorrow in the morning
+    $ add_aunt_intro_phase_two_action()
     return
 
 label aunt_intro_phase_two_label():
@@ -156,25 +186,8 @@ label aunt_intro_phase_two_label():
     "[aunt.possessive_title] finds her purse, pulls out her wallet, and hands you and [lily.possessive_title] $20."
     aunt.char "Now I think your mother wanted to talk with me. I'm sure you both have busy days, so don't let me keep you!"
     #Their temporary homes are at your place. Later we will restore them to their normal homes.
-    python:
-        aunt.home.move_person(aunt, hall)
-        aunt.home = hall
-        cousin.home.move_person(cousin,lily_bedroom)
-        cousin.home = lily_bedroom
-        for i in range(0,5):
-            aunt.schedule[i] = aunt.home #Hide them in their bedroom off the map until they're ready.
-            cousin.schedule[i] = cousin.home
-
-        #Your aunt is a homebody, but your cousin goes wandering during the day (Eventually to be replaced with going to class sometimes.)
-        cousin.schedule[1] = None
-        cousin.schedule[2] = None
-        cousin.schedule[3] = None
-
-    $ aunt_intro_phase_three = Action("aunt_intro_phase_three", aunt_intro_phase_three_requirement, "aunt_intro_phase_three_label", requirement_args = day + renpy.random.randint(6,10))
-    $ mc.business.mandatory_morning_crises_list.append(aunt_intro_phase_three)
-
-    $ cousin_intro_phase_one = Action("cousin_intro_phase_one", cousin_intro_phase_one_requirement, "cousin_intro_phase_one_label", requirement_args = day + renpy.random.randint(2,5))
-    $ mc.business.mandatory_crises_list.append(cousin_intro_phase_one)
+    $ add_aunt_phase_three_action()
+    $ add_cousin_phase_one_action()
     $ renpy.scene("Active")
     return
 
@@ -201,11 +214,8 @@ label aunt_intro_phase_three_label():
     $ aunt.change_love(3)
     "She leans in, gives you a warm, familial hug, and then leaves you to get on with your day."
     $ renpy.scene("Active")
-    $ aunt.event_triggers_dict["moving_apartment"] = 0 #If it's a number it's the number of times you've helped her move. If it doesn't exist or is negative the event isn't enabled
 
-    $ moving_finished_action = Action("Moving finished", aunt_intro_phase_five_requirement, "aunt_intro_phase_final_label", requirement_args = day + 7)
-    $ mc.business.mandatory_morning_crises_list.append(moving_finished_action)
-
+    $ add_aunt_moving_actions()
     return
 
 label aunt_intro_moving_apartment_label(the_person):

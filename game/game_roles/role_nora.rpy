@@ -72,14 +72,45 @@ init -2 python:
         else:
             return True
 
-
     def study_person_requirement(the_person):
         if time_of_day == 4:
             return "Not enough time."
         return True
 
+    def add_nora_university_research_actions():
+        university_research_action = Action("Present your research to [nora.title].", nora_research_up_requirement, "nora_research_up_label", args = nora, 
+            menu_tooltip = "Deliver your field research to [nora.title] in exchange for her theoretical research notes.")
+        mc.business.event_triggers_dict["nora_research_up"] = university_research_action
+        university.actions.append(university_research_action)
 
+        nora_research_visit = Action("Visit Nora's lab.", visit_lab_intro_requirement, "nora_research_cash_first_time", args = nora, requirement_args = nora,
+            menu_tooltip = "Visit your old lab and talk to Nora about serum research.")
+        university.actions.append(nora_research_visit) #Prepare this so if we visit the university again under the proper conditions we can start studying traits for her for money.
 
+        university.visible = True
+        return
+
+    def add_study_person_for_nora_actions(the_person):
+        study_person_action = Action("Study her for Nora. {image=gui/heart/Time_Advance.png}", study_person_requirement, "nora_profile_person",
+            menu_tooltip = "Work through the research questionnaire provided to you by Nora. After you can give it to Nora to see if she notices any interesting properties.")
+        mc.main_character_actions.append(study_person_action)
+
+        turn_in_person_research_action = Action("Turn in a research questionnaire.", special_research_requirement, "nora_special_research", args = the_person, requirement_args = the_person,
+            menu_tooltip = "Turn in the research questionnaire you had filled out. If the person is particularly unique or extreme she may be able to discover unique serum traits for you to research.")
+        university.actions.append(turn_in_person_research_action)
+        return
+
+    def add_nora_research_intro_action(the_person):
+        nora_research_cash_intro_action = Action("Nora cash research intro", nora_research_cash_intro_requirement, "nora_research_cash_intro", args = the_person, requirement_args = [the_person, day + renpy.random.randint(3,6)])
+        mc.business.mandatory_crises_list.append(nora_research_cash_intro_action)
+        return
+
+    def add_nora_research_cash_action(the_person):
+        mc.business.event_triggers_dict["nora_cash_research_trigger"] = False #Reset this trigger so the event is hidden properly again in the future (TODO: Just remove it from the list)
+        nora_research_cash_action = Action("Turn in your finished research.", nora_research_cash_requirement, "nora_research_cash", args = the_person, requirement_args = the_person,
+            menu_tooltip = "Turn in your completed trait research to Nora, in exchange for payment.")
+        university.actions.append(nora_research_cash_action)
+        return
 
 label nora_intro_label(the_steph):
     $ the_nora = nora
@@ -151,18 +182,8 @@ label nora_intro_label(the_steph):
 
     mc.name "Understood. I'll be back once the testing is done."
 
-    $ university_research_action = Action("Present your research to [nora.title].", nora_research_up_requirement, "nora_research_up_label", args = nora, menu_tooltip = "Deliver your field research to [nora.title] in exchange for her theoretical research notes.")
-    $ mc.business.event_triggers_dict["nora_research_up"] = university_research_action
-    $ university.actions.append(university_research_action)
-    $ university.visible = True
-
-    $ nora_research_visit = Action("Visit Nora's lab.", visit_lab_intro_requirement, "nora_research_cash_first_time", args = the_nora, requirement_args = the_nora,
-        menu_tooltip = "Visit your old lab and talk to Nora about serum research.")
-
-    $ university.actions.append(nora_research_visit) #Prepare this so if we visit the university again under the proper conditions we can start studying traits for her for money.
-
+    $ add_nora_university_research_actions()
     $ mc.location.show_background()
-    $ del the_nora
     return
 
 label nora_research_up_label(the_person):
@@ -191,18 +212,17 @@ label nora_research_up_label(the_person):
     $ mc.log_event("Tier 2 Research Unlocked","float_text_grey")
     the_person.char "I may have more testing for you to do soon. I'll get in touch when I do."
     "You finish your coffees and say goodbye. The notes [the_person.title] has given you provide all of the details you need to pursue a number of new serum traits."
-    $ university.actions.remove(mc.business.event_triggers_dict.get("nora_research_up"))
-    $ the_trait = mc.business.event_triggers_dict.get("nora_trait_researched")
-    $ mc.business.event_triggers_dict["nora_trait_researched"] = None
-    $ list_of_traits.remove(the_trait)
-    $ list_of_nora_traits.remove(the_trait)
-    $ nora.set_schedule([1,2,3], university)
-    $ renpy.scene ("Active")
 
+    python:
+        university.actions.remove(mc.business.event_triggers_dict.get("nora_research_up"))
+        the_trait = mc.business.event_triggers_dict.get("nora_trait_researched")
+        mc.business.event_triggers_dict["nora_trait_researched"] = None
+        list_of_traits.remove(the_trait)
+        list_of_nora_traits.remove(the_trait)
+        nora.set_schedule([1,2,3], university)
+        renpy.scene ("Active")
 
-    # Prepare the event that triggers the next phase
-    $ nora_research_cash_intro_action = Action("Nora cash research intro", nora_research_cash_intro_requirement, "nora_research_cash_intro", args = the_person, requirement_args = [the_person, day + renpy.random.randint(3,6)])
-    $ mc.business.mandatory_crises_list.append(nora_research_cash_intro_action)
+        add_nora_research_intro_action(the_person)
 
     return
 
@@ -236,11 +256,12 @@ label nora_research_cash_first_time(the_person):
         "You think the offer over. It's a good amount of money for the amount of work, as long as you have someone to test these serums on."
         mc.name "I can make that work."
         the_person.char "Good. I'll send you the manufacturing details that we have prepared right away. Come and see me when your report is complete."
-        $ the_trait = get_random_from_list(list_of_nora_traits)
-        $ the_trait.researched = True
-        $ mc.business.event_triggers_dict["nora_cash_research_trait"] = the_trait
-        $ list_of_traits.append(the_trait)
-        $ del the_trait
+        python:
+            the_trait = get_random_from_list(list_of_nora_traits)
+            the_trait.researched = True
+            mc.business.event_triggers_dict["nora_cash_research_trait"] = the_trait
+            list_of_traits.append(the_trait)
+            del the_trait
         
     else:
         the_person.char "Do you have your finished research for me?"
@@ -256,13 +277,8 @@ label nora_research_cash_first_time(the_person):
         $ mc.business.event_triggers_dict["nora_cash_research_trait"] = mc.business.event_triggers_dict.get("nora_trait_researched") #The old research trait is now the cash goal trait
         $ mc.business.event_triggers_dict["nora_trait_researched"] = None #Clear this so we can use it as a flag to not show future events related to the research up quest.
 
-    $ mc.business.event_triggers_dict["nora_cash_research_trigger"] = False #Reset this trigger so the event is hidden properly again in the future (TODO: Just remove it from the list)
 
-
-    $ nora_research_cash_action = Action("Turn in your finished research.", nora_research_cash_requirement, "nora_research_cash", args = the_person, requirement_args = the_person,
-        menu_tooltip = "Turn in your completed trait research to Nora, in exchange for payment.")
-
-    $ university.actions.append(nora_research_cash_action)
+    $ add_nora_research_cash_action(the_person)
     $ renpy.scene("Active")
     return
 
@@ -309,13 +325,7 @@ label nora_research_cash(the_person):
         the_person.char "My thoughts exactly, I'm glad you agree."
         "You say goodbye to [the_person.possessive_title] and split up. She sends your final payment and her research questionnaire soon after."
 
-        $ study_person_action = Action("Study her for Nora. {image=gui/heart/Time_Advance.png}", study_person_requirement, "nora_profile_person",
-            menu_tooltip = "Work through the research questionnaire provided to you by Nora. After you can give it to Nora to see if she notices any interesting properties.")
-        $ mc.main_character_actions.append(study_person_action)
-
-        $ turn_in_person_research_action = Action("Turn in a research questionnaire.", special_research_requirement, "nora_special_research", args = the_person, requirement_args = the_person,
-            menu_tooltip = "Turn in the research questionnaire you had filled out. If the person is particularly unique or extreme she may be able to discover unique serum traits for you to research.")
-        $ university.actions.append(turn_in_person_research_action)
+        $ add_study_person_for_nora_actions(the_person)
     $ mc.business.funds += 2000
     $ renpy.scene("Active")
     return

@@ -56,6 +56,23 @@ init -1 python:
     def girlfriend_boob_brag_requirement(start_day):
         return True
 
+    def add_girlfriend_got_boobjob_action(the_person):
+        the_person.event_triggers_dict["getting boobjob"] = True #Reset the flag so you can ask her to get _another_ boobjob.
+        got_boobjob_action = Action("Girlfriend Got Boobjob", girlfriend_got_boobjob_requirement, "girlfriend_got_boobjob_label", args = the_person, requirement_args = day + renpy.random.randint(3,6))
+        mc.business.mandatory_crises_list.append(got_boobjob_action)
+        return
+
+    def add_girlfriend_brag_boobjob_action(the_person):
+        girlfriend_boob_brag_action = Action("Girlfriend Boobjob Brag", girlfriend_boob_brag_requirement, "girlfriend_boob_brag_label")
+        the_person.on_talk_event_list.append(girlfriend_boob_brag_action)
+        return
+
+    def add_girlfriend_do_trim_pubes_action(the_person):
+        trim_pubes_action = Action("Girlfriend trim pubes", girlfriend_do_trim_pubes_requirement, "girlfriend_do_trim_pubes_label", args = [the_person, pube_choice], requirement_args = [day + time_needed])
+        mc.business.mandatory_crises_list.append(trim_pubes_action)
+        the_person.event_triggers_dict["trimming_pubes"] = trim_pubes_action
+        return
+
 label ask_break_up_label(the_person):
     # Stop being in a relationship.
     mc.name "[the_person.title], can we talk?"
@@ -295,16 +312,12 @@ label ask_get_boobjob_label(the_person):
     if affair_role in the_person.special_role:
         the_person.char "I don't know if my [so_title] would want to kill you or thank you for this."
 
-    $ the_person.event_triggers_dict["getting boobjob"] = True #Reset the flag so you can ask her to get _another_ boobjob.
-
-    $ got_boobjob_action = Action("Girlfriend Got Boobjob", girlfriend_got_boobjob_requirement, "girlfriend_got_boobjob_label", args = the_person, requirement_args = day + renpy.random.randint(3,6))
-    $ mc.business.mandatory_crises_list.append(got_boobjob_action)
+    $ add_girlfriend_got_boobjob_action(the_person)
     return
 
 label girlfriend_got_boobjob_label(the_person):
     call got_boobjob(the_person) from _call_got_boobjob_1
-    $ girlfriend_boob_brag_action = Action("Girlfriend Boobjob Brag", girlfriend_boob_brag_requirement, "girlfriend_boob_brag_label")
-    $ the_person.on_talk_event_list.append(girlfriend_boob_brag_action)
+    $ add_girlfriend_brag_boobjob_action(the_person)
     return
 
 label girlfriend_boob_brag_label(the_person): #TODO: Decide if we need a little alt-dialogue for the affair side of things.
@@ -370,11 +383,7 @@ label girlfriend_ask_trim_pubes_label(the_person):
             the_person.char "Okay, I'll trim them for you as soon as I can [the_person.mc_title]."
             $ time_needed = 1 # She can do it right away (After a turn passes).
 
-
-        # Create the action where you do it.
-        $ trim_pubes_action = Action("Girlfriend trim pubes", girlfriend_do_trim_pubes_requirement, "girlfriend_do_trim_pubes_label", args = [the_person, pube_choice], requirement_args = [day + time_needed])
-        $ mc.business.mandatory_crises_list.append(trim_pubes_action)
-        $ the_person.event_triggers_dict["trimming_pubes"] = trim_pubes_action
+        $ add_girlfriend_do_trim_pubes_action(the_person)
     return
 
 label girlfriend_do_trim_pubes_label(the_person, the_style):

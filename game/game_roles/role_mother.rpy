@@ -10,6 +10,12 @@
             return True
         return False
 
+    def add_mom_weekly_pay_action():
+        mom_weekly_pay_action = Action("mom weekly pay", mom_weekly_pay_requirement, "mom_weekly_pay_label", args=mom, requirement_args =[mom]) # Reload the event for next week.
+        mc.business.mandatory_crises_list.append(mom_weekly_pay_action)
+        return
+
+
 ### MOM ACTION LABELS ###
 
 label mom_weekly_pay_label(the_person):
@@ -45,9 +51,7 @@ label mom_weekly_pay_label(the_person):
             $ mc.business.event_triggers_dict["Mom_Payment_Level"] = 1
         call mom_high_sluttiness_weekly_pay(the_person) from _call_mom_high_sluttiness_weekly_pay
 
-
-    $ mom_weekly_pay_action = Action("mom weekly pay", mom_weekly_pay_requirement, "mom_weekly_pay_label", args=mom, requirement_args =[mom]) # Reload the event for next week.
-    $ mc.business.mandatory_crises_list.append(mom_weekly_pay_action)
+    $ add_mom_weekly_pay_action()
     return
 
 label mom_low_sluttiness_weekly_pay(the_person):

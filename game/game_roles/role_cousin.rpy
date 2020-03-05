@@ -116,8 +116,39 @@ init -2 python:
     def cousin_serum_boobjob_check_requirement(the_person, the_tits, the_day):
         if day < the_day:
             return False
-        return True        
+        return True
 
+    def add_cousin_blackmail_hint_action(the_person):
+        the_person.schedule[2] = hall
+        the_person.event_triggers_dict["blackmail_level"] = 1
+
+        blackmail_2_event = Action("Blackmail hint", blackmail_hint_requirement, "aunt_cousin_hint_label", args = [aunt, the_person], requirement_args = [the_person, day + renpy.random.randint(2,4)])
+        mc.business.mandatory_crises_list.append(blackmail_2_event)
+        return
+
+    def add_cousin_serum_boobjob_check_action(the_person):
+        cousin_serum_boobjob_check_action = Action("Cousin serum boobjob check", cousin_serum_boobjob_check_requirement, "cousin_serum_boobjob_label", args = [the_person, the_person.tits], requirement_args = [the_person, the_person.tits, day + 3])
+        mc.business.mandatory_crises_list.append(cousin_serum_boobjob_check_action)
+        return
+
+    def add_cousin_boobjob_get_action(the_person):
+        #Sets up an event that will trigger after a set number of days when she has gotten her boob job. This event, in turns, adds in an event when you talk to her.
+        the_person.event_triggers_dict["getting boobjob"] = True #Reset the flag so you can ask her to get _another_ boobjob.
+        cousin_boobjob_get_action = Action("Cousin boob job get", cousin_boobjob_get_requirement, "cousin_boobjob_get_label", args = the_person, requirement_args = [the_person, day + renpy.random.randint(4,6)])
+        mc.business.mandatory_crises_list.append(cousin_boobjob_get_action)
+        return
+
+    def add_cousin_tits_payback_action(the_person, amount):
+        cousin_tits_payback_action = Action("cousin tits payback", cousin_tits_payback_requirement, "cousin_tits_payback_label", args = [the_person, amount], requirement_args = day + 7)
+        mc.business.mandatory_crises_list.append(cousin_tits_payback_action) #An event where she sends you some cash in a week, which if it has not finished then re-adds itself with the new amount
+        return
+
+    def add_cousin_blackmail_2_confront_action():
+        blackmail_2_confront_action = Action("Confront her about her stripping", blackmail_2_confront_requirement, "cousin_blackmail_level_2_confront_label",
+            menu_tooltip = "Tell her that you know about her job as a stripper and use it as further leverage.")
+        cousin_role.actions.append(blackmail_2_confront_action)
+        the_person.event_triggers_dict["seen_cousin_stripping"] = True
+        return
 
 
 ###COUSIN ACTION LABELS###
@@ -232,11 +263,7 @@ label cousin_blackmail_intro_label(the_person):
             the_person.char "Okay. I better not find out you told someone."
             mc.name "Your secret's safe with me."
 
-    $ the_person.schedule[2] = hall
-    $ the_person.event_triggers_dict["blackmail_level"] = 1
-
-    $ blackmail_2_event = Action("Blackmail hint", blackmail_hint_requirement, "aunt_cousin_hint_label", args = [aunt, the_person], requirement_args = [the_person, day + renpy.random.randint(2,4)])
-    $ mc.business.mandatory_crises_list.append(blackmail_2_event)
+    $ add_cousin_blackmail_hint_action(the_person)
     $ renpy.scene("Active")
     return
 
@@ -781,8 +808,7 @@ label cousin_boobjob_ask_label(the_person):
                 the_person.char "Right, of course. I guess I'll let you know if it actually works then. I'm going to be pissed if this is all a scam though."
                 call talk_person(the_person) from _call_talk_person_3
 
-                $ cousin_serum_boobjob_check_action = Action("Cousin serum boobjob check", cousin_serum_boobjob_check_requirement, "cousin_serum_boobjob_label", args = [the_person, the_person.tits], requirement_args = [the_person, the_person.tits, day + 3])
-                $ mc.business.mandatory_crises_list.append(cousin_serum_boobjob_check_action)
+                $ add_cousin_serum_boobjob_check_action(the_person)
                 return
 
         "Offer breast enhancing serum instead.\nRequires: Serum with Breast Enhancement trait (disabled)" if not has_boob_enhancement_serum and mc.business.research_tier >= 2:
@@ -823,13 +849,7 @@ label cousin_boobjob_ask_label(the_person):
                         return
 
 
-
-
-
-    python: #Sets up an event that will trigger after a set number of days when she has gotten her boob job. This event, in turns, adds in an event when you talk to her.
-        the_person.event_triggers_dict["getting boobjob"] = True #Reset the flag so you can ask her to get _another_ boobjob.
-        cousin_boobjob_get_action = Action("Cousin boob job get", cousin_boobjob_get_requirement, "cousin_boobjob_get_label", args = the_person, requirement_args = [the_person, day + renpy.random.randint(4,6)])
-        mc.business.mandatory_crises_list.append(cousin_boobjob_get_action)
+    $ add_cousin_boobjob_get_action(the_person)
 
     call talk_person(the_person) from _call_talk_person_7
     return
@@ -865,9 +885,7 @@ label cousin_talk_boobjob_again_label(the_person):
                 the_person.change_obedience(5)
                 the_person.change_slut_temp(2)
                 mc.business.funds += -5000
-                the_person.event_triggers_dict["getting boobjob"] = True #Reset the flag so you can ask her to get _another_ boobjob.
-                cousin_boobjob_get_action = Action("Cousin boob job get", cousin_boobjob_get_requirement, "cousin_boobjob_get_label", args = the_person, requirement_args = [the_person, the_day + renpy.random.randint(4,6)])
-                mc.business.mandatory_crises_list.append(cousin_boobjob_get_action)
+                add_cousin_boobjob_get_action(the_person)
 
                 for an_action in cousin_role:
                     if an_action == cousin_talk_boobjob_again_action: #Find and remove this action.
@@ -898,8 +916,7 @@ label cousin_talk_boobjob_again_label(the_person):
                 mc.name "I'm a chemical engineer, not a wizard. It will take some time for the effects to be apparent, and the effectiveness varies from person to person."
                 the_person.char "Right, of course. I guess I'll let you know if it actually works then. I'm going to be pissed if this is all a scam though."
 
-                $ cousin_serum_boobjob_check_action = Action("Cousin serum boobjob check", cousin_serum_boobjob_check_requirement, "cousin_serum_boobjob_label", args = [the_person, the_person.tits], requirement_args = [the_person, the_person.tits, day + 3])
-                $ mc.business.mandatory_crises_list.append(cousin_serum_boobjob_check_action)
+                $ add_cousin_serum_boobjob_check_action(the_person)
                 python:
                     for an_action in cousin_role.actions:
                         if an_action == cousin_talk_boobjob_again_action: #Find and remove this action.
@@ -1002,8 +1019,7 @@ label cousin_new_boobs_brag_label(the_person):
                 mc.name "I'm sure I'll get a chance to see them some other time. Maybe I'll stop by the club and watch you put them to work."
                 the_person.char "Oh god, could you please not? I hate knowing you might be out in the crowd watching..."
 
-    $ cousin_tits_payback_action = Action("cousin tits payback", cousin_tits_payback_requirement, "cousin_tits_payback_label", args = [the_person, 5000], requirement_args = day + 7)
-    $ mc.business.mandatory_crises_list.append(cousin_tits_payback_action) #An event where she sends you some cash in a week, which if it has not finished then re-adds itself with the new amount
+    $ add_cousin_tits_payback_action(the_person, 5000)
     call talk_person(the_person) from _call_talk_person_8
     return
 
@@ -1012,8 +1028,7 @@ label cousin_tits_payback_label(the_person, amount_remaining):
     $ mc.business.funds += 1000
     if amount_remaining > 1000:
         "[the_person.title] has transferred you $1000 with a note saying \"You know why\"."
-        $ cousin_tits_payback_action = Action("cousin tits payback", cousin_tits_payback_requirement, "cousin_tits_payback_label", args = [the_person, amount_remaining-1000], requirement_args = day + 7)
-        $ mc.business.mandatory_crises_list.append(cousin_tits_payback_action) #An event where she sends you some cash in a week, which if it has not finished then re-adds itself with the new amount
+        $ add_cousin_tits_payback_action(the_person, amount_remaining - 1000)
     else:
         "[the_person.title] has transferred the last of the $5000 you loaned her for her surgery. You get a text shortly afterwards."
         the_person.char "There, I'm finally done with your tits payment plan."
@@ -1095,11 +1110,7 @@ label stripclub_dance():
     if performer_title is not None:
         if cousin_role in the_person.special_role:
             if the_person.event_triggers_dict.get("blackmail_level",-1) < 2 and not the_person.event_triggers_dict.get("seen_cousin_stripping",False):
-                python:
-                    blackmail_2_confront_action = Action("Confront her about her stripping", blackmail_2_confront_requirement, "cousin_blackmail_level_2_confront_label",
-                        menu_tooltip = "Tell her that you know about her job as a stripper and use it as further leverage.")
-                    cousin_role.actions.append(blackmail_2_confront_action)
-                    the_person.event_triggers_dict["seen_cousin_stripping"] = True
+                $ add_cousin_blackmail_2_confront_action()
 
                 "It takes you a moment to recognize your cousin, [the_person.title], as she struts out onto the stage."
                 if not the_person.event_triggers_dict.get("found_stripping_clue", False):

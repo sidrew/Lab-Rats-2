@@ -73,6 +73,10 @@ init -2 python:
         else:
             return True
 
+    def add_sister_instahot_action():
+        sister_instahot_action = Action("Help her take Insta-pics.{image=gui/heart/Time_Advance.png}",instathot_requirement, "sister_instathot_label", menu_tooltip = "Help your sister grow her Insta-pic account by taking some pictures of her.")
+        sister_role.actions.append(sister_instahot_action)
+        return
 
 #SISTER ACTION LABELS#
 
@@ -314,9 +318,7 @@ label sister_instathot_intro_label(the_person):
             the_person.char "Oh... Alright. If you ever have some spare time I could use a hand though. There are a ton of angles I can't get by myself."
 
     #TODO: Add the "help take pictures" action to her role, either by adding a static action and a flag or adding it here.
-
-    $ sister_instathot_action = Action("Help her take Insta-pics.{image=gui/heart/Time_Advance.png}",instathot_requirement, "sister_instathot_label", menu_tooltip = "Help your sister grow her Insta-pic account by taking some pictures of her.")
-    $ sister_role.actions.append(sister_instathot_action)
+    $ add_sister_instahot_action()
     $ renpy.scene("Active")
     return
 

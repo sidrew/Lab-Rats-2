@@ -28,6 +28,16 @@ init -1 python:
     def caught_affair_cheating_requirement(the_person): #Event when you have public sex in front of someone you're having an affair with.
         return True
 
+    def plan_fuck_date_action(the_person):
+        fuck_date_action = Action("Fuck date", evening_date_trigger, "fuck_date_label", args = the_person, requirement_args = 4) #Happens on a friday
+        mc.business.mandatory_crises_list.append(fuck_date_action)
+        mc.business.event_triggers_dict["date_scheduled"] = True
+        return
+
+    def add_so_morning_breakup_crisis(the_person):
+        morning_so_breakup_crisis = Action("Morning SO breakup", so_morning_breakup_requirement, "so_morning_breakup_label", args = the_person, requirement_args = the_person)
+        mc.business.mandatory_morning_crises_list.append(morning_so_breakup_crisis)
+        return
 
 label ask_leave_SO_label(the_person): #
     # Ask her to leave her significant other. Requires high love (and no negatively impactful opinions).
@@ -70,9 +80,7 @@ label plan_fuck_date_label(the_person):
             mc.name "Good, I'll be there."
             the_person.char "I'll be ready and waiting."
             "She winks at you and smiles."
-            $ fuck_date_action = Action("Fuck date", evening_date_trigger, "fuck_date_label", args = the_person, requirement_args = 4) #Happens on a friday
-            $ mc.business.mandatory_crises_list.append(fuck_date_action)
-            $ mc.business.event_triggers_dict["date_scheduled"] = True
+            $ plan_fuck_date_action(the_person)
 
         "Maybe some other time.":
             mc.name "Damn, that's not going to work for me."
@@ -273,8 +281,7 @@ label fuck_date_label(the_person):
                                     "[the_person.title] rushes to the door to intercept her [so_title]. She's trying to stall, but he doesn't stop. You're almost free and clear, when you hear him yell."
                                     the_person.SO_name "Hey! Who are you?"
                                     "You don't stop. You slam the door and sprint away as quickly as your legs will carry you."
-                                    $ morning_so_breakup_crisis = Action("Morning SO breakup", so_morning_breakup_requirement, "so_morning_breakup_label", args = the_person, requirement_args = the_person)
-                                    $ mc.business.mandatory_morning_crises_list.append(morning_so_breakup_crisis)
+                                    $ add_so_morning_breakup_crisis(the_person)
                                 else:
                                     "[the_person.title] rushes to the door to intercept her [so_title]. You hear her stalling for you as you open the side door and break into the night."
 

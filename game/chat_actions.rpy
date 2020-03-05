@@ -141,6 +141,27 @@ init -2 python:
         title_tuple.append(["Do not change title.","Back"])
         return renpy.display_menu(title_tuple,True,"Choice")
 
+    def get_date_plan_actions(the_person):
+        lunch_date_action = Action("Ask her out to lunch. {image=gui/heart/Time_Advance.png}", lunch_date_requirement, "lunch_date_plan_label", args=the_person, requirement_args=the_person,
+            menu_tooltip = "Take her out on casual date out to lunch. Gives you the opportunity to impress her and further improve your relationship.")
+        movie_date_action = Action("Ask her out to the movies.", movie_date_requirement, "movie_date_plan_label", args=the_person, requirement_args=the_person,
+            menu_tooltip = "Plan a more serious date to the movies. Another step to improving your relationship, and who knows what you might get up to in the dark!")
+        dinner_date_action = Action("Ask her out to a romantic dinner.", dinner_date_requirement, "dinner_date_plan_label", args=the_person, requirement_args=the_person,
+            menu_tooltip = "Plan a romantic, expensive dinner with her. Impress her and you might find yourself in a more intimate setting.")
+        return [["Select Date", lunch_date_action, movie_date_action, dinner_date_action, "Never mind."]]
+
+    def create_movie_date_action(the_person):
+        movie_action = Action("Movie date", evening_date_trigger, "movie_date_label", args=the_person, requirement_args=1) #it happens on a tuesday.
+        mc.business.mandatory_crises_list.append(movie_action)
+        mc.business.event_triggers_dict["date_scheduled"] = True
+        return
+
+    def create_dinner_date_action(the_person):
+        dinner_action = Action("Dinner date", evening_date_trigger, "dinner_date_label", args=the_person, requirement_args=4) #it happens on a friday, so day%7 == 4
+        mc.business.mandatory_crises_list.append(dinner_action)
+        mc.business.event_triggers_dict["date_scheduled"] = True
+        return
+
 label person_introduction(the_person, girl_introduction = True):
     if girl_introduction:
         $ the_person.call_dialogue("introduction")
@@ -498,14 +519,8 @@ label flirt_person(the_person): #Tier 1. Raises a character's sluttiness up to a
 
 
 label date_person(the_person): #You invite them out on a proper date
-    $ lunch_date_action = Action("Ask her out to lunch. {image=gui/heart/Time_Advance.png}", lunch_date_requirement, "lunch_date_plan_label", args=the_person, requirement_args=the_person,
-        menu_tooltip = "Take her out on casual date out to lunch. Gives you the opportunity to impress her and further improve your relationship.")
-    $ movie_date_action = Action("Ask her out to the movies.", movie_date_requirement, "movie_date_plan_label", args=the_person, requirement_args=the_person,
-        menu_tooltip = "Plan a more serious date to the movies. Another step to improving your relationship, and who knows what you might get up to in the dark!")
-    $ dinner_date_action = Action("Ask her out to a romantic dinner.", dinner_date_requirement, "dinner_date_plan_label", args=the_person, requirement_args=the_person,
-        menu_tooltip = "Plan a romantic, expensive dinner with her. Impress her and you might find yourself in a more intimate setting.")
-
-    $ return_value = call_formated_action_choice([lunch_date_action, movie_date_action, dinner_date_action, "Never mind."])
+    call screen main_choice_display(build_menu_items(get_date_plan_actions(the_person)))
+    $ return_value = _return
     if return_value == "Never mind.":
         return
     else: #It's an action, so it's one of the date actions (and must have been enabled).
@@ -687,10 +702,7 @@ label movie_date_plan_label(the_person):
         "Plan a date for Tuesday night.":
             mc.name "Tuesday would be perfect, I'm already looking forward to it."
             the_person.char "Me too!"
-
-            $ movie_action = Action("Movie date", evening_date_trigger, "movie_date_label", args=the_person, requirement_args=1) #it happens on a tuesday.
-            $ mc.business.mandatory_crises_list.append(movie_action)
-            $ mc.business.event_triggers_dict["date_scheduled"] = True
+            $ create_movie_date_action(the_person)
 
         "Maybe some other time.":
             mc.name "I'm busy on Friday unfortunately."
@@ -936,9 +948,7 @@ label dinner_date_plan_label(the_person):
         "Plan a date for Friday night.":
             mc.name "It's a date. I'm already looking forward to it."
             the_person.char "Me too!"
-            $ dinner_action = Action("Dinner date", evening_date_trigger, "dinner_date_label", args=the_person, requirement_args=4) #it happens on a friday, so day%7 == 4
-            $ mc.business.mandatory_crises_list.append(dinner_action)
-            $ mc.business.event_triggers_dict["date_scheduled"] = True
+            $ create_dinner_date_action(the_person)
 
         "Maybe some other time.":
             mc.name "I'm busy on Friday unfortunately."

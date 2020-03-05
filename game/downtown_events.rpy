@@ -15,6 +15,23 @@ init -1 python:
     def meet_person_requirement():
         return True
 
+    def get_downtown_search_event():
+        possible_downtown_events = []
+        for possible_event in list_of_downtown_events: #Make a list of the valid events.
+            if possible_event[0].is_action_enabled():
+                possible_downtown_events.append(possible_event)
+
+        return get_random_from_weighted_list(possible_downtown_events)
+
+
+    list_of_downtown_events = []
+    find_nothing_action = Action("Find nothing", find_nothing_requirement, "find_nothing_label")
+    lady_of_the_night_action = Action("Lady of the night", lady_of_the_night_requirement, "lady_of_the_night_label")
+    meet_person_action = Action("Meet person", meet_person_requirement, "meet_person_label")
+
+    list_of_downtown_events.append([find_nothing_action,10])
+    list_of_downtown_events.append([lady_of_the_night_action,3])
+    list_of_downtown_events.append([meet_person_action,6]) #Now is combined with the find cash event.
 
 
 
@@ -28,26 +45,10 @@ label downtown_search_label(advance_time = True):
     #Otherwise we add some random events and draw from the list.
 
     else:
-        python:
-            list_of_downtown_events = []
-            find_nothing_action = Action("Find nothing", find_nothing_requirement, "find_nothing_label")
-            lady_of_the_night_action = Action("Lady of the night", lady_of_the_night_requirement, "lady_of_the_night_label")
-            meet_person_action = Action("Meet person", meet_person_requirement, "meet_person_label")
-
-            list_of_downtown_events.append([find_nothing_action,10])
-            list_of_downtown_events.append([lady_of_the_night_action,3])
-            list_of_downtown_events.append([meet_person_action,6]) #Now is combined with the find cash event.
-
-            possible_downtown_events = []
-            for possible_event in list_of_downtown_events: #Make a list of the valid events.
-                if possible_event[0].is_action_enabled():
-                    possible_downtown_events.append(possible_event)
-
-            del list_of_downtown_events
-            the_event = get_random_from_weighted_list(possible_downtown_events)
-            del possible_downtown_events
-            the_event.call_action()
-            del the_event
+        $ the_event = get_downtown_search_event()
+        if the_event:
+            $ the_event.call_action()
+        $ del the_event
 
     if advance_time:
         call advance_time from _call_advance_time_26

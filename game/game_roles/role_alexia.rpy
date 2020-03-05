@@ -91,6 +91,60 @@ init -2 python:
             return True
         return False
 
+    def add_alexia_phase_two_action(the_person):
+        alexia_intro_phase_two_action = Action("Visit " + the_person.title + " at work", alexia_intro_phase_two_requirement, "alexia_intro_phase_two_label", args = the_person, requirement_args = the_person)
+        downtown.actions.append(alexia_intro_phase_two_action)
+        downtown.move_person(the_person, the_person.home) #Change her schedule again so you don't see her anymore unless you visit her explicitly.
+        alexia.schedule[1] = alexia.home
+        alexia.schedule[2] = alexia.home
+        alexia.schedule[3] = alexia.home
+        return
+
+    def remove_item_from_list(search, action_list):
+        found = None
+        for item in action_list:
+            if search(item):
+                found = item
+                break
+        if item:
+            action_list.remove(item)
+        return
+
+    def add_alexia_hire_action(the_person):
+        remove_item_from_list(lambda x: x.effect == "alexia_intro_phase_two_label", downtown.actions)
+        
+        alexia.schedule[1] = downtown #She spends her time downtown "working".
+        alexia.schedule[2] = downtown
+        alexia.schedule[3] = downtown
+
+        alexia_hire_action = Action("Hire " + alexia.title + " to work in sales.", alexia_hire_requirement, "alexia_hire_label")
+        the_person.get_role_reference_by_name("Alexia").actions.append(alexia_hire_action)
+        return
+
+    def hire_alexia_and_add_to_company(the_person):
+        remove_item_from_list(lambda x: x.effect == "alexia_hire_label", the_person.get_role_reference_by_name("Alexia").actions)
+
+        the_person.event_triggers_dict["employed_since"] = day
+        mc.business.listener_system.fire_event("new_hire", the_person = the_person)
+        the_person.special_role.append(employee_role)
+        for other_employee in mc.business.get_employee_list():
+            town_relationships.begin_relationship(the_person, other_employee) #She is introduced to everyone at work
+        del other_employee
+
+        mc.business.add_employee_marketing(the_person)
+        the_person.set_work([1,2,3], mc.business.m_div)
+
+        ad_suggest_event = Action("Ad Suggestion", alexia_ad_suggest_requirement, "alexia_ad_suggest_label", args = the_person, requirement_args = [the_person, day + renpy.random.randint(7,12)])
+        mc.business.mandatory_crises_list.append(ad_suggest_event)
+        return
+
+    def add_camera_arrive_action(the_person):
+        camera_arrive_action = Action("Camera Arrive", camera_arrive_requirement, "alexia_ad_camera_label", args = the_person, requirement_args = day + renpy.random.randint(3,7))
+        mc.business.mandatory_crises_list.append(camera_arrive_action)
+        the_person.event_triggers_dict["camera_purchased"] = True
+        return
+
+
 label alexia_phase_zero_label():
     #Sets Alexia's schedule so she is downtown during time periods 1,2,3.
     python:
@@ -138,13 +192,7 @@ label alexia_intro_phase_one_label(the_person):
     the_person.char "I've got to run, but I hope I'll see you around!"
     "You wave goodbye to [the_person.possessive_title] as she walks away."
 
-    python:
-        alexia_intro_phase_two_action = Action("Visit " + the_person.title + " at work", alexia_intro_phase_two_requirement, "alexia_intro_phase_two_label", args = the_person, requirement_args = the_person)
-        downtown.actions.append(alexia_intro_phase_two_action)
-        downtown.move_person(the_person, the_person.home) #Change her schedule again so you don't see her anymore unless you visit her explicitly.
-        alexia.schedule[1] = alexia.home
-        alexia.schedule[2] = alexia.home
-        alexia.schedule[3] = alexia.home
+    $ add_alexia_phase_two_action(the_person)
     $ renpy.scene("Active")
     return
 
@@ -229,17 +277,9 @@ label alexia_intro_phase_two_label(the_person):
 
     $ renpy.scene("Active")
     "[the_person.title] gets into the passenger side of her boyfriend's car. She says goodbye from inside and they drive off."
-    python:
-        downtown.actions.remove(alexia_intro_phase_two_action) #Clear the action from her actions list.
-        alexia.schedule[1] = downtown #She spends her time downtown "working".
-        alexia.schedule[2] = downtown
-        alexia.schedule[3] = downtown
-
-        alexia_hire_action = Action("Hire " + alexia.title + " to work in sales.", alexia_hire_requirement, "alexia_hire_label")
-        the_person.get_role_reference_by_name("Alexia").actions.append(alexia_hire_action)
+    $ add_alexia_hire_action(the_person)
     call advance_time from _call_advance_time_18
     return
-
 
 
 label alexia_hire_label(the_person):
@@ -266,20 +306,7 @@ label alexia_hire_label(the_person):
     $ the_person.draw_person(emotion = "happy") #TODO: When we have a hugging position draw them as happy.
     the_person.char "So, when can I start?"
     "You give [the_person.title] all of the details about her new job. She phones the coffee shop and quits on the spot."
-    python: #TODO: Consider calling hte "hire someone" label instead of having a special section for this.
-        the_person.event_triggers_dict["employed_since"] = day
-        mc.business.listener_system.fire_event("new_hire", the_person = the_person)
-        the_person.special_role.append(employee_role)
-        for other_employee in mc.business.get_employee_list():
-            town_relationships.begin_relationship(the_person, other_employee) #She is introduced to everyone at work
-        del other_employee
-
-        mc.business.add_employee_marketing(the_person)
-        the_person.set_work([1,2,3], mc.business.m_div)
-        the_person.get_role_reference_by_name("Alexia").actions.remove(alexia_hire_action) #Remove the hire action because this story event has played itself out.
-
-        ad_suggest_event = Action("Ad Suggestion", alexia_ad_suggest_requirement, "alexia_ad_suggest_label", args = the_person, requirement_args = [the_person, day + renpy.random.randint(7,12)])
-        mc.business.mandatory_crises_list.append(ad_suggest_event)
+    $ hire_alexia_and_add_to_company(the_person)
     return
 
 
@@ -324,9 +351,7 @@ label alexia_ad_suggest_label(the_person):
             $ mc.business.funds += -500
             the_person.char "You got it! I'll order it A.S.A.P and let you know when it arrives."
             mc.name "Great work [the_person.title], you're a credit to the team."
-            $ camera_arrive_action = Action("Camera Arrive", camera_arrive_requirement, "alexia_ad_camera_label", args = the_person, requirement_args = day + renpy.random.randint(3,7))
-            $ mc.business.mandatory_crises_list.append(camera_arrive_action)
-            $ the_person.event_triggers_dict["camera_purchased"] = True
+            $ add_camera_arrive_action(the_person)
 
         "Pay for equipment. -$500 (disabled)" if mc.business.funds < 500:
             pass
@@ -345,9 +370,7 @@ label alexia_ad_suggest_reintro_label(the_person):
     the_person.char "Okay. I'll get right on that and order it ASAP!"
     mc.name "Send me any receipts and I'll cover the cost."
     $ mc.business.funds += -500
-    $ camera_arrive_action = Action("Camera Arrive", camera_arrive_requirement, "alexia_ad_camera_label", args = the_person, requirement_args = day + renpy.random.randint(3,7))
-    $ mc.business.mandatory_crises_list.append(camera_arrive_action)
-    $ the_person.event_triggers_dict["camera_purchased"] = True
+    $ add_camera_arrive_action(the_person)
     return
 
 label alexia_ad_camera_label(the_person):
