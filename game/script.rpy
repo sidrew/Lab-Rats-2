@@ -9167,17 +9167,17 @@ label change_location(the_place):
 
 init -2 python:
     def build_chat_action_list(the_person):
-        change_titles_action = Action("Talk about what you call each other.", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
+        change_titles_action = Action("Talk about what you call each other", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
             menu_tooltip = "Manage how you refer to this girl and tell her how she should refer to you. Differnet combinations of stats, roles, and personalityes unlock different titles.", priority = -5)
-        small_talk_action = Action("Make small talk.\n-15 {image=gui/extra_images/energy_token.png}", requirement = small_talk_requirement, effect = "small_talk_person", args=the_person, requirement_args=the_person,
+        small_talk_action = Action("Make small talk   {color=#FFFF00}-15{/color} {image=gui/extra_images/energy_token.png}", requirement = small_talk_requirement, effect = "small_talk_person", args=the_person, requirement_args=the_person,
             menu_tooltip = "A pleasant chat about your likes and dislikes. A good way to get to know someone and the first step to building a lasting relationship. Provides a chance to study the effects of active serum traits and raise their mastery level.")
-        compliment_action = Action("Compliment her.\n-15 {image=gui/extra_images/energy_token.png}", requirement = compliment_requirement, effect = "compliment_person", args=the_person, requirement_args=the_person,
+        compliment_action = Action("Compliment her   {color=#FFFF00}-15{/color} {image=gui/extra_images/energy_token.png}", requirement = compliment_requirement, effect = "compliment_person", args=the_person, requirement_args=the_person,
             menu_tooltip = "Lay the charm on thick and heavy. A great way to build a relationship, and every girl is happy to recieve a compliment! Provides a chance to study the effects of active serum traits and raise their mastery level.")
-        flirt_action = Action("Flirt with her.\n-15 {image=gui/extra_images/energy_token.png}", requirement = flirt_requirement, effect = "flirt_person", args=the_person, requirement_args=the_person,
+        flirt_action = Action("Flirt with her   {color=#FFFF00}-15{/color} {image=gui/extra_images/energy_token.png}", requirement = flirt_requirement, effect = "flirt_person", args=the_person, requirement_args=the_person,
             menu_tooltip = "A conversation filled with innuendo and double entendre. Both improves your relationship with a girl and helps make her a little bit sluttier. Provides a chance to study the effects of active serum traits and raise their mastery level.")
-        date_action = Action("Ask her on a date.", requirement = date_option_requirement, effect = "date_person", args=the_person, requirement_args=the_person,
+        date_action = Action("Ask her on a date", requirement = date_option_requirement, effect = "date_person", args=the_person, requirement_args=the_person,
             menu_tooltip = "Ask her out on a date. The more you impress her the closer you'll grow. If you play your cards right you might end up back at her place.")
-        make_girlfriend_action = Action("Ask her to be your girlfriend.", requirement = ask_girlfriend_requirement, effect = "ask_be_girlfriend_label", args = the_person, requirement_args = the_person,
+        make_girlfriend_action = Action("Ask her to be your girlfriend", requirement = ask_girlfriend_requirement, effect = "ask_be_girlfriend_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Ask her to start an official, steady relationship and be your girlfriend.", priority = 10)
         chat_list = [change_titles_action, small_talk_action, compliment_action, flirt_action, date_action, make_girlfriend_action]
         chat_list.sort(key = sort_display_list, reverse = True)
@@ -9186,13 +9186,13 @@ init -2 python:
 
     def build_specific_action_list(the_person):
         #TODO: "Do something specific", change existing sections into actions, store in chat_actions.rpy
-        wardrobe_change_action = Action("Ask to change her wardrobe.", requirement = wardrobe_change_requirment, effect = "wardrobe_change_label", args = the_person, requirement_args = the_person,
+        wardrobe_change_action = Action("Ask to change her wardrobe", requirement = wardrobe_change_requirment, effect = "wardrobe_change_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Add and remove outfits from her wardrobe, or ask her to put on a specific outfit.", priority = -5)
-        serum_give_action = Action("Try to give her a dose of serum.", requirement = serum_give_requirement, effect = "serum_give_label", args = the_person, requirement_args = the_person,
+        serum_give_action = Action("Try to give her a dose of serum", requirement = serum_give_requirement, effect = "serum_give_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Demand she take a dose, ask her politely, or just try and slip it into something she'll drink. Failure may result in her trusting you less or being immediately unhappy.")
-        seduce_action = Action("Try to seduce her.", requirement = seduce_requirement, effect = "seduce_label", args = the_person, requirement_args = the_person,
+        seduce_action = Action("Try to seduce her", requirement = seduce_requirement, effect = "seduce_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Try and seduce her right here and now. Love, sluttiness, obedience, and your own charisma all play a factor in how likely she is to be seduced.", priority = 5)
-        specific_action_list = ["Say goodbye.", wardrobe_change_action, serum_give_action, seduce_action]
+        specific_action_list = ["Say goodbye", wardrobe_change_action, serum_give_action, seduce_action]
         specific_action_list.sort(key = sort_display_list, reverse = True)
         specific_action_list.insert(0,"Do something specific")
         return specific_action_list
