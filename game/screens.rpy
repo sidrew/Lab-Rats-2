@@ -371,7 +371,6 @@ screen main_choice_display(elements_list): #Elements_list is a list of lists, wi
                                     xalign 0.5
                                     yalign 0.5
                                     style "textbutton_style"
-                                    text_size 18
                                     text_style "textbutton_text_style"
                                     text_align (0.5,0.5)
                                     if item.display_key:                                    
