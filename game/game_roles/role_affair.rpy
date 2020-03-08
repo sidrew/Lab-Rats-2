@@ -28,9 +28,9 @@ init -1 python:
     def caught_affair_cheating_requirement(the_person): #Event when you have public sex in front of someone you're having an affair with.
         return True
 
-    def plan_fuck_date_action(the_person):
-        fuck_date_action = Action("Fuck date", evening_date_trigger, "fuck_date_label", args = the_person, requirement_args = 4) #Happens on a friday
-        mc.business.mandatory_crises_list.append(fuck_date_action)
+    def add_plan_fuck_date_action(the_person):
+        evening_fuck_date_action = Action("Fuck date", evening_date_trigger, "fuck_date_label", args = the_person, requirement_args = 4) #Happens on a friday
+        mc.business.mandatory_crises_list.append(evening_fuck_date_action)
         mc.business.event_triggers_dict["date_scheduled"] = True
         return
 
@@ -80,7 +80,7 @@ label plan_fuck_date_label(the_person):
             mc.name "Good, I'll be there."
             the_person.char "I'll be ready and waiting."
             "She winks at you and smiles."
-            $ plan_fuck_date_action(the_person)
+            $ add_plan_fuck_date_action(the_person)
 
         "Maybe some other time.":
             mc.name "Damn, that's not going to work for me."
