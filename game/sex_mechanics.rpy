@@ -352,7 +352,7 @@ label check_position_willingness(the_person, the_position, ignore_taboo = False,
     $ the_taboo = the_position.associated_taboo
     if ignore_taboo:
         $ the_taboo = None
-    if the_person.effective_sluttiness() >= the_position.slut_requirement:
+    if the_person.effective_sluttiness(the_taboo) >= the_position.slut_requirement:
         if not skip_dialog:
             $ the_person.call_dialogue("sex_accept")
 
@@ -376,7 +376,7 @@ label check_position_willingness(the_person, the_position, ignore_taboo = False,
 
     elif the_person.effective_sluttiness(the_taboo) > the_position.slut_requirement/2:
         # She's not willing to do it, but gives you a soft reject.
-        $ the_person.call_dialogue("sex_angry_reject")
+        $ the_person.call_dialogue("sex_gentle_reject")
         $ willing = False
 
     else:
@@ -384,7 +384,7 @@ label check_position_willingness(the_person, the_position, ignore_taboo = False,
         $ love_loss = the_person.effective_sluttiness(the_taboo) - the_position.slut_requirement #A negative number
         $ love_loss = round(love_loss/5)
         $ the_person.change_love(love_loss)
-        $ the_person.call_dialogue("sex_gentle_reject")
+        $ the_person.call_dialogue("sex_angry_reject")
         $ willing = False
 
     if willing and the_position.skill_tag == "Vaginal" and not mc.condom: #We might need a condom, which means she might say no. TODO: Add an option to pull _off_ a condom while having sex.
