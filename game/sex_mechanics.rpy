@@ -352,16 +352,10 @@ label check_position_willingness(the_person, the_position, ignore_taboo = False,
     $ the_taboo = the_position.associated_taboo
     if ignore_taboo:
         $ the_taboo = None
-    if the_person.effective_sluttiness(the_taboo) >= the_position.slut_requirement:
-        if not skip_dialog:
-            $ the_person.call_dialogue("sex_accept")
 
     if the_person.effective_sluttiness(the_taboo) >= the_position.slut_requirement:
-        if the_person.has_taboo(the_taboo):
-            pass #If there is a taboo being broken we have special taboo break dialogue called from the position.
-        else:
+        if not (skip_dialog or the_person.has_taboo(the_taboo)):
             $ the_person.call_dialogue("sex_accept")
-
     elif the_person.effective_sluttiness(the_taboo) + (the_person.obedience-100) >= the_position.slut_requirement:
         # She's willing to be commanded to do it. Reduce her happiness by the difference (increase arousal if she likes being submissive)
         $ happiness_drop = the_person.effective_sluttiness(the_position.associated_taboo) - the_position.slut_requirement #Our initial conditions mean this is a negative number
