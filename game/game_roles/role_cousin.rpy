@@ -150,6 +150,42 @@ init -2 python:
         the_person.event_triggers_dict["seen_cousin_stripping"] = True
         return
 
+    def add_cousin_house_phase_two_action(the_person):
+        #Changes her schedule to be at your house
+        the_person.schedule[2] = hall
+        cousin_house_phase_two_action = Action("Cousin visits house", cousin_house_phase_two_requirement, "cousin_house_phase_two_label")
+        cousin.on_room_enter_event_list.append(cousin_house_phase_two_action) #When you see her next in your house this event triggers and she explains why she's there.
+        return
+
+    def add_cousin_house_phase_three_action():
+        cousin_at_house_phase_three_action = Action("Cousin changes schedule", cousin_house_phase_three_requirement, "cousin_house_phase_three_label", args = cousin, requirement_args = day+renpy.random.randint(2,5))
+        mc.business.mandatory_crises_list.append(cousin_at_house_phase_three_action) #In a couple of days change her schedule so she starts stealing from Lily.
+        return
+
+    def add_cousin_blackmail_intro_action(the_person):
+        the_person.schedule[2] = lily_bedroom #Set her to be in Lily's room AND for an event to trigger when you walk in on her.
+        cousin_blackmail_intro_action = Action("Cousin caught stealing", cousin_blackmail_intro_requirement, "cousin_blackmail_intro_label")
+        the_person.on_room_enter_event_list.append(cousin_blackmail_intro_action)
+        return
+
+    def add_cousin_stripping_and_setup_search_room_action(the_person):
+        stripclub_strippers.append(the_cousin)
+        the_cousin.set_schedule([4], strip_club)
+
+        the_cousin.event_triggers_dict["stripping"] = True #Used to flag the blackmail event.
+        cousin_room_search_action = Action("Search her room. {image=gui/heart/Time_Advance.png}", cousin_room_search_requirement, "cousin_search_room_label",requirement_args = [the_cousin], args = [the_cousin, the_aunt])
+        cousin_bedroom.actions.append(cousin_room_search_action) #Lets you search her room for a clue about where to go to find her.
+        return
+
+    def add_cousin_boobjob_ask_action(the_person):
+        cousin_boobjob_ask_action = Action("Cousin Boobjob Ask", cousin_boobjob_ask_requirement, "cousin_boobjob_ask_label", requirement_args = day + renpy.random.randint(3,6))
+        the_person.on_talk_event_list.append(cousin_boobjob_ask_action)
+        return
+
+    def add_cousin_boobjob_brag_action(the_person):
+        cousin_new_boobs_brag_action = Action("Cousin new boobs brag", cousin_new_boobs_brag_requirement, "cousin_new_boobs_brag_label")
+        the_person.on_talk_event_list.append(cousin_new_boobs_brag_action) #Next time you talk to her she brags about her new boobs, offers to show them to you, and tells you that she'll pay you back eventually.
+        return
 
 ###COUSIN ACTION LABELS###
 label cousin_intro_phase_one_label():
@@ -194,10 +230,7 @@ label cousin_intro_phase_one_label():
     return
 
 label cousin_house_phase_one_label(the_person):
-    #Changes her schedule to be at your house
-    $ the_person.schedule[2] = hall
-    $ cousin_house_phase_two_action = Action("Cousin visits house", cousin_house_phase_two_requirement, "cousin_house_phase_two_label")
-    $ cousin.on_room_enter_event_list.append(cousin_house_phase_two_action) #When you see her next in your house this event triggers and she explains why she's there.
+    $ add_cousin_house_phase_two_action(the_person)
     return
 
 label cousin_house_phase_two_label(the_person):
@@ -209,14 +242,11 @@ label cousin_house_phase_two_label(the_person):
     mc.name "What's up? Why are you over here?"
     the_person.char "Your mom said I could come over whenever I wanted. My mom won't stop bothering me and our crappy apartment is tiny."
     "[the_person.possessive_title] shrugs and turns her full attention back to her TV show."
-    $ cousin_at_house_phase_three_action = Action("Cousin changes schedule", cousin_house_phase_three_requirement, "cousin_house_phase_three_label", args = cousin, requirement_args = day+renpy.random.randint(2,5))
-    $ mc.business.mandatory_crises_list.append(cousin_at_house_phase_three_action) #In a couple of days change her schedule so she starts stealing from Lily.
+    $ add_cousin_house_phase_three_action()
     return
 
 label cousin_house_phase_three_label(the_person):
-    $ the_person.schedule[2] = lily_bedroom #Set her to be in Lily's room AND for an event to trigger when you walk in on her.
-    $ cousin_blackmail_intro_action = Action("Cousin caught stealing", cousin_blackmail_intro_requirement, "cousin_blackmail_intro_label")
-    $ the_person.on_room_enter_event_list.append(cousin_blackmail_intro_action)
+    $ add_cousin_blackmail_intro_action(the_person)
     return
 
 label cousin_blackmail_intro_label(the_person):
@@ -531,8 +561,7 @@ label aunt_cousin_hint_label(the_aunt, the_cousin):
     # prevent event from triggering twice
     python:
         if any(x.effect == "cousin_search_room_label" for x in cousin.home.actions):
-            renpy.return_statement()
-        
+            renpy.return_statement()       
 
     #Your aunt calls at night to ask if you know where Gabrielle is. Hints that she's up to something late at night.
     "You get a call on your phone. It's [the_aunt.possessive_title]."
@@ -555,16 +584,9 @@ label aunt_cousin_hint_label(the_aunt, the_cousin):
             the_aunt.char "Well, if you hear anything, just let me know, okay? I'm sure I'm overreacting, but it would help me sleep if I knew she was okay."
             mc.name "Okay [the_aunt.title], if I hear anything I'll let you know."
 
-
     the_aunt.title "Thank you. I won't keep you any longer then, I'm sure you're busy!"
 
-    $ stripclub_strippers.append(the_cousin)
-    $ the_cousin.set_schedule([4], strip_club)
-
-    $ the_cousin.event_triggers_dict["stripping"] = True #Used to flag the blackmail event.
-    $ cousin_room_search_action = Action("Search her room. {image=gui/heart/Time_Advance.png}", cousin_room_search_requirement, "cousin_search_room_label",requirement_args = [the_cousin], args = [the_cousin, the_aunt])
-    $ cousin_bedroom.actions.append(cousin_room_search_action) #Lets you search her room for a clue about where to go to find her.
-
+    $ add_cousin_stripping_and_setup_search_room_action()
     return
 
 label cousin_blackmail_ask_label(the_person):
@@ -723,8 +745,7 @@ label cousin_blackmail_level_2_confront_label(the_person):
 
 label begin_boobjob_story(the_person):
     #Creates and adds the boobjob quest. Broken out here to make it easier to run in multiple places once you know about her job.
-    $ cousin_boobjob_ask_action = Action("Cousin Boobjob Ask", cousin_boobjob_ask_requirement, "cousin_boobjob_ask_label", requirement_args = day + renpy.random.randint(3,6))
-    $ the_person.on_talk_event_list.append(cousin_boobjob_ask_action)
+    $ add_cousin_boobjob_ask_action(the_person)
     return
 
 label cousin_boobjob_ask_label(the_person):
@@ -937,9 +958,8 @@ label cousin_talk_boobjob_again_label(the_person):
 
 label cousin_boobjob_get_label(the_person):
     call got_boobjob(the_person) from _call_got_boobjob
-    python: # Now set the cousin specific stuff so she'll talk about it with you after
-        cousin_new_boobs_brag_action = Action("Cousin new boobs brag", cousin_new_boobs_brag_requirement, "cousin_new_boobs_brag_label")
-        the_person.on_talk_event_list.append(cousin_new_boobs_brag_action) #Next time you talk to her she brags about her new boobs, offers to show them to you, and tells you that she'll pay you back eventually.
+    # Now set the cousin specific stuff so she'll talk about it with you after
+    $ add_cousin_boobjob_brag_action(the_person)
     return
 
 label cousin_new_boobs_brag_label(the_person):
