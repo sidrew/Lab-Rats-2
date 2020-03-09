@@ -79,15 +79,15 @@ label scene_cowgirl_2(the_girl, the_location, the_object):
             "[the_girl.possessive_title] reaches down and grabs your hands. She brings them up to her tits and plants them there."
             "She moans and grinds your hands into her breasts, then puts her hands on your chest and focuses on fucking you."
         else:
-            $ the_clothing = the_girl.outfit.get_visible_upper()[0]
+            $ the_clothing = the_girl.outfit.get_upper_visible()[0]
             "Her large tits are barely contained by her [the_clothing.name]. You watch them bounce around as she fucks you vigorously."
     else:
         if the_girl.outfit.tits_visible():
             "She reaches up and grabs onto one of her own small tits, squeezing it while she rides you."
             the_girl.char "Ah!"
         else:
-            $ the_clothing = the_girl.outfit.get_visible_upper()[0]
-            "She reaches up and grabs onto one of her small tits through her [the_clothing.name]. She kneeds it through the fabric and moans loudly while she rides you."
+            $ the_clothing = the_girl.outfit.get_upper_visible()[0]
+            "She reaches up and grabs onto one of her small tits through her [the_clothing.name]. She kneads it through the fabric and moans loudly while she rides you."
             the_girl. char "Ah!"
     return
 
