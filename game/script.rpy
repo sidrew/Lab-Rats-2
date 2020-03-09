@@ -2247,7 +2247,7 @@ init -2 python:
                 the_taboo = [the_taboos]
 
             for a_taboo in the_taboos: #We also handle lists, if we wnat to check if someone has _any_ of several taboos at once
-                if the_taboos not in self.broken_taboos:
+                if a_taboo not in self.broken_taboos:
                     return True
             return False
 
