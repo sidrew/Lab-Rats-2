@@ -5299,7 +5299,7 @@ init -2 python:
             if self.skill_tag == "Anal" and the_person.has_family_taboo():
                 final_slut_requirement += -10 #It's easier to convince a family member to have anal sex, since it's not "real" incest or something.
                 final_slut_cap += -10
-            elif self.skill_tag == "Vaginal" and the_person.has_family_tboo():
+            elif self.skill_tag == "Vaginal" and the_person.has_family_taboo():
                 final_slut_requirement += 10 #It's harder to convince a family member to have vaginal sex
                 final_slut_cap += 10
 
