@@ -2244,9 +2244,9 @@ init -2 python:
                 return False
 
             if isinstance(the_taboos, basestring):
-                the_taboo = [the_taboos]
+                taboo_list = [the_taboos]
 
-            for a_taboo in the_taboos: #We also handle lists, if we wnat to check if someone has _any_ of several taboos at once
+            for a_taboo in taboo_list: #We also handle lists, if we wnat to check if someone has _any_ of several taboos at once
                 if a_taboo not in self.broken_taboos:
                     return True
             return False
