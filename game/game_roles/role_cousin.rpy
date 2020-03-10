@@ -609,7 +609,7 @@ label aunt_cousin_hint_label(the_aunt, the_cousin):
 
     the_aunt.title "Thank you. I won't keep you any longer then, I'm sure you're busy!"
 
-    $ add_cousin_stripping_and_setup_search_room_action()
+    $ add_cousin_stripping_and_setup_search_room_action(the_person)
     return
 
 label cousin_blackmail_ask_label(the_person):
