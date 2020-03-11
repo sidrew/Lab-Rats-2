@@ -67,8 +67,16 @@ init -1 python:
         the_person.on_talk_event_list.append(girlfriend_boob_brag_action)
         return
 
-    def add_girlfriend_do_trim_pubes_action(the_person):
-        trim_pubes_action = Action("Girlfriend trim pubes", girlfriend_do_trim_pubes_requirement, "girlfriend_do_trim_pubes_label", args = [the_person, pube_choice], requirement_args = [day + time_needed])
+    def girlfriend_build_pubes_choice_menu(the_person):
+        valid_pubes_options = []
+        for a_style in pube_styles:
+            if a_style.name != the_person.pubes_style.name:
+                valid_pubes_options.append([a_style.name, a_style])
+        valid_pubes_options.append(["Never mind.","Never mind."])
+        return valid_pubes_options
+
+    def add_girlfriend_do_trim_pubes_action(the_person, pubes_choice, time_needed):
+        trim_pubes_action = Action("Girlfriend trim pubes", girlfriend_do_trim_pubes_requirement, "girlfriend_do_trim_pubes_label", args = [the_person, pubes_choice], requirement_args = [day + time_needed])
         mc.business.mandatory_crises_list.append(trim_pubes_action)
         the_person.event_triggers_dict["trimming_pubes"] = trim_pubes_action
         return
@@ -342,7 +350,7 @@ label plan_date_night(the_person):
 label got_boobjob(the_person):
     # Event called a few days after someone has been asked to get a boob job. Results in larger breasts. Duh.
     if rank_tits(the_person.tits) <= 2: #Ie. B cup or smaller.
-        $ the_person.tits = "D" #Small tits all get upgraded to "large" D cup tits as a minimum, so they can be titfucked after.
+        $ the_person.tits = "D" #Small tits all get upgraded to "large" D cup tits as a minimum, so they can be tit fucked after.
         if the_person.personal_region_modifiers.get("breasts", 1) < 0.6:
             $ the_person.personal_region_modifiers["breasts"] = 0.3 #This is "normal" for C cups, so a little firmer than natural breasts but not by much.
     else: #Otherwise they get bigger by two steps.
@@ -362,28 +370,20 @@ label girlfriend_ask_trim_pubes_label(the_person):
         $ mc.business.mandatory_crises_list.remove(the_person.event_triggers_dict.get("trimming_pubes",None)) #If she already had an event for this make sure to remove it.
         $ the_person.event_triggers_dict["trimming_pubes"] = None
 
-    python:
-        valid_pube_options = []
-        for a_style in pube_styles:
-            if a_style.name != the_person.pubes_style.name:
-                valid_pube_options.append([a_style.name, a_style])
-        valid_pube_options.append(["Never mind.","Never mind."])
+    $ pubes_choice = renpy.display_menu(girlfriend_build_pubes_choice_menu(the_person),True,"Choice")
 
-    $ pube_choice = renpy.display_menu(valid_pube_options,True,"Choice")
-
-    if pube_choice == "Never mind.":
+    if pubes_choice == "Never mind.":
         mc.name "On second thought, I think they're fine the way they are."
     else:
         "You describe the style you want to her as she listens intently.."
-        if pube_choice.ordering_variable > the_person.pubes_style.ordering_variable:
+        if pubes_choice.ordering_variable > the_person.pubes_style.ordering_variable:
             the_person.char "Okay, I'll have to let it grow out a bit but as soon as I can I'll trim them just the way you want [the_person.mc_title]."
-            $ time_needed = renpy.random.randint(3,8) #It will take some time for them to grow out.
-
+            #It will take some time for them to grow out.
+            $ add_girlfriend_do_trim_pubes_action(the_person, pubes_choice, renpy.random.randint(3,8))
         else:
             the_person.char "Okay, I'll trim them for you as soon as I can [the_person.mc_title]."
-            $ time_needed = 1 # She can do it right away (After a turn passes).
-
-        $ add_girlfriend_do_trim_pubes_action(the_person)
+            $ add_girlfriend_do_trim_pubes_action(the_person, pubes_choice, 1)
+    $ del pubes_choice
     return
 
 label girlfriend_do_trim_pubes_label(the_person, the_style):
