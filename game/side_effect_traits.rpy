@@ -31,8 +31,7 @@ init -1:
 
         ## mood_swings_functions ##
         def mood_swings_on_turn(the_person, add_to_log):
-            swing = renpy.random.randint(0,1)
-            if swing == 0:
+            if renpy.random.randint(0,1) == 0:
                 the_person.change_happiness(-10, add_to_log)
             else:
                 the_person.change_happiness(10, add_to_log)

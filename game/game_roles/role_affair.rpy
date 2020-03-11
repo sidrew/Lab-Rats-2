@@ -198,8 +198,7 @@ label fuck_date_label(the_person):
                 "Fuck her again.":
                     "Soon you're ready to go again and you wrap your arms around [the_person.title]."
                     mc.name "Come here you little slut."
-                    $ random_num = renpy.random.randint(0,100)
-                    if random_num < 3 and not so_called:
+                    if renpy.random.randint(0,100) < 3 and not so_called:
                         #Her SO Comes home (unless he's called, in which case we know where he is.)
                         "She smiles and wraps her arms around you in return, pressing her body against yours."
                         the_person.char "Come and take me. I..."
@@ -211,9 +210,8 @@ label fuck_date_label(the_person):
                             "Hide!":
                                 $ done = True
                                 "You jump up from [the_person.possessive_title]'s bed and look around the room. You hear her [so_title] close the car door."
-                                $ random_num = renpy.random.randint(0,100)
                                 $ hiding_under_bed = True
-                                if random_num < 50:
+                                if renpy.random.randint(0,100) < 50:
                                     "Without many options you drop to the ground and shimmy yourself under her bed, trying to make sure you can't be seen from the bedroom door."
                                     "Above you [the_person.title] lies down on her bed and waits. You hear her [so_title] open the front door, then walk through the house toward you."
 
@@ -270,8 +268,7 @@ label fuck_date_label(the_person):
                                 $ done = True
                                 mc.name "Fuck!"
                                 "You don't waste any time, throwing your clothes on as quickly as possible. By the time you hear the front door open you're already rushing for the back yard."
-                                $ random_num = renpy.random.randint(0,100)
-                                if random_num < 20:
+                                if renpy.random.randint(0,100) < 20:
                                     # You get caught (but she's the one who has to deal with it).
                                     "[the_person.title] rushes to the door to intercept her [so_title]. She's trying to stall, but he doesn't stop. You're almost free and clear, when you hear him yell."
                                     the_person.SO_name "Hey! Who are you?"
@@ -342,7 +339,7 @@ label fuck_date_label(the_person):
                                 the_person.char "Oh my god, that was actually it. It's just me and you, nobody else in our way."
                                 "She holds onto you tightly and rests her head on your chest."
 
-                    elif random_num < 8 and not so_called:
+                    elif ran_num < 8 and not so_called:
                         #Her SO calls home. Depending on Love/Sluttiness she might want to stop, or keep going while talking to him.
                         $ so_called = True
                         "She smiles and moves to kiss you, when a happy little jingle fills the room."
@@ -484,7 +481,7 @@ label fuck_date_label(the_person):
 
                         #TODO: At this point run a check on her arousal.
 
-                    # elif random_num < 12 and has_kid: #TODO: AND she has an adult kid who we have either met or can generate.
+                    # elif ran_num < 12 and has_kid: #TODO: AND she has an adult kid who we have either met or can generate.
                     #     #TODO: This
                     #     #TODO: What happens if her daughter is around AND her husband comes home. Definitely write some "I'm fucking your whole family" stuff, even if it's going to be super rare.
                     #     pass
