@@ -2114,8 +2114,6 @@ init -2 python:
 
         def draw_animated_removal(self, the_clothing, position = None, emotion = None, special_modifier = None, lighting = None, background_fill = "#0026a5", the_animation = None, animation_effect_strength = 1.0):
             #The new animated_removal method generates two image, one with the clothing item and one without. It then stacks them and layers one on top of the other and blends between them.
-            renpy.scene("Active")
-
             if not can_use_animation():
                 the_animation = None
 
@@ -2129,8 +2127,6 @@ init -2 python:
 
             self.outfit.remove_clothing(the_clothing)
 
-
-
             if the_animation:
                 top_displayable = self.build_person_animation(the_animation, position, emotion, special_modifier, lighting, background_fill, animation_effect_strength)
             else:
@@ -2138,7 +2134,6 @@ init -2 python:
 
             renpy.show(self.name+"_new", at_list=[character_right, scale_person(self.height)], layer = "Active", what = top_displayable, tag = self.name+"_new")
             renpy.show(self.name+"_old", at_list=[character_right, scale_person(self.height), clothing_fade], layer = "Active", what = bottom_displayable, tag = self.name+"_old")
-
 
             return
 
