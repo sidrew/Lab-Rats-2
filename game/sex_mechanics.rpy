@@ -241,6 +241,7 @@ label fuck_person(the_person, private= True, start_position = None, start_object
     $ the_person.clear_situational_slut("love_modifier")
     $ the_person.clear_situational_slut("cheating")
     $ the_person.clear_situational_slut("taboo_sex")
+    $ the_person.clear_situational_slut("public_sex")
     $ the_person.clear_situational_slut("sex_object")
     $ the_person.clear_situational_obedience("sex_object")
 
