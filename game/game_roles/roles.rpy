@@ -8,6 +8,45 @@ init -1 python:
         else:
             return True
 
+    def pay_strip_scene_build_strip_menu_items(the_person, strip_willingness):
+        menu_items = [] #Tuple of menu things.
+        # High obedience characters are more willing to be told to strip down (although they still expect to be paid for it)
+        # Low obedience characters will strip off less when told but can be left to run the show on their own and will remove some.
+        for item in the_person.outfit.get_unanchored():
+            if not item.is_extension:
+                (willingness, price) = pay_strip_scene_calculate_willingness_and_price(the_person, strip_willingness, item)
+
+                if willingness >= (the_person.obedience-100):
+                    display_string = "Strip " + item.name + "\n{size=22}$" + str(price) + "{/size}"
+                    if price > mc.business.funds:
+                        display_string += " (disabled)"
+
+                    menu_items.append([display_string, [item,price]])
+
+                else:
+                    menu_items.append(["Strip " + item.name + "\n{size=22}Too Slutty{/size} (disabled)", [item,-1]])
+
+        menu_items.append(["Just watch.","Watch"])
+        menu_items.append(["Tell her to pose.","Pose"])
+        menu_items.append(["Finish the show.","Finish"])
+        return menu_items
+
+    def pay_strip_scene_calculate_willingness_and_price(the_person, strip_willingness, tease_item):
+        test_outfit = the_person.outfit.get_copy()
+        test_outfit.remove_clothing(tease_item)
+        willingness = the_person.effective_sluttiness(["underwear_nudity"]) + (5*the_person.get_opinion_score("not wearing anything")) - test_outfit.slut_requirement
+        price = 0
+        if willingness >= 40: #She's slutty enough to do it for free!
+            price = 0
+        elif willingness >= 20:
+            price = (strip_willingness - willingness) * 3
+        else:
+            price = (strip_willingness - willingness) * 10
+
+        price = math.ceil((price/5.0))*5 #Round up to the next $5 increment
+        return (willingness, price)
+
+
 label instantiate_roles(): #This section instantiates all of the key roles in the game. It is placed here to ensure it is properly created, saved, ect. by Renpy.
     #All of the role labels and requirements are defined in their own file, but their Action representations are stored here for saving purposes.
     python:
@@ -282,64 +321,17 @@ label pay_strip_scene(the_person):
                 "[the_person.title] wiggles her hips side to side and bites her bottom lip, as if imagining some greater pleasure yet to come."
             $ del tease_clothing
 
-        $ menu_list = [] #Tuple of menu things.
-        # High obedience characters are more willing to be told to strip down (although they still expect to be paid for it)
-        # Low obedience characters will strip off less when told but can be left to run the show on their own and will remove some.
-        python:
-            for item in the_person.outfit.get_unanchored():
-                if not item.is_extension:
-                    test_outfit = the_person.outfit.get_copy()
-                    test_outfit.remove_clothing(item)
-                    new_willingness = the_person.effective_sluttiness("underwear_nudity") + (5*the_person.get_opinion_score("not wearing anything")) - test_outfit.slut_requirement
-                    if new_willingness + (the_person.obedience-100) >= 0:
-                        #They're willing to strip it off.
-                        price = 0 # Default value
-                        if new_willingness >= 40:
-                            price = 0 #They'll do it for free!
 
-                        elif new_willingness >= 20:
-                            price = (strip_willingness - new_willingness) * 3 #They feel pretty good about how they'll be dressed after, so the price is decent.
-
-                        else:
-                            price = (strip_willingness - new_willingness) * 10 #THey will feel pretty uncomfortable, so they expect to be paid well.
-
-                        if price < 0:
-                            price = 0
-
-                        price = math.ceil((price/5.0))*5 #Round up to the next $5 increment
-
-                        display_string = "Strip " + item.name + "\n{size=22}$" + str(price) + "{/size}"
-                        if price > mc.business.funds:
-                            display_string += " (disabled)"
-
-                        menu_list.append([display_string, [item,price]])
-
-                    else:
-                        menu_list.append(["Strip " + item.name + "\n{size=22}Too Slutty{/size} (disabled)", [item,-1]])
-
-            menu_list.append(["Just watch.","Watch"])
-            menu_list.append(["Tell her to pose.","Pose"])
-            menu_list.append(["Finish the show.","Finish"])
-
-        $ strip_choice = renpy.display_menu(menu_list,True,"Choice")
+        $ strip_choice = renpy.display_menu(pay_strip_scene_build_strip_menu_items(the_person, strip_willingness),True,"Choice")
         if strip_choice == "Watch":
             if renpy.random.randint(0,1) == 0:
                 $ tease_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True) #The clothing item she's considering taking off
                 $ free_spirit_threshold = 40 + (100 - the_person.obedience)
                 if renpy.random.randint(0,100) < free_spirit_threshold: #She's independent enough to strip, change pose, etc. on her own.
-                    if tease_item is not None and new_willingness >= (the_person.obedience-100): #A more obedient person is less willing to strip without being told to. A less obedient person will strip further on their own.
-                        $ test_outfit = the_person.outfit.get_copy()
-                        $ test_outfit.remove_clothing(tease_item)
-                        $ new_willingness = the_person.sluttiness + (5*the_person.get_opinion_score("not wearing anything")) - test_outfit.slut_requirement
-                        $ price = 0
-                        if new_willingness >= 40: #She's slutty enough to do it for free!
-                            $ price = 0
-                        elif new_willingness >= 20:
-                            $ price = (strip_willingness - new_willingness) * 3
-                        else:
-                            $ price = (strip_willingness - new_willingness) * 10
+                    if tease_item:
+                        $ (willingness, price) = pay_strip_scene_calculate_willingness_and_price(the_person, strip_willingness, tease_item)
 
-                        $ price = math.ceil((price/5.0))*5 #Round up to the next $5 increment
+                    if tease_item and willingness >= (the_person.obedience-100): #A more obedient person is less willing to strip without being told to. A less obedient person will strip further on their own.
                         if price > 0:
                             "[the_person.title] steps a little closer to you and plays with the edge of her [tease_item.name]."
                             the_person.char "$[price] and I'll take this off for you..."
@@ -401,7 +393,6 @@ label pay_strip_scene(the_person):
 
         elif strip_choice == "Finish":
             $ keep_stripping = False
-            $ del menu_list
             mc.name "That was fun [the_person.title], I think that's enough."
             if strip_willingness < 0:
                 "[the_person.title] sighs happily."
