@@ -203,7 +203,7 @@ label broken_AC_crisis_label:
                 if the_person.effective_sluttiness() < 20:
                     the_person.char "Taking some of this off would be a lot more comfortable..."
                 else:
-                    the_person.char "I might as well. You don't mind seing a little skin, do you?"
+                    the_person.char "I might as well. You don't mind seeing a little skin, do you?"
 
             #First, we'll get a copy of the lead girls outfit to use as a tester.
             $ test_outfit = the_person.outfit.get_copy()
@@ -215,8 +215,8 @@ label broken_AC_crisis_label:
                 $ the_person.draw_animated_removal(the_clothing) #Draw the item being removed from our current outfit
                 #$ the_person.outfit = test_outfit.get_copy() #Swap our current outfit out for the test outfit. Changed in v0.24.1
                 $ the_person.apply_outfit(test_outfit, ignore_base = True, update_taboo = False) #Swap our current outfit out for the test outfit, apply any taboo effects that happen as a result.
-                $ random_strip_descrip = renpy.random.randint(0,4)
-                if random_strip_descrip == 0 or not removed_something:
+                $ ran_num = renpy.random.randint(0,4)
+                if ran_num == 0 or not removed_something:
                     "[the_person.title] pulls off her [the_clothing.name] and puts it aside." #Always called first.
                 elif ran_num == 1:
                     "[the_person.title] takes off her [the_clothing.name] and adds it to the pile of clothing."
@@ -240,16 +240,16 @@ label broken_AC_crisis_label:
                     "Once she's done stripping [the_person.possessive_title] has her nice [the_person.tits] tits out on display."
                     if the_person.has_taboo("bare_tits"):
                         if the_person.has_large_tits():
-                            "She makes a hopeless attempt to cover her large tits with her hands, but comes to the realisation it's pointless."
+                            "She makes a hopeless attempt to cover her large tits with her hands, but comes to the realization it's pointless."
                         else:
-                            "She tries to hide her tits from you with her hands, but quickly realises how impractical that would be."
+                            "She tries to hide her tits from you with her hands, but quickly realizes how impractical that would be."
                         "Soon enough she doesn't even mind having them out."
                         $ the_person.break_taboo("bare_tits")
 
                 elif the_person.outfit.vagina_visible():
                     "Once she's done stripping [the_person.possessive_title] has her pretty little pussy out on display for everyone."
                     if the_person.has_taboo("bare_pussy"):
-                        "She tries to hide herself from you with her hand, but quickly realises how impractical that would be."
+                        "She tries to hide herself from you with her hand, but quickly realizes how impractical that would be."
                         "Soon enough she doesn't seem to mind."
                         $ the_person.break_taboo("bare_pussy")
                 else:
@@ -281,8 +281,8 @@ label broken_AC_crisis_label:
                         $ girl_choice.draw_animated_removal(the_clothing) #Animate the removal.
                         # $ girl_choice.outfit = test_outfit.get_copy() #Swap outfits so we can keep updating Changed v0.24.1
                         $ girl_choice.apply_outfit(test_outfit, ignore_base = True) #Ignore base because it's already a copy with their accessories added.
-                        $ random_strip_descrip = renpy.random.randint(0,4)
-                        if random_strip_descrip == 0 or not removed_something:
+                        $ ran_num = renpy.random.randint(0,4)
+                        if ran_num == 0 or not removed_something:
                             "[girl_choice.title] pulls off her [the_clothing.name] and puts it aside." #Always called first.
                         elif ran_num == 1:
                             "[girl_choice.title] takes off her [the_clothing.name] and adds it to the pile of clothing."
@@ -309,15 +309,15 @@ label broken_AC_crisis_label:
                             "Once she's done stripping [girl_choice.possessive_title] has her nice [girl_choice.tits] tits out on display."
                             if the_person.has_taboo("bare_tits"):
                                 if the_person.has_large_tits():
-                                    "She makes a hopeless attempt to cover her large tits with her hands, but comes to the realisation it's pointless."
+                                    "She makes a hopeless attempt to cover her large tits with her hands, but comes to the realization it's pointless."
                                 else:
-                                    "She tries to hide her tits from you with her hands, but quickly realises how impractical that would be."
+                                    "She tries to hide her tits from you with her hands, but quickly realizes how impractical that would be."
                                 "Soon enough she doesn't even mind having them out."
                                 $ the_person.break_taboo("bare_tits")
                         elif girl_choice.outfit.vagina_visible():
                             "Once she's done stripping [girl_choice.possessive_title] has her pretty little pussy out on display for everyone."
                             if the_person.has_taboo("bare_pussy"):
-                                "She tries to hide herself from you with her hand, but quickly realises how impractical that would be."
+                                "She tries to hide herself from you with her hand, but quickly realizes how impractical that would be."
                                 "Soon enough she doesn't seem to mind."
                                 $ the_person.break_taboo("bare_pussy")
                         else:
@@ -861,7 +861,7 @@ label special_training_crisis_label():
                 "Improve Researching Skill (Current [the_person.research_skill])":
                     $ the_person.research_skill += 2
                     $ mc.log_event(the_person.title + ": +2 Researching Skill", "float_text_grey")
-                    "[the_person.title] leaves work for a few hours to attend the training seminar. When she comes back she has several interesting new researching technqiues to test."
+                    "[the_person.title] leaves work for a few hours to attend the training seminar. When she comes back she has several interesting new researching techniques to test."
 
                 "Improve Production Skill (Current [the_person.production_skill])":
                     $ the_person.production_skill += 2
@@ -4040,7 +4040,7 @@ label mom_lingerie_surprise_label():
     "She places a hand on your arm and slides it up to your chest, caressing you with her soft fingers."
     the_person.char "Your physical needs, I mean. I know I'm your mother, but I thought I could dress up and you could pretend I was someone else. Someone not related to you."
     menu:
-        "Ask for her help. (tooltip)Ask your mother to help satisfy your phsyical desires.":
+        "Ask for her help. (tooltip)Ask your mother to help satisfy your physical desires.":
             mc.name "That would be amazing Mom, I could really use your help."
             $ the_person.change_slut_temp(2)
             "[the_person.possessive_title] smiles and bounces slightly on your bed."
@@ -4458,12 +4458,12 @@ label mom_morning_surprise_label():
         $ the_person.draw_person(position = "blowjob") #TODO: We need a hand job pose.
         "[the_person.possessive_title] is sitting on the side of your bed. The covers have been pulled down and she has your morning wood in her hand. She strokes it slowly as she speaks."
         if the_person.has_taboo("touching_penis"):
-            the_person.char "Good morning, don't be embarassed. I saw your... morning wood, and wanted to help you take care of it."
+            the_person.char "Good morning, don't be embarrassed. I saw your... morning wood, and wanted to help you take care of it."
             "She looks away, blushing intensely."
             the_person.char "If you want me to stop, just tell me. We never need to talk about this again, okay!"
             the_person.char "Actually, I should just go. This is a mistake. What am I doing?"
             "[the_person.possessive_title] starts to stand up, but you grab her wrist and pull her back. You guide her hand back to your cock."
-            mc.name "It's okay [the_person.title], I was liking it. This is a really nice suprise."
+            mc.name "It's okay [the_person.title], I was liking it. This is a really nice surprise."
             "She nods happily and speeds up her strokes, settling back down on the bed beside you."
             $ the_person.break_taboo("touching_penis")
         else:
@@ -4750,7 +4750,7 @@ label lily_morning_encounter_label():
     $ the_person = lily
     if the_person.effective_sluttiness() >= 60:
         $ the_person.apply_outfit(Outfit("Nude"))
-        # $ the_person.outfit = default_wardrobe.get_outfit_with_name("Nude 1") #If sh's very slutty she doesn't mind being naked. Chnaged v0.24.1
+        # $ the_person.outfit = default_wardrobe.get_outfit_with_name("Nude 1") #If she's very slutty she doesn't mind being naked. Changed v0.24.1
     else:
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True))
         # $ the_person.outfit = the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True) # Otherwise get an underwear set she would wear. changed v0.24.1
@@ -5154,7 +5154,7 @@ label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
                     $ the_person.apply_outfit(Outfit("Nude"))
                     #$ the_person.outfit = Outfit("Nude") #changed v0.24.1
                     $ the_person.draw_person(emotion = "angry")
-                    "You open the door. [the_person.possessive_title] is standing naked in the shower. She spins around and yells in suprise."
+                    "You open the door. [the_person.possessive_title] is standing naked in the shower. She spins around and yells in surprise."
                     the_person.char "[the_person.mc_title]! I'm already in here, what are you doing?"
                     mc.name "The door was unlocked, I thought you might have already been finished."
                     the_person.char "Knock next time, okay? I'll be done in a minute."
@@ -5418,10 +5418,10 @@ label cousin_tease_crisis_label():
                                         "There's yet another pause, then another video."
                                         $ the_person.draw_person(position = "kneeling1", emotion = "happy", the_animation = blowjob_bob, animation_effect_strength = 1.0)
                                         if the_person.has_large_tits():
-                                            "This time [the_person.title] has a nice, fake smile for you. She bounces herself a little more vigerously and really gets her big tits moving."
+                                            "This time [the_person.title] has a nice, fake smile for you. She bounces herself a little more vigorously and really gets her big tits moving."
                                         else:
                                             "This time [the_person.title] has a nice, fake smile for you."
-                                            "She bounces herself a little more vigerously, but there's not much chest for her to shake to shake."
+                                            "She bounces herself a little more vigorously, but there's not much chest for her to shake to shake."
                                         the_person.char "Are you satisfied now, you little perv?"
 
                                         mc.name "For now. See you around."
@@ -5442,7 +5442,7 @@ label cousin_tease_crisis_label():
                             mc.name "You think I'd want to pay to see your tits? You should be paying me."
                             $ the_person.change_love(-1)
                             the_person.char "Whatever, I can make the cash somewhere else."
-                            "You don't recieve any more messages from her."
+                            "You don't receive any more messages from her."
 
 
 
@@ -5680,7 +5680,7 @@ init 1 python:
         if time_of_day == 3 or time_of_day == 4:
             for place in list_of_places:
                 for a_person in place.people:
-                    if affair_role in a_person.special_role and a_person not in mc.location.people: #Soemone is in an affair with you and wants a dic pic
+                    if affair_role in a_person.special_role and a_person not in mc.location.people: #Someone is in an affair with you and wants a dic pic
                         return True
         return False
 
@@ -5693,7 +5693,7 @@ label affair_dick_pick_label():
         possible_people = []
         for place in list_of_places:
             for a_person in place.people:
-                if affair_role in a_person.special_role and a_person not in mc.location.people: #Soemone is in an affair with you and wants a dic pic
+                if affair_role in a_person.special_role and a_person not in mc.location.people: #Someone is in an affair with you and wants a dic pic
                     possible_people.append(a_person)
     
         the_person = get_random_from_list(possible_people)
@@ -5730,7 +5730,7 @@ label affair_dick_pick_label():
 
         "Tell her you're busy.":
             "As much as you enjoy the picture, you've got important work to do. You text her back."
-            mc.name "I've got work to get done [the_person.title]. Stop bothing me just because you're a bitch in heat."
+            mc.name "I've got work to get done [the_person.title]. Stop bothering me just because you're a bitch in heat."
             if the_person.get_opinion_score("being_submissive") > 0:
                 $ the_person.change_slut_temp(2)
                 $ the_person.change_obedience(2)
@@ -5753,7 +5753,7 @@ init 1 python:
         if time_of_day == 3 or time_of_day == 4:
             for place in list_of_places:
                 for a_person in place.people:
-                    if girlfriend_role in a_person.special_role and a_person not in mc.location.people: #Soemone is in an affair with you and wants a dic pic
+                    if girlfriend_role in a_person.special_role and a_person not in mc.location.people: #Someone is in an affair with you and wants a dic pic
                         return True
         return False
 
@@ -5765,7 +5765,7 @@ label girlfriend_nudes_label():
         possible_people = []
         for place in list_of_places:
             for a_person in place.people:
-                if girlfriend_role in a_person.special_role and a_person not in mc.location.people: #Soemone is in an affair with you and wants a dic pic
+                if girlfriend_role in a_person.special_role and a_person not in mc.location.people: #Someone is in an affair with you and wants a dic pic
                     possible_people.append(a_person)
         the_person = get_random_from_list(possible_people)
         del possible_people
@@ -5835,7 +5835,7 @@ label girlfriend_nudes_label():
         "She looks into the camera again and sighs happily, then reaches forward and ends the video."
         $ the_person.update_outfit_taboos()
         $ the_person.apply_outfit(the_person.planned_outfit)
-    #TODO: A blojob/deepthroat training video, or an anal stretching video she sends you to show she's "getting ready."
+    #TODO: A blowjob/deep-throat training video, or an anal stretching video she sends you to show she's "getting ready."
 
     $ renpy.scene("Active")
     return
