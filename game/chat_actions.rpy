@@ -902,7 +902,7 @@ label movie_date_label(the_person):
         the_person.char "Let's head home then."
 
     $ renpy.scene("Active")
-    $ mc.change_location(hall) #Put them back at home after the event, so if they were in the bathroom they aren't any more.
+    $ mc.change_location(bedroom) #Put them back at home after the event, so if they were in the bathroom they aren't any more.
     $ mc.location.show_background()
     return "Advance Time"
 
