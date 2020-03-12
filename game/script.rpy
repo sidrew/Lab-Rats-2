@@ -1605,7 +1605,7 @@ init -2 python:
                 what_color = dialogue_color) #The colour of the character's dialogue.
 
             if title: #Format the given titles, if any, so they appear correctly the first time you meet at person.
-                self.set_title(title) #The way the girl is refered to by the MC. For example: "Mrs. Whatever", "Lily", or "Mom". Will reset "???" if appropriate
+                self.set_title(title) #The way the girl is referred to by the MC. For example: "Mrs. Whatever", "Lily", or "Mom". Will reset "???" if appropriate
             else:
                 self.char.name = self.create_formatted_title("???")
             if possessive_title:
@@ -1615,7 +1615,7 @@ init -2 python:
             self.age = age
             self.body_type = body_type
             self.tits = tits
-            self.height = height * 0.8 #This is the scale factor for height, with the talest girl being 1.0 and the shortest being 0.8
+            self.height = height #This is the scale factor for height, with the tallest girl being 1.0 and the shortest being 0.8
             self.body_images = body_images #instance of Clothing class, which uses full body shots.
             self.face_style = face_style
             self.expression_images = expression_images #instance of the Expression class, which stores facial expressions for different skin colours
@@ -1623,7 +1623,7 @@ init -2 python:
             self.hair_style = hair_style
 
             if pubes_colour is None:
-                self.pubes_colour = get_darkened_colour(hair_colour[1], 0.07) #Unless otherwise specifified they are 10% darker than normal hair
+                self.pubes_colour = get_darkened_colour(hair_colour[1], 0.07) #Unless otherwise specified they are 10% darker than normal hair
             else:
                 self.pubes_colour = pubes_colour #generally hair colour but a little darker.
 
@@ -5547,8 +5547,14 @@ init -1:
         day_names = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] #Arrays that hold the names of the days of the week and times of day. Arrays start at 0.
         time_names = ["Early Morning","Morning","Afternoon","Evening","Night"]
 
+        def calculate_scale(height_factor):
+            # check line 1618 -> it should read self.height = height since all heights should be .8 and 1
+            # if persistent.vren_animation:
+            #     return height_factor
+            return height_factor - .2   # for now render at 80% size
+
 transform scale_person(height_factor = 1):
-    zoom height_factor
+    zoom calculate_scale(height_factor)
 
 transform character_right():
     yalign 0.5
