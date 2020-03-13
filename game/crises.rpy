@@ -301,35 +301,35 @@ label broken_AC_crisis_label:
                     if removed_something:
                         if girl_choice.outfit.tits_visible() and girl_choice.outfit.vagina_visible():
                             "Once she's done stripping [girl_choice.possessive_title] is practically naked."
-                            if the_person.has_taboo(["bare_pussy","bare_tits"]):
+                            if girl_choice.has_taboo(["bare_pussy","bare_tits"]):
                                 "She makes a vain attempt to keep herself covered with her hands, but soon enough seems to be comfortable being nude in front of you."
-                                $ the_person.break_taboo("bare_pussy")
-                                $ the_person.break_taboo("bare_tits")
+                                $ girl_choice.break_taboo("bare_pussy")
+                                $ girl_choice.break_taboo("bare_tits")
                         elif girl_choice.outfit.tits_visible():
                             "Once she's done stripping [girl_choice.possessive_title] has her nice [girl_choice.tits] tits out on display."
-                            if the_person.has_taboo("bare_tits"):
-                                if the_person.has_large_tits():
+                            if girl_choice.has_taboo("bare_tits"):
+                                if girl_choice.has_large_tits():
                                     "She makes a hopeless attempt to cover her large tits with her hands, but comes to the realization it's pointless."
                                 else:
                                     "She tries to hide her tits from you with her hands, but quickly realizes how impractical that would be."
                                 "Soon enough she doesn't even mind having them out."
-                                $ the_person.break_taboo("bare_tits")
+                                $ girl_choice.break_taboo("bare_tits")
                         elif girl_choice.outfit.vagina_visible():
                             "Once she's done stripping [girl_choice.possessive_title] has her pretty little pussy out on display for everyone."
-                            if the_person.has_taboo("bare_pussy"):
+                            if girl_choice.has_taboo("bare_pussy"):
                                 "She tries to hide herself from you with her hand, but quickly realizes how impractical that would be."
                                 "Soon enough she doesn't seem to mind."
-                                $ the_person.break_taboo("bare_pussy")
+                                $ girl_choice.break_taboo("bare_pussy")
                         else:
                             "[girl_choice.possessive_title] finishes stripping and looks at [the_person.title]."
-                            if (the_person.outfit.wearing_panties() and not the_person.outfit.panties_covered()) or (the_person.outfit.wearing_bra() and not the_person.outfit.bra_covered()):
-                                if the_person.has_taboo("underwear_nudity"):
+                            if (girl_choice.outfit.wearing_panties() and not girl_choice.outfit.panties_covered()) or (girl_choice.outfit.wearing_bra() and not girl_choice.outfit.bra_covered()):
+                                if girl_choice.has_taboo("underwear_nudity"):
                                     "She seems nervous at first, but quickly gets use to being in her underwear in front of you."
-                                    $ the_person.break_taboo("underwear_nudity")
+                                    $ girl_choice.break_taboo("underwear_nudity")
 
                         girl_choice.char "Ahh, that's a lot better."
                         $ slut_report = girl_choice.change_slut_temp(10)
-                        if girl_choice.sluttiness < 40:
+                        if girl_choice.effective_sluttiness() < 40:
                             "[girl_choice.title] definitely saw you watching her as she stripped. She looks at you and blushes slightly and avoids making eye contact."
                         else:
                             $ girl_choice.change_love(2)
@@ -338,7 +338,7 @@ label broken_AC_crisis_label:
                         "[girl_choice.title] fiddles with some of her clothing, then shrugs meekly."
                         girl_choice.char "I'm not sure I'm comfortable taking any of this off... I'm sure I'll be fine in the heat for a little bit."
 
-                    $ del girl_choice
+                    $ girl_choice = None
                     "The girls laugh and tease each other as they strip down, and they all seem to be more comfortable with the heat once they are less clothed."
                     "For a while all of the girls work in various states of undress while under your watchful eye."
                     "The repair man shows up early, and you lead him directly to the the AC unit. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
@@ -413,6 +413,15 @@ init 1 python:
                             return True
         return False
 
+    def no_uniform_punishment_get_disobedient_person():
+        disobedient_people = []
+        for person in mc.business.get_employee_list():
+            if person.obedience < 110:
+                if mc.business.get_uniform_wardrobe(mc.business.get_employee_title(person)).get_count()>0: #Make sure we're getting only people who should be wearing a uniform.
+                    disobedient_people.append(person)
+        return get_random_from_list(disobedient_people)
+
+
     no_uniform_punishment_crisis = Action("Not In Uniform Crisis", no_uniform_punishment_requirement, "no_uniform_punishment_label")
     crisis_list.append([no_uniform_punishment_crisis,5])
 
@@ -420,21 +429,11 @@ label no_uniform_punishment_label():
     if mc.business.get_employee_count() <= 0:
         return #We must have fired someone in another crisis, so don't run this because there might not be anyone.
 
-    python:
-        disobedient_people = []
-        for person in mc.business.get_employee_list():
-            if person.obedience < 110:
-                if mc.business.get_uniform_wardrobe(mc.business.get_employee_title(person)).get_count()>0: #Make sure we're getting only people who should be wearing a uniform.
-                    disobedient_people.append(person)
-        the_person = get_random_from_list(disobedient_people)
-        del disobedient_people
-
+    $ the_person = no_uniform_punishment_get_disobedient_person()
     if the_person is None:
-        "Test"
         return #We must have fixed up any obedience problems, they'll all be in uniform.
     else:
         $ the_person.apply_outfit(the_person.planned_outfit) #Put them in their non-work outfit.
-        # $ the_person.outfit = the_person.planned_outfit.get_copy() Changed v0.24.1
 
     "You decide to take a break and stretch your legs. You start walking around the office, peeking in on your different divisions. You turn a corner and run into [the_person.title]."
     $ the_person.draw_person()
@@ -1063,6 +1062,14 @@ init 1 python:
             return False #This event only triggers when making new serum designs (which use existing traits) or when working on mastering an existing trait.
         return True
 
+    def trait_for_side_effect_get_trait_and_side_effect(the_design):
+        list_of_valid_traits = []
+        for trait in list_of_traits:
+            if trait.researched and trait not in the_design.traits:
+                list_of_valid_traits.append(trait)
+
+        return (get_random_from_list(list_of_valid_traits), get_random_from_list(list_of_side_effects))
+
     trait_for_side_effect_crisis = Action("Trait for Side Effect Crisis", trait_for_side_effect_requirement, "trait_for_side_effect_label")
     crisis_list.append([trait_for_side_effect_crisis,5])
 
@@ -1070,16 +1077,7 @@ label trait_for_side_effect_label():
     #TODO: Test this
     $ the_person = mc.business.head_researcher
     $ the_design = mc.business.active_research_design
-
-    $ list_of_valid_traits = []
-    python:
-        for trait in list_of_traits:
-            if trait.researched and trait not in the_design.traits:
-                list_of_valid_traits.append(trait)
-
-    $ the_trait = get_random_from_list(list_of_valid_traits) #Note that this can generate normally impossible designs!
-    $ the_side_effect = get_random_from_list(list_of_side_effects)
-    $ del list_of_valid_traits
+    $ (the_trait, the_side_effect) = trait_for_side_effect_get_trait_and_side_effect(the_design)
 
     if the_trait is None or the_side_effect is None: #If it turns out this event is impossible just flub out.
         return
@@ -1270,18 +1268,19 @@ init 1 python:
                 return True
         return False
 
+    def home_fuck_crisis_get_person():
+        meets_sluttiness_list = []
+        for person in mc.business.get_employee_list():
+            if person.sluttiness >= 15 and not girlfriend_role in person.special_role and (person.relationship == "Single" or person.get_opinion_score("cheating on men") > 0):
+                meets_sluttiness_list.append(person)
+        return get_random_from_list(meets_sluttiness_list)
+
     home_fuck_crisis = Action("Home Fuck Crisis",home_fuck_crisis_requirement,"home_fuck_crisis_label")
     crisis_list.append([home_fuck_crisis,3])
 
 label home_fuck_crisis_label():
     ## A horny employee comes to your house at night and wants you to fuck them. They're drunk, with bonus sluttiness, and will take a pay cut if you make them cum.
-    $ meets_sluttiness_list = []
-    python:
-        for person in mc.business.get_employee_list():
-            if person.sluttiness >= 15 and not girlfriend_role in person.special_role and (person.relationship == "Single" or person.get_opinion_score("cheating on men") > 0):
-                meets_sluttiness_list.append(person)
-    $ the_person = get_random_from_list(meets_sluttiness_list)
-    $ del meets_sluttiness_list
+    $ the_person = home_fuck_crisis_get_person()
     if the_person is None:
         return
 
@@ -1691,8 +1690,8 @@ label work_relationship_change_label():
         if mc.is_at_work():
             "While working you notice [person_one.title] and [person_two.title] aren't getting along with each other. They seem to have developed an unfriendly rivalry."
 
-    $ del person_one
-    $ del person_two
+    $ person_one = None
+    $ person_two = None
     return
 
 init 1 python:
@@ -1702,6 +1701,13 @@ init 1 python:
                 return True
         return False
 
+    def work_chat_crisis_get_person():
+        possible_people = []
+        for person in mc.location.people:
+            if mc.business.get_employee_title(person) != "None" and not person.get_opinion_score("small talk") < 0:
+                possible_people.append(person)
+        return get_random_from_list(possible_people)
+
     work_chat_crisis = Action("Work Chat Crisis", work_chat_crisis_requirement, "work_chat_crisis_label")
     crisis_list.append([work_chat_crisis,12])
 
@@ -1709,13 +1715,7 @@ label work_chat_crisis_label:
     if not mc.business.is_open_for_business() or not mc.is_at_work():
         return
 
-    $ possible_people = []
-    python:
-        for person in mc.location.people:
-            if mc.business.get_employee_title(person) != "None" and not person.get_opinion_score("small talk") < 0:
-                possible_people.append(person)
-    $ the_person = get_random_from_list(possible_people)
-    $ del possible_people
+    $ the_person = work_chat_crisis_get_person()
     if the_person is None:
         return #Everyone here must hate small talk. Oh well.
 
@@ -2618,6 +2618,14 @@ init 1 python:
                     return True
         return False
 
+    def daughter_work_crisis_get_mother():
+        valid_people_list = []
+        for person in mc.business.get_employee_list():
+            if person.kids != 0 and person.age >= 34 and person.kids > town_relationships.get_existing_child_count(person): #They have undiscovered kids we can add in.
+                valid_people_list.append(person)
+
+        return get_random_from_list(valid_people_list) #Pick someone appropriate from the company.
+
     daughter_work_crisis = Action("Daughter Work Crisis", daughter_work_crisis_requirement,"daughter_work_crisis_label")
     crisis_list.append([daughter_work_crisis,2])
 
@@ -2626,14 +2634,7 @@ label daughter_work_crisis_label():
     if mc.business.get_employee_count() >= mc.business.max_employee_count:
         return #The business is full due to some other crisis triggering this time chunk.
 
-    python:
-        valid_people_list = []
-        for person in mc.business.get_employee_list():
-            if person.kids != 0 and person.age >= 34 and person.kids > town_relationships.get_existing_child_count(person): #They have undiscovered kids we can add in.
-                valid_people_list.append(person)
-
-    $ the_person = get_random_from_list(valid_people_list) #Pick someone appropriate from the company.
-    $ del valid_people_list
+    $ the_person = daughter_work_crisis_get_mother()
     if the_person is None:
         return #We couldn't find anyone to be a parent, so the event fails.
 
