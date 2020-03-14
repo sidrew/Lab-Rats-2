@@ -146,7 +146,7 @@ label fuck_person(the_person, private= True, start_position = None, start_object
                 if position_choice and object_choice:
                     $ position_choice.redraw_scene(the_person)
                     if skip_intro:
-                        pass
+                        $ skip_intro = False
                     elif first_round:
                         $ the_person.draw_person() #Draw her standing until we pick a new position
                         if the_person.has_taboo(position_choice.associated_taboo) and not ignore_taboo:
