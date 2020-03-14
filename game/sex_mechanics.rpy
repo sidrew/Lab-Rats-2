@@ -187,9 +187,9 @@ label fuck_person(the_person, private= True, start_position = None, start_object
             call check_position_willingness(the_person, round_choice, ignore_taboo = ignore_taboo) from _call_check_position_willingness_1
             if _return:
                 $ round_choice.redraw_scene(the_person)
-                if the_person.has_taboo(position_choice.associated_taboo) and not ignore_taboo:
-                    $ position_choice.call_taboo_break(the_person, mc.location, object_choice)
-                    $ the_person.break_taboo(position_choice.associated_taboo)
+                if the_person.has_taboo(round_choice.associated_taboo) and not ignore_taboo:
+                    $ round_choice.call_taboo_break(the_person, mc.location, object_choice)
+                    $ the_person.break_taboo(round_choice.associated_taboo)
                 else:
                     $ position_choice.call_transition(round_choice, the_person, mc.location, object_choice)
                 $ position_choice = round_choice
