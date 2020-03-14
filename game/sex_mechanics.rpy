@@ -144,7 +144,6 @@ label fuck_person(the_person, private= True, start_position = None, start_object
                         call clear_object_effects(the_person) from _call_clear_object_effects
 
                 if position_choice and object_choice:
-                    $ position_choice.redraw_scene(the_person)
                     if skip_intro:
                         $ skip_intro = False
                     elif first_round:
@@ -162,6 +161,8 @@ label fuck_person(the_person, private= True, start_position = None, start_object
                             $ the_person.break_taboo(position_choice.associated_taboo)
                         else:
                             $ position_choice.call_transition(None, the_person, mc.location, object_choice)
+                    # redraw position after transitions
+                    $ position_choice.redraw_scene(the_person)
 
             $ start_position = None #Clear start positions/objects so they aren't noticed next round.
             $ start_object = None
