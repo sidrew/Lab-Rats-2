@@ -709,7 +709,7 @@ label movie_date_plan_label(the_person):
             the_person.char "Well maybe next week then. Let me know, okay?"
             "She gives you a warm smile."
 
-    return "Advance time"
+    return "Advance Time"
 
 label movie_date_label(the_person):
     #The actual event produced when it's time to go on your date.
@@ -1062,7 +1062,7 @@ label dinner_date_label(the_person):
                     #TODO: add support for spending the night somewhere other than home.
                     "When you and [the_person.title] are finished you get dressed and say goodnight."
                     $ mc.change_location(bedroom)
-                    
+
                 "Call it a night.":
                     mc.name "I'd like to call it an early night today, but maybe I'll take you up on the offer some other time."
                     "Her taxi arrives. You give her a goodbye kiss and head home yourself."
