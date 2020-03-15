@@ -4516,7 +4516,7 @@ label mom_morning_surprise_label():
             the_person.char "I couldn't stop myself... I mean, I couldn't imagine you having to rush out of the door with this!"
             the_person.char "I'll stop if you want me too. You probably think I'm crazy!"
             mc.name "I don't think your crazy, I think you are incredibly thoughtful. This feels amazing."
-            $ the_person.taboo_break("sucking_cock")
+            $ the_person.break_taboo("sucking_cock")
         else:
             the_person.char "Good morning [the_person.mc_title]. I noticed your alarm hadn't gone off and came in to wake you up..."
             "She licks your shaft absentmindedly."
