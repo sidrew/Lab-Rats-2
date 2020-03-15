@@ -16,7 +16,7 @@ init -1 python:
             if not item.is_extension:
                 (willingness, price) = pay_strip_scene_calculate_willingness_and_price(the_person, strip_willingness, item)
 
-                if willingness >= (the_person.obedience-100):
+                if willingness >= 100 - the_person.obedience:
                     display_string = "Strip " + item.name + "\n{size=22}$" + str(price) + "{/size}"
                     if price > mc.business.funds:
                         display_string += " (disabled)"
