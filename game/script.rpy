@@ -6206,7 +6206,7 @@ screen person_info_ui(the_person): #Used to display stats for a person while you
             if the_person.situational_obedience[situation][0] > 0:
                 positive_effects += get_coloured_arrow(1)+"+"+__builtin__.str(the_person.situational_obedience[situation][0])+ " Obedience - " + the_person.situational_obedience[situation][1] + "\n"
             elif the_person.situational_obedience[situation][0] < 0:
-                negative_effects += get_coloured_arrow(1)+""+__builtin__.str(the_person.situational_obedience[situation][0])+ " Obedience - " + the_person.situational_obedience[situation][1] + "\n"
+                negative_effects += get_coloured_arrow(-1)+""+__builtin__.str(the_person.situational_obedience[situation][0])+ " Obedience - " + the_person.situational_obedience[situation][1] + "\n"
         formatted_obedience_tooltip += positive_effects + negative_effects
         formatted_obedience_tooltip += "Girls with high obedience will listen to commands even when they would prefer not to and are willing to work for less pay. Girls who are told to do things they do not like will lose happiness, and low obedience girls are likely to refuse altogether."
 
