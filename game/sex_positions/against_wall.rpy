@@ -12,7 +12,7 @@
             strip_description = "strip_against_wall", strip_ask_description = "strip_ask_against_wall",
             orgasm_description = "orgasm_against_wall",
             taboo_break_description = "taboo_break_against_wall",
-            opinion_tags = ["sex standing up"], record_class = "Vaginal Sex",
+            opinion_tags = ["sex standing up", "vaginal sex"], record_class = "Vaginal Sex",
             default_animation = blowjob_bob,
             associated_taboo = "vaginal_sex")
 
