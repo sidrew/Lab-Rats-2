@@ -168,9 +168,9 @@ init -2 python:
         the_person.on_room_enter_event_list.append(cousin_blackmail_intro_action)
         return
 
-    def add_cousin_stripping_and_setup_search_room_action():
+    def add_cousin_stripping_and_setup_search_room_action(the_aunt, the_cousin):
         stripclub_strippers.append(the_cousin)
-        the_cousin.set_schedule([4], strip_club)
+        the_cousin.set_schedule([3,4], strip_club)
 
         the_cousin.event_triggers_dict["stripping"] = True #Used to flag the blackmail event.
         cousin_room_search_action = Action("Search her room. {image=gui/heart/Time_Advance.png}", cousin_room_search_requirement, "cousin_search_room_label",requirement_args = [the_cousin], args = [the_cousin, the_aunt])
@@ -609,7 +609,7 @@ label aunt_cousin_hint_label(the_aunt, the_cousin):
 
     the_aunt.title "Thank you. I won't keep you any longer then, I'm sure you're busy!"
 
-    $ add_cousin_stripping_and_setup_search_room_action()
+    $ add_cousin_stripping_and_setup_search_room_action(the_aunt, the_cousin)
     return
 
 label cousin_blackmail_ask_label(the_person):
