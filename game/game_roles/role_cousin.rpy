@@ -172,7 +172,7 @@ init -2 python:
         stripclub_strippers.append(the_cousin)
         the_cousin.set_schedule([3,4], strip_club)
 
-        cousin.event_triggers_dict["stripping"] = True #Used to flag the blackmail event.
+        the_cousin.event_triggers_dict["stripping"] = True #Used to flag the blackmail event.
         cousin_room_search_action = Action("Search her room. {image=gui/heart/Time_Advance.png}", cousin_room_search_requirement, "cousin_search_room_label",requirement_args = [the_cousin], args = [the_cousin, the_aunt])
         cousin_bedroom.actions.append(cousin_room_search_action) #Lets you search her room for a clue about where to go to find her.
         return
