@@ -204,7 +204,7 @@ init -1:
         teddy = Clothing("Teddy", 1, True, True, "Teddy", True, True, 4, whiteness_adjustment = 0.0, contrast_adjustment = 1.0, display_name = "teddy")
         bra_list.append(teddy)
 
-        cincher = Clothing("Cincher", 1, False, False, "Cincher", True, False, 5, supported_patterns = {"Two Toned":"Pattern_1"}, display_name = "corset")
+        cincher = Clothing("Cincher", 1, False, False, "Cincher", True, True, 5, supported_patterns = {"Two Toned":"Pattern_1"}, display_name = "corset")
         bra_list.append(cincher)
 
         heart_pasties = Clothing("Heart Pasties", 1, False, False, "Heart_Pasties", True, True, 8, display_name = "pasties")
@@ -279,16 +279,16 @@ init -1:
         thin_dress = Clothing("Thin Dress", 2, True, True, "Thin_Dress", True, False, 4, has_extension = thin_dress_bottom, whiteness_adjustment = 0.3, contrast_adjustment = 1.15, display_name = "dress")
         dress_list.append(thin_dress)
 
-        summer_dress_bottom = Clothing("Summer Dress", 2, False, False, "Summer_Dress", False, False, 0, is_extension = True)
-        summer_dress = Clothing("Summer Dress", 2, False, False, "Summer_Dress", True, False, 0, has_extension = summer_dress_bottom, whiteness_adjustment = 0.1, display_name = "dress")
+        summer_dress_bottom = Clothing("Summer Dress", 2, True, False, "Summer_Dress", False, False, 0, is_extension = True)
+        summer_dress = Clothing("Summer Dress", 2, True, True, "Summer_Dress", True, False, 0, has_extension = summer_dress_bottom, whiteness_adjustment = 0.1, display_name = "dress")
         dress_list.append(summer_dress)
 
-        virgin_killer_bottom = Clothing("Virgin Killer", 2, True, True, "Virgin_Killer", False, False, 0, is_extension = True)
-        virgin_killer = Clothing("Virgin Killer", 2, True, True, "Virgin_Killer", True, False, 5, has_extension = virgin_killer_bottom, display_name = "dress")
+        virgin_killer_bottom = Clothing("Virgin Killer", 2, False, False, "Virgin_Killer", False, False, 0, is_extension = True)
+        virgin_killer = Clothing("Virgin Killer", 2, False, True, "Virgin_Killer", True, False, 5, has_extension = virgin_killer_bottom, display_name = "dress")
         dress_list.append(virgin_killer)
 
-        evening_dress_bottom = Clothing("Evening Dress", 2, False, False, "Evening_Dress", False, False, 0, is_extension = True)
-        evening_dress = Clothing("Evening Dress", 2, False, False, "Evening_Dress", True, False, 2, has_extension = evening_dress_bottom, whiteness_adjustment = 0.4, display_name = "dress")
+        evening_dress_bottom = Clothing("Evening Dress", 2, True, False, "Evening_Dress", False, False, 0, is_extension = True)
+        evening_dress = Clothing("Evening Dress", 2, True, True, "Evening_Dress", True, False, 2, has_extension = evening_dress_bottom, whiteness_adjustment = 0.4, display_name = "dress")
         dress_list.append(evening_dress)
 
         leotard_bottom = Clothing("Leotard", 1, True, True, "Leotard", False, True, 0, is_extension = True)
@@ -296,7 +296,7 @@ init -1:
         dress_list.append(leotard)
 
         nightgown_dress_bottom = Clothing("Nightgown", 2, False, False, "Nightgown", False, True, 0, is_extension = True)
-        nightgown_dress = Clothing("Nightgown", 2, False, True, "Nightgown", True, True, 3, has_extension = nightgown_dress_bottom, whiteness_adjustment = 0.1, contrast_adjustment = 1.1, display_name = "nightgown")
+        nightgown_dress = Clothing("Nightgown", 2, True, True, "Nightgown", True, True, 3, has_extension = nightgown_dress_bottom, whiteness_adjustment = 0.1, contrast_adjustment = 1.1, display_name = "nightgown")
         dress_list.append(nightgown_dress)
 
         bath_robe_bottom = Clothing("Bathrobe", 2, False, False, "Bath_Robe", False, False, 0, is_extension = True)
