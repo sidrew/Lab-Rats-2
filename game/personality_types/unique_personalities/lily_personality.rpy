@@ -624,7 +624,7 @@ label lily_anal_sex_taboo_break(the_person):
         else:
             mc.name "Yeah, why not? I've already fucked all of your other holes, what's special about this one?"
             the_person.char "It's not special, I just thought you'd want to fuck my pussy some more. Didn't you enjoy it last time."
-            mc.nmae "It was great, but I want to experiment a little more. Come on, don't you want to try something new?"
+            mc.name "It was great, but I want to experiment a little more. Come on, don't you want to try something new?"
 
     else:
         the_person.char "Wait, do you want to try anal?"
