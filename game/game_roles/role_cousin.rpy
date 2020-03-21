@@ -1060,8 +1060,8 @@ label cousin_new_boobs_brag_label(the_person):
                     "She looks down at her own chest and gives it a shake, setting her tits jiggling. When they settle down, she reaches for her top again."
 
                 $ the_person.apply_outfit(old_outfit, ignore_base = True)
-                # the_person.outfit = old_outfit changed v0.24.1
                 $ the_person.draw_person()
+                $ del old_outfit
 
             "Not right now.":
                 $ the_person.change_obedience(1)

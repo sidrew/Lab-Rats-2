@@ -2804,6 +2804,15 @@ init 1 python:
                 potential_follower.append(a_person)
         return get_random_from_list(potential_follower)
 
+    def horny_at_work_get_licker(helpful_people):
+        licker = None
+        for a_person in helpful_people:
+            a_person.change_obedience(3)
+            a_person.change_slut_temp(1)
+            if a_person.get_opinion_score("being submissive") > 0 and a_person.get_opinion_score("drinking cum") > 0 and licker is None:
+                licker = a_person #The list was randomized, so even if you have multiple people who meet this criteria this should still end up random.
+        return licker
+
     horny_at_work_crisis = Action("Horny at work crisis", horny_at_work_crisis_requirement, "horny_at_work_crisis_label")
     crisis_list.append([horny_at_work_crisis,8])
 
@@ -2874,6 +2883,10 @@ label horny_at_work_crisis_label():
                     else:
                         neutral_people.append(a_person)
 
+                for a_person in neutral_people:
+                    if a_person.get_opinion_score("masturbating") > 0 and a_person.sluttiness >= 40:
+                        masturbating_people.append(a_person)
+
                 renpy.random.shuffle(unhappy_people)
                 renpy.random.shuffle(helpful_people)
                 renpy.random.shuffle(neutral_people)
@@ -2914,11 +2927,6 @@ label horny_at_work_crisis_label():
                     $ neutral_string = format_group_of_people(neutral_people) + " sees what you're doing, but she doesn't seem upset by it."
                 $ renpy.say("",neutral_string)
 
-                python:
-                    for this_person in neutral_people:
-                        if this_person.get_opinion_score("masturbating") > 0 and this_person.sluttiness >= 40:
-                            masturbating_people.append(this_person)
-
                 if masturbating_people:
                     $ renpy.random.shuffle(masturbating_people)
                     if len(masturbating_people) == 1:
@@ -2946,7 +2954,7 @@ label horny_at_work_crisis_label():
                     else:
                         $ others_string =  format_group_of_people(others) + " all get up and stand behind [helpful_person.possessive_title], obviously willing to do the same."
                     $ renpy.say("",others_string)
-
+                $ helpful_person = None
                 if len(helpful_people) > 1:
                     $ exit_option = "Just have them watch."
                 else:
@@ -2962,13 +2970,7 @@ label horny_at_work_crisis_label():
                         "The girls stand by and watch you masturbate. They shift their weight from side to side, rubbing their thighs together in an obvious display of arousal."
                     else:
                         "She stands by and watches as you masturbate, shifting her weight from side to side in an obvious display of arousal."
-                    $ licker = None
-                    python:
-                        for a_person in helpful_people:
-                            a_person.change_obedience(3)
-                            a_person.change_slut_temp(1)
-                            if a_person.get_opinion_score("being submissive") > 0 and a_person.get_opinion_score("drinking cum") > 0 and licker is None:
-                                licker = a_person #The list was randomized, so even if you have multiple people who meet this criteria this should still end up random.
+                    $ licker = horny_at_work_get_licker(helpful_people)
                     "When you reach the point of no return you lean back in your chair and grunt, firing your load in a long arc until it splatters over the floor."
                     "You catch your breath and sit up."
                     mc.name "Whew. Now you can be helpful by getting that cleaned up for me."
@@ -3150,6 +3152,7 @@ label horny_at_work_crisis_label():
                         "It takes a few moments of deep breathing to recover from the experience."
                         mc.name "Thank you [the_person.title], that's taken care of the problem nicely."
                         "She gives you a quick smile."
+                        $ others = None
                         $ the_person.review_outfit()
                         $ renpy.scene("Active")
                         "You pull your pants up and get yourself organized, then turn your attention back to your work with a crystal clear mind."

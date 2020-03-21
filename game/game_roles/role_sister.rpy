@@ -343,7 +343,7 @@ label sister_instathot_label(the_person):
     $ the_person.draw_person(emotion = "happy")
     "[the_person.title] gets dressed in her new outfit and turns to you, smiling."
     $ the_person.apply_outfit(insta_outfit, update_taboo = True)
-    #$ the_person.outfit = insta_outfit changed v0.24.1
+    $ del insta_outfit
     $ the_person.draw_person(emotion = "happy")
     the_person.char "Well, do you think they'll like it?"
     menu:
