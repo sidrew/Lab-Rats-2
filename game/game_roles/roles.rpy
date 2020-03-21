@@ -439,6 +439,9 @@ label pay_strip_scene(the_person):
                 the_person.char "Don't... Look so closely at me like that."
                 mc.name "Why not? It's what I'm paying for, isn't it?"
                 the_person.char "I guess..."
+
+            $ test_outfit = None
+            $ the_clothing = None
     return
 
 

@@ -1120,7 +1120,6 @@ label cousin_serum_boobjob_label(the_person, starting_tits):
         $ the_person.change_love(1)
         the_person.char "I can't believe it, but your freaky serum stuff actually worked! My tits are way bigger now!"
         "There's a pause, then she sends you a picture."
-        $ old_outfit = the_person.outfit.get_copy()
         #She'll show you her tits.
         while not the_person.outfit.tits_visible():
             $ the_person.outfit.remove_random_upper(top_layer_first = True)
@@ -1129,6 +1128,7 @@ label cousin_serum_boobjob_label(the_person, starting_tits):
         $ the_person.break_taboo("bare_tits")
         "It's a selfie of her in the bathroom, tits on display for you."
         the_person.char "You've saved me a ton of cash, so I thought you might enjoy that."
+        $ the_person.review_outfit(dialogue = False)
         $ renpy.scene("Active")
         return #Note: we're returning without adding the boobjob ask again event, which means we can consider this "done" at this point.
 

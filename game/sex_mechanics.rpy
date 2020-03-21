@@ -670,6 +670,8 @@ label girl_strip_event(the_person, the_position, the_object):
             $ the_position.call_strip_ask(the_person, the_clothing, mc.location, the_object)
         else:
             $ the_position.call_strip(the_person, the_clothing, mc.location, the_object) #If a girl's outfit is less slutty than she is currently feeling (with arousal factored in) she will want to strip stuff off.
+
+    $ the_clothing = None
     return
 
 label affair_check(the_person, report_log): #Report log is handed over so we can make reference to the specific scene if we want.

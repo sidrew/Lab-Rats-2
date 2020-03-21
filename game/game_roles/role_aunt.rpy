@@ -664,6 +664,7 @@ label aunt_share_drinks_label(the_person):
                             else:
                                 $ the_clothing = the_person.outfit.get_upper_top_layer()
                                 "You move slowly and cup her nicely shaped breasts, feeling them through her [the_clothing.name]."
+                                $ the_clothing = None
                             the_person.char "Mmm..."
                             "[the_person.possessive_title] moans softly and tilts her head to the side."
                             $ the_person.change_slut_temp(2)
@@ -680,6 +681,7 @@ label aunt_share_drinks_label(the_person):
                                 $ the_clothing = the_person.outfit.get_lower_top_layer()
                                 "You move slowly, sliding your hand along her inner thigh and working upward."
                                 "When you reach her waist, you slide your hand inside of her [the_clothing.name]."
+                                $ the_clothing = None
 
                             if mc.sex_skills["Foreplay"] >= 3:
                                 the_person.char "Mmm..."
@@ -824,7 +826,7 @@ label aunt_share_drinks_label(the_person):
                             "She sits down on her bed and sighs."
                             the_person.char "I think I just need to have a rest. You can help me out with this some other day, okay?"
                             "[the_person.title] lies down and seems to be drifting off to sleep almost instantly. You say goodbye and head to the door."
-
+                        $ created_outfit = None
 
                     else:
                         mc.name "Sorry [the_person.title], I don't have any ideas right now."

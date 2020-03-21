@@ -179,11 +179,12 @@ label scene_piledriver_2(the_girl, the_location, the_object):
                     "You play with [the_girl.possessive_title]'s nice big tits for a few seconds. When you're done with that you shift your focus back to pounding her tight pussy."
 
                 else:
-                    $top_clothing = the_girl.outfit.get_upper_ordered()[-1]
+                    $ top_clothing = the_girl.outfit.get_upper_ordered()[-1]
                     "You reach down between [the_girl.title]'s legs with one hand and grab onto a tit. Through her [top_clothing.name] you can feel how weighty they are."
                     "You squeeze it, then shift your hand to the other one and bounce it around. [the_girl.title] moans in pleasure."
                     "After a few seconds you notice [the_girl.possessive_title]'s nipples getting hard and poking up into her [top_clothing.name]."
                     "You play with [the_girl.title]'s nice big tits for a little while longer, then shift your focus back to pounding her tight pussy."
+                    $ top_clothing = None
 
             else:
                 if the_girl.outfit.tits_available():
@@ -193,8 +194,9 @@ label scene_piledriver_2(the_girl, the_location, the_object):
                     "You play with [the_girl.possessive_title]'s cute tits for a little while longer, then shift your focus back to pounding her tight pussy."
 
                 else:
-                    $top_clothing = the_girl.outfit.get_upper_ordered()[-1]
+                    $ top_clothing = the_girl.outfit.get_upper_ordered()[-1]
                     "You reach down between [the_girl.title]'s legs with one hand and try to feel up her tits through her [top_clothing.name]."
+                    $ top_clothing = None
                     "After a few seconds of trying you give up, foiled by the fabric in the way."
                     "You settle for pounding her tight little pussy instead."
 

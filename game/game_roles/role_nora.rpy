@@ -418,6 +418,7 @@ label nora_special_research(the_person):
         the_person.char "There doesn't seem to be anything of particular interest about your subject, unfortunately."
 
     $ mc.business.event_triggers_dict["nora_research_subject"] = None
+    $ the_subject = None
 
     return
 

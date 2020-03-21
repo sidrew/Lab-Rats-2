@@ -194,17 +194,19 @@ label scene_doggy_2(the_girl, the_location, the_object):
                         "You occupy yourself by leaning over her and fondling her nice big tits. After a few moments she starts to grind her hips back against you."
 
                     else:
-                        $top_clothing = the_girl.outfit.get_upper_ordered()[-1]
+                        $ top_clothing = the_girl.outfit.get_upper_ordered()[-1]
                         "You occupy yourself by leaning over her and fondling her tits through her [top_clothing.name]. They bounce and jiggle under her clothing."
                         "After a few moments she starts to grind her hips back against you."
+                        $ top_clothing = None
 
                 else:
                     if the_girl.outfit.tits_available():
                         "You occupy yourself by leaning over her and fondling her cute little tits. After a moment she starts to grind her hips back against you."
                     else:
-                        $top_clothing = the_girl.outfit.get_upper_ordered()[-1]
+                        $ top_clothing = the_girl.outfit.get_upper_ordered()[-1]
                         "You occupy yourself by leaning over and trying to fondle her cute little tits."
                         "Her [top_clothing.name] gets in the way, but after a few moments she starts to grind her hips back against you."
+                        $ top_clothing = None
 
             the_girl.char "I... I want you to keep going."
             "Fuck her hard anyways.":

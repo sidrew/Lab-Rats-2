@@ -410,6 +410,7 @@ label sister_instathot_label(the_person):
                     $ the_person.wardrobe.add_outfit(the_suggested_outfit)
                 else:
                     the_person.char "Alright, there we go! It's perfect, just the right amount of sexy! Let's take some pics now!"
+            $ the_suggested_outfit = None
 
     $ the_person.draw_person(emotion = "happy", position = "kneeling1")
     "She jumps up onto her bed and gives the camera her sluttiest pout."

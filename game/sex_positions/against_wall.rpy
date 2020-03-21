@@ -60,8 +60,9 @@ label scene_against_wall_1(the_girl, the_location, the_object):
                     "You grab one of [the_girl.possessive_title]'s tits while you fuck her. Her [the_girl.tits]'s more than fill up your hand."
                     "You squeeze her breast and rub your thumb over her nipple a few time. It starts to harden in response."
                 else:
-                    $top_clothing = the_girl.outfit.get_upper_ordered()[-1]
-                    "You cup one of [the_girl.possessive_title]'s [the_girl.tits] sized tits and fondle it through her [top_clothing.name]. It's pleasently soft and heavy in your hand."
+                    $ top_clothing = the_girl.outfit.get_upper_ordered()[-1]
+                    "You cup one of [the_girl.possessive_title]'s [the_girl.tits] sized tits and fondle it through her [top_clothing.name]. It's pleasantly soft and heavy in your hand."
+                    $ top_clothing = None
 
                 if the_girl.arousal < 50:
                     the_girl.char "Rub them just like that... Do you like my breasts [the_girl.mc_title]? Do you like my nice, big tits?"
@@ -74,8 +75,9 @@ label scene_against_wall_1(the_girl, the_location, the_object):
                     "You grab one of [the_girl.title]'s tits while you fuck her against the [the_object.name]. Her small [the_girl.tits] cups don't give much to work with, but you enjoy them all the same."
                     "You rub your thumb over her nipple a few times and watch as it starts to harden in response."
                 else:
-                    $top_clothing = the_girl.outfit.get_upper_ordered()[-1]
+                    $ top_clothing = the_girl.outfit.get_upper_ordered()[-1]
                     "[the_girl.title]'s small [the_girl.tits] cup tits don't give you much to work with, especially not with her [top_clothing.name] in the way, but you run your hand over them anyways."
+                    $ top_clothing = None
 
                 if the_girl.arousal < 50:
                     the_girl.char "Ah... Do you like my breasts [the_girl.mc_title]? I know they're not big, but they're all yours."

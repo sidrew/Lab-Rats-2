@@ -298,6 +298,8 @@ label photo_flash(the_person):
         "She takes a deep breath, then presses on and starts to take off her [first_item.name]."
 
     $ the_person.draw_animated_removal(first_item)
+    $ first_item = None
+
     if not the_person.outfit.panties_covered():
         "When she drops it she's wearing only her underwear."
     else:

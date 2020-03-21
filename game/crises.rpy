@@ -1121,8 +1121,7 @@ label trait_for_side_effect_label():
 label water_spill_crisis_label():
     $ the_person = get_random_from_list(mc.business.get_employee_list())
     $ the_place = mc.business.get_employee_workstation(the_person)
-    $ ordered_top = the_person.outfit.get_upper_ordered()
-    if len(ordered_top) == 0:
+    if len(the_person.outfit.get_upper_ordered()) == 0:
         return #She's not wearing a top, we can't exactly spill water on nothing!
     else:
         $ the_clothing = the_person.outfit.get_upper_ordered()[-1] #Get the very top item of clothing.
@@ -1258,6 +1257,7 @@ label water_spill_crisis_label():
                     $ the_clothing.colour = dry_colour
                     $ the_person.outfit.add_upper(the_clothing)
 
+    $ the_clothing = None
     $ renpy.scene("Active")
     return
 
@@ -1818,7 +1818,7 @@ label work_chat_crisis_label:
                             $the_person.draw_person()
                             "[the_person.name] stands up suddenly and turns back towards you."
                             the_person.char "I'm sorry, I don't know what came over me [the_person.mc_title]. I'll just... I'll just sit down again."
-
+                        $ top_clothing = None
                         $the_person.draw_person(position="sitting")
                         "[the_person.possessive_title] sits down and takes a deep breath. She's blushing and avoiding making eye contact with you."
                         $ the_person.change_slut_temp(6*the_person.get_opinion_score("showing her ass"))
@@ -2258,7 +2258,7 @@ label cat_fight_crisis_label():
                     "[winner.title] looks at you, out of breath but obviously a little smug."
                     winner.char "Sorry sir, I won't let her get out of line like that again."
                     "She smooths her hair back and gets back to work. You decide to do the same."
-
+                $ the_clothing = None
             else: #both >= 40
                 #Girls start pulling clothing off of each other on purpose until one is naked enough to be very embarrassed, then they give up.
                 $ winner.draw_person(emotion = "angry")
@@ -2316,6 +2316,7 @@ label cat_fight_crisis_label():
                             "[winner.title] screams loudly and tries to grab [loser.title] by the waist. [loser.title] is fast enough to get out of the way, and they square off again as the fight continues."
 
                     $ the_clothing = loser.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True)
+                $ the_clothing = None
 
                 $ loser.draw_person(emotion = "sad")
                 "[loser.title] looks down at herself. She seems to realise for the first time how little she's wearing now."
@@ -4281,7 +4282,7 @@ label mom_selfie_label():
                     the_person.char "Oops! I hope nobody saw you looking at that, I wasn't thinking about my breasts being out."
                     the_person.char "I don't mind you seeing them though, just don't go sharing that video with your friends!"
                     $ the_person.break_taboo("bare_tits")
-            $ del the_clothing
+            $ the_clothing = None
 
     elif lowest_stat >= 20:
         #Sends you normal texts but talks about wanting to get away to talk to you instead
@@ -5171,6 +5172,7 @@ label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
                     call girl_shower_enter(the_person, suprised = True) from _call_girl_shower_enter_1 #TODO: Decide if we need different dialogue for this (maybe just a "suprised" tag we can pass)
 
         $ the_person.apply_outfit(the_person.planned_outfit)
+        $ towel_outfit = None
 
     $ renpy.scene("Active")
     return
