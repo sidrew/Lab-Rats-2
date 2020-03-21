@@ -5112,8 +5112,8 @@ init 1 python:
         if mc_at_home() and time_of_day == 0:
             return True #You're at home for the night, when you take a shower in the morning something might happen.
         return False
-    morning_shower_criris = Action("Morning Shower", morning_shower_requirement, "morning_shower_label")
-    morning_crisis_list.append([morning_shower_criris, 15])
+    morning_shower_crisis = Action("Morning Shower", morning_shower_requirement, "morning_shower_label")
+    morning_crisis_list.append([morning_shower_crisis, 15])
 
 label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
     # You wake up and go to take a shower, lily or your mom are already in there.
@@ -5309,8 +5309,9 @@ label girl_shower_enter(the_person, suprised = False):
 
 init 1 python:
     def cousin_tease_crisis_requirement():
-        if cousin.effective_sluttiness() >= 30 and cousin.obedience < 120 and cousin.love < 10 and cousin not in mc.location.people:
-            return True
+        if time_of_day > 0 and time_of_day < 4:
+            if cousin.effective_sluttiness() >= 30 and cousin.obedience < 120 and cousin.love < 10 and cousin not in mc.location.people:
+                return True
         return False
     cousin_tease_crisis = Action("Cousin text tease", cousin_tease_crisis_requirement, "cousin_tease_crisis_label")
     crisis_list.append([cousin_tease_crisis, 3])
@@ -5555,23 +5556,28 @@ label cousin_tease_crisis_label():
 
 init 1 python:
     def so_relationship_improve_requirement():
-        for place in list_of_places:
-            for a_person in place.people:
-                if (a_person.love > 10 or employee_role in a_person.special_role) and not a_person.title is None and not a_person.relationship == "Married":
-                    if not any(x in a_person.special_role for x in [affair_role, girlfriend_role, mother_role, sister_role, cousin_role, aunt_role]):
-                    # You have at least one person you know who is in a relationship. People you're having an affair never have it get better.
-                    # Your also family never forms relationships, because we do that through direct story stuff.
-                        return True
-        return False
+        return not get_so_relationship_improve_person() is None
 
     def so_relationship_worsen_requirement():
+        return not get_so_relationship_worsen_person() is None
+
+    def get_so_relationship_improve_person():
+        potential_people = []
         for place in list_of_places:
             for a_person in place.people:
-                if (a_person.love > 10 or employee_role in a_person.special_role) and not a_person.title is None and not a_person.relationship == "Single":
-                    if not any(x in a_person.special_role for x in [affair_role, girlfriend_role, mother_role, sister_role, cousin_role, aunt_role]):
-                    # We only change these relationships in events. If we can find anyone who meets the requirements the event can proceed.
-                        return True
-        return False
+                if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Married":
+                    if not any(x in a_person.special_role for x in [mother_role, sister_role, cousin_role, aunt_role, girlfriend_role, affair_role]):
+                        potential_people.append(a_person)
+        return get_random_from_list(potential_people)
+
+    def get_so_relationship_worsen_person():
+        potential_people = []
+        for place in list_of_places:
+            for a_person in place.people:
+                if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Single":
+                    if not any(x in a_person.special_role for x in [mother_role, sister_role, cousin_role, aunt_role]):
+                        potential_people.append(a_person)
+        return get_random_from_list(potential_people)
 
     so_relationship_improve_crisis = Action("Friend SO relationship improve", so_relationship_improve_requirement, "so_relationship_improve_label")
     crisis_list.append([so_relationship_improve_crisis, 3])
@@ -5580,18 +5586,7 @@ init 1 python:
     crisis_list.append([so_relationship_worsen_crisis, 1])
 
 label so_relationship_improve_label():
-    python:
-        potential_people = []
-        for place in list_of_places:
-            for a_person in place.people:
-                if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Married":
-                    if not any(x in a_person.special_role for x in [mother_role, sister_role, cousin_role, aunt_role, girlfriend_role, affair_role]):
-                        potential_people.append(a_person)
-
-        the_person = get_random_from_list(potential_people)
-        del potential_people
-        a_person = None
-
+    $ the_person = get_so_relationship_improve_person()
     if the_person is None:
         return #Something's changed and there is no longer a valid person
 
@@ -5642,18 +5637,7 @@ label so_relationship_improve_label():
 
 
 label so_relationship_worsen_label():
-    python:
-        potential_people = []
-        for place in list_of_places:
-            for a_person in place.people:
-                if a_person.love > 10 and not a_person.title is None and not a_person.relationship == "Single":
-                    if not mother_role in a_person.special_role and not sister_role in a_person.special_role and not cousin_role in a_person.special_role and not aunt_role in a_person.special_role:
-                        potential_people.append(a_person)
-
-        the_person = get_random_from_list(potential_people)
-        del potential_people
-        a_person = None
-
+    $ the_person = get_so_relationship_worsen_person()
     if the_person is None:
         return #Something's changed and there is no longer a valid person
 
@@ -5679,28 +5663,23 @@ label so_relationship_worsen_label():
 init 1 python:
     def affair_dick_pic_requirement():
         if time_of_day == 3 or time_of_day == 4:
-            for place in list_of_places:
-                for a_person in place.people:
-                    if affair_role in a_person.special_role and a_person not in mc.location.people: #Someone is in an affair with you and wants a dic pic
-                        return True
+            return not get_affair_dick_pick_person() is None
         return False
 
-    affair_dick_pic_crisis = Action("Affair dic pic", affair_dick_pic_requirement, "affair_dick_pick_label")
-    crisis_list.append([affair_dick_pic_crisis, 5])
-
-
-label affair_dick_pick_label():
-    python:
+    def get_affair_dick_pick_person():
         possible_people = []
         for place in list_of_places:
             for a_person in place.people:
                 if affair_role in a_person.special_role and a_person not in mc.location.people: #Someone is in an affair with you and wants a dic pic
                     possible_people.append(a_person)
     
-        the_person = get_random_from_list(possible_people)
-        del possible_people
-        a_person = None
-    
+        return get_random_from_list(possible_people)
+
+    affair_dick_pic_crisis = Action("Affair dic pic", affair_dick_pic_requirement, "affair_dick_pick_label")
+    crisis_list.append([affair_dick_pic_crisis, 5])
+
+label affair_dick_pick_label():
+    $ the_person = get_affair_dick_pick_person()
     if the_person is None:
         return
 
@@ -5752,26 +5731,22 @@ label affair_dick_pick_label():
 init 1 python:
     def girlfriend_nudes_requirement():
         if time_of_day == 3 or time_of_day == 4:
-            for place in list_of_places:
-                for a_person in place.people:
-                    if girlfriend_role in a_person.special_role and a_person not in mc.location.people: #Someone is in an affair with you and wants a dic pic
-                        return True
+            return not get_girlfriend_nudes_person() is None
         return False
 
-    girlfriend_nudes_crisis = Action("Girlfriend nudes", girlfriend_nudes_requirement, "girlfriend_nudes_label")
-    crisis_list.append([girlfriend_nudes_crisis, 5])
-
-label girlfriend_nudes_label():
-    python:
+    def get_girlfriend_nudes_person():
         possible_people = []
         for place in list_of_places:
             for a_person in place.people:
                 if girlfriend_role in a_person.special_role and a_person not in mc.location.people: #Someone is in an affair with you and wants a dic pic
                     possible_people.append(a_person)
-        the_person = get_random_from_list(possible_people)
-        del possible_people
-        a_person = None
+        return get_random_from_list(possible_people)
 
+    girlfriend_nudes_crisis = Action("Girlfriend nudes", girlfriend_nudes_requirement, "girlfriend_nudes_label")
+    crisis_list.append([girlfriend_nudes_crisis, 5])
+
+label girlfriend_nudes_label():
+    $ the_person = get_girlfriend_nudes_person()
     if the_person is None:
         return
 
