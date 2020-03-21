@@ -700,19 +700,7 @@ init -2:
 
 init 1 python:
     def generate_premade_list():
-        global list_of_premade_characters
         global list_of_unique_characters
-        list_of_premade_characters = []
-        list_of_premade_characters.append(create_random_person(body_type = "curvy_body", height=0.99, skin="tan", tits="DD",hair_colour="chestnut",hair_style=messy_hair))
-        list_of_premade_characters.append(create_random_person(body_type = "thin_body", height=1.0, skin="white", tits="B",hair_colour="chestnut",hair_style=messy_hair))
-        list_of_premade_characters.append(create_random_person(body_type = "curvy_body", height=0.96, skin="white", tits="DD",hair_colour="brown",hair_style=twintail))
-        list_of_premade_characters.append(create_random_person(body_type = "standard_body", height=0.96, skin="white", tits="DD", hair_colour="chestnut",hair_style=messy_hair))
-        list_of_premade_characters.append(create_random_person(body_type = "thin_body", height=0.92, skin="tan", tits="B", hair_colour="black", hair_style=ponytail))
-        list_of_premade_characters.append(create_random_person(body_type = "standard_body", height=0.90, skin="white", tits="DD", hair_colour="blond", hair_style=messy_hair))
-        list_of_premade_characters.append(create_random_person(body_type = "curvy_body", height=1.00, skin="white", tits="DD", hair_colour="chestnut", hair_style=messy_hair))
-        list_of_premade_characters.append(create_random_person(body_type = "thin_body", height=0.94, skin="white", tits="FF", hair_colour="blond", hair_style=long_hair))
-        list_of_premade_characters.append(create_random_person(body_type = "standard_body", height=0.95, skin="tan", tits="FF", hair_colour="brown", hair_style=ponytail))
-
         list_of_unique_characters = []
 
         dinah_wardrobe = wardrobe_from_xml("Dinah_Wardrobe")
@@ -883,8 +871,4 @@ init 1 python:
         if person is not None:
             list_of_unique_characters.remove(person)
             return person
-
-        person = get_random_from_list(list_of_premade_characters)
-        if person is not None:
-            list_of_premade_characters.remove(person)
         return person
