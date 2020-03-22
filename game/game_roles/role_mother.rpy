@@ -30,7 +30,7 @@ label mom_weekly_pay_label(the_person):
     "[the_person.title] is sitting at the kitchen table, a collection of bills laid out in front of her."
 
     if the_person.effective_sluttiness() < 20:
-        the_person.char "This new morgage on the house is really stressing our finances. It would really help if you could chip in."
+        the_person.char "This new mortgage on the house is really stressing our finances. It would really help if you could chip in."
         call mom_low_sluttiness_weekly_pay(the_person) from _call_mom_low_sluttiness_weekly_pay #The menu is separated out to make looping easier.
     else:
         if mc.business.event_triggers_dict.get("Mom_Payment_Level",0) >= 1: #We've been through this song and dance already.

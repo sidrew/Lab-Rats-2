@@ -274,7 +274,7 @@ init -2 python:
                 image_string += "quarter_gold_three_quarter_red_heart.png"
 
         elif core_slut < 15:
-            #It fits in the 10 catagory, half is gold
+            #It fits in the 10 category, half is gold
             if temp_slut < 15:
                 #No temp slut
                 if suggest_slut < 15:
@@ -456,7 +456,7 @@ init -2 python:
 
         def run_turn(self): #Run each time the time segment changes. Most changes are done here.
 
-            #Compute efficency drop
+            #Compute efficiency drop
             for person in self.supply_team + self.research_team + self.production_team + self.market_team:
                 if person in self.s_div.people + self.r_div.people + self.p_div.people + self.m_div.people: #Only people in the office lower effectiveness, no loss on weekends, not in for the day, etc.
                     self.team_effectiveness += -1 #TODO: Make this dependant on charisma (High charisma have a lower impact on effectiveness) and happiness.
@@ -661,7 +661,7 @@ init -2 python:
                 sluttiness_multiplier = (slut_modifier/100.0) + 1
                 serum_value_multiplier = serum_value_multiplier * (sluttiness_multiplier)
 
-            multipliers_used = {} #Generate a dict with only the current max multipliers of each catagory.
+            multipliers_used = {} #Generate a dict with only the current max multipliers of each category.
             for multiplier_source in self.sales_multipliers:
                 if not multiplier_source[0] in multipliers_used:
                     multipliers_used[multiplier_source[0]] = multiplier_source[1]
@@ -815,10 +815,10 @@ init -2 python:
             eff_amount = self.hr_progress(mc.charisma,mc.int,mc.hr_skill)
             self.listener_system.fire_event("player_efficiency_restore", amount = eff_amount)
             self.listener_system.fire_event("general_work")
-            renpy.say("","You settle in and spend a few hours filling out paperwork, raising company efficency by " + str(eff_amount )+ "%%.")
+            renpy.say("","You settle in and spend a few hours filling out paperwork, raising company efficiency by " + str(eff_amount )+ "%%.")
             return eff_amount
 
-        def hr_progress(self,cha,int,skill): #Don't compute efficency cap here so that player HR effort will be applied against any efficency drop even though it's run before the rest of the end of the turn.
+        def hr_progress(self,cha,int,skill): #Don't compute efficiency cap here so that player HR effort will be applied against any efficiency drop even though it's run before the rest of the end of the turn.
             restore_amount = (3*cha) + (int) + (2*skill) + 5
             self.team_effectiveness += restore_amount
             return restore_amount
@@ -998,7 +998,7 @@ init -2 python:
 
         def remove_sales_multiplier(self, multiplier_class, multiplier):
             if [multiplier_class, multiplier] in self.sales_multipliers:
-                mc.log_event("No longer reciving " + str((multiplier - 1) * 100) + "% serum value increase from " + multiplier_class + ".", "float_text_grey")
+                mc.log_event("No longer receiving " + str((multiplier - 1) * 100) + "% serum value increase from " + multiplier_class + ".", "float_text_grey")
                 self.sales_multipliers.remove([multiplier_class, multiplier])
 
     class SerumDesign(renpy.store.object): #A class that represents a design for a serum built up from serum traits.
@@ -1330,7 +1330,7 @@ init -2 python:
             self.free_work_points = 0
             self.free_sex_points = 0
 
-            #The maximum score you can have in each of the major skill catagories
+            #The maximum score you can have in each of the major skill categories
             self.max_stats = 8
             self.max_work_skills = 8
             self.max_sex_skills = 8
@@ -1692,8 +1692,8 @@ init -2 python:
 
             ##Personality Stats##
             #Things like sugestability, that change over the course of the game when the player interacts with the girl
-            self.suggestibility = 0 + suggest #How quickly/efficently bleeding temporary sluttiness is turned into core sluttiness.
-            self.suggest_bag = [] #This will store a list of ints which are the different suggestion values fighting for control. Only the highest is used, maintained when serums are added and removed.
+            self.suggestibility = 0 + suggest #How quickly/efficiently bleeding temporary sluttiness is turned into core sluttiness.
+            self.suggest_bag = [] #This will store a list of hints which are the different suggestion values fighting for control. Only the highest is used, maintained when serums are added and removed.
 
             self.happiness = happiness #Higher happiness makes a girl less likely to quit and more willing to put up with you pushing her using obedience.
             self.love = love
@@ -1702,8 +1702,8 @@ init -2 python:
             self.obedience = 100 + obedience #How likely the girl is to listen to commands. Default is 100 (normal person), lower actively resists commands, higher follows them.
 
             #Situational modifiers are handled by events. These dicts and related functions provide a convenient way to avoid double contributions. Remember to clear your situational modifiers when you're done with them!!
-            self.situational_sluttiness = {} #A dict that stores a "situation" string and the corrisponding amount it is contributing to the girls sluttiness.
-            self.situational_obedience = {} #A dict that stores a "situation" string and a corrisponding amount that it has affected their obedience by.
+            self.situational_sluttiness = {} #A dict that stores a "situation" string and the corresponding amount it is contributing to the girls sluttiness.
+            self.situational_obedience = {} #A dict that stores a "situation" string and a corresponding amount that it has affected their obedience by.
 
             ##Sex Stats##
             #These are physical stats about the girl that impact how she behaves in a sex scene. Future values might include things like breast sensitivity, pussy tighness, etc.
@@ -2401,7 +2401,7 @@ init -2 python:
                 self.sluttiness += amount
                 return_report = "+" + str(amount) + " Sluttiness"
 
-                # We're experimenting with uncapping the sluttiness and having sluttiness in excess of your suggestability cap bleed off quickly and inefficently.
+                # We're experimenting with uncapping the sluttiness and having sluttiness in excess of your suggestability cap bleed off quickly and inefficiently.
                 # if self.sluttiness > self.core_sluttiness + self.suggestibility + 10:
                 #     self.sluttiness = self.core_sluttiness + self.suggestibility + 10 #Set it to our max.
                 #     return_report = "Sluttiness Cap Reached." #If we hit the cap, let them know that instead of the numeric amount.
@@ -2475,7 +2475,7 @@ init -2 python:
         def bleed_slut(self): #Reduce temp slut in order to increase core slut at a ratio determined by the suggest score.
             if self.sluttiness > self.core_sluttiness: #We need to bleed away sluttiness.
                 if self.suggestibility == 0 and self.title: #TODO: think about how much we need this now.
-                    mc.business.add_normal_message(self.title + " has a sluttiness higher then her core sluttiness. Raising her suggestibility with serum will turn temporary sluttiness into core sluttiness more quickly and efficently!")
+                    mc.business.add_normal_message(self.title + " has a sluttiness higher then her core sluttiness. Raising her suggestibility with serum will turn temporary sluttiness into core sluttiness more quickly and efficiently!")
 
                 if self.sluttiness > self.core_sluttiness + self.suggestibility:
                     #We need to bleed a lot because our suggestibility dropped.
@@ -2484,7 +2484,7 @@ init -2 python:
                         difference = 5
 
                     if renpy.random.randint(1,5) <= difference: #ie. there's a 20% chance per point over to increase it by a point.
-                        self.change_slut_core(1, add_to_log = False) #We're experimenting with sluttiness above your suggestability amount converting inefficently (instead of not at all)
+                        self.change_slut_core(1, add_to_log = False) #We're experimenting with sluttiness above your suggestability amount converting inefficiently (instead of not at all)
                     self.change_slut_temp(-difference, add_to_log = False)
 
                 # self.change_slut_temp(-3, add_to_log = False) #We're experimenting with only lowering the temporary sluttiness when the core sluttiness goes up.
@@ -3080,7 +3080,7 @@ init -2 python:
         if eyes is None:
             eyes = generate_eye_colour()
         elif isinstance(eyes, basestring):
-            eyes = generate_eye_colour(eyes) #If it's a string assume we want a variation within that eye catagory
+            eyes = generate_eye_colour(eyes) #If it's a string assume we want a variation within that eye category
         # else: we assume at this point what was passed is a correct [description, colour] list.
 
         if skin is None:
@@ -3712,7 +3712,7 @@ init -2 python:
 
     class Listener_Management_System(renpy.store.object): #Used to manage listeners in objects. Contains functiosn for enrolling and removing triggers as well as firing notices to those triggers.
         def __init__(self):
-            self.event_dict = {} #THis dictionary uses strings as keys (the trigger that is called) and each key holds a list of goals. When an event is triggered each listener enrolled to the key recieves a notice (the on_trigger_funciton is called)
+            self.event_dict = {} #THis dictionary uses strings as keys (the trigger that is called) and each key holds a list of goals. When an event is triggered each listener enrolled to the key receives a notice (the on_trigger_funciton is called)
 
         def enroll_goal(self, trigger_name, the_goal):
             if trigger_name in self.event_dict:
@@ -5168,10 +5168,10 @@ init -2 python:
             self.requires_hard = requires_hard
             self.requires_large_tits = requires_large_tits
 
-            self.girl_arousal = girl_arousal # The base arousal the girl recieves from this position.
+            self.girl_arousal = girl_arousal # The base arousal the girl receives from this position.
             self.girl_energy = girl_energy # The amount of energy the girl spends on this position.
 
-            self.guy_arousal = guy_arousal # The base arousal the guy recieves from this position.
+            self.guy_arousal = guy_arousal # The base arousal the guy receives from this position.
             self.guy_energy = guy_energy # The base energy the guy spends on this position.
 
             self.position_tag = position_tag # The tag used to get the correct position image set.
@@ -5719,7 +5719,7 @@ screen character_create_screen():
                     textbutton "<" action [SetScreenVariable("h_skill",h_skill-1), SetScreenVariable("character_points", character_points+1)] sensitive h_skill>0 style "textbutton_style" text_style "textbutton_text_style"
                     text str(h_skill)+"/[work_skill_max]" style "textbutton_text_style"
                     textbutton ">" action [SetScreenVariable("h_skill",h_skill+1), SetScreenVariable("character_points", character_points-1)] sensitive character_points>0 and h_skill<work_skill_max style "textbutton_style" text_style "textbutton_text_style"
-                text "     Your skill at human resources. Crutial for maintaining an efficent business." style "menu_text_style"
+                text "     Your skill at human resources. Crutial for maintaining an efficient business." style "menu_text_style"
                 null height 30
                 hbox:
                     text "Marketing: " style "menu_text_style"
@@ -5768,7 +5768,7 @@ screen character_create_screen():
                     textbutton "<" action [SetScreenVariable("O_skill",O_skill-1), SetScreenVariable("character_points", character_points+1)] sensitive O_skill>0 style "textbutton_style" text_style "textbutton_text_style"
                     text str(O_skill)+"/[sex_skill_max]" style "textbutton_text_style"
                     textbutton ">" action [SetScreenVariable("O_skill",O_skill+1), SetScreenVariable("character_points", character_points-1)] sensitive character_points>0 and O_skill<sex_skill_max style "textbutton_style" text_style "textbutton_text_style"
-                text "     Your skill at giving oral to women, as well as being a pleasant recipiant." style "menu_text_style"
+                text "     Your skill at giving oral to women, as well as being a pleasant recipient." style "menu_text_style"
                 null height 30
                 hbox:
                     text "Vaginal: " style "menu_text_style"
@@ -5949,14 +5949,14 @@ screen business_ui(): #Shows some information about your business.
                 action NullAction()
                 sensitive True
 
-            textbutton "Company Efficency: [mc.business.team_effectiveness]%":
+            textbutton "Company Efficiency: [mc.business.team_effectiveness]%":
                 ysize 28
                 text_style "menu_text_style"
-                tooltip "The more employees you have the faster your company will become inefficent. Perform HR work at your office or hire someone to do it for you to raise your company efficency. All productivity is modified by company efficency."
+                tooltip "The more employees you have the faster your company will become inefficient. Perform HR work at your office or hire someone to do it for you to raise your company efficiency. All productivity is modified by company efficiency."
                 action NullAction()
                 sensitive True
 
-            textbutton "Current Raw Supplys: " + str(int(mc.business.supply_count)) +"/[mc.business.supply_goal]":
+            textbutton "Current Raw Supplies: " + str(int(mc.business.supply_count)) +"/[mc.business.supply_goal]":
                 ysize 28
                 text_style "menu_text_style"
                 tooltip "Your current and goal amounts of serum supply. Manufacturing serum requires supplies, spend time ordering supplies from your office or hire someone to do it for you. Raise your supply goal from your office if you want to keep more supply stockpiled."
@@ -6004,7 +6004,7 @@ screen end_of_day_update():
             xsize 1500
             ysize 200
             text "Daily Statistics:" style "textbutton_text_style" size 20
-            text "     " + "Current Efficency Modifier: " + str(mc.business.team_effectiveness) + "%" style "textbutton_text_style"
+            text "     " + "Current Efficiency Modifier: " + str(mc.business.team_effectiveness) + "%" style "textbutton_text_style"
             text "     " + "Production Potential: " + str(mc.business.production_potential) style "textbutton_text_style"
             text "     " + "Supplies Procured: " + str(mc.business.supplies_purchased) + " Units" style "textbutton_text_style"
             text "     " + "Production Used: " + str(mc.business.production_used) style "textbutton_text_style"
@@ -6198,7 +6198,7 @@ screen person_info_ui(the_person): #Used to display stats for a person while you
             elif the_person.situational_sluttiness[situation][0] < 0:
                 negative_effects += get_coloured_arrow(-1)+get_red_heart(-the_person.situational_sluttiness[situation][0])+" - " + the_person.situational_sluttiness[situation][1] + "\n"
         formatted_tooltip += positive_effects + negative_effects
-        formatted_tooltip += "The higher a girls sluttiness the more slutty actions she will consider acceptable and normal. Temporary sluttiness (" + get_red_heart(20) + ") is easier to raise but drops slowly over time. Core sluttiness (" + get_gold_heart(20) + ") is permanent, but only increases slowly unless a girl is suggestable."
+        formatted_tooltip += "The higher a girls sluttiness the more slutty actions she will consider acceptable and normal. Temporary sluttiness (" + get_red_heart(20) + ") is easier to raise but drops slowly over time. Core sluttiness (" + get_gold_heart(20) + ") is permanent, but only increases slowly unless a girl is suggestible."
 
         positive_effects = ""
         negative_effects = ""
@@ -6788,7 +6788,7 @@ screen interview_ui(the_candidates,count):
             ysize 200
             vbox:
                 text "Expected Production" style "menu_text_style" size 30
-                text "    Human Resources: +" + str(the_candidate.hr_skill*2 + the_candidate.charisma*3 + the_candidate.int + 10) + "% Company efficency per time chunk." style "menu_text_style" size 16
+                text "    Human Resources: +" + str(the_candidate.hr_skill*2 + the_candidate.charisma*3 + the_candidate.int + 10) + "% Company efficiency per time chunk." style "menu_text_style" size 16
                 text "    Marketing: " + str(the_candidate.market_skill*2 + the_candidate.charisma*3 + the_candidate.focus + 10) + " Units of serum sold per time chunk." style "menu_text_style" size 16
                 text "    Research and Development: " + str(the_candidate.research_skill*2 + the_candidate.int*3 + the_candidate.focus + 10) + " Research points per time chunk." style "menu_text_style" size 16
                 text "    Production: " + str(the_candidate.production_skill*2 + the_candidate.focus*3 + the_candidate.int + 10) + " Production points per time chunk." style "menu_text_style" size 16
@@ -7599,10 +7599,10 @@ screen outfit_creator(starting_outfit, outfit_type = "full"): ##Pass a completel
     else:
         $ valid_layers = [0,1,2,3]
 
-    $ valid_catagories = ["Panties", "Bras", "Pants", "Skirts", "Dresses", "Shirts", "Socks", "Shoes", "Facial", "Rings", "Bracelets", "Neckwear"] #Holds the valid list of catagories strings to be shown at the top.
+    $ valid_catagories = ["Panties", "Bras", "Pants", "Skirts", "Dresses", "Shirts", "Socks", "Shoes", "Facial", "Rings", "Bracelets", "Neckwear"] #Holds the valid list of categories strings to be shown at the top.
 
     $ catagories_mapping = {
-        "Panties": [panties_list, Outfit.can_add_lower, Outfit.add_lower],  #Maps each catagory to the function it should use to determine if it is valid and how it should be added to the outfit.
+        "Panties": [panties_list, Outfit.can_add_lower, Outfit.add_lower],  #Maps each category to the function it should use to determine if it is valid and how it should be added to the outfit.
         "Bras": [bra_list, Outfit.can_add_upper, Outfit.add_upper],
         "Pants": [pants_list, Outfit.can_add_lower, Outfit.add_lower],
         "Skirts": [skirts_list, Outfit.can_add_lower, Outfit.add_lower],
@@ -7626,7 +7626,7 @@ screen outfit_creator(starting_outfit, outfit_type = "full"): ##Pass a completel
     default selected_clothing = None
     # $ current_colour = [1.0,1.0,1.0,1.0] #This is the colour we will apply to all of the clothing
 
-    #Each catagory below has a click to enable button. If it's false, we don't show anything for it.
+    #Each category below has a click to enable button. If it's false, we don't show anything for it.
     #TODO: refactor this outfit creator to remove as much duplication as possible.
 
     hbox: #The main divider between the new item adder and the current outfit view.
@@ -7655,7 +7655,7 @@ screen outfit_creator(starting_outfit, outfit_type = "full"): ##Pass a completel
                             text_align(0.5,0.5)
                             text_anchor(0.5,0.5)
                             xysize (220, 60)
-                            action [SetScreenVariable("catagory_selected",catagory), SetScreenVariable("selected_clothing", None), SetScreenVariable("selected_colour", "colour")] #Set the clothing to None when you change catagories to avoid breaking the clothing add function assignments
+                            action [SetScreenVariable("catagory_selected",catagory), SetScreenVariable("selected_clothing", None), SetScreenVariable("selected_colour", "colour")] #Set the clothing to None when you change categories to avoid breaking the clothing add function assignments
                 vbox:
                     spacing 15
                     viewport:
@@ -8409,12 +8409,12 @@ init -2 screen policy_selection_screen():
     zorder 100
     $ tooltip = GetTooltip()
     $ catagories = [["Uniform Policies",uniform_policies_list], ["Recruitment Policies",recruitment_policies_list], ["Serum Policies",serum_policies_list], ["Organisation Policies",organisation_policies_list]]
-    default selected_catagory = catagories[0] #Default to the first in our catagories list
+    default selected_catagory = catagories[0] #Default to the first in our categories list
     vbox:
         xalign 0.5
         yalign 0.15
         spacing 30
-        frame: #Top frame holding the policy catagories that we have.
+        frame: #Top frame holding the policy categories that we have.
             xsize 1320
             ysize 140
             background "#1a45a1aa"
@@ -8585,7 +8585,7 @@ style float_text_blue is float_text:
 
 label start:
     scene bg paper_menu_background with fade
-    "Lab Rats 2 contains adult content. If you are not over 18 or your contries equivalent age you should not view this content."
+    "Lab Rats 2 contains adult content. If you are not over 18 or your countries equivalent age you should not view this content."
     menu:
         "I am over 18.":
             "Excellent, let's continue then."
@@ -8630,19 +8630,19 @@ label tutorial_start:
 
     "Your experimentation with the inhibition removing serum was fun, but in the end the effects were temporary."
     "The end of the summer also meant the end of your access to the serum making supplies."
-    "Little by litle the women slid back into into their previous lives."
+    "Little by little the women slid back into into their previous lives."
 
     scene
     $ bedroom.show_background()
 
     "Four months ago you graduated from university with a degree in chemical engineering."
     "Since then you have been living at home and sending out resumes. You have had several interviews, but no job offers yet."
-    "Today you have have an interview with a small pharmacutical company. You've gotten up early and dressed in your finest suit."
+    "Today you have an interview with a small pharmacutical company. You've gotten up early and dressed in your finest suit."
     $ hall.show_background()
     "You head for the front door, eager to get to your interview early."
     mom.char "[mom.mc_title], are you leaving already?"
     "[mom.possessive_title]'s voice comes from the kitchen, along with the smell of breakfast."
-    mc.name "Yeah, I want make sure I make it on time."
+    mc.name "Yeah, I want to make sure I make it on time."
     mom.char "You haven't had any breakfast yet. You should eat, I'll drive you if you're running late."
     "The smell of cooked toast and frying eggs wins you over and you head to the kitchen."
     $ kitchen.show_background()
@@ -8667,7 +8667,7 @@ label tutorial_start:
     "It takes an hour on public transit then a short walk to find the building. It's a small single level office attached to a slightly larger warehouse style building."
     "You pull on the door handle. It thunks loudly - locked. You try the other one and get the same result."
     mc.name "Hello?"
-    "You pull on the locked door again, then take a step back and look around for another enterance you might have missed. You don't see any."
+    "You pull on the locked door again, then take a step back and look around for another entrance you might have missed. You don't see any."
     "You get your phone out and call the contact number you were given a few days earlier. It goes immediately to a generic voice mail system."
     "With nothing left to do you give up and turn around. Suddenly there's a click and the front door to the office swings open."
     "Janitor" "Hey, who's making all that noise?"
@@ -8679,7 +8679,7 @@ label tutorial_start:
     "The man, who you assume is a janitor of some sort, hands you one of the sheets of paper he's holding."
     "It features a picture of the building along with an address matching the one you were given and a large \"FORECLOSED\" label along the top."
     "The janitor turns around and holds a page up to the front door, then sticks it in place with tape around all four edges."
-    "Janitor" "They must have been neck deep in dept, if that makes you feel better about not working for 'em."
+    "Janitor" "They must have been neck deep in debt, if that makes you feel better about not working for 'em."
     "Janitor" "They left all their science stuff behind; must've been worth less than the debt they're ditching."
     mc.name "So everything's still in there?"
     "Janitor" "Seems like it. Bank doesn't know where to sell it and didn't want me to warehouse it, so it goes with the property."
@@ -8692,7 +8692,7 @@ label tutorial_start:
     "You step inside the building and take a walk around."
     "The main office building contains a small lab, much like the one you worked at while you were in university, suitable for research and development tasks."
     "The connected warehouse space has a basic chemical production line installed. The machines are all off-brand but seem functional."
-    "At the back of the building is a loading dock for shipping and recieving materials."
+    "At the back of the building is a loading dock for shipping and receiving materials."
     "While you're exploring you hear the janitor yell from across the building."
     "Janitor" "I need to be heading off. Are ya done in there?"
     mc.name "Yeah, I'm done. Thanks again."
@@ -8706,7 +8706,7 @@ label tutorial_start:
     "Mom looks over the paperwork you've laid out. Property cost, equipment value, and potential earnings are all listed."
     mom.char "And you've checked all the numbers?"
     mc.name "Three times."
-    mom.char "It's just... this is a lot of money [mom.mc_title]. I would need to take a second morgage out on the house."
+    mom.char "It's just... this is a lot of money [mom.mc_title]. I would need to take a second mortgage out on the house."
     mc.name "And I'll be able to pay for that. This is the chance of a life time Mom."
     mom.char "What was it you said you were going to make again?"
     mc.name "When I was working at the lab last summer we developed some prototype chemical carriers. I think they have huge commercial potential."
@@ -8724,7 +8724,7 @@ label tutorial_start:
     lily.char "Is that what you've been excited about the last couple days? What're you actually making?"
     mc.name "I'll have to tell you more about it later Lily, I've got some calls to make. Thanks Mom, you're the best!"
     $ renpy.scene("Active")
-    "You leave [mom.possessive_title] and sister in the kitchen to talk retreat to your room for some privacy."
+    "You leave [mom.possessive_title] and sister in the kitchen to talk and retreat to your room for some privacy."
 
     $ bedroom.show_background()
     "You can manage the machinery of the lab, but you're going to need help refining the serum design from last year."
@@ -8742,7 +8742,7 @@ label tutorial_start:
     "When you arrive [stephanie.title] is sitting at the bar with a drink already. She smiles and raises her glass."
     $ stephanie.draw_person(position = "sitting", emotion = "happy")
     stephanie.char "Hey [stephanie.mc_title], it's great to see you!"
-    "She she stands and gives you a hug."
+    "She stands and gives you a hug."
     stephanie.char "That was a crazy summer we had together. It seems like such a blur now, but I had a lot of fun."
     mc.name "Me too, that's actually part of what I want to talk to you about."
     "You order a drink for yourself and sit down."
@@ -8767,8 +8767,8 @@ label tutorial_start:
     stephanie.char "Ah... Okay, so I've got some thoughts already..."
     "Stephanie grabs a napkin and starts doodling on it. You spend the rest of the night with her, drinking and talking until you have to say goodbye."
     $ renpy.scene("Active")
-    "A week later [mom.possessive_title] has a new morgage on the house and purchases the lab in your name."
-    "You are the sole shareholder of your own company and [stephanie.title] is first, and so far only, employee. She takes her position as your head researcher."
+    "A week later [mom.possessive_title] has a new mortgage on the house and purchases the lab in your name."
+    "You are the sole shareholder of your own company and [stephanie.title] is the first, and so far only, employee. She takes her position as your head researcher."
     $ mc.business.event_triggers_dict["Tutorial_Section"] = True
     #$ mc.can_skip_time = False
     python: #To begin the tutorial we limit where people can travel!
@@ -8806,7 +8806,7 @@ label faq_loop:
         "Gameplay Basics.":
             menu:
                 "Making Serum.":
-                    "Vren" "Making serum in your lab is the most important task for success in Lab Rats 2. You begin the game with a fully equipt lab."
+                    "Vren" "Making serum in your lab is the most important task for success in Lab Rats 2. You begin the game with a fully equipped lab."
                     "Vren" "The first step to make a serum is to design it in your lab. The most basic serum design can be made without any additions, but most will be made by adding serum traits."
                     "Vren" "Serum traits modify the effects of a serum. The effects can be simple - increasing duration or Suggestion increase - or it may be much more complicated."
                     "Vren" "Each serum design has a limited number of trait slots. The number of slots can be increased by using more advanced serum production techniques."
@@ -8833,19 +8833,19 @@ label faq_loop:
                     "Vren" "Each girl has a Core Sluttiness value. This is the level of sluttiness they think is appropriate without any external influence. Core sluttiness looks like this: {image=gui/heart/gold_heart.png}"
                     "Vren" "They also have a Temporary Sluttiness value, which fluctuates up and down based on recent events. Temporary sluttiness looks like this: {image=gui/heart/red_heart.png}"
                     "Vren" "A girls Temporary Sluttiness will decrease if it is higher than her Core Sluttiness. If Suggestibility is higher than 0 there is a chance for the Temporary sluttiness to turn into Core sluttiness."
-                    "Vren" "Suggesibility has another use. It will increase the cap for Temporary sluttiness. Temporary sluttiness looks like this: {image=gui/heart/grey_heart.png}"
+                    "Vren" "Suggestibility has another use. It will increase the cap for Temporary sluttiness. Temporary sluttiness looks like this: {image=gui/heart/grey_heart.png}"
                     "Vren" "Interacting with a girl is the most direct way to change their Obedience or Sluttiness. There may also be random events that change their scores."
-                    "Vren" "Most actions have a minimum Temporary sluttiness rquirement before they can be attempted and a maximum Temporary sluttiness they will have an effect on."
-                    "Vren" "Having sex with a girl is nessesary to increase her sluttiness to the highest levels. Higher arousal will make a girl more willing to strip down or have sex."
+                    "Vren" "Most actions have a minimum Temporary sluttiness requirement before they can be attempted and a maximum Temporary sluttiness they will have an effect on."
+                    "Vren" "Having sex with a girl is necessary to increase her sluttiness to the highest levels. Higher arousal will make a girl more willing to strip down or have sex."
                     "Vren" "If you are able to make a girl cum she will immediately start to turn Temporary sluttiness into core sluttiness."
                     "Vren" "As a girls Sluttiness increases she will be more willing to wear revealing clothing or have sex with you."
                     "Vren" "As her Obedience increase she will be more deferential. She may be willing to have sex simply because you ask, even if she is not normally slutty enough."
 
-                "Leveling Up.":
-                    "Vren" "There are three main catagories of experience: Stats, Work Skills, and Sex Skills."
-                    "Vren" "For each of these catagories you will have a goal assigned. When that goal is completed you will recieve one point to spend on any of the scores in that catagory."
+                "Levelling Up.":
+                    "Vren" "There are three main categories of experience: Stats, Work Skills, and Sex Skills."
+                    "Vren" "For each of these categories you will have a goal assigned. When that goal is completed you will receive one point to spend on any of the scores in that category."
                     "Vren" "Once per day you may also scrap a goal that is overly difficult or not possible to complete yet."
-                    "Vren" "When you complete a goal future goals in that catagory will increase in difficulty. Spend your early points wisely!"
+                    "Vren" "When you complete a goal future goals in that category will increase in difficulty. Spend your early points wisely!"
                     "Vren" "Some goals are only checked at the end of the day or end of a turn, so if you have a goal that should be completed but is not giving you the option try advancing time."
 
         "Development Questions.":
@@ -8859,7 +8859,7 @@ label faq_loop:
 
                 "Why are their holes in some pieces of clothing?":
                     "Vren" "Some character positions cause portions of the character model to poke out of their clothing when I am rendering them."
-                    "Vren" "I will be adjusting my render settings and rerendering any clothing items that need it as we go forward."
+                    "Vren" "I will be adjusting my render settings and re-rendering any clothing items that need it as we go forward."
 
         "Done.":
             return
@@ -9097,7 +9097,7 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
 
                 if picked_option.has_taboo(["underwear_nudity","bare_tits", "bare_pussy"]) and picked_option.judge_outfit(picked_option.outfit, -30): #If she's in anything close to slutty she's self-concious enough to coment on it.
                     if picked_option.outfit.vagina_visible() and picked_option.has_taboo("bare_pussy") and picked_option.outfit.tits_visible() and picked_option.has_taboo("bare_tits"):
-                        "[picked_option.title] doesn't say anything about it, but seems unconfortable being naked in front of you."
+                        "[picked_option.title] doesn't say anything about it, but seems uncomfortable being naked in front of you."
                         "As you talk she seems to become more comfortable with her own nudity, even if she isn't thrilled by it."
 
                     if picked_option.outfit.vagina_visible() and picked_option.has_taboo("bare_pussy"):
@@ -9109,7 +9109,7 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                         if picked_option.has_large_tits():
                             "Her large chest isn't easy to hide, and she quickly realises it's hopeless."
                         else:
-                            "As you talk she seems to become more comfortable, and eventaully lets her arms drop again."
+                            "As you talk she seems to become more comfortable, and eventually lets her arms drop again."
 
                     elif ((picked_option.outfit.wearing_panties() and not picked_option.outfit.panties_covered()) or (picked_option.outfit.wearing_bra() and not picked_option.outfit.bra_covered())) and picked_option.has_taboo("underwear_nudity"):
                         "[picked_option.title] doesn't say anything about it, but she tries to cover up her underwear with her hands."
@@ -9173,7 +9173,7 @@ init -2 python:
         small_talk_action = Action("Make small talk   {color=#FFFF00}-15{/color} {image=gui/extra_images/energy_token.png}", requirement = small_talk_requirement, effect = "small_talk_person", args=the_person, requirement_args=the_person,
             menu_tooltip = "A pleasant chat about your likes and dislikes. A good way to get to know someone and the first step to building a lasting relationship. Provides a chance to study the effects of active serum traits and raise their mastery level.")
         compliment_action = Action("Compliment her   {color=#FFFF00}-15{/color} {image=gui/extra_images/energy_token.png}", requirement = compliment_requirement, effect = "compliment_person", args=the_person, requirement_args=the_person,
-            menu_tooltip = "Lay the charm on thick and heavy. A great way to build a relationship, and every girl is happy to recieve a compliment! Provides a chance to study the effects of active serum traits and raise their mastery level.")
+            menu_tooltip = "Lay the charm on thick and heavy. A great way to build a relationship, and every girl is happy to receive a compliment! Provides a chance to study the effects of active serum traits and raise their mastery level.")
         flirt_action = Action("Flirt with her   {color=#FFFF00}-15{/color} {image=gui/extra_images/energy_token.png}", requirement = flirt_requirement, effect = "flirt_person", args=the_person, requirement_args=the_person,
             menu_tooltip = "A conversation filled with innuendo and double entendre. Both improves your relationship with a girl and helps make her a little bit sluttier. Provides a chance to study the effects of active serum traits and raise their mastery level.")
         date_action = Action("Ask her on a date", requirement = date_option_requirement, effect = "date_person", args=the_person, requirement_args=the_person,
@@ -9459,7 +9459,7 @@ label hire_someone(new_person, add_to_location = False): # Breaks out some of th
             town_relationships.begin_relationship(new_person, other_employee) #They are introduced to everyone at work, with a starting value of "Acquaintance"
         del other_employee
 
-    "You complete the nessesary paperwork and hire [new_person.name]. What division do you assign them to?"
+    "You complete the necessary paperwork and hire [new_person.name]. What division do you assign them to?"
     menu:
         "Research and Development.":
             $ mc.business.add_employee_research(new_person)
@@ -9667,7 +9667,7 @@ label set_uniform_description:
         "Add an underwear set." if not limited_to_top:
             $ uniform_mode = "under"
 
-        "Add an underwear set.\n{size=22}Rquires: Reduced Coverage Corporate Uniforms{/size} (disabled)" if limited_to_top:
+        "Add an underwear set.\n{size=22}Requires: Reduced Coverage Corporate Uniforms{/size} (disabled)" if limited_to_top:
             pass
 
         "Remove a uniform or set.":
@@ -9959,7 +9959,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
     python:
         ##Actions##
         hr_work_action = Action("Organize your business {image=gui/heart/Time_Advance.png}",hr_work_action_requirement,"hr_work_action_description",
-            menu_tooltip = "Raise business efficency, which drops over time based on how many employees the business has.\n+3*Charisma + 2*Skill + 1*Intelligence + 5 Efficency.")
+            menu_tooltip = "Raise business efficiency, which drops over time based on how many employees the business has.\n+3*Charisma + 2*Skill + 1*Intelligence + 5 Efficiency.")
         research_work_action = Action("Research in the lab {image=gui/heart/Time_Advance.png}",research_work_action_requirement,"research_work_action_description",
             menu_tooltip = "Contribute research points towards the currently selected project.\n+3*Intelligence + 2*Skill + 1*Focus + 10 Research Points.")
         supplies_work_action = Action("Ordering Supplies {image=gui/heart/Time_Advance.png}",supplies_work_action_requirement,"supplies_work_action_description",
@@ -9982,7 +9982,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
         policy_purhase_action = Action("Purchase business policies", policy_purchase_requirement,"policy_purchase_description",
             menu_tooltip = "New business policies changes the way your company runs and expands your control over it. Once purchased business policies are always active.")
         set_head_researcher_action = Action("Select a Head Researcher", head_researcher_select_requirement, "head_researcher_select_description",
-            menu_tooltip = "Pick a member of your R&D staff to be your head researcher. A head resercher with a high intelligence score will increase the amount of research produced by the entire division.")
+            menu_tooltip = "Pick a member of your R&D staff to be your head researcher. A head researcher with a high intelligence score will increase the amount of research produced by the entire division.")
 
         trade_serum_action = Action("Access production stockpile", trade_serum_action_requirement, "trade_serum_action_description",
             menu_tooltip = "Move serum to and from your personal inventory. You can only use serum you are carrying with you.")

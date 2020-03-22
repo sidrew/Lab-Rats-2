@@ -423,7 +423,7 @@ label breeding_mom_label(the_person):
         "Fuck her and try to breed her.":
             "You nod, and the mere the confirmation makes her shiver. She lies down on the bed and holds out her hands for you."
             $ the_person.draw_person(position = "missionary")
-            "You strip down and climb on top of her. The tip of your hard cock runs along the enterance of her cunt and finds it dripping wet."
+            "You strip down and climb on top of her. The tip of your hard cock runs along the entrance of her cunt and finds it dripping wet."
             the_person.char "Go in raw [the_person.mc_title], enjoy my pussy and give me your cum!"
             $ the_person.break_taboo("vaginal_sex")
             $ the_person.break_taboo("condomless_sex")
