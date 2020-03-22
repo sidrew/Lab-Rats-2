@@ -85,19 +85,16 @@ label employee_pay_cash_bonus(the_person):
         "Give her a pat on the back.":
             mc.name "And I'll absolutely do that once the next batch of sales go through."
             $ the_person.draw_person(emotion = "sad")
-            $ change_amount = 5-mc.charisma
-            if change_amount < 0:
-                $ change_amount = 0
-            $ the_person.change_happiness(change_amount)
+            if 5 - mc.charisma > 0:
+                $ the_person.change_happiness(5 - mc.charisma)
             "[the_person.title] looks visibly disappointed."
             the_person.char "Right, of course."
 
         "Give her a days wages. -$[the_person.salary]" if mc.business.funds >= the_person.salary:
             mc.name "Here you go, treat yourself to something nice tonight."
             $ the_person.draw_person(emotion = "happy")
-            $ change_amount = 1+mc.charisma
             $ mc.business.funds -= the_person.salary
-            $ the_person.change_happiness(change_amount)
+            $ the_person.change_happiness(1 + mc.charisma)
             "[the_person.title] takes the bills from you and smiles."
             the_person.char "Thank you sir."
 
@@ -105,10 +102,8 @@ label employee_pay_cash_bonus(the_person):
         "Give her a weeks wages. -$[weeks_wages]" if mc.business.funds >= weeks_wages:
             mc.name "Here you go, don't spend it all in once place."
             $ the_person.draw_person(emotion = "happy")
-            $ change_amount = 1+mc.charisma
-            $ change_amount_happiness = 5+mc.charisma
-            $ the_person.change_happiness(change_amount_happiness)
-            $ the_person.change_obedience(change_amount)
+            $ the_person.change_happiness(5 + mc.charisma)
+            $ the_person.change_obedience(1 + mc.charisma)
             $ mc.business.funds -= weeks_wages
             "[the_person.title] takes the bills, then smiles broadly at you."
             the_person.char "That's very generous of you sir, thank you."
@@ -116,10 +111,8 @@ label employee_pay_cash_bonus(the_person):
         "Give her a months wages. -$[months_wages]" if mc.business.funds >= months_wages:
             mc.name "Here, you're a key part of the team and you deserved to be rewarded as such."
             $ the_person.draw_person(emotion = "happy")
-            $ change_amount = 5+mc.charisma
-            $ change_amount_happiness = 10+mc.charisma
-            $ the_person.change_happiness(change_amount_happiness)
-            $ the_person.change_obedience(change_amount)
+            $ the_person.change_happiness(10 + mc.charisma)
+            $ the_person.change_obedience(5 + mc.charisma)
             $ mc.business.funds -= months_wages
             "[the_person.title] takes the bills, momentarily stunned by the amount."
             if the_person.effective_sluttiness() > 40 and the_person.happiness > 100:

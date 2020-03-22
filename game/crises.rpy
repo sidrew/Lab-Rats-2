@@ -663,8 +663,7 @@ label office_flirt_label():
                 $ the_person.draw_person(position = "back_peek") #Draw her standing up properly in her normal pose.
                 if the_person.sluttiness > 30:
                     the_person.char "Getting a good view?"
-                    $ change_amount = 5
-                    $ slut_report = the_person.change_slut_temp(change_amount)
+                    $ slut_report = the_person.change_slut_temp(5)
                     "[the_person.possessive_title] shakes her butt for you a little and laughs."
                     the_person.char "Seriously though, could you come give me a hand?"
                     mc.name "Sure, what are you looking for?"
@@ -722,7 +721,7 @@ label office_flirt_label():
                 "[the_person.possessive_title] spreads her legs and bends her knees, waving her ass side to side and up and down for you."
                 #if she's wearing something on the bottom and the outfit isn't too slutty, take off her bottom bit.
                 if len(the_person.outfit.get_lower_ordered()) > 0: #ie. she's wearing something to take off
-                    $ test_outfit = copy.deepcopy(the_person.outfit)
+                    $ test_outfit = the_person.outfit.get_copy()
                     $ the_item = test_outfit.get_lower_ordered()[-1] #Get the top layer item
                     $ test_outfit.remove_clothing(the_item)
                     if the_person.judge_outfit(test_outfit):
@@ -736,8 +735,7 @@ label office_flirt_label():
                         "After a minute of teasing you she stops, stands up, and turns towards you."
                         $ the_person.change_happiness(5)
                         $ the_person.change_obedience(1)
-                        $ change_amount = 10
-                        $ slut_report = the_person.change_slut_temp(change_amount)
+                        $ slut_report = the_person.change_slut_temp(10)
                         the_person.char "Hope you had a good time, I should really be getting back to work though. Feel free to watch me leave."
                         $ the_person.draw_person(position = "walking_away")
                         "[the_person.possessive_title] grabs her [the_item.name], turns back to the shelf, and finally finds the binder she was looking for. She takes it and walks past you, making sure to shake her ass as you watch."
@@ -750,8 +748,7 @@ label office_flirt_label():
                         "After a minute of teasing you she stops, stands up, and turns towards you."
                         $ the_person.change_happiness(5)
                         $ the_person.change_obedience(1)
-                        $ change_amount = 10
-                        $ slut_report = the_person.change_slut_temp(change_amount)
+                        $ slut_report = the_person.change_slut_temp(10)
                         the_person.char "Hope you had a good time, I should really be getting back to work though. Feel free to watch me leave."
                         $ the_person.draw_person(position="walking_away")
                         "[the_person.title] winks at you, then turns back to the shelf and resumes her search. When she finds it she walks back past you, making sure to shake her ass as you watch."
@@ -764,8 +761,7 @@ label office_flirt_label():
                     the_person.char "Sorry to end the show, but I've got what I need. Feel free to watch me leave though."
                     $ the_person.change_happiness(5)
                     $ the_person.change_obedience(1)
-                    $ change_amount = 10
-                    $ slut_report = the_person.change_slut_temp(change_amount)
+                    $ slut_report = the_person.change_slut_temp(10)
                     $ the_person.draw_person(position="walking_away")
                     "She winks and walks past your desk, making sure to shake her ass as you watch."
 
@@ -794,8 +790,7 @@ label office_flirt_label():
                             "Get back to work.":
                                 mc.name "Sorry [the_person.title], but I've got stuff to get done right now. You'll have to take care of that yourself."
                                 $ the_person.change_obedience(5)
-                                $ change_amount = 2
-                                $ slut_report = the_person.change_slut_temp(change_amount)
+                                $ slut_report = the_person.change_slut_temp(2)
                                 if the_person.obedience > 110:
                                     "She nods and holds the binder close. She looks you up and down one last time, then walks back to her work station. You watch her from behind as she goes."
                                 else:
@@ -815,8 +810,7 @@ label office_flirt_label():
                         the_person.char "Sorry to finish so soon, but I've got what I need. Feel free to watch me leave though."
                         $ the_person.change_happiness(5)
                         $ the_person.change_obedience(2)
-                        $ change_amount = 10
-                        $ slut_report = the_person.change_slut_temp(change_amount)
+                        $ slut_report = the_person.change_slut_temp(10)
                         "She winks and walks past your desk, making sure to shake her ass as you watch."
     $ renpy.scene("Active")
     return
@@ -1134,22 +1128,18 @@ label water_spill_crisis_label():
     the_person.char "I had a few questions about how my taxes were going to be calculated this year, and I was hoping you could answer some of them."
     "You listen as [the_person.possessive_title] dives into her tax situation."
     "You aren't paying a terrible amount of attention until she goes to take a drink from her water bottle and dumps it down her front!"
-    $ dry_colour = the_clothing.colour
-    $ wet_colour = copy.copy(dry_colour)
-
-    $ wet_colour[3] = 0.85 * wet_colour[3]
-    $ the_clothing.colour = wet_colour
+    $ the_clothing.colour[3] *= .8
     $ the_person.draw_person(emotion="angry")
     $ the_person.call_dialogue("suprised_exclaim")
     "She tries to wipe the water off, but not before it's soaked through the front of her [the_clothing.name]."
-    $ test_outfit = copy.deepcopy(the_person.outfit) #Make a copy, we'll try removing the wet item and reevaluating.
+    $ test_outfit = the_person.outfit.get_copy() #Make a copy, we'll try removing the wet item and reevaluating.
     $ test_outfit.remove_clothing(the_clothing)
     $ thinks_appropriate = the_person.judge_outfit(test_outfit,10) #Does she think it's appropriate to strip off her top when it's wet?
     if not thinks_appropriate:
         the_person.char "I'm so sorry about this [the_person.mc_title], I just... I just need to go and dry this off!"
         $ renpy.scene("Active")
         "[the_person.title] runs off towards the bathroom."
-        $ the_clothing.colour = dry_colour
+        $ the_clothing.colour[3] *= 1.25
         "After a few minutes she's back, with her [the_clothing.name] dried off and no longer transparent."
         $ the_person.draw_person()
         $ slut_report = the_person.change_slut_temp(1)
@@ -1223,7 +1213,7 @@ label water_spill_crisis_label():
                     the_person.char "I'll be back as soon as I can."
                     $ renpy.scene("Active")
                     "[the_person.title] runs off towards the bathroom."
-                    $ the_clothing.colour = dry_colour
+                    $ the_clothing.colour[3] *= 1.25
                     "After a few minutes she's back, with her [the_clothing.name] dried off and no longer transparent."
                     $ the_person.draw_person()
                     $ slut_report = the_person.change_slut_temp(1)
@@ -1240,7 +1230,7 @@ label water_spill_crisis_label():
                     $ the_person.change_obedience(1)
                     $ slut_report = the_person.change_slut_temp(1)
                     "After a few minutes you've answered all of [the_person.possessive_title]'s questions, and she heads off to dry her [the_clothing.name] off."
-                    $ the_clothing.colour = dry_colour
+                    $ the_clothing.colour[3] = 1.25 
 
                 "Take it off.":
                     mc.name "I'm really quite busy right now, just take it off now and you can dry it off later."
@@ -1254,7 +1244,7 @@ label water_spill_crisis_label():
                         "Getting a good look at her tits makes the boring topic much more interesting. After a few minutes you've sorted out her problems. She goes to dry her top while you get back to work."
                     else:
                         "You spend a few minutes and sort out all of her problems. When you're done she goes off to dry her top while you get back to work."
-                    $ the_clothing.colour = dry_colour
+                    $ the_clothing.colour[3] *= 1.25
                     $ the_person.outfit.add_upper(the_clothing)
 
     $ the_clothing = None
@@ -2468,8 +2458,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                 "Finalize the design of [the_serum.name].":
                     mc.name "Thank you for letting me know [rd_staff.title]. Make sure you all of the safety documentation written up and send the design along. I trust you can take care of that."
                     $ rd_staff.change_happiness(5)
-                    $ change_amount = 3
-                    $ rd_staff.change_obedience(change_amount)
+                    $ rd_staff.change_obedience(3)
                     rd_staff.char "Of course. If nothing else comes up we will send the design to production. You can have the production line changed over whenever you wish."
                     rd_staff.char "I'll put the prototype serum in the stockpile as well, if you need it."
                     $ mc.business.inventory.change_serum(the_serum, 1)
@@ -2496,8 +2485,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                 "Finalize the design of [the_serum.name].":
                     mc.name "Thank you for letting me know [rd_staff.title]. Make sure all of the safety documentation is written up and send the design along. I trust you can take care of that."
                     $ rd_staff.change_happiness(5)
-                    $ change_amount = 3
-                    $ rd_staff.change_obedience(change_amount)
+                    $ rd_staff.change_obedience(3)
                     rd_staff.char "Of course. If nothing else comes up we will send the design to production. You can have the production line changed over whenever you wish."
                     rd_staff.char "I'll put the prototype serum in the stockpile as well, if you need it."
                     "[rd_staff.title] hangs up."
@@ -2514,8 +2502,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
             "Give the serum back for final testing.":
                 mc.name "It seems like you have everything under control here [rd_staff.title], I'm going to leave that testing your capable hands."
                 $ rd_staff.change_happiness(5)
-                $ change_amount = 5
-                $ rd_staff.change_obedience(change_amount)
+                $ rd_staff.change_obedience(5)
 
                 rd_staff.char "I'll do my best sir, thank you!"
                 if rd_staff.sluttiness < 10:
@@ -2594,8 +2581,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
         rd_staff.char "From a safety perspective everything seems fine. I don't see any problem sending this design to production."
         mc.name "Thank you for the help [rd_staff.title]."
         "You leave her to get back to her work and return to what you were doing."
-        $ change_amount = 5
-        $ rd_staff.change_obedience(change_amount)
+        $ rd_staff.change_obedience(5)
         $ renpy.scene("Active")
         return
 
@@ -4729,7 +4715,7 @@ label lily_new_underwear_crisis_label():
             the_person.char "Okay, it's getting cold. I'm going to go put some clothes on!"
             $ renpy.scene("Active")
             "[the_person.title] slips out into the hall, leaving you alone in your room."
-            $ the_person.outfit = the_person.planned_outfit.get_copy()  # restore original clothing
+            $ the_person.apply_outfit() # changed in v0.24 (passing no outfit uses planned_outfit)
 
         "Send her away.":
             mc.name "Sorry [the_person.title], but I'm busy right now. You'll have to figure out if you like it by yourself."
