@@ -294,7 +294,7 @@ label bimbo_sex_angry_reject(the_person):
         "[the_person.title] glares at you you and walks away."
     else:
         the_person.char "Eew! No, no, no! I will NEVER do that with ANYONE! Eew!"
-        "[the_person.title] shakes her head and stalkes away."
+        "[the_person.title] shakes her head and walks away."
     return
 
 label bimbo_seduction_response(the_person):
@@ -304,7 +304,7 @@ label bimbo_seduction_response(the_person):
         else:
             the_person.char "All I can think about is that cute little dress I saw this morning. Oh, that's not you meant, was it..."
             "[the_person.title] giggles."
-            the_person.char "Nevermind, lead the way!"
+            the_person.char "Never mind, lead the way!"
     else:
         if the_person.sluttiness > 50:
             the_person.char "Yay! I was getting so horny that I was ready to jump you in the hall!"

@@ -5719,7 +5719,7 @@ screen character_create_screen():
                     textbutton "<" action [SetScreenVariable("h_skill",h_skill-1), SetScreenVariable("character_points", character_points+1)] sensitive h_skill>0 style "textbutton_style" text_style "textbutton_text_style"
                     text str(h_skill)+"/[work_skill_max]" style "textbutton_text_style"
                     textbutton ">" action [SetScreenVariable("h_skill",h_skill+1), SetScreenVariable("character_points", character_points-1)] sensitive character_points>0 and h_skill<work_skill_max style "textbutton_style" text_style "textbutton_text_style"
-                text "     Your skill at human resources. Crutial for maintaining an efficient business." style "menu_text_style"
+                text "     Your skill at human resources. Crucial for maintaining an efficient business." style "menu_text_style"
                 null height 30
                 hbox:
                     text "Marketing: " style "menu_text_style"
@@ -8637,7 +8637,7 @@ label tutorial_start:
 
     "Four months ago you graduated from university with a degree in chemical engineering."
     "Since then you have been living at home and sending out resumes. You have had several interviews, but no job offers yet."
-    "Today you have an interview with a small pharmacutical company. You've gotten up early and dressed in your finest suit."
+    "Today you have an interview with a small pharmaceutical company. You've gotten up early and dressed in your finest suit."
     $ hall.show_background()
     "You head for the front door, eager to get to your interview early."
     mom.char "[mom.mc_title], are you leaving already?"
@@ -9169,7 +9169,7 @@ label change_location(the_place):
 init -2 python:
     def build_chat_action_list(the_person):
         change_titles_action = Action("Talk about what you call each other", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
-            menu_tooltip = "Manage how you refer to this girl and tell her how she should refer to you. Differnet combinations of stats, roles, and personalityes unlock different titles.", priority = -5)
+            menu_tooltip = "Manage how you refer to this girl and tell her how she should refer to you. Different combinations of stats, roles, and personalityes unlock different titles.", priority = -5)
         small_talk_action = Action("Make small talk   {color=#FFFF00}-15{/color} {image=gui/extra_images/energy_token.png}", requirement = small_talk_requirement, effect = "small_talk_person", args=the_person, requirement_args=the_person,
             menu_tooltip = "A pleasant chat about your likes and dislikes. A good way to get to know someone and the first step to building a lasting relationship. Provides a chance to study the effects of active serum traits and raise their mastery level.")
         compliment_action = Action("Compliment her   {color=#FFFF00}-15{/color} {image=gui/extra_images/energy_token.png}", requirement = compliment_requirement, effect = "compliment_person", args=the_person, requirement_args=the_person,
@@ -9426,7 +9426,7 @@ label interview_action_description:
                 "You decide against hiring anyone new for now."
            
             call advance_time from _call_advance_time_6
-        "Nevermind.":
+        "Never mind.":
             pass
     return
 
@@ -9965,7 +9965,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
         supplies_work_action = Action("Ordering Supplies {image=gui/heart/Time_Advance.png}",supplies_work_action_requirement,"supplies_work_action_description",
             menu_tooltip = "Purchase serum supply at the cost of $1 per unit of supplies. When producing serum every production point requires one unit of serum.\n+3*Focus + 2*Skill + 1*Charisma + 10 Serum Supply.")
         market_work_action = Action("Sell Prepared Serums {image=gui/heart/Time_Advance.png}",market_work_action_requirement,"market_work_action_description",
-            menu_tooltip = "Sell serums that have been marked for sale. Mark serum manually from your office or set an autosell threshold in production.\n3*Charisma + 2*Skill + 1*Focus + 5 Serum Doses Sold.")
+            menu_tooltip = "Sell serums that have been marked for sale. Mark serum manually from your office or set an automatic sell threshold in production.\n3*Charisma + 2*Skill + 1*Focus + 5 Serum Doses Sold.")
         production_work_action = Action("Produce serum {image=gui/heart/Time_Advance.png}",production_work_action_requirement,"production_work_action_description",
             menu_tooltip = "Produce serum from raw materials. Each production point of serum requires one unit if supply, which can be purchased from your office.\n+3*Focus + 2*Skill + 1*Intelligence + 10 Production Points.")
 
@@ -9976,7 +9976,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
         pick_research_action = Action("Assign Research Project", research_select_action_requirement,"research_select_action_description",
             menu_tooltip = "Pick the next research topic for your R&D division. Serum designs must be researched before they can be put into production.")
         pick_production_action = Action("Set production settings", production_select_action_requirement,"production_select_action_description",
-            menu_tooltip = "Decide what serum designs are being produced. Production is divided between multiple factory lines, and auto sell thresholds can be set to automatically flag serum for sale.")
+            menu_tooltip = "Decide what serum designs are being produced. Production is divided between multiple factory lines, and automatic sell thresholds can be set to automatically flag serum for sale.")
         pick_supply_goal_action = Action("Set the amount of supply you would like to maintain.", pick_supply_goal_action_requirement,"pick_supply_goal_action_description",
             menu_tooltip = "Set a maximum amount of serum you and your staff will attempt to purchase.")
         policy_purhase_action = Action("Purchase business policies", policy_purchase_requirement,"policy_purchase_description",
@@ -9987,7 +9987,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
         trade_serum_action = Action("Access production stockpile", trade_serum_action_requirement, "trade_serum_action_description",
             menu_tooltip = "Move serum to and from your personal inventory. You can only use serum you are carrying with you.")
         sell_serum_action = Action("Mark serum to be sold", sell_serum_action_requirement, "sell_serum_action_description",
-            menu_tooltip = "Decide what serum should be available for sale. It can then be sold from the marketing division. Setting an autosell threshold in the production department can do this automatically.")
+            menu_tooltip = "Decide what serum should be available for sale. It can then be sold from the marketing division. Setting an automatic sell threshold in the production department can do this automatically.")
         review_designs_action = Action("Review serum designs", review_designs_action_requirement, "review_designs_action_description",
             menu_tooltip = "Shows all existing serum designs and allows you to delete any you no longer desire.")
 

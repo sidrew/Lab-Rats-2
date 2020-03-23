@@ -380,7 +380,7 @@ label pay_strip_scene(the_person):
                 for pose_tuple in pose_list:
                     if not pose_tuple[1] == picked_pose:
                         pose_menu_tuple.append(pose_tuple)
-                pose_menu_tuple.append(["Nevermind.",None])
+                pose_menu_tuple.append(["Never mind.",None])
 
             $ pose_choice = renpy.display_menu(pose_menu_tuple,True,"Choice")
             if pose_choice is not None:
@@ -388,7 +388,7 @@ label pay_strip_scene(the_person):
                 "[the_person.title] nods and moves for you."
 
             else:
-                mc.name "Nevermind, you look perfect like this."
+                mc.name "Never mind, you look perfect like this."
             $ del pose_menu_tuple
 
         elif strip_choice == "Finish":
