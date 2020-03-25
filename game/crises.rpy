@@ -228,6 +228,8 @@ label broken_AC_crisis_label:
                     "[the_person.title] quickly slides off her [the_clothing.name] and leaves it on the ground."
                 $ removed_something = True
                 $ the_clothing = test_outfit.remove_random_any(top_layer_first = True, exclude_feet = True)
+            $ del test_outfit
+            $ del the_clothing
 
             if removed_something:
                 if the_person.outfit.tits_visible() and the_person.outfit.vagina_visible():
@@ -753,6 +755,9 @@ label office_flirt_label():
                         $ the_person.draw_person(position="walking_away")
                         "[the_person.title] winks at you, then turns back to the shelf and resumes her search. When she finds it she walks back past you, making sure to shake her ass as you watch."
 
+                    $ del test_outfit
+                    $ del the_item
+
                 else:
                     "With nothing covering her up you're able to get a great look of [the_person.title]'s shapely butt. She works it around for a minute or two while you watch from your desk."
                     the_person.char "Oh, here it is..."
@@ -893,10 +898,9 @@ label lab_accident_crisis_label():
 
     $ the_serum = mc.business.active_research_design
     $ the_person = get_random_from_list(mc.business.research_team)
-    $ the_place = mc.business.r_div
 
     if mc.location == mc.business.r_div:
-        $ the_place.show_background()
+        $ mc.business.r_div.show_background()
         "There's a sudden crash and sharp yell of surprise as you're working in the lab."
         $the_person.call_dialogue("suprised_exclaim")
         the_person.char "[the_person.mc_title], I think I need you for a moment."
@@ -906,7 +910,7 @@ label lab_accident_crisis_label():
         "Your phone buzzes - it's a text from [the_person.title] on your research team."
         the_person.char "There's been a small accident, can I see you in the lab?"
         "You hurry over to your research and development lab to see what the problem is."
-        $ the_place.show_background()
+        $ mc.business.r_div.show_background()
 
 
     $ the_person.draw_person(emotion = "sad")
@@ -937,10 +941,9 @@ label production_accident_crisis_label():
     if the_serum is None:
         return #We aren't actually producing anything. Abort crisis.
     $ the_person = get_random_from_list(mc.business.production_team)
-    $ the_place = mc.business.p_div
 
     if mc.location == mc.business.p_div:
-        $ the_place.show_background()
+        $ mc.business.p_div.show_background()
         "There's a sudden crash and sharp yell of surprise as you're working in the lab."
         $the_person.call_dialogue("suprised_exclaim")
         the_person.char "[the_person.mc_title], I think I need you for a moment."
@@ -950,7 +953,7 @@ label production_accident_crisis_label():
         "Your phone buzzes - it's a text from [the_person.title] on your production team."
         the_person.char "There's been a small accident, can I see you in the lab?"
         "You hurry over to the production lab to see what the problem is."
-        $ the_place.show_background()
+        $ mc.business.p_div.show_background()
 
 
     $ the_person.draw_person(emotion = "sad")
@@ -1114,7 +1117,6 @@ label trait_for_side_effect_label():
 
 label water_spill_crisis_label():
     $ the_person = get_random_from_list(mc.business.get_employee_list())
-    $ the_place = mc.business.get_employee_workstation(the_person)
     if len(the_person.outfit.get_upper_ordered()) == 0:
         return #She's not wearing a top, we can't exactly spill water on nothing!
     else:
@@ -1248,6 +1250,7 @@ label water_spill_crisis_label():
                     $ the_person.outfit.add_upper(the_clothing)
 
     $ the_clothing = None
+    $ del test_outfit
     $ renpy.scene("Active")
     return
 
@@ -1380,9 +1383,8 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
     "Your phone buzzes, grabbing your attention. It's an email from [the_person.title], marked \"Urgent, need to talk\"."
     "You open up the email and read through the body."
     the_person.char "[the_person.mc_title], there's something important I need to talk to you about. When can we have a meeting?"
-    $ the_place = mc.business.h_div
     if mc.location == mc.business.h_div: #If you're already in your office just kick back and relax.
-        $ the_place.show_background()
+        $ mc.business.h_div.show_background()
         "You type up a response."
         mc.name "I'm in my office right now, come over whenever you would like."
         "You organize the papers on your desk while you wait for [the_person.title]. After a few minutes she comes in and closes the door behind her."
@@ -1390,7 +1392,7 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
         "You type up a response."
         mc.name "I'm out of the office right now, but if it's important I can be back in a few minutes."
         the_person.char "It is. See you at your office."
-        $ the_place.show_background()
+        $ mc.business.h_div.show_background()
         "You travel back to your office. You're just in the door when [the_person.title] comes in and closes the door behind her."
 
     $the_person.draw_person()
@@ -1460,7 +1462,7 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
             "[the_person.possessive_title] leaves, and you return to what you were doing."
             $ mc.business.remove_employee(the_person)
 
-    $renpy.scene("Active")
+    $ renpy.scene("Active")
     return
 
 init 1 python:
@@ -2444,8 +2446,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
 
     if rd_staff is not None and not mc.business.is_weekend():
         if mc.location == mc.business.r_div: # The MC is in the lab, just physically get them.
-            $ the_place = mc.business.r_div
-            $ the_place.show_background()
+            $ mc.business.r_div.show_background()
             "There's a tap on your shoulder. You turn and see [rd_staff.title], looking obviously excited."
             $ rd_staff.draw_person(emotion="happy")
             rd_staff.char "[rd_staff.mc_title], I'm sorry to bother you but I've had a breakthrough! The first test dose of serum \"[the_serum.name]\" is coming out right now!"
@@ -2475,8 +2476,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                 "Insist on a final test of [the_serum.name].":
                     mc.name "Excellent, I'll be down in a moment to take a look."
                     "You hang up and travel over to the lab. You're greeted by [rd_staff.title] as soon as you're in the door."
-                    $ the_place = mc.business.r_div
-                    $ the_place.show_background()
+                    $ mc.business.r_div.show_background()
                     $ rd_staff.draw_person(emotion="happy")
                     $ rd_staff.call_dialogue("greetings")
                     mc.name "We're set up over here. come this way."

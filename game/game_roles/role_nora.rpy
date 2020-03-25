@@ -182,6 +182,7 @@ label nora_intro_label(the_steph):
 
     mc.name "Understood. I'll be back once the testing is done."
 
+    $ the_nora = None
     $ add_nora_university_research_actions()
     $ mc.location.show_background()
     return

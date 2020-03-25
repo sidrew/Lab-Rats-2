@@ -527,6 +527,8 @@ label date_person(the_person): #You invite them out on a proper date
         $ the_date = return_value
         $ the_date.call_action() #This is where you're asked to plan out the date, or whatever.
 
+    $ the_date = None
+    $ return_value = None
     return
 
 label lunch_date_plan_label(the_person):
