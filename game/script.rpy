@@ -2340,7 +2340,7 @@ init -2 python:
                     mc.log_event(self.title + ": Suggestibility increased, now " + str(amount), "float_text_blue")
             else:
                 if add_to_log and amount != 0 and self.title:
-                    mc.log_event(self.title + ": Suggestiblity " + str(amount) + " lower than current " + str(self.suggestibility) + " amount. Suggestibility unchanged.", "float_text_blue")
+                    mc.log_event(self.title + ": Suggestibility " + str(amount) + " lower than current " + str(self.suggestibility) + " amount. Suggestibility unchanged.", "float_text_blue")
             self.suggest_bag.append(amount) #Add it to the bag, so we can check to see if it is max later.
 
 
@@ -8630,7 +8630,7 @@ label tutorial_start:
 
     "Your experimentation with the inhibition removing serum was fun, but in the end the effects were temporary."
     "The end of the summer also meant the end of your access to the serum making supplies."
-    "Little by little the women slid back into into their previous lives."
+    "Little by little the women slid back into their previous lives."
 
     scene
     $ bedroom.show_background()
@@ -8811,14 +8811,14 @@ label faq_loop:
                     "Vren" "Serum traits modify the effects of a serum. The effects can be simple - increasing duration or Suggestion increase - or it may be much more complicated."
                     "Vren" "Each serum design has a limited number of trait slots. The number of slots can be increased by using more advanced serum production techniques."
                     "Vren" "Once you have decided on the traits you wish to include in your serum you will have to spend time in the lab researching it. Place it in the research queue and spend a few hours working in the lab."
-                    "Vren" "More complicated serums will take more time to research. Once the serum is completely researched it can be produced by your production division. Move over their and slot it into the current production queue."
+                    "Vren" "More complicated serums will take more time to research. Once the serum is completely researched it can be produced by your production division. Move over there and slot it into the current production queue."
                     "Vren" "Before you can produce the serum you will need raw supplies. One unit of supply is needed for every production point the serum requires. You can order supply from your main office."
                     "Vren" "Once you have supplies you can spend time in your production lab. Doses of serum are made in batches - unlocking the ability to make larger batches will let you make more serum with the same amount of supply."
                     "Vren" "You can either take this serum for your own personal use, or you can head to the main office and mark it for sale. Once a serum is marked for sale you can spend time in your marketing division to find a buyer."
                     "Vren" "Your research and development lab can also spend time researching new traits for serum instead of producing new serum designs. You slot these into your research queue in the same way you do a new serum design."
 
                 "Hiring Staff.":
-                    "Vren" "While you can do all the necessary tasks for your company yourself, that isn't how you're going to make it big. Hiring employees will let you spend you grow your business and pull in more and more money."
+                    "Vren" "While you can do all the necessary tasks for your company yourself, that isn't how you're going to make it big. Hiring employees will allow you to grow your business and pull in more and more money."
                     "Vren" "To hire someone, head over to your main office. From there you can request a trio of resumes to choose from, for a small cost. The stats of the three candidates will be chosen, and you can choose who to hire."
                     "Vren" "The three primary stats - Charisma, Intelligence, and Focus - are the most important traits for a character. Each affects the jobs in your company differently."
                     "Vren" "Charisma is the primary stat for marketing and human resources, as well as being a secondary stat for purchasing supplies."
@@ -8839,7 +8839,7 @@ label faq_loop:
                     "Vren" "Having sex with a girl is necessary to increase her sluttiness to the highest levels. Higher arousal will make a girl more willing to strip down or have sex."
                     "Vren" "If you are able to make a girl cum she will immediately start to turn Temporary sluttiness into core sluttiness."
                     "Vren" "As a girls Sluttiness increases she will be more willing to wear revealing clothing or have sex with you."
-                    "Vren" "As her Obedience increase she will be more deferential. She may be willing to have sex simply because you ask, even if she is not normally slutty enough."
+                    "Vren" "As her Obedience increases she will be more deferential. She may be willing to have sex simply because you ask, even if she is not normally slutty enough."
 
                 "Levelling Up.":
                     "Vren" "There are three main categories of experience: Stats, Work Skills, and Sex Skills."
@@ -9169,7 +9169,7 @@ label change_location(the_place):
 init -2 python:
     def build_chat_action_list(the_person):
         change_titles_action = Action("Talk about what you call each other", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
-            menu_tooltip = "Manage how you refer to this girl and tell her how she should refer to you. Different combinations of stats, roles, and personalityes unlock different titles.", priority = -5)
+            menu_tooltip = "Manage how you refer to this girl and tell her how she should refer to you. Different combinations of stats, roles, and personalities unlock different titles.", priority = -5)
         small_talk_action = Action("Make small talk   {color=#FFFF00}-15{/color} {image=gui/extra_images/energy_token.png}", requirement = small_talk_requirement, effect = "small_talk_person", args=the_person, requirement_args=the_person,
             menu_tooltip = "A pleasant chat about your likes and dislikes. A good way to get to know someone and the first step to building a lasting relationship. Provides a chance to study the effects of active serum traits and raise their mastery level.")
         compliment_action = Action("Compliment her   {color=#FFFF00}-15{/color} {image=gui/extra_images/energy_token.png}", requirement = compliment_requirement, effect = "compliment_person", args=the_person, requirement_args=the_person,
