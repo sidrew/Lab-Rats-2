@@ -72,6 +72,7 @@ label scene_standing_grope_2(the_girl, the_location, the_object):
         $ the_item = the_girl.outfit.get_lower_top_layer()
         "[the_girl.title] spreads her legs for you, and you rub her crotch through her [the_item.name]."
         the_girl.char "Mmm..."
+        $ del the_item
     return
 
 label scene_standing_grope_3(the_girl, the_location, the_object):
@@ -109,6 +110,7 @@ label transition_standing_grope_standing_fingering(the_girl, the_location, the_o
         if the_item:
             "You slide a hand under her [the_item.name], bringing your hand right to her pussy."
             "She gasps as you tease it with two fingers, then slip them inside of the wet hole."
+            $ del the_item
         else:
             "You pet [the_girl.title]'s pussy, then slide two fingers inside of it. She gasps as they slip inside."
     the_girl.char "Oh [the_girl.mc_title]... Ah..."

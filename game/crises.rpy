@@ -905,13 +905,11 @@ label lab_accident_crisis_label():
         $the_person.call_dialogue("suprised_exclaim")
         the_person.char "[the_person.mc_title], I think I need you for a moment."
 
-
     else:
         "Your phone buzzes - it's a text from [the_person.title] on your research team."
         the_person.char "There's been a small accident, can I see you in the lab?"
         "You hurry over to your research and development lab to see what the problem is."
         $ mc.business.r_div.show_background()
-
 
     $ the_person.draw_person(emotion = "sad")
     "You get to [the_person.title]'s lab bench. There's a shattered test tube still on it and a pool of coloured liquid."
@@ -922,6 +920,9 @@ label lab_accident_crisis_label():
     the_person.char "I'm not sure what the uptake is like with this new design. I think everything will be fine, but would you mind hanging around for a few minutes?"
     $the_person.give_serum(copy.copy(the_serum))
     "It doesn't seem like [the_person.possessive_title] is having any unexpected affects from the dose of serum, so you return to your work."
+
+    $ del techno
+    $ del the_serum
     return
 
 init 1 python:
@@ -965,6 +966,9 @@ label production_accident_crisis_label():
     the_person.char "I'm not sure what the uptake is like with this new design. I think everything will be fine, but would you mind hanging around for a few minutes?."
     $the_person.give_serum(copy.copy(the_serum))
     "It doesn't seem like [the_person.possessive_title] is having any unexpected affects from the dose of serum, so you return to your work."
+
+    $ del techno
+    $ del the_serum
     return
 
 init 1 python:
@@ -1024,7 +1028,8 @@ label extra_mastery_crisis_label():
             "She takes the file back and nods."
             the_person.char "Understood, sorry to have bothered you."
 
-
+    $ del the_research
+    $ del the_trait
     $ renpy.scene("Active")
     return
 
@@ -3102,6 +3107,7 @@ label horny_at_work_crisis_label():
                             $ the_person.draw_animated_removal(the_item)
                             "[the_person.title] strips off her [the_item.name] while you watch."
                             $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True)
+                        $ del the_item
                         "When [the_person.possessive_title] is finished stripping down she puts her hands on her hips and watches you jerk off."
 
                         $ the_person.discover_opinion("not wearing anything")
@@ -3206,6 +3212,7 @@ label horny_at_work_crisis_label():
                                     "You pull off her [the_item.name], getting closer to revealing her pussy for you to use."
                                 $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove= True)
 
+                            $ del the_item
                             if the_person.outfit.vagina_available():
                                 "You unzip your pants and pull out your hard cock, laying it onto [the_person.title]'s crotch. You rub the shaft against her pussy lips, teasing her with the tip each time."
                                 call condom_ask(the_person) from _call_condom_ask_3
@@ -3471,6 +3478,7 @@ label friends_help_friends_be_sluts_label():
                             $ person_one.outfit.remove_clothing(the_item)
                             $ person_one.draw_person()
                             $ the_item = person_one.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
+                        $ del the_item
                         "She pulls her tits out for you, displaying them proudly."
                         if person_two.outfit.tits_visible():
                             $ person_one.break_taboo("bare_tits")
@@ -3513,6 +3521,7 @@ label friends_help_friends_be_sluts_label():
                             $ person_two.draw_person()
                             $ the_item = person_two.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
 
+                        $ del the_item
                         if person_two.get_opinion_score("showing her tits") > 0:
                             "When she has her tits out she crosses her arms in front of her in a small attempt to preserve her modesty."
                             $ person_one.draw_person()

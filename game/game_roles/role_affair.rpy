@@ -296,7 +296,7 @@ label fuck_date_label(the_person):
                                         $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
                                         $ the_person.draw_animated_removal(the_item)
                                         ""
-
+                                    $ del the_item
                                 menu:
                                     "Put on a condom.":
                                         "You pause for a second to put on a condom, spreading it over your hard cock before lining it up with her wet pussy."
@@ -437,7 +437,7 @@ label fuck_date_label(the_person):
                                         $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
                                         $ the_person.draw_animated_removal(the_item)
                                         ""
-
+                                    $ del the_item
                                     "Once her cute little pussy is available, she spreads her legs for you."
                                     $ the_person.update_outfit_taboos()
 
