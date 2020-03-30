@@ -478,7 +478,7 @@ label photo_touch(the_person):
             mc.name "That's perfect [the_person.title]. Now just get onto your knees for me, we're going to get some hard core shots."
             call photo_blowjob(the_person) from _call_photo_blowjob_1
 
-        "Suck my cock.\n{color=#ff0000}Not slutty or obedient enough{/color} (disabled)" if slut_willingness < 70:
+        "Suck my cock.\n{color=#ff0000}Not slutty or obedient enough{/color} (disabled)" if slut_willingness < 55:
             pass
 
         "Take photos as she climaxes.":
