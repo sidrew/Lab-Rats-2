@@ -869,7 +869,7 @@ init -2 python:
                 renpy.call("fire_head_researcher", the_person) #Call the label we use for firing the person as a role action. This should trigger it any time you fire or move your head researcher.
 
             if the_person == self.company_model:
-                renpy.call("fire_model_label", the_person)
+                self.fire_company_model()
 
         def get_employee_list(self):
             return self.research_team + self.production_team + self.supply_team + self.market_team + self.hr_team
@@ -1000,6 +1000,18 @@ init -2 python:
             if [multiplier_class, multiplier] in self.sales_multipliers:
                 mc.log_event("No longer receiving " + str((multiplier - 1) * 100) + "% serum value increase from " + multiplier_class + ".", "float_text_grey")
                 self.sales_multipliers.remove([multiplier_class, multiplier])
+
+        def hire_company_model(self, person):
+            if self.company_model:
+                self.fire_company_model()
+            self.company_model = person
+            person.special_role.append(company_model_role)
+
+        def fire_company_model(self):
+            if self.company_model:
+                self.company_model.special_role.remove(company_model_role)
+                self.company_model = None
+
 
     class SerumDesign(renpy.store.object): #A class that represents a design for a serum built up from serum traits.
         def __init__(self):
@@ -9609,10 +9621,8 @@ label head_researcher_select_description:
 
 label pick_company_model_description:
     call screen employee_overview(person_select = True)
-    $ new_model = _return
-    if new_model is not None:
-        $ mc.business.company_model = new_model
-        $ new_model.special_role.append(company_model_role)
+    if not _return is None:
+        $ mc.business.hire_company_model(_return)
     return
 
 label set_uniform_description:

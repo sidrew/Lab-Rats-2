@@ -32,8 +32,7 @@ label fire_model_label(the_person):
     mc.name "I'm sorry [the_person.title], but I will no longer be needing you to star in our ad campaigns."
     $ the_person.change_happiness(-5)
     the_person.char "Oh... Okay."
-    $ mc.business.company_model = None
-    $ the_person.special_role.remove(company_model_role) #TODO: Investigate a crash where Alxia sometimes has this action but not the role itself??
+    $ mc.business.fire_company_model()
     return
 
 label model_photography_list_label(the_person):
@@ -120,7 +119,7 @@ label model_photography_list_label(the_person):
             mc.name "Strip everything off for me, I want to get some nude shots."
             call photo_naked(the_person) from _call_photo_naked
 
-        "Touch yourself." if the_person.event_triggers_dict.get("camera_masterbate", False) and slut_willingness+(5*the_person.get_opinion_score("masturbating")) >= 60:
+        "Touch yourself." if the_person.event_triggers_dict.get("camera_touch", False) and slut_willingness+(5*the_person.get_opinion_score("masturbating")) >= 60:
             if not outfit_state == 2:
                 mc.name "Get naked and lean against that wall. I want to get some shots of you touching yourself."
                 "[the_person.title] nods and starts to strip naked."
