@@ -1687,6 +1687,7 @@ label work_relationship_change_label():
         if mc.is_at_work():
             "While working you notice [person_one.title] and [person_two.title] aren't getting along with each other. They seem to have developed an unfriendly rivalry."
 
+    $ the_relationship = None
     $ person_one = None
     $ person_two = None
     return
@@ -2379,6 +2380,7 @@ label cat_fight_crisis_label():
                 del loser
 
     python:
+        del relationship
         del list_of_possible_people
         del person_one
         del person_two
