@@ -8789,6 +8789,16 @@ label tutorial_start:
     $ lobby.accessable = True
     return
 
+init -2 python:
+    def initialize_stephanie_in_our_business():
+        mc.business.add_employee_research(stephanie)
+        mc.business.r_div.add_person(stephanie) #Lets make sure we actually put her somewhere
+        mc.business.r_div.move_person(stephanie,lobby)
+        stephanie.set_work([1,2,3],mc.business.r_div)
+        mc.business.head_researcher = stephanie
+        stephanie.special_role = [steph_role, employee_role, head_researcher]
+        return
+
 label normal_start:
     ## For now, this ensures reloadin the game doesn't reset any of the variables.
     $ renpy.scene()
@@ -8802,12 +8812,7 @@ label normal_start:
     "[stephanie.title] said she would meet you at your new office for a tour."
 
     #Add Stepyhanie to our business and flag her with a special role.
-    $ mc.business.add_employee_research(stephanie)
-    $ mc.business.r_div.add_person(stephanie) #Lets make sure we actually put her somewhere
-    $ mc.business.r_div.move_person(stephanie,lobby)
-    $ stephanie.set_work([1,2,3],mc.business.r_div)
-    $ mc.business.head_researcher = stephanie
-    $ stephanie.special_role = [steph_role, employee_role, head_researcher]
+    $ initialize_stephanie_in_our_business()
 
     #call examine_room(mc.location) from _call_examine_room
     #TODO: movement overlay tutorial thing.
