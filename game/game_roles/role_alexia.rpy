@@ -124,15 +124,7 @@ init -2 python:
     def hire_alexia_and_add_to_company(the_person):
         remove_item_from_list(lambda x: x.effect == "alexia_hire_label", the_person.get_role_reference_by_name("Alexia").actions)
 
-        the_person.event_triggers_dict["employed_since"] = day
-        mc.business.listener_system.fire_event("new_hire", the_person = the_person)
-        the_person.special_role.append(employee_role)
-        for other_employee in mc.business.get_employee_list():
-            town_relationships.begin_relationship(the_person, other_employee) #She is introduced to everyone at work
-        del other_employee
-
         mc.business.add_employee_marketing(the_person)
-        the_person.set_work([1,2,3], mc.business.m_div)
 
         ad_suggest_event = Action("Ad Suggestion", alexia_ad_suggest_requirement, "alexia_ad_suggest_label", args = the_person, requirement_args = [the_person, day + renpy.random.randint(7,12)])
         mc.business.mandatory_crises_list.append(ad_suggest_event)

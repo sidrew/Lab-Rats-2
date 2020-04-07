@@ -118,8 +118,7 @@ label fire_head_researcher(the_person):
     else:
         $ the_person.draw_person(emotion="happy")
         the_person.char "Whew, I found all that science stuff super confusing to be honest. I hope whoever replaces me can do a better job at it!"
-    $ the_person.special_role.remove(head_researcher)
-    $ mc.business.head_researcher = None
+    $ mc.business.fire_head_researcher()
     return
 
 label improved_serum_unlock_label(the_person):

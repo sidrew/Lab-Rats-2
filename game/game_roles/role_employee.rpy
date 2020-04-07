@@ -355,9 +355,6 @@ label move_employee_label(the_person):
 
     the_person.char "Where would you like me then?"
     $ mc.business.remove_employee(the_person)
-    $ the_person.special_role.append(employee_role) #Remove_employee strips them of their workplace roles. We want to make sure we add it back.
-    #TODO: All of the moving employees around should probably be its own function, which would let us set up an employee schedule where they work in different sections if we wanted.
-
     if rd_division.has_person(the_person):
         $ rd_division.remove_person(the_person)
     elif p_division.has_person(the_person):
@@ -369,29 +366,19 @@ label move_employee_label(the_person):
 
     menu:
         "Research and Development.":
-            $ mc.business.add_employee_research(the_person)
-            $ mc.business.r_div.add_person(the_person)
-            $ the_person.set_work([1,2,3],mc.business.r_div) #TODO: This should reference the business r_div, p_div, etc. not the actual rooms.
+            $ mc.business.add_employee_research(the_person, add_to_location = True)
 
         "Production.":
-            $ mc.business.add_employee_production(the_person)
-            $ mc.business.p_div.add_person(the_person)
-            $ the_person.set_work([1,2,3],mc.business.p_div)
+            $ mc.business.add_employee_production(the_person, add_to_location = True)
 
         "Supply Procurement.":
-            $ mc.business.add_employee_supply(the_person)
-            $ mc.business.s_div.add_person(the_person)
-            $ the_person.set_work([1,2,3],mc.business.s_div)
+            $ mc.business.add_employee_supply(the_person, add_to_location = True)
 
         "Marketing.":
-            $ mc.business.add_employee_marketing(the_person)
-            $ mc.business.m_div.add_person(the_person)
-            $ the_person.set_work([1,2,3], mc.business.m_div)
+            $ mc.business.add_employee_marketing(the_person, add_to_location = True)
 
         "Human Resources.":
-            $ mc.business.add_employee_hr(the_person)
-            $ mc.business.h_div.add_person(the_person)
-            $ the_person.set_work([1,2,3],mc.business.h_div)
+            $ mc.business.add_employee_hr(the_person, add_to_location = True)
 
     the_person.char "I'll move over there right away!"
     return

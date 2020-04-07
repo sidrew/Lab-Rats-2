@@ -830,25 +830,58 @@ init -2 python:
             elif self.team_effectiveness < 50:
                 self.team_effectiveness = 50
 
-        def add_employee_research(self, new_person):
+        def update_employee_status(self, new_person):
+            if new_person.event_triggers_dict.get("employed_since", -1) == -1:
+                new_person.event_triggers_dict["employed_since"] = day
+                self.listener_system.fire_event("new_hire", the_person = new_person)
+
+            for other_employee in self.get_employee_list():
+                town_relationships.begin_relationship(new_person, other_employee) #They are introduced to everyone at work, with a starting value of "Acquaintance"
+
+        def add_employee_research(self, new_person, add_to_location = False):
             self.research_team.append(new_person)
+            new_person.special_role.append(employee_role)
             new_person.job = self.get_employee_title(new_person)
+            new_person.set_work([1,2,3], self.r_div)
+            self.update_employee_status(new_person)
+            if add_to_location:
+                self.r_div.add_person(new_person)
 
-        def add_employee_production(self, new_person):
+        def add_employee_production(self, new_person, add_to_location = False):
             self.production_team.append(new_person)
+            new_person.special_role.append(employee_role)
             new_person.job = self.get_employee_title(new_person)
+            new_person.set_work([1,2,3], self.p_div)
+            self.update_employee_status(new_person)
+            if add_to_location:
+                self.p_div.add_person(new_person)
 
-        def add_employee_supply(self, new_person):
+        def add_employee_supply(self, new_person, add_to_location = False):
             self.supply_team.append(new_person)
+            new_person.special_role.append(employee_role)
             new_person.job = self.get_employee_title(new_person)
+            new_person.set_work([1,2,3], self.s_div)
+            self.update_employee_status(new_person)
+            if add_to_location:
+                self.s_div.add_person(new_person)
 
-        def add_employee_marketing(self, new_person):
+        def add_employee_marketing(self, new_person, add_to_location = False):
             self.market_team.append(new_person)
+            new_person.special_role.append(employee_role)
             new_person.job = self.get_employee_title(new_person)
+            new_person.set_work([1,2,3], self.m_div)
+            self.update_employee_status(new_person)
+            if add_to_location:
+                self.m_div.add_person(new_person)
 
-        def add_employee_hr(self, new_person):
+        def add_employee_hr(self, new_person, add_to_location = False):
             self.hr_team.append(new_person)
+            new_person.special_role.append(employee_role)
             new_person.job = self.get_employee_title(new_person)
+            new_person.set_work([1,2,3], self.h_div)
+            self.update_employee_status(new_person)
+            if add_to_location:
+                self.h_div.add_person(new_person)
 
         def remove_employee(self, the_person):
             if the_person in self.research_team:
@@ -866,10 +899,13 @@ init -2 python:
             the_person.special_role.remove(employee_role)
 
             if the_person == self.head_researcher:
-                renpy.call("fire_head_researcher", the_person) #Call the label we use for firing the person as a role action. This should trigger it any time you fire or move your head researcher.
+                self.fire_head_researcher()
 
             if the_person == self.company_model:
                 self.fire_company_model()
+
+            del the_person.event_triggers_dict["employed_since"]
+            self.listener_system.fire_event("fire_employee", the_person = the_person)
 
         def get_employee_list(self):
             return self.research_team + self.production_team + self.supply_team + self.market_team + self.hr_team
@@ -1011,6 +1047,17 @@ init -2 python:
             if self.company_model:
                 self.company_model.special_role.remove(company_model_role)
                 self.company_model = None
+
+        def hire_head_researcher(self, person):
+            if self.head_researcher:
+                self.fire_head_researcher()
+            self.head_researcher = person
+            person.special_role.append(head_researcher)
+        
+        def fire_head_researcher(self):
+            if self.head_researcher:
+                self.head_researcher.special_role.remove(head_researcher)
+                self.head_researcher = None
 
 
     class SerumDesign(renpy.store.object): #A class that represents a design for a serum built up from serum traits.
@@ -8791,12 +8838,10 @@ label tutorial_start:
 
 init -2 python:
     def initialize_stephanie_in_our_business():
-        mc.business.add_employee_research(stephanie)
-        mc.business.r_div.add_person(stephanie) #Lets make sure we actually put her somewhere
+        mc.business.add_employee_research(stephanie, add_to_location = True)
+        mc.business.hire_head_researcher(stephanie)
         mc.business.r_div.move_person(stephanie,lobby)
-        stephanie.set_work([1,2,3],mc.business.r_div)
-        mc.business.head_researcher = stephanie
-        stephanie.special_role = [steph_role, employee_role, head_researcher]
+        stephanie.special_role.append(steph_role)
         return
 
 label normal_start:
@@ -9468,45 +9513,22 @@ label hire_select_process(candidates):
 
 
 label hire_someone(new_person, add_to_location = False): # Breaks out some of the functionality of hiring someone into an independent lable.
-    python:
-        new_person.event_triggers_dict["employed_since"] = day
-        mc.business.listener_system.fire_event("new_hire", the_person = new_person)
-        new_person.special_role.append(employee_role)
-        for other_employee in mc.business.get_employee_list():
-            town_relationships.begin_relationship(new_person, other_employee) #They are introduced to everyone at work, with a starting value of "Acquaintance"
-        del other_employee
-
     "You complete the necessary paperwork and hire [new_person.name]. What division do you assign them to?"
     menu:
         "Research and Development.":
-            $ mc.business.add_employee_research(new_person)
-            $ new_person.set_work([1,2,3], mc.business.r_div)
-            if add_to_location:
-                $ mc.business.r_div.add_person(new_person)
+            $ mc.business.add_employee_research(new_person, add_to_location)
 
         "Production.":
-            $ mc.business.add_employee_production(new_person)
-            $ new_person.set_work([1,2,3], mc.business.p_div)
-            if add_to_location:
-                $ mc.business.p_div.add_person(new_person)
+            $ mc.business.add_employee_production(new_person, add_to_location)
 
         "Supply Procurement.":
-            $ mc.business.add_employee_supply(new_person)
-            $ new_person.set_work([1,2,3], mc.business.s_div)
-            if add_to_location:
-                $ mc.business.s_div.add_person(new_person)
+            $ mc.business.add_employee_supply(new_person, add_to_location)
 
         "Marketing.":
-            $ mc.business.add_employee_marketing(new_person)
-            $ new_person.set_work([1,2,3], mc.business.m_div)
-            if add_to_location:
-                $ mc.business.m_div.add_person(new_person)
+            $ mc.business.add_employee_marketing(new_person, add_to_location)
 
         "Human Resources.":
-            $ mc.business.add_employee_hr(new_person)
-            $ new_person.set_work([1,2,3], mc.business.h_div)
-            if add_to_location:
-                $ mc.business.h_div.add_person(new_person)
+            $ mc.business.add_employee_hr(new_person, add_to_location)
 
     return
 
