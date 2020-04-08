@@ -257,9 +257,6 @@ init -1:
             the_person.focus = 7
 
 
-label instantiate_serum_traits(): #Creates all of the default LR2 serum trait objects.
-    python:
-
         #####
         # Serum Trait template. Copy and paste this, fill in the fields that are required and add it to the list_of_traits list to add a serum trait to LR2.
         #####
@@ -871,6 +868,10 @@ label instantiate_serum_traits(): #Creates all of the default LR2 serum trait ob
             tier = 2,
             start_researched = False,
             research_needed = 4000)
+
+
+label instantiate_serum_traits(): #Creates all of the default LR2 serum trait objects.
+    python:
 
         # Tier 0
         list_of_traits.append(primitive_serum_prod)

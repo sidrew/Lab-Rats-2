@@ -48,8 +48,6 @@ init -1:
         def slow_release_sedative_on_turn(the_person, add_to_log):
             the_person.change_energy(-10)
 
-label instantiate_side_effect_traits(): #Creates all of the default LR2 serum trait objects.
-    python:
         depressant_side_effect = SerumTrait(name = "Depressant",
             desc = "An unintended interaction produces a sudden and noticeable drop in the recipients mood without any corresponding improvement when the serum expires.",
             positive_slug = "None",
@@ -122,7 +120,7 @@ label instantiate_side_effect_traits(): #Creates all of the default LR2 serum tr
             is_side_effect = True)
 
         sedative = SerumTrait(name = "Accidental Sedative",
-            desc = "This serum has the unintended side effect of minorly sedating the recipient. Their maximum energy is reduced for the duration.",
+            desc = "This serum has the unintended side effect of slightly sedating the recipient. Their maximum energy is reduced for the duration.",
             positive_slug = "None",
             negative_slug = "-20 Maximum Energy, -$5 Value",
             value_added = -5,
@@ -131,12 +129,15 @@ label instantiate_side_effect_traits(): #Creates all of the default LR2 serum tr
             is_side_effect = True)
 
         slow_release_sedative = SerumTrait(name = "Slow Acting Sedative",
-            desc = "This serum produces slow acting sedative effects, reducing how quickly the recipent bounces back from tiring tasks. Reduces energy gain for the duration.",
+            desc = "This serum produces slow acting sedative effects, reducing how quickly the recipient bounces back from tiring tasks. Reduces energy gain for the duration.",
             positive_slug = "None",
             negative_slug = "-10 Energy per Turn, -$5 Value",
             value_added = -5,
             on_turn = slow_release_sedative_on_turn,
             is_side_effect = True)
+
+label instantiate_side_effect_traits(): #Creates all of the default LR2 serum trait objects.
+    python:
 
         list_of_side_effects.append(depressant_side_effect)
         list_of_side_effects.append(bad_reputation)
