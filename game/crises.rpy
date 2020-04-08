@@ -4909,7 +4909,7 @@ label family_morning_breakfast_label():
         $ the_mom.apply_outfit(the_mom.wardrobe.get_random_appropriate_underwear(the_mom.sluttiness, guarantee_output = True))
     #    $ the_mom.outfit = the_mom.wardrobe.get_random_appropriate_underwear(the_mom.sluttiness, guarantee_output = True) changed v0.24.1
 
-    if the_sister..effective_sluttiness() > 40:
+    if the_sister.effective_sluttiness() > 40:
         $ sis_slutty = True
         $ the_sister.apply_outfit(the_sister.wardrobe.get_random_appropriate_underwear(the_sister.sluttiness, guarantee_output = True))
         #$ the_sister.outfit = the_sister.wardrobe.get_random_appropriate_underwear(the_sister.sluttiness, guarantee_output = True) Changed v0.24.1
