@@ -1762,7 +1762,6 @@ init -2 python:
                 # If handed a list of [action, positive_int], the integer is how many turns this action is kept around before being removed, triggered or not.
 
             self.event_triggers_dict = {} #A dict used to store extra parameters used by events, like how many days has it been since a performance review.
-            self.event_triggers_dict["employed_since"] = 0
 
             ##Mental stats##
             #Mental stats are generally fixed and cannot be changed permanently. Ranges from 1 to 5 at start, can go up or down (min 0)
