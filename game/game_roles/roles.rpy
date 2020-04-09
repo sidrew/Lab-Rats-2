@@ -46,10 +46,7 @@ init -1 python:
         price = math.ceil((price/5.0))*5 #Round up to the next $5 increment
         return (willingness, price)
 
-
-label instantiate_roles(): #This section instantiates all of the key roles in the game. It is placed here to ensure it is properly created, saved, ect. by Renpy.
-    #All of the role labels and requirements are defined in their own file, but their Action representations are stored here for saving purposes.
-    python:
+    def get_employee_role_actions():
         #EMPLOYEE ACTIONS#
         move_employee_action = Action("Move her to a new division", move_employee_requirement, "move_employee_label",
             menu_tooltip = "Move her to a new division, where her skills might be put to better use.")
@@ -65,9 +62,10 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
             menu_tooltip = "Pay her to willingly take a dose of serum, per company policy.")
         employee_unpaid_serum_test = Action("Test serum (unpaid).", employee_unpaid_serum_test_requirement, "employee_unpaid_serum_test_label",
             menu_tooltip = "Give her a dose of serum to test on herself, per company policy.")
+        
+        return [employee_paid_serum_test, employee_unpaid_serum_test, employee_complement_action, employee_insult_action, employee_pay_cash_action, employee_performance_review, move_employee_action]
 
-        employee_role = Role("Employee", [employee_paid_serum_test, employee_unpaid_serum_test, employee_complement_action, employee_insult_action, employee_pay_cash_action, employee_performance_review, move_employee_action])
-
+    def get_head_researcher_actions():
         #HEAD RESEARCHER ACTIONS#
         improved_serum_unlock = Action("Ask about advancing your research.", improved_serum_unlock_requirement, "improved_serum_unlock_label",
             menu_tooltip = "Your basic initial research can only take you so far. You will need a breakthrough to discover new serum traits.", priority = 10)
@@ -87,38 +85,29 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         futuristic_serum_unlock_stage_2 = Action("Talk about the test subjects.", futuristic_serum_stage_2_requirement, "futuristic_serum_stage_2_label",
             menu_tooltip = "Your head researcher needs willing, dedicated test subjects to advance your research any further.", priority = 10) #Talk to her to either select test subjects or get a refresher on what you need.
 
-
         fire_head_researcher_action = Action("Remove her as head researcher.", fire_head_researcher_requirement, "fire_head_researcher",
             menu_tooltip = "Remove her as your head researcher so you can select another. Without a head researcher your R&D department will be less efficient.")
 
-        head_researcher = Role("Head Researcher", [fire_head_researcher_action,improved_serum_unlock,advanced_serum_unlock_stage_1, visit_nora_intro, advanced_serum_unlock_stage_3,futuristic_serum_unlock_stage_1, futuristic_serum_unlock_stage_2])
+        return [fire_head_researcher_action,improved_serum_unlock,advanced_serum_unlock_stage_1, visit_nora_intro, advanced_serum_unlock_stage_3,futuristic_serum_unlock_stage_1, futuristic_serum_unlock_stage_2]
 
-
+    def get_company_model_role_actions():
         #MODEL ACTIONS#
-
         model_ad_photo_list = Action("Shoot pictures for an advertisement. {image=gui/heart/Time_Advance.png}", model_photography_list_requirement, "model_photography_list_label", priority = 5)
 
         fire_model_action = Action("Remove her as your company model.", fire_model_requirment, "fire_model_label",
             menu_tooltip = "Remove her as your company model so you can give the position to someone else. Effects from existing ad campaigns will continue until they expire.")
 
-        company_model_role = Role("Model", [model_ad_photo_list, fire_model_action])
+        return [model_ad_photo_list, fire_model_action]
 
-
-        #STEPH ACTIONS#
-
-        steph_role = Role("Stephanie", [], hidden = True) #Used to hold any Stephanie specific actions not tied to another role, and to guarantee this is Steph even if she undergoes a personality change.
-
-        #NORA ROLE#
-        # Note: Nora's role actions are assigned through Stephanie's events.
-        nora_role = Role("Nora", [], hidden = True)
-
+    def get_alexia_role_actions():
         #ALEXIA ACTIONS#
         alexia_ad_reintro = Action("Have her order photography equipment. -$500", alexia_ad_suggest_reintro_requirement, "alexia_ad_suggest_reintro_label")
 
         alexia_ad_photo_intro = Action("Shoot pictures for your business cards. {image=gui/heart/Time_Advance.png}", alexia_photography_intro_requirement, "alexia_photography_intro_label") #This vent leads to Alexia being given the model role.
 
-        alexia_role = Role("Alexia", [alexia_ad_reintro, alexia_ad_photo_intro], hidden = True) #Hide her role because we don't want to display it.
+        return [alexia_ad_reintro, alexia_ad_photo_intro]
 
+    def get_sister_role_actions():
         #SISTER ACTIONS#
         sister_reintro_action = Action("Ask if she needs extra work.", sister_reintro_action_requirement, "sister_reintro_label",
             menu_tooltip = "She was eager to make some money before, maybe she still is.")
@@ -133,16 +122,16 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         sister_strip_action = Action("Ask her to strip for you.", sister_strip_requirement, "sister_strip_label",
             menu_tooltip = "Have your sister strip for you, in exchange for some money.", priority = 5)
 
-        sister_role = Role("Sister", [sister_reintro_action, sister_serum_test_action, sister_strip_reintro_action, sister_strip_action])
+        return [sister_reintro_action, sister_serum_test_action, sister_strip_reintro_action, sister_strip_action]
 
-
+    def get_mother_role_actions():
         #MOTHER ACTIONS#
         mother_offer_make_dinner = Action("Offer to make dinner. {image=gui/heart/Time_Advance.png}", mom_offer_make_dinner_requirement, "mom_offer_make_dinner_label",
             menu_tooltip = "Earn some good will by making dinner for your mother and sister.", priority = 5)
 
-        mother_role = Role("Mother", [mother_offer_make_dinner])
+        return [mother_offer_make_dinner]
 
-
+    def get_aunt_role_actions():
         #AUNT ACTIONS#
         aunt_help_move = Action("Help her move into her apartment. {image=gui/heart/Time_Advance.png}", aunt_intro_moving_apartment_requirement, "aunt_intro_moving_apartment_label",
             menu_tooltip = "Help your aunt and your cousin move their stuff from your house to their new apartment. They're sure to be grateful, and it would give you a chance to snoop around.", priority = 5)
@@ -150,20 +139,65 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         aunt_share_drinks_action = Action("Share a glass of wine. {image=gui/heart/Time_Advance.png}", aunt_share_drinks_requirement, "aunt_share_drinks_label",
             menu_tooltip = "Sit down with your aunt and share a glass or two of wine. Maybe a little bit of alcohol will loosen her up a bit.", priority = 10)
 
-        aunt_role = Role("Aunt", [aunt_help_move,aunt_share_drinks_action])
+        return [aunt_help_move,aunt_share_drinks_action]
 
-
+    def get_cousin_role_actions():
         #COUSIN ACTIONS#
         cousin_blackmail_action = Action("Blackmail her.", cousin_blackmail_requirement, "cousin_blackmail_label",
             menu_tooltip = "Threaten to tell her mother about what she's been doing and see what you can get out of her.", priority = 10)
 
-        cousin_role = Role("Cousin", [cousin_blackmail_action])
+        return [cousin_blackmail_action]
+
+    def get_girlfriend_role_actions():
+        ask_break_up_action = Action("Break up with her.", ask_break_up_requirement, "ask_break_up_label", menu_tooltip = "Breaking up may break her heart, but it'll be easier on her than catching you with another woman.")
+        ask_get_boobjob_action = Action("Ask her to get a boob job. -$7000", ask_get_boobjob_requirement, "ask_get_boobjob_label", menu_tooltip = "A little silicone goes a long way. Ask her to get breast enhancement surgery for you.")
+        girlfriend_ask_trim_pubes_action = Action("Ask her to trim her pubes.", girlfriend_ask_trim_pubes_requirement, "girlfriend_ask_trim_pubes_label", menu_tooltip = "Ask her to do a little personal landscaping. Tell her to wax it off, grow it out, or shape it into anything in between.")
+
+        return [ask_break_up_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action]
+
+    def get_paramour_role_actions():
+        plan_fuck_date_action = Action("Plan a fuck date at her place.", fuck_date_requirement, "plan_fuck_date_label", menu_tooltip = "Pick a night to go over there and spend nothing but \"quality time\" with each other.")
+        ask_get_boobjob_action = Action("Ask her to get a boob job. -$7000", ask_get_boobjob_requirement, "ask_get_boobjob_label", menu_tooltip = "A little silicone goes a long way. Ask her to get breast enhancement surgery for you.")
+        girlfriend_ask_trim_pubes_action = Action("Ask her to trim her pubes.", girlfriend_ask_trim_pubes_requirement, "girlfriend_ask_trim_pubes_label", menu_tooltip = "Ask her to do a little personal landscaping. Tell her to wax it off, grow it out, or shape it into anything in between.")
+        ask_leave_SO_action = Action("Ask her to leave her significant other for you.", ask_leave_SO_requirement, "ask_leave_SO_label", menu_tooltip = "This affair has been secret long enough! Ask her to leave her significant other and make your relationship official.")
+    
+        return [plan_fuck_date_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action, ask_leave_SO_action]
+
+    def get_prostitute_role_actions():
+        prostitute_action = Action("Pay her for sex. -$200", prostitute_requirement, "prostitute_label",
+            menu_tooltip = "You know she's a prostitute, pay her to have sex with you.")
+        
+        return [prostitute_action]
+
+label instantiate_roles(): #This section instantiates all of the key roles in the game. It is placed here to ensure it is properly created, saved, ect. by Renpy.
+    #All of the role labels and requirements are defined in their own file, but their Action representations are stored here for saving purposes.
+    python:
+
+        employee_role = Role("Employee", get_employee_role_actions())
+
+        head_researcher = Role("Head Researcher", get_head_researcher_actions())
+
+        company_model_role = Role("Model", get_company_model_role_actions())
+
+        steph_role = Role("Stephanie", [], hidden = True) #Used to hold any Stephanie specific actions not tied to another role, and to guarantee this is Steph even if she undergoes a personality change.
+
+        #NORA ROLE#
+        # Note: Nora's role actions are assigned through Stephanie's events.
+        nora_role = Role("Nora", [], hidden = True)
+
+        alexia_role = Role("Alexia", get_alexia_role_actions(), hidden = True) #Hide her role because we don't want to display it.
+
+        sister_role = Role("Sister", get_sister_role_actions())
+
+        mother_role = Role("Mother", get_mother_role_actions())
+
+        aunt_role = Role("Aunt", get_alexia_role_actions())
+
+        cousin_role = Role("Cousin", get_cousin_role_actions())
 
         #COUSIN After start actions# - Actions that are meant to be added to her action list after the game has begun.
         cousin_talk_boobjob_again_action = Action("Talk to her about getting a boobjob. -$5000", cousin_talk_boobjob_again_requirement, "cousin_talk_boobjob_again_label")
         #cousin_role.actions.append(cousin_talk_boobjob_again_action)
-
-
 
         ####################
         #RELATIONSHIP ROLES#
@@ -180,13 +214,8 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         # Adds more love to seduction attempts (reduce love from other sources)
         # Fallout if your girlfriend catches you with someone else.
 
-        ask_break_up_action = Action("Break up with her.", ask_break_up_requirement, "ask_break_up_label", menu_tooltip = "Breaking up may break her heart, but it'll be easier on her than catching you with another woman.")
 
-        ask_get_boobjob_action = Action("Ask her to get a boob job. -$7000", ask_get_boobjob_requirement, "ask_get_boobjob_label", menu_tooltip = "A little silicone goes a long way. Ask her to get breast enhancement surgery for you.")
-
-        girlfriend_ask_trim_pubes_action = Action("Ask her to trim her pubes.", girlfriend_ask_trim_pubes_requirement, "girlfriend_ask_trim_pubes_label", menu_tooltip = "Ask her to do a little personal landscaping. Tell her to wax it off, grow it out, or shape it into anything in between.")
-
-        girlfriend_role = Role("Girlfriend", [ask_break_up_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action]) #Your girlfriend, and she's not in a relationship with anyone else
+        girlfriend_role = Role("Girlfriend", get_girlfriend_role_actions()) #Your girlfriend, and she's not in a relationship with anyone else
         #Getting married is some kind of victory for the game?
 
 
@@ -196,19 +225,15 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         # Convince her to leave her (boyfriend/fiance/husband) for you. Changes to her being your girlfriend.
         # Start to blackmail her for money or sex.
 
-        plan_fuck_date_action = Action("Plan a fuck date at her place.", fuck_date_requirement, "plan_fuck_date_label", menu_tooltip = "Pick a night to go over there and spend nothing but \"quality time\" with each other.")
-        ask_leave_SO_action = Action("Ask her to leave her significant other for you.", ask_leave_SO_requirement, "ask_leave_SO_label", menu_tooltip = "This affair has been secret long enough! Ask her to leave her significant other and make your relationship official.")
-        affair_role = Role("Paramour", [plan_fuck_date_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action, ask_leave_SO_action]) #A woman who is in a relationship but also wants to fuck you because of love (rather than pure sluttiness, where she thinks that's normal)
+        affair_role = Role("Paramour", get_paramour_role_actions()) #A woman who is in a relationship but also wants to fuck you because of love (rather than pure sluttiness, where she thinks that's normal)
 
 
         ###################
         ### OTHER ROLES ###
         ###################
 
-        prostitute_action = Action("Pay her for sex. -$200", prostitute_requirement, "prostitute_label",
-            menu_tooltip = "You know she's a prostitute, pay her to have sex with you.")
 
-        prostitute_role = Role("Prostitute", [prostitute_action])
+        prostitute_role = Role("Prostitute", get_prostitute_role_actions())
     return
 
 
