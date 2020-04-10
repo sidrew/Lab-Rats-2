@@ -5,6 +5,7 @@
 
 init -2:
     default persistent.vren_animation = True
+    default bugfix_installed = True
 
 init -2 python:
 
