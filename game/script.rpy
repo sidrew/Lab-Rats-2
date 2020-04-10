@@ -1528,12 +1528,12 @@ init -2 python:
         def run_turn(self):
             self.listener_system.fire_event("time_advance")
             self.change_arousal(-20)
-            self.change_energy(20, add_to_log = False)
+            self.change_energy(self.max_energy * .2, add_to_log = False)
             return
 
         def run_day(self):
             self.listener_system.fire_event("end_of_day")
-            self.change_energy(self.max_energy, add_to_log = False)
+            self.change_energy(self.max_energy * .6, add_to_log = False)
             self.reset_arousal()
             self.scrap_goal_available = True
 
@@ -1929,12 +1929,12 @@ init -2 python:
 
 
         def run_turn(self):
-            self.change_energy(20, add_to_log = False)
+            self.change_energy(self.max_energy * .2, add_to_log = False)
             self.bleed_slut() #if our sluttiness is over our core slut, bleed some off and, if we have suggest, turn it into core slut.
 
             remove_list = []
             for serum in self.serum_effects: #Compute the effects of all of the serum that the girl is under.
-                serum.run_on_turn(self) #Run the serum's on_turn funcion if it has one.
+                serum.run_on_turn(self) #Run the serum's on_turn function if it has one.
                 if serum.duration_expired(): #Returns true if the serum effect is suppose to expire in this time, otherwise returns false. Always updates duration counter when called.
                     remove_list.append(serum) #Use a holder "remove" list to avoid modifying list while iterating.
 
@@ -2044,7 +2044,7 @@ init -2 python:
         def run_day(self): #Called at the end of the day.
             #self.outfit = self.wardrobe.decide_on_outfit(self.sluttiness) #Put on a new outfit for the day!
 
-            self.change_energy(self.max_energy, add_to_log = False)
+            self.change_energy(self.max_energy * .6, add_to_log = False)
 
             #Now we will normalize happiness towards 100 over time. Every 5 points of happiness above or below 100 results in a -+1 per time chunk, rounded towards 0.
             hap_diff = self.happiness - 100
@@ -9565,7 +9565,7 @@ init -2 python:
             if sleep_action not in mc.location.actions: #If they're in a location they can sleep we shouldn't show this because they can just sleep here.
                 actions_list.append(["Go home and sleep {image=gui/heart/Time_Advance.png}{image=gui/heart/Time_Advance.png} (tooltip)It's late. Go home and sleep.", "Wait"])
         else:
-            actions_list.append(["Wait here {image=gui/heart/Time_Advance.png}\n+10 Extra {image=gui/extra_images/energy_token.png} (tooltip)Kill some time and wait around. Recovers more energy than working.", "Wait"])
+            actions_list.append(["Wait here {image=gui/heart/Time_Advance.png}\n{color=#FFFF00}10% Extra{/color} {image=gui/extra_images/energy_token.png} (tooltip)Kill some time and wait around. Recovers more energy than working.", "Wait"])
         actions_list.append(["Go somewhere else", "Travel"])
         actions_list.extend(mc.location.get_valid_actions())
         actions_list.sort(key = sort_display_list, reverse = True)
@@ -9670,7 +9670,7 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
         if time_of_day == 4:
             $ mc.change_location(bedroom)
         else:
-            $ mc.change_energy(10) #Extra 10 energy gain if you spend your time waiting around
+            $ mc.change_energy(mc.max_energy * .1) #Extra 10 energy gain if you spend your time waiting around
         call advance_time from _call_advance_time_15
         $ mc.location.show_background() #Redraw the background in case it has changed due to the new time.
 
