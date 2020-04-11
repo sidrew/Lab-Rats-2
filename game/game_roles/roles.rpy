@@ -191,7 +191,7 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
 
         mother_role = Role("Mother", get_mother_role_actions())
 
-        aunt_role = Role("Aunt", get_alexia_role_actions())
+        aunt_role = Role("Aunt", get_aunt_role_actions())
 
         cousin_role = Role("Cousin", get_cousin_role_actions())
 
