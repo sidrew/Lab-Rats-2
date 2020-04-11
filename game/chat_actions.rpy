@@ -1423,7 +1423,7 @@ label serum_give_label(the_person):
     return
 
 label grope_person(the_person):
-    # Note: the descirptions of the actual stages are stored in grope_descriptions.rpy to keep things organised.
+    # Note: the descriptors of the actual stages are stored in grope_descriptions.rpy to keep things organized.
     $ mc.change_energy(-10)
     #TODO: Have arousal be more permanent than it is right now. ie. more events should impact it.
     call grope_shoulder(the_person) from _call_grope_shoulder
@@ -1444,7 +1444,7 @@ label grope_person(the_person):
                             "[the_person.possessive_title] glances around at the people nearby."
                             the_person.char "I don't want other people to watch. Let's find someplace we can be alone."
                             menu:
-                                "Find somewhere quiet.\n{size=22}No interuptions{/size}":
+                                "Find somewhere quiet.\n{size=22}No interruptions{/size}":
                                     mc.name "Alright, come with me."
                                     "You take [the_person.title] by her wrist and lead her away."
                                     #TODO: have each location have a unique "find someplace quiet" descriptor with a default fallback option
@@ -1458,19 +1458,28 @@ label grope_person(the_person):
                             # She doesn't care, but you can find someplace private.
                             "[the_person.possessive_title] either doesn't notice or doesn't care, but there are other people around."
                             menu:
-                                "Find somewhere quiet.\n{size=22}No interuptions{/size}":
-                                    mc.name "Come with me, I don't want to be interupted."
+                                "Find somewhere quiet.\n{size=22}No interruptions{/size}":
+                                    mc.name "Come with me, I don't want to be interrupted."
                                     "You take [the_person.title] by the wrist and lead her away. She follows eagerly."
                                     "After searching for a couple of minutes you find a quiet space with just the two of you."
                                     #TODO: have each location have a unique "find someplace quiet" descriptor with a default fallback option
-                                    "After a couple of minutes searching you find a quiet space with just the two of you."
-                                    "You don't waste any time getting back to what you were doing, fondling [the_person.possessive_title]'s tits and ass."
 
                                 "Stay where you are.\n{size=22}[extra_people_count] watching{/size}":
                                     $ should_be_private = False
 
-
-                    call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_43 # Enter the sex system, starting from this point.
+                    if prostitute_role in the_person.special_role:
+                        the_person.char "We can continue what you started, but it would cost you two hundred dollars."
+                        menu:
+                            "Pay her. -$200":
+                                $ mc.business.funds += -200
+                                $ the_person.change_obedience(1)
+                                call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_46
+                            "No":
+                                mc.name "Thanks for the offer, but no thanks."
+                                "She shrugs."
+                                the_person.char "Your loss."
+                    else:
+                        call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_43 # Enter the sex system, starting from this point.
     return
 
 init -2 python:

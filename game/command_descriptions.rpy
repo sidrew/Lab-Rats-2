@@ -198,7 +198,19 @@ label demand_touch_label(the_person):
         $ the_person.break_taboo("touching_body")
 
 
-    call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_44
+    if prostitute_role in the_person.special_role:
+        the_person.char "We can continue what you started, but it would cost you two hundred dollars."
+        menu:
+            "Pay her. -$200":
+                $ mc.business.funds += -200
+                $ the_person.change_obedience(1)
+                call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_45
+            "No":
+                mc.name "Thanks for the offer, but no thanks."
+                "She shrugs."
+                the_person.char "Your loss."
+    else:
+        call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_44
     return
 
 init -3 python:

@@ -131,7 +131,7 @@ label grope_tits(the_person):
             $ the_person.change_slut_temp(2)
             mc.name "That's okay, I don't mind. Take your time."
             "She still seems nervous, but takes a deep breath and tries her best to continue holding up her side of the conversation."
-            "You think about going even furthur, but [the_person.possessive_title] seems to be on the edge of what she would tolerate."
+            "You think about going even further, but [the_person.possessive_title] seems to be on the edge of what she would tolerate."
             "You satisfy yourself with grabbing her ass and massaging her tits while you talk."
             return False #If she's uncomfortable at this level you can't enter the sex system (ie. you need 35+ sluttiness OR need to have broken the touching body taboo some other way).
 
