@@ -763,6 +763,7 @@ label aunt_share_drinks_label(the_person):
                                 "You watch as [the_person.possessive_title] takes off her [strip_choice.name]."
                                 $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
 
+                            $ del strip_choice
                             "Once she's stripped out of her clothing, [the_person.possessive_title] puts on the outfit you've made for her."
                             $ the_person.apply_outfit(created_outfit, update_taboo = True)
                             #$ the_person.outfit = created_outfit.get_copy() changed v0.24.1
@@ -798,6 +799,7 @@ label aunt_share_drinks_label(the_person):
                                         $ the_person.draw_animated_removal(strip_choice)
                                         "You watch as [the_person.possessive_title] takes off her [strip_choice.name]."
                                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
+                                    $ del strip_choice
                                     $ the_person.apply_outfit(the_person.planned_outfit)
                                     #$ the_person.outfit = the_person.planned_outfit.get_copy() changed v0.24.1
                                     $ the_person.draw_person()
@@ -859,6 +861,7 @@ label aunt_share_drinks_label(the_person):
                         $ the_person.draw_animated_removal(strip_choice)
                         "You watch as [the_person.possessive_title] takes off her [strip_choice.name]."
                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
+                    $ del strip_choice
 
                     the_person.char "Okay, first one."
                     $ lingerie = default_wardrobe.get_random_appropriate_underwear(the_person.sluttiness - 10, the_person.sluttiness - 40, guarantee_output = True)
@@ -885,6 +888,7 @@ label aunt_share_drinks_label(the_person):
                         $ the_person.draw_animated_removal(strip_choice)
                         "You watch as [the_person.possessive_title] takes off her [strip_choice.name]."
                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
+                    $ del strip_choice
 
                     $ lingerie = default_wardrobe.get_random_appropriate_underwear(the_person.sluttiness - 5, the_person.sluttiness - 35, guarantee_output = True)
                     $ the_person.apply_outfit(lingerie, update_taboo = True)
@@ -910,6 +914,7 @@ label aunt_share_drinks_label(the_person):
                         $ the_person.draw_animated_removal(strip_choice)
                         "You watch as [the_person.possessive_title] takes off her [strip_choice.name]."
                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
+                    $ del strip_choice
 
                     $ lingerie = default_wardrobe.get_random_appropriate_underwear(the_person.sluttiness, the_person.sluttiness - 30, guarantee_output = True)
                     $ the_person.apply_outfit(lingerie, update_taboo = True)
@@ -933,6 +938,7 @@ label aunt_share_drinks_label(the_person):
                                 $ the_person.draw_animated_removal(strip_choice)
                                 "You watch as [the_person.possessive_title] takes off her [strip_choice.name]."
                                 $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
+                            $ del strip_choice
 
                     $ the_person.change_love(2)
                     $ the_person.change_slut_temp(2)
@@ -1009,6 +1015,7 @@ label aunt_share_drinks_label(the_person):
                             "She seems to think long and hard about this for a few seconds."
                             the_person.char "I guess I understand. Thank you for being honest with me."
 
+                    $ strip_choice = None
                     $ the_person.draw_person(position="sitting")
                     "She sits down on the couch again and sighs."
                     the_person.char "I'm sorry but that extra glass of wine is just knocking me out. I think I'm going to lie down for a bit."

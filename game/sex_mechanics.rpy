@@ -674,6 +674,7 @@ label strip_menu(the_person, the_verbing = "fucking"): #TODO: Add an arousal cos
             $ renpy.say("", "You start to pull off " + the_person.title + "'s " + strip_choice.name + " when she grabs your hand and stops you.")
             $ the_person.call_dialogue("strip_reject")
         $ del test_outfit
+        $ del strip_choice
         $ renpy.call("strip_menu", the_person, the_verbing) #TODO: Girl sometimes interupts you to get you to keep going. Have to strip them down in segments.
     return
 

@@ -471,6 +471,7 @@ label pay_strip_scene(the_person):
 
             $ test_outfit = None
             $ the_clothing = None
+        $ strip_choice = None
     return
 
 

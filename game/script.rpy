@@ -10022,6 +10022,7 @@ label serum_design_action_description:
         $ my_return_serum.name = name
         $ mc.business.add_serum_design(my_return_serum)
         $ mc.business.listener_system.fire_event("new_serum", the_serum = my_return_serum)
+        $ my_return_serum = None
         call advance_time from _call_advance_time_7
     else:
         "You decide not to spend any time designing a new serum type."
@@ -10599,6 +10600,8 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
             room.add_object(make_bed())
             room.add_object(make_window())
 
+        room = None
+
         kitchen.add_object(make_wall())
         kitchen.add_object(make_floor())
         kitchen.add_object(make_chair())
@@ -10680,6 +10683,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
                     the_person = create_random_person()
                     the_person.generate_home()
                     place.add_person(the_person) #We are using create_random_person instead of make_person because we want premade character bodies to be hirable instead of being eaten up by towns-folk.
+        place = None
 
         stripclub_strippers = []
         stripclub_wardrobe = wardrobe_from_xml("Stripper_Wardrobe")

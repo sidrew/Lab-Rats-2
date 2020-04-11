@@ -1243,6 +1243,7 @@ label stripshow_strip(the_person):
                 "She smiles at you and starts to peel off her [random_item.display_name]."
             else:
                 "She smiles and wiggles her hips for you."
+            $ del random_item
 
         "Throw some cash. -$20 (disabled)" if mc.business.funds < 20:
             pass
@@ -1261,4 +1262,5 @@ label stripshow_strip(the_person):
                     $ the_person.draw_animated_removal(random_item)
                 else:
                     "She takes the money and holds onto it while she continues to move her body to the music."
+                $ del random_item
     return

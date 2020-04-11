@@ -2475,6 +2475,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                     rd_staff.char "Of course. If nothing else comes up we will send the design to production. You can have the production line changed over whenever you wish."
                     rd_staff.char "I'll put the prototype serum in the stockpile as well, if you need it."
                     $ mc.business.inventory.change_serum(the_serum, 1)
+                    $ del rd_staff
                     $ renpy.scene("Active")
                     return
 
@@ -4001,6 +4002,7 @@ label mom_outfit_help_crisis_label():
                         "You watch as [the_person.possessive_title] take off her [strip_choice.name]."
                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
                     "Once she's stripped naked she grabs another outfit and starts to put it on."
+                    $ del strip_choice
 
                 $ the_person.apply_outfit(third_outfit, update_taboo = True)
                 #$ the_person.outfit = third_outfit changed v0.24.1
