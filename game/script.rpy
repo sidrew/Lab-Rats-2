@@ -10686,18 +10686,22 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
         place = None
 
         stripclub_strippers = []
-        stripclub_wardrobe = wardrobe_from_xml("Stripper_Wardrobe")
-        for i in __builtin__.range(0,4):
-            a_girl = create_random_person(start_sluttiness = renpy.random.randint(15,30))
-            a_girl.generate_home()
-            a_girl.set_schedule([3,4],strip_club)
-            stripclub_strippers.append(a_girl)
-            strip_club.add_person(a_girl)
-
-        del a_girl
+        add_stripclub_strippers()
 
         ##Global Variable Initialization##
         day = 0 ## Game starts on day 0.
         time_of_day = 0 ## 0 = Early morning, 1 = Morning, 2 = Afternoon, 3 = Evening, 4 = Night
 
     return
+
+init -1 python:
+    def add_stripclub_strippers():
+        for i in __builtin__.range(0,4):
+            a_girl = create_random_person(start_sluttiness = renpy.random.randint(15,30))
+            a_girl.generate_home()
+            a_girl.set_schedule([3,4],strip_club)
+            stripclub_strippers.append(a_girl)
+            strip_club.add_person(a_girl)
+        return
+
+    stripclub_wardrobe = wardrobe_from_xml("Stripper_Wardrobe")
