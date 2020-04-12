@@ -953,6 +953,7 @@ label aunt_share_drinks_label(the_person):
                     mc.name "Sure thing [the_person.title], I'll be by again soon."
 
                     $ renpy.scene("Active")
+                    $ del lingerie
                     call change_location(aunt_apartment) from _call_change_location_4
                     # Same as above but she strips down and asks you for underwear sets.
                 elif the_person.sluttiness <= 75:
