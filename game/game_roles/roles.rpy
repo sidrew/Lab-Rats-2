@@ -384,6 +384,7 @@ label pay_strip_scene(the_person):
                         else:
                             $ the_person.draw_animated_removal(tease_item, position = picked_pose)
                             "You watch as [the_person.title] grabs their [tease_item.name] and pulls it off."
+                        $ del tease_item
                     else:
                         #She has nothing to strip off or she's as slutty as she's willing to get
                         "[the_person.title] seems comfortable just the way she is."
