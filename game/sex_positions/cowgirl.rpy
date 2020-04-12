@@ -13,7 +13,7 @@
             orgasm_description = "orgasm_cowgirl",
             taboo_break_description = "taboo_break_cowgirl",
             verb = "ride", verbing = "riding",
-            opinion_tags = ["taking control"], record_class = "Vaginal Sex",
+            opinion_tags = ["vaginal sex", "taking control"], record_class = "Vaginal Sex",
             default_animation = blowjob_bob,
             associated_taboo = "vaginal_sex")
 
