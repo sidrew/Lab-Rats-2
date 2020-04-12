@@ -69,6 +69,15 @@ init -1 python:
         #renpy.notify("Event exists!")
         return True
 
+    def add_mom_outfit_coloured_apron(person):
+        coloured_apron = apron.get_copy()
+        coloured_apron.colour = [0.74,0.33,0.32,1.0]
+        coloured_apron.pattern = "Pattern_1"
+        coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
+        person.outfit.add_dress(coloured_apron)
+        return
+        
+
     ask_new_title_action = Action("Ask new title", ask_new_title_requirement, "ask_new_title_label", event_duration = 2)
 
     sister_walk_in = Action("Sister walk in", sister_walk_in_requirement, "sister_walk_in_label", event_duration = 5)
@@ -346,11 +355,7 @@ label mom_house_work_nude_label(the_person):
         # She's in her underwear but self conscious about it
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True))
         #$ the_person.outfit = the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True) changed v0.24.1
-        $ coloured_apron = apron.get_copy()
-        $ coloured_apron.colour = [0.74,0.33,0.32,1.0]
-        $ coloured_apron.pattern = "Pattern_1"
-        $ coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
-        $ the_person.outfit.add_dress(coloured_apron)
+        $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
         "You find [the_person.possessive_title] in the kitchen working on dinner. She glances over her shoulder when you enter, seeming meek."
         the_person.char "Hi [the_person.mc_title]. I hope you don't mind the way I'm dressed, it's just a little more comfortable like this after work."
@@ -360,11 +365,7 @@ label mom_house_work_nude_label(the_person):
     elif the_person.effective_sluttiness("underwear_nudity") < 40:
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True))
         # $ the_person.outfit = the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True) #changed v0.24.1
-        $ coloured_apron = apron.get_copy()
-        $ coloured_apron.colour = [0.74,0.33,0.32,1.0]
-        $ coloured_apron.pattern = "Pattern_1"
-        $ coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
-        $ the_person.outfit.add_dress(coloured_apron)
+        $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
         "You find [the_person.possessive_title] in the kitchen working on dinner in her underwear. She glances over her shoulder when you enter."
         the_person.char "Hi [the_person.mc_title], I hope you've had a good day."
@@ -373,11 +374,7 @@ label mom_house_work_nude_label(the_person):
     elif the_person.effective_sluttiness(["bare_pussy","bare_tits"]) < 60:
         $ the_person.apply_outfit(Outfit("Nude"))
         #$ the_person.outfit = Outfit("Nude") changed v0.24.1
-        $ coloured_apron = apron.get_copy()
-        $ coloured_apron.colour = [0.74,0.33,0.32,1.0]
-        $ coloured_apron.pattern = "Pattern_1"
-        $ coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
-        $ the_person.outfit.add_dress(coloured_apron)
+        $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
         "You find [the_person.possessive_title] in the kitchen, completely nude except for her apron. She glances over her shoulder when you enter."
         the_person.char "Hi [the_person.mc_title]. If me being... naked makes you uncomfortable just let me know. It's just a nice to relax a little after work."
@@ -387,11 +384,7 @@ label mom_house_work_nude_label(the_person):
     else:
         $ the_person.apply_outfit(Outfit("Nude"))
         #$ the_person.outfit = Outfit("Nude") changed v0.24.1
-        $ coloured_apron = apron.get_copy()
-        $ coloured_apron.colour = [0.74,0.33,0.32,1.0]
-        $ coloured_apron.pattern = "Pattern_1"
-        $ coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
-        $ the_person.outfit.add_dress(coloured_apron)
+        $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
         "You find [the_person.possessive_title] in the kitchen, completely nude except for her apron. She glances over her shoulder when you enter."
         the_person.char "Hi [the_person.mc_title], I hope you've had a great day. Dinner should be ready soon!"
