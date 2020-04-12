@@ -86,6 +86,20 @@ init -2 python:
         mc.business.mandatory_morning_crises_list.append(moving_finished_action)
         return
 
+    def add_cousin_at_house_phase_one_action():
+        cousin_at_house_phase_one_action = Action("Cousin changes schedule", cousin_house_phase_one_requirement, "cousin_house_phase_one_label", args = cousin, requirement_args = day+renpy.random.randint(2,5))
+        mc.business.mandatory_crises_list.append(cousin_at_house_phase_one_action) #This event changes the cousin's schedule so she shows up at your house.
+        return
+
+    def add_cousin_at_house_phase_two_action():
+        cousin_at_house_phase_two_action = Action("Cousin at house", cousin_house_phase_two_requirement, "cousin_house_phase_two_label")
+        cousin.on_room_enter_event_list.append(cousin_at_house_phase_two_action)
+        return
+
+    def add_aunt_share_drink_intro():
+        aunt_share_drink_intro = Action("Aunt drink intro", aunt_drink_intro_requirement, "aunt_share_drink_intro_label")
+        aunt.on_talk_event_list.append(aunt_share_drink_intro)
+        return
 
 ###AUNT ACTION LABELS###
 label aunt_intro_label():
@@ -547,26 +561,17 @@ label aunt_intro_phase_final_label():
         aunt_apartment.visible = True
         cousin_bedroom.visible = True
 
-        for i in range(0,5):
-            aunt.schedule[i] = aunt.home #Change their home locations.
-            cousin.schedule[i] = cousin.home
         #Your aunt is a homebody, but your cousin goes wandering during the day (Eventually to be replaced with going to class sometimes.)
-        aunt.schedule[2] = aunt_apartment
-        aunt.schedule[3] = aunt_apartment
+        aunt.set_schedule([0, 1, 4], aunt.home)
+        aunt.set_schedule([2, 3], aunt_apartment)
 
+        cousin.set_schedule([0, 4], cousin.home)
+        cousin.set_schedule([1, 2, 3], None)
 
-        cousin.schedule[1] = None
-        cousin.schedule[2] = None
-        cousin.schedule[3] = None
+        add_cousin_at_house_phase_one_action()
+        add_cousin_at_house_phase_two_action()
 
-        cousin_at_house_phase_one_action = Action("Cousin changes schedule", cousin_house_phase_one_requirement, "cousin_house_phase_one_label", args = cousin, requirement_args = day+renpy.random.randint(2,5))
-        mc.business.mandatory_crises_list.append(cousin_at_house_phase_one_action) #This event changes the cousin's schedule so she shows up at your house.
-
-        cousin_at_house_phase_two_action = Action("Cousin at house", cousin_house_phase_two_requirement, "cousin_house_phase_two_label")
-        cousin.on_room_enter_event_list.append(cousin_at_house_phase_two_action)
-
-        aunt_share_drink_intro = Action("Aunt drink intro", aunt_drink_intro_requirement, "aunt_share_drink_intro_label")
-        aunt.on_talk_event_list.append(aunt_share_drink_intro)
+        add_aunt_share_drink_intro()
     return
 
 
