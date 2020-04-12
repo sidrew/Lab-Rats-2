@@ -5400,7 +5400,7 @@ label cousin_tease_crisis_label():
                         "Send [the_person.title] some money.\n-$100 (disabled)" if mc.business.funds < 100:
                             pass
 
-                        "Blackmail her for some nudes." if the_person.event_triggers_dict.get("blackmail_level",-1) > 0 and the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 >= day:
+                        "Blackmail her for some nudes." if the_person.event_triggers_dict.get("blackmail_level",-1) > 0 and the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 < day:
                             $ the_person.event_triggers_dict["last_blackmailed"] = day
                             if the_person.event_triggers_dict.get("blackmail_level",1) == 1:
                                 mc.name "How about this, you send them over and I don't say anything to your mom about you stealing from my sister."
@@ -5445,7 +5445,7 @@ label cousin_tease_crisis_label():
                             $ the_person.change_obedience(3)
                             $ the_person.change_slut_temp(2)
 
-                        "Blackmail her for some nudes.\nBlackmailed too recently. (disabled)" if the_person.event_triggers_dict.get("blackmail_level",-1) > 0 and the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 >= day:
+                        "Blackmail her for some nudes.\nBlackmailed too recently. (disabled)" if the_person.event_triggers_dict.get("blackmail_level",-1) == -1 or the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 >= day:
                             pass
 
 
