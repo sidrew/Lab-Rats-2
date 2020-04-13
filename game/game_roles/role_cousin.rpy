@@ -187,6 +187,18 @@ init -2 python:
         the_person.on_talk_event_list.append(cousin_new_boobs_brag_action) #Next time you talk to her she brags about her new boobs, offers to show them to you, and tells you that she'll pay you back eventually.
         return
 
+    def add_cousin_talk_boobjob_again_action():
+        cousin_talk_boobjob_again_action = Action("Talk to her about getting a boobjob. -$5000", cousin_talk_boobjob_again_requirement, "cousin_talk_boobjob_again_label")
+        cousin_role.actions.append(cousin_talk_boobjob_again_action)
+        return
+    
+    def remove_cousin_talk_boobjob_again_action():
+        for an_action in cousin_role:
+            if an_action.effect == "cousin_talk_boobjob_again_label": #Find and remove this action.
+                cousin_role.remove(an_action)
+                break
+        return
+
 ###COUSIN ACTION LABELS###
 label cousin_intro_phase_one_label():
     #Your cousin bursts into your room at the end of the day frustrated with Lily and how little personal space she has.
@@ -846,7 +858,7 @@ label cousin_boobjob_ask_label(the_person):
                 the_person.char "I knew you were running a scam. If you didn't want to pay, you could have just said so instead of lying."
                 call talk_person(the_person) from _call_talk_person_2
 
-                $ cousin_role.actions.append(cousin_talk_boobjob_again_action)
+                $ add_cousin_talk_boobjob_again_action()
                 return
 
             else:
@@ -871,7 +883,7 @@ label cousin_boobjob_ask_label(the_person):
                 the_person.char "Really? Ugh, you're useless."
                 call talk_person(the_person) from _call_talk_person_4
                 #Note: we add the boobjob talk option after so that the player has to come back and talk to her again.
-                $ cousin_role.actions.append(cousin_talk_boobjob_again_action)
+                $ add_cousin_talk_boobjob_again_action()
                 return
             else:
                 mc.name "What can you do? I've got the money, I just don't see a reason to give it to you."
@@ -893,7 +905,7 @@ label cousin_boobjob_ask_label(the_person):
                         "She backs up and sulks."
                         the_person.char "Ugh. Fine. Whatever."
                         call talk_person(the_person) from _call_talk_person_5
-                        $ cousin_role.actions.append(cousin_talk_boobjob_again_action)
+                        $ add_cousin_talk_boobjob_again_action()
                         return
 
 
@@ -934,11 +946,7 @@ label cousin_talk_boobjob_again_label(the_person):
                 the_person.change_slut_temp(2)
                 mc.business.funds += -5000
                 add_cousin_boobjob_get_action(the_person)
-
-                for an_action in cousin_role:
-                    if an_action == cousin_talk_boobjob_again_action: #Find and remove this action.
-                        cousin_role.remove(an_action)
-                        break
+                remove_cousin_talk_boobjob_again_action()
 
         "Pay for it. -$5000 (disabled)" if mc.business.funds < 5000:
             pass
@@ -965,11 +973,7 @@ label cousin_talk_boobjob_again_label(the_person):
                 the_person.char "Right, of course. I guess I'll let you know if it actually works then. I'm going to be pissed if this is all a scam though."
 
                 $ add_cousin_serum_boobjob_check_action(the_person)
-                python:
-                    for an_action in cousin_role.actions:
-                        if an_action == cousin_talk_boobjob_again_action: #Find and remove this action.
-                            cousin_role.actions.remove(an_action)
-                            break
+                $ remove_cousin_talk_boobjob_again_action()
                 return
 
         "Offer breast enhancing serum instead.\nRequires: Serum with Breast Enhancement trait (disabled)" if not has_boob_enhancement_serum and mc.business.research_tier >= 2:
@@ -1136,7 +1140,7 @@ label cousin_serum_boobjob_label(the_person, starting_tits):
         $ renpy.scene("Active")
         return #Note: we're returning without adding the boobjob ask again event, which means we can consider this "done" at this point.
 
-    $ cousin_role.actions.append(cousin_talk_boobjob_again_action)
+    $ add_cousin_talk_boobjob_again_action()
     return
 
 label stripclub_dance():

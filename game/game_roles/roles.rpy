@@ -196,7 +196,6 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         cousin_role = Role("Cousin", get_cousin_role_actions())
 
         #COUSIN After start actions# - Actions that are meant to be added to her action list after the game has begun.
-        cousin_talk_boobjob_again_action = Action("Talk to her about getting a boobjob. -$5000", cousin_talk_boobjob_again_requirement, "cousin_talk_boobjob_again_label")
         #cousin_role.actions.append(cousin_talk_boobjob_again_action)
 
         ####################
