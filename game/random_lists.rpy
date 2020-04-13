@@ -699,22 +699,71 @@ init -2:
             #TODO: Add a varient of this that lets you set a max number of people. A kind of "blah, blah, blah, and 7 more people..." response.
             return return_string
 
+        def add_alexia_introduction_actions():
+            alexia_intro_phase_zero_action = Action("Alexia Set Schedule", alexia_intro_phase_zero_requirement, "alexia_phase_zero_label", requirement_args = renpy.random.randint(14, 21))
+            mc.business.mandatory_crises_list.append(alexia_intro_phase_zero_action)
+
+            alexia_intro_phase_one_action = Action("Alexia Intro Phase One", alexia_intro_phase_one_requirement, "alexia_intro_phase_one_label")
+            alexia.on_room_enter_event_list.append(alexia_intro_phase_one_action)
+            return
+        
+        def add_lily_introduction_actions():
+            sister_intro_crisis = Action("sister_intro_crisis", sister_intro_crisis_requirements, "sister_intro_crisis_label", args=lily, requirement_args = [lily, renpy.random.randint(7,14)]) #Def is in roles.rpy
+            sister_strip_intro_crisis = Action("sister_strip_intro_crisis", sister_strip_intro_requirement, "sister_strip_intro_label", args=lily, requirement_args = lily)
+
+            mc.business.mandatory_crises_list.append(sister_intro_crisis) #Introduces Lily one to two weeks into the game. She will test serum for cash.
+            mc.business.mandatory_crises_list.append(sister_strip_intro_crisis) #Lily comes asking for more money. She will strip (to varying degrees) for cash)
+
+            instathot_intro_action = Action("Instathot intro", instathot_intro_requirement, "sister_instathot_intro_label") #Event to introduce Lily taking pictures on the internet for money.
+            lily.on_room_enter_event_list.append(instathot_intro_action)
+            return
+
+        def add_aunt_introduction_actions():
+            aunt_intro_action = Action("Aunt introduction", aunt_intro_requirement, "aunt_intro_label", requirement_args = renpy.random.randint(15,20))
+            mc.business.mandatory_crises_list.append(aunt_intro_action) #Aunt and cousin will be visiting tomorrow in the morning
+            return
+
+init -1 python:
+    # wardrobes
+    dinah_wardrobe = wardrobe_from_xml("Dinah_Wardrobe")
+    sylvia_wardrobe = wardrobe_from_xml("Sylvia_Wardrobe")
+    paige_wardrobe = wardrobe_from_xml("Paige_Wardrobe")
+    kendra_wardrobe = wardrobe_from_xml("Kendra_Wardrobe")
+    stephanie_wardrobe = wardrobe_from_xml("Stephanie_Wardrobe")
+    nora_wardrobe = wardrobe_from_xml("Nora_Wardrobe")
+    alexia_wardrobe = wardrobe_from_xml("Alexia_Wardrobe")
+    lily_wardrobe = wardrobe_from_xml("Lily_Wardrobe")
+    mom_wardrobe = wardrobe_from_xml("Mom_Wardrobe")
+    aunt_wardrobe = wardrobe_from_xml("Aunt_Wardrobe")
+    cousin_wardrobe = wardrobe_from_xml("Cousin_Wardrobe")
+
+    # base outfits
+    nora_base = Outfit("Nora's accessories")
+    nora_glasses = modern_glasses.get_copy()
+    nora_glasses.colour = [0.45,0.53,0.6,1.0]
+    nora_earrings = gold_earings.get_copy()
+    nora_earrings.colour = [1.0,1.0,0.93,1.0]
+    nora_base.add_accessory(nora_glasses)
+    nora_base.add_accessory(nora_earrings)
+
+    alexia_base = Outfit("Alexia's accessories")
+    alexia_glasses = big_glasses.get_copy()
+    big_glasses.colour = [0.1,0.1,0.1,1.0]
+    alexia_base.add_accessory(alexia_glasses)
+
 
 init 1 python:
     def generate_premade_list():
         global list_of_unique_characters
         list_of_unique_characters = []
 
-        dinah_wardrobe = wardrobe_from_xml("Dinah_Wardrobe")
         person_dinah = create_random_person(name = "Dinah", last_name = "Midari", body_type = "standard_body", height=0.99, skin="black", tits="D", hair_colour="black", hair_style=short_hair, starting_wardrobe = dinah_wardrobe)
         list_of_unique_characters.append(person_dinah)
 
-        sylvia_wardrobe = wardrobe_from_xml("Sylvia_Wardrobe")
         person_sylvia = create_random_person(name = "Sylvia", last_name = "Weissfeldt", body_type = "curvy_body", height=0.96, skin="white", tits="C", hair_colour="blond", hair_style = long_hair, starting_wardrobe = sylvia_wardrobe,
             personality = reserved_personality)
         list_of_unique_characters.append(person_sylvia)
 
-        paige_wardrobe = wardrobe_from_xml("Paige_Wardrobe")
         #Well educated and raised in a very middle-class family.
         #Paige is a cool-headed young woman who has confidence without exuberance or extraversion.
         #her favourite activities are generally calm and solitary: reading, playing musical instruments, watching TV, etc.
@@ -724,7 +773,6 @@ init 1 python:
             personality = reserved_personality, stat_array = [1,4,3], skill_array = [5,1,2,3,2], sex_array = [2,1,4,2])
         list_of_unique_characters.append(person_paige)
 
-        kendra_wardrobe = wardrobe_from_xml("Kendra_Wardrobe")
         # Kendra's family owns one of the largest pharmaceutical companies in the country. All of the Rivera children went to the finest prep schools.
         # Unlike her siblings, Kendra didn't inherit her parent's good looks or their general attitudes. She also disagreed with her families' viewpoint that being rich makes you better than everyone else.
         # This point of view put her at odds with everyone in her social class so she mostly hung out with the outcasts of her school.
@@ -736,8 +784,6 @@ init 1 python:
         list_of_unique_characters.append(person_kendra)
 
         ### STEPHANIE ###
-        stephanie_wardrobe = wardrobe_from_xml("Stephanie_Wardrobe")
-
         global stephanie
         stephanie = create_random_person(name = "Stephanie", age = 29, body_type = "standard_body", face_style = "Face_3",  tits="C", height = 0.94, hair_colour="brown", hair_style = messy_short_hair, skin="white" , \
             eyes = "brown", personality = stephanie_personality, name_color = "#cf3232", dial_color = "#cf3232" , starting_wardrobe = stephanie_wardrobe, \
@@ -746,16 +792,7 @@ init 1 python:
         stephanie.generate_home()
 
         ### NORA ##
-        nora_wardrobe = wardrobe_from_xml("Nora_Wardrobe")
-
         global nora
-        nora_base = Outfit("Nora's accessories")
-        nora_glasses = modern_glasses.get_copy()
-        nora_glasses.colour = [0.45,0.53,0.6,1.0]
-        nora_earrings = gold_earings.get_copy()
-        nora_earrings.colour = [1.0,1.0,0.93,1.0]
-        nora_base.add_accessory(nora_glasses)
-        nora_base.add_accessory(nora_earrings)
         nora = create_random_person(name = "Nora", age = 47, body_type = "standard_body", face_style = "Face_4", tits = "D", height = 0.98, hair_colour="black", hair_style = bowl_hair, skin = "white", \
             eyes = "grey", personality = nora_personality, name_color = "#dddddd", dial_color = "#dddddd", starting_wardrobe = nora_wardrobe, \
             stat_array = [1,5,4], skill_array = [1,1,5,3,1], sex_array = [3,2,4,1], start_sluttiness = 4, start_obedience = 2, start_happiness = 0, start_love = 3, \
@@ -769,58 +806,34 @@ init 1 python:
         town_relationships.update_relationship(nora, stephanie, "Friend")
 
         ### ALEXIA ###
-        alexia_wardrobe = wardrobe_from_xml("Alexia_Wardrobe")
-
         global alexia
-        alexia_base = Outfit("Alexia's accessories")
-        alexia_glasses = big_glasses.get_copy()
-        big_glasses.colour = [0.1,0.1,0.1,1.0]
-        alexia_base.add_accessory(alexia_glasses)
         alexia = create_random_person(name = "Alexia", age = 21, body_type = "thin_body", face_style = "Face_2", tits = "C", height = 0.92, hair_colour = "blond", hair_style = short_hair, skin="white",\
             eyes = "brown", personality = alexia_personality, name_color = "#ffff6e", dial_color = "#ffff6e", starting_wardrobe = alexia_wardrobe, \
             stat_array = [4,3,3], skill_array = [1,3,2,1,1], sex_array = [2,2,1,0], start_sluttiness = 3, start_obedience = 0, start_happiness = 102, start_love = 3, \
             title = "Alexia", possessive_title = "Your old classmate",mc_title = mc.name, relationship = "Girlfriend", SO_name = get_random_male_name(), kids = 0, base_outfit = alexia_base)
         alexia.generate_home()
 
-        alexia_intro_phase_zero_action = Action("Alexia Set Schedule", alexia_intro_phase_zero_requirement, "alexia_phase_zero_label", requirement_args = renpy.random.randint(14, 21))
-        mc.business.mandatory_crises_list.append(alexia_intro_phase_zero_action)
-
-        alexia_intro_phase_one_action = Action("Alexia Intro Phase One", alexia_intro_phase_one_requirement, "alexia_intro_phase_one_label")
-        alexia.on_room_enter_event_list.append(alexia_intro_phase_one_action)
+        add_alexia_introduction_actions()
 
         alexia.special_role.append(alexia_role)
-        for i in range(0,5):
-            alexia.schedule[i] = alexia.home #Hide them in their bedroom off the map until they're ready.
+        alexia.set_schedule([0,1,2,3,4], alexia.home)
         alexia.home.add_person(alexia)
 
-
         ### LILY ###
-        lily_wardrobe = wardrobe_from_xml("Lily_Wardrobe")
-
         global lily
         lily = create_random_person(name = "Lily", last_name = mc.last_name, age = 19, body_type = "thin_body", face_style = "Face_6", tits = "B", height = 0.90, hair_colour="blond", hair_style = ponytail, skin="white", \
             eyes = "light blue", personality = lily_personality, name_color = "#FFB1F8", dial_color = "#FFB1F8", starting_wardrobe = lily_wardrobe, start_home = lily_bedroom, \
             stat_array = [5,2,2], skill_array = [2,2,0,1,1], sex_array = [2,1,0,0], start_sluttiness = 8, start_obedience = -26, start_happiness = 122, start_love = 15, \
             title = "Lily", possessive_title = "Your sister", mc_title = mc.name, relationship = "Single", kids = 0)
 
+        add_lily_introduction_actions()
+
         lily.special_role.append(sister_role)
         lily.schedule[3] = lily.home
         lily.set_schedule([1,2],university)
-
-        sister_intro_crisis = Action("sister_intro_crisis", sister_intro_crisis_requirements, "sister_intro_crisis_label", args=lily, requirement_args = [lily, renpy.random.randint(7,14)]) #Def is in roles.rpy
-        sister_strip_intro_crisis = Action("sister_strip_intro_crisis", sister_strip_intro_requirement, "sister_strip_intro_label", args=lily, requirement_args = lily)
-
-        mc.business.mandatory_crises_list.append(sister_intro_crisis) #Introduces Lily one to two weeks into the game. She will test serum for cash.
-        mc.business.mandatory_crises_list.append(sister_strip_intro_crisis) #Lily comes asking for more money. She will strip (to varying degrees) for cash)
-
-        instathot_intro_action = Action("Instathot intro", instathot_intro_requirement, "sister_instathot_intro_label") #Event to introduce Lily taking pictures on the internet for money.
-        lily.on_room_enter_event_list.append(instathot_intro_action)
-
         lily.home.add_person(lily)
 
         ### MOM ###
-        mom_wardrobe = wardrobe_from_xml("Mom_Wardrobe")
-
         global mom
         mom_base = Outfit("Jennifer's accessories")
         mom_base.add_accessory(diamond_ring.get_copy())
@@ -829,36 +842,26 @@ init 1 python:
             stat_array = [3,2,4], skill_array = [5,2,0,0,2], sex_array = [2,1,3,0], start_sluttiness = 7, start_obedience = 12, start_happiness = 108, start_love = 25, \
             title = "Mom", possessive_title = "Your mother", mc_title = "Sweetheart", relationship = "Single", kids = 2, base_outfit = mom_base)
 
+        add_mom_weekly_pay_action()
+
         mom.special_role.append(mother_role)
         mom.schedule[3] = kitchen
-
-        mom_weekly_pay_action = Action("mom weekly pay", mom_weekly_pay_requirement, "mom_weekly_pay_label", args=mom, requirement_args =[mom])
-        mc.business.mandatory_crises_list.append(mom_weekly_pay_action)
-
         mom.home.add_person(mom)
 
         ### AUNT ###
-        aunt_wardrobe = wardrobe_from_xml("Aunt_Wardrobe")
-
         global aunt
         aunt = create_random_person(name = "Rebecca", last_name = get_random_last_name(), age = 39, body_type = "thin_body", face_style = "Face_1", tits = "DD", height = 0.92, hair_colour = "blond", hair_style = bobbed_hair, skin="white", \
             eyes = "brown", personality = aunt_personality, name_color = "#66FF8A", dial_color = "#66FF8A", starting_wardrobe = aunt_wardrobe, start_home = aunt_bedroom, \
             stat_array = [5,2,1], skill_array = [1,2,0,0,0], sex_array = [3,5,3,2], start_sluttiness = 11, start_obedience = 0, start_happiness = 70, start_love = 5, \
             title = "Rebecca", possessive_title = "Your aunt", mc_title = mc.name, relationship = "Single", kids = 1)
 
+        add_aunt_introduction_actions()
 
         aunt.special_role.append(aunt_role)
-        for i in range(0,5):
-            aunt.schedule[i] = aunt_bedroom #Hide them in their bedroom off the map until they're ready.
+        aunt.set_schedule([0,1,2,3,4], aunt_bedroom)
         aunt.home.add_person(aunt)
 
-        aunt_intro_action = Action("Aunt introduction", aunt_intro_requirement, "aunt_intro_label", requirement_args = renpy.random.randint(15,20))
-        mc.business.mandatory_crises_list.append(aunt_intro_action) #Aunt and cousin will be visiting tomorrow in the morning
-
-
         ### COUSIN ###
-        cousin_wardrobe = wardrobe_from_xml("Cousin_Wardrobe")
-
         global cousin
         cousin = create_random_person(name = "Gabrielle", last_name = aunt.last_name, age = 18, body_type = "curvy_body", face_style = "Face_3", tits = "DDD", height = 0.90, hair_colour = "black", hair_style = messy_short_hair, skin="white",\
             eyes = "brown", personality = cousin_personality, name_color = "#9c4dea", dial_color = "#9c4dea", starting_wardrobe = cousin_wardrobe, start_home = cousin_bedroom, \
@@ -866,8 +869,7 @@ init 1 python:
             title = "Gabrielle", possessive_title = "Your cousin", mc_title = mc.name, relationship = "Single", kids = 0)
 
         cousin.special_role.append(cousin_role)
-        for i in range(0,5):
-            cousin.schedule[i] = cousin_bedroom #Hide them in their bedroom off the map until they're ready
+        cousin.set_schedule([0,1,2,3,4], cousin_bedroom)
         cousin.home.add_person(cousin)
 
 
