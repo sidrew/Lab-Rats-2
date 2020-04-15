@@ -193,10 +193,11 @@ init -2 python:
         return
     
     def remove_cousin_talk_boobjob_again_action():
-        for an_action in cousin_role:
-            if an_action.effect == "cousin_talk_boobjob_again_label": #Find and remove this action.
-                cousin_role.remove(an_action)
-                break
+        for role in cousin.special_role:
+            for act in role.actions:
+                if act.effect == "cousin_talk_boobjob_again_label": #Find and remove this action.
+                    role.actions.remove(act)
+                    break
         return
 
 ###COUSIN ACTION LABELS###
