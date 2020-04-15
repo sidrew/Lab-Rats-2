@@ -275,7 +275,7 @@ label broken_AC_crisis_label:
                     "The rest of the department follows the lead of [the_person.title], stripping off various amounts of clothing."
                         #Gives you the chance to watch one of the other girls in the department strip.
                     
-                    call screen main_choice_display(build_menu_items([broken_AC_crisis_get_watch_list_menu(the_person)]))
+                    call screen main_choice_display([broken_AC_crisis_get_watch_list_menu(the_person)])
                     $ girl_choice = _return
 
                     "You pay special attention to [girl_choice.title] as she follows the lead of [the_person.possessive_title]."
@@ -2960,7 +2960,7 @@ label horny_at_work_crisis_label():
                 else:
                     $ exit_option = "Just have her watch."
 
-                call screen main_choice_display(build_menu_items([build_helpful_people_menu(helpful_people, exit_option)])) #Shows a list of people w/ predictive imaging when you hover
+                call screen main_choice_display([build_helpful_people_menu(helpful_people, exit_option)]) #Shows a list of people w/ predictive imaging when you hover
                 $ the_choice = _return
                 if the_choice == exit_option:
                     #Power move, just jerk yourself off as they watch.

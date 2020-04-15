@@ -749,7 +749,7 @@ label flirt_person(the_person): #Tier 1. Raises a character's sluttiness up to a
     return
 
 label date_person(the_person): #You invite them out on a proper date
-    call screen main_choice_display(build_menu_items([get_date_plan_actions(the_person)]))
+    call screen main_choice_display([get_date_plan_actions(the_person)])
     if _return != "Return":
         $ _return.call_action() #This is where you're asked to plan out the date, or whatever.
     return
@@ -1518,7 +1518,7 @@ label command_person(the_person):
     #TODO: Add more commands
     #TODO: Add a way to add role specific commands.
 
-    call screen main_choice_display(build_menu_items([build_command_person_actions_menu(the_person)]))
+    call screen main_choice_display([build_command_person_actions_menu(the_person)])
     #call screen main_choice_display([["Command her to...", change_titles_action, wardrobe_change_action, serum_demand_action, strip_demand_action, touch_demand_action, "Return"]])
     #$ player_choice = _return
     if _return != "Return":

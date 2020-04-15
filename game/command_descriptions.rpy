@@ -259,7 +259,7 @@ label demand_strip_label(the_person):
     # the_person.effective_sluttiness(["bare_tits", "bare_pussy"])
 
 
-    call screen main_choice_display(build_menu_items([build_demand_strip_menu(the_person)]))
+    call screen main_choice_display([build_demand_strip_menu(the_person)])
     if _return != "Return": #Just return, we either don't want to select any of these options, or we _can't_
         $ _return.call_action()
 
