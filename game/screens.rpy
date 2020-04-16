@@ -448,7 +448,7 @@ screen choice(items):
     viewport:
         scrollbars "vertical"
         mousewheel True
-        child_size (1920,450*len(items)//2)
+        child_size (1920, 450 + 125 * (len(items)//2))
         vbox:
             xalign 0.34
             yalign 0.5
