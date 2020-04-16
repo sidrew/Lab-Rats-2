@@ -377,7 +377,7 @@ label orgasm_blowjob(the_girl, the_location, the_object):
                 if the_girl.outfit.vagina_visible():
                     "You can see that [the_girl.title]'s pussy is dripping wet as she cums."
                 else:
-                    $ top_piece = the_girl.outfit.get_lower_ordered()[-1]
+                    $ top_piece = the_girl.outfit.get_lower_top_layer()
                     if top_piece.underwear:
                         "[the_girl.possessive_title]'s dripping wet pussy has managed to soak through her underwear, leaving a wet mark on her [top_piece.name]."
                     else:

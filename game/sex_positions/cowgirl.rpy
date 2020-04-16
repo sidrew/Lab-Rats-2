@@ -31,6 +31,7 @@ label intro_cowgirl(the_girl, the_location, the_object):
     else:
         $ the_clothing = the_girl.outfit.get_lower_top_layer()
         "She leans back and grinds herself against you. Underneath her [the_clothing.name] you can feel the lips of her pussy sliding along the length of your shaft."
+        $ del the_clothing
     the_girl.char "Ready?"
     if the_girl.sex_skills["Vaginal"] >= 3:
         "You nod. She grinds forward one last time, then lifts herself up and lets your tip fall into place. With one smooth movement she slides you deep into her tight cunt."

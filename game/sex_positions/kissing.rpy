@@ -173,7 +173,7 @@ label scene_kissing_2(the_girl, the_location, the_object):
                     "After letting you fondle her for a few more seconds [the_girl.title] pulls you back into a kiss."
 
                 else:
-                    $ top_clothing = the_girl.outfit.get_upper_ordered()[-1]
+                    $ top_clothing = the_girl.outfit.get_upper_top_layer()
                     "You cup one of [the_girl.title]'s sizeable breasts through her [top_clothing.name]. You bounce it up and down a few times."
                     $ top_clothing = None
                     the_girl.char "Mmm, that's nice. Maybe if you ask nicely I'll let you get a better feel of them."
@@ -192,7 +192,7 @@ label scene_kissing_2(the_girl, the_location, the_object):
                     "She lets you fondle her for a few more seconds before pulling you back into a kiss."
 
                 else:
-                    $ top_clothing = the_girl.outfit.get_upper_ordered()[-1]
+                    $ top_clothing = the_girl.outfit.get_upper_top_layer()
                     "You run your hand over [the_girl.title]'s chest, feeling her small tits through her [top_clothing.name]."
                     $ top_clothing = None
                     the_girl.char "I hope you aren't getting distracted..."

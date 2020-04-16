@@ -147,7 +147,7 @@ label scene_missionary_2(the_girl, the_location, the_object):
                         "You enjoy the squishy weight of her breasts for a few moments, then shift your focus back to fucking her."
 
                     else:
-                        $ top_clothing = the_girl.outfit.get_upper_ordered()[-1]
+                        $ top_clothing = the_girl.outfit.get_upper_top_layer()
                         "You plant a hand on [the_girl.possessive_title]'s big tits and fondle them through her [top_clothing.name]."
                         $ top_clothing = None
                         the_girl.char "Mmm, you should just pull that out of the way. I want you to be able to grab them and squeeze them."
@@ -158,7 +158,7 @@ label scene_missionary_2(the_girl, the_location, the_object):
                         the_girl.char "Oh! Easy there, it's sensitive."
                         "You rub her nipple for a moment and feel it get hard, then move to her other breast and do the same."
                     else:
-                        $ top_clothing = the_girl.outfit.get_upper_ordered()[-1]
+                        $ top_clothing = the_girl.outfit.get_upper_top_layer()
                         "You try and feel up [the_girl.possessive_title]'s little tits, but her [top_clothing.name] stops you from getting much more than a handful of fabric."
                         $ top_clothing = None
                         "You give up and focus on fucking her instead."

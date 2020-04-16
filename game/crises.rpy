@@ -729,7 +729,7 @@ label office_flirt_label():
                 #if she's wearing something on the bottom and the outfit isn't too slutty, take off her bottom bit.
                 if len(the_person.outfit.get_lower_ordered()) > 0: #ie. she's wearing something to take off
                     $ test_outfit = the_person.outfit.get_copy()
-                    $ the_item = test_outfit.get_lower_ordered()[-1] #Get the top layer item
+                    $ the_item = test_outfit.get_lower_top_layer() #Get the top layer item
                     $ test_outfit.remove_clothing(the_item)
                     if the_person.judge_outfit(test_outfit):
                         the_person.char "I'm sure you'd like a better look, lets get this out of the way first."
@@ -1129,9 +1129,8 @@ label water_spill_crisis_label():
     $ the_person = get_random_from_list(mc.business.get_employee_list())
     if len(the_person.outfit.get_upper_ordered()) == 0:
         return #She's not wearing a top, we can't exactly spill water on nothing!
-    else:
-        $ the_clothing = the_person.outfit.get_upper_ordered()[-1] #Get the very top item of clothing.
 
+    $ the_clothing = the_person.outfit.get_upper_top_layer() #Get the very top item of clothing.
 
     "You're hard at work when [the_person.title] comes up to you. She's got her phone clutched in one hand, a water bottle in the other."
     $ the_person.draw_person()
@@ -1811,10 +1810,7 @@ label work_chat_crisis_label:
                         $ the_person.draw_person(position = "back_peek")
                         "[the_person.title] stands up and turns around for you."
                         mc.name "It's cute, I like it."
-                        $ top_clothing = None
-                        if the_person.outfit.get_lower_ordered():
-                            $top_clothing = the_person.outfit.get_lower_ordered()[-1]
-
+                        $ top_clothing = the_person.outfit.get_lower_top_layer()
                         if top_clothing:
                             "[the_person.possessive_title] pulls at her [top_clothing.name], sliding it down a little bit as if she's about to remove it."
                             the_person.char "What am I doing... I'm sorry, I got a little carried away."
@@ -1877,9 +1873,10 @@ label work_chat_crisis_label:
                 if the_person.outfit.vagina_available():
                     "[the_person.title] slides her chair back from the desk and runs her finger along her pussy. She bites her lip and moans quietly to herself."
                 else:
-                    if the_person.outfit.get_lower_ordered(): #Purely a safety check to avoid crashes.
-                        $ top_layer = the_person.outfit.get_lower_ordered()[-1]
+                    $ top_layer = the_person.outfit.get_lower_top_layer()
+                    if top_layer:
                         "[the_person.title] rolls her chair back from the desk and slides a hand inside of her [top_layer.name]. She bites her lip and moans quietly to herself."
+                    $ del top_layer
 
                 the_person.char "Ah... I really needed this. If you need to do the same I understand."
                 "She sighs and leans back in her office chair, legs spread while she touches herself."
@@ -1979,9 +1976,10 @@ label work_chat_crisis_label:
                 if the_person.outfit.vagina_available():
                     "[the_person.possessive_title] has her legs spread and is gently stroking her pussy below the desk, out of sight of everyone else in the room."
                 else:
-                    if the_person.outfit.get_lower_ordered():
-                        $ top_layer = the_person.outfit.get_lower_ordered()[-1]
+                    $ top_layer = the_person.outfit.get_lower_top_layer()
+                    if top_layer:
                         "[the_person.possessive_title] has a hand down her [top_layer.name]. You can see one of her fingers making little movements under the fabric as she touches herself."
+                    $ del top_layer
 
                 "You lean over and whisper to her."
                 mc.name "Having fun?"
