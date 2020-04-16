@@ -1494,6 +1494,11 @@ init 1 python:
                 return True
         return False
 
+    def add_invest_rep_visit_action(rep_name):
+        invest_rep_visit = Action("Investment Representative Visit",invest_rep_visit_requirement,"invest_rep_visit_label", args = rep_name, requirement_args = [day + 7 - (day%7)]) #Set the trigger day for the next monday. Monday is day%7 == 0
+        mc.business.mandatory_crises_list.append(invest_rep_visit) #Add the event here so that it pops when the requirements are met.
+        return
+
 label invest_opportunity_crisis_label():
     #You receive a call asking for a tour of your facilities. Once there the investment agent can be "persuaded" to impress them.
     "Your phone rings while you're busy working. You lean back in your chair and answer it."
@@ -1507,8 +1512,7 @@ label invest_opportunity_crisis_label():
             mc.name "That sounds like a wonderful idea. Would you be available this coming Monday?"
             rep_name "Monday will be fine. Thank you for your time [mc.name], we will be in touch again soon."
             "[rep_name] hangs up the phone. You make a note on your calender for next Monday, leaving a reminder to be in the office during working hours."
-            $ invest_rep_visit = Action("Investment Representative Visit",invest_rep_visit_requirement,"invest_rep_visit_label", args = rep_name, requirement_args = [day + 7 - (day%7)]) #Set the trigger day for the next monday. Monday is day%7 == 0
-            $ mc.business.mandatory_crises_list.append(invest_rep_visit) #Add the event here so that it pops when the requirements are met.
+            $ add_invest_rep_visit_action(rep_name)
 
         "Turn [rep_name] away.":
             mc.name "I'm flattered to hear you're interested, but we are not open to the public."
@@ -1614,6 +1618,8 @@ label invest_rep_visit_label(rep_name):
                 "[seduce_requires_string] (disabled)" if not (helper.sluttiness >= 60 and helper.obedience >= 130):
                     pass
 
+            $ del flirt_requires_string
+            $ del seduce_requires_string
             $ renpy.scene("Active")
             $ office.show_background()
             "Half an hour later there is a knock on your office door."
@@ -1622,8 +1628,7 @@ label invest_rep_visit_label(rep_name):
             helper.char "All done with the tour. Let me know if you need anything else."
             "[rep_name] steps into your office and [helper.title] closes the door behind him. [rep_name] sits down in the chair on the opposite side of your desk."
             $ renpy.scene("Active")
-            $ ran_num = renpy.random.randint(0,100)
-            if ran_num < success_chance:
+            if renpy.random.randint(0,100) < success_chance:
                 rep_name "I won't waste any more of your time [mc.name], I can say with certainty that my investors are going to be interested in investing in your business."
                 mc.name "I'm glad to hear it."
                 rep_name "I would like to offer you $5000 to help you expand your business. In exchange we would like to be kept informed of your scientific progress."
