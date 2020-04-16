@@ -1878,7 +1878,8 @@ label work_chat_crisis_label:
                     "[the_person.title] slides her chair back from the desk and runs her finger along her pussy. She bites her lip and moans quietly to herself."
                 else:
                     if the_person.outfit.get_lower_ordered(): #Purely a safety check to avoid crashes.
-                        "[the_person.title] rolls her chair back from the desk and slides a hand inside of her [the_person.outfit.get_lower_ordered()[-1].name]. She bites her lip and moans quietly to herself."
+                        $ top_layer = the_person.outfit.get_lower_ordered()[-1]
+                        "[the_person.title] rolls her chair back from the desk and slides a hand inside of her [top_layer.name]. She bites her lip and moans quietly to herself."
 
                 the_person.char "Ah... I really needed this. If you need to do the same I understand."
                 "She sighs and leans back in her office chair, legs spread while she touches herself."
@@ -1979,7 +1980,8 @@ label work_chat_crisis_label:
                     "[the_person.possessive_title] has her legs spread and is gently stroking her pussy below the desk, out of sight of everyone else in the room."
                 else:
                     if the_person.outfit.get_lower_ordered():
-                        "[the_person.possessive_title] has a hand down her [the_person.outfit.get_lower_ordered()[-1].name]. You can see one of her fingers making little movements under the fabric as she touches herself."
+                        $ top_layer = the_person.outfit.get_lower_ordered()[-1]
+                        "[the_person.possessive_title] has a hand down her [top_layer.name]. You can see one of her fingers making little movements under the fabric as she touches herself."
 
                 "You lean over and whisper to her."
                 mc.name "Having fun?"
