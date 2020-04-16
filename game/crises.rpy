@@ -4632,6 +4632,16 @@ init 1 python:
             if lily.effective_sluttiness("underwear_nudity") >= 10 and lily.love >= 0: #She's slutty enough to show you her new underwear.
                 return True
         return False
+
+    def lily_new_underwear_get_random_underwear(person):
+        valid_underwear_options = []
+        for underwear in default_wardrobe.get_underwear_sets_list():
+            #She picks underwear that is in the top 20 sluttiness of what she considers slutty underwear AND that she would feel comfortable wearing in front of her (hopefully loving) brother.
+            if underwear.get_underwear_slut_score() <= person.sluttiness and underwear.get_underwear_slut_score() >= person.sluttiness-20 and person.judge_outfit(underwear, person.love+30):
+                valid_underwear_options.append(underwear)
+
+        return get_random_from_list(valid_underwear_options)
+
     lily_new_underwear_crisis = Action("Lily New Underwear Crisis", lily_new_underwear_requirement, "lily_new_underwear_crisis_label")
     crisis_list.append([lily_new_underwear_crisis, 5])
 
@@ -4639,16 +4649,7 @@ label lily_new_underwear_crisis_label():
     # Lily has some new underwear she wants to demo for you.
     # We base the underwear sluttiness on Lily's sluttiness and use Love+Sluttiness to see if she'll show you as a "full outfit".
     $ the_person = lily #Just so we can keep
-    $ valid_underwear_options = []
-    $ the_underwear = None
-    python:
-        for underwear in default_wardrobe.get_underwear_sets_list():
-            #She picks underwear that is in the top 20 sluttiness of what she considers slutty underwear AND that she would feel comfortable wearing in front of her (hopefully loving) brother.
-            if underwear.get_underwear_slut_score() <= the_person.sluttiness and underwear.get_underwear_slut_score() >= the_person.sluttiness-20 and the_person.judge_outfit(underwear, the_person.love+30):
-                valid_underwear_options.append(underwear)
-
-        the_underwear = get_random_from_list(valid_underwear_options)
-        del valid_underwear_options
+    $ the_underwear = lily_new_underwear_get_random_underwear(the_person)
     if the_underwear is None:
         return #Lily doesn't have any skimpy underwear to show us :(
 
