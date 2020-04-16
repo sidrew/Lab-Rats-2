@@ -448,13 +448,11 @@ screen choice(items):
     viewport:
         scrollbars "vertical"
         mousewheel True
-        child_size (1920,125*len(items)//2)
-        yalign 0.5
-        yanchor 0.5
+        child_size (1920,450*len(items)//2)
         vbox:
             xalign 0.34
             yalign 0.5
-            null height 490
+            null height 200
             for i in items[0::2]:
                 #Check if " (tooltip)" in i.caption, and if it is remove it and everything after it and add it as a tooltip
                 $ the_tooltip = ""
@@ -471,7 +469,7 @@ screen choice(items):
         vbox:
             xalign 0.67
             yalign 0.5
-            null height 490
+            null height 200
             if len(items)%2 == 0:
                 null height 125 #Add an empty list element to keep the alignment correct if there are an even number of elements in both lists.
             for j in items[1::2]:
