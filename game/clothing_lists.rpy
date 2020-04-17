@@ -400,7 +400,7 @@ init -1:
         lab_coat = Clothing("Lab Coat", 3, True, True, "Lab_Coat", True, False, 0, opacity_adjustment = 1.08, display_name = "coat")
         shirts_list.append(lab_coat)
 
-        suit_jacket = Clothing("Suit Jacket", 3, True, True, "Suit_Jacket", True, False, 0, display_name = "jacket")
+        suit_jacket = Clothing("Suit Jacket", 3, False, True, "Suit_Jacket", True, False, 0, display_name = "jacket")
         shirts_list.append(suit_jacket)
 
         vest = Clothing("Vest", 3, False, True, "Vest", True, False, 0, display_name = "vest")
