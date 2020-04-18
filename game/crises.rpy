@@ -642,17 +642,17 @@ label office_flirt_label():
         if the_person.outfit.vagina_visible(): #We use vagina as a proxy for ass too.
             "You turn to watch her go past. Her ass looks particularly good with nothing blocking your view of it."
         else:
-            $ what_we_see = the_person.outfit.get_lower_visible()
-            $ top_item = what_we_see[0]
-            "You turn to watch her go past. Her ass looks particularly good, barely hidden underneath her [top_item.name]."
+            $ the_clothing = the_person.outfit.get_lower_top_layer()
+            "You turn to watch her go past. Her ass looks particularly good, barely hidden underneath her [the_clothing.name]."
+            $ del the_clothing
     else:
         # She's practically (or literally) naked.
         if the_person.outfit.vagina_visible(): #We use vagina as a proxy for ass too.
             "You turn to watch her go past. Her ass looks particularly good with nothing blocking your view of it."
         else:
-            $ what_we_see = the_person.outfit.get_lower_visible()
-            $ top_item = what_we_see[0]
-            "You turn to watch her go past. Her ass looks particularly good, barely hidden underneath her [top_item.name]."
+            $ the_clothing = the_person.outfit.get_lower_top_layer()
+            "You turn to watch her go past. Her ass looks particularly good, barely hidden underneath her [the_clothing.name]."
+            $ del the_clothing
 
     "She stops at a shelf and runs her finger along a row of binders, obviously looking for something. After a moment she moves down a shelf and checks there."
     "You watch as [the_person.title] searches row after row, going lower and lower each time. Soon she's bent over with her ass high in the air."
@@ -1650,6 +1650,7 @@ label invest_rep_visit_label(rep_name):
                 rep_name "In the future I might visit again to reevaluate though."
                 mc.name "I understand. Thank you for your time, I'll see you out."
                 "You walk [rep_name] back to his car and watch as he drives away."
+            $ del helper
     return
 
 init 1 python:
@@ -3245,6 +3246,7 @@ label horny_at_work_crisis_label():
 
                             else: #We've been thwarted somehow and can't get to her pussy.
                                 "Thwarted by her clothing and unable to dress her down any further, you give up and let her go. The shame of your defeat has, thankfully, killed your erection and you're able to get back to work."
+                            $ del desk
 
                         else:
                             $ the_person.draw_person(emotion = "angry")
