@@ -1,5 +1,7 @@
 #Cousin Role Action Requirements
 init -2 python:
+    cousin_strip_pose_list = ["walking_away","back_peek","standing_doggy","stand2","stand3","stand4","stand5"] #A list to let us randomly get some poses so each dance is a little different.
+
     def cousin_intro_phase_one_requirement(day_trigger):
         if day >= day_trigger and time_of_day == 4:
             return True
@@ -1151,9 +1153,6 @@ label stripclub_dance():
     #-> If you tip enough she strips off her bra and/or panties.
     #-> When she ends her dance, if you've paid enough she may ask if you want to come back for a private lap dance.
     #-> Lap dance scene may just turn into sex.
-    $ pose_list = ["walking_away","back_peek","standing_doggy","stand2","stand3","stand4","stand5"] #A list to let us randomly get some poses so each dance is a little different.
-
-
 
     "You take a seat near the edge of the stage and wait for the next performer."
 
@@ -1215,7 +1214,7 @@ label stripclub_dance():
     else:
         "As the music builds, [performer_title]'s dance becomes more energetic. She runs her hands over her tight body, accentuating her curves."
     call stripshow_strip(the_person) from _call_stripshow_strip_2
-    $ the_person.draw_person(position = get_random_from_list(pose_list), the_animation = blowjob_bob, animation_effect_strength = 0.7)
+    $ the_person.draw_person(position = get_random_from_list(cousin_strip_pose_list), the_animation = blowjob_bob, animation_effect_strength = 0.7)
     "Her music hits its crescendo and her dancing does the same. [performer_title] holds onto the pole in the middle of the stage and spins herself around it."
     call stripshow_strip(the_person) from _call_stripshow_strip_3
     $ the_person.draw_person(position = "doggy", the_animation = ass_bob, animation_effect_strength = 0.8)
