@@ -1,5 +1,7 @@
 # This file holds the initialization information and general storyline info for all of the roles in the game. Individual roles and individual files.
 init -1 python:
+    pay_strip_pose_list = [["Turn around","walking_away"],["Turn around and look back","back_peek"],["Hands down, ass up.","standing_doggy"],["Be flirty","stand2"],["Be casual","stand3"],["Strike a pose","stand4"],["Move your hands out of the way","stand5"]]
+
     def prostitute_requirement(the_person):
         if mc.business.funds < 200:
             "Not enough cash"
@@ -45,6 +47,14 @@ init -1 python:
 
         price = math.ceil((price/5.0))*5 #Round up to the next $5 increment
         return (willingness, price)
+
+    def pay_strip_scene_get_pose(picked_pose):
+        pose_menu_tuple = []
+        for pose_tuple in pay_strip_pose_list:
+            if not pose_tuple[1] == picked_pose:
+                pose_menu_tuple.append(pose_tuple)
+        pose_menu_tuple.append(["Never mind.",None])
+        return renpy.display_menu(pose_menu_tuple,True,"Choice")
 
     def get_employee_role_actions():
         #EMPLOYEE ACTIONS#
@@ -253,7 +263,6 @@ label pay_strip_scene(the_person):
     #Optional: Some way to ask the person to change into a different outfit.
     #Optional: Way to progress from strip tease to sex and/or masturbation.
 
-    $ pose_list = [["Turn around","walking_away"],["Turn around and look back","back_peek"],["Hands down, ass up.","standing_doggy"],["Be flirty","stand2"],["Be casual","stand3"],["Strike a pose","stand4"],["Move your hands out of the way","stand5"]]
 
     $ picked_pose = the_person.idle_pose #She starts in her idle pose (which is a string)
     $ ran_num = renpy.random.randint(0,3) #Produce 4 different descriptions at each level to help keep this interesting.
@@ -393,7 +402,7 @@ label pay_strip_scene(the_person):
 
             else:
                 #She decides to change pose half the time.
-                $ new_pose = get_random_from_list(pose_list)
+                $ new_pose = get_random_from_list(pay_strip_pose_list)
                 if not new_pose[1] == picked_pose:
                     $ picked_pose = new_pose[1]
                     "While you're watching [the_person.title] changes pose so you can see her from a different angle."
@@ -404,21 +413,13 @@ label pay_strip_scene(the_person):
         elif strip_choice == "Pose":
             #You ask her to change into a different pose
             mc.name "I want to see you from a different angle."
-            $ pose_menu_tuple = []
-            python:
-                for pose_tuple in pose_list:
-                    if not pose_tuple[1] == picked_pose:
-                        pose_menu_tuple.append(pose_tuple)
-                pose_menu_tuple.append(["Never mind.",None])
-
-            $ pose_choice = renpy.display_menu(pose_menu_tuple,True,"Choice")
+            $ pose_choice = pay_strip_scene_get_pose(pose_choice)
             if pose_choice is not None:
                 $ picked_pose = pose_choice
                 "[the_person.title] nods and moves for you."
 
             else:
                 mc.name "Never mind, you look perfect like this."
-            $ del pose_menu_tuple
 
         elif strip_choice == "Finish":
             $ keep_stripping = False
