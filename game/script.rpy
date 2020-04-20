@@ -9870,6 +9870,7 @@ label give_serum(the_person):
         "You decide to give [the_person.title] a dose of [the_serum.name]."
         $ mc.inventory.change_serum(the_serum,-1)
         $ the_person.give_serum(copy.copy(the_serum)) #use a copy rather than the main class, so we can modify and delete the effects without changing anything else.
+        $ del the_serum
         return True
     else:
         "You decide not to give [the_person.title] anything."
@@ -10012,17 +10013,17 @@ label serum_design_action_description:
     hide screen phone_hud_ui
     hide screen business_ui
     call screen serum_design_ui(SerumDesign(),[]) #This will return the final serum design, or None if the player backs out.
-    $ my_return_serum = _return
+    $ the_serum = _return
 
     show screen phone_hud_ui
     show screen business_ui
     show screen main_ui
-    if not my_return_serum == "None":
+    if not the_serum == "None":
         $ name = renpy.input("Please give this serum design a name.")
-        $ my_return_serum.name = name
-        $ mc.business.add_serum_design(my_return_serum)
-        $ mc.business.listener_system.fire_event("new_serum", the_serum = my_return_serum)
-        $ my_return_serum = None
+        $ the_serum.name = name
+        $ mc.business.add_serum_design(the_serum)
+        $ mc.business.listener_system.fire_event("new_serum", the_serum = the_serum)
+        $ the_serum = None
         call advance_time from _call_advance_time_7
     else:
         "You decide not to spend any time designing a new serum type."
