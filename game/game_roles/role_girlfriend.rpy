@@ -81,6 +81,15 @@ init -1 python:
         the_person.event_triggers_dict["trimming_pubes"] = trim_pubes_action
         return
 
+    def girlfriend_set_new_pubes(the_person, the_style):
+        new_pubes = the_style.get_copy() #Copy the base style passed to us
+        new_pubes.colour = the_person.pubes_style.colour #Modify the copy to match this person's details
+        new_pubes.pattern = the_person.pubes_style.pattern #TODO: Make sure this makes sense for any future patterns we use.
+        new_pubes.colour_pattern = the_person.pubes_style.colour_pattern
+        the_person.pubes_style = new_pubes #And assign it to them.
+        the_person.event_triggers_dict["trimming_pubes"] = None
+        return
+
 label ask_break_up_label(the_person):
     # Stop being in a relationship.
     mc.name "[the_person.title], can we talk?"
@@ -388,13 +397,7 @@ label girlfriend_ask_trim_pubes_label(the_person):
 
 label girlfriend_do_trim_pubes_label(the_person, the_style):
     #TODO: decide if we want to have a pubes comment where she tells you she's done it.
-    python:
-        new_pubes = the_style.get_copy() #Copy the base style passed to us
-        new_pubes.colour = the_person.pubes_style.colour #Modify the copy to match this person's details
-        new_pubes.pattern = the_person.pubes_style.pattern #TODO: Make sure this makes sense for any future patterns we use.
-        new_pubes.colour_pattern = the_person.pubes_style.colour_pattern
-        the_person.pubes_style = new_pubes #And assign it to them.
-        the_person.event_triggers_dict["trimming_pubes"] = None
+    $ girlfriend_set_new_pubes(the_person, the_style)
     return
 
 label girlfriend_pubes_comment(the_person):
