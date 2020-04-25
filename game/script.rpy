@@ -10120,6 +10120,7 @@ label head_researcher_select_description:
     $ new_head = _return
     $ mc.business.head_researcher = new_head
     $ new_head.special_role.append(head_researcher)
+    $ del new_head
     return
 
 label pick_company_model_description:
