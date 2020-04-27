@@ -222,7 +222,7 @@ label aunt_vaginal_sex_taboo_break(the_person):
         the_person.char "Do you really mean that?"
         mc.name "I do, I mean it with all my heart. I love you."
         the_person.char "Oh [the_person.mc_title], I love you too!"
-        the_eprson.char "No turning back then, come on and fuck me!"
+        the_person.char "No turning back then, come on and fuck me!"
     else:
         the_person.char "This is... Oh [the_person.mc_title], I shouldn't feel like this!"
         mc.name "Why not? Don't you want it?"
