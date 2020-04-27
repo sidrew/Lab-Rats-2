@@ -3066,6 +3066,7 @@ label horny_at_work_crisis_label():
                 $ del work_bathroom
                 $ mc.change_location(old_location)
                 $ mc.location.show_background()
+                $ del old_location
 
             else:
                 "Once you have some privacy you pull some porn up on your phone, pull out your dick, and take matters into your own hand."
