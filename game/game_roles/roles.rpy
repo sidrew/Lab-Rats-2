@@ -413,7 +413,7 @@ label pay_strip_scene(the_person):
         elif strip_choice == "Pose":
             #You ask her to change into a different pose
             mc.name "I want to see you from a different angle."
-            $ pose_choice = pay_strip_scene_get_pose(pose_choice)
+            $ pose_choice = pay_strip_scene_get_pose(picked_pose)
             if pose_choice is not None:
                 $ picked_pose = pose_choice
                 "[the_person.title] nods and moves for you."
