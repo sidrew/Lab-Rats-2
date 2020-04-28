@@ -10008,7 +10008,6 @@ label hire_someone(new_person, add_to_location = False): # Breaks out some of th
     return
 
 label serum_design_action_description:
-    $counter = len(list_of_traits)
     hide screen main_ui
     hide screen phone_hud_ui
     hide screen business_ui
