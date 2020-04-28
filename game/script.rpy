@@ -951,7 +951,6 @@ init -2 python:
             if the_person == self.company_model:
                 self.fire_company_model()
 
-            del the_person.event_triggers_dict["employed_since"]
             self.listener_system.fire_event("fire_employee", the_person = the_person)
 
         def get_employee_list(self):
