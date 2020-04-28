@@ -174,6 +174,7 @@ label nora_intro_label(the_steph):
     $ the_trait.researched = True
     $ mc.business.event_triggers_dict["nora_trait_researched"] = the_trait
     $ list_of_traits.append(the_trait)
+    $ del the_trait
 
     "When you get back to the office [the_steph.title] has a new file detailing an untested serum trait."
     the_steph.char "Without [the_nora.title]'s research notes all we'll be able to do is put this trait into a serum and manufacture it."
@@ -220,6 +221,8 @@ label nora_research_up_label(the_person):
         mc.business.event_triggers_dict["nora_trait_researched"] = None
         list_of_traits.remove(the_trait)
         list_of_nora_traits.remove(the_trait)
+        del the_trait
+
         nora.set_schedule([1,2,3], university)
         renpy.scene ("Active")
 
