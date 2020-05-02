@@ -650,7 +650,7 @@ label mom_licking_pussy_taboo_break(the_person):
             mc.name "You've done the same for me, I just want to return the favour."
             the_person.char "Well, men who think like you are very rare. You're going to make some girl very happy one day."
         mc.name "For today, I just want to make you happy."
-        the_person.cha "Aww. You're too sweet. Okay then, you can do whatever you'd like."
+        the_person.char "Aww. You're too sweet. Okay then, you can do whatever you'd like."
     return
 
 label mom_vaginal_sex_taboo_break(the_person):
