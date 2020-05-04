@@ -180,7 +180,7 @@ label cousin_licking_pussy_taboo_break(the_person):
         if the_person.has_taboo("sucking_cock"):
             mc.name "I'm going to eat you out. Are you really going to complain about getting head?"
             the_person.char "Oh my god, this is amazing. You're so pathetic you want to lick my pussy just so you can touch a real girl."
-            "She laughs condesendingly."
+            "She laughs condescendingly."
             the_person.char "Alright then, let's see if you're any good at this."
 
         else:
@@ -257,7 +257,7 @@ label cousin_condomless_sex_taboo_break(the_person):
         else:
             the_person.char "Me too, but we need to be really careful if you're going to take me bareback."
             mc.name "Fine, I'll pull out."
-            the_person.char "You better. If you get me prengant you're going to be the one to tell both of our moms."
+            the_person.char "You better. If you get me pregnant you're going to be the one to tell both of our moms."
         the_person.char "Come on, hurry up and fuck me before I realise this is a bad idea."
 
     else:
@@ -295,7 +295,7 @@ label cousin_bare_tits_taboo_break(the_person, the_clothing):
     the_person.char "No I'm not scared, and my tits are perfect for your information. I bet you've never even gotten to real boobs before. Pathetic."
     "You let her keep talking. It seems like she's convincing herself rather than you."
     the_person.char "You know what, fine. I'll let you see my tits, but only so you know what you're missing out on."
-    "[the_person.possessive_title] gives you an arogant smile, as if she's somehow won."
+    "[the_person.possessive_title] gives you an arrogant smile, as if she's somehow won."
     the_person.char "Well, what are you waiting for?"
     return
 
@@ -309,7 +309,7 @@ label cousin_bare_pussy_taboo_break(the_person, the_clothing):
         the_person.char "Fine. I bet you get one look at it and panic, because you've never been this close to a real girl before."
 
     else:
-        mc.name "You're acting real high and mighty for someone who got fingered by that same cousin. Just shut up and let me get naked."
+        mc.name "You're acting real high and mighty for someone who got fingered by that same cousin. Just shut up and and take off those [the_clothing.display_name]."
         "She rolls her eyes."
         the_person.char "Whatever. You're probably going to cum just looking at me. It's actually really sad."
     return
