@@ -309,7 +309,7 @@ label cousin_bare_pussy_taboo_break(the_person, the_clothing):
         the_person.char "Fine. I bet you get one look at it and panic, because you've never been this close to a real girl before."
 
     else:
-        mc.name "You're acting real high and mighty for someone who got fingered by that same cousin. Just shut up and and take off those [the_clothing.display_name]."
+        mc.name "You're acting real high and mighty for someone who got fingered by that same cousin. Just shut up and and take off your [the_clothing.display_name]."
         "She rolls her eyes."
         the_person.char "Whatever. You're probably going to cum just looking at me. It's actually really sad."
     return
