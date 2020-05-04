@@ -51,7 +51,7 @@ label taboo_break_cunnilingus(the_girl, the_location, the_object):
 label scene_cunnilingus_1(the_girl, the_location, the_object):
     "You lick at [the_girl.possessive_title]'s delicate pussy, spreading her lips and sending your tongue inside."
     "She shivers with each touch, obviously enjoying the feeling."
-    if the_person.arousal > 40:
+    if the_girl.arousal > 40:
         "Her pussy is dripping wet, filling your mouth with the taste of her juices."
     $ the_girl.call_dialogue("sex_responses_oral")
     return

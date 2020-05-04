@@ -64,7 +64,7 @@ label scene_skull_fuck_1(the_girl, the_location, the_object):
     # Mantle her and pin her down.
     $ skull_fuck.current_modifier = "blowjob"
     $ skull_fuck.redraw_scene(the_girl)
-    "[the_person.title]'s throat is warm and tight around your shaft as you slide yourself in and out."
+    "[the_girl.title]'s throat is warm and tight around your shaft as you slide yourself in and out."
     "She closes her eyes, struggling to keep herself under control."
     mc.name "Fuck your throat feels good!"
     "You take a half step forward, putting her between your legs with her head tilted upwards."
@@ -146,7 +146,7 @@ label outro_skull_fuck(the_girl, the_location, the_object):
                 "She gags and coughs again, this time blowing little cum bubbles out of her nose as her body struggles to find somewhere to put more and more of your sperm."
                 $ the_girl.cum_in_mouth()
                 $ skull_fuck.redraw_scene(the_girl)
-                "Finally you're spent and you finally let [the_person.title] pull off of your cock."
+                "Finally you're spent and you finally let [the_girl.title] pull off of your cock."
                 the_girl.char "Guahh... Guahh... Ah.... Ah...."
                 mc.name "Fuck that felt good."
                 the_girl.char "There was so much... Ah... I thought I was going to drown in it..."

@@ -104,7 +104,7 @@ label outro_tit_fuck(the_girl, the_location, the_object):
             else:
                 "Your cum splatters down over the top of [the_girl.title]'s tits. She gasps as the warm liquid covers her and drips back down between her tits."
             $ del blocker
-            $ the_person.cum_on_tits()
+            $ the_girl.cum_on_tits()
             $ tit_fuck.redraw_scene(the_girl)
 
         "Cum on her face.":
@@ -136,14 +136,14 @@ label strip_tit_fuck(the_girl, the_clothing, the_location, the_object):
     return
 
 label strip_ask_tit_fuck(the_girl, the_clothing, the_location, the_object):
-    the_person.char "[the_person.mc_title], would you like me to take off my [the_clothing.name]?"
+    the_girl.char "[the_girl.mc_title], would you like me to take off my [the_clothing.name]?"
     "She works her tits up and down while she waits for you to respond."
     menu:
         "Let her strip.":
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = tit_fuck.position_tag)
             "[the_girl.title] leans back, letting your cock slide out of her cleavage, and pulls off her [the_clothing.name]."
-            the_person.char "Ah, so much better. Now, where were we..."
+            the_girl.char "Ah, so much better. Now, where were we..."
             "She leans back and engulfs your hard cock in her breasts again."
 
         "Leave it on.":
