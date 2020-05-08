@@ -435,10 +435,10 @@ label relaxed_flirt_response_low(the_person):
 label relaxed_flirt_response_mid(the_person):
     if the_person.outfit == the_person.planned_uniform:
         if the_person.judge_outfit(the_person.outfit):
-            the_person.char "No suprise there, since you're the one who designed this uniform."
+            the_person.char "No surprises there, since you're the one who designed this uniform."
             if the_person.outfit.tits_visible():
                 the_person.char "I'm sure my boobs aren't out by accident. Not that I mind..."
-                "She iggles and wiggles her shoulders, jiggling her breasts for you."
+                "She jiggles and wiggles her shoulders, jiggling her breasts for you."
             else:
                 $ the_person.draw_person(position = "back_peek")
                 the_person.char "Not that I mind..."
@@ -486,7 +486,7 @@ label relaxed_flirt_response_high(the_person):
         # There are other people here, if she's not slutty she asks if you want to find somewhere quiet
         the_person.char "Not very high, unless we can find someplace quiet."
         menu:
-            "Find someplace quiet.":
+            "Find someplace quiet":
                 mc.name "Alright, let's find somewhere quiet then."
                 the_person.char "Wait, I don't know if we should..."
                 mc.name "Relax, it's just going to be a little bit of fun."
@@ -504,7 +504,7 @@ label relaxed_flirt_response_high(the_person):
                 "You close the final gap and kiss her. She returns the kiss immediately, leaning her body against yours."
                 call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_47
 
-            "Just flirt.":
+            "Just flirt":
                 mc.name "I'm a patient man, I can wait until we have some privacy. It's probably for the best; you might get a little loud."
                 "[the_person.possessive_title] blushes and places her hand on your shoulder, massaging your muscles."
                 the_person.char "Confident, huh? Maybe if you take me out to dinner you'll get your chance at some privacy."
@@ -523,16 +523,16 @@ label relaxed_flirt_response_high(the_person):
             #She's into turning you on.
             if the_person.has_large_tits():
                 $ the_person.draw_person(the_animation = blowjob_bob)
-                "[the_person.possessive_title] smiles mischeviously at you and bounces her tits up and down."
+                "[the_person.possessive_title] smiles mischievously at you and bounces her tits up and down."
                 the_person.char "Interested in getting a closer look at these girls?"
             else:
-                "[the_person.possessive_title] smiles mischeviously and wiggles her hips."
+                "[the_person.possessive_title] smiles mischievously and wiggles her hips."
             the_person.char "Maybe we can... fool around a little? Does that sound fun?"
             $ the_person.draw_person()
 
         "She steps closer and puts her hands around your waist, bringing her face close to yours."
         menu:
-            "Kiss her.":
+            "Kiss her":
                 if the_person.has_taboo("kissing"):
                     $ the_person.call_dialogue("kissing_taboo_break")
                     $ the_person.break_taboo("kissing")
@@ -542,11 +542,11 @@ label relaxed_flirt_response_high(the_person):
                 "You close the final gap and kiss her. She returns the kiss immediately, leaning her body against yours."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_48
 
-            "Just flirt.":
+            "Just flirt":
                 mc.name "I wish we could, but I'll need to take a rain check."
                 "[the_person.title] pouts and steps back, disappointed."
                 mc.name "Don't worry, we'll get there soon enough. I just want to wait for the right time."
-                #TODO: There should be boyfriend/family specific varients here like "Right, what was I even thinking? I don't know what came over me."
+                #TODO: There should be boyfriend/family specific variants here like "Right, what was I even thinking? I don't know what came over me."
                 the_person.char "Right. Sure."
                 "She tries to hide it, but you can tell she's a little disappointed."
     return

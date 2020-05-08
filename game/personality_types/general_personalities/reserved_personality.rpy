@@ -409,7 +409,7 @@ label reserved_flirt_response_low(the_person):
 
             elif the_person.outfit.underwear_visible():
                 # Her underwear is visible.
-                the_person.char "Thank you. I always feel a touch self-concious when I put it on. I wish it kept me a little more covered."
+                the_person.char "Thank you. I always feel a touch self-conscious when I put it on. I wish it kept me a little more covered."
                 mc.name "I know it can take some getting use to, but you look fantastic in it. You're a perfect fit for it."
                 "[the_person.possessive_title] doesn't seem so sure, but she smiles and nods anyways."
 
@@ -425,7 +425,7 @@ label reserved_flirt_response_low(the_person):
         "[the_person.possessive_title] seems caught off guard by the compliment."
         the_person.char "Oh, thank you! I'm not wearing anything special, it's just one of my normal outfits."
         mc.name "Well, you make it look good."
-        "She smiles and laughs self-conciously."
+        "She smiles and laughs self-consciously."
         the_person.char "Oh stop."
     return
 
@@ -464,7 +464,7 @@ label reserved_flirt_response_mid(the_person):
             the_person.char "You're right, of course. If you think it's the best option for the company I trust you."
     else:
         if the_person.effective_sluttiness() < 20 and mc.location.get_person_count() > 1:
-            "[the_person.possessive_title] smiles, then glances around self-conciously."
+            "[the_person.possessive_title] smiles, then glances around self-consciously."
             the_person.char "Keep your voice down [the_person.mc_title], there are other people around."
             mc.name "I'm sure they're all thinking the same thing."
             "She rolls her eyes and laughs softly."
@@ -478,7 +478,7 @@ label reserved_flirt_response_mid(the_person):
             the_person.char "What do you think of it from the back? It's hard for me to get a good look."
             $ the_person.draw_person(position = "back_peek")
             "She turns and bends over a little bit, accentuating her butt."
-            if not the_person.outfit.wearing_panties() and not the_person.outfit.vagina_visible(): #Not wearing underwear, but you cna't see so she coments on it.
+            if not the_person.outfit.wearing_panties() and not the_person.outfit.vagina_visible(): #Not wearing underwear, but you can't see so she coments on it.
                 the_person.char "My panties were always leaving unpleasant lines, so I had to stop wearing them. I hope you can't tell."
             else:
                 the_person.char "Well?"
@@ -493,7 +493,7 @@ label reserved_flirt_response_high(the_person):
         "She bites her lip and leans close to you, whispering in your ear."
         the_person.char "But if we were alone, maybe we could figure something out..."
         menu:
-            "Find someplace quiet.":
+            "Find someplace quiet":
                 mc.name "Follow me."
                 "[the_person.possessive_title] nods and follows a step behind you."
                 "After searching for a couple of minutes you find a quiet, private space."
@@ -508,10 +508,10 @@ label reserved_flirt_response_high(the_person):
                     "You answer with a kiss. She closes her eyes and leans her body against yours."
                 call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_51
 
-            "Just flirt.":
+            "Just flirt":
                 mc.name "I'll just have to figure out how to get you alone then. Any thoughts?"
                 the_person.char "You're a smart man, you'll figure something out."
-                "She leans away from you again and smiles mischeviously."
+                "She leans away from you again and smiles mischievously."
 
     else:
         if mc.location.get_person_count() == 1: #She's shy but you're alone
@@ -533,7 +533,7 @@ label reserved_flirt_response_high(the_person):
             the_person.char "Well? What do you want to do?"
 
         menu:
-            "Kiss her.":
+            "Kiss her":
                 $ the_person.draw_person()
                 "You step close to [the_person.title] and put an arm around her waist."
 
@@ -545,7 +545,7 @@ label reserved_flirt_response_high(the_person):
                     "When you lean in and kiss her she responds by pressing her body tight against you."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_52
 
-            "Just flirt.":
+            "Just flirt":
                 $ the_person.draw_person()
                 mc.name "Nothing right now, but I've got a few ideas for later."
                 "If [the_person.title] is disappointed she does a good job hiding it. She nods and smiles."

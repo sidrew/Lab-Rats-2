@@ -247,7 +247,7 @@ label mom_flirt_response_high(the_person):
             "She opens her arms up and pulls you into a hug. After a quick squeeze she steps back to arms length and smiles, looking into your eyes."
             the_person.char "No matter what you're always going to be my amazing little boy."
             menu:
-                "Kiss her.":
+                "Kiss her":
                     if the_person.has_taboo("kissing"):
                         $ the_person.call_dialogue("kissing_taboo_break")
                         "You lean in and kiss [the_person.possessive_title]. She does her best to kiss you back, but it's clear she's still adjusting."
@@ -256,7 +256,7 @@ label mom_flirt_response_high(the_person):
                         "You lean in and kiss her. She seems startled for a second, then wraps her arms around you and returns the kiss."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_20
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "And you'll always be my beautiful, loving mom."
                     "[the_person.possessive_title] smiles warmly and hugs you again. This time you let your hands slide down her back and rest them on her ass."
                     the_person.char "You shouldn't... Oh what's the harm. Go ahead, give it a squeeze."
@@ -278,15 +278,15 @@ label mom_flirt_response_high(the_person):
         if the_person.effective_sluttiness() > (25 - the_person.get_opinion_score("incest")*5): #She's slutty, but you need to find somewhere private so people don't find out.
             the_person.char "[the_person.mc_title], watch what you're saying! There are other people around."
             mc.name "It's fine [the_person.title], nobody else is listening."
-            "She puts her hands on her hips and shakes her head severly."
-            the_person.char "Do we need to go somewhere private to talk about your behaviour?"
+            "She puts her hands on her hips and shakes her head severely."
+            the_person.char "Do we need to go somewhere private to talk about your behavior?"
             menu:
-                "Find someplace quiet.":
+                "Find someplace quiet":
                     mc.name "I think we should, we don't want to bother anyone else."
                     "[the_person.possessive_title] leads you away. When you're alone she turns back to you."
                     the_person.char "I don't mind you joking around like that, but if there are other people around you should be more... discrete."
                     mc.name "I know [the_person.title], but you're so beautiful I just get carried away."
-                    "Her stern glare soften. She sighs and smilse."
+                    "Her stern glare soften. She sighs and smiles."
                     the_person.char "I can't be angry, you're just feeling the same way every young man does. Come here."
                     "She pulls you into a hug and kisses you on the cheek. You put your hands around her and move them down her back."
                     if the_person.has_taboo("kissing"):
@@ -302,7 +302,7 @@ label mom_flirt_response_high(the_person):
                         "You lean forward and kiss her passionately. It takes her a few seconds to warm up, but soon she is kissing you back with just as much enthusiasm."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_21
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "Relax, I'm just joking around. What I mean is you're looking stunning today."
                     the_person.char "Thank you, that's a much more appropriate way of saying it."
                     "Her eyes soften and she sighs."
@@ -310,10 +310,10 @@ label mom_flirt_response_high(the_person):
                     the_person.char "I just don't want anyone to misunderstand our... relationship."
                     mc.name "I understand [the_person.title]. I'll be more careful."
 
-        else: #She's not slutty, so she's embarassed about what you're doing.
+        else: #She's not slutty, so she's embarrassed about what you're doing.
             "[the_person.possessive_title] gasps and covers her mouth."
             the_person.char "Oh my god, [the_person.mc_title]!"
-            mc.name "Relax [the_person.tite], I'm just joking around."
+            mc.name "Relax [the_person.title], I'm just joking around."
             "She shakes her head sternly."
             the_person.char "Well I don't find it very funny when other people are around. It's embarrassing."
             mc.name "I'm sorry, I'll wait until we're alone next time."

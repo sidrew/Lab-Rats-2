@@ -399,7 +399,7 @@ label wild_flirt_response_low(the_person):
                 mc.name "You look incredible and you're comfortable. I call that a success."
                 "She laughs and shrugs."
                 the_person.char "Sure, I guess you could call it that."
-    #
+
             elif the_person.outfit.underwear_visible():
                 # Her underwear is visible.
                 the_person.char "Thanks! I probably would have picked something that kept me a little more covered, but at our uniform is comfortable."
@@ -479,7 +479,7 @@ label wild_flirt_response_high(the_person):
             "Find someplace quiet.":
                 mc.name "Then let's find somewhere that isn't here."
                 the_person.char "Eager, huh? Alright, let's go find somewhere."
-                "You and [the_person.possessive_title] leave and find a quiet spot where you won't be interupted."
+                "You and [the_person.possessive_title] leave and find a quiet spot where you won't be interrupted."
                 the_person.char "So... Now what's your plan?"
 
                 if the_person.has_taboo("kissing"):
@@ -509,10 +509,10 @@ label wild_flirt_response_high(the_person):
                 the_person.char "Maybe I can get these girls out for you. Does that sound nice?"
 
             else: #No big tits, so she can't bounce them (as much)
-                "[the_person.title] runs her hands over her hips sensually, obviously encouraging you to take things furthur."
+                "[the_person.title] runs her hands over her hips sensually, obviously encouraging you to take things further."
 
         menu:
-            "Kiss her.":
+            "Kiss her":
 
                 $ the_person.draw_person()
                 if the_person.has_taboo("kissing"):
@@ -525,7 +525,7 @@ label wild_flirt_response_high(the_person):
                     "She responds immediately, pressing her body against yours and kissing you back."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_50
 
-            "Just flirt.":
+            "Just flirt":
                 $ the_person.draw_person()
                 mc.name "Very tempting, but you're going to have to contain yourself for now."
                 "[the_person.title] pouts melodramatically."

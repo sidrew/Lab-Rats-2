@@ -457,7 +457,7 @@ label introvert_flirt_response_mid(the_person):
             the_person.char "Okay."
 
         else:
-            the_person.char "Oh, really? Well, thanks! People don't normally complimint me. Do you really think I look cute?"
+            the_person.char "Oh, really? Well, thanks! People don't normally compliment me. Do you really think I look cute?"
             $ the_person.draw_person(position = "back_peek")
             "[the_person.possessive_title] turns around, letting you get a look at her full outfit."
             $ the_person.draw_person()
@@ -470,7 +470,7 @@ label introvert_flirt_response_high(the_person):
         "[the_person.possessive_title] blushes and glances around nervously."
         the_person.char "[the_person.mc_title], someone is going to hear you!"
         menu:
-            "Find someplace quiet.":
+            "Find someplace quiet":
                 mc.name "Alright, let's find somewhere nobody will hear us."
                 the_person.char "I don't know if we should..."
                 "You take her hand and lead her gently. After a moment of hesitation she follows behind you."
@@ -485,7 +485,7 @@ label introvert_flirt_response_high(the_person):
                 "You lean forward and press your lips against hers. [the_person.possessive_title] responds, leaning her body against yours."
                 call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_57
 
-            "Just flirt.":
+            "Just flirt":
                 mc.name "So if it wasn't for the audience I'd have you naked by now? That's good to know."
                 "She slaps your shoulder playfully and smiles."
                 the_person.char "Oh my god, you're the worst! Obviously you would have to buy me dinner too."
@@ -502,7 +502,7 @@ label introvert_flirt_response_high(the_person):
                 $ the_person.draw_person(the_animation = blowjob_bob)
                 "She grabs her tits and jiggles them for you, beckoning you closer."
         menu:
-            "Kiss her.":
+            "Kiss her":
                 $ the_person.draw_person()
                 if the_person.has_taboo("kissing"):
                     "You step close and put your arms around her waist."
@@ -513,7 +513,7 @@ label introvert_flirt_response_high(the_person):
                     "You wrap your hands around [the_person.title]'s waist and pull her close to kiss her. She returns the kiss immediately, pressing her body against yours."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_58
 
-            "Just flirt.":
+            "Just flirt":
                 $ the_person.draw_person()
                 mc.name "I do, but you'll have to wait until later."
                 the_person.char "Are you sure?"

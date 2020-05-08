@@ -439,10 +439,10 @@ label bimbo_flirt_response_mid(the_person):
 
 label bimbo_flirt_response_high(the_person):
     if mc.location.get_person_count() > 1 and the_person.effective_sluttiness() < (25 - (5*the_person.get_opinion_score("public_sex"))):
-        "[the_person.possessive_title] giggles andand looks around nervously."
+        "[the_person.possessive_title] giggles and looks around nervously."
         the_person.char "Oh my god, [the_person.mc_title]! That's so naughty!"
         menu:
-            "Find someplace quiet.":
+            "Find someplace quiet":
                 mc.name "Come with me and we can do some more naughty things."
                 "[the_person.title] giggles again and nods eagerly. You take her hand and lead her away."
                 "When you're finally alone you put your arm around her waist and pull her close."
@@ -455,7 +455,7 @@ label bimbo_flirt_response_high(the_person):
                 "You kiss her, and she responds by leaning her body against you eagerly."
                 call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_55
 
-            "Just flirt.":
+            "Just flirt":
                 mc.name "Wait until I get you alone and you'll see how naughty I can get."
                 the_person.char "Hehe, I'm excited to find out!"
 
@@ -475,7 +475,7 @@ label bimbo_flirt_response_high(the_person):
             the_person.char "Do you want to have some fun?"
 
         menu:
-            "Kiss her.":
+            "Kiss her":
                 mc.name "Yeah, I do. Come here."
                 $ the_person.draw_person()
                 if the_person.has_taboo("kissing"):
@@ -487,7 +487,7 @@ label bimbo_flirt_response_high(the_person):
                     "You put your arm around [the_person.title]'s waist and pull her close. She leans her body against you eagerly as you kiss her."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_56
 
-            "Just flirt.":
+            "Just flirt":
                 mc.name "I do, but it'll have to be some other time."
                 $ the_person.draw_person(emotion = "sad")
                 "She pouts and crosses her arms dramatically."

@@ -64,7 +64,7 @@ label cousin_flirt_response_low(the_person):
 
 label cousin_flirt_response_mid(the_person):
     if the_person.effective_sluttiness("underwear_nudity") < 20: #Not very slutty, so it must be high love.
-        the_person.char "Oh my god, can you stop perving on me for, like, two seconds?"
+        the_person.char "Oh my god, can't you stop acting like a depraved sex-addict, for like, two seconds?"
         mc.name "What? Don't you want to know when you're looking good?"
         "She sighs and rolls her eyes."
         the_person.char "Whatever, it's fine I guess. Thanks."
@@ -91,7 +91,7 @@ label cousin_flirt_response_high(the_person):
             "She smiles and squeezes down on her own breasts."
             the_person.char "Good, I like having that kind of power over you."
             menu:
-                "Kiss her.":
+                "Kiss her":
                     mc.name "Yeah? How do you like this?"
                     $ the_person.draw_person()
                     if the_person.has_taboo("kissing"):
@@ -103,7 +103,7 @@ label cousin_flirt_response_high(the_person):
                         "You put your arm around her waist and kiss her. She hesitates for a moment, then leans her body eagerly against yours."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_53
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "Yeah? What are you planning to do with that power?"
                     the_person.char "If I told you it would ruin the surprise. Don't worry, I promise I'm only going to use it for evil."
                     "She winks and lets go of her tits. It takes a second before they stop jiggling completely."
@@ -124,7 +124,7 @@ label cousin_flirt_response_high(the_person):
             "She glances around nervously, checking to see if anyone was listening."
             the_person.char "If you want to talk to me like that you'll have to wait until we're alone."
             menu:
-                "Find someplace quiet.":
+                "Find someplace quiet":
                     mc.name "I don't feel like waiting. Come on, let's sneak away."
                     the_person.char "Like, right now? Ugh, fine."
                     "You lead [the_person.possessive_title] away and find a quiet spot where you can be alone."
@@ -137,15 +137,15 @@ label cousin_flirt_response_high(the_person):
                         "When you finally have some privacy you don't waste any time. You put an arm around [the_person.title] and pull her into a passionate kiss."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_54
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "Come on, you're really going to make me wait?"
                     $ the_person.draw_person(the_animation = blowjob_bob)
-                    "[the_person.possessive_title] smiles mischeviously and grabs her tits, jiggling them in front of your face."
+                    "[the_person.possessive_title] smiles mischievously and grabs her tits, jiggling them in front of your face."
                     the_person.char "Yeah, I am. Be a patient boy and maybe you'll get to see these later."
                     "She winks and lets go of her tits. It takes a second before they stop jiggling completely."
                     $ the_person.draw_person()
 
-        else: #She's not slutty, so she's embarassed about what you're doing.
+        else: #She's not slutty, so she's embarrassed about what you're doing.
             the_person.char "Oh my god, you little perv."
             "She glances around nervously, checking to see if anyone was listening."
             the_person.char "Can you try and keep it in your pants when there are other people around?"
@@ -156,7 +156,7 @@ label cousin_flirt_response_high(the_person):
             mc.name "Well... I wouldn't say no."
             the_person.char "Yeah, that's what I thought. So let's try not to get in trouble, okay?"
             $ the_person.draw_person()
-            "She legs go of her boobs and lets them drop. It takes a second before they stop jiggling completley."
+            "She legs go of her boobs and lets them drop. It takes a second before they stop jiggling completely."
             mc.name "Alright, I get it."
 
     return

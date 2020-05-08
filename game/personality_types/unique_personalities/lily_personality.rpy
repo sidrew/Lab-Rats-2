@@ -228,7 +228,7 @@ label lily_flirt_response_high(the_person):
             "She blushes and smiles."
             the_person.char "Thank you. I think you look good too."
             menu:
-                "Kiss her.":
+                "Kiss her":
                     "You step closer to [the_person.possessive_title] and put your hand around her waist. She looks into your eyes."
                     if the_person.has_taboo("kissing"):
                         $ the_person.call_dialogue("kissing_taboo_break")
@@ -239,7 +239,7 @@ label lily_flirt_response_high(the_person):
                         "You respond by kissing her. She hesitates for a second, then relaxes and leans her body against you."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_45
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "Thanks. Do you want to get me out of my clothes?"
                     "She giggles and slaps your shoulder gently."
                     the_person.char "Oh my god, stop!"
@@ -262,7 +262,7 @@ label lily_flirt_response_high(the_person):
             the_person.char "No but... They might not understand, you know?"
 
             menu:
-                "Find someplace quiet.":
+                "Find someplace quiet":
                     mc.name "Fine, come with me then."
                     "You take [the_person.title]'s hand and start to lead her away."
                     the_person.char "Where are we going?"
@@ -279,7 +279,7 @@ label lily_flirt_response_high(the_person):
                         "You lean down and kiss her. She hesitates for a split second before returning the kiss, pressing her body against yours."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_46
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "I'll save all the really dirty stuff for when we're alone then."
                     the_person.char "Oh my god, you're so bad!"
                     "She blushes and slaps you playfully on the shoulder."
@@ -287,7 +287,7 @@ label lily_flirt_response_high(the_person):
                     mc.name "Don't worry, I'll always be around to take care of you. We're just having a little fun."
                     "[the_person.possessive_title] smiles and gives you a quick hug."
 
-        else: #She's not slutty, so she's embarassed about what you're doing.
+        else: #She's not slutty, so she's embarrassed about what you're doing.
             "[the_person.possessive_title] blushes, then glances around nervously."
             the_person.char "Oh my god, you can't just say stuff like that when there are people around!"
             mc.name "So it's fine if I say things like that when we're alone?"
