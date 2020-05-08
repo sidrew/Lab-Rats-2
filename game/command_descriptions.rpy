@@ -204,7 +204,7 @@ label demand_touch_label(the_person):
             "Pay her. -$200":
                 $ mc.business.funds += -200
                 $ the_person.change_obedience(1)
-                call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_45
+                call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_demand_touch_prostitute
             "No":
                 mc.name "Thanks for the offer, but no thanks."
                 "She shrugs."
@@ -235,7 +235,7 @@ init -3 python:
             return True
 
     def demand_strip_naked_requirement(the_person):
-        if the_person.outfit.tits_visible() and the_person.outfit.vagina_visible():
+        if the_person.outfit.tits_visible() and the_person.outfit.vagina_visible() and the_person.outfit.tits_available() and the_person.outfit.vagina_available():
             return False
         elif the_person.obedience < 160:
             return "Requires: 160 Obedience"
@@ -253,10 +253,6 @@ init -3 python:
 
 
 label demand_strip_label(the_person):
-    #TODO: Command her to "Get into your underwear", "Show me your tits", or "Get naked"
-    # the_person.effective_sluttiness("bare_tits")
-    # the_person.effective_sluttiness("underwear_nudity")
-    # the_person.effective_sluttiness(["bare_tits", "bare_pussy"])
 
 
     call screen main_choice_display([build_demand_strip_menu(the_person)])

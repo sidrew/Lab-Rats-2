@@ -26,7 +26,7 @@ init -2 python:
     def alexia_hire_requirement(the_person):
         if not mc.business.get_employee_title(the_person) == "None":
             return False
-        elif the_person.love <= 10:
+        elif the_person.love < 10:
             return "Requires: 10 Love"
         elif mc.business.get_employee_count() >= mc.business.max_employee_count:
             return "At employee limit."
@@ -39,7 +39,7 @@ init -2 python:
         return False
 
     def alexia_ad_suggest_requirement(the_person, the_day):
-        if public_advertising_license_policy.is_active():
+        if public_advertising_license_policy.is_owned():
             return False
         elif not day > the_day:
             return False
@@ -53,7 +53,7 @@ init -2 python:
             return True
 
     def alexia_ad_suggest_reintro_requirement(the_person):
-        if public_advertising_license_policy.is_active():
+        if public_advertising_license_policy.is_owned():
             return False
         elif the_person.event_triggers_dict.get("camera_purchased", False):
             return False
@@ -69,7 +69,7 @@ init -2 python:
             return True
 
     def alexia_photography_intro_requirement(the_person):
-        if public_advertising_license_policy.is_active():
+        if public_advertising_license_policy.is_owned():
             return False
         elif not mc.business.event_triggers_dict.get("has_expensive_camera",False):
             return False
@@ -419,5 +419,6 @@ label alexia_photography_intro_label(the_person):
     the_person.char "Yeah, I can do that! I don't know why, but I thought it was really exciting to be in front of that camera."
     mc.name "I'll let you get back to work then. See you around [the_person.title]."
     $ mc.business.hire_company_model(the_person)
+    $ public_advertising_license_policy.buy_policy(ignore_cost = True) # This special storyline "buys" the policy for free.
     call advance_time from _call_advance_time_19
     return

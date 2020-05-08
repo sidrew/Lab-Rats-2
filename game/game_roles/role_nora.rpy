@@ -395,7 +395,6 @@ label nora_special_research(the_person):
         $ list_of_traits.append(nora_reward_low_love_trait)
 
     elif the_subject.obedience > 180 and nora_reward_high_obedience_trait not in list_of_traits:
-
         the_person.char "This was certainly an interesting case, and I have a development for you."
         the_person.char "I'm not surprised you were able to extract such detailed information from the subject, her obedience to you seems to be almost complete."
         the_person.char "She seems content with her lack of independence, which you might be able to replicate and harness with some further research work."
@@ -403,7 +402,6 @@ label nora_special_research(the_person):
         $ list_of_traits.append(nora_reward_high_obedience_trait)
 
     elif the_subject.core_sluttiness > 100 and nora_reward_high_slut_trait not in list_of_traits:
-
         the_person.char "This was certainly an interesting case, and I have a development for you."
         the_person.char "Your subject was obviously very forthcoming with her sexual desires, but what I found interesting was how central to her personality they were."
         the_person.char "It may be possible to instill this same sexual confidence in others, if they have a budding tendency for it to start with."
@@ -411,7 +409,6 @@ label nora_special_research(the_person):
         $ list_of_traits.append(nora_reward_high_slut_trait)
 
     elif the_subject.int >= 7 and the_subject.charisma >= 7 and the_subject.focus >= 7 and nora_reward_genius_trait not in list_of_traits:
-
         the_person.char "This was certainly an interesting case, and I have a development for you."
         the_person.char "Your subject was extremely competent, scoring near perfectly across the board on all intellectual tests."
         the_person.char "Replicating the capabilities of this amazing mind may be impossible with modern science, but it may be possible to approximate it for short periods of time."
