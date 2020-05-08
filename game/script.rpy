@@ -9708,7 +9708,7 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
             if talk_action:
                 #If there are any events we want to trigger it happens instead of talking to the person. If we want it to lead into talk_person we can call that separately. Only one event per interaction.
                 $ talk_action.call_action(picked_option)
-                if talk_action in picked_ption.on_talk_event_list: #This shouldn't come up much, but it an event is double removed this helps us fail gracefully.
+                if talk_action in picked_option.on_talk_event_list: #This shouldn't come up much, but it an event is double removed this helps us fail gracefully.
                     $ picked_option.on_talk_event_list.remove(talk_action)
 
             else:
