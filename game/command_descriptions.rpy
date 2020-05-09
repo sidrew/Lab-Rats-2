@@ -364,8 +364,9 @@ label demand_strip_tits_label(the_person):
             "[the_person.possessive_title] starts to pull off her [first_item.display_name] right away."
         $ top_strip_description(the_person, strip_list)
 
+    $ the_person.update_outfit_taboos()
 
-    if the_person.update_outfit_taboos() or the_person.effective_sluttiness() < (40 - (5*the_person.get_opinion_score("showing her tits"))): # She's shy
+    if the_person.effective_sluttiness() < (40 - (5*the_person.get_opinion_score("showing her tits"))): # She's shy
         "[the_person.title] brings her hands up to cover her breasts."
         the_person.char "Are we done?"
         mc.name "I want to get a look first, and I can't see anything if you're hiding everything like this."
@@ -451,7 +452,9 @@ label demand_strip_underwear_label(the_person):
 
         $ underwear_strip_description(the_person)
 
-    if the_person.update_outfit_taboos() or the_person.effective_sluttiness() < (40 - (5*the_person.get_opinion_score("lingerie"))): # She's shy
+    $ the_person.update_outfit_taboos()
+
+    if the_person.effective_sluttiness() < (40 - (5*the_person.get_opinion_score("lingerie"))): # She's shy
         the_person.char "Um... So what do we do now?"
         mc.name "Just relax and let me take a look. You look cute."
         "She nods and puts her hands behind her back. She blushes and looks away self-consciously as you ogle her."
@@ -463,8 +466,6 @@ label demand_strip_underwear_label(the_person):
         "You enjoy the view for a little while longer. [the_person.possessive_title] seems anxious to cover up again."
         the_person.char "Can I get dressed now?"
         $ the_person.draw_person()
-
-
     else:
         "[the_person.title] immediately puts her hands behind her back and pushes her chest forward, accentuating her tits."
         the_person.char "So, what do you think? Does my underwear look good?"
@@ -524,8 +525,9 @@ label demand_strip_naked_label(the_person):
             "She starts to strip down for you."
 
     $ naked_strip_description(the_person)
+    $ the_person.update_outfit_taboos()
 
-    if the_person.update_outfit_taboos() or the_person.effective_sluttiness() < (80 - (5*the_person.get_opinion_score("not wearing anything"))): # She's shy
+    if the_person.effective_sluttiness() < (80 - (5*the_person.get_opinion_score("not wearing anything"))): # She's shy
         the_person.char "What would you like me to do now?"
         "She instinctively puts her hands behind her back while she waits for your instructions."
         mc.name "Give me a spin, I want to see your ass."
