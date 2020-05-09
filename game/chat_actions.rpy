@@ -227,7 +227,12 @@ init -2 python:
             title_tuple.append([title,title])
         title_tuple.append(["Do not change your title.","Back"])
         title_choice = renpy.display_menu(title_tuple,True,"Choice")
-        return title_choice        
+        return title_choice
+
+    def get_two_titles_for_person(title_func, person):
+        title_one = get_random_from_list(title_func(person))
+        title_two = get_random_from_list(list( set(title_func(person)) - set([title_one]) ))
+        return (title_one, title_two)
 
 label person_introduction(the_person, girl_introduction = True):
     if girl_introduction:
@@ -263,12 +268,7 @@ label person_new_title(the_person): #She wants a new title or to give you a new 
                 the_person.char "If you think so [the_person.mc_title]."
 
     elif randomised_obedience > 95: #She picks a couple of choices and asks you to decide.
-
-        $ title_one = get_random_from_list(get_titles(the_person))
-        $ title_two = get_random_from_list(get_titles(the_person))
-        python: #Quick hack to make sure they're always different.
-            while title_one == title_two:
-                title_two = get_random_from_list(get_titles(the_person))
+        $ (title_one, title_two) = get_two_titles_for_person(get_titles, the_person)
         if the_person.title == the_person.create_formatted_title(title_one) or the_person.title == the_person.create_formatted_title(title_two):  #If we picked the one we're currently using we have a slightly different dialogue setup.
             if the_person.title == the_person.create_formatted_title(title_two):
                 $ placeholder = title_two #Swap them around so title_one is always the current title she has
@@ -351,11 +351,7 @@ label person_new_mc_title(the_person):
                 the_person.char "Okay, if you say so!"
 
     elif randomised_obedience > 95: #She picks a couple of choices and asks you to decide.
-        $ title_one = get_random_from_list(get_player_titles(the_person))
-        $ title_two = get_random_from_list(get_player_titles(the_person))
-        python: #Quick hack to make sure they're always different.
-            while title_one == title_two:
-                title_two = get_random_from_list(get_player_titles(the_person))
+        $ (title_one, title_two) = get_two_titles_for_person(get_player_titles, the_person)
         if the_person.mc_title == title_one or the_person.mc_title == title_two:  #If we picked the one we're currently using we have a slightly different dialogue setup.
             if the_person.mc_title == title_two:
                 $ placeholder = title_two #Swap them around so title_one is always the current title she has
@@ -656,7 +652,7 @@ label lunch_date_label(the_person): #Could technically be included in the planni
         $ renpy.scene("Active")
         "[the_person.possessive_title] stands up heads for the washroom."
         menu:
-            "Add some serum to her food." if mc.inventory.get_any_serum_count() > 0:
+            "Add some serum to her food" if mc.inventory.get_any_serum_count() > 0:
                 call give_serum(the_person) from _call_give_serum_20
                 if _return:
                     "Once you're sure nobody else is watching you add a dose of serum to [the_person.title]'s food."
@@ -665,10 +661,10 @@ label lunch_date_label(the_person): #Could technically be included in the planni
                     "You think about adding a dose of serum to [the_person.title]'s food, but decide against it."
                     "Instead you lean back and relax, waiting until she returns to start eating your own food."
 
-            "Add some serum to her food.\nRequires: Serum (disabled)" if mc.inventory.get_any_serum_count() == 0:
+            "Add some serum to her food\nRequires: Serum (disabled)" if mc.inventory.get_any_serum_count() == 0:
                 pass
 
-            "Leave her food alone.":
+            "Leave her food alone":
                 "You lean back and relax, waiting until [the_person.title] returns to start eating."
 
         $ the_person.draw_person(position = "sitting")
@@ -793,12 +789,12 @@ label movie_date_plan_label(the_person):
             the_person.char "Oh, a movie sounds fun! I don't have anything going on Tuesday night, would that work for you?"
 
     menu:
-        "Plan a date for Tuesday night.":
+        "Plan a date for Tuesday night":
             mc.name "Tuesday would be perfect, I'm already looking forward to it."
             the_person.char "Me too!"
             $ create_movie_date_action(the_person)
 
-        "Maybe some other time.":
+        "Maybe some other time":
             mc.name "I'm busy on Friday unfortunately."
             the_person.char "Well maybe next week then. Let me know, okay?"
             "She gives you a warm smile."
@@ -811,13 +807,13 @@ label movie_date_label(the_person):
     "You have a movie date planned with [the_person.title] right now."
 
     menu:
-        "Get ready for the date. {image=gui/heart/Time_Advance.png}" if mc.business.funds >= 50:
+        "Get ready for the date {image=gui/heart/Time_Advance.png}" if mc.business.funds >= 50:
             pass
 
-        "Get ready for the date.\nRequires: $50 (disabled)" if mc.business.funds < 50:
+        "Get ready for the date\nRequires: $50 (disabled)" if mc.business.funds < 50:
             pass
 
-        "Cancel the date. (tooltip)She won't be happy with you canceling last minute.":
+        "Cancel the date (tooltip)She won't be happy with you canceling last minute.":
             "You get your phone out and text [the_person.title]."
             mc.name "I'm sorry, but something important came up at the last minute. We'll have to reschedule."
             $ the_person.change_love(-5)
@@ -835,28 +831,28 @@ label movie_date_label(the_person):
     $ movie_type = None
     $ likes_movie = False
     menu:
-        "Watch an action movie.":
+        "Watch an action movie":
             $ the_choice = get_random_from_list(["The Revengers", "Raiders of the Found Ark", "Die Difficult", "Mission: Improbable", "Wonderful Woman", "John Wicked: Part 3", "The Destructonator", "Waterman"])
             $ movie_type = "action"
             if the_person.personality is wild_personality or the_person.personality.default_prefix == wild_personality.personality_type_prefix: #If it's a wild or wild derived personality type
                 $ likes_movie = True
             mc.name "Yeah, I've wanted to see [the_choice] for a while. I'll go get us tickets."
 
-        "Watch a comedic movie.":
+        "Watch a comedic movie":
             $ the_choice = get_random_from_list(["Spooky Movie", "Aaron Powers", "Dumber and Dumberest-er", "Ghostblasters", "Shaun of the Undead"])
             $ movie_type = "comedy"
             if the_person.personality is relaxed_personality or the_person.personality.default_prefix == relaxed_personality.personality_type_prefix:
                 $ likes_movie = True
             mc.name "I thought we'd both enjoy [the_choice]. I'll go get us tickets."
 
-        "Watch a romantic movie.":
+        "Watch a romantic movie":
             $ the_choice = get_random_from_list(["Olympic", "Britannic","The Workbook", "East Side Tale", "Pottery Poltergeist"])
             $ movie_type = "romantic"
             if the_person.personality is reserved_personality or the_person.personality.default_prefix == reserved_personality.personality_type_prefix:
                 $ likes_movie = True
             mc.name "I thought [the_choice] would be a good fit for us. You just wait here, I'll go get us tickets."
 
-        "Watch a foreign film.":
+        "Watch a foreign film":
             $ the_choice = get_random_from_list(["that one in French", "that one in Italian", "that one in Russian", "that one in Japanese", "that one in Mandarin", "that one that's silent"])
             $ movie_type = "foreign"
             if the_person.personality is introvert_personality or the_person.personality.default_prefix == introvert_personality.personality_type_prefix:
@@ -874,7 +870,7 @@ label movie_date_label(the_person):
     "Tickets in hand, you rejoin [the_person.title] and set off to find your theater."
     the_person.char "Did you want to get us some popcorn or anything like that?"
     menu:
-        "Stop at the concession stand. -$20" if mc.business.funds >= 20:
+        "Stop at the concession stand\nCosts: $20" if mc.business.funds >= 20:
             mc.name "Sure, you run ahead and I'll go get us some snacks."
             $ renpy.scene("Active")
             $ mc.business.funds += -20
@@ -892,10 +888,10 @@ label movie_date_label(the_person):
             "Snacks in hand you return to [the_person.title]. She takes a sip from her drink as you settle into your seat beside her."
 
 
-        "Stop at the concession stand. -$20 (disabled)" if mc.business.funds < 20:
+        "Stop at the concession stand\nRequires: $20 (disabled)" if mc.business.funds < 20:
             pass
 
-        "Just go to the movie.":
+        "Just go to the movie":
             mc.name "That stuff is always so overpriced, I hate giving them the satisfaction."
             $ the_person.change_happiness(-2)
             the_person.char "Right. Sure."
@@ -921,7 +917,7 @@ label movie_date_label(the_person):
             the_person.char "I'm bored. You don't mind if I make this a little more interesting, do you?"
             "You take a quick look around. The theater you're in is mostly empty, and nobody is in the same row as you."
             menu:
-                "Go ahead.":
+                "Go ahead":
                     mc.name "I'm certainly not going to stop you."
                     "Her hand slides up to your waist and undoes the button to your pants. You get a jolt of pleasure as her fingers slide onto your hardening cock."
                     "[the_person.title] stays sitting in her seat, eyes fixed on the movie screen as she begins to fondle your dick."
@@ -936,7 +932,7 @@ label movie_date_label(the_person):
                         "She comes up for air slides up your body, whispering into your ear."
                         the_person.char "Do you want to go to the bathroom and fuck me, or do you want to finish in my mouth right here?"
                         menu:
-                            "Fuck her.":
+                            "Fuck her":
                                 "You zip up your pants and stand up. [the_person.title] takes your hand and you rush out of the theater."
                                 $ movie_bathroom = Room("theater bathroom", "Theater Bathroom", [], bathroom_background, [], [], [], False, [0,0], visible = False) #TODO: Decide if we need any objects in the bathroom
                                 $ movie_bathroom.show_background()
@@ -952,7 +948,7 @@ label movie_date_label(the_person):
                                 $ renpy.show("Theater", what = theater_background)
                                 "You slip out of the bathroom as quickly as possible and return to your seats with some time pleasantly passed."                           
 
-                            "Cum right here.":
+                            "Cum right here":
                                 mc.name "I want you to finish me here."
                                 "She purrs in your ear and slides back down to her knees again. Her warm mouth wraps itself around your shaft and she starts to blow you again."
                                 "It doesn't take long for her to bring you to the edge of your orgasm."
@@ -963,7 +959,7 @@ label movie_date_label(the_person):
                                 the_person.char "Thank you, that was fun."
                                 "She takes your hand and holds it. You lean back, thoroughly spent, and zone out for the rest of the movie."
 
-                "Tell her to knock it off.":
+                "Tell her to knock it off":
                     mc.name "I just want to watch a movie together. Can you at least try and pay attention?"
                     $ the_person.change_obedience(2)
                     $ the_person.change_happiness(-5)
@@ -1039,12 +1035,12 @@ label dinner_date_plan_label(the_person):
 
 
     menu:
-        "Plan a date for Friday night.":
+        "Plan a date for Friday night":
             mc.name "It's a date. I'm already looking forward to it."
             the_person.char "Me too!"
             $ create_dinner_date_action(the_person)
 
-        "Maybe some other time.":
+        "Maybe some other time":
             mc.name "I'm busy on Friday unfortunately."
             the_person.char "Well maybe next week then. Let me know, okay?"
             "She gives you a warm smile."
@@ -1054,13 +1050,13 @@ label dinner_date_label(the_person):
     $ mc.business.event_triggers_dict["date_scheduled"] = False #Deflag this event so you can schedule a date with another person for next week.
     "You have a dinner date planned with [the_person.title]."
     menu:
-        "Get ready for the date. {image=gui/heart/Time_Advance.png}" if mc.business.funds >= 50:
+        "Get ready for the date {image=gui/heart/Time_Advance.png}" if mc.business.funds >= 50:
             pass
 
-        "Get ready for the date.\nRequires: $30 (disabled)" if mc.business.funds < 50:
+        "Get ready for the date\nRequires: $30 (disabled)" if mc.business.funds < 50:
             pass
 
-        "Cancel the date. (tooltip)She won't be happy with you canceling last minute.":
+        "Cancel the date (tooltip)She won't be happy with you canceling last minute.":
             "You get your phone out and text [the_person.title]."
             mc.name "I'm sorry, but something important came up at the last minute. We'll have to reschedule."
             $ the_person.change_love(-5)
@@ -1075,26 +1071,26 @@ label dinner_date_label(the_person):
     "You meet up with [the_person.title] on time."
     the_person.char "So, where are we going tonight [the_person.mc_title]?"
     menu:
-        "A cheap restaurant. -$50":
+        "A cheap restaurant\nCosts: $50":
             $ mc.business.funds += -50
             the_person.char "It sounds cozy. Let's go, I'm starving!"
 
-        "A moderately priced restaurant. -$100" if mc.business.funds >= 100:
+        "A moderately priced restaurant\n Costs: $100" if mc.business.funds >= 100:
             $ mc.business.funds += -100
             $ the_person.change_love(5)
             $ the_person.change_happiness(5)
             the_person.char "It sounds nice. Come on, I'm starving and could use a drink."
 
-        "An expensive restaurant. -$300" if mc.business.funds >= 300:
+        "An expensive restaurant\n Costs: $300" if mc.business.funds >= 300:
             $ mc.business.funds += -300
             $ the_person.change_love(10)
             $ the_person.change_happiness(5)
             the_person.char "Oh, it sounds fancy! Well, I'm flattered [the_person.mc_title]."
 
-        "A moderately priced restaurant. -$100 (disabled)" if mc.business.funds <= 100:
+        "A moderately priced restaurant\nRequires: $100 (disabled)" if mc.business.funds <= 100:
             pass
 
-        "An expensive restaurant. -$300 (disabled)" if mc.business.funds < 300:
+        "An expensive restaurant.\nRequires: $300 (disabled)" if mc.business.funds < 300:
             pass
 
     $ the_person.draw_person(emotion = "happy", position = "sitting")
@@ -1114,7 +1110,7 @@ label dinner_date_label(the_person):
         $ renpy.scene("Active")
         "She heads off, leaving you alone at the table with her half finished glass of wine."
         menu:
-            "Add a dose of serum to her drink." if mc.inventory.get_any_serum_count()>0:
+            "Add a dose of serum to her drink" if mc.inventory.get_any_serum_count()>0:
                 call give_serum(the_person) from _call_give_serum_21
                 if _return:
                     "You pour a dose of serum into her wine and give it a quick swirl, then sit back and relax."
@@ -1122,10 +1118,10 @@ label dinner_date_label(the_person):
                 else:
                     "You sit back and relax, content to just enjoy the evening. [the_person.possessive_title] returns just as your desert arrives."
 
-            "Add a dose of serum to her drink.\nRequires: Serum (disabled)" if mc.inventory.get_any_serum_count() == 0:
+            "Add a dose of serum to her drink\nRequires: Serum (disabled)" if mc.inventory.get_any_serum_count() == 0:
                 pass
 
-            "Leave her drink alone.":
+            "Leave her drink alone":
                 "You sit back and relax, content to just enjoy the evening. [the_person.possessive_title] returns just as your desert arrives."
 
         $ the_person.draw_person(position = "sitting")
@@ -1139,7 +1135,7 @@ label dinner_date_label(the_person):
         if renpy.random.randint(0,100) < the_person.sluttiness + the_person.love + (mc.charisma * 10): #She invites you back to her place.
             $ the_person.call_dialogue("date_seduction")
             menu:
-                "Go to [the_person.title]'s room.":
+                "Go to [the_person.title]'s room":
                     mc.name "I think I would. Lead the way."
                     $ mc.change_location(the_person.home)
                     $ mc.location.show_background()
@@ -1151,7 +1147,7 @@ label dinner_date_label(the_person):
                     #TODO: add support for spending the night somewhere other than home.
                     "When you and [the_person.possessive_title] are finished you slip back to your own bedroom just down the hall."
 
-                "Call it a night.":
+                "Call it a night":
                     mc.name "I think we should just call it a night now. I've got to get up early tomorrow."
                     "She lets go of your hand and looks away."
                     the_person.char "Right, of course. I wasn't saying we should... I was just... Goodnight [the_person.mc_title]."
@@ -1165,7 +1161,7 @@ label dinner_date_label(the_person):
         if renpy.random.randint(0,100) < the_person.sluttiness + the_person.love + (mc.charisma * 10): #She invites you back to her place.
             $ the_person.call_dialogue("date_seduction") #She invites you back to her place to "spend some more time together". She's been seduced.
             menu:
-                "Go to [the_person.title]'s place.":
+                "Go to [the_person.title]'s place":
                     mc.name "That sounds like a great idea."
                     $ mc.change_location(the_person.home)
                     $ mc.location.show_background()
@@ -1182,7 +1178,7 @@ label dinner_date_label(the_person):
                     "When you and [the_person.title] are finished you get dressed and say goodnight."
                     $ mc.change_location(bedroom)
 
-                "Call it a night.":
+                "Call it a night":
                     mc.name "I'd like to call it an early night today, but maybe I'll take you up on the offer some other time."
                     "Her taxi arrives. You give her a goodbye kiss and head home yourself."
 
@@ -1220,7 +1216,7 @@ label serum_give_label(the_person):
     $ ran_num = renpy.random.randint(0,100)
 
     menu:
-        "Give it to her stealthily.\n{size=22}Success Chance: [sneak_serum_chance]%%{/size}": #TODO: Have this modified by something so there are interesting gameplay decisions
+        "Give it to her stealthily\n{size=22}Success Chance: [sneak_serum_chance]%%{/size}": #TODO: Have this modified by something so there are interesting gameplay decisions
             "You chat with [the_person.title] for a couple of minutes. Waiting to find a chance to deliver a dose of serum."
             if ran_num < sneak_serum_chance:
                 #Success
@@ -1255,7 +1251,7 @@ label serum_give_label(the_person):
                     $renpy.scene("Active")
                     return
 
-        "Ask her to take it.\n{size=22}Success Chance: [ask_serum_chance]%%{/size}" if not mandatory_unpaid_serum_testing_policy.is_active() or mc.business.get_employee_title(the_person) == "None":
+        "Ask her to take it\n{size=22}Success Chance: [ask_serum_chance]%%{/size}" if not mandatory_unpaid_serum_testing_policy.is_active() or mc.business.get_employee_title(the_person) == "None":
             if mc.business.get_employee_title(the_person) == "None":
                 mc.name "[the_person.title], I've got a project going on at work that could really use a test subject. Would you be interested in helping me out?"
 
@@ -1280,12 +1276,12 @@ label serum_give_label(the_person):
                 the_person.char "I'm... I don't think I would be comfortable with that. Is that okay?"
                 mc.name "Of course it is, that's why I'm asking in the first place."
 
-        "Ask her to take it.\n{size=22}Success Chance: Required by Policy{/size}" if mandatory_unpaid_serum_testing_policy.is_active() and not mc.business.get_employee_title(the_person) == "None":
+        "Ask her to take it\n{size=22}Success Chance: Required by Policy{/size}" if mandatory_unpaid_serum_testing_policy.is_active() and not mc.business.get_employee_title(the_person) == "None":
             #Auto success
             mc.name "[the_person.title], we're running field trials and you're one of the test subjects. I'm going to need you to take this."
             call give_serum(the_person) from _call_give_serum_3
 
-        "Demand she takes it.\n{size=22}Success Chance: [demand_serum_chance]%%{/size}": #They must work for you to demand it.
+        "Demand she takes it\n{size=22}Success Chance: [demand_serum_chance]%%{/size}": #They must work for you to demand it.
             mc.name "[the_person.title], you're going to drink this for me."
             "You pull out a vial of serum and present it to [the_person.title]."
             the_person.char "What is it for, is it important?"
@@ -1302,17 +1298,17 @@ label serum_give_label(the_person):
                 $ the_person.change_love(-2)
                 the_person.char "You expect me to just drink random shit you hand to me? I'm sorry, but that's just ridiculous."
 
-        "Pay her to take it.\n{size=22}Costs: $[pay_serum_cost]{/size}" if mandatory_paid_serum_testing_policy.is_active() and not mandatory_unpaid_serum_testing_policy.is_active() and not mc.business.get_employee_title(the_person) == "None": #This becomes redundent when they take it for free.
+        "Pay her to take it\n{size=22}Costs: $[pay_serum_cost]{/size}" if mandatory_paid_serum_testing_policy.is_active() and not mandatory_unpaid_serum_testing_policy.is_active() and not mc.business.get_employee_title(the_person) == "None": #This becomes redundent when they take it for free.
             #Pay cost and proceed
             $ mc.business.funds += -pay_serum_cost
             mc.name "[the_person.title], we're running field trials and you're one of the test subjects. I'm going to need you to take this, a bonus will be added onto your paycheck."
             call give_serum(the_person) from _call_give_serum_5
 
 
-        "Pay her to take it.\n{size=22}Requires: Mandatory Paid Serum Testing{/size} (disabled)" if not mandatory_unpaid_serum_testing_policy.is_active() and not mandatory_paid_serum_testing_policy.is_active() and not mc.business.get_employee_title(the_person) == "None":
+        "Pay her to take it\n{size=22}Requires: Mandatory Paid Serum Testing{/size} (disabled)" if not mandatory_unpaid_serum_testing_policy.is_active() and not mandatory_paid_serum_testing_policy.is_active() and not mc.business.get_employee_title(the_person) == "None":
             pass
 
-        "Do nothing.":
+        "Do nothing":
             pass
     return
 
@@ -1338,36 +1334,38 @@ label grope_person(the_person):
                             "[the_person.possessive_title] glances around at the people nearby."
                             the_person.char "I don't want other people to watch. Let's find someplace we can be alone."
                             menu:
-                                "Find somewhere quiet.\n{size=22}No interruptions{/size}":
+                                "Find somewhere quiet\n{size=22}No interruptions{/size}":
                                     mc.name "Alright, come with me."
                                     "You take [the_person.title] by her wrist and lead her away."
                                     #TODO: have each location have a unique "find someplace quiet" descriptor with a default fallback option
                                     "After a couple of minutes searching you find a quiet space with just the two of you."
                                     "You don't waste any time getting back to what you were doing, fondling [the_person.possessive_title]'s tits and ass."
 
-                                "Stay where you are.\n{size=22}[extra_people_count] watching{/size}":
+                                "Stay where you are\n{size=22}[extra_people_count] watching{/size}":
                                     $ should_be_private = False
 
                         else:
                             # She doesn't care, but you can find someplace private.
                             "[the_person.possessive_title] either doesn't notice or doesn't care, but there are other people around."
                             menu:
-                                "Find somewhere quiet.\n{size=22}No interruptions{/size}":
+                                "Find somewhere quiet\n{size=22}No interruptions{/size}":
                                     mc.name "Come with me, I don't want to be interrupted."
                                     "You take [the_person.title] by the wrist and lead her away. She follows eagerly."
                                     "After searching for a couple of minutes you find a quiet space with just the two of you."
                                     #TODO: have each location have a unique "find someplace quiet" descriptor with a default fallback option
 
-                                "Stay where you are.\n{size=22}[extra_people_count] watching{/size}":
+                                "Stay where you are\n{size=22}[extra_people_count] watching{/size}":
                                     $ should_be_private = False
 
                     if prostitute_role in the_person.special_role:
                         the_person.char "We can continue what you started, but it would cost you two hundred dollars."
                         menu:
-                            "Pay her. -$200":
+                            "Pay her\nCosts: $200" if mc.business.funds > 200:
                                 $ mc.business.funds += -200
                                 $ the_person.change_obedience(1)
                                 call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_grope_person_prostitute_role
+                            "Pay her\nRequires: $200 (disabled)" if mc.business.funds <= 200:
+                                pass                                
                             "No":
                                 mc.name "Thanks for the offer, but no thanks."
                                 "She shrugs."
@@ -1452,7 +1450,7 @@ label seduce_label(the_person):
 
     $ seduced = False #Flip to true if the approach works
     menu:
-        "I want to make you feel good.\n{size=22}Success Chance: [chance_service_her]%%\nModifiers: +10 Sluttiness, -5 Obedience{/size} (tooltip)Suggest you will focus on her. She will be sluttier for the encounter, but more likely to make demands and take control. More likely to succeed with less obedient girls.": #Bonus to her sluttiness, penalty to obedience
+        "I want to make you feel good\n{size=22}Success Chance: [chance_service_her]%%\nModifiers: +10 Sluttiness, -5 Obedience{/size} (tooltip)Suggest you will focus on her. She will be sluttier for the encounter, but more likely to make demands and take control. More likely to succeed with less obedient girls.": #Bonus to her sluttiness, penalty to obedience
             "You lean in close whisper what you want to do to her."
             if ran_num < chance_service_her: #Success
                 $ seduced = True
@@ -1463,14 +1461,14 @@ label seduce_label(the_person):
             else: #Failure
                 pass
 
-        "Let's have a good time.\n{size=22}Success Chance: [chance_both_good]%%\nModifiers: None{/size} (tooltip)Suggest you'll both end up satisfied. Has no extra effect on her sluttiness or obedience, but is not affected by her obedience in return.": #Standard
+        "Let's have a good time\n{size=22}Success Chance: [chance_both_good]%%\nModifiers: None{/size} (tooltip)Suggest you'll both end up satisfied. Has no extra effect on her sluttiness or obedience, but is not affected by her obedience in return.": #Standard
             "You lean in close and whisper what you want to do together."
             if ran_num < chance_both_good:
                 $ seduced = True
             else:
                 pass
 
-        "I need you to get me off.\n{size=22}Success Chance: [chance_service_him]%%\nModifiers: +10 Obedience, -5 Sluttiness{/size} (tooltip)Demand that she focuses on making you cum. She will be more obedient but less slutty for the encounter. More likely to succeed with highly obedient girls.": #Bonus to obedience, penalty to sluttiness
+        "I need you to get me off\n{size=22}Success Chance: [chance_service_him]%%\nModifiers: +10 Obedience, -5 Sluttiness{/size} (tooltip)Demand that she focuses on making you cum. She will be more obedient but less slutty for the encounter. More likely to succeed with highly obedient girls.": #Bonus to obedience, penalty to sluttiness
             "You lean in close and whisper what you want her to do to you."
             if ran_num < chance_service_him:
                 $ seduced = True
