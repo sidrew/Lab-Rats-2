@@ -371,7 +371,8 @@ init -1:
             base_side_effect_chance = 20,
             on_apply = caffeine_trait_on_apply,
             on_remove = caffeine_trait_on_remove,
-            research_needed = 150)
+            research_needed = 150,
+            exclude_tags = "Energy")
 
 
         #################
@@ -508,7 +509,8 @@ init -1:
             on_remove = refined_caffeine_trait_on_remove,
             requires = [caffeine_trait],
             tier = 1,
-            research_needed = 300)
+            research_needed = 300,
+            exclude_tags = "Energy")
 
     #################
         # Tier 2 Traits #
@@ -642,7 +644,8 @@ init -1:
             on_remove = slutty_caffeine_trait_on_remove,
             requires = [refined_caffeine_trait, aphrodisiac],
             tier = 2,
-            research_needed = 800)
+            research_needed = 800,
+            exclude_tags = "Energy")
 
     #################
         # Tier 3 Traits #
