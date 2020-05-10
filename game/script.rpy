@@ -3339,20 +3339,23 @@ init -2 python:
 
         if kids is None:
             kids = 0
-            if age >=28:
+            if age >= 30:
                 kids += renpy.random.randint(0,1) #Young characters don't have as many kids
 
-            if age >= 38:
+            if age >= 40:
                 kids += renpy.random.randint(0,1) #As you get older you're more likely to have one
 
             if relationship == "Girlfriend":
                 kids += renpy.random.randint(0,1) #People who are dating have kids more often than single people
 
-            elif relationship != "Single":
-                kids += renpy.random.randint(0,3) #And married/engaged people have more kids still
+            elif relationship == "Fiancée":
+                kids += renpy.random.randint(0,2) #And engaged people have more kids still
 
-            if age <= 22:
-                kids += -1 #Young people have less time to have kids in general, so modify their number down a bit.
+            elif relationship == "Married":
+                kids += renpy.random.randint(0,3) #And engaged people have more kids still
+
+            if age <= 23:
+                kids -= 1 #Young people have less time to have kids in general, so modify their number down a bit.
                 if kids < 0:
                     kids = 0
 
