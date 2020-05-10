@@ -9694,7 +9694,10 @@ init -2 python:
 
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
 
-    call screen main_choice_display([build_people_list(), build_actions_list()])
+    if "action_mod_list" in globals():
+        call screen enhanced_main_choice_display(build_menu_items([build_people_list(), build_actions_list()]))
+    else:
+        call screen main_choice_display([build_people_list(), build_actions_list()])
     $ picked_option = _return
 
     if isinstance(picked_option, Person):
@@ -9854,7 +9857,10 @@ label talk_person(the_person):
     if the_person.title is None:
         call person_introduction(the_person) from _call_person_introduction #If their title is none we assume it is because we have never met them before. We have a special introduction scene for new people.
 
-    call screen main_choice_display([build_chat_action_list(the_person), build_specific_action_list(the_person), build_special_role_actions_list(the_person)])
+    if "action_mod_list" in globals():
+        call screen enhanced_main_choice_display(build_menu_items([build_chat_action_list(the_person), build_specific_action_list(the_person), build_special_role_actions_list(the_person)]))
+    else:
+        call screen main_choice_display([build_chat_action_list(the_person), build_specific_action_list(the_person), build_special_role_actions_list(the_person)])
 
     if isinstance(_return, Action):
         $ starting_time_of_day = time_of_day
