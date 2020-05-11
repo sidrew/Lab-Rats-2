@@ -10496,9 +10496,6 @@ label advance_time:
                     $ mandatory_advance_time = True
                 $ del the_morning_crisis
             $ del possible_morning_crises
-
-        $ renpy.free_memory()
-
     else:
         $ time_of_day += 1 ##Otherwise, just run the end of day code.
 
