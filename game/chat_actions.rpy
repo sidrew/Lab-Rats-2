@@ -694,8 +694,10 @@ label lunch_date_label(the_person): #Could technically be included in the planni
     "Before you know it you've both finished your lunch and it's time to leave. You walk [the_person.title] outside and get ready to say goodbye."
     the_person.char "This was fun [the_person.mc_title], we should do it again."
     if not the_person.has_family_taboo() and (the_person.relationship == "Single" or the_person.get_opinion_score("cheating on men") > 0) and kiss_after:
+        $ the_person.draw_person(position = "kissing")
         "She steps in close and kisses you. Her lips are soft and warm against yours."
         "After a brief second she steps back and smiles."
+        $ the_person.draw_person()
         mc.name "Yeah, we should. I'll see you around."
 
     else:
@@ -879,13 +881,13 @@ label movie_date_label(the_person):
             $ mc.business.funds += -20
             "You give [the_person.possessive_title] her ticket and split up. At the concession stand you get a pair of drinks and some popcorn to share."
             menu:
-                "Put a dose of serum in her drink." if mc.inventory.get_any_serum_count() > 0:
+                "Put a dose of serum in her drink" if mc.inventory.get_any_serum_count() > 0:
                     call give_serum(the_person) from _call_give_serum_14
 
-                "Put a dose of serum in her drink.\nRequires: Serum (disabled)" if mc.inventory.get_any_serum_count() == 0:
+                "Put a dose of serum in her drink\nRequires: Serum (disabled)" if mc.inventory.get_any_serum_count() == 0:
                     pass
 
-                "Leave her drink alone.":
+                "Leave her drink alone":
                     pass
 
             "Snacks in hand you return to [the_person.title]. She takes a sip from her drink as you settle into your seat beside her."

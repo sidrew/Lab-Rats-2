@@ -131,10 +131,11 @@ label ask_be_girlfriend_label(the_person):
             menu:
                 "Have an affair with [the_person.title].":
                     mc.name "I can be if that's what you need."
-                    $ the_person.draw_person(emotion = "happy")
+                    $ the_person.draw_person(position = "kissing", emotion = "happy")
                     $ the_person.special_role.append(affair_role)
                     $ the_person.change_slut_temp(2)
                     "She leans forward and kisses you, putting an arm around your waist and pulling you close. When she breaks the kiss she looks deep into your eyes."
+                    $ the_person.draw_person(emotion = "happy")
                     the_person.char "Well then, you know where to find me."
 
                 "Refuse.":

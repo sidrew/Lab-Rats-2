@@ -692,8 +692,10 @@ label mom_sucking_cock_taboo_break(the_person):
         "She nods meekly."
         the_person.char "When I was younger. It's been a long time..."
         mc.name "Then you know what to do. Just kneel down, put slide your lips onto it, and it'll all come back to you."
+        $ the_person.draw_person(position = "kissing")
         "[the_person.possessive_title] grabs your head and kisses you passionately. You wrap your arms around her reciprocate."
         "She finally breaks the kiss, pulling back her head and staring into your eyes."
+        $ the_person.draw_person()
         the_person.char "I love you [the_person.mc_title]."
         mc.name "I love you too [the_person.title]. I've loved you my whole life."
 
@@ -709,7 +711,7 @@ label mom_sucking_cock_taboo_break(the_person):
                 mc.name "And it's what you said about feeling up my cock, but I think we both had a good time with that."
                 if not the_person.has_taboo("touching_vagina"):
                     the_person.char "It was very impressive... But that doesn't mean we should go any furthur! Does it?"
-                    mc.name "We went furthur when I touched your pussy, and you got really turned on by that, didn't you?"
+                    mc.name "We went further when I touched your pussy, and you got really turned on by that, didn't you?"
 
         else:
             mc.name "I'm not normal [the_person.title], and I don't think you are either. We do lots of things normal families shouldn't do."
@@ -720,8 +722,10 @@ label mom_sucking_cock_taboo_break(the_person):
         the_person.char "This... Really makes you happy?"
         mc.name "It does, more than I could ever explain."
         the_person.char "It makes me happy too. You're right, I should never have been worried when happiness was right in front of me."
+        $ the_person.draw_person(position = "kissing")
         "[the_person.possessive_title] grabs your head and kisses you passionately. You wrap your arms around her reciprocate."
         "She finally breaks the kiss, pulling back her head and staring into your eyes."
+        $ the_person.draw_person()
         the_person.char "It's been a long time, but I think I still remember how to suck a man off."
         mc.name "Get on your knees and I'm sure it'll come back to you."
     return

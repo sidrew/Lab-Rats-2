@@ -56,12 +56,11 @@ label ask_leave_SO_label(the_person): #
     $ the_person.SO_name = None #Clear the name of their ex so that it doesn't get used in
     $ the_person.change_love(10)
     $ the_person.change_obedience(5)
-    $ the_person.draw_person(position = "happy")
+    $ the_person.draw_person(position = "kissing", emotion = "happy")
     "You put your arms around her waist and she kisses you immediately. When you break the kiss she's grinning ear to ear."
+    $ the_person.draw_person(emotion = "happy")
     $ ex_title = so_title[:4] #Get's only the first 4 characters of any title for some hesitant-sounding speach.
     the_person.char "It feels so good to not have to hide anything anymore! I'll break the news to my [ex_title]... My ex-[so_title] later today."
-    $ the_person.relationship = "Single"
-    $ the_person.SO_name = None
     return
 
 label plan_fuck_date_label(the_person):
@@ -292,12 +291,12 @@ label fuck_date_label(the_person):
                                     while not the_person.outfit.vagina_available():
                                         $ the_item = the_person.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
                                         $ the_person.draw_animated_removal(the_item)
-                                        ""
+                                        $ renpy.pause(1)
 
                                     while not the_person.outfit.vagina_available():
                                         $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
                                         $ the_person.draw_animated_removal(the_item)
-                                        ""
+                                        $ renpy.pause(1)
                                     $ del the_item
                                 menu:
                                     "Put on a condom.":
@@ -433,12 +432,12 @@ label fuck_date_label(the_person):
                                     while not the_person.outfit.vagina_available():
                                         $ the_item = the_person.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
                                         $ the_person.draw_animated_removal(the_item)
-                                        ""
+                                        renpy.pause(1)
 
                                     while not the_person.outfit.vagina_available():
                                         $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
                                         $ the_person.draw_animated_removal(the_item)
-                                        ""
+                                        renpy.pause(1)
                                     $ del the_item
                                     "Once her cute little pussy is available, she spreads her legs for you."
                                     $ the_person.update_outfit_taboos()
