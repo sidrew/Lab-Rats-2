@@ -3484,7 +3484,7 @@ init -2 python:
             elif the_person == self.person_b:
                 return self.type_b
 
-    class RelationshipArray():
+    class RelationshipArray(renpy.store.object):
         def __init__(self):
             self.relationships = [] #List of relationships. Relationships are bi-directional, so if you look for person_a, person_b you'll get the same object as person_b, person_a (but the type can be relative to the order).
             ### Types of Relationships (* denotes currently unused but planned roles)
@@ -3620,7 +3620,7 @@ init -2 python:
                 self.update_relationship(person_a, person_b, "Acquaintance")
 
 
-    class Room(): #Contains people and objects.
+    class Room(renpy.store.object): #Contains people and objects.
         def __init__(self,name,formalName,connections,background_image,objects,people,actions,public,map_pos,
             tutorial_label = None, visible = True, hide_in_known_house_map = True, lighting_conditions = None):
 
@@ -4560,7 +4560,7 @@ init -2 python:
             self.uniforms["inntate_strength"] = new_strength
 
 
-    class Outfit(): #A bunch of clothing added together, without slot conflicts.
+    class Outfit(renpy.store.object): #A bunch of clothing added together, without slot conflicts.
         def __init__(self,name):
             self.name = name
             self.upper_body = []
