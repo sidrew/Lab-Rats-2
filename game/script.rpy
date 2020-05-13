@@ -3076,6 +3076,19 @@ init -2 python:
             return None
 
     class Personality(): #How the character responds to various actions
+        response_label_ending = ["greetings",
+            "sex_responses_foreplay", "sex_responses_oral", "sex_responses_vaginal", "sex_responses_anal",
+            "climax_responses_foreplay", "climax_responses_oral", "climax_responses_vaginal", "climax_responses_anal",
+            "clothing_accept", "clothing_reject", "clothing_review",
+            "strip_reject", "sex_accept", "sex_obedience_accept", "sex_gentle_reject", "sex_angry_reject",
+            "seduction_response", "seduction_accept_crowded", "seduction_accept_alone", "seduction_refuse",
+            "flirt_response", "flirt_response_low", "flirt_response_mid", "flirt_response_high",
+            "cum_face", "cum_mouth", "cum_vagina", "cum_anal", "suprised_exclaim", "talk_busy",
+            "improved_serum_unlock", "sex_strip", "sex_watch", "being_watched", "work_enter_greeting", "date_seduction", "sex_end_early", "sex_take_control", "sex_beg_finish", "introduction",
+            "kissing_taboo_break", "touching_body_taboo_break", "touching_penis_taboo_break", "touching_vagina_taboo_break", "sucking_cock_taboo_break", "licking_pussy_taboo_break", "vaginal_sex_taboo_break", "anal_sex_taboo_break",
+            "condomless_sex_taboo_break", "underwear_nudity_taboo_break", "bare_tits_taboo_break", "bare_pussy_taboo_break",
+            "facial_cum_taboo_break", "mouth_cum_taboo_break", "body_cum_taboo_break", "creampie_taboo_break", "anal_creampie_taboo_break"]    
+        
         def __init__(self, personality_type_prefix, default_prefix = None,
             common_likes = None, common_dislikes = None, common_sexy_likes = None, common_sexy_dislikes = None,
             titles_function = None, possessive_titles_function = None, player_titles_function = None):
@@ -3090,20 +3103,6 @@ init -2 python:
             self.possessive_titles_function = possessive_titles_function
             self.player_titles_function = player_titles_function
 
-            #These are the labels we will be trying to get our dialogue. If the labels do not exist we will get their defaults instead. A default should _always_ exist, if it does not our debug check will produce an error.
-            self.response_label_ending = ["greetings",
-            "sex_responses_foreplay", "sex_responses_oral", "sex_responses_vaginal", "sex_responses_anal",
-            "climax_responses_foreplay", "climax_responses_oral", "climax_responses_vaginal", "climax_responses_anal",
-            "clothing_accept", "clothing_reject", "clothing_review",
-            "strip_reject", "sex_accept", "sex_obedience_accept", "sex_gentle_reject", "sex_angry_reject",
-            "seduction_response", "seduction_accept_crowded", "seduction_accept_alone", "seduction_refuse",
-            "flirt_response", "flirt_response_low", "flirt_response_mid", "flirt_response_high",
-            "cum_face", "cum_mouth", "cum_vagina", "cum_anal", "suprised_exclaim", "talk_busy",
-            "improved_serum_unlock", "sex_strip", "sex_watch", "being_watched", "work_enter_greeting", "date_seduction", "sex_end_early", "sex_take_control", "sex_beg_finish", "introduction",
-            "kissing_taboo_break", "touching_body_taboo_break", "touching_penis_taboo_break", "touching_vagina_taboo_break", "sucking_cock_taboo_break", "licking_pussy_taboo_break", "vaginal_sex_taboo_break", "anal_sex_taboo_break",
-            "condomless_sex_taboo_break", "underwear_nudity_taboo_break", "bare_tits_taboo_break", "bare_pussy_taboo_break",
-            "facial_cum_taboo_break", "mouth_cum_taboo_break", "body_cum_taboo_break", "creampie_taboo_break", "anal_creampie_taboo_break"]
-
             self.response_dict = {}
             for ending in self.response_label_ending:
                 if renpy.has_label(self.personality_type_prefix + "_" + ending):
@@ -3112,8 +3111,6 @@ init -2 python:
                     self.response_dict[ending] = self.default_prefix + "_" + ending
                 else:
                     self.response_dict[ending] = "relaxed_" + ending #If nothing is given we assume we don't want to crash and we should put in some sort of value.
-
-
 
             #Establish our four classes of favoured likes and dislikes. Intensity (ie. love vs like, dislike vs hate) is decided on a person to person basis.
             if common_likes:
@@ -3396,15 +3393,16 @@ init -2 python:
         else:
             return "Problem, height not found in chart."
 
-    class Expression(renpy.store.object):
+    class Expression():
+        emotion_set = ["default","happy","sad","angry","orgasm"]
+        positions_set = ["stand2","stand3","stand4","stand5","walking_away","kissing","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"] #The set of images we are going to draw emotions for. These are positions that look towards the camera
+        special_modifiers = {"blowjob":["blowjob"],"kissing":["kissing"]} #Special modifiers that are sometimes applied to expressions, but not always. ie. for blowjobs that may be either in normal crouching mode or blowjob mode.
+        ignore_position_set = ["doggy","walking_away","standing_doggy"] #The set of positions that we are not goign to draw emotions for. These look away from the camera TODO: This should reference the Position class somehow.
+
         def __init__(self,name,skin_colour,facial_style):
             self.name = name
             self.skin_colour = skin_colour
             self.facial_style = facial_style #The style of face the person has, currently creatively named "Face_1", "Face_2", "Face_3", etc..
-            self.emotion_set = ["default","happy","sad","angry","orgasm"]
-            self.positions_set = ["stand2","stand3","stand4","stand5","walking_away","kissing","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"] #The set of images we are going to draw emotions for. These are positions that look towards the camera
-            self.special_modifiers = {"blowjob":["blowjob"],"kissing":["kissing"]} #Special modifiers that are sometimes applied to expressions, but not always. ie. for blowjobs that may be either in normal crouching mode or blowjob mode.
-            self.ignore_position_set = ["doggy","walking_away","standing_doggy"] #The set of positions that we are not goign to draw emotions for. These look away from the camera TODO: This should reference the Position class somehow.
             self.position_dict = {}
             for position in self.positions_set+self.ignore_position_set:
                 self.position_dict[position] = {}
@@ -3622,10 +3620,9 @@ init -2 python:
                 self.update_relationship(person_a, person_b, "Acquaintance")
 
 
-    class Room(renpy.store.object): #Contains people and objects.
+    class Room(): #Contains people and objects.
         def __init__(self,name,formalName,connections,background_image,objects,people,actions,public,map_pos,
             tutorial_label = None, visible = True, hide_in_known_house_map = True, lighting_conditions = None):
-
 
             self.name = name
             self.formalName = formalName
@@ -4128,7 +4125,7 @@ init -2 python:
             else:
                 return self.name
 
-    class Clothing(renpy.store.object):
+    class Clothing():
         #Slots are
 
         ##Feet##
@@ -4150,6 +4147,7 @@ init -2 python:
         #Layer 2: Over underwear
         #Layer 3: Over shirts
         #Layer 4: Over everything
+        supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
 
         def __init__(self, name, layer, hide_below, anchor_below, proper_name, draws_breasts, underwear, slut_value, has_extension = None, is_extension = False, colour = None, tucked = False, body_dependant = True,
         opacity_adjustment = 1, whiteness_adjustment = 0.0, contrast_adjustment = 1.0, supported_patterns = None, pattern = None, colour_pattern = None, ordering_variable = 0, display_name = None,
@@ -4167,7 +4165,6 @@ init -2 python:
 
             self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
             self.pattern_sets = {} #A list of patterns for this piece of clothing that are valid. Keys are in the form "position_patternName"
-            self.supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
             self.supported_patterns = supported_patterns
             if not supported_patterns:
                 self.supported_patterns = {"Default":None}
@@ -4259,7 +4256,7 @@ init -2 python:
             if self.draws_breasts:
                 image_name = image_set.get_image_name(body_type, tit_size)
             else:
-                image_name = image_set.get_image_name(body_type, "AA")
+                image_name = image_set.get_image_name(body_type)
 
             return image_name
 
@@ -4395,6 +4392,8 @@ init -2 python:
 
 
     class Facial_Accessory(Clothing): #This class inherits from Clothing and is used for special accessories that require extra information
+        supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
+
         def __init__(self, name, layer, hide_below, anchor_below, proper_name, draws_breasts, underwear, slut_value, has_extension = None, is_extension = False, colour = None, tucked = False,
             opacity_adjustment = 1, whiteness_adjustment = 0.0, contrast_adjustment = 1.0, display_name = None):
 
@@ -4409,8 +4408,6 @@ init -2 python:
             self.layer = layer #A list of the slots above that this should take up or otherwise prevent from being filled. Slots are a list of the slot and the layer.
 
             self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
-            self.supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
-
 
             for set in self.supported_positions:
                 self.position_sets[set] = Facial_Accessory_Images(proper_name,set)
@@ -4459,12 +4456,13 @@ init -2 python:
                 return shader_image
 
 
-    class Facial_Accessory_Images(renpy.store.object):
+    class Facial_Accessory_Images():
+        supported_faces = ["Face_1","Face_2","Face_3","Face_4","Face_5","Face_6"]
+        supported_emotions = ["default","sad","happy","angry","orgasm"]
+        special_modifiers = {"blowjob":"blowjob","kissing":"kissing"}
+
         def __init__(self,accessory_name,position):
             self.images = {}
-            self.supported_faces = ["Face_1","Face_2","Face_3","Face_4","Face_5","Face_6"]
-            self.supported_emotions = ["default","sad","happy","angry","orgasm"]
-            self.special_modifiers = {"blowjob":"blowjob","kissing":"kissing"}
 
             for face in self.supported_faces:
                 for emotion in self.supported_emotions:
@@ -4475,28 +4473,29 @@ init -2 python:
 
                     if position in self.special_modifiers:
                         #self.images[face + "_" + emotion + "_" + self.special_modifiers[position]] = "character_images/" + accessory_name + "_" + position + "_" + face + "_" + emotion + "_" + self.special_modifiers[position] + ".png"
-
-                        self.images[face + "_" + emotion + "_" + self.special_modifiers[position]] = accessory_name + "_" + position + "_" + face + "_" + emotion + "_" + self.special_modifiers[position] + ".png"
+                        image_name = accessory_name + "_" + position + "_" + face + "_" + emotion + "_" + self.special_modifiers[position] + ".png"
+                        if renpy.loadable("character_images/" + image_name):
+                            self.images[face + "_" + emotion + "_" + self.special_modifiers[position]] = image_name
                         #There is a special modifier, we need to add that version as well.
 
         def get_image(self, face, emotion, special_modifier = None):
             index_string = face + "_" + emotion
-            if not special_modifier is None:
-                if renpy.loadable("character_images/" + self.images[index_string + "_" + special_modifier]):
-                    index_string += "_" + special_modifier #We only want to try and load special modifier images if they exist. Otherwise we use the unmodified image to avoid a crash. This lets us omit images we do not plan on actually using, such as glasses not needing blowjob poses.
+            if not special_modifier is None and index_string + "_" + special_modifier in self.images:
+                index_string += "_" + special_modifier #We only want to try and load special modifier images if they exist. Otherwise we use the unmodified image to avoid a crash. This lets us omit images we do not plan on actually using, such as glasses not needing blowjob poses.
 
             return Image("character_images/" + self.images[index_string])
             #return Image(self.images[index_string]) #We have made an index string, use it to get the full filepath for the image used in this position.
 
         def get_image_name(self, face, emotion, special_modifier = None):
             index_string = face + "_" + emotion
-            if not special_modifier is None:
-                if renpy.loadable("character_images/" + self.images[index_string + "_" + special_modifier]):
-                    index_string += "_" + special_modifier #We only want to try and load special modifier images if they exist. Otherwise we use the unmodified image to avoid a crash. This lets us omit images we do not plan on actually using, such as glasses not needing blowjob poses.
+            if not special_modifier is None and index_string + "_" + special_modifier in self.images:
+                index_string += "_" + special_modifier #We only want to try and load special modifier images if they exist. Otherwise we use the unmodified image to avoid a crash. This lets us omit images we do not plan on actually using, such as glasses not needing blowjob poses.
 
             return "character_images/" + self.images[index_string]
 
-    class Clothing_Images(renpy.store.object): # Stores a set of images for a single piece of clothing in a single position. The position is stored when it is put into the clothing object dict.
+    class Clothing_Images(): # Stores a set of images for a single piece of clothing in a single position. The position is stored when it is put into the clothing object dict.
+        breast_sizes = ["AA","A","B","C","D","DD","DDD","E","F","FF"]
+
         def __init__(self,clothing_name,position_name,is_top, body_dependant = True):
 
             self.images = {}
@@ -4504,8 +4503,6 @@ init -2 python:
                 self.body_types = ["standard_body","thin_body","curvy_body"]
             else:
                 self.body_types = ["standard_body"]
-
-            self.breast_sizes = ["AA","A","B","C","D","DD","DDD","E","F","FF"]
 
             for body in self.body_types:
                 if is_top:
@@ -4530,7 +4527,7 @@ init -2 python:
             return "character_images/" + self.images[index_string]
             #return Image(self.images[index_string])
 
-    class VrenAnimation(renpy.store.object):
+    class VrenAnimation():
         def __init__(self, name, shader, tex_1_regions, innate_animation_strength = 1.0, region_specific_weights = None):
             self.name = name #Plain text name of this animation.
             self.shader = shader #Reference to the shader being used, ex. shader.PS_WALK_2D
@@ -4563,7 +4560,7 @@ init -2 python:
             self.uniforms["inntate_strength"] = new_strength
 
 
-    class Outfit(renpy.store.object): #A bunch of clothing added together, without slot conflicts.
+    class Outfit(): #A bunch of clothing added together, without slot conflicts.
         def __init__(self,name):
             self.name = name
             self.upper_body = []
@@ -5518,7 +5515,7 @@ init -2 python:
 
 
 
-    class Position(renpy.store.object):
+    class Position():
         def __init__(self,name,slut_requirement,slut_cap,requires_hard, requires_large_tits,
             position_tag,requires_location,requires_clothing,skill_tag,
             girl_arousal,girl_energy,guy_arousal,guy_energy,connections,
