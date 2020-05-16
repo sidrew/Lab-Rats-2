@@ -245,11 +245,11 @@ init -3 python:
             return True
 
     def build_demand_strip_menu(the_person):
-        demand_strip_tits_action = Action("Get your tits out.", demand_strip_tits_requirement, "demand_strip_tits_label", args = the_person, requirement_args = the_person,
+        demand_strip_tits_action = Action("Get your tits out", demand_strip_tits_requirement, "demand_strip_tits_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Have her strip down until you can see her tits.")
-        demand_strip_underwear_action = Action("Strip to your underwear.", demand_strip_underwear_requirement, "demand_strip_underwear_label", args = the_person, requirement_args = the_person,
+        demand_strip_underwear_action = Action("Strip to your underwear", demand_strip_underwear_requirement, "demand_strip_underwear_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Have her strip down until she's only in her underwear.")
-        demand_strip_naked_action = Action("Get naked.", demand_strip_naked_requirement, "demand_strip_naked_label", args = the_person, requirement_args = the_person,
+        demand_strip_naked_action = Action("Get naked", demand_strip_naked_requirement, "demand_strip_naked_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Have her strip until she is completely naked.")
         return ["Strip Command", demand_strip_tits_action, demand_strip_underwear_action, demand_strip_naked_action, ["Never mind", "Return"]]
 

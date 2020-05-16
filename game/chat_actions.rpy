@@ -182,11 +182,11 @@ init -2 python:
         return title_tuple
 
     def get_date_plan_actions(the_person):
-        lunch_date_action = Action("Ask her out to lunch. {image=gui/heart/Time_Advance.png}", lunch_date_requirement, "lunch_date_plan_label", args=the_person, requirement_args=the_person,
+        lunch_date_action = Action("Ask her out to lunch {image=gui/heart/Time_Advance.png}", lunch_date_requirement, "lunch_date_plan_label", args=the_person, requirement_args=the_person,
             menu_tooltip = "Take her out on casual date out to lunch. Gives you the opportunity to impress her and further improve your relationship.")
-        movie_date_action = Action("Ask her out to the movies.", movie_date_requirement, "movie_date_plan_label", args=the_person, requirement_args=the_person,
+        movie_date_action = Action("Ask her out to the movies", movie_date_requirement, "movie_date_plan_label", args=the_person, requirement_args=the_person,
             menu_tooltip = "Plan a more serious date to the movies. Another step to improving your relationship, and who knows what you might get up to in the dark!")
-        dinner_date_action = Action("Ask her out to a romantic dinner.", dinner_date_requirement, "dinner_date_plan_label", args=the_person, requirement_args=the_person,
+        dinner_date_action = Action("Ask her out to a romantic dinner", dinner_date_requirement, "dinner_date_plan_label", args=the_person, requirement_args=the_person,
             menu_tooltip = "Plan a romantic, expensive dinner with her. Impress her and you might find yourself in a more intimate setting.")
         return ["Select Date", lunch_date_action, movie_date_action, dinner_date_action, ["Never mind", "Return"]]
 
@@ -207,7 +207,7 @@ init -2 python:
         title_choice = None
         for title in get_titles(the_person):
             title_tuple.append([title,title])
-        title_tuple.append(["Do not change her title.","Back"])
+        title_tuple.append(["Do not change her title","Back"])
         title_choice = renpy.display_menu(title_tuple,True,"Choice")
         return title_choice
 
@@ -216,7 +216,7 @@ init -2 python:
         title_choice = None
         for title in get_player_titles(the_person):
             title_tuple.append([title,title])
-        title_tuple.append(["Do not change your title.","Back"])
+        title_tuple.append(["Do not change your title","Back"])
         title_choice = renpy.display_menu(title_tuple,True,"Choice")
         return title_choice
 
@@ -225,7 +225,7 @@ init -2 python:
         title_choice = None
         for title in get_possessive_titles(the_person):
             title_tuple.append([title,title])
-        title_tuple.append(["Do not change your title.","Back"])
+        title_tuple.append(["Do not change your title","Back"])
         title_choice = renpy.display_menu(title_tuple,True,"Choice")
         return title_choice
 
@@ -278,11 +278,11 @@ label person_new_title(the_person): #She wants a new title or to give you a new 
             $ formatted_title_two = the_person.create_formatted_title(title_two)
             the_person.char "Hey [the_person.mc_title], do you like calling me [formatted_title_one] or do you think [formatted_title_two] sounds better?"
             menu:
-                "Keep calling her [formatted_title_one].":
+                "Keep calling her [formatted_title_one]":
                     mc.name "I think [the_person.title] suits you perfectly, you should keep using it."
                     "She nods in agreement."
                     the_person.char "Yeah, I think you're right."
-                "Change her title to [formatted_title_two].":
+                "Change her title to [formatted_title_two]":
                     mc.name "[formatted_title_two] does have a nice ring to it. You should start using that."
                     $ the_person.set_title(title_two)
                     the_person.char "I think you're right. Thanks for the input!"
@@ -292,17 +292,17 @@ label person_new_title(the_person): #She wants a new title or to give you a new 
             $ formatted_title_two = the_person.create_formatted_title(title_two)
             the_person.char "So [the_person.mc_title], I'm thinking of changing things up a bit. Do you think [formatted_title_one] or [formatted_title_two] sounds best?"
             menu:
-                "Change her title to [formatted_title_one].":
+                "Change her title to [formatted_title_one]":
                     mc.name "I think [formatted_title_one] is the best of the two."
                     $ the_person.set_title(title_one)
                     the_person.char "Yeah, I think you're right. I'm going to have people call me that from now on."
 
-                "Change her title to [formatted_title_two].":
+                "Change her title to [formatted_title_two]":
                     mc.name "I think [formatted_title_two] is the best of the two."
                     $ the_person.set_title(title_two)
                     the_person.char "Yeah, I think you're right. I'm going to have people call me that from now on."
 
-                "Refuse to change her title.\n-5 Happiness.":
+                "Refuse to change her title.\n-5 Happiness":
                     mc.name "I don't think either of those sound better than [the_person.title]. You should really just stick with that."
                     "[the_person.title] rolls her eyes."
                     $ the_person.change_happiness(-5)
@@ -317,11 +317,11 @@ label person_new_title(the_person): #She wants a new title or to give you a new 
         $ formatted_new_title = the_person.create_formatted_title(new_title)
         the_person.char "By the way [the_person.mc_title], I want you to start referring to me as [formatted_new_title] from now on. I think it suits me better."
         menu:
-            "Change her title to [formatted_new_title].":
+            "Change her title to [formatted_new_title]":
                 mc.name "I think you're right, [formatted_new_title] sounds good."
                 $ the_person.set_title(new_title)
 
-            "Refuse to change her title.\n-10 Happiness.":
+            "Refuse to change her title.\n-10 Happiness":
                 mc.name "I think that sounds silly, I'm just going to keep calling you [the_person.title]."
                 "[the_person.title] scoffs and rolls her eyes."
                 $ the_person.change_happiness(-10)
@@ -1382,19 +1382,19 @@ label grope_person(the_person):
 
 init -2 python:
     def build_command_person_actions_menu(the_person):
-        change_titles_action = Action("Change how we refer to each other.", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
+        change_titles_action = Action("Change how we refer to each other", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
             menu_tooltip = "Manage how you refer to [the_person.title] and tell her how she should refer to you. Different combinations of stats, roles, and personalities unlock different titles.", priority = -5)
 
-        wardrobe_change_action = Action("Change your wardrobe.", requirement = wardrobe_change_requirment, effect = "wardrobe_change_label", args = the_person, requirement_args = the_person,
+        wardrobe_change_action = Action("Change your wardrobe", requirement = wardrobe_change_requirment, effect = "wardrobe_change_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Add and remove outfits from [the_person.title]'s wardrobe, or ask her to put on a specific outfit.", priority = -5)
 
-        serum_demand_action = Action("Drink a dose of serum for me.", requirement = serum_demand_requirement, effect = "serum_demand_label", args = the_person, requirement_args = the_person,
+        serum_demand_action = Action("Drink a dose of serum for me", requirement = serum_demand_requirement, effect = "serum_demand_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Demand [the_person.title] drinks a dose of serum right now. Easier to command employees to test serum.", priority = -5)
 
-        strip_demand_action = Action("Strip for me.", requirement = demand_strip_requirement, effect = "demand_strip_label", args = the_person, requirement_args = the_person,
+        strip_demand_action = Action("Strip for me", requirement = demand_strip_requirement, effect = "demand_strip_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Command her to strip off some of her clothing.", priority = -5)
 
-        touch_demand_action = Action("Let me touch you.   {color=#FFFF00}-10{/color} {image=gui/extra_images/energy_token.png}", requirement = demand_touch_requirement, effect = "demand_touch_label", args = the_person, requirement_args = the_person,
+        touch_demand_action = Action("Let me touch you   {color=#FFFF00}-10{/color} {image=gui/extra_images/energy_token.png}", requirement = demand_touch_requirement, effect = "demand_touch_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Demand [the_person.title] stays still and lets you touch her. Going too far may damage your relationship.", priority = -5)
 
         return ["Command", change_titles_action, wardrobe_change_action, serum_demand_action, strip_demand_action, touch_demand_action, ["Never mind", "Return"]]
