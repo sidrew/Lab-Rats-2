@@ -3049,11 +3049,13 @@ label horny_at_work_crisis_label():
                         call fuck_person(your_follower, private = True) from _call_fuck_person_30
                         $ the_report = _return
                         $ your_follower.review_outfit()
+                        $ your_follower.draw_person()
                         if the_report.get("guy orgasms", 0) == 0:
                             "Despite the fun you had with [your_follower.title] you still haven't cum yet."
                             mc.name "You run along, I've still got to deal with this."
-                            $ renpy.scene("Active")
+                            $ your_follower.draw_person(position = "walking_away")
                             "She leaves you alone in the bathroom, and you jerk yourself off to completion."
+                            $ renpy.scene("Active")
                         else:
                             "You and [your_follower.possessive_title] leave the bathroom together."
                         "When you get back to your desk you find you're finally able to focus again."
@@ -3064,8 +3066,10 @@ label horny_at_work_crisis_label():
                         $ your_follower.change_obedience(2)
                         $ your_follower.draw_person(emotion = "sad")
                         your_follower.char "I... Oh, I'm sorry [your_follower.mc_title], I don't know what I was thinking..."
+                        $ your_follower.draw_person(position = "walking_away")
+                        "She blushes and turns around, leaving quickly." 
                         $ renpy.scene("Active")
-                        "She blushes and turns around, leaving quickly. You pull up some porn on your phone and get comfortable, jerking yourself off until you cum."
+                        "You pull up some porn on your phone and get comfortable, jerking yourself off until you cum."
                         "When you're finished you clean up and get back to work, your mind now crystal clear."
 
                 $ del your_follower
@@ -3092,6 +3096,7 @@ label horny_at_work_crisis_label():
                 $ the_person.change_love(-5)
                 $ the_person.change_happiness(-10)
                 $ the_person.change_obedience(-3)
+                $ the_person.draw_person(position = "walking_away")
                 "Before you can say anything more she turns around and hurries out of the room."
                 the_person.char "I really need to go..."
                 $ renpy.scene("Active")
