@@ -1348,7 +1348,10 @@ label home_fuck_crisis_label():
                 $ the_person.change_love(5)
                 $ the_person.change_happiness(5)
                 the_person.char "Mmm, that was just what I needed [the_person.mc_title]. Ah..."
+                $ the_person.draw_person(position = "sitting")
                 "You and [the_person.title] lounge around for a few minutes until she has completely recovered."
+                $ the_person.apply_outfit(the_person.planned_outfit)
+                $ the_person.draw_person()
                 the_person.char "I had a great time [the_person.mc_title], but I should be getting home. Could you call me a cab?"
 
             elif the_report.get("guy orgasms",0) > 0:
@@ -1356,10 +1359,14 @@ label home_fuck_crisis_label():
                 $ the_person.change_love(-2)
                 $ the_person.change_happiness(-5)
                 $ the_person.change_obedience(-2)
+                $ the_person.apply_outfit(the_person.planned_outfit)
+                $ the_person.draw_person()
                 the_person.char "Screw it, I'll take care of this at home! Call me a cab, please."
             else:
                 $ the_person.change_obedience(-2)
                 $ the_person.change_happiness(-5)
+                $ the_person.apply_outfit(the_person.planned_outfit)
+                $ the_person.draw_person()
                 the_person.char "Ugh, fuck! This is worse than it was before! Screw it, I'll take care of this at home. Call me a cab, please."
 
             $ renpy.scene("Active")
