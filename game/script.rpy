@@ -9485,7 +9485,8 @@ label faq_loop:
 
         "Done.":
             return
-    call faq_loop from _call_faq_loop_1
+
+    jump faq_loop   # use jump instead of loop to prevent call stack nesting
     return
 
 label check_inventory_loop:
@@ -9693,7 +9694,6 @@ init -2 python:
         return get_random_from_list(possible_greetings)
 
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
-
     if "action_mod_list" in globals():
         call screen enhanced_main_choice_display(build_menu_items([build_people_list(), build_actions_list()]))
     else:
@@ -9857,6 +9857,7 @@ label talk_person(the_person):
     if the_person.title is None:
         call person_introduction(the_person) from _call_person_introduction #If their title is none we assume it is because we have never met them before. We have a special introduction scene for new people.
 
+label .continue_talk:
     if "action_mod_list" in globals():
         call screen enhanced_main_choice_display(build_menu_items([build_chat_action_list(the_person), build_specific_action_list(the_person), build_special_role_actions_list(the_person)]))
     else:
@@ -9870,7 +9871,7 @@ label talk_person(the_person):
             $ _return.call_action()
 
         if the_person in mc.location.people and time_of_day == starting_time_of_day:
-            call talk_person(the_person) from _call_talk_person_1 #If we're in the same place and time hasn't advanced keep talking to them until we stop talking on purpose.
+            jump .continue_talk #If we're in the same place and time hasn't advanced keep talking to them until we stop talking on purpose.
 
     $ renpy.scene("Active")
     return
