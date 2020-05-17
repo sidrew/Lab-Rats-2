@@ -9853,11 +9853,12 @@ init -2 python:
         return special_role_actions
 
 label talk_person(the_person):
-    $ the_person.draw_person()
     if the_person.title is None:
+        $ the_person.draw_person()
         call person_introduction(the_person) from _call_person_introduction #If their title is none we assume it is because we have never met them before. We have a special introduction scene for new people.
 
 label .continue_talk:
+    $ the_person.draw_person()
     if "action_mod_list" in globals():
         call screen enhanced_main_choice_display(build_menu_items([build_chat_action_list(the_person), build_specific_action_list(the_person), build_special_role_actions_list(the_person)]))
     else:
