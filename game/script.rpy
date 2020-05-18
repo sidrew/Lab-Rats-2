@@ -9649,8 +9649,7 @@ label outfit_master_manager(): #WIP new outfit manager that centralizes exportin
 
         $ mc.save_design(new_outfit, new_outfit_name, outfit_type)
 
-    call outfit_master_manager() from _call_outfit_master_manager #Loop around until the player decides they want to leave.
-    return
+    jump outfit_master_manager
 
 init -2 python:
     def build_actions_list():
@@ -10402,7 +10401,7 @@ label advance_time:
     $ max = len(mc.business.mandatory_crises_list)
     $ clear_list = []
     while count < max: #We need to keep this in a renpy loop, because a return call will always return to the end of an entire python block.
-        $crisis = mc.business.mandatory_crises_list[count]
+        $ crisis = mc.business.mandatory_crises_list[count]
         if crisis.is_action_enabled():
             $ crisis.call_action()
             if _return == "Advance Time":
@@ -10410,6 +10409,7 @@ label advance_time:
             $ renpy.scene("Active")
             $ clear_list.append(crisis)
         $ count += 1
+    $ del crisis
     $ mc.location.show_background()
     python: #Needs to be a different python block, otherwise the rest of the block is not called when the action returns.
         for crisis in clear_list:
@@ -10424,12 +10424,12 @@ label advance_time:
                 if crisis[0].is_action_enabled(): #Get the first element of the weighted tuple, the action.
                     possible_crisis_list.append(crisis) #Build a list of valid crises from ones that pass their requirement.
 
-        $ the_crisis = get_random_from_weighted_list(possible_crisis_list)
-        if the_crisis:
-            $ the_crisis.call_action()
+        $ crisis = get_random_from_weighted_list(possible_crisis_list)
+        if crisis:
+            $ crisis.call_action()
             if _return == "Advance Time":
                 $ mandatory_advance_time = True
-            $ del the_crisis
+            $ del crisis
         $ del possible_crisis_list
 
     $ renpy.scene("Active")
@@ -10512,17 +10512,17 @@ label advance_time:
                         if crisis[0].is_action_enabled(people): #Get the first element of the weighted tuple, the action.
                             possible_crisis_list.append(crisis) #Build a list of valid crises from ones that pass their requirement.
 
-                    the_crisis = get_random_from_weighted_list(possible_crisis_list, return_everything = True)
+                    crisis = get_random_from_weighted_list(possible_crisis_list, return_everything = True)
                     del possible_crisis_list
-                    if the_crisis is not None:
-                        limited_time_event = Limited_Time_Action(the_crisis[0], the_crisis[0].event_duration) #Wraps the action so that we can have an instanced duration counter and add/remove it easily.\
-                        #renpy.notify("Created event: " + the_crisis[0].name + " for " + people.name)
-                        if the_crisis[2] == "on_talk":
+                    if crisis is not None:
+                        limited_time_event = Limited_Time_Action(crisis[0], crisis[0].event_duration) #Wraps the action so that we can have an instanced duration counter and add/remove it easily.\
+                        #renpy.notify("Created event: " + crisis[0].name + " for " + people.name)
+                        if crisis[2] == "on_talk":
                             people.on_talk_event_list.append(limited_time_event)
 
-                        elif the_crisis[2] == "on_enter":
+                        elif crisis[2] == "on_enter":
                             people.on_room_enter_event_list.append(limited_time_event)
-                        del the_crisis
+                        del crisis
 
 
     if time_of_day == 0:    # only free memory in the morning
