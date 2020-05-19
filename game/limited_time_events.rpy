@@ -211,6 +211,7 @@ label sister_walk_in_label(the_person):
                     $ the_report = _return
                     if the_report.get("girl orgasms", 0) > 0:
                         "[the_person.possessive_title] falls back on her bed and sighs happily."
+                        $ the_person.draw_person(position = "missionary", emotion = "happy")
                         $ the_person.change_love(2)
                         $ the_person.change_obedience(1)
                         the_person.char "Thank you [the_person.mc_title], that's exactly what I wanted. Ahh..."
@@ -218,16 +219,20 @@ label sister_walk_in_label(the_person):
                         "You step out of the room to give her some time to recover."
 
                     elif the_report.get("guy orgasms", 0) > 0:
+                        $ the_person.draw_person(position = "stand4", emotion = "angry")
                         the_person.char "So... Is that it?"
                         mc.name "What do you mean?"
                         $ the_person.change_love(-2)
                         $ the_person.change_obedience(-2)
+                        $ the_person.draw_person(position = "missionary", emotion = "angry")
                         "She scoffs and falls back onto her bed, pulling her blankets over herself."
                         the_person.char "Nothing, I'm glad you enjoyed yourself at least. Get out of here so I can get off."
 
                     else:
+                        $ the_person.draw_person(position = "stand4", emotion = "angry")
                         the_person.char "So... are you finished?"
                         mc.name "Heh, yeah. Sorry [the_person.title], I'm just not feeling it."
+                        $ the_person.draw_person(position = "missionary", emotion = "angry")
                         "She frowns, but nods. She gathers her blankets over herself as you are walking out of her room."
                         $ the_person.change_obedience(-2)
 
