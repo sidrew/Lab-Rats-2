@@ -2280,14 +2280,14 @@ init -2 python:
             if the_animation:
                 bottom_displayable = self.build_person_animation(the_animation, position, emotion, special_modifier, lighting, background_fill, animation_effect_strength)
             else:
-                bottom_displayable = self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill)
+                bottom_displayable = Flatten(self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill))
 
             self.outfit.remove_clothing(the_clothing)
 
             if the_animation:
                 top_displayable = self.build_person_animation(the_animation, position, emotion, special_modifier, lighting, background_fill, animation_effect_strength)
             else:
-                top_displayable = self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill)
+                top_displayable = Flatten(self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill))
 
             renpy.show(self.name+"_new", at_list=[character_right, scale_person(self.height)], layer = "Active", what = top_displayable, tag = self.name+"_new")
             renpy.show(self.name+"_old", at_list=[character_right, scale_person(self.height), clothing_fade], layer = "Active", what = bottom_displayable, tag = self.name+"_old")
