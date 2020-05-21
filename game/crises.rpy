@@ -560,6 +560,7 @@ label no_uniform_punishment_label():
 
                     $ the_person.change_love(the_person.get_opinion_score("not wearing anything"))
                     $ the_person.discover_opinion("not wearing anything")
+                    $ the_person.draw_person(position = "walking_away")
                     "You watch [the_person.title] as she walks away completely naked, then get back to work yourself."
 
                 "Deny her an orgasm." if the_person.effective_sluttiness() > 60:
