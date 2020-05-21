@@ -4101,7 +4101,7 @@ init -2 python:
 
         def get_formatted_name(self):
             if not (self.sluttiness_modifier == 0 and self.obedience_modifier == 0):
-                the_string = self.name + "\n{size=22}"
+                the_string = self.name + "\n{color=#ff0000}{size=18}"
                 if self.sluttiness_modifier != 0 or self.obedience_modifier != 0:
                     the_string += "Temporary Modifiers\n"
 
@@ -4120,7 +4120,7 @@ init -2 python:
                 if self.obedience_modifier >0:
                     the_string += "+" + str(self.obedience_modifier) + " Obedience"
 
-                the_string += "{/size} (tooltip)The object you have sex on influences how enthusiastic and obedient a girl will be."
+                the_string += "{/size}{/color} (tooltip)The object you have sex on influences how enthusiastic and obedient a girl will be."
                 return the_string
             else:
                 return self.name
@@ -5750,9 +5750,9 @@ init -2 python:
             #else:
 
             if disable:
-                return taboo_break_string + self.name + taboo_break_string + "\n{size=22}"+ willingness_string + "{/size}" + " (disabled)" #Don't show the arousal and energy string if it's disabled to prevent overrun
+                return taboo_break_string + self.name + taboo_break_string + "\n{size=12}"+ willingness_string + "{/size}" + " (disabled)" #Don't show the arousal and energy string if it's disabled to prevent overrun
             else:
-                return taboo_break_string + self.name + taboo_break_string  + "\n{size=22}" + willingness_string + energy_string + arousal_string + "{/size}" + tooltip_string
+                return taboo_break_string + self.name + taboo_break_string  + "\n{size=12}" + willingness_string + energy_string + arousal_string + "{/size}" + tooltip_string
 
     ##Initialization of requirement functions go down here. Can also be moved to init -1 eventually##
 
@@ -10239,42 +10239,42 @@ label set_uniform_description:
     $ uniform_mode = None
     $ uniform_type = None
     menu:
-        "Add a complete outfit." if not limited_to_top:
+        "Add a complete outfit" if not limited_to_top:
             $ uniform_mode = "full"
 
-        "Add a complete outfit.\n{size=22}Requires: Reduced Coverage Corporate Uniforms{/size} (disabled)" if limited_to_top:
+        "Add a complete outfit\n{color=#ff0000}{size=18}Requires: Reduced Coverage Corporate Uniforms{/size}{/color} (disabled)" if limited_to_top:
             pass
 
-        "Add an overwear set.":
+        "Add an overwear set":
             $ uniform_mode = "over"
 
-        "Add an underwear set." if not limited_to_top:
+        "Add an underwear set" if not limited_to_top:
             $ uniform_mode = "under"
 
-        "Add an underwear set.\n{size=22}Requires: Reduced Coverage Corporate Uniforms{/size} (disabled)" if limited_to_top:
+        "Add an underwear set\n{color=#ff0000}{size=18}Requires: Reduced Coverage Corporate Uniforms{/size}{/color} (disabled)" if limited_to_top:
             pass
 
-        "Remove a uniform or set.":
+        "Remove a uniform or set":
             $ uniform_mode = "delete"
 
 
     menu:
-        "Company Wide Uniforms.\n{size=22}Can be worn by everyone.{/size}": #Get the wardrobe we are going to be modifying.
+        "Company Wide Uniforms\n{color=#ff0000}{size=18}Can be worn by everyone{/size}{/color}": #Get the wardrobe we are going to be modifying.
             $ selected_div = mc.business.all_uniform
 
-        "R&D Uniforms.":
+        "R&D Uniforms":
             $ selected_div = mc.business.r_uniform
 
-        "Production Uniforms.":
+        "Production Uniforms":
             $ selected_div = mc.business.p_uniform
 
-        "Supply Procurement Uniforms.":
+        "Supply Procurement Uniforms":
             $ selected_div = mc.business.s_uniform
 
-        "Marketing Uniforms.":
+        "Marketing Uniforms":
             $ selected_div = mc.business.m_uniform
 
-        "Human Resources Uniforms.":
+        "Human Resources Uniforms":
             $ selected_div = mc.business.h_uniform
 
     if uniform_mode == "delete":

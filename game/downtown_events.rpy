@@ -160,7 +160,7 @@ label meet_person_label():
     "She rushes to get back to her feet, unaware that her wallet has slipped out and is sitting on the sidewalk."
     "You crouch down to pick it up. A discreet check reveals there is a sizeable amount of cash inside."
     menu:
-        "Return everything.":
+        "Return everything":
             $ downtown.add_person(the_person)
             $ the_person.generate_home()
             "You speed up to a jog to catch the woman."
@@ -189,7 +189,7 @@ label meet_person_label():
             "She smiles and steps onto the bus, waving briefly from one of the windows."
 
 
-        "Keep the cash.\n{color=#0F0}+$200{/color}":
+        "Keep the cash\n{color=#0F0}+$200{/color}":
             $ mc.business.funds += 200
             "You slip the cash out of the womans wallet and watch as she rushes to catch her bus."
             $ renpy.scene("Active")

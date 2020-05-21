@@ -120,23 +120,23 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
             python:
                 if position_choice is not None:
                     option_list.append(["Keep " + position_choice.verbing + " her.","Continue"]) #Note: you're prevented from continuing if the energy cost would be too high by the pre-round checks.
-                    option_list.append(["Pause and strip her down.","Strip"])
+                    option_list.append(["Pause and strip her down","Strip"])
 
                     if not position_locked and object_choice:
-                        option_list.append(["Pause and change position.\n-5 {image=gui/extra_images/arousal_token.png}","Change"])
+                        option_list.append(["Pause and change position\n-5 {image=gui/extra_images/arousal_token.png}","Change"])
                         for position in position_choice.connections:
                             if object_choice.has_trait(position.requires_location):
                                 appended_name = "Transition to " + position.build_position_willingness_string(the_person) #Note: clothing and energy checks are done inside of build_position_willingness, invalid positiosn marked (disabled)
                                 option_list.append([appended_name,position])
 
                     if not hide_leave: #TODO: Double check that we can always get out
-                        option_list.append(["Stop " + position_choice.verbing + " her and leave.", "Leave"]) #TODO: Have this appear differently depending on if you've cum yet, she's cum yet, or you've both cum.
+                        option_list.append(["Stop " + position_choice.verbing + " her and leave", "Leave"]) #TODO: Have this appear differently depending on if you've cum yet, she's cum yet, or you've both cum.
 
                 else:
                     if not position_locked:
-                        option_list.append(["Pick a new position.\n-5 {image=gui/extra_images/arousal_token.png}","Change"])
+                        option_list.append(["Pick a new position\n-5 {image=gui/extra_images/arousal_token.png}","Change"])
                     if not hide_leave:
-                        option_list.append(["Stop and leave.", "Leave"])
+                        option_list.append(["Stop and leave", "Leave"])
 
             $ round_choice = renpy.display_menu(option_list,True,"Choice") #This gets the players choice for what to do this round.
 

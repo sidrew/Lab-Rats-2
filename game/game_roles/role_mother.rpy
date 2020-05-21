@@ -56,14 +56,14 @@ label mom_weekly_pay_label(the_person):
 
 label mom_low_sluttiness_weekly_pay(the_person):
     menu:
-        "Give her nothing.":
+        "Give her nothing":
             mc.name "Sorry Mom, I'm just not turning a profit right now. Hopefully we will be soon though. I'll help out as soon as I can."
             $ the_person.change_happiness(-5)
             $ the_person.change_love(-1)
             $ the_person.draw_person(position = "sitting", emotion = "sad")
             the_person.char "Okay [the_person.mc_title], I understand. I'll talk with Lily and let her know that we have to cut back on non essentials."
 
-        "Help out.\n{size=22}-$100{/size}" if mc.business.funds >= 100:
+        "Help out\n{color=#ff0000}{size=18}Costs: $100{/size}{/color}" if mc.business.funds >= 100:
             "You pull out your wallet and count out some cash, but hesitate before you hand it over."
             $ mc.business.funds += -100
             menu:
@@ -114,13 +114,13 @@ label mom_low_sluttiness_weekly_pay(the_person):
             $ the_person.draw_person(position = "sitting", emotion = "happy")
             "She gives you a hug and turns her attention back to organising the bills."
 
-        "Help out.\n{size=22}-$100{/size} (disabled)" if mc.business.funds < 100:
+        "Help out\n{color=#ff0000}{size=18}Requires: $100{/size}{/color} (disabled)" if mc.business.funds < 100:
             pass
     return
 
 label mom_high_sluttiness_weekly_pay(the_person):
     menu:
-        "Have her strip for you. -$100" if mc.business.funds >= 100:
+        "Have her strip for you\n{color=#ff0000}{size=18}Costs: $100{/size}{/color}" if mc.business.funds >= 100:
             if mc.business.event_triggers_dict.get("Mom_Strip",0) >= 1:
                 mc.name "I want you to show off yourself off to me, how does that sound?"
                 the_person.char "Fair is fair, but I'll need a little extra if you want to see anything... inappropriate."
@@ -136,10 +136,10 @@ label mom_high_sluttiness_weekly_pay(the_person):
 
             call pay_strip_scene(the_person) from _call_pay_strip_scene_2
 
-        "Have her strip for you. -$100 (disabled)" if mc.business.funds <100:
+        "Have her strip for you\n{color=#ff0000}{size=18}Requires: $100{/size}{/color} (disabled)" if mc.business.funds <100:
             pass
 
-        "Have her test some serum. -$100" if mc.business.funds >= 100:
+        "Have her test some serum\n{color=#ff0000}{size=18}Costs: $100{/size}{/color}" if mc.business.funds >= 100:
             if mc.business.event_triggers_dict.get("Mom_Serum_Test",0) >= 1:
                 mc.name "I've got some more serum I'd like you to test Mom."
                 call give_serum(the_person) from _call_give_serum_10
@@ -182,7 +182,7 @@ label mom_high_sluttiness_weekly_pay(the_person):
 
         #TODO: "I want to breed Lily" option, once you've got Mom at high sluttiness, obedience, and Love. She gives you the go-ahead to knock up your sister.
 
-        "Have her suck you off. -$300" if mc.business.funds >= 300 and the_person.effective_sluttiness("sucking_cock") >= 30:
+        "Have her suck you off\n{color=#ff0000}{size=18}Costs: $300{/size}{/color}" if mc.business.funds >= 300 and the_person.effective_sluttiness("sucking_cock") >= 30:
             mc.name "Alright, I'll pay you to give me a blowjob."
             if the_person.has_taboo("sucking_cock") or the_person.effective_sluttiness("sucking_cock") >= 60:
                 the_person.char "If that's what you need."
@@ -218,10 +218,10 @@ label mom_high_sluttiness_weekly_pay(the_person):
             $ the_person.review_outfit()
             $ the_person.change_obedience(4)
 
-        "Have her suck you off. -$300 (disabled)" if mc.business.funds < 300 and the_person.effective_sluttiness("sucking_cock") >= 30:
+        "Have her suck you off\n{color=#ff0000}{size=18}Requires: $300{/size}{/color} (disabled)" if mc.business.funds < 300 and the_person.effective_sluttiness("sucking_cock") >= 30:
             pass
 
-        "Nothing this week.":
+        "Nothing this week":
             mc.name "Sorry Mom, but I'm tight on cash right now as well. Maybe next week, okay?"
             "[the_person.possessive_title] nods and turns back to her bills."
             the_person.char "I understand [the_person.mc_title]. Now don't let me keep you, I'm sure you were up to something important."

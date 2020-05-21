@@ -21,13 +21,13 @@ label grope_shoulder(the_person):
             "[the_person.possessive_title] doesn't seem to mind at all as you start to gently massage her shoulder."
 
         menu:
-            "Move your hand to her waist.\n-5 {image=gui/extra_images/energy_token.png}" if the_person.energy >=5:
+            "Move your hand to her waist\n-5 {image=gui/extra_images/energy_token.png}" if the_person.energy >=5:
                 return True
 
-            "Move your hand to her waist.\n-5 {image=gui/extra_images/energy_token.png} (disabled)" if the_person.energy < 5:
+            "Move your hand to her waist\n-5 {image=gui/extra_images/energy_token.png} (disabled)" if the_person.energy < 5:
                 pass
 
-            "Stop touching her.":
+            "Stop touching her":
                 return False
 
 label grope_waist(the_person):
@@ -55,10 +55,10 @@ label grope_waist(the_person):
             "[the_person.title] keeps talking as if nothing is wrong. She even smiles when you squeeze her soft hip."
 
         menu:
-            "Slide your hand onto her ass.\n-5 {image=gui/extra_images/energy_token.png}" if the_person.energy >=5:
+            "Slide your hand onto her ass\n-5 {image=gui/extra_images/energy_token.png}" if the_person.energy >=5:
                 return True
 
-            "Slide your hand onto her ass.\n-5 {image=gui/extra_images/energy_token.png} (disabled)" if the_person.energy < 5:
+            "Slide your hand onto her ass\n-5 {image=gui/extra_images/energy_token.png} (disabled)" if the_person.energy < 5:
                 pass
 
             "Stop touching her.":
@@ -102,13 +102,13 @@ label grope_ass(the_person):
             "She starts talking again, unbothered by your butt massage."
 
         menu:
-            "Grope her tits.\n-5 {image=gui/extra_images/energy_token.png}" if the_person.energy >= 5:
+            "Grope her tits\n-5 {image=gui/extra_images/energy_token.png}" if the_person.energy >= 5:
                 return True
 
-            "Grope her tits.\n-5 {image=gui/extra_images/energy_token.png} (disabled)" if the_person.energy < 5:
+            "Grope her tits\n-5 {image=gui/extra_images/energy_token.png} (disabled)" if the_person.energy < 5:
                 pass
 
-            "Stop touching her.":
+            "Stop touching her":
                 return False
 
 

@@ -295,17 +295,17 @@ label scene_deepthroat_3(the_girl, the_location, the_object):
             $ second_duration = __builtin__.str(renpy.random.randint(10,20))
             "Another [second_duration] seconds pass by before you feel her start to pull her head back."
             menu:
-                "Hold her in place." if the_girl.obedience >= 110:
+                "Hold her in place" if the_girl.obedience >= 110:
                     mc.name "Not yet, you can do better than that."
                     "You pull [the_girl.title]'s head against your crotch. She doesn't resist."
                     "After a few more seconds [the_girl.title] tries to pull off again, forcing you put on light but constant pressure."
                     menu:
-                        "Hold her in place." if the_girl.obedience >= 120:
+                        "Hold her in place" if the_girl.obedience >= 120:
                             "A little more force and [the_girl.title] stays where she is. Her eyes are closed tight as she struggles to stay in control."
                             "More time passes. [the_girl.title] starts to squirm on her knees."
                             $ the_girl.change_arousal(the_girl.get_opinion_score("being submissive"))
                             menu:
-                                "Hold her in place." if the_girl.obedience >= 130:
+                                "Hold her in place" if the_girl.obedience >= 130:
                                     mc.name "Don't give up now [the_girl.title], you're doing great."
                                     "You grab a handful of her hair to give you a better grip and don't let her go anywhere."
                                     "[the_girl.title]'s throat starts to rhythmically clench down on the shaft of your dick."
@@ -313,13 +313,13 @@ label scene_deepthroat_3(the_girl, the_location, the_object):
                                     $ mc.change_arousal(1)
                                     "[the_girl.possessive_title]'s grabs at your legs, looking for support."
                                     menu:
-                                        "Hold her in place." if the_girl.obedience >= 150:
+                                        "Hold her in place" if the_girl.obedience >= 150:
                                             mc.name "You're going to choke on this dick until I'm satisfied. Don't you dare move now."
                                             "[the_girl.title] moans, her throat rumbling around your cock. Her eyes roll up as she tries to make eye contact with you."
                                             $ the_girl.change_arousal(the_girl.get_opinion_score("being submissive"))
                                             "Several more long seconds pass. Pushed to her limit, [the_girl.title] pulls back harder and starts to tap on your leg."
                                             menu:
-                                                "Choke her out." if the_girl.obedience >= 170:
+                                                "Choke her out" if the_girl.obedience >= 170:
                                                     mc.name "I said don't move. Not until I'm done with you."
                                                     "[the_girl.title] squirms and fidgets on her knees, but obeys your commands like a good girl."
                                                     "Little by little her movements slow down, her eyelids start to droop down over her rolled up eyes, and she slips into a half-conscious state."
@@ -338,32 +338,32 @@ label scene_deepthroat_3(the_girl, the_location, the_object):
                                                     "She takes a deep breath, opens wide, and fits you right back into her mouth. This time she bobs her head back and forth, taking quick breaths when she can."
                                                     return #Don't do the rest of the scene because we have our special case here.
 
-                                                "Choke her out.\n Requires: 170 Obedience (disabled)" if the_girl.obedience < 170:
+                                                "Choke her out\n{color=#ff0000}{size=18}Requires: 170 Obedience{/size}{/color} (disabled)" if the_girl.obedience < 170:
                                                     pass
 
-                                                "Let her up.":
+                                                "Let her up":
                                                     pass
-                                        "Hold her in place.\n Requires: 150 Obedience (disabled)" if the_girl.obedience < 150:
+                                        "Hold her in place\n{color=#ff0000}{size=18}Requires: 150 Obedience{/size}{/color} (disabled)" if the_girl.obedience < 150:
                                             pass
 
-                                        "Let her up.":
+                                        "Let her up":
                                             pass
-                                "Hold her in place.\n Requires: 130 Obedience (disabled)" if the_girl.obedience < 130:
+                                "Hold her in place\n{color=#ff0000}{size=18}Requires: 130 Obedience{/size}{/color} (disabled)" if the_girl.obedience < 130:
                                     pass
 
-                                "Let her up.":
+                                "Let her up":
                                     pass
 
-                        "Hold her in place.\n Requires: 120 Obedience (disabled)" if the_girl.obedience < 120:
+                        "Hold her in place\n{color=#ff0000}{size=18}Requires: 120 Obedience{/size}{/color} (disabled)" if the_girl.obedience < 120:
                             pass
 
-                        "Let her up.":
+                        "Let her up":
                             pass
 
-                "Hold her in place.\n Requires: 110 Obedience (disabled)" if the_girl.obedience < 110:
+                "Hold her in place\n{color=#ff0000}{size=18}Requires: 110 Obedience{/size}{/color} (disabled)" if the_girl.obedience < 110:
                     pass
 
-                "Let her up.":
+                "Let her up":
                     pass
 
             "[the_girl.title] yanks her head back and off of your hard cock. She gasps for breath as soon as you're clear."

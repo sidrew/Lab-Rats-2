@@ -217,22 +217,22 @@ label advanced_serum_stage_1_label(the_person):
         the_person.char "When I left the university was cracking down on her research and trying to keep it private. I know she hated that."
         the_person.char "Getting her help could save us a lot of money, and it would be nice to see her again."
     menu:
-        "Try and secure a prototype serum.\n{size=22}Costs $2000{/size}" if mc.business.funds >= 2000:
+        "Try and secure a prototype serum\n{color=#ff0000}{size=18}Costs: $2000{/size}{/color}" if mc.business.funds >= 2000:
             $ mc.business.funds += -2000
             mc.name "That sounds like a good lead. I'll make sure the funds are allocated, let me know when you have something to show me."
             the_person.char "Absolutely sir, you'll know as soon as I know something."
 
             $ add_advance_serum_unlock_stage_two(the_person)
 
-        "Try and secure a prototype serum.\n{size=22}Costs $2000{/size} (disabled)" if mc.business.funds < 2000:
+        "Try and secure a prototype serum\n{color=#ff0000}{size=18}Costs: $2000{/size}{/color} (disabled)" if mc.business.funds < 2000:
             pass
 
-        "Contact Nora."if steph_role in the_person.special_role and not mc.business.event_triggers_dict.get("intro_nora", False) and mc.business.event_triggers_dict.get("nora_trait_researched",None) is None:
+        "Contact Nora"if steph_role in the_person.special_role and not mc.business.event_triggers_dict.get("intro_nora", False) and mc.business.event_triggers_dict.get("nora_trait_researched",None) is None:
             $ mc.business.event_triggers_dict["intro_nora"] = True
             mc.name "I think [nora.title] is the right choice."
             the_person.char "I'll call and see when she's available. Come back and talk to me when you want to go visit her."
 
-        "Wait until later.":
+        "Wait until later":
             mc.name "Funds are tight right now. I'll try and secure them for you, but until do what you can with the resources you have."
             the_person.char "Understood. Come by and visit any time."
 

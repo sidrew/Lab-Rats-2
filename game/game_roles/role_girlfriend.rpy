@@ -278,14 +278,14 @@ label ask_get_boobjob_label(the_person):
     if the_person.relationship != "Single":
         $ so_title = SO_relationship_to_title(the_person.relationship)
     menu:
-        "Pay for her boobjob.\n-$7000" if mc.business.funds >= 7000:
+        "Pay for her boobjob\n{color=#ff0000}{size=18}Costs: $7000{/size}{/color}" if mc.business.funds >= 7000:
             mc.name "If you arrange for it I don't mind paying for it."
             $ mc.business.funds += -7000
 
-        "Pay for her boobjob.\nRequires: $7000 (disabled)" if mc.business.funds < 7000:
+        "Pay for her boobjob\n{color=#ff0000}{size=18}Requires: $7000{/size}{/color} (disabled)" if mc.business.funds < 7000:
             pass
 
-        "Have her pay for it." if the_person.obedience >= self_pay_requirement and girlfriend_role in the_person.special_role:
+        "Have her pay for it" if the_person.obedience >= self_pay_requirement and girlfriend_role in the_person.special_role:
             mc.name "Yeah, go see someone for me and get some implants. I want some nice big tits to play with"
             if the_person.get_opinion_score("being submissive") > 0:
                 "She nods happily."
@@ -293,19 +293,19 @@ label ask_get_boobjob_label(the_person):
                 "She hesitates, as if waiting for you to offer to pay, then nods dutifully."
                 $ the_person.change_happiness(-5)
 
-        "Have her pay for it.\nRequires: [self_pay_requirement] Obedience (disabled)" if the_person.obedience >= self_pay_requirement and girlfriend_role in the_person.special_role:
+        "Have her pay for it\n{color=#ff0000}{size=18}Requires: [self_pay_requirement] Obedience{/size}{/color} (disabled)" if the_person.obedience >= self_pay_requirement and girlfriend_role in the_person.special_role:
             pass
 
-        "Have her [so_title] pay for it." if the_person.obedience >= so_obedience_requirement and affair_role in the_person.special_role:
+        "Have her [so_title] pay for it" if the_person.obedience >= so_obedience_requirement and affair_role in the_person.special_role:
             mc.name "Yeah, go see someone and get some implants put in. You can get your [so_title] to pay for them, right?"
             the_person.char "I don't know, what do I tell him?"
             mc.name "What every man wants to hear: \"Honey, I want to get some bigger tits!\"."
             mc.name "He'll be jumping at the opportunity to pay. Trust me."
 
-        "Have her [so_title] pay for it.\nRequires: [so_obedience_requirement] (disabled)"if the_person.obedience < so_obedience_requirement and affair_role in the_person.special_role:
+        "Have her [so_title] pay for it\n{color=#ff0000}{size=18}Requires: [so_obedience_requirement]{/size}{/color} (disabled)"if the_person.obedience < so_obedience_requirement and affair_role in the_person.special_role:
             pass
 
-        "Never mind.":
+        "Never mind":
             mc.name "On second thought, I don't think it's worth it. You look perfect just the way you are."
             the_person.char "Aww, thank you [the_person.mc_title]!"
             return

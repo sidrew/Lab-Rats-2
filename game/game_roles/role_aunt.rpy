@@ -454,7 +454,7 @@ label aunt_intro_moving_apartment_label(the_person):
         "Pizza Guy" "Hey, this is for you. One large."
         "He hands it over, then waits for you to pay."
         menu:
-            "Pay for the pizza.\n-$25" if mc.business.funds >= 25:
+            "Pay for the pizza\n{color=#ff0000}{size=18}Costs: $25{/size}{/color}" if mc.business.funds >= 25:
                 mc.name "Thanks, here you go."
                 $ mc.business.funds += -25
                 "Pizza Guy" "Thanks man, enjoy."
@@ -464,10 +464,10 @@ label aunt_intro_moving_apartment_label(the_person):
                 $ aunt.change_love(1)
                 aunt.char "Well thank you. Give me a slice of that, I'm starving now too!"
 
-            "Pay for the pizza.\n-$25 (disabled)" if mc.business.funds < 25:
+            "Pay for the pizza\n{color=#ff0000}{size=18}Not enough money{/size}{/color} (disabled)" if mc.business.funds < 25:
                 pass
 
-            "Get the money from [aunt.title].":
+            "Get the money from [aunt.title]":
                 mc.name "Thanks, I just have to get the money. One sec."
                 "The pizza guy nods and hangs out in the doorway while you head to the bathroom door and knock."
                 aunt.char "Hmm? What is it?"

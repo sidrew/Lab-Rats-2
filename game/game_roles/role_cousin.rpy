@@ -828,7 +828,7 @@ label cousin_boobjob_ask_label(the_person):
             if breast_enhancement in serum_design.traits:
                 has_boob_enhancement_serum = True #The player has a serum in their inventory that can grow her breasts, so you can do that instead of getting her surgery.
     menu:
-        "Pay for it. -$5000" if mc.business.funds >= 5000:
+        "Pay for it\n{color=#ff0000}{size=18}Costs: $5000{/size}{/color}" if mc.business.funds >= 5000:
             mc.name "Fine. Send me over the bill and I'll pay it."
             the_person.char "Really? Just like that?"
             if the_person.love < 10:
@@ -843,10 +843,10 @@ label cousin_boobjob_ask_label(the_person):
             $ the_person.change_slut_temp(2)
             $ mc.business.funds += -5000
 
-        "Pay for it. -$5000 (disabled)" if mc.business.funds < 5000:
+        "Pay for it\n{color=#ff0000}{size=18}Requires: $5000{/size}{/color} (disabled)" if mc.business.funds < 5000:
             pass
 
-        "Offer breast enhancing serum instead." if has_boob_enhancement_serum:
+        "Offer breast enhancing serum instead" if has_boob_enhancement_serum:
             mc.name "Why go through all that trouble when I have a serum that could do this for you right now."
             the_person.char "Wait, you do?"
             mc.name "Of course I do. It's what my business does. I have a dose right here, if you'd like to try it out."
@@ -874,10 +874,10 @@ label cousin_boobjob_ask_label(the_person):
                 $ add_cousin_serum_boobjob_check_action(the_person)
                 return
 
-        "Offer breast enhancing serum instead.\nRequires: Serum with Breast Enhancement trait (disabled)" if not has_boob_enhancement_serum and mc.business.research_tier >= 2:
+        "Offer breast enhancing serum instead\n{color=#ff0000}{size=18}Requires: Serum with Breast Enhancement trait{/size}{/color} (disabled)" if not has_boob_enhancement_serum and mc.business.research_tier >= 2:
             pass #Shows as a disabled when you could get the research, until then does not show up at all (unless you somehow have something with the trait, from a random event for example)
 
-        "Refuse to pay.":
+        "Refuse to pay":
             mc.name "Five thousand dollars? That's ridiculous. I can't pay that just to get you a set of bigger tits."
             the_person.char "Come on, please? What can I do to convince you?"
             if mc.business.funds < 5000:
@@ -894,7 +894,7 @@ label cousin_boobjob_ask_label(the_person):
                 "She leans close to you, standing on the tips of her toes to whisper sensually into your ear."
                 the_person.char "Maybe I can show you why... Would that be enough? If your slutty, stripper cousin helped get you off, would that be enough to convince you?"
                 menu:
-                    "Pay for it and fuck her. -$5000":
+                    "Pay for it and fuck her\n{color=#ff0000}{size=18}Costs: $5000{/size}{/color}":
                         "You wrap a hand around her waist and slap her ass."
                         mc.name "Alright then, you've got yourself a deal."
                         $ the_person.add_situational_obedience("event", 20, "My new tits will make this all worth it!")
@@ -903,7 +903,7 @@ label cousin_boobjob_ask_label(the_person):
                         $ the_person.change_slut_temp(5)
                         $ mc.business.fund += -5000
 
-                    "Refuse to pay.":
+                    "Refuse to pay":
                         mc.name "I don't need to pay you if I want to use you. Sorry, but you'll have to find a way to buy your own tits."
                         "She backs up and sulks."
                         the_person.char "Ugh. Fine. Whatever."
@@ -933,7 +933,7 @@ label cousin_talk_boobjob_again_label(the_person):
                 has_boob_enhancement_serum = True #The player has a serum in their inventory that can grow her breasts, so you can do that instead of getting her surgery.
 
     menu:
-        "Pay for it. -$5000" if mc.business.funds >= 5000:
+        "Pay for it\n{color=#ff0000}{size=18}Costs: $5000{/size}{/color}" if mc.business.funds >= 5000:
             mc.name "Fine. Send me the bill and I'll pay it."
             the_person.char "Really? Just like that?"
             if the_person.love < 10:
@@ -951,10 +951,10 @@ label cousin_talk_boobjob_again_label(the_person):
                 add_cousin_boobjob_get_action(the_person)
                 remove_cousin_talk_boobjob_again_action()
 
-        "Pay for it. -$5000 (disabled)" if mc.business.funds < 5000:
+        "Pay for it\n{color=#ff0000}{size=18}Requires: $5000{/size}{/color} (disabled)" if mc.business.funds < 5000:
             pass
 
-        "Offer breast enhancing serum instead." if has_boob_enhancement_serum:
+        "Offer breast enhancing serum instead" if has_boob_enhancement_serum:
             mc.name "Why go through all that trouble when I have a serum that could do this for you right now."
             the_person.char "Wait, you do?"
             mc.name "Of course I do. It's what my business does. I have a dose right here, if you'd like to try it out."
@@ -979,10 +979,10 @@ label cousin_talk_boobjob_again_label(the_person):
                 $ remove_cousin_talk_boobjob_again_action()
                 return
 
-        "Offer breast enhancing serum instead.\nRequires: Serum with Breast Enhancement trait (disabled)" if not has_boob_enhancement_serum and mc.business.research_tier >= 2:
+        "Offer breast enhancing serum instead\n{color=#ff0000}{size=18}Requires: Serum with Breast Enhancement trait{/size}{/color} (disabled)" if not has_boob_enhancement_serum and mc.business.research_tier >= 2:
             pass
 
-        "Refuse to pay.":
+        "Refuse to pay":
             mc.name "Well, you can keep on wanting them, because I'm still not paying."
             the_person.char "Wait, did you seriously bring that up just to say no again."
             $ the_person.change_love(-3)

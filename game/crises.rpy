@@ -178,7 +178,7 @@ label broken_AC_crisis_label:
         "The air conditioner was under warranty, and a quick call has one of their repair men over in a couple of hours. Until then, the production staff want to know what to do."
 
     menu:
-        "Take a break.":
+        "Take a break":
             "You tell everyone in the production lab to take a break for a few hours while the air conditioning is repaired."
             "The unexpected break raises moral and makes the production staff feel more independent."
             $ broken_AC_crisis_update_stats(5, -2)
@@ -189,7 +189,7 @@ label broken_AC_crisis_label:
             $ broken_AC_crisis_update_stats(-5, 2)
             "The repair man shows up early and it turns out to be an easy fix. The lab is soon back up and running."
 
-        "Tell everyone to strip down and keep working." if casual_uniform_policy.is_active():
+        "Tell everyone to strip down and keep working" if casual_uniform_policy.is_active():
             if len(mc.business.production_team) > 1: #We have more than one person, do a group strip scene.
                 mc.name "I know it's uncomfortable in here right now, but we're just going to have to make due."
                 mc.name "If anyone feels the need to take something off to get comfortable, I'm lifting the dress code until the air conditioning is fixed."
@@ -366,7 +366,7 @@ label broken_AC_crisis_label:
             if removed_something:
                 $ broken_AC_crisis_update_sluttiness();
 
-        "Tell everyone to strip down and keep working.\n{color=#ff0000}{size=22}Requires: [casual_uniform_policy.name]{/color} (disabled)" if not casual_uniform_policy.is_active():
+        "Tell everyone to strip down and keep working\n{color=#ff0000}{size=18}Requires: [casual_uniform_policy.name]{/color} (disabled)" if not casual_uniform_policy.is_active():
             pass
     $renpy.scene("Active")
     return
@@ -1214,7 +1214,7 @@ label water_spill_crisis_label():
                         "You help [the_person.possessive_title] with her tax questions while she stands next to your desk, still partially undressed."
 
 
-                "Keep going... \n{size=22}Requires: Minimal Coverage Corporate Uniforms{/size} (disabled)" if not minimal_coverage_uniform_policy.is_active():
+                "Keep going... \n{color=#ff0000}{size=18}Requires: Minimal Coverage Corporate Uniforms{/size}{/color} (disabled)" if not minimal_coverage_uniform_policy.is_active():
                     pass
 
             $ the_person.review_outfit()
@@ -1580,8 +1580,8 @@ label invest_rep_visit_label(rep_name):
             helper.char "How can I help [helper.mc_title]?"
             "You take [helper.possessive_title] to the side and tell her what you want her to do."
             $ success_chance = 10
-            $ flirt_requires_string = "Flirt with " + rep_name + ".\n{size=22}Requires: Obedience 110, " + get_red_heart(10) + "{/size}"
-            $ seduce_requires_string = "Seduce " + rep_name + ".\n{size=22}Requires: Obedience 130, " + get_red_heart(60) + "{/size}" #TODO: check to make sure that the sluttiness requirement is being shown.
+            $ flirt_requires_string = "Flirt with " + rep_name + "\n{color=#ff0000}{size=18}Requires: Obedience 110, " + get_red_heart(10) + "{/size}{/color}"
+            $ seduce_requires_string = "Seduce " + rep_name + "\n{color=#ff0000}{size=18}Requires: Obedience 130, " + get_red_heart(60) + "{/size}{/color}" #TODO: check to make sure that the sluttiness requirement is being shown.
 
             menu:
                 "Impress [rep_name].": #Simplest option, just positive talk about the company.
@@ -2052,7 +2052,7 @@ label work_chat_crisis_label:
             "She finds your zipper and slides it down, letting her get at your already hardening cock."
             the_person.char "Think you can help me?"
             menu:
-                "Fuck [the_person.title].\n{size=22}Modifiers: +10 Sluttiness, -5 Obedience{/size}":
+                "Fuck [the_person.title]\n{color=#ff0000}{size=18}Modifiers: +10 Sluttiness, -5 Obedience{/size}{/color}":
                     the_person.char "I think I can."
                     $ the_person.add_situational_slut("seduction_approach",10,"You promised to focus on me.")
                     $ the_person.add_situational_obedience("seduction_approach",-5,"You promised to focus on me.")
@@ -2070,7 +2070,7 @@ label work_chat_crisis_label:
                     $ the_person.clear_situational_obedience("seduction_approach")
                     "Once [the_person.title] gets herself tidied up she sits down at her desk and goes back to work, as if nothing out of the ordinary happened."
 
-                "Focus on your work.":
+                "Focus on your work":
                     mc.name "I don't think so [the_person.title], we've both got work to do right now."
                     $ the_person.change_obedience(5)
                     $ the_person.change_happiness(-5)
@@ -2081,7 +2081,7 @@ label work_chat_crisis_label:
             the_person.char "You know if you need anything I'm here for you to use, sir. I know how stressful your job can be..."
             "Her hands move higher, rubbing at your crotch."
             menu:
-                "Fuck [the_person.title].\n{size=22}Modifiers: +15 Obedience{/size}":
+                "Fuck [the_person.title]\n{color=#ff0000}{size=18}Modifiers: +15 Obedience{/size}{/color}":
                     the_person.char "I think I can."
                     $ the_person.add_situational_obedience("seduction_approach",+15)
                     $ the_person.change_arousal(10+5*the_person.get_opinion_score("being submissive"))
@@ -2094,7 +2094,7 @@ label work_chat_crisis_label:
                     $ the_person.clear_situational_obedience("seduction_approach")
                     "Once [the_person.title] gets herself tidied up she sits down at her desk and goes back to work, as if nothing out of the ordinary happened."
 
-                "Focus on your work.":
+                "Focus on your work":
                     mc.name "I'm fine right now, thank you though. If I need you I'll make sure to let you know."
                     the_person.char "Of course, sir."
                     $ the_person.change_obedience(5)
@@ -2864,20 +2864,20 @@ label horny_at_work_crisis_label():
 
 
     menu:
-        "Ignore it.\n{size=22}-10%% Business Efficiency{/size} (tooltip)Ignore your arousal through sheer willpower. It might save you some embarrassment, but your business efficiency is sure to suffer.":
+        "Ignore it\n{color=#ff0000}{size=18}-10%% Business Efficiency{/size}{/color} (tooltip)Ignore your arousal through sheer willpower. It might save you some embarrassment, but your business efficiency is sure to suffer.":
             $ renpy.scene("Active")
             "Putting mind over matter into action you redouble your efforts. Time seems to pass slowly and it seems like you're getting no work done at all."
             $ mc.business.change_team_effectiveness(-10)
             "When your erection dies down and you're able to think clearly again you're sure you've made several paperwork mistakes. Sorting this out will take yet more work."
 
-        "Jerk off at your desk. (tooltip)With nobody around, what's stopping you?" if not mc.location.people:
+        "Jerk off at your desk (tooltip)With nobody around, what's stopping you?" if not mc.location.people:
             "There's no reason to be self conscious when you're all by yourself inside your own business. You lean back in your chair and unzip your pants."
             #TODO: if Lily is doing porn at this point you may stumble onto her pictures.
             "You pull up some porn and, with skill trained over many years, jerk yourself off to completion."
             "When you're finished you clean up and get back to work with your mind clear and able to focus."
 
 
-        "Jerk off at your desk, loud and proud. (tooltip)Your company, your rules, right?" if mc.location.people:
+        "Jerk off at your desk, loud and proud (tooltip)Your company, your rules, right?" if mc.location.people:
             $ renpy.scene("Active")
             # Girls around the room react. If some are particularly obedient and slutty they will offer to help get you off.
             "You wheel your chair back to give yourself some space, then unzip your pants and pull out your cock. You relax and start to jerk yourself off."
@@ -3031,7 +3031,7 @@ label horny_at_work_crisis_label():
                 del helpful_people
                 a_person = None
 
-        "Sneak away to the bathroom and jerk off. (tooltip)A few minutes in private should fix this right up." if mc.location.people: #If there are people around here's an option to jerk off. There might
+        "Sneak away to the bathroom and jerk off (tooltip)A few minutes in private should fix this right up." if mc.location.people: #If there are people around here's an option to jerk off. There might
             $ renpy.scene("Active")
             "You're going to need to get this taken care of if you want to get any work done."
             "You get up from your desk and head for the washrooms, attempting to hide your erection from your staff as you go."
@@ -3090,7 +3090,7 @@ label horny_at_work_crisis_label():
                 "When you're finished you clean up and get back to work, your mind now crystal clear."
 
 
-        "Ask [the_person.title] to come over. (tooltip)She got you turned on, she should be the one to get you off." if the_person is not None:
+        "Ask [the_person.title] to come over (tooltip)She got you turned on, she should be the one to get you off." if the_person is not None:
             mc.name "[the_person.title], I need you to come over here for a moment."
             the_person.char "Hmm? What do you need?"
             $ the_person.draw_person()
@@ -4410,7 +4410,7 @@ label mom_morning_surprise_label():
             $ the_person.draw_person(position = "walking_away")
             the_person.char "I'll find you a nice outfit to wear to save you some time. Go ahead [the_person.mc_title], pretend I'm not even here. It's nothing I haven't seen before."
             menu:
-                "Masturbate.":
+                "Masturbate":
                     "You pull your underwear down, grab your hard cock, and start to stroke it."
                     mc.name "Thanks Mom, you're really helping me out this morning."
                     the_person.char "Anything to help you succeed."
@@ -4425,7 +4425,7 @@ label mom_morning_surprise_label():
                             the_person.char "If... if that's what you need to finish."
                             $ the_person.draw_person(position = "blowjob")
                             menu:
-                                "Order her to open her mouth." if the_person.obedience >= 140:
+                                "Order her to open her mouth" if the_person.obedience >= 140:
                                     mc.name "Open your mouth Mom."
                                     the_person.char "[the_person.mc_title], I don't think..."
                                     mc.name "I'm so close Mom, open your mouth!"
@@ -4447,10 +4447,10 @@ label mom_morning_surprise_label():
                                     "She stands up and heads for the door."
                                     the_person.char "Well hurry up at least and get dressed, I don't want you to be late after all that!"
 
-                                "Order her to open her mouth.\nRequires: 140 Obedience (disabled)" if the_person.obedience < 140:
+                                "Order her to open her mouth\n{color=#ff0000}{size=18}Requires: 140 Obedience{/size}{/color} (disabled)" if the_person.obedience < 140:
                                     pass
 
-                                "Order her to hold up her tits." if the_person.has_large_tits():
+                                "Order her to hold up her tits" if the_person.has_large_tits():
                                     mc.name "Hold up your tits, I'm going to cum!"
                                     "[the_person.possessive_title] mumbles something but does as she's told. She cups her large breasts in her hands and presents them in front of you."
                                     "You grunt and climax, firing your load out and right onto [the_person.possessive_title]'s chest."
@@ -4464,10 +4464,10 @@ label mom_morning_surprise_label():
                                     the_person.char "Maybe you're right... Now hurry up and get dressed before you're late!"
                                     # TODO: She should seem a little shocked, but otherwise okay with how things turned out
 
-                        "Order her to get on her knees.\nRequires: 130 Obedience (disabled)" if the_person.obedience < 130:
+                        "Order her to get on her knees\n{color=#ff0000}{size=18}Requires: 130 Obedience{/size}{/color} (disabled)" if the_person.obedience < 130:
                             pass
 
-                        "Climax.":
+                        "Climax":
                             "Knowing that [the_person.possessive_title] is just a step away watching you stroke your cock and waiting for you to cum pushes you over the edge."
                             "You grunt and climax, firing your load out in an arc. [the_person.title] gasps softly and watches it fly, looks away."
                             the_person.char "Well done. I'll make sure to clean that up while you're out today."
@@ -4476,7 +4476,7 @@ label mom_morning_surprise_label():
                             $ renpy.scene("Active")
                             "[the_person.possessive_title] leaves and you get dressed as quickly as you can manage."
 
-                "Ask her to leave.":
+                "Ask her to leave":
                     mc.name "I think it will take care of itself Mom. Thanks for hte offer but I can pick out my own outfit."
                     the_person.char "Oh, okay [the_person.mc_title]. Just make sure don't give any of those nice girls you work with a shock when you walk in."
                     $ the_person.draw_person()
@@ -4507,7 +4507,7 @@ label mom_morning_surprise_label():
         the_person.char "Anything for you [the_person.mc_title], I just want to make sure you're happy and successful."
         "After a few minutes you can feel your orgasm starting to build. Mom rubs your pre-cum over your shaft and keeps stroking."
         menu:
-            "Order her to take your cum in her mouth." if the_person.obedience >= 130:
+            "Order her to take your cum in her mouth" if the_person.obedience >= 130:
                 mc.name "I'm almost there Mom, I need to cum in your mouth."
                 $ the_person.change_obedience(5)
                 "She nods and leans over, stroking your cock faster and faster as she places the tip just inside her mouth."
@@ -4515,7 +4515,7 @@ label mom_morning_surprise_label():
                 $ the_person.cum_in_mouth()
                 "[the_person.title] pulls back off your cock slowly. She spits your cum out into her hand and straightens up."
 
-            "Order her to take your cum in her mouth.\nRequires: 130 Obedience (disabled)" if the_person.obedience<130:
+            "Order her to take your cum in her mouth\n{color=#ff0000}{size=18}Requires: 130 Obedience{/size}{/color} (disabled)" if the_person.obedience<130:
                 pass
 
             "Climax":
@@ -4567,17 +4567,17 @@ label mom_morning_surprise_label():
         "She pulls back until the tip of your cock is just inside her lips and holds there, collecting each new spurt of semen until you're completely spent."
         "When you're done she pulls up and off, keeping her lips tight to avoid spilling any onto you."
         menu:
-            "Order her to swallow." if the_person.obedience >= 130:
+            "Order her to swallow" if the_person.obedience >= 130:
                 mc.name "That was great [the_person.title], now I want you to swallow."
                 "She looks at you and hesitates for a split second, then you see her throat bob as she sucks down your cum."
                 $ the_person.change_obedience(5)
                 "[the_person.possessive_title] takes a second gulp to make sure it's all gone, then opens her mouth and takes a deep breath."
 
 
-            "Order her to swallow.\nRequires: 130 Obedience (disabled)" if the_person.obedience < 130:
+            "Order her to swallow\n{color=#ff0000}{size=18}Requires: 130 Obedience{/color}{/size} (disabled)" if the_person.obedience < 130:
                 pass
 
-            "Let her spit it out.":
+            "Let her spit it out":
                 $ the_person.draw_person(position = "sitting")
                 "You watch as she slides her legs off the side of your bed, holds out a hand, and spits your cum out into it."
 
@@ -5231,7 +5231,7 @@ label girl_shower_enter(the_person, suprised = False):
     the_person.char "I should be finished soon, if you don't mind waiting."
     $ the_person.update_outfit_taboos()
     menu:
-        "Wait and watch her shower.":
+        "Wait and watch her shower":
             "You nod and head to the sink to brush your teeth. You lean on the sink and watch [the_person.title] while you brush."
             if the_person.effective_sluttiness() > 40 - (5 * (the_person.get_opinion_score("showing her tits")+the_person.get_opinion_score("showing her ass"))):
                 $ the_person.discover_opinion("showing her tits")
@@ -5254,7 +5254,7 @@ label girl_shower_enter(the_person, suprised = False):
             "She steps past you and leaves. You get into the shower and enjoy the relaxing water yourself."
             $ mc.change_energy(20)
 
-        "Join her in the shower." if the_person.obedience >= 120:
+        "Join her in the shower" if the_person.obedience >= 120:
             mc.name "How about I just jump in, I can get your back and we'll both save some time."
             if the_person.effective_sluttiness() > 40:
                 the_person.char "Sure, if you're okay with that. I will put you to work though."
@@ -5333,7 +5333,7 @@ label girl_shower_enter(the_person, suprised = False):
             $ mc.change_energy(20)
 
 
-        "Join her in the shower.\nRequires: 120 Obedience (disabled)" if the_person.obedience < 120:
+        "Join her in the shower\n{color=#ff0000}{size=18}Requires: 120 Obedience{/size}{/color} (disabled)" if the_person.obedience < 120:
             pass
 
 
@@ -5355,7 +5355,7 @@ label cousin_tease_crisis_label():
         "You get a curt text from [the_person.title]."
         the_person.char "I need some cash. Do you have a hundred bucks?"
         menu:
-            "Send [the_person.title] some money.\n-$100" if mc.business.funds >= 100:
+            "Send [the_person.title] some money\n{color=#ff0000}{size=18}Costs: $100{/size}{/color}" if mc.business.funds >= 100:
                 $ mc.business.funds += -100
                 "You pull up your banking app and send [the_person.possessive_title] some money, then text back."
                 mc.name "There you go, sent."
@@ -5367,10 +5367,10 @@ label cousin_tease_crisis_label():
                 the_person.char "Sure thing, nerd."
 
 
-            "Send [the_person.title] some money.\n-$100 (disabled)" if mc.business.funds < 100:
+            "Send [the_person.title] some money\n{color=#ff0000}{size=18}Costs: $100{/size}{/color} (disabled)" if mc.business.funds < 100:
                 pass
 
-            "Ask why she needs it.":
+            "Ask why she needs it":
                 mc.name "What do you need it for?"
                 the_person.char "Why do you care? Come on, I need some cash quick."
                 the_person.char "Come on you horny perv, I'll give you a picture of my tits if you send me the cash."
@@ -5385,7 +5385,7 @@ label cousin_tease_crisis_label():
                 else:
                     "She sends you a picture from her phone, obviously trying to tease you a little."
                     menu:
-                        "Send [the_person.title] some money.\n-$100" if mc.business.funds >= 100:
+                        "Send [the_person.title] some money\n{color=#ff0000}{size=18}Costs: $100{/size}{/color}" if mc.business.funds >= 100:
                             $ mc.business.funds += -100
                             "You send her the money from your phone."
                             mc.name "Alright, there's your cash. Whip those girls out for me."
@@ -5421,10 +5421,10 @@ label cousin_tease_crisis_label():
                                     $ the_person.break_taboo("bare_tits")
 
 
-                        "Send [the_person.title] some money.\n-$100 (disabled)" if mc.business.funds < 100:
+                        "Send [the_person.title] some money\n{color=#ff0000}{size=18}Costs: $100{/size}{/color} (disabled)" if mc.business.funds < 100:
                             pass
 
-                        "Blackmail her for some nudes." if the_person.event_triggers_dict.get("blackmail_level",-1) > 0 and the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 < day:
+                        "Blackmail her for some nudes" if the_person.event_triggers_dict.get("blackmail_level",-1) > 0 and the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 < day:
                             $ the_person.event_triggers_dict["last_blackmailed"] = day
                             if the_person.event_triggers_dict.get("blackmail_level",1) == 1:
                                 mc.name "How about this, you send them over and I don't say anything to your mom about you stealing from my sister."
@@ -5469,11 +5469,11 @@ label cousin_tease_crisis_label():
                             $ the_person.change_obedience(3)
                             $ the_person.change_slut_temp(2)
 
-                        "Blackmail her for some nudes.\nBlackmailed too recently. (disabled)" if the_person.event_triggers_dict.get("blackmail_level",-1) == -1 or the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 >= day:
+                        "Blackmail her for some nudes\n{color=#ff0000}{size=18}Blackmailed too recently{/size}{/color} (disabled)" if the_person.event_triggers_dict.get("blackmail_level",-1) == -1 or the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 >= day:
                             pass
 
 
-                        "Tell her no.":
+                        "Tell her no":
                             mc.name "You think I'd want to pay to see your tits? You should be paying me."
                             $ the_person.change_love(-1)
                             the_person.char "Whatever, I can make the cash somewhere else."
@@ -5481,7 +5481,7 @@ label cousin_tease_crisis_label():
 
 
 
-            "Tell her no.":
+            "Tell her no":
                 mc.name "For you? Of course not."
                 $ the_person.change_obedience(1)
                 the_person.char "Oh my god, you're the worst. Whatever."

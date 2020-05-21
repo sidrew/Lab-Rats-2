@@ -203,14 +203,14 @@ label photo_be_playful(the_person):
     if the_person.obedience > 100:
         $ slut_willingness += the_person.obedience - 100
     menu:
-        "Push her to be flirty." if slut_willingness >= 15:
+        "Push her to be flirty" if slut_willingness >= 15:
             mc.name "That's great [the_person.title]. Give me a little more attitude now. You're sexy, you're young, let me feel it!"
             call photo_be_sexy(the_person) from _call_photo_be_sexy_1
 
-        "Push her to be flirty.\n{color=#ff0000}Not slutty or obedient enough{/color} (disabled)" if slut_willingness < 15:
+        "Push her to be flirty\n{color=#ff0000}{size=18}Not slutty or obedient enough{/size}{/color} (disabled)" if slut_willingness < 15:
             pass
 
-        "Finish the shoot.":
+        "Finish the shoot":
             "You take a few final pictures."
             mc.name "I think that's all we need. Good job [the_person.title], you look great."
             $ the_person.change_happiness(3)
@@ -251,29 +251,29 @@ label photo_be_sexy(the_person):
     else:
         $ outfit_state = 2 #She's practically naked with no clothing on.
     menu:
-        "Strip to your underwear." if slut_willingness+skimpy_uniform_bonus >= 30 and outfit_state == 0: #TODO: Also check to make sure she's got the right type of clothign TO strip down to her underwear
+        "Strip to your underwear" if slut_willingness+skimpy_uniform_bonus >= 30 and outfit_state == 0: #TODO: Also check to make sure she's got the right type of clothign TO strip down to her underwear
             #Into her flashing the camera.
             mc.name "These are looking great. Now let's trying something a little more bold. Get into your underwear for me [the_person.title]."
             call photo_flash(the_person) from _call_photo_flash_1
 
-        "Strip to your underwear.\n{color=#ff0000}Not slutty or obedient enough{/color} (disabled)" if slut_willingness+skimpy_uniform_bonus < 30 and outfit_state == 0:
+        "Strip to your underwear\n{color=#ff0000}{size=18}Not slutty or obedient enough{/size}{/color} (disabled)" if slut_willingness+skimpy_uniform_bonus < 30 and outfit_state == 0:
             pass
 
-        "Get naked for the camera." if slut_willingness+no_clothing_bonus >= 50 and outfit_state == 1: #If that's the only possible next step based on her outfit.
+        "Get naked for the camera" if slut_willingness+no_clothing_bonus >= 50 and outfit_state == 1: #If that's the only possible next step based on her outfit.
             mc.name "Let's kick it up another notch. Get completely naked for these next shots."
             call photo_naked(the_person) from _call_photo_naked_1
 
-        "Get naked for the camera.\n{color=#ff0000}Not slutty or obedient enough{/color} (disabled)" if slut_willingness+skimpy_uniform_bonus < 50 and outfit_state == 1:
+        "Get naked for the camera\n{color=#ff0000}{size=18}Not slutty or obedient enough{/size}{/color} (disabled)" if slut_willingness+skimpy_uniform_bonus < 50 and outfit_state == 1:
             pass
 
-        "Touch yourself." if slut_willingness+masturbate_bonus >= 60 and outfit_state == 2:
+        "Touch yourself" if slut_willingness+masturbate_bonus >= 60 and outfit_state == 2:
             mc.name "You're already undressed for the occasion, so lean against that wall and touch yourself for the camera. I want to see you really get into it."
             call photo_touch(the_person) from _call_photo_touch_1
 
-        "Touch yourself.\n{color=#ff0000}Not slutty or obedient enough{/color} (disabled)" if slut_willingness+masturbate_bonus < 60 and outfit_state == 2:
+        "Touch yourself\n{color=#ff0000}{size=18}Not slutty or obedient enough{/size}{/color} (disabled)" if slut_willingness+masturbate_bonus < 60 and outfit_state == 2:
             pass
 
-        "Finish the shoot.":
+        "Finish the shoot":
             "You take a few final pictures."
             mc.name "I think I got everything we need. Good job [the_person.title], you look great."
             $ the_person.change_happiness(3)
@@ -329,14 +329,14 @@ label photo_flash(the_person):
     if the_person.obedience > 100:
         $ slut_willingness += the_person.obedience - 100
     menu:
-        "Strip naked." if slut_willingness >= 50:
+        "Strip naked" if slut_willingness >= 50:
             mc.name "That's great [the_person.title], this is great material. Next up I want to get some nude shots, so keep stripping for me."
             call photo_naked(the_person) from _call_photo_naked_2
 
-        "Strip naked.\n{color=#ff0000}Not slutty or obedient enough{/color} (disabled)" if slut_willingness < 50:
+        "Strip naked\n{color=#ff0000}{size=18}Not slutty or obedient enough{/size}{/color} (disabled)" if slut_willingness < 50:
             pass
 
-        "Finish the shoot.":
+        "Finish the shoot":
             mc.name "I think I've got all the pictures we need, we can call it there."
             the_person.char "Yay, glad to help!"
             $ the_person.change_slut_temp(1)
@@ -409,14 +409,14 @@ label photo_naked(the_person):
     $ slut_willingness += the_person.get_opinion_score("masturbating") * 5
 
     menu:
-        "Touch yourself." if slut_willingness >= 45:
+        "Touch yourself" if slut_willingness >= 45:
             mc.name "I want to get some more sensual shots of you. Lean back against the wall and touch yourself."
             call photo_touch(the_person) from _call_photo_touch_2
 
-        "Touch yourself.\n{color=#ff0000}Not slutty or obedient enough{/color} (disabled)" if slut_willingness < 60:
+        "Touch yourself\n{color=#ff0000}{size=18}Not slutty or obedient enough{/size}{/color} (disabled)" if slut_willingness < 60:
             pass
 
-        "Finish the shoot.":
+        "Finish the shoot":
             mc.name "I think that's everything we need."
             $ the_person.change_obedience(2)
             $ the_person.change_slut_temp(2)
@@ -473,14 +473,14 @@ label photo_touch(the_person):
         $ slut_willingness += the_person.obedience - 100
     $ slut_willingness += the_person.get_opinion_score("giving blowjobs") * 5
     menu:
-        "Suck my cock." if slut_willingness >= 55:
+        "Suck my cock" if slut_willingness >= 55:
             mc.name "That's perfect [the_person.title]. Now just get onto your knees for me, we're going to get some hard core shots."
             call photo_blowjob(the_person) from _call_photo_blowjob_1
 
-        "Suck my cock.\n{color=#ff0000}Not slutty or obedient enough{/color} (disabled)" if slut_willingness < 55:
+        "Suck my cock\n{color=#ff0000}{size=18}Not slutty or obedient enough{/size}{/color} (disabled)" if slut_willingness < 55:
             pass
 
-        "Take photos as she climaxes.":
+        "Take photos as she climaxes":
             the_person.char "Ah... Hah..."
             "[the_person.possessive_title] turns her head away from the camera and closes her eyes to focus on the task at hand."
             "She moves both hands down to her pussy, fingering herself with one and rubbing her clit with the other."

@@ -140,14 +140,14 @@ label demand_touch_label(the_person):
             the_person.char "[the_person.mc_title], there are people around! If you want me to do this, we need to go somewhere else."
             "She has a fierce look in her eye, like this might be the limit of her obedience."
             menu:
-                "Find somewhere quiet\n{size=22}No interruptions{/size}":
+                "Find somewhere quiet\n{color=#ff0000}{size=18}No interruptions{/size}{/color}":
                     mc.name "Alright, come with me."
                     "You take [the_person.title] by her wrist and lead her away."
                     #TODO: have each location have a unique "find someplace quiet" descriptor with a default fallback option
                     "After a couple of minutes searching you find a quiet space with just the two of you."
                     "You don't waste any time getting back to what you were doing, grabbing [the_person.possessive_title]'s tits and groping her ass."
 
-                "Stay where you are\n{size=22}[extra_people_count] watching{/size}":
+                "Stay where you are\n{color=#ff0000}{size=18}[extra_people_count] watching{/size}{color}":
                     mc.name "We're going to stay right here."
                     the_person.char "I... No, I'm not going to let you do this!"
                     "She pushes your hands away from her and steps back, glaring at you."
@@ -163,14 +163,14 @@ label demand_touch_label(the_person):
             "[the_person.possessive_title] looks around nervously."
             the_person.char "[the_person.mc_title], there are other people looking. Could we please find somewhere private?"
             menu:
-                "Find somewhere quiet\n{size=22}No interruptions{/size}":
+                "Find somewhere quiet\n{color=#ff0000}{size=18}No interruptions{/size}{/color}":
                     mc.name "Alright, come with me."
                     "You take [the_person.title] by her wrist and lead her away."
                     #TODO: have each location have a unique "find someplace quiet" descriptor with a default fallback option
                     "After searching for a couple of minutes you find a quiet space with just the two of you."
                     "You don't waste any time getting back to what you were doing, grabbing [the_person.possessive_title]'s tits and groping her ass."
 
-                "Stay where you are\n{size=22}[extra_people_count] watching{/size}":
+                "Stay where you are\n{color=#ff0000}{size=18}[extra_people_count] watching{/size}{/color}":
                     mc.name "We're going to stay right here."
                     the_person.char "But people are watching, and..."
                     mc.name "I don't care if they're watching."
@@ -183,13 +183,13 @@ label demand_touch_label(the_person):
             #She's fine with it, but we'll give you the option anyways.
             "There are other people around, but [the_person.possessive_title] either doesn't care or is too determined to follow your instructions exactly."
             menu:
-                "Find somewhere quiet\n{size=22}No interruptions{/size}":
+                "Find somewhere quiet\n{color=#ff0000}{size=18}No interruptions{/size}{/color}":
                     mc.name "Come with me, I don't want to be interrupted."
                     "You take [the_person.title] by the wrist and lead her away. She follows without question."
                     "After searching for a couple of minutes you find a quiet space with just the two of you."
                     "You don't waste any time getting back to what you were doing, grabbing [the_person.possessive_title]'s tits and groping her ass."
 
-                "Stay where you are\n{size=22}[extra_people_count] watching{/size}":
+                "Stay where you are\n{color=#ff0000}{size=18}[extra_people_count] watching{/size}{/color}":
                     $ should_be_private = False
 
 
@@ -201,11 +201,11 @@ label demand_touch_label(the_person):
     if prostitute_role in the_person.special_role:
         the_person.char "We can continue what you started, but it would cost you two hundred dollars."
         menu:
-            "Pay her\nCosts: $200" if mc.business.funds > 200:
+            "Pay her\n{color=#ff0000}{size=18}Costs: $200{/size}{/color}" if mc.business.funds > 200:
                 $ mc.business.funds += -200
                 $ the_person.change_obedience(1)
                 call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_demand_touch_prostitute
-            "Pay her\nRequires: $200 (disabled)" if mc.business.funds <= 200:
+            "Pay her\n{color=#ff0000}{size=18}Requires: $200{/size}{/color} (disabled)" if mc.business.funds <= 200:
                 pass                                
             "No":
                 mc.name "Thanks for the offer, but no thanks."
@@ -341,7 +341,7 @@ label demand_strip_tits_label(the_person):
                     mc.name "No, we're going to stay right here."
                     "[the_person.possessive_title] doesn't argue. She just blushes and starts to pull off her [first_item.display_name] for you."
 
-                "Stay right here\nRequires: 140 Obedience (disabled)" if the_person.obedience < 140:
+                "Stay right here\n{color=#ff0000}{size=18}Requires: 140 Obedience{/size}{/color} (disabled)" if the_person.obedience < 140:
                     pass
             $ top_strip_description(the_person, strip_list)
 
@@ -435,7 +435,7 @@ label demand_strip_underwear_label(the_person):
                     mc.name "No, we're going to stay right here."
                     "[the_person.possessive_title] doesn't argue. She just blushes and starts to pull off her clothes."
 
-                "Stay right here\nRequires: 140 Obedience (disabled)" if the_person.obedience < 140:
+                "Stay right here\n{color=#ff0000}{size=18}Requires: 140 Obedience{/size}{/color} (disabled)" if the_person.obedience < 140:
                     pass
 
         else: #She's into it
@@ -513,7 +513,7 @@ label demand_strip_naked_label(the_person):
                     mc.name "No, we're going to stay right here."
                     "[the_person.possessive_title] doesn't argue. She just blushes and starts to strip down."
 
-                "Stay right here\nRequires: 140 Obedience (disabled)" if the_person.obedience < 170:
+                "Stay right here\n{color=#ff0000}{size=18}Requires: 140 Obedience{/size}{/color} (disabled)" if the_person.obedience < 170:
                     pass
         else:
             "[the_person.possessive_title] nods and starts to enthusiastically strip down."

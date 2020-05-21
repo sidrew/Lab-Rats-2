@@ -19,14 +19,15 @@ init -1 python:
                 (willingness, price) = pay_strip_scene_calculate_willingness_and_price(the_person, strip_willingness, item)
 
                 if willingness >= 100 - the_person.obedience:
-                    display_string = "Strip " + item.name + "\n{size=22}$" + str(price) + "{/size}"
-                    if price > mc.business.funds:
-                        display_string += " (disabled)"
+                    if price < mc.business.funds:
+                        display_string = "Strip " + item.name + "\n$" + str(price)
+                    else:
+                        display_string = "Strip " + item.name + "\nNot enough money (disabled)"
 
                     menu_items.append([display_string, [item,price]])
 
                 else:
-                    menu_items.append(["Strip " + item.name + "\n{size=22}Too Slutty{/size} (disabled)", [item,-1]])
+                    menu_items.append(["Strip " + item.name + "\nToo Slutty (disabled)", [item,-1]])
 
         menu_items.append(["Just watch.","Watch"])
         menu_items.append(["Tell her to pose.","Pose"])

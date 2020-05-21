@@ -233,7 +233,7 @@ label strip_explanation(the_person):
     "[the_person.title] nods. There's a long silence before she speaks again."
     the_person.char "So... do you want me to do it for you now?"
     menu:
-        "Ask her to strip for you." if mc.business.funds >= 100:
+        "Ask her to strip for you" if mc.business.funds >= 100:
             mc.name "I don't see why not."
             $ mc.business.funds += -100
             "You pull a hundred dollars out of your wallet and hand it over to [the_person.possessive_title]. She tucks it away and gets ready."
@@ -241,10 +241,10 @@ label strip_explanation(the_person):
 
             $ the_person.review_outfit()    # make sure she puts on outfit after stripping
 
-        "Ask her to strip for you.\n{size=22}Requires: $100{/size} (disabled)" if mc.business.funds < 100:
+        "Ask her to strip for you\n{color=#ff0000}{size=18}Requires: $100{/size}{/color} (disabled)" if mc.business.funds < 100:
             pass
 
-        "Not right now.":
+        "Not right now":
             mc.name "Not right now. I'll come find you if I'm interested, okay?"
             the_person.char "Okay. Thanks for helping me out [the_person.mc_title], you're a life saver."
             "[the_person.title] leaves your room and closes the door behind her."
