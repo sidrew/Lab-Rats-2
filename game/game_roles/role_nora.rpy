@@ -78,12 +78,12 @@ init -2 python:
         return True
 
     def add_nora_university_research_actions():
-        university_research_action = Action("Present your research to [nora.title].", nora_research_up_requirement, "nora_research_up_label", args = nora, 
+        university_research_action = Action("Present your research to [nora.title]", nora_research_up_requirement, "nora_research_up_label", args = nora, 
             menu_tooltip = "Deliver your field research to [nora.title] in exchange for her theoretical research notes.")
         mc.business.event_triggers_dict["nora_research_up"] = university_research_action
         university.actions.append(university_research_action)
 
-        nora_research_visit = Action("Visit Nora's lab.", visit_lab_intro_requirement, "nora_research_cash_first_time", args = nora, requirement_args = nora,
+        nora_research_visit = Action("Visit Nora's lab", visit_lab_intro_requirement, "nora_research_cash_first_time", args = nora, requirement_args = nora,
             menu_tooltip = "Visit your old lab and talk to Nora about serum research.")
         university.actions.append(nora_research_visit) #Prepare this so if we visit the university again under the proper conditions we can start studying traits for her for money.
 
@@ -91,11 +91,11 @@ init -2 python:
         return
 
     def add_study_person_for_nora_actions(the_person):
-        study_person_action = Action("Study her for Nora. {image=gui/heart/Time_Advance.png}", study_person_requirement, "nora_profile_person",
+        study_person_action = Action("Study her for Nora {image=gui/heart/Time_Advance.png}", study_person_requirement, "nora_profile_person",
             menu_tooltip = "Work through the research questionnaire provided to you by Nora. After you can give it to Nora to see if she notices any interesting properties.")
         mc.main_character_actions.append(study_person_action)
 
-        turn_in_person_research_action = Action("Turn in a research questionnaire.", special_research_requirement, "nora_special_research", args = the_person, requirement_args = the_person,
+        turn_in_person_research_action = Action("Turn in a research questionnaire", special_research_requirement, "nora_special_research", args = the_person, requirement_args = the_person,
             menu_tooltip = "Turn in the research questionnaire you had filled out. If the person is particularly unique or extreme she may be able to discover unique serum traits for you to research.")
         university.actions.append(turn_in_person_research_action)
         return
@@ -107,7 +107,7 @@ init -2 python:
 
     def add_nora_research_cash_action(the_person):
         mc.business.event_triggers_dict["nora_cash_research_trigger"] = False #Reset this trigger so the event is hidden properly again in the future (TODO: Just remove it from the list)
-        nora_research_cash_action = Action("Turn in your finished research.", nora_research_cash_requirement, "nora_research_cash", args = the_person, requirement_args = the_person,
+        nora_research_cash_action = Action("Turn in your finished research", nora_research_cash_requirement, "nora_research_cash", args = the_person, requirement_args = the_person,
             menu_tooltip = "Turn in your completed trait research to Nora, in exchange for payment.")
         university.actions.append(nora_research_cash_action)
         return

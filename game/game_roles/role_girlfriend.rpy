@@ -72,7 +72,7 @@ init -1 python:
         for a_style in pube_styles:
             if a_style.name != the_person.pubes_style.name:
                 valid_pubes_options.append([a_style.name, a_style])
-        valid_pubes_options.append(["Never mind.","Never mind."])
+        valid_pubes_options.append(["Never mind","Never mind."])
         return valid_pubes_options
 
     def add_girlfriend_do_trim_pubes_action(the_person, pubes_choice, time_needed):

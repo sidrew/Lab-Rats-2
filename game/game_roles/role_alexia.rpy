@@ -117,7 +117,7 @@ init -2 python:
         alexia.schedule[2] = downtown
         alexia.schedule[3] = downtown
 
-        alexia_hire_action = Action("Hire " + alexia.title + " to work in sales.", alexia_hire_requirement, "alexia_hire_label")
+        alexia_hire_action = Action("Hire " + alexia.title + " to work in sales", alexia_hire_requirement, "alexia_hire_label")
         the_person.get_role_reference_by_name("Alexia").actions.append(alexia_hire_action)
         return
 
