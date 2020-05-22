@@ -8,27 +8,27 @@ init 1300:
             return valid_titles
 
         def mom_possessive_titles(the_person):
-            valid_possessive_titles = ["Your mother"]
+            valid_titles = ["Your mother"]
             if the_person.love > 10:
-                valid_possessive_titles.append("Your mom")
+                valid_titles.append("Your mom")
 
             if the_person.sluttiness > 60 and the_person.love > 60:
-                valid_possessive_titles.append("Your personal MILF")
+                valid_titles.append("Your personal MILF")
 
             if the_person.sluttiness > 100:
-                valid_possessive_titles.append("Your cock hungry mom")
-                valid_possessive_titles.append("The family cumdump")
-            return valid_possessive_titles
+                valid_titles.append("Your cock hungry mom")
+                valid_titles.append("The family cumdump")
+            return valid_titles
 
         def mom_player_titles(the_person):
-            valid_player_titles = [mc.name]
+            valid_titles = [mc.name]
             if the_person.happiness < 70:
-                valid_player_titles.append(mc.name + " " + mc.last_name)
+                valid_titles.append(mc.name + " " + mc.last_name)
 
             if the_person.love > 20:
-                valid_player_titles.append("Sweetheart")
-                valid_player_titles.append("Sweety")
-            return valid_player_titles
+                valid_titles.append("Sweetheart")
+                valid_titles.append("Sweety")
+            return valid_titles
 
         mom_personality = Personality("mom", default_prefix = "reserved",
         common_likes = ["pants", "conservative outfits", "work uniforms", "HR work", "makeup"],

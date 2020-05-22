@@ -8,9 +8,17 @@ init 1300:
             return valid_titles
 
         def stephanie_possessive_titles(the_person):
-            return "Your friend"
+            valid_titles = [the_person.name]
+            if the_person.love > 10:
+                valid_titles.append("Study Buddy")
+            return valid_titles
+
         def stephanie_player_titles(the_person):
-            return mc.name
+            valid_titles = [mc.name]
+            if the_person.love > 20:
+                valid_titles.append("Teachers pet")
+            return valid_titles
+
         stephanie_personality = Personality("stephanie", default_prefix = "wild",
         common_likes = ["pants", "research work", "Fridays", "makeup", "the colour red"],
         common_sexy_likes = ["giving blowjobs", "drinking cum","cheating on men"],

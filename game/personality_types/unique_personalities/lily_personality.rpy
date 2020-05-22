@@ -8,17 +8,22 @@ init 1300:
 
             return valid_titles
         def lily_possessive_titles(the_person):
-            valid_possessive_titles = ["Your sister",the_person.title]
+            valid_titles = ["Your sister",the_person.title]
 
             if the_person.sluttiness > 60:
-                valid_possessive_titles.append("Your slut of a sister")
+                valid_titles.append("Your slut of a sister")
 
             if the_person.sluttiness > 100:
-                valid_possessive_titles.append("Your cock hungry sister")
-                valid_possessive_titles.append("The family cumdump")
-            return valid_possessive_titles
+                valid_titles.append("Your cock hungry sister")
+                valid_titles.append("The family cumdump")
+            return valid_titles
         def lily_player_titles(the_person):
-            return mc.name
+            valid_titles = [mc.name]
+            valid_titles.append("Brother")
+            if the_person.sluttiness > 30:
+                valid_titles.append("Big Bro")
+            return valid_titles
+
         lily_personality = Personality("lily", default_prefix = "relaxed",
         common_likes = ["skirts", "small talk", "the colour pink", "makeup"],
         common_sexy_likes = ["lingerie", "masturbating", "being submissive", "doggy style sex"],

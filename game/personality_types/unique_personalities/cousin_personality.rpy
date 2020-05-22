@@ -12,38 +12,37 @@ init 1300:
             return valid_titles
 
         def cousin_possessive_titles(the_person):
-            valid_possessive_titles = []
-            valid_possessive_titles.append(the_person.name)
-            valid_possessive_titles.append("Your cousin")
+            valid_titles = []
+            valid_titles.append(the_person.name)
+            valid_titles.append("Your cousin")
             if the_person.love > 20:
-                valid_possessive_titles.append("Your cuz")
+                valid_titles.append("Your cuz")
 
             if the_person.love < -30:
-                valid_possessive_titles.append("Your bitchy cousin")
+                valid_titles.append("Your bitchy cousin")
 
             if the_person.sluttiness > 40:
-                valid_possessive_titles.append("Your cock-goth cousin")
+                valid_titles.append("Your cock-goth cousin")
 
-            return valid_possessive_titles
+            return valid_titles
 
         def cousin_player_titles(the_person):
-            valid_player_titles = []
-            valid_player_titles.append(mc.name)
+            valid_titles = [mc.name]
             if the_person.love < -20:
-                valid_player_titles.append("Asshat")
-                valid_player_titles.append("Dickwad")
-                valid_player_titles.append("Dick-for-brains")
+                valid_titles.append("Asshat")
+                valid_titles.append("Dickwad")
+                valid_titles.append("Dick-for-brains")
 
             if the_person.love > 20:
-                valid_player_titles.append("Cuz")
+                valid_titles.append("Cuz")
 
             if the_person.love < 0 and the_person.sluttiness > 40:
-                valid_player_titles.append("Dildo")
+                valid_titles.append("Dildo")
 
                 if the_person.obedience < 20:
-                    valid_player_titles.append("Cock slave")
-                    valid_player_titles.append("Slave")
-            return valid_player_titles
+                    valid_titles.append("Cock slave")
+                    valid_titles.append("Slave")
+            return valid_titles
 
         cousin_personality = Personality("cousin", default_prefix = "introvert",
             common_likes = ["the colour black","heavy metal","punk","makeup","skimpy outfits"],

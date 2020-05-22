@@ -2,10 +2,10 @@
 init 1300:
     python:
         def reserved_titles(the_person):
-            if the_person.love > 10:
-                return the_person.name
+            if the_person.love < 20:
+                return "Mrs." + the_person.last_name #If she doesn't like you she's much more formal.
             else:
-                return "Mrs."+the_person.last_name
+                return the_person.name
         def reserved_possessive_titles(the_person):
             return reserved_titles(the_person)
         def reserved_player_titles(the_person):
