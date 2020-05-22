@@ -849,7 +849,7 @@ label special_training_crisis_label():
     the_person.char "[the_person.mc_title], I've just gotten word about a training seminar going on right now a few blocks away. I would love to take a trip over and see if there is anything I could learn."
     the_person.char "There's a sign up fee of $500. If you can cover that, I'll head over right away."
     menu:
-        "Send [the_person.title] to the Seminar. -$500" if mc.business.funds >= 500:
+        "Send [the_person.title] to the Seminar\n{color=#ff0000}{size=18}Costs: $500{/size}{/color}" if mc.business.funds >= 500:
             $ mc.business.funds += -500
             "You type up a response."
             mc.name "That sounds like a great idea. I'll call and sort out the fee, you start heading over."
@@ -881,7 +881,7 @@ label special_training_crisis_label():
                     "[the_person.title] leaves work for a few hours to attend the training seminar. When she comes back she is far more familiar with local suppliers and their goods."
 
 
-        "Tell her to stay at work.":
+        "Tell her to stay at work":
             "You type up a response."
             mc.name "I'm sorry [the_person.title], but there aren't any extra funds in the budget right now."
             the_person.char "Noted, maybe some other time then."
@@ -1029,7 +1029,7 @@ label extra_mastery_crisis_label():
     $ cost = __builtin__.int(the_trait.mastery_level * 50) #The cost is 100 * mastery level,
     "You look through the file [the_person.title] gave you. It would cost $[cost] to raise the mastery level of [the_trait.name] by 2."
     menu:
-        "Purchase the equipment. -$[cost] (tooltip)Raises the mastery level of [the_trait.name] by 2. The higher your mastery of a serum trait the less likely it is to produce a side effect." if mc.business.funds >= cost:
+        "Purchase the equipment{color=#ff0000}{size=18}Costs: $[cost]{/size}{/color} (tooltip)Raises the mastery level of [the_trait.name] by 2. The higher your mastery of a serum trait the less likely it is to produce a side effect." if mc.business.funds >= cost:
 
             "You hand the file back to [the_person.title]."
             mc.name "This is a terrific idea, I want you to purchase whatever equipment you need and get to work immediately."
@@ -1039,10 +1039,10 @@ label extra_mastery_crisis_label():
             $ the_trait.add_mastery(2)
             $ mc.log_event("Mastery of " + the_trait.name + " increased by 2.", "float_text_blue")
 
-        "Purchase the equipment. -$[cost] (disabled)" if mc.business.funds < cost:
+        "Purchase the equipment\n{color=#ff0000}{size=18}Requires $[cost]{/size}{/color} (disabled)" if mc.business.funds < cost:
             pass
 
-        "Do not purchase the equipment.":
+        "Do not purchase the equipment":
             "You hand the file back to [the_person.title]."
             mc.name "We don't have the budget for this right now, you will have to make due with the current lab equipment."
             "She takes the file back and nods."
@@ -1643,14 +1643,14 @@ label invest_rep_visit_label(rep_name):
                 mc.name "I'm glad to hear it."
                 rep_name "I would like to offer you $5000 to help you expand your business. In exchange we would like to be kept informed of your scientific progress."
                 menu:
-                    "Accept $5000.":
+                    "Accept\n{color=#00ff00}{size=18}Income: $5000{/size}{/color}":
                         "You reach your hand across the table to shake [rep_name]'s hand."
                         mc.name "I think we have a deal. Lets sort out the paperwork."
                         $ mc.business.funds += 5000
                         "Within an hour $5000 has been moved into your companies bank account. [rep_name] leaves with a report detailing your current research progress."
 
 
-                    "Reject the offer.":
+                    "Reject the offer":
                         mc.name "That's a very tempting offer, but we keep a tight grip on all of our research material."
                         "[rep_name] nods and stands up."
                         rep_name "I understand. Maybe in the future you will reconsider. Thank you for your time and the tour."
@@ -5405,7 +5405,7 @@ label cousin_tease_crisis_label():
                             $ the_person.change_slut_temp(3)
 
                             menu:
-                                "Reverse the payment anyways.":
+                                "Reverse the payment anyways":
                                     $ mc.business.funds += 100
                                     "You don't respond to her, but you do open up your banking app again."
                                     "You flag the recent transfer as \"accidental\" and in a few minutes the money is back in your account."
@@ -5417,7 +5417,7 @@ label cousin_tease_crisis_label():
                                     mc.name "Sorry, but I've already got my pics. Later nerd."
                                     "You have to block her for a few minutes as more angry texts stream in."
 
-                                "Let her keep the money.":
+                                "Let her keep the money":
                                     "You think about reversing the charges anyways, but decide it's not the best idea if you want to keep this sort of relationship going."
                                     $ the_person.break_taboo("bare_tits")
 
@@ -5441,7 +5441,7 @@ label cousin_tease_crisis_label():
                             the_person.char "There. Satisfied?"
                             if the_person.event_triggers_dict.get("blackmail_level",1) == 2:
                                 menu:
-                                    "Not yet.":
+                                    "Not yet":
                                         mc.name "Not yet, I want to see those tits shaking. Send me a video."
                                         mc.name "Just imagine I slid a twenty down your g-string and you're giving me a private dance. You're good at those, right?"
                                         "There's another pause, then [the_person.title] sends you a video."
@@ -5462,7 +5462,7 @@ label cousin_tease_crisis_label():
 
                                         mc.name "For now. See you around."
 
-                                    "For now.":
+                                    "For now":
                                         mc.name "For now, but we'll see how I'm feeling next time I see you."
                                         the_person.char "Ugh. Please don't remind me."
 
@@ -5506,13 +5506,13 @@ label cousin_tease_crisis_label():
         else:
             the_person.char "I got a new outfit. Do you like it?"
         menu:
-            "I love it.":
+            "I love it":
                 mc.name "Absolutely. Your tits look amazing in it."
                 $ the_person.change_love(1)
                 $ the_person.change_obedience(-2)
                 the_person.char "You're such a pervert looking at me like that."
 
-            "No.":
+            "No":
                 mc.name "On you, not really."
                 $ the_person.change_love(-1)
                 $ the_person.change_obedience(1)
@@ -5523,14 +5523,14 @@ label cousin_tease_crisis_label():
         else:
             the_person.char "Do you want me to take this off and play with my tits for you?"
         menu:
-            "Yes.":
+            "Yes":
                 mc.name "Of course I do. Send me some pics."
                 $ the_person.change_obedience(-1)
                 the_person.char "I knew you would. I want you to beg me for them."
                 mc.name "What?"
                 the_person.char "I want you to beg to see my tits. Come on, you want them, right?"
                 menu:
-                    "Beg to see her tits.":
+                    "Beg to see her tits":
                         "You think about it for a moment, then give in."
                         mc.name "Fine, I'm begging you to show me your tits."
                         the_person.char "A little more, please."
@@ -5548,20 +5548,20 @@ label cousin_tease_crisis_label():
                         the_person.char "You really thought I was going to send those? Ha!"
                         the_person.char "Talk to you later, nerd."
 
-                    "Refuse.":
+                    "Refuse":
                         mc.name "Why would I beg just to see those udders? If I wanted to see some attention starved bimbo's tits I can go online."
                         $ the_person.change_slut_temp(1)
                         the_person.char "Whatever nerd. You probably already blew your load in your pants."
                         "You ignore her and she doesn't message you again."
 
-            "No.":
+            "No":
                 mc.name "Not right now. I've got other stuff to do."
                 the_person.char "Really? You've got to be kidding me."
                 the_person.char "You don't want to see me spread over this bed, naked and waiting for you?"
                 the_person.char "My poor little pussy just dripping wet, waiting for a big hard cock?"
                 the_person.char "Just beg for it and it's yours. My tight little cunt is all yours."
                 menu:
-                    "Beg to see her naked.":
+                    "Beg to see her naked":
                         "You think about it for a moment, then give in."
                         mc.name "Fine, I'm begging you [the_person.title], let me see you naked."
                         the_person.char "I'm not sure I'm convinced. A little more please."
@@ -5577,7 +5577,7 @@ label cousin_tease_crisis_label():
                         the_person.char "Talk to you later, nerd."
 
 
-                    "Refuse.":
+                    "Refuse":
                         mc.name "Jesus, you're looking a little desperate there [the_person.title]. I can find attention starved bimbos all over the internet if I wanted one."
                         $ the_person.change_slut_temp(2)
                         the_person.char "You pathetic little nerd, I bet you've just already blown your load. You should be paying me for this."

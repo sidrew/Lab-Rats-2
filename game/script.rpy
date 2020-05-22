@@ -10024,7 +10024,7 @@ label interview_action_description:
     $ interview_cost = 50
     "Bringing in [count] people for an interview will cost $[interview_cost]. Do you want to spend time interviewing potential employees?"
     menu:
-        "Yes, I'll pay the cost. -$[interview_cost]":
+        "Yes, I'll pay\n{color=#ff0000}{size=18}Costs: $[interview_cost]{/size}{/color}":
             $ mc.business.funds += -interview_cost
             $ renpy.scene("Active")
             python: #Build our list of candidates with our proper recruitment requirements
@@ -10064,7 +10064,7 @@ label interview_action_description:
                 "You decide against hiring anyone new for now."
            
             call advance_time from _call_advance_time_6
-        "Never mind.":
+        "Never mind":
             pass
     return
 

@@ -374,7 +374,7 @@ label pay_strip_scene(the_person):
                             "[the_person.title] steps a little closer to you and plays with the edge of her [tease_item.name]."
                             the_person.char "$[price] and I'll take this off for you..."
                             menu:
-                                "Pay her $[price]." if price <= mc.business.funds:
+                                "Pay her\n{color=#ff0000}{size=18}Costs: $[price]{/size}{/color}" if price <= mc.business.funds:
                                     "You pull the cash out of your wallet and hand it over."
                                     $ mc.business.funds += -price
                                     $ the_person.change_obedience(-1)
@@ -383,10 +383,10 @@ label pay_strip_scene(the_person):
                                     "[the_person.title] takes it, puts it to the side, and starts to slide her [tease_item.name] off."
 
 
-                                "Pay her $[price]. (disabled)" if price > mc.business.funds:
+                                "Pay her\n{color=#ff0000}{size=18}Requires: $[price]{/size}{/color} (disabled)" if price > mc.business.funds:
                                     pass
 
-                                "Don't pay her.":
+                                "Don't pay her":
                                     mc.name "I think you look good with it on."
                                     "[the_person.title] seems disappointed but shrugs and keeps going."
 

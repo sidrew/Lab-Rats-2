@@ -421,14 +421,14 @@ label sister_instathot_label(the_person):
     $ the_person.change_slut_temp(3)
     the_person.char "I guess I should pay you, huh? Since you're doing all this work for me."
     menu:
-        "Take the money. +$100":
+        "Take the money\n{color=#00ff00}{size=18}Income: $100{/size}{/color}":
             mc.name "I'm not going to say no."
             "She rolls her eyes and direct transfers you some cash."
             $ mc.business.funds += 100
             the_person.char "No, I didn't think you would mr.\"I own a business\"."
 
 
-        "Let her keep it.":
+        "Let her keep it":
             mc.name "Don't worry about it, I'm just happy to see you doing something cool."
             $ the_person.change_love(1)
             the_person.char "Aww, you're the best!"

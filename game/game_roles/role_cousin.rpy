@@ -325,7 +325,7 @@ label cousin_blackmail_label(the_person):
 
 label cousin_blackmail_list(the_person):
     menu:
-        "Demand to know where she has been going at night." if the_person.event_triggers_dict.get("stripping", False) and the_person.event_triggers_dict.get("blackmail_level",-1) == 1:
+        "Demand to know where she has been going at night" if the_person.event_triggers_dict.get("stripping", False) and the_person.event_triggers_dict.get("blackmail_level",-1) == 1:
             call cousin_blackmail_ask_label(the_person) from _call_cousin_blackmail_ask_label
             if not _return: #If she didn't tell you anything she tells you to pick something else.
                 call cousin_blackmail_list(the_person) from _call_cousin_blackmail_list_4
@@ -333,7 +333,7 @@ label cousin_blackmail_list(the_person):
                 $ the_person.event_triggers_dict["last_blackmailed"] = day
                 $ the_person.change_love(-1)
 
-        "Cash.":
+        "Cash":
             #Always succeeds. Get some extra cash from her.
             if the_person.event_triggers_dict.get("blackmail_level",-1) >= 2:
                 mc.name "I assume your little stripping gig has still been paying well. I want my cut."
@@ -360,7 +360,7 @@ label cousin_blackmail_list(the_person):
 
 
 
-        "Test this serum.":
+        "Test this serum":
             #Always succeeds. She takes a dose of serum for you.
             mc.name "I've got stuff from work that needs testing. If you test it, I'll stay quiet."
             the_person.char "Fine."
@@ -379,7 +379,7 @@ label cousin_blackmail_list(the_person):
                 the_person.char "Whatever. What else do I need to do to keep you quiet?"
                 call cousin_blackmail_list(the_person) from _call_cousin_blackmail_list_2
 
-        "Strip for me.":
+        "Strip for me":
             #Requires min sluttiness. She'll strip down her outfit until a certain point for you.
             mc.name "I want to see you strip for me."
             if the_person.effective_sluttiness() >= 15:
@@ -533,7 +533,7 @@ label cousin_blackmail_list(the_person):
                 call cousin_blackmail_list(the_person) from _call_cousin_blackmail_list_3
 
 
-        "Kiss me." if the_person.event_triggers_dict.get("blackmail_level", -1) >= 2:
+        "Kiss me" if the_person.event_triggers_dict.get("blackmail_level", -1) >= 2:
             #Requires min sluttiness and more blackmail (Or high sluttiness). Either is a special kissing scene OR we add functionality to lock people into a sex position.
             mc.name "I want you to kiss me."
             "She sneers."
@@ -559,7 +559,7 @@ label cousin_blackmail_list(the_person):
             $ the_person.review_outfit()
             $ the_person.event_triggers_dict["last_blackmailed"] = day
 
-        "Fuck me." if the_person.event_triggers_dict.get("blackmail_level", -1) >= 2:
+        "Fuck me" if the_person.event_triggers_dict.get("blackmail_level", -1) >= 2:
             #Requires min sluttiness and more blackmail (Or high sluttiness). Generic fuck_person call with a large obedience boost so she'll do things you tell her to do.
             mc.name "I want your body. All of it."
             if the_person.effective_sluttiness("vaginal_sex") >= 20:
@@ -592,7 +592,7 @@ label cousin_blackmail_list(the_person):
                 the_person.char "Ha! Dream on you fucking perv. I'm a stripper not a whore."
                 call cousin_blackmail_list(the_person) from _call_cousin_blackmail_list_5
 
-        "Nothing.":
+        "Nothing":
             mc.name "Nothing right now, but I'll come up with something."
             the_person.char "Ugh."
 
@@ -1234,7 +1234,7 @@ label stripclub_dance():
 
 label stripshow_strip(the_person):
     menu:
-        "Throw some cash. -$20" if mc.business.funds >= 20:
+        "Throw some cash{color=#ff0000}{size=18}Costs: $20{/size}{/color}" if mc.business.funds >= 20:
             $ mc.business.funds += -20
             "You reach into your wallet and pull out a $20 bill. You wait until the dancer is looking in your direction, then throw it onto the stage."
 
@@ -1249,10 +1249,10 @@ label stripshow_strip(the_person):
                 "She smiles and wiggles her hips for you."
             $ del random_item
 
-        "Throw some cash. -$20 (disabled)" if mc.business.funds < 20:
+        "Throw some cash\n{color=#ff0000}{size=18}Requires: $20{/size}{/color} (disabled)" if mc.business.funds < 20:
             pass
 
-        "Just enjoy the show.":
+        "Just enjoy the show":
             "You lean back in your seat and enjoy the dance."
             if renpy.random.randint(0,100) < 30:
                 #Someone else throws cash onto the stage.

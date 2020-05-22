@@ -383,19 +383,19 @@ label move_employee_label(the_person):
         $ m_division.remove_person(the_person)
 
     menu:
-        "Research and Development.":
+        "Research and Development":
             $ mc.business.add_employee_research(the_person, add_to_location = True)
 
-        "Production.":
+        "Production":
             $ mc.business.add_employee_production(the_person, add_to_location = True)
 
-        "Supply Procurement.":
+        "Supply Procurement":
             $ mc.business.add_employee_supply(the_person, add_to_location = True)
 
-        "Marketing.":
+        "Marketing":
             $ mc.business.add_employee_marketing(the_person, add_to_location = True)
 
-        "Human Resources.":
+        "Human Resources":
             $ mc.business.add_employee_hr(the_person, add_to_location = True)
 
     the_person.char "I'll move over there right away!"

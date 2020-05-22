@@ -168,13 +168,13 @@ label alexia_intro_phase_one_label(the_person):
     "She laughs and touches your arm."
     the_person.char "Do you? Like coffee, I mean. I've got to run, but I'd love to catch up with you. If you come by at the end of my shift I'll buy you a drink."
     menu:
-        "I'd love to.":
+        "I'd love to":
             mc.name "That sounds like a great idea. I'll make sure to come by as soon as I can."
             $ the_person.change_happiness(2)
             $ the_person.change_love(1)
             the_person.char "It's a date then!"
 
-        "I don't think I'll have time.":
+        "I don't think I'll have time":
             mc.name "I've been really busy lately, so I'm not sure I'll have time."
             $ the_person.change_happiness(-2)
             the_person.char "I understand. The offer stands, if your schedule ever changes."
@@ -209,14 +209,14 @@ label alexia_intro_phase_two_label(the_person):
     "You sip at your coffee and listen to [the_person.possessive_title] talk."
     the_person.char "I'm sorry we never talked again. You must have thought I fell off the face of the Earth."
     menu:
-        "I forgive you.":
+        "I forgive you":
             mc.name "It's okay [the_person.title], I think I understand what you were going through. I'm glad we're able to reconnect now."
             $ the_person.change_happiness(5)
             $ the_person.change_love(1)
             "She sighs and smiles."
             the_person.char "That means the world to me to hear. Thank you [the_person.mc_title]."
 
-        "I missed you.":
+        "I missed you":
             mc.name "When you disappeared it hurt, and I've missed you all this time. It's really strange having you pop back into my life again."
             $ the_person.change_happiness(-5)
             $ the_person.change_obedience(3)
@@ -225,10 +225,10 @@ label alexia_intro_phase_two_label(the_person):
 
     the_person.char "But enough about me, what have you been doing? Are you done with your degree?"
     menu:
-        "Brag.":
+        "Brag":
             mc.name "More than that. You're looking at the proud owner of [mc.business.name], an independent pharmaceutical company."
 
-        "Be Humble.":
+        "Be Humble":
             mc.name "I am. I work for a small pharmaceutical company now."
             the_person.char "That's great! What do you do there?"
             mc.name "A bunch of things, really. I manage the day to day operations, oversee production, R&D, sales..."
@@ -252,13 +252,13 @@ label alexia_intro_phase_two_label(the_person):
     the_person.SO_name "Hey, it's nice to meet you."
     "He holds out his hand to shake yours."
     menu:
-        "Be polite.":
+        "Be polite":
             "You take his hand and shake it."
             mc.name "It's nice to meet you, too. I hope we'll have time to talk more in the future."
             $ the_person.change_happiness(3)
             the_person.char "That would be great, the three of us should meet up and have dinner, or see a movie, or something."
 
-        "Be rude.":
+        "Be rude":
             "You don't shake his hand."
             mc.name "Oh, [the_person.title] didn't even mention she was seeing anyone until now."
             $ the_person.change_love(-1)
@@ -285,11 +285,11 @@ label alexia_hire_label(the_person):
     $ the_person.change_love(2)
     the_person.char "Okay, I'll do it! Thank you [the_person.mc_title]! Or should I call you boss now?"
     menu:
-        "[the_person.mc_title] is fine.":
+        "[the_person.mc_title] is fine":
             mc.name "No need to be too formal. I want you around because you're a friend and we make a good team."
             $ the_person.change_love(1)
 
-        "Boss sounds good.":
+        "Boss sounds good":
             $ the_person.set_mc_title("Boss")
             mc.name "I guess I am your boss now, aren't I. I like the way that sounds."
             $ the_person.change_obedience(2)
@@ -338,17 +338,17 @@ label alexia_ad_suggest_label(the_person):
     mc.name "Good to hear. What will you need to get this going?"
     the_person.char "We should probably get a proper camera instead of my phone, and we'll need to pay to have the cards printed professionally."
     menu:
-        "Pay for equipment. -$500" if mc.business.funds >= 500:
+        "Pay for equipment\n{color=#ff0000}{size=18}Costs: $500{/size}{/color}" if mc.business.funds >= 500:
             mc.name "That sounds reasonable. Buy whatever you think is reasonable and I will cover the expense."
             $ mc.business.funds += -500
             the_person.char "You got it! I'll order it A.S.A.P and let you know when it arrives."
             mc.name "Great work [the_person.title], you're a credit to the team."
             $ add_camera_arrive_action(the_person)
 
-        "Pay for equipment. -$500 (disabled)" if mc.business.funds < 500:
+        "Pay for equipment\n{color=#ff0000}{size=18}Requires $500{/size}{/color} (disabled)" if mc.business.funds < 500:
             pass
 
-        "Talk to her later.":
+        "Talk to her later":
             mc.name "Okay, I'll come talk to you soon and we can sort out these details. Great work [the_person.title], you're a credit to the team."
 
     the_person.char "Thanks [the_person.mc_title], I'm just happy to have a chance to contribute!"
@@ -394,7 +394,7 @@ label alexia_photography_intro_label(the_person):
     $ the_person.draw_person(position = "back_peek")
     "You snap pictures as she poses."
     menu:
-        "Focus on her ass.":
+        "Focus on her ass":
             mc.name "Bend forward just a little bit for me. Let's show off your butt."
             the_person.char "Really? Do you think that's important?"
             mc.name "Sex sells. It may not be what we go with, but I want to have options."
@@ -402,7 +402,7 @@ label alexia_photography_intro_label(the_person):
             $ the_person.change_obedience(1)
             "She rolls her eyes and bends forward, perking up her ass and showing it off to the camera. You take a couple more pictures."
 
-        "Focus on her smile.":
+        "Focus on her smile":
             mc.name "That's good, now give me one of your beautiful smiles. That's what the camera wants to see."
             $ the_person.draw_person(position = "back_peek", emotion = "happy")
             $ the_person.change_happiness(4)

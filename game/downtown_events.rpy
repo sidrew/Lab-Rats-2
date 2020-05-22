@@ -116,7 +116,7 @@ label lady_of_the_night_label():
     the_person.char "You're looking a little lonely all by yourself. Are you looking for a friend to keep you warm?"
     "Her tone suggests that her \"friendship\" won't come free."
     menu:
-        "Pay her. -$200":
+        "Pay her\n{color=#ff0000}{size=18}Costs: $200{/size}{/color}":
             $ the_person.generate_home()
             $ downtown.add_person(the_person) #If you pay her add her to the location so that she is kept track of in the future.
             mc.name "That sounds nice. It's nice to meet you..."
@@ -142,7 +142,7 @@ label lady_of_the_night_label():
             "She gives you a peck on the cheek, then turns and struts off into the night."
             $ renpy.scene("Active")
 
-        "Say no.":
+        "Say no":
             mc.name "Thanks for the offer, but no thanks."
             "She shrugs."
             the_person.char "Suit yourself."
@@ -189,7 +189,7 @@ label meet_person_label():
             "She smiles and steps onto the bus, waving briefly from one of the windows."
 
 
-        "Keep the cash\n{color=#0F0}+$200{/color}":
+        "Keep the cash\n{color=#00ff00}{size=18}Income: $200{/size}{/color}":
             $ mc.business.funds += 200
             "You slip the cash out of the womans wallet and watch as she rushes to catch her bus."
             $ renpy.scene("Active")
