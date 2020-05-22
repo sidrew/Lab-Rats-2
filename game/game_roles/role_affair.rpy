@@ -77,13 +77,13 @@ label plan_fuck_date_label(the_person):
         the_person.char "He's normally stuck late at work on Fridays. Just come on over and we can get down to business."
 
     menu:
-        "Plan a date for Friday night.":
+        "Plan a date for Friday night":
             mc.name "Good, I'll be there."
             the_person.char "I'll be ready and waiting."
             "She winks at you and smiles."
             $ add_plan_fuck_date_action(the_person)
 
-        "Maybe some other time.":
+        "Maybe some other time":
             mc.name "Damn, that's not going to work for me."
             the_person.char "Aww, I guess I'll be spending the night alone then..."
             "She pouts and shrugs."
@@ -101,10 +101,10 @@ label fuck_date_label(the_person):
 
     "You have a fuck date planned with [the_person.title]."
     menu:
-        "Get ready for the date. {image=gui/heart/Time_Advance.png}":
+        "Get ready for the date {image=gui/heart/Time_Advance.png}":
             pass
 
-        "Cancel the date. (tooltip)She won't be happy with you canceling last minute.":
+        "Cancel the date (tooltip)She won't be happy with you canceling last minute.":
             "You get your phone out and text [the_person.title]."
             mc.name "I'm sorry, but something important came up at the last minute. We'll have to reschedule."
             $ the_person.change_love(-5)
@@ -196,7 +196,7 @@ label fuck_date_label(the_person):
             if energy_gain_amount >= 10:
                 $ energy_gain_amount += -10 #Gain less and less energy back each time until eventually you're exhausted and gain nothing back.
             menu:
-                "Fuck her again.":
+                "Fuck her again":
                     "Soon you're ready to go again and you wrap your arms around [the_person.title]."
                     mc.name "Come here you little slut."
                     if renpy.random.randint(0,100) < 8 and not so_called:
@@ -300,11 +300,11 @@ label fuck_date_label(the_person):
                                             renpy.pause(1)
                                         the_item = None
                                 menu:
-                                    "Put on a condom.":
+                                    "Put on a condom":
                                         "You pause for a second to put on a condom, spreading it over your hard cock before lining it up with her wet pussy."
                                         $ mc.condom = True
 
-                                    "Fuck her bareback.":
+                                    "Fuck her bareback":
                                         "You give her ass a smack and line your cock up with her wet pussy."
 
                                 if the_person.effective_sluttiness("condomless_sex") < the_person.get_no_condom_threshold() and not mc.condom:
@@ -354,7 +354,7 @@ label fuck_date_label(the_person):
                         the_person.char "Hey sweetheart! How are you doing?"
                         the_person.char "Good, that's good to hear. I'm doing fine, it's a little lonely here without you..."
                         menu:
-                            "Stay quiet.":
+                            "Stay quiet":
                                 #Time passes then you fuck her as normal.
                                 "You lie back and get comfortable on [the_person.title]'s bed while she's talking. You wonder briefly if this is her side of the bed or her [so_title]'s."
                                 the_person.char "Yeah? You don't say... Uh huh..."
@@ -367,7 +367,7 @@ label fuck_date_label(the_person):
                                 call fuck_person(the_person, private = True) from _call_fuck_person_37 #Just normal start.
                                 $ the_report = _return
 
-                            "Grope her.":
+                            "Grope her":
                                 #Basically an extended intro.
                                 "You shuffle across [the_person.title]'s bed while she is talking and wrap your arms around her torso. She places a hand on your forearm and caresses it."
                                 the_person.char "Yeah? You don't say... Uh huh... Mhmm."
@@ -391,7 +391,7 @@ label fuck_date_label(the_person):
                                 call fuck_person(the_person, private = True) from _call_fuck_person_38
                                 $ the_report = _return
 
-                            "Make her suck your cock." if the_person.effective_sluttiness("sucking_cock") >= 50:
+                            "Make her suck your cock" if the_person.effective_sluttiness("sucking_cock") >= 50:
                                 #Basically an extended intro
                                 "You shuffle across the bed and stand up in front of [the_person.title]. She looks at you quizzically before noticing your hard cock at face level."
                                 if the_person.has_taboo("sucking_cock"):
@@ -418,7 +418,7 @@ label fuck_date_label(the_person):
                                 call fuck_person(the_person, private = True, start_position = blowjob, skip_intro = True) from _call_fuck_person_39
                                 $ the_report = _return
 
-                            "Fuck her while she's talking." if the_person.effective_sluttiness("vaginal_sex") >= 80:
+                            "Fuck her while she's talking" if the_person.effective_sluttiness("vaginal_sex") >= 80:
                                 #This is basically an extended intro
                                 "You shuffle behind [the_person.title] and wrap your arms around her, grabbing a tit with one hand while the other slides down to her waist and caresses her pussy."
                                 the_person.char "Yeah? You don't say... Uh huh?"
@@ -452,7 +452,7 @@ label fuck_date_label(the_person):
                                     "She reaches down with her free hand and strokes your hard cock, sliding the tip against her wet slit."
 
                                 menu:
-                                    "Wear a condom.":
+                                    "Wear a condom":
                                         if not wanted_condom:
                                             "You pause for a moment to grab a condom from her bedstand. [the_person.possessive_title] rolls her eyes impatiently underneath you."
                                         else:
@@ -460,7 +460,7 @@ label fuck_date_label(the_person):
                                         $ mc.condom = True
 
 
-                                    "Fuck her bareback.":
+                                    "Fuck her bareback":
                                         if wanted_condom:
                                             "You hold a finger up to your lips, reminding her to be quiet, and slide into her anyway."
                                             $ the_person.change_obedience(2 + the_person.get_opinion_score("bareback sex"))
@@ -493,7 +493,7 @@ label fuck_date_label(the_person):
                         call fuck_person(the_person) from _call_fuck_person_41
                         $ the_report = _return
 
-                "Call it a night.":
+                "Call it a night":
                     mc.name "I have to get going. This was fun."
                     "You kiss [the_person.title], then get up and start collecting your clothes."
                     if girl_came:
