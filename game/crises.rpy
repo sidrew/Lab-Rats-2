@@ -5745,7 +5745,7 @@ label affair_dick_pick_label():
         "Tell her you're busy.":
             "As much as you enjoy the picture, you've got important work to do. You text her back."
             mc.name "I've got work to get done [the_person.title]. Stop bothering me just because you're a bitch in heat."
-            if the_person.get_opinion_score("being_submissive") > 0:
+            if the_person.get_opinion_score("being submissive") > 0:
                 $ the_person.change_slut_temp(2)
                 $ the_person.change_obedience(2)
                 "There's a long pause, then she texts back."

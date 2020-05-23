@@ -879,7 +879,7 @@ label introvert_vaginal_sex_taboo_break(the_person):
                         mc.name "Of course I do. You're about to let me fuck your pussy raw."
                     mc.name "You're a dirty little slut, but there's nothing wrong with that. You just have to embrace it."
                     "She nods."
-                    $ the_person.change_slut_temp(1 + the_person.get_opinion_score("being_submissive"))
+                    $ the_person.change_slut_temp(1 + the_person.get_opinion_score("being submissive"))
                     the_person.char "I think I've known that deep down for a while..."
 
                 "Of course not.":
