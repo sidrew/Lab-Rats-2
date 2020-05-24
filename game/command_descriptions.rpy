@@ -147,7 +147,7 @@ label demand_touch_label(the_person):
                     "After a couple of minutes searching you find a quiet space with just the two of you."
                     "You don't waste any time getting back to what you were doing, grabbing [the_person.possessive_title]'s tits and groping her ass."
 
-                "Stay where you are\n{color=#ff0000}{size=18}[extra_people_count] watching{/size}{color}":
+                "Stay where you are\n{color=#ff0000}{size=18}[extra_people_count] watching{/size}{/color}":
                     mc.name "We're going to stay right here."
                     the_person.char "I... No, I'm not going to let you do this!"
                     "She pushes your hands away from her and steps back, glaring at you."
