@@ -13,7 +13,7 @@
             orgasm_description = "orgasm_kissing",
             taboo_break_description = "taboo_break_kissing",
             verb = "kiss",
-            opinion_tags = ["kissing"],
+            opinion_tags = ["kissing"], record_class = "Kissing",
             associated_taboo = "kissing")
         list_of_positions.append(kissing)
 
