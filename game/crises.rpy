@@ -1029,7 +1029,7 @@ label extra_mastery_crisis_label():
     $ cost = __builtin__.int(the_trait.mastery_level * 50) #The cost is 100 * mastery level,
     "You look through the file [the_person.title] gave you. It would cost $[cost] to raise the mastery level of [the_trait.name] by 2."
     menu:
-        "Purchase the equipment{color=#ff0000}{size=18}Costs: $[cost]{/size}{/color} (tooltip)Raises the mastery level of [the_trait.name] by 2. The higher your mastery of a serum trait the less likely it is to produce a side effect." if mc.business.funds >= cost:
+        "Purchase the equipment\n{color=#ff0000}{size=18}Costs: $[cost]{/size}{/color} (tooltip)Raises the mastery level of [the_trait.name] by 2. The higher your mastery of a serum trait the less likely it is to produce a side effect." if mc.business.funds >= cost:
 
             "You hand the file back to [the_person.title]."
             mc.name "This is a terrific idea, I want you to purchase whatever equipment you need and get to work immediately."

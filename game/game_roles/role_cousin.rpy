@@ -1234,7 +1234,7 @@ label stripclub_dance():
 
 label stripshow_strip(the_person):
     menu:
-        "Throw some cash{color=#ff0000}{size=18}Costs: $20{/size}{/color}" if mc.business.funds >= 20:
+        "Throw some cash\n{color=#ff0000}{size=18}Costs: $20{/size}{/color}" if mc.business.funds >= 20:
             $ mc.business.funds += -20
             "You reach into your wallet and pull out a $20 bill. You wait until the dancer is looking in your direction, then throw it onto the stage."
 
