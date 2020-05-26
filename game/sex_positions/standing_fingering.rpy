@@ -13,7 +13,7 @@ init:
             orgasm_description = "orgasm_standing_finger",
             taboo_break_description = "taboo_break_standing_finger",
             verb = "finger",
-            opinion_tags = ["being fingered"],
+            opinion_tags = ["being fingered"], record_class = "Fingered",
             default_animation = blowjob_bob,
             associated_taboo = "touching_vagina")
         #list_of_positions.append(standing_finger) #Only reachable by massaging her first.
