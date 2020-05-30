@@ -2968,7 +2968,9 @@ label horny_at_work_crisis_label():
 
                     else:
                         $ others_string =  format_group_of_people(others) + " all get up and stand behind [helpful_person.possessive_title], obviously willing to do the same."
+                    $ others = None
                     $ renpy.say("",others_string)
+                    $ others_string = None
                 $ helpful_person = None
                 if len(helpful_people) > 1:
                     $ exit_option = "Just have them watch."
@@ -3013,7 +3015,7 @@ label horny_at_work_crisis_label():
                         "Thanks to your post orgasm clarity you're able to focus perfectly."
                     else:
                         "You get yourself cleaned up and get back to work. You're able to focus perfectly now thanks to your post orgasm clarity."
-
+                $ the_choice = None
             else: #You get yourself off.
                 "You pull up some porn and, with skill trained over many years, jerk yourself off to completion in a few minutes."
                 "When you're finished you clean up and get back to work with your mind clear and able to focus."

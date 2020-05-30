@@ -302,11 +302,13 @@ label photo_flash(the_person):
     if not the_person.outfit.panties_covered():
         "When she drops it she's wearing only her underwear."
     else:
-        $ covering_item = the_person.outfit.get_lower_top_layer()
+        $ the_clothing = the_person.outfit.get_lower_top_layer()
 
-        "She pulls it off and drops it to the ground, then starts to pull off her [covering_item.name]."
-        $ the_person.draw_animated_removal(covering_item)
+        "She pulls it off and drops it to the ground, then starts to pull off her [the_clothing.name]."
+        $ the_person.draw_animated_removal(the_clothing)
         "When that comes off she's left wearing only her underwear."
+
+        $ the_clothing = None
 
     if the_person.judge_outfit(the_person.outfit):
         the_person.char "Time for you to get those shots [the_person.mc_title]!"
