@@ -754,70 +754,70 @@ label bimbo_improved_serum_unlock(the_person):
     return
 
 ## Taboo break dialogue ##
-# label bimbo_kissing_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_touching_body_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_touching_penis_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_touching_vagina_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_sucking_cock_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_licking_pussy_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_vaginal_sex_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_anal_sex_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_condomless_sex_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_underwear_nudity_taboo_break(the_person, the_clothing):
-#
-#     return
-#
-# label bimbo_bare_tits_taboo_break(the_person, the_clothing):
-#
-#     return
-#
-# label bimbo_bare_pussy_taboo_break(the_person, the_clothing):
-#
-#     return
-#
-# label bimbo_facial_cum_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_mouth_cum_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_body_cum_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_creampie_taboo_break(the_person):
-#
-#     return
-#
-# label bimbo_anal_creampie_taboo_break(the_person):
-#
-#     return
+label bimbo_kissing_taboo_break(the_person):
+
+    return
+
+label bimbo_touching_body_taboo_break(the_person):
+
+    return
+
+label bimbo_touching_penis_taboo_break(the_person):
+
+    return
+
+label bimbo_touching_vagina_taboo_break(the_person):
+
+    return
+
+label bimbo_sucking_cock_taboo_break(the_person):
+
+    return
+
+label bimbo_licking_pussy_taboo_break(the_person):
+
+    return
+
+label bimbo_vaginal_sex_taboo_break(the_person):
+
+    return
+
+label bimbo_anal_sex_taboo_break(the_person):
+
+    return
+
+label bimbo_condomless_sex_taboo_break(the_person):
+
+    return
+
+label bimbo_underwear_nudity_taboo_break(the_person, the_clothing):
+
+    return
+
+label bimbo_bare_tits_taboo_break(the_person, the_clothing):
+
+    return
+
+label bimbo_bare_pussy_taboo_break(the_person, the_clothing):
+
+    return
+
+label bimbo_facial_cum_taboo_break(the_person):
+
+    return
+
+label bimbo_mouth_cum_taboo_break(the_person):
+
+    return
+
+label bimbo_body_cum_taboo_break(the_person):
+
+    return
+
+label bimbo_creampie_taboo_break(the_person):
+
+    return
+
+label bimbo_anal_creampie_taboo_break(the_person):
+
+    return
