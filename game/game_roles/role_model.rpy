@@ -54,13 +54,13 @@ label model_photography_list_label(the_person):
         the_person.char "I want to make sure I show my best side for the business."
 
     menu:
-        "Your outfit is fine.":
+        "Your outfit is fine":
             mc.name "You look great already, I don't think you need to change a thing."
             $ the_person.discover_opinion("skimpy uniforms")
             $ the_person.change_slut_temp(the_person.get_opinion_score("skimpy uniforms"))
             the_person.char "Okay, I think I'm ready to go then!"
 
-        "Put something else on for me.":
+        "Put something else on for me":
             mc.name "I think you could use something with a little more pop."
             if the_person.effective_sluttiness() < 20 and the_person.relationship != "Single":
                 the_person.char "Nothing too crazy though, okay? I don't want my boyfriend to freak out when he hears about this."
@@ -104,22 +104,22 @@ label model_photography_list_label(the_person):
 
     # These are "checkpoint" options for future passes through this event.
     menu:
-        "Be playful.":
+        "Be playful":
             call photo_be_playful(the_person) from _call_photo_be_playful
 
-        "Be flirty." if the_person.event_triggers_dict.get("camera_flirt", False) and slut_willingness+(5*the_person.get_opinion_score("skimpy uniforms")) >= 15:
+        "Be flirty" if the_person.event_triggers_dict.get("camera_flirt", False) and slut_willingness+(5*the_person.get_opinion_score("skimpy uniforms")) >= 15:
             mc.name "Be flirty for me. You're young and sexy, I want you to show that to the camera."
             call photo_be_sexy(the_person) from _call_photo_be_sexy
 
-        "Strip to your underwear." if the_person.event_triggers_dict.get("camera_flash", False) and outfit_state == 0 and slut_willingness+(5*the_person.get_opinion_score("skimpy uniforms")) >= 30:
+        "Strip to your underwear" if the_person.event_triggers_dict.get("camera_flash", False) and outfit_state == 0 and slut_willingness+(5*the_person.get_opinion_score("skimpy uniforms")) >= 30:
             mc.name "I want to take some sexy, bold photos of you in your underwear. I want you to strip down for the camera."
             call photo_flash(the_person) from _call_photo_flash
 
-        "Get naked." if the_person.event_triggers_dict.get("camera_naked", False) and outfit_state in [0,1] and slut_willingness+(5*the_person.get_opinion_score("not wearing anything")) >= 50:
+        "Get naked" if the_person.event_triggers_dict.get("camera_naked", False) and outfit_state in [0,1] and slut_willingness+(5*the_person.get_opinion_score("not wearing anything")) >= 50:
             mc.name "Strip everything off for me, I want to get some nude shots."
             call photo_naked(the_person) from _call_photo_naked
 
-        "Touch yourself." if the_person.event_triggers_dict.get("camera_touch", False) and slut_willingness+(5*the_person.get_opinion_score("masturbating")) >= 60:
+        "Touch yourself" if the_person.event_triggers_dict.get("camera_touch", False) and slut_willingness+(5*the_person.get_opinion_score("masturbating")) >= 60:
             if not outfit_state == 2:
                 mc.name "Get naked and lean against that wall. I want to get some shots of you touching yourself."
                 "[the_person.title] nods and starts to strip naked."
@@ -128,7 +128,7 @@ label model_photography_list_label(the_person):
                 mc.name "Lean up against that wall, I want to get some shots of you touching yourself."
             call photo_touch(the_person) from _call_photo_touch
 
-        "Suck my dick." if the_person.event_triggers_dict.get("camera_suck", False) and slut_willingness+(5*the_person.get_opinion_score("giving blowjobs")) >= 70:
+        "Suck my dick" if the_person.event_triggers_dict.get("camera_suck", False) and slut_willingness+(5*the_person.get_opinion_score("giving blowjobs")) >= 70:
             if not outfit_state == 2:
                 mc.name "Get naked and on your knees. I want to get some close ups of you sucking my cock."
                 "[the_person.title] nods and starts to strip naked."
@@ -137,7 +137,7 @@ label model_photography_list_label(the_person):
                 mc.name "Come and kneel down in front of me. I want to get some close ups of you sucking my cock."
             call photo_blowjob(the_person) from _call_photo_blowjob
 
-        "Get fucked on camera." if the_person.event_triggers_dict.get("camera_fuck", False) and slut_willingness+(5*the_person.get_opinion_score("vaginal sex")) >= 80:
+        "Get fucked on camera" if the_person.event_triggers_dict.get("camera_fuck", False) and slut_willingness+(5*the_person.get_opinion_score("vaginal sex")) >= 80:
             if not outfit_state == 2:
                 mc.name "Get naked first, then I'm going to lay you down and get some pictures of you getting fucked."
             else:
@@ -375,7 +375,7 @@ label photo_naked(the_person):
             $ the_person.draw_person()
             the_person.char "It's not like we're doing anything wrong, this is all just for work."
             menu:
-                "Reassure her.":
+                "Reassure her":
                     mc.name "If he was a reasonable person he'd be fine with this."
                     mc.name "You're using your, uh, natural talents to perform your job as well as you can. That's an admirable thing to do."
                     $ the_person.change_happiness(2)
@@ -383,7 +383,7 @@ label photo_naked(the_person):
                     "She smiles and nods."
                     the_person.char "Yeah, that's what I think too."
 
-                "Make her worry.":
+                "Make her worry":
                     mc.name "I don't know [the_person.title]. Some men would be very jealous that you were showing off your body to anyone but them."
                     mc.name "Me and you both know it's for the good of the company, but he might not see it that way."
                     $ the_person.change_happiness(-5)
@@ -551,12 +551,12 @@ label photo_blowjob(the_person):
         $ slut_willingness += the_person.obedience - 100
     $ slut_willingness += the_person.get_opinion_score("vaginal sex") * 5
     menu:
-        "Fuck her." if the_person.effective_sluttiness("vaginal_sex") >= 65:
+        "Fuck her" if the_person.effective_sluttiness("vaginal_sex") >= 65:
             mc.name "We've come this far, there's only one more thing we can do. Lie down so I can fuck you."
             $ the_person.draw_person(position = "blowjob")
             call photo_sex(the_person) from _call_photo_sex_1
 
-        "Take photos as you cum.":
+        "Take photos as you cum":
             mc.name "I'm going to cum, get ready!"
             $ the_person.draw_person(position = "blowjob")
             "You pull your cock out of [the_person.possessive_title]'s mouth and stroke it off with your left hand, working the camera with your right."
@@ -631,7 +631,7 @@ label photo_sex(the_person):
             $ the_person.draw_person(position = "missionary")
             "She gasps softly as she is spattered with your hot cum. For a few seconds you're both quiet as you catch your breath."
 
-        "Creampie her." if not mc.condom:
+        "Creampie her" if not mc.condom:
             $ the_person.change_slut_temp(the_person.get_opinion_score("creampies"))
             $ the_person.discover_opinion("creampies")
             "You pull on [the_person.title]'s hips one handed and thrust as deep as you can into her."
@@ -650,7 +650,7 @@ label photo_sex(the_person):
 
             $ came_inside_mod = 10
 
-        "Creampie her. (disabled)" if mc.condom:
+        "Creampie her (disabled)" if mc.condom:
             pass
 
     mc.name "I think I got all the pictures I'll need."
