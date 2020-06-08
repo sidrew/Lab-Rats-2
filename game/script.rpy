@@ -2099,10 +2099,7 @@ init -2 python:
             displayable_list.append(self.expression_images.generate_emotion_displayable(position,emotion, special_modifier = special_modifier, eye_colour = self.eyes[1], lighting = lighting)) #Get the face displayable
             displayable_list.append(self.pubes_style.generate_item_displayable(self.body_type,self.tits, position, lighting = lighting)) #Add in her pubes. #TODO: See if we need to mask this with her body profile for particularly bush-y bushes to prevent clothing overflow.
 
-            size_render = renpy.render(displayable_list[0], 10, 10, 0, 0) #We need a render object to check the actual size of the body displayable so we can build our composite accordingly.
-            the_size = size_render.get_size() # Get the size. Without it our displayable would be stuck in the top left when we changed the size ofthings inside it.
-            x_size = __builtin__.int(the_size[0])
-            y_size = __builtin__.int(the_size[1])
+            (x_size, y_size) = renpy.load_surface(displayable_list[0]).get_size()
 
             if background_fill: #If we have a background add hair backplate.
                 hair_backplate = im.Blur(self.hair_style.generate_item_displayable("standard_body",self.tits,position, lighting = lighting),2) #Add a hair backplage
@@ -4337,7 +4334,7 @@ init -2 python:
                         region_mask = Image(region.generate_item_image_name(body_type, tit_size, position))
 
                         if composite_list is None:
-                            x_size, y_size = renpy.render(region_mask, 0,0,0,0).get_size() #Only get the render size once, since all renders are the same size for a pose. Technically this could also be a lookup table if it was significantly impacting performacne
+                            x_size, y_size = renpy.load_surface(region_mask).get_size() #Only get the render size once, since all renders are the same size for a pose. Technically this could also be a lookup table if it was significantly impacting performacne
                             composite_list = [(x_size,y_size)]
                         composite_list.append((0,0))
                         composite_list.append(region_mask)
@@ -4363,7 +4360,7 @@ init -2 python:
                     for region_to_hide in self.half_off_regions: #We first add together all of the region masks so we only operate on a single displayable
                         region_mask = Image(region_to_hide.generate_item_image_name(body_type, tit_size, position))
                         if composite_list is None:
-                            x_size, y_size = renpy.render(region_mask, 0,0,0,0).get_size() #Only get the render size once, since all renders are the same size for a pose. Technically this could also be a lookup table if it was significantly impacting performacne
+                            x_size, y_size = renpy.load_surface(region_mask).get_size() #Only get the render size once, since all renders are the same size for a pose. Technically this could also be a lookup table if it was significantly impacting performacne
                             composite_list = [(x_size,y_size)]
 
                         composite_list.append((0,0))
