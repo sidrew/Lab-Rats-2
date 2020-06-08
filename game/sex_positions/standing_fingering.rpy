@@ -147,12 +147,12 @@ label strip_ask_standing_finger(the_girl, the_clothing, the_location, the_object
     the_girl.char "Everything feels so tight, I want to take it all off... Do you mind?"
     "[the_girl.possessive_title] grabs onto her [the_clothing.name], waiting for you to tell her what to do."
     menu:
-        "Let her strip.":
+        "Let her strip":
             mc.name "Take it off. Strip for me."
             $ the_girl.draw_animated_removal(the_clothing, position = standing_finger.position_tag)
             "[the_girl.possessive_title] takes off her [the_clothing.name] and drops it to the side while you pump your fingers in and out of her cunt."
 
-        "Leave it on.":
+        "Leave it on":
             mc.name "No, I like how you look with it on."
             if the_girl.sluttiness < 80:
                 the_girl.char "Do you think I look sexy in it?"

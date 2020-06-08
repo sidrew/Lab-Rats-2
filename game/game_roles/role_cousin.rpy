@@ -212,13 +212,13 @@ label cousin_intro_phase_one_label():
     mc.name "Is everything okay?"
     cousin.char "Your sister just keeps talking. She won't shut up. I just need some silence."
     menu:
-        "Offer to talk to [lily.title].":
+        "Offer to talk to [lily.title]":
             pass
 
-        "Let [cousin.title] stay as long as she wants.":
+        "Let [cousin.title] stay as long as she wants":
             pass
 
-        "Tell [cousin.title] to leave you alone.":
+        "Tell [cousin.title] to leave you alone":
             pass
 
     mc.name "Right. How about..."
@@ -227,14 +227,14 @@ label cousin_intro_phase_one_label():
     $ cousin.draw_person()
     "She sits down and leans back against your door, staring at her phone."
     menu:
-        "Say nothing.":
+        "Say nothing":
             "You decide to just stay quiet and go back to what you were doing. [cousin.title] reads on her phone for half an hour before standing back up."
             $ cousin.change_happiness(5)
             $ cousin.change_love(1)
             cousin.char "Thanks."
             "With that she opens your door and leaves."
 
-        "Kick her out.":
+        "Kick her out":
             mc.name "Listen [cousin.title], this is my room and I want some privacy. Get out."
             "[cousin.possessive_title] rolls her eyes and sighs dramatically."
             cousin.char "If you're just going to keep talking at me, gladly."
@@ -287,7 +287,7 @@ label cousin_blackmail_intro_label(the_person):
     the_person.char "You can't tell my mom. She would never let me leave the house."
     #TODO: add a "blackmail level" event variable that is increased by this.
     menu:
-        "Blackmail her.":
+        "Blackmail her":
             mc.name "Fine, I'll stay quiet. If you do something for me."
             $ the_person.change_happiness(5)
             $ the_person.change_obedience(5)
@@ -297,7 +297,7 @@ label cousin_blackmail_intro_label(the_person):
             call cousin_blackmail_list(the_person) from _call_cousin_blackmail_list
 
 
-        "Promise to stay quiet.":
+        "Promise to stay quiet":
             mc.name "I'll keep this between you and me."
             "[the_person.title] gives you a suspicious look."
             the_person.char "Just like that?"
@@ -613,14 +613,14 @@ label aunt_cousin_hint_label(the_aunt, the_cousin):
     the_aunt.char "It's about [the_cousin.title]. For the last few nights she's been staying out late and she won't tell me where she is."
     the_aunt.char "I'm worried that she's getting up to trouble. Do you have any clue what she's doing?"
     menu:
-        "Offer to find out.":
+        "Offer to find out":
             mc.name "No, but I can try and find out if you'd like."
             $ the_aunt.change_happiness(3)
             $ the_aunt.change_love(1)
             the_aunt.char "That would be great, thank you. I'm sure I'm just overreacting, but it would help me sleep better at night knowing she's okay."
             mc.name "I'll let you know if I learn anything."
 
-        "No clue.":
+        "No clue":
             mc.name "Nope, no idea. Sorry."
             the_aunt.char "That's okay, she's always been very private, so I'm not surprised."
             the_aunt.char "Well, if you hear anything, just let me know, okay? I'm sure I'm overreacting, but it would help me sleep if I knew she was okay."
@@ -1007,12 +1007,12 @@ label cousin_new_boobs_brag_label(the_person):
 
     the_person.char "I got my new tits! Come on, what do you think?"
     menu:
-        "They look good.":
+        "They look good":
             mc.name "They look good. They better after what I paid!"
             $ the_person.change_love(1)
             $ the_person.change_obedience(3)
 
-        "You look like a bimbo.":
+        "You look like a bimbo":
             mc.name "They make you look like a bimbo. Big tits, no brain."
             if the_person.personality is bimbo_personality:
                 the_person.char "Thank you! I really like them, too!"
@@ -1039,7 +1039,7 @@ label cousin_new_boobs_brag_label(the_person):
         else:
             the_person.char "So... Do you want to see them?"
         menu:
-            "Show them to me.":
+            "Show them to me":
                 mc.name "Alright, I want to see my investment."
                 $ the_person.change_slut_temp(1)
                 if mc.location.get_person_count() > 1:
@@ -1074,7 +1074,7 @@ label cousin_new_boobs_brag_label(the_person):
                 $ the_person.draw_person()
                 $ del old_outfit
 
-            "Not right now.":
+            "Not right now":
                 $ the_person.change_obedience(1)
                 mc.name "I'm sure I'll get a chance to see them some other time. Maybe I'll stop by the club and watch you put them to work."
                 the_person.char "Oh god, could you please not? I hate knowing you might be out in the crowd watching..."

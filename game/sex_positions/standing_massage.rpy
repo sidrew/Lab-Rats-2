@@ -130,12 +130,12 @@ label strip_standing_grope(the_girl, the_clothing, the_location, the_object):
 label strip_ask_standing_grope(the_girl, the_clothing, the_location, the_object):
     the_girl.char "I want to feel you touch me everywhere... Can I talk off my [the_clothing.name] for you?"
     menu:
-        "Let her strip.":
+        "Let her strip":
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = standing_grope.position_tag)
             "You watch while [the_girl.possessive_title] takes off her [the_clothing.name] and drops it to the side."
 
-        "Leave it on.":
+        "Leave it on":
             mc.name "No, I like how you look with it on."
             if the_girl.sluttiness < 80:
                 the_girl.char "Do you think I look sexy in it?"

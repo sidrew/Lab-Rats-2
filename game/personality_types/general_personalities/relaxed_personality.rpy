@@ -562,14 +562,14 @@ label relaxed_flirt_response_girlfriend(the_person):
             "She leans in and kisses you on the cheek a few times. When she leans back she glances around the room and blushes."
             the_person.char "Do you... want to find someplace quiet where I can kiss you a few more times?"
             menu:
-                "Find someplace quiet.":
+                "Find someplace quiet":
                     mc.name "That sounds fun, come on, let's go."
                     "[the_person.title] follows you eagerly as you lead her away."
                     "After a few minutes of searching you find a quiet spot and put an arm around [the_person.possessive_title]."
                     "She sighs happily as you pull her close and kiss her. She puts her arms around you and hugs you tight, opening her lips for you."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_71
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "That's depends on what you're going to kiss. I've got a few suggestions..."
                     "She laughs and shakes her head."
                     the_person.char "I think I know what you're going to suggest. That's going to have to wait until later."
@@ -578,12 +578,12 @@ label relaxed_flirt_response_girlfriend(the_person):
             the_person.char "Oh [the_person.mc_title], you're so sweet. Come on, kiss me!"
             "She leans in and kisses you on the lips, then leans back and smiles."
             menu:
-                "Make out.":
+                "Make out":
                     "You put your hand on the back of her neck and pull her close again, kissing her slowly and sensually."
                     "She sighs happily and leans her body against you, clearly unworried about anyone else around."
                     call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_72
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "So, is there anything else you want to kiss? I've got some suggestions..."
                     if the_person.effective_sluttiness("sucking_cock") >= 60 or the_person.get_opinion_score("giving blowjobs") > 0:
                         the_person.char "Uh huh? I think I know what you're thinking about."
@@ -595,7 +595,7 @@ label relaxed_flirt_response_girlfriend(the_person):
 
                     else:
                         "She blushes and shakes her head bashfully."
-                        the_person.char "Oh my god, you're so predicatable! Well..."
+                        the_person.char "Oh my god, you're so predictable! Well..."
                         "She leans close and whispers into your ear."
                         the_person.char "Maybe if you can get us alone I can take a few requests..."
                         "[the_person.possessive_title] nibbles at your ear, then steps back and smiles happily."
@@ -606,12 +606,12 @@ label relaxed_flirt_response_girlfriend(the_person):
         "When she's finished kissing you she rests her head on your shoulder and sighs happily."
         the_person.char "This is so nice..."
         menu:
-            "Kiss her.":
+            "Kiss her":
                 "You place a gentle hand on her chin and raise her lips back to yours."
                 "This time when you kiss her it's slow and sensual. You hear her sigh happily, and she presses her body against yours."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_73
 
-            "Just flirt.":
+            "Just flirt":
                 "You place your hands around her and hold her close. You run one hand down her back and rest it on her ass, massaging it gently."
                 the_person.char "Mmm... Can we just stay like this for a moment?"
                 mc.name "Of course."
@@ -631,7 +631,7 @@ label relaxed_flirt_response_affair(the_person):
             "She takes your hand and looks around before leaning close and whispering in your ear."
             the_person.char "Do you want to take me somewhere private and show me all those naughty things you want to do?"
             menu:
-                "Find someplace quiet.":
+                "Find someplace quiet":
                     mc.name "I do, follow me."
                     "You lead [the_person.possessive_title] away. After a few minutes of searching you manage to find a quiet spot."
                     the_person.char "So, where do we start?"
@@ -639,7 +639,7 @@ label relaxed_flirt_response_affair(the_person):
                     "She presses her body enthusiastically against you and returns your kiss with just as much excitement."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_74
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "You're that easy, huh? I drop one complement and you're ready to get on your knees."
                     "She laughs quietly and shrugs."
                     the_person.char "I'm only this easy for you [the_person.mc_title]. You've turned me into such a little slut."
@@ -662,12 +662,12 @@ label relaxed_flirt_response_affair(the_person):
         the_person.char "You're pretty good looking too. I hope I'm not getting you too excited..."
         "Her hand runs lower, over your abs and down to your crotch. She teases your cock through your pants."
         menu:
-            "Make out.":
-                mc.name "You are, and you're going to have to take responsability for that."
+            "Make out":
+                mc.name "You are, and you're going to have to take responsibility for that."
                 "You put your arm around her waist, resting your hand on her ass, and pull her into an intense kiss."
                 "She leans into you eagerly, returning the kiss with just as much enthusiasm."
                 call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_75
-            "Just flirt.":
+            "Just flirt":
                 mc.name "You're always exciting, but I think I'll be able to hold out for a little while longer."
                 "You put your arm around her waist and grab her ass, massaging it as you talk."
                 mc.name "But you should know, the next time I get you alone I'm going to pay you back for all this teasing."

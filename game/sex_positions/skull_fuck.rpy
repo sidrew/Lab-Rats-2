@@ -101,7 +101,7 @@ label outro_skull_fuck(the_girl, the_location, the_object):
     "[the_girl.title]'s warm, wet throat wrapped around your cock sends shivers up your spine and the sound of her gagging on your dick pushes you past your limits."
     "You have a brief moment to consider how you want to finish as you jackhammer yourself in and out of her mouth."
     menu:
-        "Cum on her face.":
+        "Cum on her face":
             mc.name "Fuck, here I cum!"
             "With both hands firmly on [the_girl.possessive_title]'s head you wait until the last possible moment to stop skull fucking her and pull out."
             $ skull_fuck.current_modifier = None
@@ -118,7 +118,7 @@ label outro_skull_fuck(the_girl, the_location, the_object):
             $ the_girl.call_dialogue("cum_face")
 
 
-        "Cum down her throat.":
+        "Cum down her throat":
             mc.name "Fuck, here I cum!"
             if the_girl.obedience >= 130 or the_girl.get_opinion_score("drinking cum") > 0: #She takes it like a champ
                 "With both hands firmly on [the_girl.possessive_title]'s head you pull her as far down your cock as she'll go."
@@ -200,13 +200,13 @@ label strip_ask_skull_fuck(the_girl, the_clothing, the_location, the_object):
     "You give her throat one last thrust, then let her slide back until the tip of your cock just barely clears her lips."
     the_girl.char "I'm going to take off my [the_clothing.name], if that's okay with you."
     menu:
-        "Let her strip.":
+        "Let her strip":
             mc.name "Take it off."
             $ the_girl.draw_animated_removal(the_clothing, position = skull_fuck.position_tag)
             "[the_girl.possessive_title] strips out of her [the_clothing.name], your hard shaft hovering inches from her face."
             "When she drops it to the side you press yourself forward, parting her lips and sliding your cock back down her throat."
 
-        "Leave it on.":
+        "Leave it on":
             mc.name "No, I like how you look with it on."
             the_girl.char "Well then, what are you waiting for?"
             "She opens her mouth wide and you slam your dick back down her throat."

@@ -100,7 +100,7 @@ label employee_pay_cash_bonus(the_person):
     $months_wages = the_person.salary*20
     $raise_amount = int(the_person.salary*0.1)
     menu:
-        "Give her a pat on the back.":
+        "Give her a pat on the back":
             mc.name "And I'll absolutely do that once the next batch of sales go through."
             $ the_person.draw_person(emotion = "sad")
             if 5 - mc.charisma > 0:
@@ -108,7 +108,7 @@ label employee_pay_cash_bonus(the_person):
             "[the_person.title] looks visibly disappointed."
             the_person.char "Right, of course."
 
-        "Give her a days wages. -$[the_person.salary]" if mc.business.funds >= the_person.salary:
+        "Give her a days wages -$[the_person.salary]" if mc.business.funds >= the_person.salary:
             mc.name "Here you go, treat yourself to something nice tonight."
             $ the_person.draw_person(emotion = "happy")
             $ mc.business.funds -= the_person.salary
@@ -117,7 +117,7 @@ label employee_pay_cash_bonus(the_person):
             the_person.char "Thank you sir."
 
 
-        "Give her a weeks wages. -$[weeks_wages]" if mc.business.funds >= weeks_wages:
+        "Give her a weeks wages -$[weeks_wages]" if mc.business.funds >= weeks_wages:
             mc.name "Here you go, don't spend it all in once place."
             $ the_person.draw_person(emotion = "happy")
             $ the_person.change_happiness(5 + mc.charisma)
@@ -126,7 +126,7 @@ label employee_pay_cash_bonus(the_person):
             "[the_person.title] takes the bills, then smiles broadly at you."
             the_person.char "That's very generous of you sir, thank you."
 
-        "Give her a months wages. -$[months_wages]" if mc.business.funds >= months_wages:
+        "Give her a months wages -$[months_wages]" if mc.business.funds >= months_wages:
             mc.name "Here, you're a key part of the team and you deserved to be rewarded as such."
             $ the_person.draw_person(emotion = "happy")
             $ the_person.change_happiness(10 + mc.charisma)
@@ -185,13 +185,13 @@ label employee_performance_review(the_person):
     "You nod and take some notes while you think of how you want to respond."
     #TODO: Here is where characters, especially those with moderate sluttiness and who are over paid, might try and win your favour. Is this the right place for it?
     menu:
-        "Reward her for work well done.":
+        "Reward her for work well done":
             $ raise_amount = __builtin__.round(the_person.salary * 0.1)
             menu:
-                "Offer her kind words.": #Raise happiness and obedience a little.
+                "Offer her kind words": #Raise happiness and obedience a little.
                     call employee_complement_work(the_person) from _call_employee_complement_work
 
-                "Give her a raise. (+$[raise_amount]/day)": #Pay her more money. Large happiness and obedience raise.
+                "Give her a raise (+$[raise_amount]/day)": #Pay her more money. Large happiness and obedience raise.
                     mc.name "I've been very impressed by your work lately, and I'd like to make sure you stay happy with your decision to work here."
                     mc.name "I'm going to put you down for a 10%% raise. How does that sound?"
                     $ the_person.change_salary(raise_amount)
@@ -201,7 +201,7 @@ label employee_performance_review(the_person):
                     the_person.char "That sounds amazing! Thank you sir, I promise I won't let you down!"
                     mc.name "Good to hear it."
 
-                "Reward her sexually." if the_person.effective_sluttiness() >= 40: #At high sluttiness you can make her cum to make her even happier with her job.
+                "Reward her sexually" if the_person.effective_sluttiness() >= 40: #At high sluttiness you can make her cum to make her even happier with her job.
                     mc.name "You do a lot of work for the company, and I know how stressful your job can be at times."
                     "You get up from your desk and move around to the other side. You step behind [the_person.title] and place your hands on her shoulders, rubbing them gently."
                     mc.name "I'd like to do something for you to help you relax. How does that sound for a bonus?"
@@ -227,13 +227,13 @@ label employee_performance_review(the_person):
                         the_person.char "It's not much of a bonus if you're the only one who gets to cum. Maybe next time a cash bonus would be better, okay?"
                     $ the_person.review_outfit()
 
-        "Punish her for poor performance.":
+        "Punish her for poor performance":
             $ cut_amount = __builtin__.round(the_person.salary * 0.1)
             menu:
-                "Chastise her.": #Lower happiness and love a little, large obedience boost.
+                "Chastise her": #Lower happiness and love a little, large obedience boost.
                     call insult_recent_work(the_person) from _call_insult_recent_work
 
-                "Cut her pay. (-$[cut_amount]/day)": #Pay her less. Large happiness and obedience drop.
+                "Cut her pay (-$[cut_amount]/day)": #Pay her less. Large happiness and obedience drop.
                     mc.name "I'm really sorry to do this [the_person.title], but your performance lately just doesn't justify what I'm paying you."
                     mc.name "I'm going to have to cut your pay by 10%%."
                     $ the_person.change_salary(-cut_amount)
@@ -257,21 +257,21 @@ label employee_performance_review(the_person):
                         call advance_time from _call_advance_time_12
                         return #Don't use the normal "show her out" ending stuff. The scene ends here.
 
-                "Threaten to fire her.": #She may ask to stay in exchange for some sort of favour, or get fired on the spot.
+                "Threaten to fire her": #She may ask to stay in exchange for some sort of favour, or get fired on the spot.
                     mc.name "I'll be honest with you [the_person.title], your performance here at [mc.business.name] leaves a lot to be desired."
                     mc.name "I've been running the numbers and I think we'd be better off without you. Unless you can convince me otherwise I'm going to have to let you go."
                     if the_person.get_job_happiness_score() > -10:
                         if the_person.effective_sluttiness() < 20:
                             the_person.char "No sir, I really need this job. What if I took a pay cut? Would that be enough?"
                             menu:
-                                "Cut her pay. (-$[cut_amount]/day)":
+                                "Cut her pay (-$[cut_amount]/day)":
                                     mc.name "If you're willing to take a pay cut I think I can keep you around and see if your performance improves."
                                     $ the_person.change_salary(-cut_amount)
                                     $ the_person.change_happiness(10)
                                     $ the_person.change_obedience(5)
                                     the_person.char "Thank you sir! Thank you so much!"
 
-                                "Fire her.":
+                                "Fire her":
                                     mc.name "I'm sorry, but that wouldn't be enough."
                                     the_person.char "I understand. I'll clear out my desk."
                                     $ the_person.change_happiness(-10)
@@ -280,7 +280,7 @@ label employee_performance_review(the_person):
                         else:
                             the_person.char "Wait, I really need this job... What if I... let you use me. Just so you'll keep me around."
                             menu:
-                                "Fuck her.":
+                                "Fuck her":
                                     #TODO: Add a "only if I fuck you raw" version so I can use the line "You can leave the room unemployed or pregnant, the choice is yours."
                                     $ the_person.add_situational_slut("seduction_approach", -5, "I'm just a toy to him.")
                                     $ the_person.add_situational_obedience("seduction_approach", 25, "I'll do what I need to keep my job!")
@@ -299,7 +299,7 @@ label employee_performance_review(the_person):
                                     else:
                                         the_person.char "Would that really be such a bad thing?"
 
-                                "Fire her.":
+                                "Fire her":
                                     mc.name "I'm sorry, but that wouldn't be enough."
                                     the_person.char "I understand. I'll clear out my desk."
                                     $ the_person.change_happiness(-10)
@@ -316,7 +316,7 @@ label employee_performance_review(the_person):
                         return #Don't use the normal "show her out" ending stuff. The scene ends here.
 
 
-                "Punish her sexually." if the_person.effective_sluttiness() >= 40 and the_person.obedience >= 120: #Orgasm denial and/or make her service you.
+                "Punish her sexually" if the_person.effective_sluttiness() >= 40 and the_person.obedience >= 120: #Orgasm denial and/or make her service you.
                     "You sigh dramatically and stand up from your desk. You walk over to the other side and sit on the corner nearest [the_person.title]."
                     mc.name "Your performance has really let me down, but I think what you need a little motivation."
                     mc.name "I want to have some fun with you, but you're not allowed to climax, is that understood?"
@@ -350,7 +350,7 @@ label employee_performance_review(the_person):
                     $ the_person.review_outfit()
 
 
-        "Finish the performance review.":
+        "Finish the performance review":
             mc.name "Well, I think you're doing a perfectly adequate job around here [the_person.title]. If you keep up the good work I don't think we will have any issues."
             $ the_person.change_obedience(1)
             $ the_person.change_happiness(2)

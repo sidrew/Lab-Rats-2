@@ -9284,29 +9284,29 @@ label start:
     scene bg paper_menu_background with fade
     "Lab Rats 2 contains adult content. If you are not over 18 or your countries equivalent age you should not view this content."
     menu:
-        "I am over 18.":
+        "I am over 18":
             "Excellent, let's continue then."
 
-        "I am not over 18.":
+        "I am not over 18":
             $renpy.full_restart()
 
     "Vren" "v0.29.1 represents an early iteration of Lab Rats 2. Expect to run into limited content, unexplained features, and unbalanced game mechanics."
     "Vren" "Would you like to view the FAQ?"
     menu:
-        "View the FAQ.":
+        "View the FAQ":
             call faq_loop from _call_faq_loop
         "Get on with the game!":
             "You can access the FAQ from your bedroom at any time."
 
     "Vren" "Lab Rats 2 contains content related to impregnation and pregnancy. These settings may be changed in the menu at any time."
     menu:
-        "No pregnancy content.\n{size=16}Girls never become pregnant. Most pregnancy content hidden.{/size}":
+        "No pregnancy content\n{size=16}Girls never become pregnant. Most pregnancy content hidden.{/size}":
             $ persistent.pregnancy_pref = 0
 
-        "Predictable pregnancy content.\n{size=16}Birth control is 100%% effective. Girls always default to taking birth control.{/size}":
+        "Predictable pregnancy content\n{size=16}Birth control is 100%% effective. Girls always default to taking birth control.{/size}":
             $ persistent.pregnancy_pref = 1
 
-        "Realistic pregnancy content.\n{size=16}Birth control is not 100%% effective. Girls may not be taking birth control.{/size}":
+        "Realistic pregnancy content\n{size=16}Birth control is not 100%% effective. Girls may not be taking birth control.{/size}":
             $ persistent.pregnancy_pref = 2
 
     $ renpy.block_rollback()
@@ -9315,21 +9315,21 @@ label start:
     call create_test_variables(store.name,store.b_name,store.l_name,return_arrays[0],return_arrays[1],return_arrays[2]) from _call_create_test_variables ##Moving some of this to an init block (init 1specifically) would let this play better with updates in the future.
     $ renpy.block_rollback()
     menu:
-        "Play introduction and tutorial.":
+        "Play introduction and tutorial":
             call tutorial_start from _call_tutorial_start
 
-        "Skip introduction and tutorial.":
+        "Skip introduction and tutorial":
             $ mc.business.event_triggers_dict["Tutorial_Section"] = False
     jump normal_start
 
 label tutorial_start:
     menu:
-        "I have played Lab Rats 1 Before.":
+        "I have played Lab Rats 1 Before":
             "It has been a year since the end of your summer job at the university lab."
 
 
 
-        "I am new to Lab Rats.":
+        "I am new to Lab Rats":
             "A year ago you were a chemical engineering student, getting ready to graduate soon and looking for something to do over the summer."
             "You ended up with a summer job on campus as a lab assistant working with a two person team."
             "Your lab director, Nora, and her long time lab assistant Stephanie were investigating the properties of a new lab created molecule."
@@ -9514,9 +9514,9 @@ label normal_start:
 
 label faq_loop:
     menu:
-        "Gameplay Basics.":
+        "Gameplay Basics":
             menu:
-                "Making Serum.":
+                "Making Serum":
                     "Vren" "Making serum in your lab is the most important task for success in Lab Rats 2. You begin the game with a fully equipped lab."
                     "Vren" "The first step to make a serum is to design it in your lab. The most basic serum design can be made without any additions, but most will be made by adding serum traits."
                     "Vren" "Serum traits modify the effects of a serum. The effects can be simple - increasing duration or Suggestion increase - or it may be much more complicated."
@@ -9532,7 +9532,7 @@ label faq_loop:
                     "Vren" "Once a serum is marked for sale you can spend time in your marketing division to find a buyer."
                     "Vren" "Your research and development lab can also spend time researching new traits for serum instead of producing new serum designs."
 
-                "Hiring Staff.":
+                "Hiring Staff":
                     "Vren" "While you can do all the necessary tasks for your company yourself, that isn't how you're going to make it big. Hiring employees will allow you to grow your business and pull in more and more money."
                     "Vren" "To hire someone, head over to your main office. From there you can request a trio of resumes to choose from, for a small cost. The stats of the three candidates will be chosen, and you can choose who to hire."
                     "Vren" "The three primary stats - Charisma, Intelligence, and Focus - are the most important traits for a character. Each affects the jobs in your company differently."
@@ -9542,7 +9542,7 @@ label faq_loop:
                     "Vren" "Each character will also have an expected salary, to be paid each day. Higher stats will result in a more expensive employee, so consider hiring specialists rather than generalists."
                     "Vren" "Your staff will come into work each morning and perform their appropriate tasks, freeing up your time for other pursuits..."
 
-                "Corrupting People.":
+                "Corrupting People":
                     "Vren" "You may be wondering what you can do with all this serum you produce. The main use of serum is to increase the Suggestibility statistic of another character."
                     "Vren" "While a character has a Suggestibility value of 0 nothing you do will have a long lasting effect on their personality. Suggestibility above 0 will allow you to slowly corrupt them."
                     "Vren" "Each girl has a Core Sluttiness value. This is the level of sluttiness they think is appropriate without any external influence. Core sluttiness looks like this: {image=gui/heart/gold_heart.png}"
@@ -9556,14 +9556,14 @@ label faq_loop:
                     "Vren" "As a girls Sluttiness increases she will be more willing to wear revealing clothing or have sex with you."
                     "Vren" "As her Obedience increases she will be more deferential. She may be willing to have sex simply because you ask, even if she is not normally slutty enough."
 
-                "Levelling Up.":
+                "Levelling Up":
                     "Vren" "There are three main categories of experience: Stats, Work Skills, and Sex Skills."
                     "Vren" "For each of these categories you will have a goal assigned. When that goal is completed you will receive one point to spend on any of the scores in that category."
                     "Vren" "Once per day you may also scrap a goal that is overly difficult or not possible to complete yet."
                     "Vren" "When you complete a goal future goals in that category will increase in difficulty. Spend your early points wisely!"
                     "Vren" "Some goals are only checked at the end of the day or end of a turn, so if you have a goal that should be completed but is not giving you the option try advancing time."
 
-        "Development Questions.":
+        "Development Questions":
             menu:
                 "Will there be more character poses?":
                     "Vren" "Absolutely! The current standing poses proved that the rendering workflow for the game is valid, which means I will be able to introduce character poses for different sex positions."
@@ -9576,7 +9576,7 @@ label faq_loop:
                     "Vren" "Some character positions cause portions of the character model to poke out of their clothing when I am rendering them."
                     "Vren" "I will be adjusting my render settings and re-rendering any clothing items that need it as we go forward."
 
-        "Done.":
+        "Done":
             return
 
     jump faq_loop   # use jump instead of loop to prevent call stack nesting
@@ -10206,19 +10206,19 @@ label hire_select_process(candidates):
 label hire_someone(new_person, add_to_location = False): # Breaks out some of the functionality of hiring someone into an independent lable.
     "You complete the necessary paperwork and hire [new_person.name]. What division do you assign them to?"
     menu:
-        "Research and Development.":
+        "Research and Development":
             $ mc.business.add_employee_research(new_person, add_to_location)
 
-        "Production.":
+        "Production":
             $ mc.business.add_employee_production(new_person, add_to_location)
 
-        "Supply Procurement.":
+        "Supply Procurement":
             $ mc.business.add_employee_supply(new_person, add_to_location)
 
-        "Marketing.":
+        "Marketing":
             $ mc.business.add_employee_marketing(new_person, add_to_location)
 
-        "Human Resources.":
+        "Human Resources":
             $ mc.business.add_employee_hr(new_person, add_to_location)
 
     return
@@ -10433,30 +10433,30 @@ label set_serum_description: #TODO: Add a special screen for all of this instead
     $ selected_serum = None
 
     menu:
-        "All.":
+        "All":
             $ selected_div = "All"
 
-        "Research and Development.":
+        "Research and Development":
             $ selected_div = "R"
 
-        "Production.":
+        "Production":
             $ selected_div = "P"
 
-        "Supply Procurement.":
+        "Supply Procurement":
             $ selected_div = "S"
 
-        "Marketing.":
+        "Marketing":
             $ selected_div = "M"
 
-        "Human Resources.":
+        "Human Resources":
             $ selected_div = "H"
 
     menu:
-        "Pick a new serum.":
+        "Pick a new serum":
             call screen serum_inventory_select_ui(mc.business.inventory)
             $ selected_serum = _return
 
-        "Clear existing serum.":
+        "Clear existing serum":
             $ selected_serum = None
 
     if selected_serum == "None": #IF we didn't select an actual serum, just return and don't chagne anything.

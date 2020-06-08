@@ -129,7 +129,7 @@ label ask_be_girlfriend_label(the_person):
             the_person.char "But... Maybe he doesn't need to know about any of this. Do you think you could be discreet."
             $ the_person.discover_opinion("cheating on men")
             menu:
-                "Have an affair with [the_person.title].":
+                "Have an affair with [the_person.title]":
                     mc.name "I can be if that's what you need."
                     $ the_person.draw_person(position = "kissing", emotion = "happy")
                     $ the_person.special_role.append(affair_role)
@@ -138,7 +138,7 @@ label ask_be_girlfriend_label(the_person):
                     $ the_person.draw_person(emotion = "happy")
                     the_person.char "Well then, you know where to find me."
 
-                "Refuse.":
+                "Refuse":
                     mc.name "I can't do that. I need a relationship I can count on."
                     $ the_person.change_love(-3)
                     the_person.char "Right... Well, if you change your mind I'll be here."

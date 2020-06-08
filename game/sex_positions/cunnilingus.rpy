@@ -87,14 +87,14 @@ label strip_cunnilingus(the_girl, the_clothing, the_location, the_object):
 label strip_ask_cunnilingus(the_girl, the_clothing, the_location, the_object):
     the_girl.char "[the_girl.mc_title], I'm like to take off my [the_clothing.name] if you don't mind."
     menu:
-        "Let her strip.":
+        "Let her strip":
             "You look up from between her legs and nod."
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = cunnilingus.position_tag)
             "She strips out of her [the_clothing.name] and throws it to the side while you move back in and lick at her cunt."
 
 
-        "Leave it on.":
+        "Leave it on":
             "You look up from between her legs and shake your head."
             mc.name "No, I like how you look with it on."
             the_girl.char "Yeah? Do I look sexy in it? Mmmm..."

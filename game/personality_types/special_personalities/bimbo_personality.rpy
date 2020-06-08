@@ -507,14 +507,14 @@ label bimbo_flirt_response_girlfriend(the_person):
             "She takes your hand and starts trying to lead you away."
             the_person.char "Come on, let's go find somewhere we can make out."
             menu:
-                "Find someplace quiet.":
+                "Find someplace quiet":
                     mc.name "Alright, let's go."
-                    "You let [the_person.title] lead you away. After a few mintes of searching you find a private spot away from prying eyes."
+                    "You let [the_person.title] lead you away. After a few minutes of searching you find a private spot away from prying eyes."
                     "You put your arm around her waist, resting your hand on her ass, and kiss her passionately."
                     "[the_person.possessive_title] returns the kiss and begins to grind her hips against your thigh."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_61
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "I don't have time right now, but I like the enthusiasm."
                     "She pouts and nods."
                     the_person.char "Okay... Don't forget about me though, I need some attention every once in a while."
@@ -523,7 +523,7 @@ label bimbo_flirt_response_girlfriend(the_person):
             "[the_person.possessive_title] giggles and pets your arm affectionately."
             the_person.char "Oh my god, you're such a sweetie! Do you want me to suck your cock?"
             menu:
-                "Get a blowjob.":
+                "Get a blowjob":
                     mc.name "Is that even a question? Of course I do!"
                     "She grins and knees down, ignoring the other people in the room."
                     "[the_person.title] unzips your pants and pulls your cock out, eagerly running her tongue along the sides."
@@ -533,7 +533,7 @@ label bimbo_flirt_response_girlfriend(the_person):
                     "She slips you into her warm, wet mouth and sucks on the tip eagerly."
                     call fuck_person(the_person, start_position = blowjob, skip_intro = True) from _call_fuck_person_62
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "Thanks for the offer, but I'm a little busy at the moment."
                     "She pouts and sighs."
                     the_person.char "Awww, I was already getting exited. I get so horny when I think about having your cock in my mouth..."
@@ -543,12 +543,12 @@ label bimbo_flirt_response_girlfriend(the_person):
         the_person.char "Oh my god, you're such a sweetie!"
         "She throws her arms around your neck, kissing your face eagerly."
         menu:
-            "Make out.":
+            "Make out":
                 "You put your arms around her and pull her tight against you as you return her kisses."
                 "Bit by bit they transition from energetic to sensual, and soon you have [the_person.possessive_title]'s body grinding against yours as you make out."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_63
 
-            "Just flirt.":
+            "Just flirt":
                 "You give [the_person.possessive_title] a few quick kisses, then lean your head back to get some air."
                 mc.name "Easy there, down girl."
                 "She lets go of you and giggles."
@@ -566,7 +566,7 @@ label bimbo_flirt_response_affair(the_person):
             "She runs a hand over your chest, oblivious to anyone nearby who might be watching."
             the_person.char "But you do [the_person.mc_title]. You, like, get me."
             menu:
-                "Find someplace quiet.":
+                "Find someplace quiet":
                     mc.name "Alright, but we can't do anything here. Follow me."
                     "She nods her head happily and follows you like a happy puppy."
                     "After a few minutes of searching you find a quiet spot away from any interruptions."
@@ -575,7 +575,7 @@ label bimbo_flirt_response_affair(the_person):
 
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_64
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "I do, but you'll have to wait a little while longer. I just don't have the time right now."
                     "She pouts and sighs."
                     the_person.char "Aww... Okay, but I really need you soon. You aren't bored of me, are you?"
@@ -592,7 +592,7 @@ label bimbo_flirt_response_affair(the_person):
         "She wraps her arms around you and hugs you tight. When she lets go she tilts her head and smiles."
         the_person.char "So, do you want me to suck your cock then? Is that one of the things?"
         menu:
-            "Get a blowjob.":
+            "Get a blowjob":
                 "You were expecting to need to convince her a little more, but you aren't about to complain."
                 mc.name "Yeah, that sounds good."
                 "She giggles and drops to her knees on the spot. You step close and she unzips your pants."
@@ -603,7 +603,7 @@ label bimbo_flirt_response_affair(the_person):
                 call fuck_person(the_person, start_position = blowjob, skip_intro = True) from _call_fuck_person_65
                 $ blowjob.current_modifier = None
 
-            "Just flirt.":
+            "Just flirt":
                 mc.name "How did you guess?"
                 the_person.char "Everyone likes having their cock sucked. Well, not women I guess. But all men do."
                 "She starts to kneel down, but you put your arm around her waist and hold her close."

@@ -148,13 +148,13 @@ label strip_ask_handjob(the_girl, the_clothing, the_location, the_object):
     the_girl.char "[the_girl.mc_title], would you like me to take off my [the_clothing.name]?"
     "She keeps stroking your cock while you respond."
     menu:
-        "Let her strip.":
+        "Let her strip":
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = handjob.position_tag)
             "[the_girl.possessive_title] strips out of her [the_clothing.name] and drops it to the side."
             the_girl.char "Ah, so much better."
 
-        "Leave it on.":
+        "Leave it on":
             mc.name "I think you look cute in it, leave it on."
             "She nods and keeps jerking you off."
     return

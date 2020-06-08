@@ -150,7 +150,7 @@ label outro_cowgirl(the_girl, the_location, the_object):
         the_girl.char "I... I really shouldn't let you..."
         "She bites her lip and moans, unsure of what to do."
         menu:
-            "Pull her down and cum inside her.":
+            "Pull her down and cum inside her":
                 "You reach up and grab [the_girl.possessive_title] by the hips. With one confident pull she plunges back onto your cock, gasping with pleasure."
                 "The feeling of her warm, wet pussy sliding down and engulfing your cock again pushes you over the edge. You pull [the_girl.title] tight against you and unload inside of her."
                 the_girl.char "Ah! Just... Just this once!"
@@ -158,7 +158,7 @@ label outro_cowgirl(the_girl, the_location, the_object):
                 $ the_girl.change_obedience(3)
                 "You give a few half-hearted pumps when you're done, then tap [the_girl.title] on the ass. She slides off of your dick and collapses beside you."
 
-            "Let her pull off and cum on her stomach.":
+            "Let her pull off and cum on her stomach":
                 "You stay silent. [the_girl.possessive_title] waits another second, as if waiting to be convinced, then pulls off of your cock."
                 "She grinds the lips of her pussy against your shaft as you climax. You fire your hot load over her stomach."
                 $ the_girl.cum_on_stomach()
@@ -185,12 +185,12 @@ label strip_cowgirl(the_girl, the_clothing, the_location, the_object):
 label strip_ask_cowgirl(the_girl, the_clothing, the_location, the_object):
     the_girl.char "[the_girl.mc_title], I'd like to take off my [the_clothing.name]. Would you mind?"
     menu:
-        "Let her strip.":
+        "Let her strip":
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = cowgirl.position_tag)
             "[the_girl.title] slows down her pace while she strips out of her [the_clothing.name]. When she's free of it she puts her hands on your chest and fucks you faster again."
 
-        "Leave it on.":
+        "Leave it on":
             mc.name "No, I like how you look with it on."
             if the_girl.sluttiness < 70:
                 the_girl.char "Yeah? Do I look sexy in it?"

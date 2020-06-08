@@ -533,14 +533,14 @@ label introvert_flirt_response_girlfriend(the_person):
             "She glances around, then leans close to you and kisses you on the cheek."
             the_person.char "That's all for now. I'm a little shy with other people around..."
             menu:
-                "Find someplace quiet.":
+                "Find someplace quiet":
                     mc.name "Then let's find somewhere we can be alone."
                     "She glances around again, then nods and takes your hand."
                     "You lead her away, and after a few minutes of searching you find a place for you and [the_person.title] to be alone."
                     "You put your arm around her waist and pull her close. She presses her body against you eagerly as you kiss her."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_81
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "Well then I'll have to get you alone and see what you have planned."
                     "She bites her lower lip and shrugs innocently."
 
@@ -549,12 +549,12 @@ label introvert_flirt_response_girlfriend(the_person):
             the_person.char "If we were alone I'd show you just how lucky you are..."
             "Her hand runs lower, brushing your hips before she pulls it back."
             menu:
-                "Kiss her.":
+                "Kiss her":
                     mc.name "Why wait until later? You aren't that shy, are you?"
                     "You put your arm around her waist and pull her close. She closes her eyes and leans against you as you kiss her."
                     call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_82
 
-                "Just flirt.":
+                "Just flirt":
                     mc.name "Well when we're alone I'll make sure you feel just as lucky. I've got a few ideas how to do that..."
                     "You put an arm around her waist and rest your hand on her ass, rubbing it gently."
                     the_person.char "Mmm. Looking forward to it."
@@ -564,11 +564,11 @@ label introvert_flirt_response_girlfriend(the_person):
         the_person.char "I'm just being me... Is that really so special?"
         "You put your arm around her and kiss her. She smiles and laughs happily."
         menu:
-            "Make out.":
+            "Make out":
                 "You lean in and kiss her more sensually. She sighs and relaxes, her body pressing against yours."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_83
 
-            "Just flirt.":
+            "Just flirt":
                 "You lower your hand and rub [the_person.title]'s ass."
                 mc.name "Of course you're special. You're smart, pretty, and..."
                 "You squeeze her butt, making her laugh and press herself against you."
@@ -586,14 +586,14 @@ label introvert_flirt_response_affair(the_person):
             "She takes your hand and pulls you close, whispering in your ear."
             the_person.char "How about we go somewhere private and you can do all those naughty things to me."
             menu:
-                "Find someplace quiet.":
+                "Find someplace quiet":
                     mc.name "I can't turn that offer down. Come on."
                     "You lead [the_person.possessive_title] away. After a few minutes of searching you find a quiet spot."
                     "You put your arm around her waist and pull her into a deep, sensual kiss."
                     "She presses her body against you, grinding her hips against your leg."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_84
 
-                "Just flirt.":
+                "Just flirt":
                     "You put your arm around [the_person.possessive_title] and rest your hand on her ass."
                     mc.name "I wish I could, but I don't have the time right now."
                     "She bites her lip and nods."
@@ -608,13 +608,13 @@ label introvert_flirt_response_affair(the_person):
     else:
         the_person.char "Yeah? Well there's nobody around, and I'm not going to stop you."
         menu:
-            "Feel her up.":
+            "Feel her up":
                 "You put your hands on [the_person.possessive_title]'s ass and pull her close to you, massaging her cheeks gently."
                 the_person.char "Oh! Oh... That feels nice..."
                 mc.name "Good. Just relax and leave everything to me."
                 "You circle around her and grab her tits, bouncing them a couple times. [the_person.title] leans back against you."
                 call fuck_person(the_person, private = True, start_position = standing_grope, skip_intro = True) from _call_fuck_person_85
-            "Just flirt.":
+            "Just flirt":
                 mc.name "Tempting, but I don't have the time right now."
                 the_person.char "Aw, that's a shame. Well, if you do have the time you know where to find me."
     return
@@ -979,7 +979,7 @@ label introvert_vaginal_sex_taboo_break(the_person):
             mc.name "Don't be, I'll be gentle."
             the_person.char "You don't think... I'm a slut or something, do you?"
             menu:
-                "Of course you are.":
+                "Of course you are":
                     if mc.condom:
                         mc.name "Of course I do. You're about to let me fuck your sweet little pussy."
                     else:
@@ -989,7 +989,7 @@ label introvert_vaginal_sex_taboo_break(the_person):
                     $ the_person.change_slut_temp(1 + the_person.get_opinion_score("being submissive"))
                     the_person.char "I think I've known that deep down for a while..."
 
-                "Of course not.":
+                "Of course not":
                     mc.name "Of course not. You're just doing what you want to do to be happy."
                     mc.name "Never let anyone tell you what should make you happy."
                     $ the_person.change_happiness(2)

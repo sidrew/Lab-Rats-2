@@ -619,7 +619,7 @@ label photo_sex(the_person):
     $ the_person.change_slut_temp(5)
     $ came_inside_mod = 0
     menu:
-        "Cum on [the_person.title].":
+        "Cum on [the_person.title]":
             $ the_person.change_slut_temp(the_person.get_opinion_score("being covered in cum"))
             $ the_person.discover_opinion("being covered in cum")
             if mc.condom:

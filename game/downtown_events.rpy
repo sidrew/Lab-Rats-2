@@ -74,14 +74,14 @@ label discover_stripclub_label():
     "{color=#29e729}GIRLS GIRLS GIRLS{/color}\n{color=#e72929}[club_name]{/color}"
     $ strip_club.visible = True
     menu:
-        "Go inside.":
+        "Go inside":
             "You open the door and are immediately assaulted by pulsing, base heavy music."
 
             $ mc.change_location(strip_club)
 
 
 
-        "Keep exploring.":
+        "Keep exploring":
             "You make a mental note of this location in case you want to come back later, but decide against visiting it."
             call downtown_search_label(advance_time = False) from _call_downtown_search_label
     return

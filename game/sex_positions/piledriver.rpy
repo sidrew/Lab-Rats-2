@@ -62,7 +62,7 @@ label scene_piledriver_1(the_girl, the_location, the_object):
         #Struggles taking you that deep.
         the_girl.char "Ah! Oh fuck me, I think I need you to slow down..."
         menu:
-            "Go slowly.":
+            "Go slowly":
                 "You pause and give [the_girl.possessive_title] a chance to get use to having your cock buried inside of her cunt."
                 "She takes a few deep breaths, then nods to you."
                 the_girl.char "Okay, I think I'm ready. Take it slow though."
@@ -76,7 +76,7 @@ label scene_piledriver_1(the_girl, the_location, the_object):
                     "[the_girl.possessive_title] closes her eyes and grits her teeth as you fuck her."
 
 
-            "Fuck her hard anyways.":
+            "Fuck her hard anyways":
                 mc.name "Don't worry, I know you can handle it."
                 "You speed up instead of slowing down. Having her bent over gives you all the leverage you need to drive your cock deep into her cunt."
                 if the_girl.get_opinion_score("being submissive") > 0:
@@ -115,7 +115,7 @@ label scene_piledriver_1(the_girl, the_location, the_object):
         $ the_girl.call_dialogue("sex_responses_vaginal")
         "[the_girl.title] holds her legs out wide for you, spreading herself so you can fuck her hard and fast against the [the_object.name]."
         menu:
-            "Talk dirty to her.":
+            "Talk dirty to her":
                 mc.name "You look really good with my cock inside you, did you know that?"
                 if the_girl.sex_skills["Foreplay"] > 2: #She's good at foreplay, flirting, etc.
                     "She looks up at you and bites her lip."
@@ -131,7 +131,7 @@ label scene_piledriver_1(the_girl, the_location, the_object):
                         the_girl.char "Ah... I wonder how long until you cum. I can feel your cock tensing up already..."
                     "You fuck her faster and she moans in response."
 
-            "Fuck her in silence.":
+            "Fuck her in silence":
                 "For a few moments neither of you say anything. The only sounds are you and [the_girl.possessive_title] panting for breath and the soft smack as you slam your cock deep inside of her."
                 if the_girl.get_opinion_score("small talk") < 0:
                     $ the_girl.discover_opinion("small talk")
@@ -162,7 +162,7 @@ label scene_piledriver_2(the_girl, the_location, the_object):
         the_girl.char "I can feel you so deep inside me..."
 
     menu:
-        "Hold her ankles.": #TODO: Add more stuff to this choice?
+        "Hold her ankles": #TODO: Add more stuff to this choice?
             "You grab [the_girl.title]'s ankles and hold them out to the side, spreading her legs and putting her pussy front and center."
             "The position doesn't leave [the_girl.possessive_title] much to do other than get fucked by you. She pants loudly underneath you."
             the_girl.char "I feel so open like this... What are you doing to me [the_girl.mc_title], you're making me into such a slut..."
@@ -170,7 +170,7 @@ label scene_piledriver_2(the_girl, the_location, the_object):
                 "She moans loudly and turns her head to the side."
                 the_girl.char "And I think I like it!"
 
-        "Fondle her tits.":
+        "Fondle her tits":
             if the_girl.has_large_tits():
                 if the_girl.outfit.tits_available():
                     "You reach down between [the_girl.title]'s legs with one hand to grab onto one of her tits. It's soft and weighty in your hand."
@@ -218,7 +218,7 @@ label outro_piledriver(the_girl, the_location, the_object):
     "You reach your limit and feel your orgasm approaching quickly."
     mc.name "Fuck me, I'm going to cum!"
     menu:
-        "Cum inside of her.":
+        "Cum inside of her":
             if the_girl.sluttiness > 120 or mc.condom:
                 the_girl.char "Come on, dump it right inside of me!"
                 if mc.condom:
@@ -252,7 +252,7 @@ label outro_piledriver(the_girl, the_location, the_object):
                 "You take a moment to catch your breath, then sit back and pull your cock out of [the_girl.title]."
                 "You keep her on her back for a few more seconds, enjoying the way the position keeps your semen inside of her."
 
-        "Cum on her face.":
+        "Cum on her face":
             if mc.condom:
                 "You pull your cock out at the last minute, whipping the condom off with one hand as you aim it towards [the_girl.possessive_title]'s face."
             else:
@@ -291,14 +291,14 @@ label strip_ask_piledriver(the_girl, the_clothing, the_location, the_object):
     the_girl.char "[the_girl.mc_title], I'd like to ah... take off my... my [the_clothing.name], would you mind?"
     "[the_girl.title] pants as you fuck her hard."
     menu:
-        "Let her strip.":
+        "Let her strip":
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = piledriver.position_tag)
             "You let your cock pop out of [the_girl.possessive_title]'s pussy and watch as she struggles out of her [the_clothing.name] and throws it to the side."
             the_girl.char "Okay, keep going now sir!"
             "You throw her legs over your shoulders and slide yourself as deep into her cunt as you can get it."
 
-        "Leave it on.":
+        "Leave it on":
             mc.name "No, I like how you look with it on."
             if the_girl.sluttiness < 80:
                 the_girl.char "Do you think I look sexy in it?"
@@ -311,7 +311,7 @@ label strip_ask_piledriver(the_girl, the_clothing, the_location, the_object):
                 "She grinds her hips back into you and moans ecstatically."
     return
 
-label orgasm_piledriver(the_girl, the_location, the_obejct):
+label orgasm_piledriver(the_girl, the_location, the_object):
     "[the_girl.title] takes a sharp breath in and you feel her legs try and clench together."
     $ the_girl.call_dialogue("climax_responses_vaginal")
     "You keep fucking [the_girl.possessive_title] through her climax, enjoying her sopping wet cunt while she twitches and moans underneath you."

@@ -136,7 +136,7 @@ label sister_walk_in_label(the_person):
         mc.name "Mmmhm? Do you want me to take a look?"
         the_person.char "No, no that's okay. It's probably fine."
         menu:
-            "Encourage her.":
+            "Encourage her":
                 mc.name "You know there's nothing wrong with watching porn, right?"
                 the_person.char "I wasn't! I..."
                 mc.name "Of course not, but even if you were there's nothing wrong with that. It's a natural thing, everyone does it. I certainly do."
@@ -145,7 +145,7 @@ label sister_walk_in_label(the_person):
                 the_person.char "Really? Ew, I don't need to know about that."
                 "She still seems more interested than her words would suggest."
 
-            "Threaten to tell [mom.possessive_title].":
+            "Threaten to tell [mom.possessive_title]":
                 mc.name "I can let [mom.title] know, maybe she can take it somewhere to get it fixed."
                 the_person.char "No! I mean, you can't tell Mom. Nothing's wrong with it, okay?"
                 mc.name "So you were..."
@@ -171,7 +171,7 @@ label sister_walk_in_label(the_person):
         "Her eyes are closed, and because of her headphones it doesn't seem like she's noticed you come in. She lets out the softest moan."
         the_person.char "Mmmph..."
         menu:
-            "Offer to help.":
+            "Offer to help":
                 "You step into the room and close the door."
                 mc.name "Having a good time?"
                 if the_person.effective_sluttiness("touching_vagina") < 35:
@@ -239,7 +239,7 @@ label sister_walk_in_label(the_person):
                         $ the_person.change_obedience(-2)
 
 
-            "Just watch.":
+            "Just watch":
                 "You step into the room and close the door to [the_person.title]'s room."
                 "You lean on the doorframe and watch her fingering herself."
                 $ mc.change_arousal(5)
@@ -283,7 +283,7 @@ label sister_walk_in_label(the_person):
                     $ the_person.change_slut_temp(2+the_person.get_opinion_score("masturbating"))
                     $ the_person.discover_opinion("masturbating")
 
-            "Leave her alone.":
+            "Leave her alone":
                 $ renpy.scene("Active")
                 "You take a quick step back and, as quietly as you can manage and close her door."
 
@@ -424,7 +424,7 @@ label breeding_mom_label(the_person):
         "Her face is flush and her breathing rapid."
 
     menu:
-        "Fuck her and try to breed her.":
+        "Fuck her and try to breed her":
             "You nod, and the mere the confirmation makes her shiver. She lies down on the bed and holds out her hands for you."
             $ the_person.draw_person(position = "missionary")
             "You strip down and climb on top of her. The tip of your hard cock runs along the entrance of her cunt and finds it dripping wet."
@@ -455,7 +455,7 @@ label breeding_mom_label(the_person):
                 the_person.char "I don't know, this might have all been a mistake. Let's just... be quiet for a while, okay?"
                 "You hold [the_person.possessive_title] until she's feeling better, then sit up in bed with her."
 
-        "Say no.":
+        "Say no":
             $ the_person.draw_person(position = "sitting", emotion = "sad")
             "You shake your head. [the_person.title] looks immediately crestfallen."
             the_person.char "But why..."

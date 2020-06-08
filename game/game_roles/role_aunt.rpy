@@ -120,7 +120,7 @@ label aunt_intro_label():
     mom.char "That's so nice to hear [mom.mc_title], thank you. [cousin.possessive_title] will be sharing [lily.title]'s room with her and [aunt.title] will be on the couch in the living room."
     mom.char "They're going to be here in the morning. If you have a few minutes, could you help me pull out some sheets and get their beds made?"
     menu:
-        "Help [mom.possessive_title] set up.":
+        "Help [mom.possessive_title] set up":
             mc.name "Sure, let's go get it done."
             $ mom.change_happiness(3)
             $ mom.change_love(2)
@@ -137,7 +137,7 @@ label aunt_intro_label():
 
 
 
-        "Make [lily.possessive_title] do it.":
+        "Make [lily.possessive_title] do it":
             mc.name "Sorry [mom.title], I've got an early morning tomorrow and really need to get to bed. I think [lily.title]'s free though."
             $ lily.change_obedience(2)
             $ lily.change_love(-1)
@@ -254,13 +254,13 @@ label aunt_intro_moving_apartment_label(the_person):
         mc.name "Your mom's going to rent a truck. I'm helping you guys move your stuff over to your new place."
         cousin.char "Why?"
         menu:
-            "Because it's a nice thing to do.":
+            "Because it's a nice thing to do":
                 mc.name "Because it's a nice thing to do, that's all."
 
-            "Because I want to impress her.":
+            "Because I want to impress her":
                 mc.name "Because I want to make a good impression. I want her to like me."
 
-            "Because I'm hoping she'll pay me.":
+            "Because I'm hoping she'll pay me":
                 mc.name "Because I'm hoping when we're done she'll pay me for the help."
 
         cousin.char "That's dumb, but whatever."
@@ -310,7 +310,7 @@ label aunt_intro_moving_apartment_label(the_person):
         $ aunt.change_happiness(5)
         $ aunt.change_love(1)
         menu:
-            "Offer to help.":
+            "Offer to help":
                 mc.name "Here, let me help with that. Just tell me where to put things."
                 $ aunt.change_love(1)
                 aunt.char "My sister raised such a perfect gentleman! Here, this goes in the top drawer over there."
@@ -335,7 +335,7 @@ label aunt_intro_moving_apartment_label(the_person):
                 aunt.char "You know what, keep all this stuff near the front. Maybe I'll get a chance to wear it for someone who'll appreciate it."
                 "You put away [aunt.title]'s sexy underwear and finish your work for the day."
 
-            "Take a break.":
+            "Take a break":
                 mc.name "Alright, I'm going to go get a glass of water and catch my breath."
                 aunt.char "Go ahead, you've certainly earned it!"
                 $ aunt.change_obedience(1)
@@ -374,7 +374,7 @@ label aunt_intro_moving_apartment_label(the_person):
         cousin.char "Don't touch my stuff."
         $ renpy.scene("Active")
         menu:
-            "Touch her stuff.":
+            "Touch her stuff":
                 "She's not the boss of you. You wait a couple of minutes then start snooping around."
                 "Most of the boxes are clearly labeled, but you find one that just says \"Keep Out!\" on the side."
                 "You open the box and find it filled with all of [cousin.title]'s underwear, all black, purple, or blue."
@@ -393,13 +393,13 @@ label aunt_intro_moving_apartment_label(the_person):
                 "[cousin.title] gives you a strange, mischievous smile."
                 cousin.char "Do you want to see me try some of it on? I won't tell anyone."
                 menu:
-                    "Yes.":
+                    "Yes":
                         "You nod your head. [cousin.title] laughs."
                         $ cousin.change_happiness(10)
                         $ cousin.change_slut_temp(1)
                         cousin.char "Ha! You wish you pervert. Now get out of here before I tell my mom."
 
-                    "No.":
+                    "No":
                         mc.name "What? No, you're being weird now."
                         "She shrugs."
                         cousin.char "Your loss. You'll just have to imagine it now. Now get out of here before I tell my mom you're digging through my things."
@@ -407,7 +407,7 @@ label aunt_intro_moving_apartment_label(the_person):
                 "You get up off of [cousin.title]'s bed and leave."
 
 
-            "Don't touch her stuff.":
+            "Don't touch her stuff":
                 "Not wanting to bring down [cousin.title]'s wrath, you focus on bringing up the rest of the boxes from the car."
                 "Twenty minutes later, [aunt.title] and [cousin.title] come back just after you're done moving the last box."
                 $ cousin.draw_person()
@@ -604,19 +604,19 @@ label aunt_share_drinks_label(the_person):
     "[the_person.possessive_title] takes a sip, then leans back on the couch. She crosses her legs and turns to you."
     the_person.char "So what's been going on with your life? It's been so long!"
     menu:
-        "Talk about work.":
+        "Talk about work":
             mc.name "Well, work's been keeping me busy lately..."
             "You talk to [the_person.possessive_title] about your work. She nods politely but doesn't understand most of it."
             $ the_person.change_obedience(1)
             the_person.char "It sounds like you're a very important person, doing some very important work. I'm proud of you [the_person.mc_title]"
 
-        "Talk about girls.":
+        "Talk about girls":
             mc.name "Well, I've been trying to meet someone lately..."
             "You talk to [the_person.possessive_title] about your love life. She listens intently."
             $ the_person.change_slut_temp(1)
             the_person.char "I've always thought it's important to be adventurous. You might connect with someone you wouldn't expect."
 
-        "Talk about her.":
+        "Talk about her":
             mc.name "Oh, it's been pretty quiet lately. What about you? I know you've been through a lot."
             "You get [the_person.possessive_title] talking about herself. She tells you about her failed marriage."
             $ the_person.change_love(1)
@@ -627,7 +627,7 @@ label aunt_share_drinks_label(the_person):
     "[the_person.title] finishes off the last of her wine."
     the_person.char "Well that was a lovely chat [the_person.mc_title]. I won't keep you here any longer."
     menu:
-        "Convince her to have another glass.":
+        "Convince her to have another glass":
             mc.name "It's really no trouble. I can go pour you another glass, if you'd like."
             if the_person.love >= 20: #Can be convinced
                 the_person.char "Oh, I really shouldn't. It's getting a little late, you probably have important places to be..."
@@ -635,10 +635,10 @@ label aunt_share_drinks_label(the_person):
                 the_person.char "Okay, okay, you've twisted my arm. I'm not to blame for any of my actions beyond this point though!"
                 "She hands you her glass and you head to the kitchen to uncork her bottle of wine."
                 menu:
-                    "Add a dose of serum to her wine.":
+                    "Add a dose of serum to her wine":
                         call give_serum(the_person) from _call_give_serum_13
 
-                    "Leave her drink alone.":
+                    "Leave her drink alone":
                         pass
                 "You top up your own drink while you're in the kitchen and head back to [the_person.title]. You hand over her new drink and sit down."
                 the_person.char "Now, where were we..."
@@ -655,13 +655,13 @@ label aunt_share_drinks_label(the_person):
                     the_person.char "Oh, this wine really has just knocked me out. I'm just going to... rest my eyes while we talk, okay?"
                     "She closes her eyes and leans her head back on the arm rest. She manages a few minutes of mumbled conversation before falling asleep completely."
                     menu:
-                        "Get her a blanket.":
+                        "Get her a blanket":
                             "You go to [the_person.title]'s room and take the blanket off her bed."
                             "You lay the blanket over [the_person.possessive_title]. She grabs onto it and rolls over, mumbling something you can't understand."
                             $ the_person.change_love(2)
                             "You take your wine glasses to the kitchen and leave them in the sink, then see yourself out."
 
-                        "Grope her tits.":
+                        "Grope her tits":
                             "Seizing the opportunity, you kneel down in front of [the_person.possessive_title]."
                             if the_person.outfit.tits_available():
                                 "Her nicely shaped breasts are already there for the taking. You move slowly and cup them in your hands."
@@ -677,7 +677,7 @@ label aunt_share_drinks_label(the_person):
                             mc.name "No problem, I'll clean up our glasses and head out."
                             "She rolls over on the couch and is asleep again before you're out the door."
 
-                        "Grope her pussy.":
+                        "Grope her pussy":
                             "Seizing the opportunity, you kneel down in front of [the_person.possessive_title]."
                             if the_person.outfit.vagina_available():
                                 "Her pussy is out on display for you, there for the taking. You move slowly and slide your hand along her inner thigh, working upward."
@@ -787,13 +787,13 @@ label aunt_share_drinks_label(the_person):
                                 the_person.char "What about my ass? Does it look good?"
 
                             menu:
-                                "Add it to her wardrobe.":
+                                "Add it to her wardrobe":
                                     mc.name "It looks really good on you. You should wear it more often."
                                     the_person.char "You really think so? Okay then, that's why I wanted your opinion in the first place!"
                                     $ the_person.change_obedience(2)
                                     $ the_person.draw_person()
                                     $ the_person.wardrobe.add_outfit(created_outfit)
-                                "Don't add it to her wardrobe.":
+                                "Don't add it to her wardrobe":
                                     mc.name "Now that I'm seeing it, I don't think it really suits you."
                                     the_person.char "That's a shame. Well, that's why I wanted your opinion in the first place!"
                                     $ the_person.change_obedience(1)
@@ -876,12 +876,12 @@ label aunt_share_drinks_label(the_person):
                     the_person.char "Okay, what do you think? Keep or toss?"
                     $ the_person.draw_person(position="back_peek")
                     menu:
-                        "Add it to her wardrobe.":
+                        "Add it to her wardrobe":
                             mc.name "Keep, definitely."
                             $ the_person.draw_person()
                             the_person.char "Okay, keep it is! Let's see what's up next..."
                             $ the_person.wardrobe.add_underwear_set(lingerie)
-                        "Don't add it to her wardrobe.":
+                        "Don't add it to her wardrobe":
                             mc.name "Toss, I think you can do better."
                             $ the_person.draw_person()
                             the_person.char "I think so too. Let's see what's up next..."
@@ -902,12 +902,12 @@ label aunt_share_drinks_label(the_person):
                     the_person.char "What about this one? Keep or toss?"
                     $ the_person.draw_person(position="back_peek")
                     menu:
-                        "Add it to her wardrobe.":
+                        "Add it to her wardrobe":
                             mc.name "Keep."
                             $ the_person.draw_person()
                             the_person.char "We've got a winner! Okay, one more..."
                             $ the_person.wardrobe.add_underwear_set(lingerie)
-                        "Don't add it to her wardrobe.":
+                        "Don't add it to her wardrobe":
                             mc.name "Toss."
                             $ the_person.draw_person()
                             the_person.char "Tough customer. Okay, one more..."
@@ -928,12 +928,12 @@ label aunt_share_drinks_label(the_person):
                     $ the_person.draw_person(position="back_peek")
                     the_person.char "Well?"
                     menu:
-                        "Add it to her wardrobe.":
+                        "Add it to her wardrobe":
                             mc.name "Keep it."
                             $ the_person.draw_person()
                             the_person.char "I thought you'd like this one. Okay, I'll hold onto it!"
                             $ the_person.wardrobe.add_underwear_set(lingerie)
-                        "Don't add it to her wardrobe.":
+                        "Don't add it to her wardrobe":
                             mc.name "Toss it, you've got nice stuff you could wear."
                             $ the_person.draw_person()
                             the_person.char "Yeah, I think you're right. Let's get this off then!"
@@ -975,7 +975,7 @@ label aunt_share_drinks_label(the_person):
                     "She spins around in front of you, showing you her butt."
                     the_person.char "I mean, would you be attracted to me if I wasn't your aunt?"
                     menu:
-                        "Encourage her." if the_person.outfit.remove_random_any(exclude_feet = True, do_not_remove = True):
+                        "Encourage her" if the_person.outfit.remove_random_any(exclude_feet = True, do_not_remove = True):
                             mc.name "Keep taking your clothes off and maybe I'll tell you."
                             $ the_person.change_slut_temp(2)
                             $ the_person.change_obedience(1)
@@ -989,7 +989,7 @@ label aunt_share_drinks_label(the_person):
                             $ the_person.draw_person()
                             the_person.char "We should keep this our little secret, okay?"
 
-                        "Compliment her.":
+                        "Compliment her":
                             mc.name "Of course you're attractive [the_person.title], look at you! You've got a hot ass and a killer rack."
                             the_person.char "Oh [the_person.mc_title], you know just what I wanted to hear..."
                             "She wiggles her ass just for you."
@@ -1005,7 +1005,7 @@ label aunt_share_drinks_label(the_person):
                                 "She turns back around and leans over to give you a hug on the couch."
                             the_person.char "It's been so long since I felt wanted... I think I just needed to feel like I was, even if it's only by you..."
 
-                        "Insult her.":
+                        "Insult her":
                             mc.name "Attractive? Sure, but you've got to accept you're past your prime."
                             $ the_person.change_happiness(-5)
                             the_person.char "What?"
@@ -1033,12 +1033,12 @@ label aunt_share_drinks_label(the_person):
                     "Inch by inch it moves up your leg until it brushes against the tip of your soft cock. She rubs it gently through your pants, coaxing it to life."
                     the_person.char "I... I know we shouldn't, but nobody needs to know. Right?"
                     menu:
-                        "Fuck her.":
+                        "Fuck her":
                             call fuck_person(the_person) from _call_fuck_person_22
                             "[the_person.possessive_title] is exhausted when you're finished fooling around. She lies back on the couch and quickly falls asleep."
                             "You get yourself tidied up, move the dirty glasses of wine to the kitchen, and get ready to leave."
 
-                        "Turn her down.":
+                        "Turn her down":
                             mc.name "I don't think that's a good idea right now [the_person.title]. You're in no state to make that kind of decision."
                             "You gently take her hand off you. She seems to snap to her senses and looks away."
                             the_person.char "Right, of course. I didn't mean... I didn't mean anything, okay?"
@@ -1057,7 +1057,7 @@ label aunt_share_drinks_label(the_person):
                 "[the_person.title] waits until you've finished your glass of wine, then escorts you to the door."
                 mc.name "See you soon [the_person.title]."
                 the_person.char "I hope so! See you around."
-        "Say goodbye.":
+        "Say goodbye":
             "[the_person.title] waits until you've finished your glass of wine, then escorts you to the door."
             mc.name "See you soon [the_person.title]."
             the_person.char "I hope so! See you around."

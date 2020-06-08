@@ -148,7 +148,7 @@ init -2 python:
     def bc_talk_requirement(the_person):
         if persistent.pregnancy_pref == 0:
             return False
-        elif the_person.effective_sluttiness() < 15 and the_person.love < 15:
+        elif the_person.effective_sluttiness() < 15 or the_person.love < 15:
             return False
         else:
             return True
@@ -284,7 +284,7 @@ label person_new_title(the_person): #She wants a new title or to give you a new 
                     mc.name "On second thought, I think [the_person.title] suits you just fine."
                     the_person.char "If you think so [the_person.mc_title]."
 
-            "Don't change her title.":
+            "Don't change her title":
                 mc.name "I think [the_person.title] suits you just fine."
                 the_person.char "If you think so [the_person.mc_title]."
 
@@ -342,7 +342,7 @@ label person_new_title(the_person): #She wants a new title or to give you a new 
                 mc.name "I think you're right, [formatted_new_title] sounds good."
                 $ the_person.set_title(new_title)
 
-            "Refuse to change her title\n-10 Happiness":
+            "Refuse to change her title\n{color=#ff0000}{size=18}-10 Happiness{/size}{/color}":
                 mc.name "I think that sounds silly, I'm just going to keep calling you [the_person.title]."
                 "[the_person.title] scoffs and rolls her eyes."
                 $ the_person.change_happiness(-10)
@@ -356,7 +356,7 @@ label person_new_mc_title(the_person):
     if randomised_obedience > 120: #She just asks you for something "fresh". Her obedience is high enough that we already have control over this.
         the_person.char "I was just thinking that I've called you [the_person.mc_title] for a pretty long time. If you're getting tired of it I could call you something else."
         menu:
-            "Change what she calls you.":
+            "Change what she calls you":
                 #TODO: present the player with a list. TODO: Refactor the event above to be a generic way of presenting a list, w/ the dialogue separated.
                 $ title_choice = new_mc_title_menu(the_person)
                 if not (title_choice == "Back" or title_choice == the_person.mc_title):
@@ -367,7 +367,7 @@ label person_new_mc_title(the_person):
                     mc.name "On second thought, I think [the_person.mc_title] is fine for now."
                     the_person.char "If you think so [the_person.mc_title]."
 
-            "Don't change her title for you.":
+            "Don't change her title for you":
                 mc.name "I think [the_person.mc_title] is fine for now."
                 the_person.char "Okay, if you say so!"
 
@@ -381,11 +381,11 @@ label person_new_mc_title(the_person):
 
             the_person.char "Hey [the_person.mc_title], would you rather I called you [title_two]?"
             menu:
-                "Have her keep calling you [title_one].":
+                "Have her keep calling you [title_one]":
                     mc.name "I think I like [title_one], but thanks for asking."
                     "She shrugs."
                     the_person.char "Sure, whatever you like [the_person.mc_title]."
-                "Have her call you [title_two] instead.":
+                "Have her call you [title_two] instead":
                     mc.name "[title_two] does have a nice ring to it. You should start using that."
                     $ the_person.set_mc_title(title_two)
                     the_person.char "Alright, you got it [the_person.mc_title]!"
@@ -457,23 +457,23 @@ label small_talk_person(the_person): #Tier 0. Useful for discovering a character
             $ love_gain = 4
             $ prediction = 0
             menu:
-                "I love [opinion_learned].":
+                "I love [opinion_learned]":
                     $ prediction = 2
                     mc.name "Me? I love [opinion_learned]. Absolutely love it."
 
-                "I like [opinion_learned].":
+                "I like [opinion_learned]":
                     $ prediction = 1
                     mc.name "I really like [opinion_learned]."
 
-                "I don't have any opinion about [opinion_learned].":
+                "I don't have any opinion about [opinion_learned]":
                     $ prediction = 0
                     mc.name "I don't really have any thoughts on it, I guess I just don't think it's a big deal."
 
-                "I don't like [opinion_learned].":
+                "I don't like [opinion_learned]":
                     $ prediction = -1
                     mc.name "I'm not a fan, that's for sure."
 
-                "I hate [opinion_learned].":
+                "I hate [opinion_learned]":
                     $ prediction = -2
                     mc.name "I'll be honest, I absolutely hate [opinion_learned]. I just can't stand it."
 
@@ -1572,7 +1572,7 @@ label bc_talk_label(the_person):
             else:
                 the_person.char "Oh, well... I'm not taking any right now."
         menu:
-            "Start taking birth control." if not the_person.on_birth_control:
+            "Start taking birth control" if not the_person.on_birth_control:
                 mc.name "You should start taking some, I don't want you getting pregnant."
                 if the_person.love >= needed_start or the_person.effective_sluttiness() >= needed_start:
                     "She thinks about it for a moment, then nods."
@@ -1596,7 +1596,7 @@ label bc_talk_label(the_person):
                         the_person.char "I'm sorry [the_person.mc_title], but I've tried it before and it plays hell with my hormones."
                         the_person.char "We can just use a condom, or do something else to have fun together."
 
-            "Stop taking birth control." if the_person.on_birth_control:
+            "Stop taking birth control" if the_person.on_birth_control:
                 mc.name "I want you to stop taking it."
                 if the_person.love >= needed_stop or the_person.effective_sluttiness() >= needed_stop:
                     if the_person.get_opinion_score("creampies") > 0 and the_person.get_opinion_score("bareback sex") > 0:
@@ -1623,7 +1623,7 @@ label bc_talk_label(the_person):
                         the_person.char "I don't think that's a good idea. What if something happened? Are we ready for that change in our lives?"
                         the_person.char "Maybe one day, but I'm not comfortable with it right now."
 
-            "That's all I wanted to know.":
+            "That's all I wanted to know":
                 mc.name "That's all, I just wanted to check on that."
 
     elif the_person.effective_sluttiness() > 40:
@@ -1640,7 +1640,7 @@ label bc_talk_label(the_person):
             the_person.char "Oh, I guess that's probably an important thing for you to know about."
             the_person.char "I'm not taking any birth control right now."
         menu:
-            "Start taking birth control." if not the_person.on_birth_control:
+            "Start taking birth control" if not the_person.on_birth_control:
                 mc.name "You should probably start taking it, before something happens and you get pregnant."
                 if the_person.love >= needed_start or the_person.effective_sluttiness() >= needed_start:
                     the_person.char "That's probably a good idea. I'll talk talk to my doctor as soon as possible about it."
@@ -1655,7 +1655,7 @@ label bc_talk_label(the_person):
                         the_person.char "Sorry, I've tried it before and it just messes with my hormones too badly."
                         the_person.char "We'll just be careful and use a condom, or you can pull out. Okay?"
 
-            "Stop taking birth control." if the_person.on_birth_control:
+            "Stop taking birth control" if the_person.on_birth_control:
                 mc.name "You should stop taking it. Wouldn't that be really hot?"
                 if the_person.love >= needed_start or the_person.effective_sluttiness() >= needed_stop:
                     if the_person.get_opinion_score("creampies") > 0 and the_person.get_opinion_score("bareback sex") > 0:
@@ -1676,7 +1676,7 @@ label bc_talk_label(the_person):
                     "[the_person.possessive_title] shakes her head."
                     the_person.char "That would be crazy! There's no way I could gamble the rest of my life on some guy pulling out or me getting lucky."
 
-            "That's all I wanted to know.":
+            "That's all I wanted to know":
                 mc.name "That's all, I just wanted to check."
     else:
         if the_person.love > 30:
@@ -1712,17 +1712,17 @@ label bc_demand_label(the_person):
         the_person.char "I'm... not taking any right now."
 
     menu:
-        "Start taking birth control." if not the_person.on_birth_control and the_person.obedience >= 130:
+        "Start taking birth control" if not the_person.on_birth_control and the_person.obedience >= 130:
             mc.name "I want you to start taking some. I don't want you getting pregnant."
             "[the_person.possessive_title] nods."
             the_person.char "Okay, I can do that. I'll talk to my doctor, I think I'll be able to start it tomorrow."
             mc.name "Good."
             call manage_bc(the_person, start = True) from _call_manage_bc_6
 
-        "Start taking birth control.\n{color=#FF0000}Requires: 130 Obedience{/color} (disabled)" if not the_person.on_birth_control and the_person.obedience < 130:
+        "Start taking birth control\n{color=#FF0000}{size=18}Requires: 130 Obedience{/size}{/color} (disabled)" if not the_person.on_birth_control and the_person.obedience < 130:
             pass
 
-        "Stop taking birth control." if the_person.on_birth_control and the_person.obedience >= 160:
+        "Stop taking birth control" if the_person.on_birth_control and the_person.obedience >= 160:
             mc.name "I want you to stop taking it."
             $ complains_threshold = 45 - (15 * the_person.get_opinion_score("creampies"))
             if the_person.effective_sluttiness() >= complains_threshold:
@@ -1746,10 +1746,10 @@ label bc_demand_label(the_person):
 
             call manage_bc(the_person, start = False) from _call_manage_bc_7
 
-        "Stop taking birth control.\n{color=#FF0000}Requires: 160 Obedience{/color} (disabled)" if  the_person.on_birth_control and the_person.obedience < 160:
+        "Stop taking birth control\n{color=#FF0000}{size=18}Requires: 160 Obedience{/size}{/color} (disabled)" if  the_person.on_birth_control and the_person.obedience < 160:
             pass
 
-        "That's all I wanted to know.":
+        "That's all I wanted to know":
             the_person.char "Good. That's all I wanted to know."
     return
 

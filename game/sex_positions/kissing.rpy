@@ -46,7 +46,7 @@ label scene_kissing_1(the_girl, the_location, the_object):
         #CHOICE CONCEPT: Hold her head,neck // Grab and squeeze her ass.
         "You and [the_girl.title] kiss. She uses a hand to caresses your back."
         menu:
-            "Hold her tight.":
+            "Hold her tight":
                 "You place one of your hands on the small of [the_girl.title]'s back and the other on the back of her neck."
                 if the_girl.get_opinion_score("kissing") > 0:
                     $ the_girl.change_arousal(the_girl.get_opinion_score("kissing"))
@@ -56,7 +56,7 @@ label scene_kissing_1(the_girl, the_location, the_object):
                 else:
                     "You make out for a few moments in silence, enjoying the feeling of each others bodies."
 
-            "Squeeze her ass.":
+            "Squeeze her ass":
                 "You move your hands down [the_girl.title]'s waist and around to her butt. You give both cheeks a squeeze."
                 if the_girl.core_sluttiness > 60:
                     $ kissing.current_modifier = None
@@ -96,9 +96,9 @@ label scene_kissing_1(the_girl, the_location, the_object):
         "After a moment you break the kiss and she looks away, embarrassed."
         the_girl.char "I'm sorry, I just don't know how to do this very well..."
         mc.name "Don't worry, I'll show you."
-        #CHOICE CONCEPT: Teach her what to do and Go gentle // Passioante french (Good oral skill leads to great french kissing).
+        #CHOICE CONCEPT: Teach her what to do and Go gentle // Passionate french (Good oral skill leads to great french kissing).
         menu:
-            "Be gentle.":
+            "Be gentle":
                 "You put one hand on the small of [the_girl.title]'s back and the other on her neck."
                 mc.name "Just relax."
                 $ kissing.current_modifier = "kissing"
@@ -106,7 +106,7 @@ label scene_kissing_1(the_girl, the_location, the_object):
                 "She nods, and you press your lips to hers."
                 "Little by little the tension in [the_girl.possessive_title]'s body starts to leave and she's able to enjoy herself."
 
-            "Be passionate.":
+            "Be passionate":
                 $ kissing.current_modifier = "kissing"
                 $ kissing.redraw_scene(the_girl)
                 "You put your arms around [the_girl.possessive_title] and pull her against you. Press your lips to hers and give her a long, passionate kiss."
@@ -143,7 +143,7 @@ label scene_kissing_2(the_girl, the_location, the_object):
     $ kissing.redraw_scene(the_girl)
     "You and [the_girl.title] make out for a long moment before she breaks the kiss. She wraps her arms around your waist and looks deep into your eyes."
     menu:
-        "Kiss her neck.":
+        "Kiss her neck":
             "You lean forward and kiss [the_girl.possessive_title]'s neck. She tilts her head to the side for you and lets out a long gasp."
             $ kissing.current_modifier = None
             $ kissing.redraw_scene(the_girl)
@@ -160,7 +160,7 @@ label scene_kissing_2(the_girl, the_location, the_object):
             $ kissing.redraw_scene(the_girl)
             "You finish kissing her neck and slide back up to her lips. She pulls you tight against her and passionately returns the kiss."
 
-        "Fondle her tits.":
+        "Fondle her tits":
             $ kissing.current_modifier = None
             $ kissing.redraw_scene(the_girl)
             if the_girl.has_large_tits():
@@ -264,12 +264,12 @@ label strip_ask_kissing(the_girl, the_clothing, the_location, the_object):
     $ kissing.redraw_scene(the_girl)
     the_girl.char "[the_girl.mc_title], I'd like to take off my [the_clothing.name], would you mind?"
     menu:
-        "Let her strip.":
+        "Let her strip":
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = kissing.position_tag)
             "You watch while [the_girl.possessive_title] takes off her [the_clothing.name] and drops it to the side. She's done you pull her close and kiss her again."
 
-        "Leave it on.":
+        "Leave it on":
             mc.name "No, I like how you look with it on."
             if the_girl.sluttiness < 80:
                 the_girl.char "Do you think I look sexy in it?"

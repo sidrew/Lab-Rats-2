@@ -128,7 +128,7 @@ label outro_doggy_anal(the_girl, the_location, the_object):
     mc.name "Fuck, here I cum!"
 
     menu:
-        "Cum inside of her.":
+        "Cum inside of her":
             "You push yourself balls deep into [the_girl.title]'s ass and dump your load."
             #This is where the "cum in me" section would go instead
             #the_girl.char "Ah! Ah!"
@@ -154,7 +154,7 @@ label outro_doggy_anal(the_girl, the_location, the_object):
                 the_girl.char "Wow, that was intense. I hope you didn't stretch me out too badly."
 
 
-        "Cum on her ass.":
+        "Cum on her ass":
             "You pull out of [the_girl.possessive_title]'s asshole, leaving it gaping while you stroke yourself to completion."
             if the_girl.sex_skills["Anal"] > 2:
                 "She sighs in relief as you pull out."
@@ -182,7 +182,7 @@ label transition_doggy_anal_doggy(the_girl, the_location, the_object):
         $ wants_condom = True
 
     menu:
-        "Put on a condom.":
+        "Put on a condom":
             "You pull your dick back and find a condom in your wallet. It takes you a moment to spread it over your cock, then you line yourself up again."
 
         "Ram it home!":
@@ -218,13 +218,13 @@ label strip_ask_doggy_anal(the_girl, the_clothing, the_location, the_object):
     the_girl.char "[the_girl.mc_title], what do you think of me taking off my [the_clothing.name]?"
     "[the_girl.title] pants as you fuck her ass from behind."
     menu:
-        "Let her strip.":
+        "Let her strip":
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = doggy.position_tag)
             "She leans forward and pops off your dick. [the_girl.possessive_title] struggles out of her [the_clothing.name] and throws it to the side."
             "When she's ready you line your cock back up with her asshole and slide back in, a little easier than the first time now that it's been stretched out."
 
-        "Leave it on.":
+        "Leave it on":
             mc.name "No, I want you to keep it on."
             if the_girl.sluttiness < 80:
                 the_girl.char "Do I look sexy in it? Does it turn you on?"

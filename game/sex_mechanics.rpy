@@ -239,12 +239,12 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
                 # They're close to their orgasm and beg you to help them finish.
                 $ the_person.call_dialogue("sex_beg_finish")
                 menu:
-                    "Give her what she wants.":
+                    "Give her what she wants":
                         $ the_person.change_obedience(2)
                         $ report_log["beg finish"] = report_log.get("beg finish", 0) + 1
                         $ finished = False
 
-                    "Stop and leave.":
+                    "Stop and leave":
                         $ the_person.call_dialogue("sex_end_early")
 
             elif report_log.get("beg finish", 0) > 0 and report_log.get("girl orgasms", 0) == 0: #You promised to make her cum but didn't
@@ -552,11 +552,11 @@ label condom_ask(the_person):
             the_person.char "Do you have a condom? You're going to have to put one on."
 
         menu:
-            "Put on a condom.":
+            "Put on a condom":
                 $ mc.condom = True
                 "You pull out a condom from your wallet and rip open the package. [the_person.title] watches while you slide it on."
 
-            "Refuse and do something else.":
+            "Refuse and do something else":
                 "[the_person.title] doesn't seem like she's going to change her mind."
                 mc.name "If it's that important to you let's just do something else."
                 return False
@@ -571,12 +571,12 @@ label condom_ask(the_person):
         else:
             the_person.char "Do you think you should put a condom on? Maybe it's a good idea."
         menu:
-            "Put on a condom.":
+            "Put on a condom":
                 $ mc.condom = True
                 mc.name "I think you're right. One second."
                 "[the_person.title] watches eagerly while you pull a condom out of your wallet, tear open the package, and unroll it down your dick."
 
-            "Fuck her raw.":
+            "Fuck her raw":
                 mc.name "No way. I want to feel you wrapped around me."
                 if the_person.has_taboo("condomless_sex"):
                     $ the_person.call_dialogue("condomless_sex_taboo_break")
@@ -600,13 +600,13 @@ label condom_ask(the_person):
         else:
             the_person.char "You don't need a condom, I want to feel every single thing you do to me."
         menu:
-            "Put on a condom.":
+            "Put on a condom":
                 $ mc.condom = True
                 mc.name "Sorry, but I still think a condom is a good idea."
                 the_person.char "Fine, just make it quick please!"
                 "[the_person.title] watches impatiently while you pull a condom out of your wallet, tear open the package, and unroll it down your dick."
 
-            "Fuck her raw.":
+            "Fuck her raw":
                 mc.name "No arguments here."
 
     if not mc.condom:
@@ -717,14 +717,14 @@ label affair_check(the_person, report_log): #Report log is handed over so we can
     the_person.char "We both have feeling for each other, right? Maybe we can see each other some more. My [so_title] doesn't need to know. He'll never find out."
     $ the_person.discover_opinion("cheating on men")
     menu:
-        "Have an affair with [the_person.title].":
+        "Have an affair with [the_person.title]":
             mc.name "I want that too, anything that will let me be close to you."
             $ the_person.draw_person(emotion = "happy")
             $ the_person.special_role.append(affair_role)
             $ the_person.change_slut_temp(2)
             "She smiles and hugs you."
 
-        "Refuse.":
+        "Refuse":
             mc.name "That's not what I'm here for [the_person.title]. This was fun, but I don't want it to be anything but completely casual."
             $ the_person.change_love(-1)
     return

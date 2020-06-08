@@ -155,14 +155,14 @@ label improved_serum_unlock_label(the_person):
                 the_person.char "I... Yes, I agree with you sir."
                 "[the_person.title]'s eyes are fixed firmly on yours. This seems like a good chance to impress upon her your goals for the company."
                 menu:
-                    "Stress the importance of obedience. (tooltip)Likely to raise her obedience.":
+                    "Stress the importance of obedience (tooltip)Likely to raise her obedience.":
                         mc.name "A highly organized workplace is important, especially in a lab setting. I need employees who are able to listen to my instructions and follow them."
                         "[the_person.possessive_title] nods in agreement."
                         mc.name "As the leader of the research team I need you to be especially loyal. Do you understand?"
                         $ the_person.change_obedience(10)
                         the_person.char "Yes, absolutely. I'll do everything I can to make sure this business is successful."
 
-                    "Stress the importance of appearance. (tooltip)Likely to raise her sluttiness.":
+                    "Stress the importance of appearance (tooltip)Likely to raise her sluttiness.":
                         mc.name "Impressions are key in this line of business, and I need my employees dressed to impress."
                         "[the_person.possessive_title] nods in agreement."
                         mc.name "As the leader of the research team I need you to be especially aware of your appearance. You represent everything our technology can achieve. Do you understand?"
@@ -170,14 +170,14 @@ label improved_serum_unlock_label(the_person):
                         $ the_person.change_slut_core(5)
                         the_person.char "Yes, absolutely. I'll make sure I always leave a positive impression."
 
-                    "Stress the importance of satisfaction. (tooltip)Likely to dramatically raise her happiness.":
+                    "Stress the importance of satisfaction (tooltip)Likely to dramatically raise her happiness.":
                         mc.name "It can be easy to burn yourself out in this line of business. Pay might not always be great and the hours might be long, but a good attitude is key."
                         "[the_person.possessive_title] nods in agreement."
                         mc.name "Your attitude is going to affect the rest of the research team. I need you to be as positive as possible, do you understand?"
                         $ the_person.change_happiness(10)
                         the_person.char "Yes sir, I understand completely. I'll try and be as chipper as possible."
 
-                    "Stress the importance of your relationship. (tooltip)Likely to raise her love for you.":
+                    "Stress the importance of your relationship (tooltip)Likely to raise her love for you.":
                         mc.name "Through everything we're going to do together I want you to know that your friendship means the world to me."
                         mc.name "I need you to stick by my side through it all."
                         $ the_person.change_love(5)
@@ -192,7 +192,7 @@ label improved_serum_unlock_label(the_person):
                 "[the_person.title] takes your notes and returns to the R&D department."
                 call advance_time from _call_advance_time_8
 
-        "Do not allow the test.":
+        "Do not allow the test":
             mc.name "I'll think about it, but I would like to avoid self experimentation if possible."
             the_person.char "If you change your mind let me know. Until then I will do my best with what little knowledge we have available."
 
@@ -305,7 +305,7 @@ label advanced_serum_stage_2_label(the_person):
     $ mc.log_event(the_person.title + ": Personality changed. Now: Bimbo", "float_text_pink")
     "[the_person.title] reaches her hand down to your waist and runs her fingers along your cock through your pants."
     menu:
-        "Have sex with [the_person.title].":
+        "Have sex with [the_person.title]":
             "You smile back at [the_person.title]. She lets out a happy giggle when you wrap your arms around her waist."
             $ the_person.change_int(-1)
             call fuck_person(the_person) from _call_fuck_person_8
@@ -321,11 +321,11 @@ label advanced_serum_stage_2_label(the_person):
             "Even her tone of voice has changed; She's practically bubbling over with excitement right now. She certainly doesn't seem like the intelligent research head you've come to rely on though."
 
             menu:
-                "Give [the_person.title] the reversal serum.":
+                "Give [the_person.title] the reversal serum":
                     $ had_sex = True
                     pass #This falls through to the previous section.
 
-                "Leave [the_person.title] the way she is.":
+                "Leave [the_person.title] the way she is":
                     "You think about giving [the_person.title] the reversal serum but decide against it. You aren't sure if the serum effects will wear off, but she seems happy enough as she is."
                     "[the_person.title] certainly doesn't seem like she's in any state to run your research department. It would be a good idea to pick a successor to continue [the_person.title]'s work."
                     mc.name "Okay [the_person.title], we're all done here."
@@ -341,7 +341,7 @@ label advanced_serum_stage_2_label(the_person):
                     $ mc.business.event_triggers_dict["research_bimbo"] = the_person
                     return
 
-        "Give [the_person.title] the reversal serum.":
+        "Give [the_person.title] the reversal serum":
             $ had_sex = False
             pass
 
@@ -453,10 +453,10 @@ label futuristic_serum_stage_2_label(the_person):
     "[the_person.title] looks over the files of the employees you suggested and nods approvingly."
     the_person.char "I think they will do. You're sure you want me to bring in [pick_1.name], [pick_2.name], and [pick_3.name] for testing?"
     menu:
-        "Begin the testing.":
+        "Begin the testing":
             pass
 
-        "Reconsider.":
+        "Reconsider":
             mc.name "On second thought, I don't think I want them involved. I'll think about it and come back."
             the_person.char "I'll be here."
             return

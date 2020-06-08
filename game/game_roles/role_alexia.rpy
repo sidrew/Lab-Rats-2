@@ -320,7 +320,7 @@ label alexia_ad_suggest_label(the_person):
     mc.name "I also don't think we would need to hire a model."
     the_person.char "What do you mean?"
     menu:
-        "You're all the eye candy we need.":
+        "You're all the eye candy we need":
             mc.name "You're all the eye candy we need. We can take a few high quality pictures of you and we're good to go."
             $ the_person.change_slut_temp(2)
             $ the_person.change_love(1)
@@ -328,7 +328,7 @@ label alexia_ad_suggest_label(the_person):
             the_person.char "Oh come on, you know we could find someone better for it. But I guess if I did it we would save some money."
             the_person.char "If it's just a few quick shots, I suppose I wouldn't mind."
 
-        "We would save money if you were the model.":
+        "We would save money if you were the model":
             mc.name "You look perfect for the role in this mockup already. We can take a few high quality pictures and these would be ready for production."
             $ the_person.change_obedience(2)
             $ the_person.change_happiness(1)

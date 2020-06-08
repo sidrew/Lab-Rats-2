@@ -439,10 +439,10 @@ label nora_profile_person(the_person):
         $ the_other_person = mc.business.event_triggers_dict.get("nora_research_subject")
         "Studying [the_person.title] will replace your information about [the_other_person.title]."
         menu:
-            "Discard the report and continue.":
+            "Discard the report and continue":
                 pass
 
-            "Keep the report on [the_other_person.title].":
+            "Keep the report on [the_other_person.title]":
                 return
         $ del the_other_person
 

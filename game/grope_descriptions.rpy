@@ -161,7 +161,7 @@ label grope_tits(the_person):
                 $ the_person.change_arousal(5 + mc.sex_skills["Foreplay"])
                 the_person.char "Sorry, you're making it really hard to concentrate right now."
             menu:
-                "Keep going.":
+                "Keep going":
                     mc.name "We can keep talking later, I think there's something more important to take care of."
                     if the_person.effective_sluttiness() < 40:
                         "She nods and steps closer to you, pressing her body against yours eagerly."
@@ -171,5 +171,5 @@ label grope_tits(the_person):
                         "You cradle a breast in one hand and slide your other down between her legs to caress her inner thing."
                     return True #Note: If this returns True it leads into the generic sex system starting with a standing massage position.
 
-                "Stop touching her.":
+                "Stop touching her":
                     return False

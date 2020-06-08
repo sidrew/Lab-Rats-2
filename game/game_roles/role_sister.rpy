@@ -100,7 +100,7 @@ label sister_intro_crisis_label(the_person):
     the_person.char "Help you science all that science stuff?"
     mc.name "I don't think that's really where I need help. But..."
     menu:
-        "Ask [the_person.title] to test serum for you.":
+        "Ask [the_person.title] to test serum for you":
             the_person.char "But...? Come on [the_person.mc_title], I really need your help."
             mc.name "Well, at the lab we've been running some experiments, but we need some test subjects."
             mc.name "I can bring home some of the stuff we're working on and if you let me test it on you I can pay you for it."
@@ -119,7 +119,7 @@ label sister_intro_crisis_label(the_person):
             "[the_person.title] gives you one last smile then leaves your room, shutting the door behind her."
             $ mc.business.event_triggers_dict["sister_serum_test"] = True
 
-        "Ask [the_person.title] to leave you alone.":
+        "Ask [the_person.title] to leave you alone":
             the_person.char "But...?"
             mc.name "But I was just about to head to bed, so if you could let me get some sleep that would be a huge help."
             $ the_person.draw_person(emotion = "sad")
@@ -191,11 +191,11 @@ label sister_strip_intro_label(the_person):
     the_person.char "Oh come on [the_person.mc_title], don't you have anything I could do? I really need the money now."
     "[the_person.possessive_title] puts her arms behind her back and pouts at you."
     menu:
-        "Pay her to strip for you.":
+        "Pay her to strip for you":
             call strip_explanation(the_person) from _call_strip_explanation
 
 
-        "Tell her to leave.":
+        "Tell her to leave":
             mc.name "I just don't have anything to give you [the_person.title]. I promise if I think of anything I'll come to you right away."
             the_person.char "Ugh... fine."
             "She turns and leaves your room, disappointed."
@@ -293,7 +293,7 @@ label sister_instathot_intro_label(the_person):
     "Looking at her outfit it seems like she has the right idea."
     the_person.char "Since you're here, could you use my phone and take some pictures? It's hard doing it all myself."
     menu:
-        "Help her.":
+        "Help her":
             mc.name "Fine, give it here."
             $ the_person.change_happiness(5)
             the_person.char "Yay, thank you [the_person.mc_title]!"
@@ -311,7 +311,7 @@ label sister_instathot_intro_label(the_person):
             mc.name "Alright, I'll keep that in mind. Glad to help."
 
 
-        "Refuse and leave.":
+        "Refuse and leave":
             mc.name "I'm busy right now, I was just stopping by to say hi."
             $ the_person.change_happiness(-5)
             $ the_person.draw_person(emotion = "sad")
@@ -352,7 +352,7 @@ label sister_instathot_label(the_person):
             $ the_person.change_slut_temp(1)
             $ the_person.change_happiness(3)
 
-        "I don't think so.":
+        "I don't think so":
             mc.name "I'm not so sure. They might be looking for something... More."
             if the_person.effective_sluttiness() >= 30:
                 the_person.char "Yeah, I think so too. Too bad Insta-pic is run by a bunch of prudes. I wish there was somewhere I could show more..."

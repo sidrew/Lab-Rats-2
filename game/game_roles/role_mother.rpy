@@ -42,16 +42,16 @@ label mom_weekly_pay_label(the_person):
                     the_person.char "The budget is still really tight [the_person.mc_title]. I was hoping you could help out, for a favour, of course."
                     the_person.char "I haven't taken my birth control all week. If you're able to pay me I won't start again."
                     menu:
-                        "Keep her off her birth control. -$150" if mc.business.funds >= 150:
+                        "Keep her off her birth control\n{color=#ff0000}{size=18}Costs: $150{/size}{/color]" if mc.business.funds >= 150:
                             mc.name "I think we can keep this deal going."
                             "You pull out the cash and hand it over. She places them alongside the bills."
                             $ mc.business.funds += -150
                             the_person.char "Thank you so much. Is there anything else I could do for a little more help?"
 
-                        "Keep her off her birth control. -$150 (disabled)" if mc.business.funds < 150:
+                        "Keep her off her birth control{color=#ff0000}{size=18}Requires: $150{/size}{/color} (disabled)" if mc.business.funds < 150:
                             pass
 
-                        "Let her start taking her birth control.":
+                        "Let her start taking her birth control":
                             mc.name "I'm sorry, the budget at work has been a little tight lately."
                             the_person.char "I understand. Is there anything else I can do for then?"
                             call manage_bc(the_person, start = True) from _call_manage_bc
@@ -90,7 +90,7 @@ label mom_low_sluttiness_weekly_pay(the_person):
             "You pull out your wallet and count out some cash, but hesitate before you hand it over."
             $ mc.business.funds += -100
             menu:
-                "Ask for a kiss.":
+                "Ask for a kiss":
                     mc.name "I'd like a kiss for it though."
                     if the_person.has_taboo("kissing"):
                         the_person.char "A kiss?"
@@ -119,7 +119,7 @@ label mom_low_sluttiness_weekly_pay(the_person):
                     "You hold out the cash for her and she takes it."
                     the_person.char "Thank you so much, every little bit helps."
 
-                "Make her say please.":
+                "Make her say please":
                     mc.name "What are the magic words?"
                     the_person.char "Abracadabra?"
                     mc.name "No, the words we say when we want help?"
@@ -363,17 +363,17 @@ label mom_offer_make_dinner_label(the_person):
     "You head to the kitchen and get to work. The cooking isn't hard, but it takes up most of your evening."
     "As you're plating out dinner you have a perfect opportunity to give your mother or sister some serum in secret."
     menu:
-        "Add serum to Mom's food.":
+        "Add serum to Mom's food":
             call give_serum(mom) from _call_give_serum_8
 
-        "Leave Mom's food alone.":
+        "Leave Mom's food alone":
             pass
 
     menu:
-        "Add serum to [lily.name]'s food.":
+        "Add serum to [lily.name]'s food":
             call give_serum(lily) from _call_give_serum_9
 
-        "Leave [lily.name]'s food alone.":
+        "Leave [lily.name]'s food alone":
             pass
 
     "You bring the food out and have a nice family dinner together."

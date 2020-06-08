@@ -95,7 +95,7 @@ label outro_tit_fuck(the_girl, the_location, the_object):
     "You nod and she speeds up."
     the_girl.char "Cum for me [the_girl.mc_title], cum for me!"
     menu:
-        "Cum between her tits.":
+        "Cum between her tits":
             "You close your eyes and focus on the sensation of [the_girl.possessive_title]'s warm, soft breasts massaging your cock."
             "Your orgasm builds to a peak and you grunt, blasting your load up between [the_girl.title]'s tits and out the top of her cleavage."
             $ blocker = the_girl.outfit.get_upper_top_layer()
@@ -107,7 +107,7 @@ label outro_tit_fuck(the_girl, the_location, the_object):
             $ the_girl.cum_on_tits()
             $ tit_fuck.redraw_scene(the_girl)
 
-        "Cum on her face.":
+        "Cum on her face":
             "You close your eyes and focus on the sensation of [the_girl.possessive_title]'s warm, soft breasts massaging your cock."
             "As your orgasm builds to it's peak you step back, sliding your cock out from her cleavage and take it up in your own hand."
             if the_girl.effective_sluttiness() > 40 or the_girl.get_opinion_score("cum facials") > 0:
@@ -139,14 +139,14 @@ label strip_ask_tit_fuck(the_girl, the_clothing, the_location, the_object):
     the_girl.char "[the_girl.mc_title], would you like me to take off my [the_clothing.name]?"
     "She works her tits up and down while she waits for you to respond."
     menu:
-        "Let her strip.":
+        "Let her strip":
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = tit_fuck.position_tag)
             "[the_girl.title] leans back, letting your cock slide out of her cleavage, and pulls off her [the_clothing.name]."
             the_girl.char "Ah, so much better. Now, where were we..."
             "She leans back and engulfs your hard cock in her breasts again."
 
-        "Leave it on.":
+        "Leave it on":
             mc.name "I think you look cute in it, leave it on."
             "She nods and keeps working her tits up and down."
     return
