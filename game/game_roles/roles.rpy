@@ -244,6 +244,7 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
 
 
         prostitute_role = Role("Prostitute", get_prostitute_role_actions())
+        pregnant_role = Role("Pregnant", [], hidden = True)
     return
 
 
