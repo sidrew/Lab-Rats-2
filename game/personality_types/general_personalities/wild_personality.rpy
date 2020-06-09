@@ -455,7 +455,7 @@ label wild_flirt_response_mid(the_person):
             else:
                 the_person.char "Aw, thanks! I thought this was a pretty hot look when I was getting dressed this morning."
 
-            the_person.char "Maybe I'll invite you shopping one day, so you can tell me else you want to see me in."
+            the_person.char "Maybe I'll invite you shopping one day, so you can tell me what else you want to see me in."
             mc.name "I can think of a few things already."
             the_person.char "I'm sure you can."
 
