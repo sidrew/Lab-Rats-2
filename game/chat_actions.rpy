@@ -1426,7 +1426,7 @@ init -2 python:
         touch_demand_action = Action("Let me touch you   {color=#FFFF00}-10{/color} {image=gui/extra_images/energy_token.png}", requirement = demand_touch_requirement, effect = "demand_touch_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Demand [the_person.title] stays still and lets you touch her. Going too far may damage your relationship.", priority = -5)
 
-        bc_demand_action = Action("Talk about birth control.", requirement = demand_bc_requirement, effect = "bc_demand_label", args = the_person, requirement_args = the_person,
+        bc_demand_action = Action("Talk about birth control", requirement = demand_bc_requirement, effect = "bc_demand_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Discuss [the_person.title]'s use of birth control.", priority = -5)
 
         return ["Command", change_titles_action, wardrobe_change_action, serum_demand_action, strip_demand_action, touch_demand_action, bc_demand_action, ["Never mind", "Return"]]
