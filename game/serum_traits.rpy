@@ -192,10 +192,10 @@ init -1:
                 mc.log_event(the_person.title + ": +20 Fertility", "float_text_red")
 
         def fertility_enhancement_on_remove(the_person, add_to_log):
-            the_person.fertility_percent += -20
+            the_person.fertility_percent -= 20
 
         def fertility_suppression_on_apply(the_person, add_to_log):
-            the_person.fertility_percent += -20
+            the_person.fertility_percent -= 20
             display_name = the_person.create_formatted_title("???")
             if the_person.title:
                 display_name = the_person.title
@@ -203,7 +203,7 @@ init -1:
                 mc.log_event(the_person.title + ": -20 Fertility", "float_text_red")
 
         def fertility_suppression_on_remove(the_person, add_to_log):
-            the_person.fertility_percent += +20
+            the_person.fertility_percent += 20
 
         def birth_control_suppression_on_apply(the_person, add_to_log):
             the_person.bc_penalty += 40
@@ -214,7 +214,7 @@ init -1:
                 mc.log_event(display_name + ": Birth control effectiveness reduced by 40%", "float_text_grey")
 
         def birth_control_suppression_on_remove(the_person, add_to_log):
-            the_person.bc_penalty += -40
+            the_person.bc_penalty -= 40
 
         def lactation_hormones_on_apply(the_person, add_to_log):
             the_person.lactation_sources += 1
@@ -228,22 +228,25 @@ init -1:
                     mc.log_event(display_name + ": Lactation increases", "float_text_blue")
 
         def lactation_hormones_on_remove(the_person,add_to_log):
-            the_person.lactation_sources += -1
+            the_person.lactation_sources -= 1
 
         def massive_pregnancy_accelerator_on_turn(the_person, add_to_log):
-            the_person.event_triggers_dict["preg_tits_date"] = the_person.event_triggers_dict.get("preg_tits_date", day) - 1
-            the_person.event_triggers_dict["preg_transform_day"] = the_person.event_triggers_dict.get("preg_transform_day", day) - 1
-            the_person.event_triggers_dict["preg_finish_announce_day"] = the_person.event_triggers_dict.get("preg_finish_announce_day", day) - 1
+            if pregnant_role in the_person.special_role: # only has effect when pregnant
+                the_person.event_triggers_dict["preg_tits_date"] = the_person.event_triggers_dict.get("preg_tits_date", day) - 1
+                the_person.event_triggers_dict["preg_transform_day"] = the_person.event_triggers_dict.get("preg_transform_day", day) - 1
+                the_person.event_triggers_dict["preg_finish_announce_day"] = the_person.event_triggers_dict.get("preg_finish_announce_day", day) - 1
 
         def pregnancy_accelerator_on_day(the_person, add_to_log):
-            the_person.event_triggers_dict["preg_tits_date"] = the_person.event_triggers_dict.get("preg_tits_date", day) - 1
-            the_person.event_triggers_dict["preg_transform_day"] = the_person.event_triggers_dict.get("preg_transform_day", day) - 1
-            the_person.event_triggers_dict["preg_finish_announce_day"] = the_person.event_triggers_dict.get("preg_finish_announce_day", day) - 1
+            if pregnant_role in the_person.special_role: # only has effect when pregnant
+                the_person.event_triggers_dict["preg_tits_date"] = the_person.event_triggers_dict.get("preg_tits_date", day) - 1
+                the_person.event_triggers_dict["preg_transform_day"] = the_person.event_triggers_dict.get("preg_transform_day", day) - 1
+                the_person.event_triggers_dict["preg_finish_announce_day"] = the_person.event_triggers_dict.get("preg_finish_announce_day", day) - 1
 
         def pregnancy_decellerator_on_day(the_person, add_to_log):
-            the_person.event_triggers_dict["preg_tits_date"] = the_person.event_triggers_dict.get("preg_tits_date", day) + 1
-            the_person.event_triggers_dict["preg_transform_day"] = the_person.event_triggers_dict.get("preg_transform_day", day) + 1
-            the_person.event_triggers_dict["preg_finish_announce_day"] = the_person.event_triggers_dict.get("preg_finish_announce_day", day) + 1
+            if pregnant_role in the_person.special_role: # only has effect when pregnant
+                the_person.event_triggers_dict["preg_tits_date"] = the_person.event_triggers_dict.get("preg_tits_date", day) + 1
+                the_person.event_triggers_dict["preg_transform_day"] = the_person.event_triggers_dict.get("preg_transform_day", day) + 1
+                the_person.event_triggers_dict["preg_finish_announce_day"] = the_person.event_triggers_dict.get("preg_finish_announce_day", day) + 1
 
         ## nora_serum_up_trait ##
         def nora_suggest_up_on_apply(the_person, add_to_log):
@@ -338,19 +341,24 @@ init -1:
 
 
             if add_to_log:
-                mc.log_event(display_name + ": Birth control effectiveness reduced by 75%", "float_text_grey")
-                mc.log_event(the_person.title + ": +70 Fertility", "float_text_red")
-                mc.log_event(display_name + ": Begins instantly lactating", "float_text_blue")
+                mc.log_event(display_name + ": Human Breeding started", "float_text_grey")
                 if the_person in mc.location.people: #If you're here applying this trait in person it causes her to exclaim.
                     renpy.say(display_name,"Oh my god my tits feel... bigger!")
 
         def nora_reward_hucow_trait_on_remove(the_person, add_to_log):
-            the_person.bc_penalty += -75
-            the_person.fertility_percent += -70
-            the_person.lactation_sources += -3
+            the_person.bc_penalty -= 75
+            the_person.fertility_percent -= 70
+            the_person.lactation_sources -= 3
             the_person.tits = get_smaller_tits(the_person.tits) #Her tits start to swell.
             the_person.tits = get_smaller_tits(the_person.tits)
             the_person.personal_region_modifiers["breasts"] = the_person.personal_region_modifiers["breasts"] - 0.2 #As her tits get larger they also become softer, unlike large fake tits. (Although even huge fake tits get softer)
+
+            display_name = the_person.create_formatted_title("???")
+            if the_person.title:
+                display_name = the_person.title
+
+            if add_to_log:
+                mc.log_event(display_name + ": Human Breeding ended", "float_text_grey")
 
 
         #####
