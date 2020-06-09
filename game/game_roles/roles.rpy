@@ -112,9 +112,9 @@ init -1 python:
 
     def get_alexia_role_actions():
         #ALEXIA ACTIONS#
-        alexia_ad_reintro = Action("Have her order photography equipment\nCosts: $500", alexia_ad_suggest_reintro_requirement, "alexia_ad_suggest_reintro_label")
+        alexia_ad_reintro = Action("Order photography equipment\n{color=#ff0000}{size=18}Costs: $500{/size}{/color}", alexia_ad_suggest_reintro_requirement, "alexia_ad_suggest_reintro_label")
 
-        alexia_ad_photo_intro = Action("Shoot pictures for your business cards {image=gui/heart/Time_Advance.png}", alexia_photography_intro_requirement, "alexia_photography_intro_label") #This vent leads to Alexia being given the model role.
+        alexia_ad_photo_intro = Action("Shoot pictures for business cards {image=gui/heart/Time_Advance.png}", alexia_photography_intro_requirement, "alexia_photography_intro_label") #This vent leads to Alexia being given the model role.
 
         return [alexia_ad_reintro, alexia_ad_photo_intro]
 
