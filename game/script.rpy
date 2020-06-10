@@ -3376,7 +3376,7 @@ init -2 python:
             if relationship == "Fiancée" or relationship == "Married":
                 base_outfit.add_accessory(diamond_ring.get_copy())
 
-            if renpy.random.randint(0,100) < age:
+            if renpy.random.randint(0,100) < (age - 15):
                 #They need/want glasses.
                 the_glasses = None
                 if renpy.random.randint(0,100) < 50:
