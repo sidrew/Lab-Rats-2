@@ -312,6 +312,15 @@ label bimbo_seduction_response(the_person):
         else:
             the_person.char "Oh, I don't really know what to say [the_person.mc_title]..."
     return
+label bimbo_seduction_accept_crowded(the_person):
+    the_person.char "Yay, lets show these sluts how it is done!"
+    return
+label bimbo_seduction_accept_alone(the_person):
+    the_person.char "Oh, I was like, I'm going to fuck him right now."
+    return
+label bimbo_seduction_refuse(the_person):
+    the_person.char "Duh, do you think I'm just some cheap fuck, perhaps if you took me shopping..."
+    return
 
 label bimbo_flirt_response(the_person):
     if the_person.obedience > 130:
@@ -856,6 +865,13 @@ label bimbo_sex_end_early(the_person):
 
             else:
                 the_person.char "That's it? Well, I guess that was a fun time well it lasted."
+    return
+
+label bimbo_sex_take_control(the_person):
+    the_person.char "Oh no, get back here, I need to get off too, you know."
+    return
+label bimbo_sex_beg_finish(the_person):
+    the_person.char "Aww, I was just getting there, could you, like, finish me off real quick?"
     return
 
 ## Role Specific Section ##
