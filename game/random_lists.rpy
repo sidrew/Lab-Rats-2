@@ -584,9 +584,7 @@ init -2:
             if the_person.love >= 60 and girlfriend_role in the_person.special_role:
                 list_of_titles.append("Love")
 
-
-
-            return list_of_titles #We return the list so that it can be presented to the player. In general the girl will always want to pick the first one on the list.
+            return list(set(list_of_titles)) #We return the list so that it can be presented to the player. In general the girl will always want to pick the first one on the list.
 
         def get_random_title(the_person):
             return get_random_from_list(get_titles(the_person))
@@ -646,7 +644,7 @@ init -2:
             if the_person.love >= 60 and affair_role in the_person.special_role:
                 list_of_possessive_titles.append("Your lover")
 
-            return list_of_possessive_titles
+            return list(set(list_of_possessive_titles))
 
         def get_random_possessive_title(the_person):
             return get_random_from_list(get_possessive_titles(the_person))
@@ -660,7 +658,7 @@ init -2:
                 list_of_player_titles.append(personality_player_titles)
 
             if employee_role in the_person.special_role:
-                list_of_player_titles.append("Mr." + mc.last_name)
+                list_of_player_titles.append("Mr. " + mc.last_name)
                 if the_person.obedience > 120:
                     list_of_player_titles.append("Sir")
                 elif the_person.obedience < 80:
@@ -678,7 +676,7 @@ init -2:
                 else:
                     list_of_player_titles.append("Boy Toy")
 
-            return list_of_player_titles
+            return list(set(list_of_player_titles)) 
 
         def get_random_player_title(the_person):
             return get_random_from_list(get_player_titles(the_person))
