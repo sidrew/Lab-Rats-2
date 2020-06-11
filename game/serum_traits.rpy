@@ -189,7 +189,7 @@ init -1:
             if the_person.title:
                 display_name = the_person.title
             if add_to_log:
-                mc.log_event(the_person.title + ": +20 Fertility", "float_text_red")
+                mc.log_event(display_name + ": +20 Fertility", "float_text_red")
 
         def fertility_enhancement_on_remove(the_person, add_to_log):
             the_person.fertility_percent -= 20
@@ -200,7 +200,7 @@ init -1:
             if the_person.title:
                 display_name = the_person.title
             if add_to_log:
-                mc.log_event(the_person.title + ": -20 Fertility", "float_text_red")
+                mc.log_event(display_name + ": -20 Fertility", "float_text_red")
 
         def fertility_suppression_on_remove(the_person, add_to_log):
             the_person.fertility_percent += 20
