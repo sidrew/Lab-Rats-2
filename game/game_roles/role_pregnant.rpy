@@ -22,9 +22,9 @@ init -1 python:
     def become_pregnant(the_person): # Called when a girl is knocked up. Establishes all of the necessary bits of info.
         the_person.event_triggers_dict["preg_accident"] = the_person.on_birth_control # If a girl is on birth control the pregnancy is an accident.
         the_person.event_triggers_dict["preg_start_date"] = day
-        the_person.event_triggers_dict["preg_tits_date"] = day + 21 + renpy.random.randint(0,7)
-        the_person.event_triggers_dict["preg_transform_day"] = day + 90 + renpy.random.randint(0,15)
-        the_person.event_triggers_dict["preg_finish_announce_day"] = day + 260 + renpy.random.randint(0,15)
+        the_person.event_triggers_dict["preg_tits_date"] = day + 14 + renpy.random.randint(0,5)
+        the_person.event_triggers_dict["preg_transform_day"] = day + 30 + renpy.random.randint(0,10)
+        the_person.event_triggers_dict["preg_finish_announce_day"] = day + 90 + renpy.random.randint(0,10)
         the_person.event_triggers_dict["pre_preg_tits"] = the_person.tits
 
         preg_announce_action = Action("Pregnancy Announcement", pregnant_announce_requirement, "pregnant_announce", requirement_args = day + renpy.random.randint(12,18))
@@ -250,14 +250,14 @@ label pregnant_transform(the_person): #Changes the person to their pregnant body
     return
 
 label pregnant_transform_announce(start_day, the_person):
-    if day - start_day > 21: #If you haven't noticed in 3 weeks you probably just don't care. Skip the event.
+    if day - start_day > 14: #If you haven't noticed in 2 weeks you probably just don't care. Skip the event.
         return
 
     $ the_person.draw_person()
     "[the_person.possessive_title] notices you and comes over to talk."
 
 
-    if the_person.event_triggers_dict.get("preg_start_date", day) - day <= 75:
+    if the_person.event_triggers_dict.get("preg_start_date", day) - day <= 30:
         # Unusually short pregnancy.
         the_person.char "Hey [the_person.mc_title]. I know this might be a little surprising, but obviously things..."
         "She runs her hand over her belly, accentuating the new and prominent curves that have formed."
@@ -297,7 +297,7 @@ label pregnant_finish_announce(the_person): #TODO: have more variants for girlfr
 
     the_person.char "I saw my doctor yesterday and he tells me I'm going to pop any day now."
 
-    if the_person.event_triggers_dict.get("preg_start_date", day) - day <= 230: #It's unusually short
+    if the_person.event_triggers_dict.get("preg_start_date", day) - day <= 90: #It's unusually short
         the_person.char "It's earlier than I expected, but he tells me everything looks like it's perfectly normal."
 
     mc.name "That's amazing news. Do you need me to do anything?"
@@ -316,11 +316,11 @@ init 2 python:
         person.special_role.remove(pregnant_role) #Should this be triggered some time after instead of being instant?
         person.kids += 1 #TODO: add a new role related to a girl being a mother of your kid?
 
-        tit_shrink_one_day = day + renpy.random.randint(21,30)
+        tit_shrink_one_day = day + renpy.random.randint(7,14)
         tit_shrink_one = Action("Tits Shrink One", tit_shrink_requirement, "tits_shrink", args = [person, True], requirement_args = [person, tit_shrink_one_day])
         tit_shrink_one_announcement_action = Action("Tits Shrink One Announcement", tit_shrink_requirement, "tits_shrink_announcement_one", args = tit_shrink_one_day, requirement_args = tit_shrink_one_day)
 
-        tit_shrink_two_day = day + renpy.random.randint(40,60)
+        tit_shrink_two_day = day + renpy.random.randint(21,35)
         tit_shrink_two = Action("Tits Shrink Two", tit_shrink_requirement, "tits_shrink", args = [person, False], requirement_args = [person, tit_shrink_two_day])
         tit_shrink_two_announcement_action = Action("Tits Shrink Two Announcement", tit_shrink_requirement, "tits_shrink_announcement_two", args = tit_shrink_two_day, requirement_args = tit_shrink_two_day)
 
