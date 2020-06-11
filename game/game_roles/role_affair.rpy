@@ -51,8 +51,6 @@ label ask_leave_SO_label(the_person): #
     "You nod. She takes a long moment to think, then finally nods back and smiles happily."
     the_person.char "Okay, I'll do it for you!"
     call transform_affair(the_person) from _call_transform_affair_3
-    $ the_person.special_role.remove(affair_role)
-    $ the_person.special_role.append(girlfriend_role)
     $ the_person.change_love(10)
     $ the_person.change_obedience(5)
     $ the_person.draw_person(position = "kissing", emotion = "happy")
