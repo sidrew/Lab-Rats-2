@@ -257,7 +257,7 @@ label pregnant_transform_announce(start_day, the_person):
     "[the_person.possessive_title] notices you and comes over to talk."
 
 
-    if the_person.event_triggers_dict.get("preg_start_date", day) - day <= 30:
+    if day - the_person.event_triggers_dict.get("preg_start_date", day)  <= 30:
         # Unusually short pregnancy.
         the_person.char "Hey [the_person.mc_title]. I know this might be a little surprising, but obviously things..."
         "She runs her hand over her belly, accentuating the new and prominent curves that have formed."
@@ -297,7 +297,7 @@ label pregnant_finish_announce(the_person): #TODO: have more variants for girlfr
 
     the_person.char "I saw my doctor yesterday and he tells me I'm going to pop any day now."
 
-    if the_person.event_triggers_dict.get("preg_start_date", day) - day <= 90: #It's unusually short
+    if day - the_person.event_triggers_dict.get("preg_start_date", day) <= 90: #It's unusually short
         the_person.char "It's earlier than I expected, but he tells me everything looks like it's perfectly normal."
 
     mc.name "That's amazing news. Do you need me to do anything?"
