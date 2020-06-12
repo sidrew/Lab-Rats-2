@@ -9986,7 +9986,7 @@ label .continue_talk:
             $ _return.call_action()
 
         if the_person in mc.location.people and time_of_day == starting_time_of_day:
-            jump .continue_talk #If we're in the same place and time hasn't advanced keep talking to them until we stop talking on purpose.
+            jump talk_person.continue_talk #If we're in the same place and time hasn't advanced keep talking to them until we stop talking on purpose.
 
     $ renpy.scene("Active")
     return
