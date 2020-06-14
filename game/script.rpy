@@ -4177,6 +4177,167 @@ init -2 python:
             else:
                 return self.name
 
+    class Clothing_Renderer(renpy.store.object):
+        supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
+        def __init__(self):
+            self.clothing_items = {}
+
+        def add_clothing_item(self, proper_name, draws_breasts, body_dependant = True, supported_patterns = None):
+            if proper_name in self.clothing_items:
+                return
+
+            position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
+            pattern_sets = {} #A list of patterns for this piece of clothing that are valid. Keys are in the form "position_patternName"
+            supported_patterns = supported_patterns
+            if not supported_patterns:
+                supported_patterns = {"Default":None}
+            supported_patterns["Default"] = None
+
+            for set in self.supported_positions:
+                position_sets[set] = Clothing_Images(proper_name,set,draws_breasts, body_dependant = body_dependant)
+                if supported_patterns and not proper_name is None:
+                    for the_pattern in supported_patterns:
+                        pattern_name = supported_patterns[the_pattern]
+                        if pattern_name:
+                            pattern_sets[set + "_" + pattern_name] = Clothing_Images(proper_name+"_"+pattern_name, set, draws_breasts, body_dependant = body_dependant)
+
+            self.clothing_items[proper_name] = [position_sets, pattern_sets]
+
+        def generate_item_image_name(self, clothing, body_type, tit_size, position):
+            position_set = self.clothing_items[clothing.proper_name][0]
+            if not clothing.body_dependant:
+                body_type = "standard_body"
+
+            image_set = position_set.get(position)
+            if image_set is None:
+                image_set = position_set.get("stand3")
+
+            if clothing.draws_breasts:
+                image_name = image_set.get_image_name(body_type, tit_size)
+            else:
+                image_name = image_set.get_image_name(body_type)
+
+            return image_name
+
+        def generate_item_displayable(self, clothing, body_type, tit_size, position, lighting = None, regions_constrained = None, nipple_wetness = 0.0):
+            if clothing.is_extension: #We don't draw extension items, because the image is taken care of in the main object.
+                return
+
+            position_set = self.clothing_items[clothing.proper_name][0]
+
+            if lighting is None:
+                lighting = [1,1,1]
+
+            if not clothing.body_dependant:
+                body_type = "standard_body"
+
+            image_set = position_set.get(position) # The image set we are using should corrispond to the set named "positon".
+            if image_set is None:
+                image_set = position_set.get("stand3")
+
+            if clothing.draws_breasts:
+                the_image = image_set.get_image(body_type, tit_size)
+            else:
+                the_image = image_set.get_image(body_type, "AA")
+
+            if regions_constrained is None:
+                regions_constrained = []
+
+            if clothing.pattern is not None:
+                pattern_set = self.clothing_items[clothing.proper_name][1].get(position+"_"+clothing.pattern)
+                if pattern_set is None:
+                    mask_image = None
+                elif clothing.draws_breasts:
+                    mask_image = pattern_set.get_image(body_type, tit_size)
+                else:
+                    mask_image = pattern_set.get_image(body_type, "AA")
+
+            brightness_matrix = im.matrix.brightness(clothing.whiteness_adjustment)
+            contrast_matrix = im.matrix.contrast(clothing.contrast_adjustment)
+            opacity_matrix = im.matrix.opacity(clothing.opacity_adjustment) #Sets the clothing to the correct colour and opacity.
+
+            #This is the base greyscale image we have
+            greyscale_image = im.MatrixColor(the_image, opacity_matrix * brightness_matrix * contrast_matrix) #Set the image, which will crush all modifiers to 1 (so that future modifiers are applied to a flat image correctly with no unusually large images
+
+            colour_matrix = im.matrix.tint(clothing.colour[0], clothing.colour[1], clothing.colour[2]) * im.matrix.tint(*lighting)
+            alpha_matrix = im.matrix.opacity(clothing.colour[3])
+            shader_image = im.MatrixColor(greyscale_image, alpha_matrix * colour_matrix) #Now colour the final greyscale image
+
+            if clothing.pattern and mask_image:
+                colour_pattern_matrix = im.matrix.tint(clothing.colour_pattern[0], clothing.colour_pattern[1], clothing.colour_pattern[2]) * im.matrix.tint(*lighting)
+                pattern_alpha_matrix = im.matrix.opacity(clothing.colour_pattern[3] * clothing.colour[3]) #The opacity of the pattern is relative to the opacity of the entire piece of clothing.
+                shader_pattern_image = im.MatrixColor(greyscale_image, pattern_alpha_matrix * colour_pattern_matrix)
+
+                final_image = AlphaBlend(mask_image, shader_image, shader_pattern_image, alpha=False)
+            else:
+                final_image = shader_image
+
+            if len(regions_constrained)>0:
+                # We want to support clothing "constraining", or masking, lower images. This is done by region.
+                # Each constraining region effectively subtracts itself + a blurred border around it, and then the body region is added back in so it appears through clothing.
+
+                composite_list = None
+                for region in regions_constrained:
+                    #Begin by building a total mask of all constrained regions
+                    region_mask = Image(region.generate_item_image_name(body_type, tit_size, position))
+
+                    if composite_list is None:
+                        composite_list = [renpy.load_surface(region_mask).get_size()]
+                    composite_list.append((0,0))
+                    composite_list.append(region_mask)
+
+                composite = im.Composite(*composite_list)
+                blurred_composite = im.Blur(composite, 8) #Blur the combined region mask to make it wider than the original. This would start to incorrectly include the interior of the mask, but...
+                constrained_region_mask = im.MatrixColor(blurred_composite, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,8,0]) #This is the area to be subracted from the image.
+                full_body_mask = Image(all_regions.generate_item_image_name(body_type, tit_size, position)) #And this is the area to add back in so it is displayed only along the body in some regions
+                composite_list.extend([(0,0),full_body_mask])
+                #BUG: It only seems to be using the first region constrain.
+                full_body_comp = im.Composite(*composite_list) # This ensures all constrained regions are part of the body mask, enabling support for items like skirts w/ clothing between body parts.
+                constrained_mask = AlphaBlend(constrained_region_mask, Solid("#FFFFFFFF"), full_body_comp) #This builds the proper final image mask (ie all shown, except for the region around but not including the constrained region)
+                final_image = AlphaBlend(constrained_mask, Solid("#00000000"), final_image)
+
+            if nipple_wetness > 0: #TODO: Expand this system to a generic "Wetness" system
+                region_mask = Image(wet_nipple_region.generate_item_image_name(body_type, tit_size, position)) #TODO: Add a much more specific "nipple region"
+                # darkness_factor = nipple_wetness * 0.1 #Used to darken clothing where it is wet
+                region_mask = im.MatrixColor(region_mask, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1*nipple_wetness,1])
+                final_image = AlphaBlend(region_mask, Solid("#00000000"), final_image)
+
+
+            if clothing.half_off:
+                #NOTE: This actually produces some really good looking effects for water/stuff. We should add these kinds of effects as a general thing, probably on the pattern level.
+                #NOTE: Particularly for water/stains, this could work really well (and can use skin-tight region marking, ie. not clothing item dependant).
+                # list_of_regions_to_hide = self.half_off_regions[:]
+                # if nipple_wetness > 0 and breast_region not in list_of_regions_to_hide: #TODO: Add a proper nipple region.
+                #     list_of_regions_to_hide.append(breast_region)
+                composite_list = None
+                for region_to_hide in half_off_regions: #We first add together all of the region masks so we only operate on a single displayable
+                    region_mask = Image(region_to_hide.generate_item_image_name(body_type, tit_size, position))
+                    if composite_list is None:
+                        composite_list = [renpy.load_surface(region_mask).get_size()]
+
+                    composite_list.append((0,0))
+                    composite_list.append(region_mask)
+
+                composite = im.Composite(*composite_list)
+                blurred_composite = im.Blur(composite, 12) #Blur the combined region mask to make it wider than the original. This would start to incorrectly include the interior of the mask, but...
+                transparency_control_image = im.MatrixColor(blurred_composite, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,7,0]) #...We increase the contribution of alpha from the mask, so a small amount ends up being 100% (this still preserves some gradient at the edge as well)
+
+                if clothing.half_off_ignore_regions: #Sometimes you want hard edges, or a section of a piece of clothing not to be moved. These regions are not blured/enlarged and are subtracted from the mask generated above.
+                    add_composite_list = None
+                    for region_to_add in clothing.half_off_ignore_regions:
+                        region_mask = Image(region_to_add.generate_item_image_name(body_type, tit_size, position))
+                        if add_composite_list is None:
+                            add_composite_list = [renpy.load_surface(region_mask).get_size()] #We can reuse the size from our first pass building the mask.
+                        add_composite_list.append((0,0))
+                        add_composite_list.append(region_mask)
+                    add_composite = im.Composite(*add_composite_list)
+                    transparency_control_image = AlphaBlend(add_composite, transparency_control_image, Solid("#00000000"), True) #This alpha blend effectively subtracts the half_off_ignore mask from the half_off region mask
+                
+                final_image = AlphaBlend(transparency_control_image, final_image, Solid("#00000000"), True) #Use the final mask to hide parts of the clothing image as appopriate.
+
+            return final_image
+
+
     class Clothing():
         #Slots are
 
@@ -4199,7 +4360,6 @@ init -2 python:
         #Layer 2: Over underwear
         #Layer 3: Over shirts
         #Layer 4: Over everything
-        supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
 
         def __init__(self, name, layer, hide_below, anchor_below, proper_name, draws_breasts, underwear, slut_value, has_extension = None, is_extension = False, colour = None, tucked = False, body_dependant = True,
         opacity_adjustment = 1, whiteness_adjustment = 0.0, contrast_adjustment = 1.0, supported_patterns = None, pattern = None, colour_pattern = None, ordering_variable = 0, display_name = None,
@@ -4215,22 +4375,7 @@ init -2 python:
             self.anchor_below = anchor_below #If true, you must take this off before you can take off anything of a lower layer.
             self.layer = layer #A list of the slots above that this should take up or otherwise prevent ffrom being filled. Slots are a list of the slot and the layer.
 
-            self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
-            self.pattern_sets = {} #A list of patterns for this piece of clothing that are valid. Keys are in the form "position_patternName"
             self.supported_patterns = supported_patterns
-            if not supported_patterns:
-                self.supported_patterns = {"Default":None}
-            self.supported_patterns["Default"] = None
-
-            for set in self.supported_positions:
-                self.position_sets[set] = Clothing_Images(proper_name,set,draws_breasts, body_dependant = body_dependant)
-                if supported_patterns and not proper_name is None:
-                    for the_pattern in supported_patterns:
-                        pattern_name = supported_patterns[the_pattern]
-                        if pattern_name:
-                            self.pattern_sets[set + "_" + pattern_name] = Clothing_Images(proper_name+"_"+pattern_name, set, draws_breasts, body_dependant = body_dependant)
-
-
             self.draws_breasts = draws_breasts
             self.underwear = underwear #True if the item of clothing satisfies the desire for underwear for upper or lower (bra or panties), false if it can pass as outerwear. Underwear on outside of outfit gives higher slut requirement.
             self.slut_value = slut_value #The amount of sluttiness that this piece of clothing adds to an outfit.
@@ -4279,6 +4424,9 @@ init -2 python:
             else:
                 self.constrain_regions = [constrain_regions]
 
+            if not is_extension: # don't render extensions
+                clothing_manager.add_clothing_item(proper_name, draws_breasts, body_dependant, supported_patterns)
+
         def __cmp__(self,other):
             if isinstance(self, type(other)):
                 if self.name == other.name and self.hide_below == other.hide_below and self.layer == other.layer and self.is_extension == other.is_extension:
@@ -4299,161 +4447,54 @@ init -2 python:
             return self.layer
 
         def generate_item_image_name(self, body_type, tit_size, position):
-            if not self.body_dependant:
-                body_type = "standard_body"
-            image_set = self.position_sets.get(position)
-            if image_set is None:
-                image_set = self.position_sets.get("stand3")
-
-            if self.draws_breasts:
-                image_name = image_set.get_image_name(body_type, tit_size)
-            else:
-                image_name = image_set.get_image_name(body_type)
-
-            return image_name
+            return clothing_manager.generate_item_image_name(self, body_type, tit_size, position)
 
         def generate_item_displayable(self, body_type, tit_size, position, lighting = None, regions_constrained = None, nipple_wetness = 0.0):
-            if not self.is_extension: #We don't draw extension items, because the image is taken care of in the main object.
-                if lighting is None:
-                    lighting = [1,1,1]
+            return clothing_manager.generate_item_displayable(self, body_type, tit_size, position, lighting, regions_constrained, nipple_wetness)
 
-                if not self.body_dependant:
-                    body_type = "standard_body"
-
-                image_set = self.position_sets.get(position) # The image set we are using should corrispond to the set named "positon".
-                if image_set is None:
-                    image_set = self.position_sets.get("stand3")
-
-                if self.draws_breasts:
-                    the_image = image_set.get_image(body_type, tit_size)
-                else:
-                    the_image = image_set.get_image(body_type, "AA")
-
-                if regions_constrained is None:
-                    regions_constrained = []
-
-                converted_mask_image = None
-                inverted_mask_image = None
-                if self.pattern is not None:
-                    pattern_set = self.pattern_sets.get(position+"_"+self.pattern)
-                    if pattern_set is None:
-                        mask_image = None
-                    elif self.draws_breasts:
-                        mask_image = pattern_set.get_image(body_type, tit_size)
-                    else:
-                        mask_image = pattern_set.get_image(body_type, "AA")
-
-                    if mask_image is None:
-                        self.pattern = None
-                    else:
-                        inverted_mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1,1]) #Generate the masks that will be used to determine what is colour A and B
-                        #mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,1,0])
-
-
-                brightness_matrix = im.matrix.brightness(self.whiteness_adjustment)
-                contrast_matrix = im.matrix.contrast(self.contrast_adjustment)
-                opacity_matrix = im.matrix.opacity(self.opacity_adjustment) #Sets the clothing to the correct colour and opacity.
-
-                #This is the base greyscale image we have
-                greyscale_image = im.MatrixColor(the_image, opacity_matrix * brightness_matrix * contrast_matrix) #Set the image, which will crush all modifiers to 1 (so that future modifiers are applied to a flat image correctly with no unusually large images
-
-
-                colour_matrix = im.matrix.tint(self.colour[0], self.colour[1], self.colour[2]) * im.matrix.tint(*lighting)
-                alpha_matrix = im.matrix.opacity(self.colour[3])
-                shader_image = im.MatrixColor(greyscale_image, alpha_matrix * colour_matrix) #Now colour the final greyscale image
-
-
-                if self.pattern and mask_image:
-                    colour_pattern_matrix = im.matrix.tint(self.colour_pattern[0], self.colour_pattern[1], self.colour_pattern[2]) * im.matrix.tint(*lighting)
-                    pattern_alpha_matrix = im.matrix.opacity(self.colour_pattern[3] * self.colour[3]) #The opacity of the pattern is relative to the opacity of the entire piece of clothing.
-                    shader_pattern_image = im.MatrixColor(greyscale_image, pattern_alpha_matrix * colour_pattern_matrix)
-
-                    mask_red_alpha_invert = im.MatrixColor(mask_image, [0,0,0,1,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1]) #Inverts the pattern colour so the shader applies properly.
-                    #shader_image = im.AlphaMask(base,
-                    #im.composite(
-                    # shader_red_invert = im.Alpha
-
-                    final_image = AlphaBlend(mask_image, shader_image, shader_pattern_image, alpha=False)
-                else:
-                    final_image = shader_image
-
-                if len(regions_constrained)>0:
-                    # We want to support clothing "constraining", or masking, lower images. This is done by region.
-                    # Each constraining region effectively subtracts itself + a blurred border around it, and then the body region is added back in so it appears through clothing.
-
-                    x_size = 0
-                    y_size = 0
-                    composite_list = None
-                    for region in regions_constrained:
-                        #Begin by building a total mask of all constrained regions
-                        region_mask = Image(region.generate_item_image_name(body_type, tit_size, position))
-
-                        if composite_list is None:
-                            x_size, y_size = renpy.load_surface(region_mask).get_size() #Only get the render size once, since all renders are the same size for a pose. Technically this could also be a lookup table if it was significantly impacting performacne
-                            composite_list = [(x_size,y_size)]
-                        composite_list.append((0,0))
-                        composite_list.append(region_mask)
-
-                    composite = im.Composite(*composite_list)
-                    blurred_composite = im.Blur(composite, 8) #Blur the combined region mask to make it wider than the original. This would start to incorrectly include the interior of the mask, but...
-                    constrained_region_mask = im.MatrixColor(blurred_composite, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,8,0]) #This is the area to be subracted from the image.
-                    full_body_mask = Image(all_regions.generate_item_image_name(body_type, tit_size, position)) #And this is the area to add back in so it is displayed only along the body in some regions
-                    composite_list.extend([(0,0),full_body_mask])
-                    #BUG: It only seems to be using the first region constrain.
-                    full_body_comp = im.Composite(*composite_list) # This ensures all constrained regions are part of the body mask, enabling support for items like skirts w/ clothing between body parts.
-                    constrained_mask = AlphaBlend(constrained_region_mask, Solid("#FFFFFFFF"), full_body_comp) #This builds the proper final image mask (ie all shown, except for the region around but not including the constrained region)
-                    final_image = AlphaBlend(constrained_mask, Solid("#00000000"), final_image)
-
-                if nipple_wetness > 0: #TODO: Expand this system to a generic "Wetness" system
-                    region_mask = Image(wet_nipple_region.generate_item_image_name(body_type, tit_size, position)) #TODO: Add a much more specific "nipple region"
-                    # darkness_factor = nipple_wetness * 0.1 #Used to darken clothing where it is wet
-                    region_mask = im.MatrixColor(region_mask, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1*nipple_wetness,1])
-                    final_image = AlphaBlend(region_mask, Solid("#00000000"), final_image)
-
-
-                if self.half_off:
-                    #NOTE: This actually produces some really good looking effects for water/stuff. We should add these kinds of effects as a general thing, probably on the pattern level.
-                    #NOTE: Particularly for water/stains, this could work really well (and can use skin-tight region marking, ie. not clothing item dependant).
-                    # list_of_regions_to_hide = self.half_off_regions[:]
-                    # if nipple_wetness > 0 and breast_region not in list_of_regions_to_hide: #TODO: Add a proper nipple region.
-                    #     list_of_regions_to_hide.append(breast_region)
-                    composite_list = None
-                    x_size = 0
-                    y_size = 0
-                    for region_to_hide in half_off_regions: #We first add together all of the region masks so we only operate on a single displayable
-                        region_mask = Image(region_to_hide.generate_item_image_name(body_type, tit_size, position))
-                        if composite_list is None:
-                            x_size, y_size = renpy.load_surface(region_mask).get_size() #Only get the render size once, since all renders are the same size for a pose. Technically this could also be a lookup table if it was significantly impacting performacne
-                            composite_list = [(x_size,y_size)]
-
-                        composite_list.append((0,0))
-                        composite_list.append(region_mask)
-
-                    composite = im.Composite(*composite_list)
-                    blurred_composite = im.Blur(composite, 12) #Blur the combined region mask to make it wider than the original. This would start to incorrectly include the interior of the mask, but...
-                    transparency_control_image = im.MatrixColor(blurred_composite, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,7,0]) #...We increase the contribution of alpha from the mask, so a small amount ends up being 100% (this still preserves some gradient at the edge as well)
-
-                    if self.half_off_ignore_regions: #Sometimes you want hard edges, or a section of a piece of clothing not to be moved. These regions are not blured/enlarged and are subtracted from the mask generated above.
-                        add_composite_list = None
-                        for region_to_add in self.half_off_ignore_regions:
-                            region_mask = Image(region_to_add.generate_item_image_name(body_type, tit_size, position))
-                            if add_composite_list is None:
-                                add_composite_list = [(x_size,y_size)] #We can reuse the size from our first pass building the mask.
-                            add_composite_list.append((0,0))
-                            add_composite_list.append(region_mask)
-                        add_composite = im.Composite(*add_composite_list)
-                        transparency_control_image = AlphaBlend(add_composite, transparency_control_image, Solid("#00000000"), True) #This alpha blend effectively subtracts the half_off_ignore mask from the half_off region mask
-
-                    final_image = AlphaBlend(transparency_control_image, final_image, Solid("#00000000"), True) #Use the final mask to hide parts of the clothing image as appopriate.
-
-
-
-                return final_image
-
-
-    class Facial_Accessory(Clothing): #This class inherits from Clothing and is used for special accessories that require extra information
+    class Facial_Accessory_Renderer():
         supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
 
+        def __init__(self):
+            self.accessories = {}
+        
+        def add_facial_accessory(self, proper_name):
+            if proper_name in self.accessories:
+                return
+
+            position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
+
+            for set in self.supported_positions:
+                position_sets[set] = Facial_Accessory_Images(proper_name,set)
+
+            self.accessories[proper_name] = position_sets
+
+        def generate_item_displayable(self, accessory, position, face_type, emotion, special_modifiers = None, lighting = None):
+            if accessory.is_extension:
+                return
+
+            if lighting is None:
+                lighting = [1,1,1]
+
+            image_set = self.accessories[accessory.proper_name].get(position)
+            if image_set is None:
+                image_set = self.accessories[accessory.proper_name].get("stand3") #Get a default image set if we are looking at a position we do not have.
+
+            the_image = image_set.get_image(face_type, emotion, special_modifiers)
+            if not the_image:
+                the_image = image_set.get_image(face_type, emotion) # If we weren't able to get something with the special modifier just use a default to prevent a crash.
+
+            brightness_matrix = im.matrix.brightness(accessory.whiteness_adjustment)
+            contrast_matrix = im.matrix.contrast(accessory.contrast_adjustment)
+            opacity_matrix = im.matrix.opacity(accessory.opacity_adjustment) #Sets the clothing to the correct colour and opacity.
+
+            greyscale_image = im.MatrixColor(the_image, opacity_matrix * brightness_matrix * contrast_matrix) #Set the image, which will crush all modifiers to 1 (so that future modifiers are applied to a flat image correctly with no unusually large images
+
+            colour_matrix = im.matrix.tint(accessory.colour[0], accessory.colour[1], accessory.colour[2]) * im.matrix.tint(*lighting)
+            alpha_matrix = im.matrix.opacity(accessory.colour[3])
+            return im.MatrixColor(greyscale_image, alpha_matrix * colour_matrix) #Now colour the final greyscale image
+
+    class Facial_Accessory(Clothing): #This class inherits from Clothing and is used for special accessories that require extra information
         def __init__(self, name, layer, hide_below, anchor_below, proper_name, draws_breasts, underwear, slut_value, has_extension = None, is_extension = False, colour = None, tucked = False,
             opacity_adjustment = 1, whiteness_adjustment = 0.0, contrast_adjustment = 1.0, display_name = None):
 
@@ -4467,10 +4508,6 @@ init -2 python:
             self.anchor_below = anchor_below #If true, you must take this off before you can take off anything of a lower layer.f
             self.layer = layer #A list of the slots above that this should take up or otherwise prevent from being filled. Slots are a list of the slot and the layer.
 
-            self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
-
-            for set in self.supported_positions:
-                self.position_sets[set] = Facial_Accessory_Images(proper_name,set)
 
             self.draws_breasts = draws_breasts
             self.underwear = underwear #True if the item of clothing satisfies the desire for underwear for upper or lower (bra or panties), false if it can pass as outerwear. Underwear on outside of outfit gives higher slut requirement.
@@ -4487,33 +4524,12 @@ init -2 python:
             self.whiteness_adjustment = whiteness_adjustment
             self.contrast_adjustment = contrast_adjustment
 
+            if not is_extension: # don't render extensions
+                facial_accessory_manager.add_facial_accessory(proper_name)
+
 
         def generate_item_displayable(self, position, face_type, emotion, special_modifiers = None, lighting = None):
-            if not self.is_extension:
-                if lighting is None:
-                    lighting = [1,1,1]
-
-                image_set = self.position_sets.get(position)
-                if image_set is None:
-                    image_set = self.position_sets.get("stand3") #Get a default image set if we are looking at a position we do not have.
-
-                the_image = image_set.get_image(face_type, emotion, special_modifiers)
-                if not the_image:
-                    the_image = image_set.get_image(face_type, emotion) # If we weren't able to get something with the special modifier just use a default to prevent a crash.
-
-                brightness_matrix = im.matrix.brightness(self.whiteness_adjustment)
-                contrast_matrix = im.matrix.contrast(self.contrast_adjustment)
-                opacity_matrix = im.matrix.opacity(self.opacity_adjustment) #Sets the clothing to the correct colour and opacity.
-
-                greyscale_image = im.MatrixColor(the_image, opacity_matrix * brightness_matrix * contrast_matrix) #Set the image, which will crush all modifiers to 1 (so that future modifiers are applied to a flat image correctly with no unusually large images
-
-                colour_matrix = im.matrix.tint(self.colour[0], self.colour[1], self.colour[2]) * im.matrix.tint(*lighting)
-                alpha_matrix = im.matrix.opacity(self.colour[3])
-                shader_image = im.MatrixColor(greyscale_image, alpha_matrix * colour_matrix) #Now colour the final greyscale image
-
-                #shader_image = im.Recolor(the_image.filename,int(self.colour[0]*255),int(self.colour[1]*255),int(self.colour[2]*255),int(self.colour[3]*255))
-                # shader_image = ShaderDisplayable(shader.MODE_2D, the_image.filename, shader.VS_2D,PS_COLOUR_SUB_LR2,{},uniforms={"colour_levels":self.colour})
-                return shader_image
+            return facial_accessory_manager.generate_item_displayable(self, position, face_type, emotion, special_modifiers, lighting)
 
 
     class Facial_Accessory_Images():
@@ -4568,14 +4584,18 @@ init -2 python:
                 if is_top:
                     for breast in self.breast_sizes:
                         if clothing_name is None:
-                            self.images [body + "_" + breast] = "empty_holder.png" #Placeholder for clothing items that exist but don't get drawn for some reason (or that don't have image sets yet.
+                            self.images[body + "_" + breast] = "empty_holder.png" #Placeholder for clothing items that exist but don't get drawn for some reason (or that don't have image sets yet.
                         else:
-                            self.images [body + "_" + breast] = clothing_name+"_"+position_name+"_"+body+"_"+breast+".png"
+                            image_name = clothing_name+"_"+position_name+"_"+body+"_"+breast+".png"
+                            if renpy.loadable("character_images/" + image_name):
+                                self.images[body + "_" + breast] = image_name
                 else:
                     if clothing_name is None:
-                        self.images [body + "_AA"] = "empty_holder.png"
+                        self.images[body + "_AA"] = "empty_holder.png"
                     else:
-                        self.images[body + "_AA"] = clothing_name+"_"+position_name+"_"+body+"_AA.png"
+                        image_name = clothing_name + "_" + position_name + "_" + body + "_AA.png"
+                        if renpy.loadable("character_images/" + image_name):
+                            self.images[body + "_AA"] = image_name
 
         def get_image(self, body_type, breast_size = "AA" ): #Generates a proper Image object from the file path strings we have stored previously. Prevents object bloat by storing large objects repeatedly for everyone.
             index_string = body_type + "_" + breast_size

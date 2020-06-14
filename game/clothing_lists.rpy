@@ -29,6 +29,9 @@ init -1:
 
     define colour_black_sheer = [0.1,0.1,0.1,0.96] #Makes use of the alpha channel to give us translucent material that very slightly shows what's underneath.
 
+    define clothing_manager = Clothing_Renderer()
+    define facial_accessory_manager = Facial_Accessory_Renderer()
+
 
 ##NOTE/REMINDER##
 #stand1 positions are taken as 420x1080 images with 800 offset ##LEGACY! NO LONGER USED!
