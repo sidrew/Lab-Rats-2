@@ -419,6 +419,6 @@ label alexia_photography_intro_label(the_person):
     the_person.char "Yeah, I can do that! I don't know why, but I thought it was really exciting to be in front of that camera."
     mc.name "I'll let you get back to work then. See you around [the_person.title]."
     $ mc.business.hire_company_model(the_person)
-    $ public_advertising_license_policy.buy_policy(ignore_cost = True) # This special storyline "buys" the policy for free.
+    $ purchase_policy(public_advertising_license_policy, ignore_cost = True) # This special storyline "buys" the policy for free.
     call advance_time from _call_advance_time_19
     return
