@@ -9380,7 +9380,7 @@ label tutorial_start:
     "With nothing left to do you give up and turn around. Suddenly there's a click and the front door to the office swings open."
     "Janitor" "Hey, who's making all that noise?"
     "A middle aged man is standing at the door wearing grey-brown overalls. He's holding a stack of papers in one hand and a tape gun in the other."
-    mc.name "That was me. I'm suppose to be here for a job interview, do you know where I should be going?"
+    mc.name "That was me. I'm supposed to be here for a job interview, do you know where I should be going?"
     "Janitor" "Well I think you're shit out of luck then. They went belly up yesterday. This place belongs to the bank now."
     mc.name "What? That can't be right, I was talking to them less than a week ago."
     "Janitor" "Here, take a look for yourself."
@@ -9528,7 +9528,7 @@ label faq_loop:
                     "Vren" "Before you can produce the serum you will need raw supplies."
                     "Vren" "One unit of supply is needed for every production point the serum requires. You can order supply from your main office."
                     "Vren" "Once you have supplies you can spend time in your production lab. Serum is made in batches - unlocking larger batches will let you make more serum with the same amount of supply."
-                    "Vren" "You can kepp this serum for personal use or you can head to the main office and mark it for sale."
+                    "Vren" "You can keep this serum for personal use or you can head to the main office and mark it for sale."
                     "Vren" "Once a serum is marked for sale you can spend time in your marketing division to find a buyer."
                     "Vren" "Your research and development lab can also spend time researching new traits for serum instead of producing new serum designs."
 
