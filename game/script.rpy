@@ -3495,7 +3495,7 @@ init -2 python:
             mask_name = image_name.replace("_" + self.skin_colour,"_Pattern_1") # Match the naming scheme used for the eye patterns.
             mask_image = Image(mask_name)
 
-            inverted_mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1,1])
+            #inverted_mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1,1])
             #mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,1,0]) #Does this even do anything??? #TODO: Check that this does something. (Doesn't look like it does)
 
             colour_pattern_matrix = im.matrix.tint(eye_colour[0], eye_colour[1], eye_colour[2]) * im.matrix.tint(*lighting)
@@ -4188,10 +4188,6 @@ init -2 python:
 
             position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
             pattern_sets = {} #A list of patterns for this piece of clothing that are valid. Keys are in the form "position_patternName"
-            supported_patterns = supported_patterns
-            if not supported_patterns:
-                supported_patterns = {"Default":None}
-            supported_patterns["Default"] = None
 
             for set in self.supported_positions:
                 position_sets[set] = Clothing_Images(proper_name,set,draws_breasts, body_dependant = body_dependant)
@@ -4202,6 +4198,12 @@ init -2 python:
                             pattern_sets[set + "_" + pattern_name] = Clothing_Images(proper_name+"_"+pattern_name, set, draws_breasts, body_dependant = body_dependant)
 
             self.clothing_items[proper_name] = [position_sets, pattern_sets]
+
+        def get_position_sets(self, clothing):
+            return self.clothing_items[clothing.proper_name][0]
+
+        def get_pattern_sets(self, clothing):
+            return self.clothing_items[clothing.proper_name][1]
 
         def generate_item_image_name(self, clothing, body_type, tit_size, position):
             position_set = self.clothing_items[clothing.proper_name][0]
@@ -4223,7 +4225,7 @@ init -2 python:
             if clothing.is_extension: #We don't draw extension items, because the image is taken care of in the main object.
                 return
 
-            position_set = self.clothing_items[clothing.proper_name][0]
+            position_set = self.get_position_sets(clothing)
 
             if lighting is None:
                 lighting = [1,1,1]
@@ -4244,7 +4246,7 @@ init -2 python:
                 regions_constrained = []
 
             if clothing.pattern is not None:
-                pattern_set = self.clothing_items[clothing.proper_name][1].get(position+"_"+clothing.pattern)
+                pattern_set = self.get_pattern_sets(clothing).get(position + "_" + clothing.pattern)
                 if pattern_set is None:
                     mask_image = None
                 elif clothing.draws_breasts:
@@ -4376,6 +4378,9 @@ init -2 python:
             self.layer = layer #A list of the slots above that this should take up or otherwise prevent ffrom being filled. Slots are a list of the slot and the layer.
 
             self.supported_patterns = supported_patterns
+            if not supported_patterns:
+                self.supported_patterns = {"Default":None}
+            self.supported_patterns["Default"] = None
             self.draws_breasts = draws_breasts
             self.underwear = underwear #True if the item of clothing satisfies the desire for underwear for upper or lower (bra or panties), false if it can pass as outerwear. Underwear on outside of outfit gives higher slut requirement.
             self.slut_value = slut_value #The amount of sluttiness that this piece of clothing adds to an outfit.
