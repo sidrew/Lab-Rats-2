@@ -42,7 +42,7 @@ label mom_weekly_pay_label(the_person):
                     the_person.char "The budget is still really tight [the_person.mc_title]. I was hoping you could help out, for a favour, of course."
                     the_person.char "I haven't taken my birth control all week. If you're able to pay me I won't start again."
                     menu:
-                        "Keep her off her birth control\n{color=#ff0000}{size=18}Costs: $150{/size}{/color]" if mc.business.funds >= 150:
+                        "Keep her off her birth control\n{color=#ff0000}{size=18}Costs: $150{/size}{/color}" if mc.business.funds >= 150:
                             mc.name "I think we can keep this deal going."
                             "You pull out the cash and hand it over. She places them alongside the bills."
                             $ mc.business.funds += -150
@@ -266,7 +266,7 @@ label mom_high_sluttiness_weekly_pay(the_person):
             else:
                 the_person.char "I'm sorry, I can't take your money for that [the_person.mc_title]."
                 mc.name "Sure you can [the_person.title], it's..."
-                "[the_person.possessive_title] shakes her head and interupts you."
+                "[the_person.possessive_title] shakes her head and interrupts you."
                 the_person.char "No, I mean I can't take your money because I'm not taking any birth control right now."
                 if the_person.has_taboo("vaginal_sex"):
                     the_person.char "It's been a while since I needed it, so I don't bother."
