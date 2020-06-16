@@ -17,7 +17,7 @@ init -2 python:
             return "Too early to visit [nora.title]."
         elif time_of_day == 4:
             return "Too late to visit [nora.title]."
-        elif round(mc.business.event_triggers_dict.get("nora_trait_researched").mastery_level, 1) < 2:
+        elif __builtin__.round(mc.business.event_triggers_dict.get("nora_trait_researched").mastery_level, 1) < 2:
             trait_name = mc.business.event_triggers_dict.get("nora_trait_researched").name
             return "Trait Mastery Level of " + trait_name + " must be 2 or higher."
         else:
@@ -54,7 +54,7 @@ init -2 python:
             return "Too early to visit [nora.title]."
         elif time_of_day == 4:
             return "Too late to visit [nora.title]."
-        elif round(mc.business.event_triggers_dict.get("nora_cash_research_trait").mastery_level, 1) < 2:
+        elif __builtin__.round(mc.business.event_triggers_dict.get("nora_cash_research_trait").mastery_level, 1) < 2:
             trait_name = mc.business.event_triggers_dict.get("nora_cash_research_trait").name
             return "Trait Mastery Level of " + trait_name + " must be 2 or higher."
         else:

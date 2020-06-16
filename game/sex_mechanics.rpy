@@ -402,7 +402,7 @@ label check_position_willingness(the_person, the_position, ignore_taboo = False,
     else:
         # You're nowhere close to the required sluttiness, lose some love for even trying.
         $ love_loss = the_person.effective_sluttiness(the_taboo) - the_position.slut_requirement #A negative number
-        $ love_loss = round(love_loss/5)
+        $ love_loss = __builtin__.round(love_loss/5)
         $ the_person.change_love(love_loss)
         $ the_person.call_dialogue("sex_angry_reject")
         $ willing = False
