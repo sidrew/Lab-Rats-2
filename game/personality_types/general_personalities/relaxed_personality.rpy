@@ -141,7 +141,7 @@ label relaxed_sex_responses_vaginal(the_person):
 
     elif the_person.arousal < 75:
         if the_person.sluttiness > 50:
-            "Ah, fuck me [the_person.mc_title]! Give me that big cock!"
+            the_person.char "Ah, fuck me [the_person.mc_title]! Give me that big cock!"
 
         else:
             "[the_person.possessive_title] mumbles softly to herself."
