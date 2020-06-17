@@ -1138,7 +1138,7 @@ label introvert_bare_pussy_taboo_break(the_person, the_clothing):
     elif the_person.love > 35:
         the_person.char "Oh! If you take that off you're going to see my... You know."
         mc.name "That's the plan. Is there a problem with that?"
-        the_person.char "No, I guess not. I just feel a little self concious about getting naked like this."
+        the_person.char "No, I guess not. I just feel a little self-conscious about getting naked like this."
         if the_person.has_taboo("touching_vagina"):
             mc.name "Just take a deep breath and relax. You trust me, right?"
             the_person.char "Of course I do [the_person.mc_title]. Okay, go ahead..."
