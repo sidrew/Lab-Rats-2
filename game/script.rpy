@@ -9870,7 +9870,7 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                     "You approach [picked_option.title] and chat for a little bit."
                     $ picked_option.call_dialogue("greetings")
 
-                if picked_option.has_taboo(["underwear_nudity","bare_tits", "bare_pussy"]) and picked_option.judge_outfit(picked_option.outfit, -30): #If she's in anything close to slutty she's self-concious enough to coment on it.
+                if picked_option.has_taboo(["underwear_nudity","bare_tits", "bare_pussy"]) and picked_option.judge_outfit(picked_option.outfit, -30): #If she's in anything close to slutty she's self-conscious enough to coment on it.
                     if picked_option.outfit.vagina_visible() and picked_option.has_taboo("bare_pussy") and picked_option.outfit.tits_visible() and picked_option.has_taboo("bare_tits"):
                         "[picked_option.title] doesn't say anything about it, but seems uncomfortable being naked in front of you."
                         "As you talk she seems to become more comfortable with her own nudity, even if she isn't thrilled by it."
