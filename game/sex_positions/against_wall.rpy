@@ -91,9 +91,9 @@ label scene_against_wall_1(the_girl, the_location, the_object):
                 if the_girl.get_opinion_score("kissing") > 0:
                     $ the_girl.discover_opinion("kissing")
                     $ the_girl.change_arousal(the_girl.get_opinion_score("kissing"))
-                    the_girl.char "[the_girl.possessive_title] shivers with pleasure when your tongues meet. She bucks her hips against yours, suddenly desperate to have you deeper inside of her."
+                    "[the_girl.possessive_title] shivers with pleasure when your tongues meet. She bucks her hips against yours, suddenly desperate to have you deeper inside of her."
                 else:
-                    the_girl.char "[the_girl.possessive_title] returns your kiss, darting her tongue out to meet yours."
+                    "[the_girl.possessive_title] returns your kiss, darting her tongue out to meet yours."
                     if the_girl.outfit.tits_available():
                         "She wraps her arms around you and pulls you against her while you make out. You feel her tits pressed tight against your skin while you fuck her."
                     else:
