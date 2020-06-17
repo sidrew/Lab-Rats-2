@@ -613,7 +613,7 @@ label mom_touching_penis_taboo_break(the_person):
         mc.name "I don't think it's anyones business but our own how we show our love for each other."
         "She thinks for a long moment, eyes still locked on your dick."
         the_person.char "Okay, but only because I love you [the_person.mc_title]."
-        "[the_person.possessive_title] looks you in the eyes again and laughs self-conciously."
+        "[the_person.possessive_title] looks you in the eyes again and laughs self-consciously."
         the_person.char "I guess it's fine to tell you then that your... Penis is very impressive. You should be very proud."
 
     else: #High Slut version
