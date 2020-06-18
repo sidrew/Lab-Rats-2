@@ -666,7 +666,7 @@ label lunch_date_plan_label(the_person):
 
 label lunch_date_label(the_person): #Could technically be included in the planning phase, but broken out to fit the structure of the other events.
     the_person.char "So, where do you want to go?"
-    $ the_type = get_random_from_list(["chinese food","thai food","italian food","sushi","korean barbecue","pizza","sandwiches"])
+    $ the_type = get_random_from_list(["Chinese food","Thai food","Italian food","sushi","Korean barbecue","pizza","sandwiches"])
     mc.name "I know a nice place nearby. How do you like [the_type]?"
     the_person.char "No complaints, as long as it's good!"
     mc.name "Alright, let's go then!"
