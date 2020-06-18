@@ -168,7 +168,7 @@ label grope_tits(the_person):
                         "You slide behind her, cradling a breast in one hand and rubbing her inner thigh with your other."
                     else:
                         "You step closer to [the_person.title]. She seems nervous, but lets you step behind her and wrap your arms around her."
-                        "You cradle a breast in one hand and slide your other down between her legs to caress her inner thing."
+                        "You cradle a breast in one hand and slide your other down between her legs to caress her inner thigh."
                     return True #Note: If this returns True it leads into the generic sex system starting with a standing massage position.
 
                 "Stop touching her":
