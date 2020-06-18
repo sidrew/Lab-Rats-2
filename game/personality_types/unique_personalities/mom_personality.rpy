@@ -867,7 +867,7 @@ label mom_anal_sex_taboo_break(the_person):
 
 label mom_condomless_sex_taboo_break(the_person):
     # Lead in: mc.name "No way. I want to feel you wrapped around me."
-    the_person.char "No no no, we really can't do that! I may be old, but you could still get pregnant!"
+    the_person.char "No no no, we really can't do that! I may be old, but you could still get me pregnant!"
     mc.name "Are you taking birth control?"
     if the_person.on_birth_control:
         the_person.char "I am, but birth control isn't one hundred percent effective. Don't they teach you that in health class?"
