@@ -10118,7 +10118,7 @@ label give_serum(the_person):
         return False
 
 label sleep_action_description: #REMEMBER TO UPDATE THE SLEEP QUICK BUTTON ON THE MAIN UI, IT DOES NOT TOUCH THIS FUNCTION IN ANY WAY!
-    "You go to bed after a hard days work."
+    "You go to bed after a hard day's work."
     call advance_time from _call_advance_time
     return
 
