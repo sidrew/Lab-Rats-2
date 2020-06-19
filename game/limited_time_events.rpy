@@ -68,6 +68,8 @@ init -1 python:
             return False
         if the_person.love < (75 - (10*the_person.get_opinion_score("creampies"))):
             return False
+        if pregnant_role in the_person.special_role and the_person.event_triggers_dict.get("preg_knows", False):
+            return False
         return True
 
     def add_mom_outfit_coloured_apron(person):
