@@ -368,7 +368,7 @@ label tits_shrink_announcement_one(day_shrunk, the_person):
     the_person.char "Hey [the_person.mc_title]."
     "[the_person.possessive_title] sighs and looks down at her chest. She cups a boob and rubs it gently."
     the_person.char "It looks like my milk is starting to dry up. I'm going to miss having my tits that big..."
-    if the_person.get_opinion_score("creampies") > 0 or the_person.get_opinion_score("bareback sex"):
+    if the_person.get_opinion_score("creampies") > 0 or the_person.get_opinion_score("bareback sex") > 0:
         the_person.char "If you really wanted to keep them around you could always get me pregnant again."
         "She bites her lip and eyes your crotch, obviously fantasizing."
         mc.name "What a good little slut, being so eager to get bred again just so I can have some bigger tits to play with."
