@@ -2829,7 +2829,9 @@ init -2 python:
 
             if persistent.pregnancy_pref == 0:
                 no_condom_threshold += 10 #If pregnancy content is being ignored we return to the baseline of 60
-            elif the_person.on_birth_control: #If there is pregnancy content then a girl is less likely to want a condom when using BC, much more likely to want it when not using BC.
+            elif pregnant_role in self.special_role and self.event_triggers_dict.get("preg_knows", False): # Is pregnant and knows, it so she doesn't mind doing it without
+                no_condom_threshold -= 20
+            elif not the_person.on_birth_control: # much more likely to want it when not using BC.
                 no_condom_threshold += 20
 
             return no_condom_threshold
