@@ -2467,85 +2467,85 @@ init 1 python:
 
 label serum_creation_crisis_label(the_serum): # Called every time a new serum is created, test it on a R&D member.
     if mc.business.head_researcher:
-        $ rd_staff = mc.business.head_researcher
+        $ the_person = mc.business.head_researcher
     else:
-        $ rd_staff = get_random_from_list(mc.business.r_div.people) #Get a random researcher from the R&D department. TODO: Replace this with the head researcher position.
+        $ the_person = get_random_from_list(mc.business.r_div.people) #Get a random researcher from the R&D department. TODO: Replace this with the head researcher position.
 
-    if rd_staff is not None and not mc.business.is_weekend():
+    if the_person is not None and not mc.business.is_weekend():
         if mc.location == mc.business.r_div: # The MC is in the lab, just physically get them.
             $ mc.business.r_div.show_background()
-            "There's a tap on your shoulder. You turn and see [rd_staff.title], looking obviously excited."
-            $ rd_staff.draw_person(emotion="happy")
-            rd_staff.char "[rd_staff.mc_title], I'm sorry to bother you but I've had a breakthrough! The first test dose of serum \"[the_serum.name]\" is coming out right now!"
-            rd_staff.char "What would you like me to do?"
+            "There's a tap on your shoulder. You turn and see [the_person.title], looking obviously excited."
+            $ the_person.draw_person(emotion="happy")
+            the_person.char "[the_person.mc_title], I'm sorry to bother you but I've had a breakthrough! The first test dose of serum \"[the_serum.name]\" is coming out right now!"
+            the_person.char "What would you like me to do?"
             menu:
                 "Insist on a final test of [the_serum.name]":
                     mc.name "Excellent, show me what you've done."
                     #Fall through to the next section.
 
                 "Finalize the design of [the_serum.name]":
-                    mc.name "Thank you for letting me know [rd_staff.title]. Make sure you all of the safety documentation written up and send the design along. I trust you can take care of that."
-                    $ rd_staff.change_happiness(5)
-                    $ rd_staff.change_obedience(3)
-                    rd_staff.char "Of course. If nothing else comes up we will send the design to production. You can have the production line changed over whenever you wish."
-                    rd_staff.char "I'll put the prototype serum in the stockpile as well, if you need it."
+                    mc.name "Thank you for letting me know [the_person.title]. Make sure you all of the safety documentation written up and send the design along. I trust you can take care of that."
+                    $ the_person.change_happiness(5)
+                    $ the_person.change_obedience(3)
+                    the_person.char "Of course. If nothing else comes up we will send the design to production. You can have the production line changed over whenever you wish."
+                    the_person.char "I'll put the prototype serum in the stockpile as well, if you need it."
                     $ mc.business.inventory.change_serum(the_serum, 1)
-                    $ del rd_staff
+                    $ del the_person
                     $ renpy.scene("Active")
                     return
 
         else: # The MC is somewhere else, bring them to the lab for this.
             "Your phone buzzes, grabbing your attention. It's a call from the R&D section of your business."
-            "As soon as you answer you hear the voice of [rd_staff.title]."
-            show screen person_info_ui(rd_staff)
-            rd_staff.char "[rd_staff.mc_title], I've had a breakthrough! The first test dose of serum \"[the_serum.name]\" is coming out right now!"
-            rd_staff.char "What would you like me to do?"
+            "As soon as you answer you hear the voice of [the_person.title]."
+            show screen person_info_ui(the_person)
+            the_person.char "[the_person.mc_title], I've had a breakthrough! The first test dose of serum \"[the_serum.name]\" is coming out right now!"
+            the_person.char "What would you like me to do?"
             menu:
                 "Insist on a final test of [the_serum.name]":
                     mc.name "Excellent, I'll be down in a moment to take a look."
-                    "You hang up and travel over to the lab. You're greeted by [rd_staff.title] as soon as you're in the door."
+                    "You hang up and travel over to the lab. You're greeted by [the_person.title] as soon as you're in the door."
                     $ mc.business.r_div.show_background()
-                    $ rd_staff.draw_person(emotion="happy")
-                    $ rd_staff.call_dialogue("greetings")
+                    $ the_person.draw_person(emotion="happy")
+                    $ the_person.call_dialogue("greetings")
                     mc.name "We're set up over here. come this way."
                     #Fall through to the next section.
 
                 "Finalize the design of [the_serum.name]":
-                    mc.name "Thank you for letting me know [rd_staff.title]. Make sure all of the safety documentation is written up and send the design along. I trust you can take care of that."
-                    $ rd_staff.change_happiness(5)
-                    $ rd_staff.change_obedience(3)
-                    rd_staff.char "Of course. If nothing else comes up we will send the design to production. You can have the production line changed over whenever you wish."
-                    rd_staff.char "I'll put the prototype serum in the stockpile as well, if you need it."
-                    "[rd_staff.title] hangs up."
+                    mc.name "Thank you for letting me know [the_person.title]. Make sure all of the safety documentation is written up and send the design along. I trust you can take care of that."
+                    $ the_person.change_happiness(5)
+                    $ the_person.change_obedience(3)
+                    the_person.char "Of course. If nothing else comes up we will send the design to production. You can have the production line changed over whenever you wish."
+                    the_person.char "I'll put the prototype serum in the stockpile as well, if you need it."
+                    "[the_person.title] hangs up."
                     $ mc.business.inventory.change_serum(the_serum, 1)
                     $ renpy.scene("Active")
                     return
 
         ## Test the serum out on someone.
-        "[rd_staff.title] brings you to her work bench. A centrifuge is finished a cycle and spinning down."
+        "[the_person.title] brings you to her work bench. A centrifuge is finished a cycle and spinning down."
         $ technobabble = get_random_from_list(technobabble_list)
-        rd_staff.char "Perfect, it's just finishing now. I had this flash of inspiration and realized all I needed to do was [technobabble]."
-        "[rd_staff.possessive_title] opens the centrifuge lid and takes out a small glass vial. She holds it up to the light and nods approvingly, then hands it to you."
+        the_person.char "Perfect, it's just finishing now. I had this flash of inspiration and realized all I needed to do was [technobabble]."
+        "[the_person.possessive_title] opens the centrifuge lid and takes out a small glass vial. She holds it up to the light and nods approvingly, then hands it to you."
         menu:
             "Give the serum back for final testing":
-                mc.name "It seems like you have everything under control here [rd_staff.title], I'm going to leave that testing your capable hands."
-                $ rd_staff.change_happiness(5)
-                $ rd_staff.change_obedience(5)
+                mc.name "It seems like you have everything under control here [the_person.title], I'm going to leave that testing your capable hands."
+                $ the_person.change_happiness(5)
+                $ the_person.change_obedience(5)
 
-                rd_staff.char "I'll do my best sir, thank you!"
-                if rd_staff.effective_sluttiness() < 10:
+                the_person.char "I'll do my best sir, thank you!"
+                if the_person.effective_sluttiness() < 10:
                     mc.name "I'm sure you will. Keep up the good work."
-                elif rd_staff.effective_sluttiness() < 30:
-                    "You give [rd_staff.title] a pat on the back."
+                elif the_person.effective_sluttiness() < 30:
+                    "You give [the_person.title] a pat on the back."
                     mc.name "I'm sure you will. Keep up the good work."
-                elif rd_staff.effective_sluttiness() < 80:
-                    "You give [rd_staff.title] a quick slap on the ass. She gasps softly in surprise."
+                elif the_person.effective_sluttiness() < 80:
+                    "You give [the_person.title] a quick slap on the ass. She gasps softly in surprise."
                     mc.name "I'm sure you will. Keep up the good work."
                 else:
-                    "You grab [rd_staff.title]'s ass and squeeze it hard. She gasps in surprise, then moans softly."
+                    "You grab [the_person.title]'s ass and squeeze it hard. She gasps in surprise, then moans softly."
                     mc.name "I'm sure you will. Keep up the good work."
 
-                "You leave [rd_staff.title] to to her work in the lab and return to what you were doing."
+                "You leave [the_person.title] to to her work in the lab and return to what you were doing."
                 $renpy.scene("Active")
                 return
 
@@ -2554,75 +2554,70 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                 "You think for a moment about who to in your R&D team to test the serum on."
                 call screen employee_overview(white_list = mc.business.research_team, person_select = True)
                 $ selected_person = _return
-                if not selected_person == rd_staff:
-                    mc.name "[rd_staff.title], fetch me [selected_person.name]."
+                if not selected_person == the_person:
+                    mc.name "[the_person.title], fetch me [selected_person.name]."
                     $ renpy.scene("Active")
                     "She nods and heads off. Soon after [selected_person.name] is standing in front of you."
                     $ selected_person.draw_person()
                     selected_person.char "You wanted me sir?"
-                    $ rd_staff = selected_person
+                    $ the_person = selected_person
                 $ del selected_person
 
-                mc.name "How confident in your work are you [rd_staff.title]? Before we send this along to production I think we should put it through one final test."
-                if rd_staff.obedience < 80:
-                    $ rd_staff.draw_person(emotion="angry")
-                    $ rd_staff.change_happiness(-10)
-                    $ rd_staff.change_obedience(-5)
-                    rd_staff.char "Really? I'm just suppose to take a completely untested drug because it might make you more money? That's fucking ridiculous and we both know it."
-                    "[rd_staff.possessive_title] puts the serum down on the lab bench and crosses her arms."
-                    rd_staff.char "Just get out of here and I'll finish the initial testing in a safe environment."
+                mc.name "How confident in your work are you [the_person.title]? Before we send this along to production I think we should put it through one final test."
+                if the_person.obedience < 80:
+                    $ the_person.draw_person(emotion="angry")
+                    $ the_person.change_happiness(-10)
+                    $ the_person.change_obedience(-5)
+                    the_person.char "Really? I'm just suppose to take a completely untested drug because it might make you more money? That's fucking ridiculous and we both know it."
+                    "[the_person.possessive_title] puts the serum down on the lab bench and crosses her arms."
+                    the_person.char "Just get out of here and I'll finish the initial testing in a safe environment."
                     mc.name "Fine, just make sure you get it done."
-                    rd_staff.char "That's what I'm paid for, isn't it?"
-                    "You leave [rd_staff.title] to her to work in the lab and return to what you were doing."
+                    the_person.char "That's what I'm paid for, isn't it?"
+                    "You leave [the_person.title] to her to work in the lab and return to what you were doing."
                     $renpy.scene("Active")
                     return
 
-                elif rd_staff.obedience < 120:
-                    "[rd_staff.title] pauses for a moment before responding."
-                    rd_staff.char "That's a big risk you know. If I'm going to do something like that, I think I deserve a raise."
-                    $ raise_amount = int(rd_staff.salary*0.1)
+                elif the_person.obedience < 120:
+                    "[the_person.title] pauses for a moment before responding."
+                    the_person.char "That's a big risk you know. If I'm going to do something like that, I think I deserve a raise."
+                    $ raise_amount = int(the_person.salary*0.1)
                     menu:
-                        "Give [rd_staff.title] a 10%% raise (+$[raise_amount]/day)":
-                            $ mc.log_event(rd_staff.title + ": +$[raise_amount]/day Salary", "float_text_green")
+                        "Give [the_person.title] a 10%% raise (+$[raise_amount]/day)":
+                            $ mc.log_event(the_person.title + ": +$[raise_amount]/day Salary", "float_text_green")
                             mc.name "Alright, you've got yourself a deal. I'll have the books updated by the end of the day."
-                            $ rd_staff.salary += raise_amount
-                            rd_staff.char "Good to hear it. Let's get right to it then."
-                            $ rd_staff.give_serum(copy.copy(the_serum))
+                            $ the_person.salary += raise_amount
+                            the_person.char "Good to hear it. Let's get right to it then."
+                            $ the_person.give_serum(copy.copy(the_serum))
 
                         "Refuse":
                             mc.name "I'm sorry but that just isn't in the budget right now."
-                            rd_staff.char "Fine, then I'll just have to put this new design through the normal safety tests. I'll have the results for you as soon as possible."
+                            the_person.char "Fine, then I'll just have to put this new design through the normal safety tests. I'll have the results for you as soon as possible."
                             mc.name "Fine, just make sure you get it done."
-                            "[rd_staff.possessive_title] nods. You leave her to work in the lab and return to what you were doing."
+                            "[the_person.possessive_title] nods. You leave her to work in the lab and return to what you were doing."
                             $renpy.scene("Active")
                             return
 
                 else:
-                    "[rd_staff.title] pauses for a moment, then nods."
-                    rd_staff.char "Okay sir, if you think it will help the business."
-                    $ rd_staff.give_serum(copy.copy(the_serum))
+                    "[the_person.title] pauses for a moment, then nods."
+                    the_person.char "Okay sir, if you think it will help the business."
+                    $ the_person.give_serum(copy.copy(the_serum))
 
 
-        "[rd_staff.title] drinks down the contents of the vial and places it to the side."
-        rd_staff.char "Okay, I guess we just wait to see if there are any effects..."
-        "You spend time a few minutes with [rd_staff.possessive_title] to make sure there are no acute effects. The time passes uneventfully."
-        rd_staff.char "From a safety perspective everything seems fine. I don't see any problem sending this design to production."
-        mc.name "Thank you for the help [rd_staff.title]."
+        "[the_person.title] drinks down the contents of the vial and places it to the side."
+        the_person.char "Okay, I guess we just wait to see if there are any effects..."
+        "You spend time a few minutes with [the_person.possessive_title] to make sure there are no acute effects. The time passes uneventfully."
+        the_person.char "From a safety perspective everything seems fine. I don't see any problem sending this design to production."
+        mc.name "Thank you for the help [the_person.title]."
         "You leave her to get back to her work and return to what you were doing."
-        $ rd_staff.change_obedience(5)
+        $ the_person.change_obedience(5)
         $ renpy.scene("Active")
-        return
 
     else: #There's nobody else in the lab, guess you've done all the hard work yourself!
         "You finish work on your new serum design, dubbing it \"[the_serum.name]\"."
         "The lab is empty, so you celebrate by yourself and place the prototype in the stockpile."
         $ mc.business.inventory.change_serum(the_serum, 1)
-        return
 
-    $ del rd_staff        
     return #We should always have returned by this point anyways, but just in case we'll catch it here.
-
-
 
 init 1 python:
     def daughter_work_crisis_requirement():
