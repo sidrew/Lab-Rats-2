@@ -2490,7 +2490,6 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                     the_person.char "Of course. If nothing else comes up we will send the design to production. You can have the production line changed over whenever you wish."
                     the_person.char "I'll put the prototype serum in the stockpile as well, if you need it."
                     $ mc.business.inventory.change_serum(the_serum, 1)
-                    $ del the_person
                     $ renpy.scene("Active")
                     return
 
