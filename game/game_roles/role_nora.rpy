@@ -112,24 +112,24 @@ init -2 python:
         university.actions.append(nora_research_cash_action)
         return
 
-label nora_intro_label(the_steph):
+label nora_intro_label(the_person):
     $ the_nora = nora
     $ mc.business.event_triggers_dict["intro_nora"] = False #We've already introduced her, so we don't have to do this again.
-    mc.name "[the_steph.title], have you talked to [the_nora.title] yet?"
+    mc.name "[the_person.title], have you talked to [the_nora.title] yet?"
     "She nods."
-    the_steph.char "I did, she said we would be welcome by any time."
+    the_person.char "I did, she said we would be welcome by any time."
     mc.name "Excellent, I want to pay her a visit and want you to come along."
-    the_steph.char "Sure thing. It's going to be strange being back there, but I'm looking forward to it!"
+    the_person.char "Sure thing. It's going to be strange being back there, but I'm looking forward to it!"
     "The two of you head to the university. Being on campus again triggers a wave of nostalgia that you hadn't expected."
 
     $ university.show_background()
     "You navigate to the old lab and knock on the door. You hear the click of high heels approaching from the other side."
-    "Your old lab director opens the door and smiles at you and [the_steph.title]. Inside the room is bustling with activity."
+    "Your old lab director opens the door and smiles at you and [the_person.title]. Inside the room is bustling with activity."
     $ the_nora.draw_person(emotion = "happy")
-    the_nora.char "[the_nora.mc_title], [the_steph.title], I'm glad you both stopped by."
+    the_nora.char "[the_nora.mc_title], [the_person.title], I'm glad you both stopped by."
     mc.name "It's nice to see you [the_nora.title]."
-    $ the_steph.draw_person(emotion = "happy")
-    the_steph.char "Hey [the_nora.title]. Good to be back."
+    $ the_person.draw_person(emotion = "happy")
+    the_person.char "Hey [the_nora.title]. Good to be back."
     $ the_nora.draw_person(emotion = "happy")
     "[the_nora.possessive_title] steps out into the hallway and closes the lab door behind her."
     the_nora.char "I'm sorry I can't invite you in; the lab is a high security space now."
@@ -141,20 +141,20 @@ label nora_intro_label(the_steph):
 
     "The three of you return to ground level and go to a coffee shop near the center of campus."
     $ the_nora.draw_person(position = "sitting")
-    "When you get there [the_steph.title] pulls out a folder containing a synopsis of your research and slides it over to [the_nora.title]."
+    "When you get there [the_person.title] pulls out a folder containing a synopsis of your research and slides it over to [the_nora.title]."
     "[the_nora.possessive_title] looks through the notes, sipping thoughtfully at her coffee."
     the_nora.char "Hmm... Yes... Ah, I see what's going on. I ran into this same roadblock."
-    $ the_steph.draw_person(position = "sitting")
-    the_steph.char "Excellent, so you know where to go from here?"
+    $ the_person.draw_person(position = "sitting")
+    the_person.char "Excellent, so you know where to go from here?"
     "[the_nora.title] looks up from her notes."
     $ the_nora.draw_person(position = "sitting")
     the_nora.char "Do I know? Of course! I haven't just been twiddling my thumbs since you two left!"
     the_nora.char "The problem is that all of my research is suppose to be kept within the university now. No sharing with outside organizations."
     the_nora.char "I wish I could help, but it's my job at risk."
     mc.name "Come on [the_nora.title], we're counting on you here."
-    $ the_steph.draw_person(position = "sitting")
-    the_steph.char "Think of the science, we shouldn't let bureaucrats get in the way of progress! That's what you always taught me, at least."
-    "She leans forward in her chair, thinking intensely. You and [the_steph.title] wait while she comes to a decision."
+    $ the_person.draw_person(position = "sitting")
+    the_person.char "Think of the science, we shouldn't let bureaucrats get in the way of progress! That's what you always taught me, at least."
+    "She leans forward in her chair, thinking intensely. You and [the_person.title] wait while she comes to a decision."
     $ the_nora.draw_person(position = "sitting")
     the_nora.char "Okay, I'll help. But I'll need something in return."
     "You breath a sigh of relief."
@@ -162,13 +162,13 @@ label nora_intro_label(the_steph):
     the_nora.char "I have some effects that might be achievable, but I'm running into nothing but red tape getting them approved for human testing."
     the_nora.char "I will provide you with some of my research. I need you to develop it into a complete package, test it, and return the results to me."
     the_nora.char "Once I have your results back I'll give you my old notes, which should be enough to keep you moving forward."
-    $ the_steph.draw_person(position = "sitting", emotion = "happy")
-    the_steph.char "That's perfect, that's all I need."
+    $ the_person.draw_person(position = "sitting", emotion = "happy")
+    the_person.char "That's perfect, that's all I need."
     mc.name "We'll make it happen [the_nora.title]. Send the plans for the trait you need researched and we'll get started right away."
     $ the_nora.draw_person()
     "[the_nora.title] stands up and pushes her chair in."
     the_nora.char "I hope to hear from you soon. Good luck."
-    "She hugs [the_steph.title] goodbye, and you go your separate ways."
+    "She hugs [the_person.title] goodbye, and you go your separate ways."
 
     $ the_trait = get_random_from_list(list_of_nora_traits)
     $ the_trait.researched = True
@@ -176,10 +176,10 @@ label nora_intro_label(the_steph):
     $ list_of_traits.append(the_trait)
     $ del the_trait
 
-    "When you get back to the office [the_steph.title] has a new file detailing an untested serum trait."
-    the_steph.char "Without [the_nora.title]'s research notes all we'll be able to do is put this trait into a serum and manufacture it."
-    the_steph.char "You'll need to test a serum containing this trait on someone to raise it's mastery level."
-    the_steph.char "We should bring it up to at least mastery level 2 before we go back to [the_nora.title]."
+    "When you get back to the office [the_person.title] has a new file detailing an untested serum trait."
+    the_person.char "Without [the_nora.title]'s research notes all we'll be able to do is put this trait into a serum and manufacture it."
+    the_person.char "You'll need to test a serum containing this trait on someone to raise it's mastery level."
+    the_person.char "We should bring it up to at least mastery level 2 before we go back to [the_nora.title]."
 
     mc.name "Understood. I'll be back once the testing is done."
 
