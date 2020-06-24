@@ -374,7 +374,7 @@ label cousin_condomless_sex_taboo_break(the_person):
             else:
                 the_person.char "Me too, but we need to be really careful if you're going to take me bareback. I'm not on birth control."
                 mc.name "Fine, I'll pull out."
-            the_person.char "You better. If you get me prengant you're going to be the one to tell both of our moms."
+            the_person.char "You better. If you get me pregnant you're going to be the one to tell both of our moms."
         the_person.char "Come on, hurry up and fuck me before I realise this is a bad idea."
 
     else:
