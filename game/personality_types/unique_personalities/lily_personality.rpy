@@ -346,7 +346,13 @@ label lily_cum_vagina(the_person):
             else:
                 "She takes a deep breath and calms herself down."
                 the_person.char "It's probably fine... Right? Yeah, I'm sure it's fine. The pill is like a ninety nine percent effective, right?"
-
+        elif pregnant_role in person.special_role:
+            the_person.char "I know I shouldn't, but I love having my own brother's cum inside me."
+            if the_person.relationship != "Single":
+                $ so_title = SO_relationship_to_title(the_person.relationship)
+                the_person.char "I don't think my [so_title] would like it, if he new I said that."
+            else:
+                the_person.char "And since I'm already pregnant, we don't have to worry about a thing."
         elif the_person.sluttiness > 75 or the_person.get_opinion_score("creampies") > 0:
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)

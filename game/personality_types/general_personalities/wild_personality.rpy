@@ -694,7 +694,10 @@ label wild_cum_vagina(the_person):
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "Oh fuck, wow! My [so_title] never cums like that, there's so much of it!"
             else:
-                the_person.char "Oh fuck that's a lot of cum. Good thing I'm on the pill, because I don't think you're firing blanks."
+                if pregnant_role in person.special_role:
+                    the_person.char "Oh fuck that's a lot of cum. Good thing I'm already pregnant, because I don't think you're firing blanks."
+                else:
+                    the_person.char "Oh fuck that's a lot of cum. Good thing I'm on the pill, because I don't think you're firing blanks."
 
         elif the_person.sluttiness > 75 or the_person.get_opinion_score("creampies") > 0:
             if the_person.relationship != "Single":
