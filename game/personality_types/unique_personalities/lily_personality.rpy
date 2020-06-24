@@ -335,7 +335,7 @@ label lily_cum_vagina(the_person):
         else:
             the_person.char "Oh fuck, good thing you've got a condom on. I mean, could you imagine if you had put all of that into your own sister?"
 
-    else: #TODO: No birth control varients.
+    else: #TODO: No birth control variants.
         if the_person.on_birth_control:
             the_person.char "Oh god, I can't believe you just came inside me... What if my birth control doesn't work?"
             if the_person.relationship != "Single":
@@ -435,7 +435,7 @@ label lily_sex_watch(the_person, the_sex_person, the_position):
     else:
         $ the_person.draw_person(emotion = "happy")
         the_person.char "Give it to her [the_person.mc_title], don't hold back just because I'm here."
-        the_person.char "You're not nervious because your sister is watching, are you?"
+        the_person.char "You're not nervous because your sister is watching, are you?"
         "[the_person.title] watches eagerly while you and [the_sex_person.name] [the_position.verb]."
 
     return
@@ -627,7 +627,7 @@ label lily_sucking_cock_taboo_break(the_person):
             "She sighs and shakes her head in disbelief."
             mc.name "It means even less than kissing. We're just experimenting."
 
-        the_person.char "Normal familes don't experiment with each other! Do you know anyone else who has their sister suck their dick?"
+        the_person.char "Normal families don't experiment with each other! Do you know anyone else who has their sister suck their dick?"
         mc.name "No, but I don't know anyone who loves their little sister as much as I do either."
         mc.name "We aren't a normal family [the_person.title], we have something special. You love me, right?"
         the_person.char "Yeah, I love you [the_person.mc_title]."
