@@ -54,7 +54,7 @@ label mom_weekly_pay_label(the_person):
                         "Let her start taking her birth control":
                             mc.name "I'm sorry, the budget at work has been a little tight lately."
                             the_person.char "I understand. Is there anything else I can do for then?"
-                            call manage_bc(the_person, start = True) from _call_manage_bc
+                            $ manage_bc(the_person, start = True)
                             $ the_person.event_triggers_dict["Mom_forced_off_bc"] = False
             else:
                 the_person.char "The budget is still really tight [the_person.mc_title], so I was wondering if you wanted to buy any sort of favour from me?"
@@ -262,7 +262,7 @@ label mom_high_sluttiness_weekly_pay(the_person):
                 the_person.char "Here are my pills for the week, so you know I'm not lying. I've already taken one for today, but starting tomorrow I won't have any."
                 mc.name "Thank you [the_person.title]."
                 $ the_person.event_triggers_dict["Mom_forced_off_bc"] = True
-                call manage_bc(the_person, start = False) from _call_manage_bc_1
+                $ manage_bc(the_person, start = False)
             else:
                 the_person.char "I'm sorry, I can't take your money for that [the_person.mc_title]."
                 mc.name "Sure you can [the_person.title], it's..."
