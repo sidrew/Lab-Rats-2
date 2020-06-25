@@ -346,7 +346,7 @@ label lily_cum_vagina(the_person):
             else:
                 "She takes a deep breath and calms herself down."
                 the_person.char "It's probably fine... Right? Yeah, I'm sure it's fine. The pill is like a ninety nine percent effective, right?"
-        elif pregnant_role in person.special_role:
+        elif pregnant_role in the_person.special_role:
             the_person.char "I know I shouldn't, but I love having my own brother's cum inside me."
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)

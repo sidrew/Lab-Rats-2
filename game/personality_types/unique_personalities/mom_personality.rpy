@@ -356,7 +356,7 @@ label mom_cum_vagina(the_person):
         if the_person.on_birth_control:
             the_person.char "That's it [the_person.mc_title], cum for mommy. I'm on the pill, so you don't have to worry about getting me pregnant."
             the_person.char "Don't hold back okay? Let it all out inside of me."
-        elif pregnant_role in person.special_role:
+        elif pregnant_role in the_person.special_role:
             the_person.char "That's it [the_person.mc_title], cum for mommy. It's not like you could get me any more pregnant."
         elif the_person.effective_sluttiness() > 75 or the_person.get_opinion_score("creampies") > 0:
             the_person.char "Give mommy your cum, I want every last drop inside of me! Try and get mommy pregnant!"
