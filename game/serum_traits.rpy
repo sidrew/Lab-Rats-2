@@ -810,7 +810,7 @@ init -1:
             tier = 2,
             research_needed = 800)
 
-        lactation_hormones = SerumTrait(name = "Lacation Promotion Hormones",
+        lactation_hormones = SerumTrait(name = "Lactation Promotion Hormones",
             desc = "Contains massive quantities of hormones normally found naturally in the body during late stage pregnancy. Triggers immediate breast lactation",
             positive_slug = "+$25 Value, Encourages Lactation",
             negative_slug = "+150 Serum Research",
