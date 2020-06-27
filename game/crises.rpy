@@ -5341,7 +5341,7 @@ label girl_shower_enter(the_person, suprised = False):
 
 init 1 python:
     def cousin_tease_crisis_requirement():
-        if time_of_day > 0 and time_of_day < 4:
+        if cousin.home.visible and time_of_day > 0 and time_of_day < 4:
             if cousin.effective_sluttiness() >= 30 and cousin.obedience < 120 and cousin.love < 10 and cousin not in mc.location.people:
                 return True
         return False
