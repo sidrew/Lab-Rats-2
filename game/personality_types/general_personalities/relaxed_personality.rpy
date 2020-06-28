@@ -1023,7 +1023,7 @@ label relaxed_sucking_cock_taboo_break(the_person):
         the_person.char "Alright, I'll do it."
     else:
         the_person.char "Oh my god, do you really want me to do that?"
-        "She laughs nerviously and shakes her head."
+        "She laughs nervously and shakes her head."
         the_person.char "You're crazy! I couldn't..."
         mc.name "Sure you could. Just kneel down and give it a taste."
         the_person.char "No, I mean what would people think?"

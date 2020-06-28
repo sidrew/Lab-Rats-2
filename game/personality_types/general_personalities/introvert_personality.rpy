@@ -249,7 +249,7 @@ label introvert_sex_accept(the_person):
 
 label introvert_sex_obedience_accept(the_person):
     if the_person.sluttiness > 70:
-        "[the_person.possessive_title] seems nervious but nods."
+        "[the_person.possessive_title] seems nervous but nods."
         the_person.char "Okay."
     else:
         if the_person.obedience > 130:
@@ -814,7 +814,7 @@ label introvert_date_seduction(the_person):
                 "[the_person.title] stays close to you, before touching your arm to get your attention."
                 the_person.char "I had a really good time. I... was wondering if you wanted to come home with me..."
             else:
-                "[the_person.title] wrings her hands together nerviously, as if working up the courage to speak."
+                "[the_person.title] wrings her hands together nervously, as if working up the courage to speak."
                 the_person.char "I like you, and I want you to come home with me so I don't have to say goodbye. Do you... want to?"
     else:
         $ so_title = SO_relationship_to_title(the_person.relationship)
@@ -828,7 +828,7 @@ label introvert_date_seduction(the_person):
                 "[the_person.title] stays close to you, before touching your arm to get your attention."
                 the_person.char "My [so_title] is never around. Do you want to come home with me? I would be happy if you did..."
             else:
-                "[the_person.title] wrings her hands together nerviously, as if working up the courage to speak."
+                "[the_person.title] wrings her hands together nervously, as if working up the courage to speak."
                 the_person.char "I really like you. I have a [so_title], but I want to spend more time with you too."
                 the_person.char "Do you... want to come home with me? He won't be around."
     return
