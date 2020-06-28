@@ -248,7 +248,8 @@ label outro_piledriver(the_girl, the_location, the_object):
                 "It's a little late for that now. You gasp and push yourself as deep as you can, draining your balls into [the_girl.possessive_title]'s cunt."
                 $ the_girl.cum_in_vagina()
                 $ piledriver.redraw_scene(the_girl)
-                the_girl.char "Oh fuck... what if I get pregnant [the_girl.mc_title]?"
+                if not the_girl.on_birth_control:
+                    the_girl.char "Oh fuck... what if I get pregnant [the_girl.mc_title]?"
                 "You take a moment to catch your breath, then sit back and pull your cock out of [the_girl.title]."
                 "You keep her on her back for a few more seconds, enjoying the way the position keeps your semen inside of her."
 

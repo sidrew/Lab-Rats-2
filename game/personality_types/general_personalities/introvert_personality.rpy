@@ -654,7 +654,7 @@ label introvert_cum_vagina(the_person):
             the_person.char "Do you always cum this much?"
 
     else:
-        if the_person.on_birth_control:
+        if the_person.on_birth_control or pregnant_role in the_person.special_role:
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "Oh fuck... My [so_title] never came like that before. It's so hot..."

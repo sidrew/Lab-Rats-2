@@ -714,7 +714,7 @@ label relaxed_cum_vagina(the_person):
             the_person.char "Whew... I can feel how warm your cum is through the condom. It feels nice."
 
     else:
-        if the_person.on_birth_control:
+        if the_person.on_birth_control or pregnant_role in the_person.special_role:
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "Mmmm, it's so warm."

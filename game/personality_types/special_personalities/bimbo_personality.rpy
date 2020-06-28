@@ -667,6 +667,11 @@ label bimbo_cum_vagina(the_person):
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "My [so_title] gets angry when I forget, but it's not like he fucks me much anyways."
+        elif pregnant_role in the_person.special_role:
+            the_person.char "Mmm, wow you really pumped it into me. But since i've already got one in the oven, that's fine."
+            if the_person.relationship != "Single":
+                $ so_title = SO_relationship_to_title(the_person.relationship)
+                the_person.char "My [so_title] can't get mad about me getting knocked up, right? He already did it."
         elif the_person.sluttiness > 75 or the_person.get_opinion_score("creampies") > 0:
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)

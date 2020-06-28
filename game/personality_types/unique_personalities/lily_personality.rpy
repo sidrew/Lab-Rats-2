@@ -335,7 +335,7 @@ label lily_cum_vagina(the_person):
         else:
             the_person.char "Oh fuck, good thing you've got a condom on. I mean, could you imagine if you had put all of that into your own sister?"
 
-    else: #TODO: No birth control varients.
+    else: #TODO: No birth control variants.
         if the_person.on_birth_control:
             the_person.char "Oh god, I can't believe you just came inside me... What if my birth control doesn't work?"
             if the_person.relationship != "Single":
@@ -346,7 +346,13 @@ label lily_cum_vagina(the_person):
             else:
                 "She takes a deep breath and calms herself down."
                 the_person.char "It's probably fine... Right? Yeah, I'm sure it's fine. The pill is like a ninety nine percent effective, right?"
-
+        elif pregnant_role in the_person.special_role:
+            the_person.char "I know I shouldn't, but I love having my own brother's cum inside me."
+            if the_person.relationship != "Single":
+                $ so_title = SO_relationship_to_title(the_person.relationship)
+                the_person.char "I don't think my [so_title] would like it, if he new I said that."
+            else:
+                the_person.char "And since I'm already pregnant, we don't have to worry about a thing."
         elif the_person.sluttiness > 75 or the_person.get_opinion_score("creampies") > 0:
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)
@@ -435,7 +441,7 @@ label lily_sex_watch(the_person, the_sex_person, the_position):
     else:
         $ the_person.draw_person(emotion = "happy")
         the_person.char "Give it to her [the_person.mc_title], don't hold back just because I'm here."
-        the_person.char "You're not nervious because your sister is watching, are you?"
+        the_person.char "You're not nervous because your sister is watching, are you?"
         "[the_person.title] watches eagerly while you and [the_sex_person.name] [the_position.verb]."
 
     return
@@ -627,7 +633,7 @@ label lily_sucking_cock_taboo_break(the_person):
             "She sighs and shakes her head in disbelief."
             mc.name "It means even less than kissing. We're just experimenting."
 
-        the_person.char "Normal familes don't experiment with each other! Do you know anyone else who has their sister suck their dick?"
+        the_person.char "Normal families don't experiment with each other! Do you know anyone else who has their sister suck their dick?"
         mc.name "No, but I don't know anyone who loves their little sister as much as I do either."
         mc.name "We aren't a normal family [the_person.title], we have something special. You love me, right?"
         the_person.char "Yeah, I love you [the_person.mc_title]."

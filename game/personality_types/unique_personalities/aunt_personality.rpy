@@ -302,7 +302,7 @@ label aunt_sucking_cock_taboo_break(the_person):
         mc.name "Of course not."
         the_person.char "Alright. I'll..."
 
-    "[the_person.possessive_title] shakes her head and laughs self conciously."
+    "[the_person.possessive_title] shakes her head and laughs self consciously."
     the_person.char "...This is so crazy! I'll give you a blowjob [the_person.mc_title]."
     return
 
