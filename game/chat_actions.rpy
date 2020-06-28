@@ -1583,7 +1583,7 @@ label bc_talk_label(the_person):
                         the_person.char "If we keep doing it raw that's a smart idea."
                         the_person.char "I'll talk to my doctor and start taking it as soon as possible."
                     the_person.char "I should be able to start tomorrow, we will still need to careful until then."
-                    call manage_bc(the_person, start = True) from _call_manage_bc_2
+                    $ manage_bc(the_person, start = True)
 
                 else:
                     "She shakes her head."
@@ -1612,7 +1612,7 @@ label bc_talk_label(the_person):
                         "She thinks about it for a long moment, then nods and smiles."
                         the_person.char "Okay, I won't take my birth control in the morning. We'll just be careful, it'll be fine..."
 
-                    call manage_bc(the_person, start = False) from _call_manage_bc_3
+                    $ manage_bc(the_person, start = False)
 
                 else:
                     if the_person.get_opinion_score("bareback sex") > 0:
@@ -1644,7 +1644,7 @@ label bc_talk_label(the_person):
                 mc.name "You should probably start taking it, before something happens and you get pregnant."
                 if the_person.love >= needed_start or the_person.effective_sluttiness() >= needed_start:
                     the_person.char "That's probably a good idea. I'll talk talk to my doctor as soon as possible about it."
-                    call manage_bc(the_person, start = True) from _call_manage_bc_4
+                    $ manage_bc(the_person, start = True)
                 else:
                     if the_person.get_opinion_score("creampies") > 0 and the_person.get_opinion_score("bareback sex") > 0:
                         "She shrugs and shakes her head."
@@ -1671,7 +1671,7 @@ label bc_talk_label(the_person):
                         mc.name "Then that's what I'll do. I just think it's so much sexier to know there's a little bit of risk."
                         "[the_person.possessive_title] thinks about it for a long moment. Finally she shrugs and nods."
                         the_person.char "Okay, we can give it a try. We'll just need to be very careful."
-                    call manage_bc(the_person, start = False) from _call_manage_bc_5
+                    $ manage_bc(the_person, start = False)
                 else:
                     "[the_person.possessive_title] shakes her head."
                     the_person.char "That would be crazy! There's no way I could gamble the rest of my life on some guy pulling out or me getting lucky."
@@ -1717,7 +1717,7 @@ label bc_demand_label(the_person):
             "[the_person.possessive_title] nods."
             the_person.char "Okay, I can do that. I'll talk to my doctor, I think I'll be able to start it tomorrow."
             mc.name "Good."
-            call manage_bc(the_person, start = True) from _call_manage_bc_6
+            $ manage_bc(the_person, start = True)
 
         "Start taking birth control\n{color=#FF0000}{size=18}Requires: 130 Obedience{/size}{/color} (disabled)" if not the_person.on_birth_control and the_person.obedience < 130:
             pass
@@ -1744,7 +1744,7 @@ label bc_demand_label(the_person):
                 "She blushes and looks away under your glare."
                 the_person.char "No. I'll stop right away. Sorry."
 
-            call manage_bc(the_person, start = False) from _call_manage_bc_7
+            $ manage_bc(the_person, start = False)
 
         "Stop taking birth control\n{color=#FF0000}{size=18}Requires: 160 Obedience{/size}{/color} (disabled)" if  the_person.on_birth_control and the_person.obedience < 160:
             pass
@@ -1753,15 +1753,16 @@ label bc_demand_label(the_person):
             the_person.char "Good. That's all I wanted to know."
     return
 
-label manage_bc(the_person, start): # A little helper label to handle setting up the actions for a girl starting or stopping her BC the next morning.
-    if start:
-        $ event_label = "bc_start_event"
-    else:
-        $ event_label = "bc_stop_event"
+init 5 python:
+    def manage_bc(the_person, start):
+        if start:
+            event_label = "bc_start_event"
+        else:
+            event_label = "bc_stop_event"
 
-    $ bc_start_action = Action("Change birth control", always_true_requirement, event_label, args = the_person)
-    $ mc.business.mandatory_morning_crises_list.append(bc_start_action) # She starts or stops the next morning.
-    return
+        bc_start_action = Action("Change birth control", always_true_requirement, event_label, args = the_person)
+        mc.business.mandatory_morning_crises_list.append(bc_start_action) # She starts or stops the next morning.
+        return
 
 label bc_start_event(the_person):
     $ the_person.on_birth_control = True

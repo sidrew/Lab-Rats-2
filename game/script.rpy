@@ -2829,7 +2829,9 @@ init -2 python:
 
             if persistent.pregnancy_pref == 0:
                 no_condom_threshold += 10 #If pregnancy content is being ignored we return to the baseline of 60
-            elif the_person.on_birth_control: #If there is pregnancy content then a girl is less likely to want a condom when using BC, much more likely to want it when not using BC.
+            elif pregnant_role in self.special_role and self.event_triggers_dict.get("preg_knows", False): # Is pregnant and knows, it so she doesn't mind doing it without
+                no_condom_threshold -= 20
+            elif not the_person.on_birth_control: # much more likely to want it when not using BC.
                 no_condom_threshold += 20
 
             return no_condom_threshold
@@ -4564,7 +4566,9 @@ init -2 python:
             if not special_modifier is None and index_string + "_" + special_modifier in self.images:
                 index_string += "_" + special_modifier #We only want to try and load special modifier images if they exist. Otherwise we use the unmodified image to avoid a crash. This lets us omit images we do not plan on actually using, such as glasses not needing blowjob poses.
 
-            return Image("character_images/" + self.images[index_string])
+            if index_string in self.images:
+                return Image("character_images/" + self.images[index_string])
+            return None
             #return Image(self.images[index_string]) #We have made an index string, use it to get the full filepath for the image used in this position.
 
         def get_image_name(self, face, emotion, special_modifier = None):
@@ -4572,7 +4576,9 @@ init -2 python:
             if not special_modifier is None and index_string + "_" + special_modifier in self.images:
                 index_string += "_" + special_modifier #We only want to try and load special modifier images if they exist. Otherwise we use the unmodified image to avoid a crash. This lets us omit images we do not plan on actually using, such as glasses not needing blowjob poses.
 
-            return "character_images/" + self.images[index_string]
+            if index_string in self.images:
+                return "character_images/" + self.images[index_string]
+            return None
 
     class Clothing_Images(): # Stores a set of images for a single piece of clothing in a single position. The position is stored when it is put into the clothing object dict.
         breast_sizes = ["AA","A","B","C","D","DD","DDD","E","F","FF"]
@@ -4604,13 +4610,15 @@ init -2 python:
 
         def get_image(self, body_type, breast_size = "AA" ): #Generates a proper Image object from the file path strings we have stored previously. Prevents object bloat by storing large objects repeatedly for everyone.
             index_string = body_type + "_" + breast_size
-            return Image("character_images/" + self.images[index_string])
-            #return Image(self.images[index_string])
+            if index_string in self.images:
+                return Image("character_images/" + self.images[index_string])
+            return None
 
         def get_image_name(self, body_type, breast_size = "AA" ): #Generates a proper Image object from the file path strings we have stored previously. Prevents object bloat by storing large objects repeatedly for everyone.
             index_string = body_type + "_" + breast_size
-            return "character_images/" + self.images[index_string]
-            #return Image(self.images[index_string])
+            if index_string in self.images:
+                return "character_images/" + self.images[index_string]
+            return None
 
     class VrenAnimation():
         def __init__(self, name, shader, tex_1_regions, innate_animation_strength = 1.0, region_specific_weights = None):
@@ -9315,7 +9323,7 @@ label start:
         "I am not over 18":
             $renpy.full_restart()
 
-    "Vren" "v0.29.1 represents an early iteration of Lab Rats 2. Expect to run into limited content, unexplained features, and unbalanced game mechanics."
+    "Vren" "[config.version] represents an early iteration of Lab Rats 2. Expect to run into limited content, unexplained features, and unbalanced game mechanics."
     "Vren" "Would you like to view the FAQ?"
     menu:
         "View the FAQ":

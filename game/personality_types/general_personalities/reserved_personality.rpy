@@ -704,7 +704,7 @@ label reserved_cum_vagina(the_person):
             the_person.char "I can feel your seed through the condom. Well done, there's a lot of it."
 
     else:
-        if the_person.on_birth_control:
+        if the_person.on_birth_control or pregnant_role in the_person.special_role:
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "You've making such a mess of my pussy. I never let my [so_title] do this to me."

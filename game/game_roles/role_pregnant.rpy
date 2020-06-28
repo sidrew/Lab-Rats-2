@@ -313,7 +313,6 @@ init 2 python:
         person.body_type = person.event_triggers_dict.get("pre_preg_body", "standard_body")
         person.schedule = person.event_triggers_dict.get("preg_old_schedule")
 
-        person.special_role.remove(pregnant_role) #Should this be triggered some time after instead of being instant?
         person.kids += 1 #TODO: add a new role related to a girl being a mother of your kid?
 
         tit_shrink_one_day = day + renpy.random.randint(7,14)
@@ -331,7 +330,7 @@ init 2 python:
         person.on_talk_event_list.append(tit_shrink_two_announcement_action)
 
         if pregnant_role in person.special_role:
-            person.remove(pregnant_role)
+            person.special_role.remove(pregnant_role)
         return
 
 label pregnant_finish(the_person):
