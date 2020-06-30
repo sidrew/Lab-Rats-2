@@ -666,7 +666,7 @@ label lunch_date_plan_label(the_person):
 
 label lunch_date_label(the_person): #Could technically be included in the planning phase, but broken out to fit the structure of the other events.
     the_person.char "So, where do you want to go?"
-    $ the_type = get_random_from_list(["chinese food","thai food","italian food","sushi","korean barbecue","pizza","sandwiches"])
+    $ the_type = get_random_from_list(["Chinese food","Thai food","Italian food","sushi","Korean barbecue","pizza","sandwiches"])
     mc.name "I know a nice place nearby. How do you like [the_type]?"
     the_person.char "No complaints, as long as it's good!"
     mc.name "Alright, let's go then!"
@@ -1139,7 +1139,7 @@ label dinner_date_label(the_person):
         "You and [the_person.possessive_title] get to the restaurant and order your meals. You chat, flirt, and have a wonderful evening."
 
     if renpy.random.randint(0,100) < 40: #Chance to give her some serum.
-        "After dinner you decide to order desert. [the_person.title] asks for a piece of cheese cake, then stands up from the table."
+        "After dinner you decide to order dessert. [the_person.title] asks for a piece of cheese cake, then stands up from the table."
         the_person.char "I'm going to go find the little girls room. I'll be back in a moment."
         $ renpy.scene("Active")
         "She heads off, leaving you alone at the table with her half finished glass of wine."
@@ -1148,15 +1148,15 @@ label dinner_date_label(the_person):
                 call give_serum(the_person) from _call_give_serum_21
                 if _return:
                     "You pour a dose of serum into her wine and give it a quick swirl, then sit back and relax."
-                    "[the_person.possessive_title] returns just as your desert arrives."
+                    "[the_person.possessive_title] returns just as your dessert arrives."
                 else:
-                    "You sit back and relax, content to just enjoy the evening. [the_person.possessive_title] returns just as your desert arrives."
+                    "You sit back and relax, content to just enjoy the evening. [the_person.possessive_title] returns just as your dessert arrives."
 
             "Add a dose of serum to her drink\n{color=#ff0000}{size=18}Requires: Serum{/size}{/color} (disabled)" if mc.inventory.get_any_serum_count() == 0:
                 pass
 
             "Leave her drink alone":
-                "You sit back and relax, content to just enjoy the evening. [the_person.possessive_title] returns just as your desert arrives."
+                "You sit back and relax, content to just enjoy the evening. [the_person.possessive_title] returns just as your dessert arrives."
 
         $ the_person.draw_person(position = "sitting")
         the_person.char "Ah, perfect timing!"

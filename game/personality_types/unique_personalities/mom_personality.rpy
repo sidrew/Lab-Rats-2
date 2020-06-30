@@ -568,7 +568,7 @@ label mom_kissing_taboo_break(the_person):
     return
 
 label mom_touching_body_taboo_break(the_person):
-    "[the_person.mc_title], what are you doing? You shouldn't be touching me like this!"
+    the_person.char "[the_person.mc_title], what are you doing? You shouldn't be touching me like this!"
     if the_person.love > 20: # Love variant
         mc.name "Why not? You love me, don't you?"
         the_person.char "Of course I love you, but I'm still your mother!"
@@ -868,7 +868,7 @@ label mom_anal_sex_taboo_break(the_person):
 
 label mom_condomless_sex_taboo_break(the_person):
     # Lead in: mc.name "No way. I want to feel you wrapped around me."
-    the_person.char "No no no, we really can't do that! I may be old, but you could still get pregnant!"
+    the_person.char "No no no, we really can't do that! I may be old, but you could still get me pregnant!"
     mc.name "Are you taking birth control?"
     if the_person.on_birth_control:
         the_person.char "I am, but birth control isn't one hundred percent effective. Don't they teach you that in health class?"

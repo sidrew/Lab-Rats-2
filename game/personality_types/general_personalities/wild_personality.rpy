@@ -1191,7 +1191,7 @@ label wild_bare_tits_taboo_break(the_person, the_clothing):
     else:
         the_person.char "Wait a second! Jesus, you should at least ask a girl before you try and put her tits on full display."
         mc.name "Come on, don't you want to show them off? I bet they look great."
-        the_person.char "Oh, they do. I just... Feel a little self concious about being naked around you, alright?"
+        the_person.char "Oh, they do. I just... Feel a little self-conscious about being naked around you, alright?"
         mc.name "There's no need to be, just relax and let me take your [the_clothing.display_name] off for you."
         the_person.char "Oh man, what are you getting me into [the_person.mc_title]? Fine, let's do it!"
     return

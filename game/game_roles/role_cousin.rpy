@@ -610,7 +610,7 @@ label aunt_cousin_hint_label(the_aunt, the_cousin):
     mc.name "Hey [the_aunt.title], is everything alright?"
     the_aunt.char "Hi [the_aunt.mc_title]. Do you have a moment?"
     mc.name "Sure, what's up?"
-    the_aunt.char "It's about [the_cousin.title]. For the last few nights she's been staying out late and she won't tell me where she is."
+    the_aunt.char "It's about [the_cousin.name]. For the last few nights she's been staying out late and she won't tell me where she is."
     the_aunt.char "I'm worried that she's getting up to trouble. Do you have any clue what she's doing?"
     menu:
         "Offer to find out":
