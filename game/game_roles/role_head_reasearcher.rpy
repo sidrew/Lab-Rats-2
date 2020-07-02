@@ -330,7 +330,7 @@ label advanced_serum_stage_2_label(the_person):
                     "[the_person.title] certainly doesn't seem like she's in any state to run your research department. It would be a good idea to pick a successor to continue [the_person.title]'s work."
                     mc.name "Okay [the_person.title], we're all done here."
                     "Her eyebrows knit together, like a child's attempt to concentrate."
-                    the_person.char "I... wasn't there something I was suppose to do first? Or have done? Uh... I'm sorry [the_person.mc_title], I'm having a real hard time thinking right."
+                    the_person.char "I... wasn't there something I was supposed to do first? Or have done? Uh... I'm sorry [the_person.mc_title], I'm having a real hard time thinking right."
                     "She sticks out her tongue, then giggles and shrugs."
                     the_person.char "Oh well, how important can it be, right? Glad I could help you with your science. And all that fun other stuff."
                     mc.name "And thank you for all that help."

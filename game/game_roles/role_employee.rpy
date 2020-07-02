@@ -331,7 +331,7 @@ label employee_performance_review(the_person):
                     if the_report.get("girl orgasms", 0) > 0: #We made her cum! Congradulations!
                         $ the_person.change_happiness(5)
                         $ the_person.change_obedience(-10)
-                        the_person.char "You just can't resist pleasing me, can you [the_person.mc_title]? I thought I wasn't suppose to cum?"
+                        the_person.char "You just can't resist pleasing me, can you [the_person.mc_title]? I thought I wasn't supposed to cum?"
                         "[the_person.title] seems smug about her orgasmic victory."
 
                     elif the_report.get("end arousal", 0) >= 80:

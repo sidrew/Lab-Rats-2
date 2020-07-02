@@ -149,7 +149,7 @@ label nora_intro_label(the_person):
     "[the_nora.title] looks up from her notes."
     $ the_nora.draw_person(position = "sitting")
     the_nora.char "Do I know? Of course! I haven't just been twiddling my thumbs since you two left!"
-    the_nora.char "The problem is that all of my research is suppose to be kept within the university now. No sharing with outside organizations."
+    the_nora.char "The problem is that all of my research is supposed to be kept within the university now. No sharing with outside organizations."
     the_nora.char "I wish I could help, but it's my job at risk."
     mc.name "Come on [the_nora.title], we're counting on you here."
     $ the_person.draw_person(position = "sitting")
