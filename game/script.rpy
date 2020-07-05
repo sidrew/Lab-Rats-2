@@ -9858,48 +9858,44 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
     $ picked_option = _return
 
     if isinstance(picked_option, Person):
-        # mc.can_skip_time = False
-        if picked_option == "Back":
-            $ renpy.jump("game_loop")
+        $ picked_option.draw_person() #the_animation = sudden_bounce_animation) TODO: Experiment more with this once we are predicting images a little bit.
+        $ talk_action = pick_room_talk_event(picked_option)
+
+        if talk_action:
+            #If there are any events we want to trigger it happens instead of talking to the person. If we want it to lead into talk_person we can call that separately. Only one event per interaction.
+            $ talk_action.call_action(picked_option)
+            if talk_action in picked_option.on_talk_event_list: #This shouldn't come up much, but it an event is double removed this helps us fail gracefully.
+                $ picked_option.on_talk_event_list.remove(talk_action)
+
         else:
-            $ picked_option.draw_person() #the_animation = sudden_bounce_animation) TODO: Experiment more with this once we are predicting images a little bit.
-            $ talk_action = pick_room_talk_event(picked_option)
-
-            if talk_action:
-                #If there are any events we want to trigger it happens instead of talking to the person. If we want it to lead into talk_person we can call that separately. Only one event per interaction.
-                $ talk_action.call_action(picked_option)
-                if talk_action in picked_option.on_talk_event_list: #This shouldn't come up much, but it an event is double removed this helps us fail gracefully.
-                    $ picked_option.on_talk_event_list.remove(talk_action)
-
+            if picked_option.title is None:
+                "You decide to approach the stranger and introduce yourself."
             else:
-                if picked_option.title is None:
-                    "You decide to approach the stranger and introduce yourself."
-                else:
-                    "You approach [picked_option.title] and chat for a little bit."
-                    $ picked_option.call_dialogue("greetings")
+                "You approach [picked_option.title] and chat for a little bit."
+                $ picked_option.call_dialogue("greetings")
 
-                if picked_option.has_taboo(["underwear_nudity","bare_tits", "bare_pussy"]) and picked_option.judge_outfit(picked_option.outfit, -30): #If she's in anything close to slutty she's self-conscious enough to coment on it.
-                    if picked_option.outfit.vagina_visible() and picked_option.has_taboo("bare_pussy") and picked_option.outfit.tits_visible() and picked_option.has_taboo("bare_tits"):
-                        "[picked_option.title] doesn't say anything about it, but seems uncomfortable being naked in front of you."
-                        "As you talk she seems to become more comfortable with her own nudity, even if she isn't thrilled by it."
+            if picked_option.has_taboo(["underwear_nudity","bare_tits", "bare_pussy"]) and picked_option.judge_outfit(picked_option.outfit, -30): #If she's in anything close to slutty she's self-conscious enough to coment on it.
+                if picked_option.outfit.vagina_visible() and picked_option.has_taboo("bare_pussy") and picked_option.outfit.tits_visible() and picked_option.has_taboo("bare_tits"):
+                    "[picked_option.title] doesn't say anything about it, but seems uncomfortable being naked in front of you."
+                    "As you talk she seems to become more comfortable with her own nudity, even if she isn't thrilled by it."
 
-                    if picked_option.outfit.vagina_visible() and picked_option.has_taboo("bare_pussy"):
-                        "[picked_option.title] doesn't say anything about it, but angles her body to try and conceal her bare pussy from you."
-                        "As you talk she seems to become more comfortable, even if she isn't thrilled about it."
+                if picked_option.outfit.vagina_visible() and picked_option.has_taboo("bare_pussy"):
+                    "[picked_option.title] doesn't say anything about it, but angles her body to try and conceal her bare pussy from you."
+                    "As you talk she seems to become more comfortable, even if she isn't thrilled about it."
 
-                    elif picked_option.outfit.tits_visible() and picked_option.has_taboo("bare_tits"):
-                        "[picked_option.title] doesn't say anything about it, but brings her arms up to try and conceal her tits."
-                        if picked_option.has_large_tits():
-                            "Her large chest isn't easy to hide, and she quickly realises it's hopeless."
-                        else:
-                            "As you talk she seems to become more comfortable, and eventually lets her arms drop again."
+                elif picked_option.outfit.tits_visible() and picked_option.has_taboo("bare_tits"):
+                    "[picked_option.title] doesn't say anything about it, but brings her arms up to try and conceal her tits."
+                    if picked_option.has_large_tits():
+                        "Her large chest isn't easy to hide, and she quickly realises it's hopeless."
+                    else:
+                        "As you talk she seems to become more comfortable, and eventually lets her arms drop again."
 
-                    elif ((picked_option.outfit.wearing_panties() and not picked_option.outfit.panties_covered()) or (picked_option.outfit.wearing_bra() and not picked_option.outfit.bra_covered())) and picked_option.has_taboo("underwear_nudity"):
-                        "[picked_option.title] doesn't say anything about it, but she tries to cover up her underwear with her hands."
-                        "As you talk she seems to become more comfortable, and eventually she lets her arms drop to her sides."
+                elif ((picked_option.outfit.wearing_panties() and not picked_option.outfit.panties_covered()) or (picked_option.outfit.wearing_bra() and not picked_option.outfit.bra_covered())) and picked_option.has_taboo("underwear_nudity"):
+                    "[picked_option.title] doesn't say anything about it, but she tries to cover up her underwear with her hands."
+                    "As you talk she seems to become more comfortable, and eventually she lets her arms drop to her sides."
 
-                    $ picked_option.update_outfit_taboos()
-            call talk_person(picked_option) from _call_talk_person
+                $ picked_option.update_outfit_taboos()
+        call talk_person(picked_option) from _call_talk_person
 
     elif isinstance(picked_option, Action):
         $ picked_option.call_action()
