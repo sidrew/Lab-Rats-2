@@ -465,7 +465,7 @@ init -1:
         shirts_list = []
 
         tshirt = Clothing("Cropped T-Shirt", 2, True, True, "Tshirt", True, False, 1, whiteness_adjustment = 0.35, supported_patterns = {"Striped":"Pattern_2","Text":"Pattern_3"}, display_name = "shirt",
-            half_off_regions = [breast_region, stomach_region, pelvis_region, upper_leg_region], half_off_ignore_regions = upper_arm_region,
+            half_off_regions = [pelvis_region, upper_leg_region], half_off_ignore_regions = upper_arm_region,
             constrain_regions = [torso_region, upper_arm_region, stomach_region],
             crop_offset_dict = {"cowgirl":(145,272), "missionary":(232,197), "kissing":(153,175), "sitting":(281,277), "against_wall":(103,165), "back_peek":(149,200), "blowjob":(111,317), "stand4":(146,194), "stand5":(109,180), "kneeling1":(183,314), "walking_away":(127,184), "doggy":(198,164), "stand2":(105,207), "stand3":(112,171)})
         shirts_list.append(tshirt)
