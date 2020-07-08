@@ -314,7 +314,7 @@ init -2:
         list_of_faces.append("Face_7")
         list_of_faces.append("Face_8")
         list_of_faces.append("Face_9")
-        list_of_faces.append("Face_10") #Bad render
+        # list_of_faces.append("Face_10") #Bad render
         list_of_faces.append("Face_11")
         list_of_faces.append("Face_12")
         list_of_faces.append("Face_13")
