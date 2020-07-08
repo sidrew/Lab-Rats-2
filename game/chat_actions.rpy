@@ -275,8 +275,9 @@ label person_new_title(the_person): #She wants a new title or to give you a new 
         menu:
             "Change what you call her":
                 #TODO: present the player with a list. TODO: Refactor the event above to be a generic way of presenting a list, w/ the dialogue separated.
-                $ title_choice = new_title_menu(the_person)
-                if not (title_choice == "Back" or the_person.title == the_person.create_formatted_title(title_choice)):
+                call new_title_menu(the_person) from _call_new_title_menu_1
+                $ title_choice = _return
+                if not (title_choice == "Back" or the_person.create_formatted_title(title_choice) == the_person.title):
                     mc.name "I think [title_choice] would really suit you."
                     $ the_person.set_title(title_choice)
                     "[the_person.title] seems happy with her new title."
@@ -323,7 +324,7 @@ label person_new_title(the_person): #She wants a new title or to give you a new 
                     $ the_person.set_title(title_two)
                     the_person.char "Yeah, I think you're right. I'm going to have people call me that from now on."
 
-                "Refuse to change her title\n-5 Happiness":
+                "Refuse to change her title\n{color=#ff0000}{size=18}-5 Happiness{/size}{/color}":
                     mc.name "I don't think either of those sound better than [the_person.title]. You should really just stick with that."
                     "[the_person.title] rolls her eyes."
                     $ the_person.change_happiness(-5)
@@ -429,8 +430,9 @@ label person_new_mc_title(the_person):
 
     return
 
-label small_talk_person(the_person): #Tier 0. Useful for discovering a character's opinions and the first step to building up love.
-    $ mc.change_energy(-15)
+label small_talk_person(the_person, apply_energy_cost = True): #Tier 0. Useful for discovering a character's opinions and the first step to building up love.
+    if apply_energy_cost: # Useful if you want to reuse this event inside of other events.
+        $ mc.change_energy(-15)
     $ smalltalk_opinion = the_person.get_opinion_score("small talk")
     mc.name "So [the_person.title], what's been on your mind recently?"
     $ the_person.discover_opinion("small talk")
@@ -516,7 +518,7 @@ label small_talk_person(the_person): #Tier 0. Useful for discovering a character
         else:
             the_person.char "Oh, not much honestly. How about you?"
             $ the_person.change_happiness(smalltalk_opinion)
-            "[the_person.possessive_title] seems happy to chitchat, and you spend a couple of hours just hanging out."
+            "[the_person.possessive_title] seems happy to chitchat, and you spend a few minutes just hanging out."
             "You don't feel like you've learned much about her, but least she seems to have enjoyed talking."
 
     $ the_person.apply_serum_study()
@@ -987,7 +989,7 @@ label movie_date_label(the_person):
                                 "She purrs in your ear and slides back down to her knees again. Her warm mouth wraps itself around your shaft and she starts to blow you again."
                                 "It doesn't take long for her to bring you to the edge of your orgasm."
                                 "You clutch at the movie seat arm rests and suppress a grunt as you climax, blowing your hot load into [the_person.title]'s mouth and down her throat."
-                                $ the_person.call_dialogue("cum_mouth")
+                                $ the_person.cum_in_mouth()
                                 "She waits until you're finished, then pulls off your cock, wipes her lips on the back of her hand, and sits down next to you."
                                 $ the_person.change_slut_temp(3)
                                 the_person.char "Thank you, that was fun."
@@ -1412,22 +1414,22 @@ label grope_person(the_person):
 init -2 python:
     def build_command_person_actions_menu(the_person):
         change_titles_action = Action("Change how we refer to each other", requirement = change_titles_requirement, effect = "change_titles_person", args = the_person, requirement_args = the_person,
-            menu_tooltip = "Manage how you refer to [the_person.title] and tell her how she should refer to you. Different combinations of stats, roles, and personalities unlock different titles.", priority = -5)
+            menu_tooltip = "Manage how you refer to " + the_person.title + " and tell her how she should refer to you. Different combinations of stats, roles, and personalities unlock different titles.", priority = -5)
 
         wardrobe_change_action = Action("Change your wardrobe", requirement = wardrobe_change_requirment, effect = "wardrobe_change_label", args = the_person, requirement_args = the_person,
-            menu_tooltip = "Add and remove outfits from [the_person.title]'s wardrobe, or ask her to put on a specific outfit.", priority = -5)
+            menu_tooltip = "Add and remove outfits from " + the_person.title + "'s wardrobe, or ask her to put on a specific outfit.", priority = -5)
 
         serum_demand_action = Action("Drink a dose of serum for me", requirement = serum_demand_requirement, effect = "serum_demand_label", args = the_person, requirement_args = the_person,
-            menu_tooltip = "Demand [the_person.title] drinks a dose of serum right now. Easier to command employees to test serum.", priority = -5)
+            menu_tooltip = "Demand " + the_person.title + " drinks a dose of serum right now. Easier to command employees to test serum.", priority = -5)
 
         strip_demand_action = Action("Strip for me", requirement = demand_strip_requirement, effect = "demand_strip_label", args = the_person, requirement_args = the_person,
             menu_tooltip = "Command her to strip off some of her clothing.", priority = -5)
 
         touch_demand_action = Action("Let me touch you   {color=#FFFF00}-10{/color} {image=gui/extra_images/energy_token.png}", requirement = demand_touch_requirement, effect = "demand_touch_label", args = the_person, requirement_args = the_person,
-            menu_tooltip = "Demand [the_person.title] stays still and lets you touch her. Going too far may damage your relationship.", priority = -5)
+            menu_tooltip = "Demand " + the_person.title + " stays still and lets you touch her. Going too far may damage your relationship.", priority = -5)
 
         bc_demand_action = Action("Talk about birth control", requirement = demand_bc_requirement, effect = "bc_demand_label", args = the_person, requirement_args = the_person,
-            menu_tooltip = "Discuss [the_person.title]'s use of birth control.", priority = -5)
+            menu_tooltip = "Discuss " + the_person.title + "'s use of birth control.", priority = -5)
 
         return ["Command", change_titles_action, wardrobe_change_action, serum_demand_action, strip_demand_action, touch_demand_action, bc_demand_action, ["Never mind", "Return"]]
 
@@ -1754,13 +1756,13 @@ label bc_demand_label(the_person):
     return
 
 init 5 python:
-    def manage_bc(the_person, start):
+    def manage_bc(person, start):
         if start:
             event_label = "bc_start_event"
         else:
             event_label = "bc_stop_event"
 
-        bc_start_action = Action("Change birth control", always_true_requirement, event_label, args = the_person)
+        bc_start_action = Action("Change birth control", always_true_requirement, event_label, args = person)
         mc.business.mandatory_morning_crises_list.append(bc_start_action) # She starts or stops the next morning.
         return
 

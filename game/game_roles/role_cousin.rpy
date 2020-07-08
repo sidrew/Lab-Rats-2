@@ -23,7 +23,7 @@ init -2 python:
         return False
 
     def cousin_blackmail_intro_requirement(the_person):
-        if the_person in lily_bedroom.people and __builtin__.len(lily_bedroom.people) == 1: #Only triggers when she's in there alone (and after the event has been added to the trigger list)
+        if the_person in lily_bedroom.people and __builtin__.len(lily_bedroom.people) == 1 and the_person.event_triggers_dict.get("blackmail_level", -1) < 0: #Only triggers when she's in there alone (and after the event has been added to the trigger list)
             return True
         return False
 

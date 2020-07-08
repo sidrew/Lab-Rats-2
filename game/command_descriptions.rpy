@@ -513,7 +513,7 @@ label demand_strip_naked_label(the_person):
                     mc.name "No, we're going to stay right here."
                     "[the_person.possessive_title] doesn't argue. She just blushes and starts to strip down."
 
-                "Stay right here\n{color=#ff0000}{size=18}Requires: 140 Obedience{/size}{/color} (disabled)" if the_person.obedience < 170:
+                "Stay right here\n{color=#ff0000}{size=18}Requires: 170 Obedience{/size}{/color} (disabled)" if the_person.obedience < 170:
                     pass
         else:
             "[the_person.possessive_title] nods and starts to enthusiastically strip down."
@@ -528,9 +528,8 @@ label demand_strip_naked_label(the_person):
             "She starts to strip down for you."
 
     $ naked_strip_description(the_person)
-    $ the_person.update_outfit_taboos()
 
-    if the_person.effective_sluttiness() < (80 - (5*the_person.get_opinion_score("not wearing anything"))): # She's shy
+    if the_person.update_outfit_taboos() or the_person.effective_sluttiness() < (80 - (5*the_person.get_opinion_score("not wearing anything"))): # She's shy
         the_person.char "What would you like me to do now?"
         "She instinctively puts her hands behind her back while she waits for your instructions."
         mc.name "Give me a spin, I want to see your ass."

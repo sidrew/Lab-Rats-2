@@ -4613,7 +4613,7 @@ label mom_morning_surprise_label():
                 $ the_person.change_happiness(5)
                 $ the_person.change_love(2)
                 "You lie back relax as [the_person.possessive_title] lowers herself down onto your hard cock."
-                call fuck_person(the_person, start_position = cowgirl, start_object = bedroom.get_object_with_name("bed"), skip_intro = True, girl_in_charge = True) from _call_fuck_person_15
+                call fuck_person(the_person, start_position = cowgirl, start_object = bedroom.get_object_with_name("bed"), skip_intro = True, girl_in_charge = True,position_locked=True,self_strip=False) from _call_fuck_person_15
                 $ the_report = _return
                 if the_report.get("girl orgasms", 0) > 0:
                     $ the_person.change_love(5)
@@ -5423,7 +5423,7 @@ label cousin_tease_crisis_label():
                         "Send [the_person.title] some money\n{color=#ff0000}{size=18}Costs: $100{/size}{/color} (disabled)" if mc.business.funds < 100:
                             pass
 
-                        "Blackmail her for some nudes" if the_person.event_triggers_dict.get("blackmail_level",-1) > 0 and the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 < day:
+                        "Blackmail her for some nudes" if the_person.event_triggers_dict.get("blackmail_level",-1) > 0 and the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 <= day:
                             $ the_person.event_triggers_dict["last_blackmailed"] = day
                             if the_person.event_triggers_dict.get("blackmail_level",1) == 1:
                                 mc.name "How about this, you send them over and I don't say anything to your mom about you stealing from my sister."
@@ -5468,7 +5468,7 @@ label cousin_tease_crisis_label():
                             $ the_person.change_obedience(3)
                             $ the_person.change_slut_temp(2)
 
-                        "Blackmail her for some nudes\n{color=#ff0000}{size=18}Blackmailed too recently{/size}{/color} (disabled)" if the_person.event_triggers_dict.get("blackmail_level",-1) == -1 or the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 >= day:
+                        "Blackmail her for some nudes\n{color=#ff0000}{size=18}Blackmailed too recently{/size}{/color} (disabled)" if the_person.event_triggers_dict.get("blackmail_level",-1) > 0 and the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 > day:
                             pass
 
 
