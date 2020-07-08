@@ -341,7 +341,7 @@ init -1:
         skirts_list.append(skirt)
 
         long_skirt = Clothing("Long Skirt", 2, True, True, "Long_Skirt", False, False, 0, whiteness_adjustment = 0.0, contrast_adjustment = 1.0, display_name = "skirt",
-            constrain_regions = [skirt_region, lower_leg_region],
+            constrain_regions = [skirt_region],
             crop_offset_dict = {"cowgirl":(53,519), "missionary":(82,346), "kissing":(216,389), "sitting":(118,494), "against_wall":(91,399), "back_peek":(107,411), "blowjob":(94,542), "stand4":(106,409), "stand5":(109,389), "kneeling1":(111,559), "walking_away":(122,392), "doggy":(59,286), "stand2":(46,416), "stand3":(59,378)})
         skirts_list.append(long_skirt)
 
@@ -351,7 +351,7 @@ init -1:
         skirts_list.append(pencil_skirt)
 
         belted_skirt = Clothing("Belted Skirt", 2, True, False, "Belted_Skirt", False, False, 3, contrast_adjustment = 1.15, supported_patterns = {"Belt":"Pattern_1"}, display_name = "skirt",
-            half_off_regions = [pelvis_region, upper_leg_region, lower_leg_region], half_off_ignore_regions = [stomach_region],
+            half_off_regions = [lower_leg_region], half_off_ignore_regions = [stomach_region],
             constrain_regions = [skirt_region],
             crop_offset_dict = {"cowgirl":(118,526), "missionary":(167,348), "kissing":(214,390), "sitting":(279,504), "against_wall":(121,402), "back_peek":(108,412), "blowjob":(105,547), "stand4":(114,410), "stand5":(132,391), "kneeling1":(126,560), "walking_away":(123,394), "doggy":(164,294), "stand2":(66,416), "stand3":(113,380)})
         skirts_list.append(belted_skirt)
