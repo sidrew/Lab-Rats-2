@@ -4345,7 +4345,7 @@ init -2 python:
         def __init__(self):
             self.clothing_items = {}
 
-        def add_clothing_item(self, proper_name, draws_breasts, body_dependant = True, supported_patterns = None, crop_offset_dict = None):
+        def add_clothing_item(self, proper_name, draws_breasts, body_dependant = True, supported_patterns = None, half_off_regions = None, half_off_ignore_regions = None, constrain_regions = None, crop_offset_dict = None):
             if proper_name in self.clothing_items:
                 return
 
@@ -4363,7 +4363,28 @@ init -2 python:
                         if pattern_name:
                             pattern_sets[set + "_" + pattern_name] = Clothing_Images(proper_name+"_"+pattern_name, set, draws_breasts, body_dependant = body_dependant)
 
-            self.clothing_items[proper_name] = [position_sets, pattern_sets, crop_offset_dict]
+            if half_off_regions is None: #A list of body region "clothing items". When self.half_off is True these regions are hidden.
+                half_off_regions = []
+            elif isinstance(half_off_regions, list):
+                half_off_regions = half_off_regions
+            else:
+                half_off_regions = [half_off_regions]
+
+            if half_off_ignore_regions is None: #A list of region "clothing items" that are added _back_ onto an item when half off. These use no blur, so can preserve sharp edges where, for example, arms interact with a torso.
+                half_off_ignore_regions = []
+            elif isinstance(half_off_ignore_regions, list):
+                half_off_ignore_regions = half_off_ignore_regions
+            else:
+                half_off_ignore_regions = [half_off_ignore_regions]
+
+            if constrain_regions is None: #an area of the body that other clothing items are "constrained" to if this item is worn over top.
+                constrain_regions = []
+            elif isinstance(constrain_regions, list):
+                constrain_regions = constrain_regions
+            else:
+                constrain_regions = [constrain_regions]
+
+            self.clothing_items[proper_name] = [position_sets, pattern_sets, half_off_regions, half_off_ignore_regions, constrain_regions, crop_offset_dict]
 
         def get_position_sets(self, clothing):
             return self.clothing_items[clothing.proper_name][0]
@@ -4371,8 +4392,17 @@ init -2 python:
         def get_pattern_sets(self, clothing):
             return self.clothing_items[clothing.proper_name][1]
 
-        def get_crop_offset_dict(self, clothing):
+        def get_half_off_regions(self, clothing):
             return self.clothing_items[clothing.proper_name][2]
+
+        def get_half_off_ignore_regions(self, clothing):
+            return self.clothing_items[clothing.proper_name][3]
+
+        def get_constrain_regions(self, clothing):
+            return self.clothing_items[clothing.proper_name][4]
+
+        def get_crop_offset_dict(self, clothing):
+            return self.clothing_items[clothing.proper_name][5]
 
         def generate_item_image_name(self, clothing, body_type, tit_size, position):
             position_set = self.clothing_items[clothing.proper_name][0]
@@ -4445,7 +4475,7 @@ init -2 python:
 
             final_image = Composite(position_size_dict[position], self.get_crop_offset_dict(clothing).get(position,(0,0)), final_image) #Transform the clothing image into a composite with the image positioned correctly.
 
-            if len(regions_constrained)>0:
+            if len(regions_constrained) > 0:
                 # We want to support clothing "constraining", or masking, lower images. This is done by region.
                 # Each constraining region effectively subtracts itself + a blurred border around it, and then the body region is added back in so it appears through clothing.
 
@@ -4477,14 +4507,14 @@ init -2 python:
                 final_image = AlphaBlend(region_composite, Solid("#00000000"), final_image)
 
 
-            if clothing.half_off:
+            if len(self.get_half_off_regions(clothing)) > 0:
                 #NOTE: This actually produces some really good looking effects for water/stuff. We should add these kinds of effects as a general thing, probably on the pattern level.
                 #NOTE: Particularly for water/stains, this could work really well (and can use skin-tight region marking, ie. not clothing item dependant).
                 # list_of_regions_to_hide = self.half_off_regions[:]
                 # if nipple_wetness > 0 and breast_region not in list_of_regions_to_hide: #TODO: Add a proper nipple region.
                 #     list_of_regions_to_hide.append(breast_region)
                 composite_list = None
-                for region_to_hide in half_off_regions: #We first add together all of the region masks so we only operate on a single displayable
+                for region_to_hide in self.get_half_off_regions(clothing): #We first add together all of the region masks so we only operate on a single displayable
                     region_mask = Image(region_to_hide.generate_item_image_name(body_type, tit_size, position))
                     if composite_list is None:
                         composite_list = [position_size_dict.get(position)]
@@ -4496,9 +4526,9 @@ init -2 python:
                 blurred_composite = im.Blur(composite, 12) #Blur the combined region mask to make it wider than the original. This would start to incorrectly include the interior of the mask, but...
                 transparency_control_image = im.MatrixColor(blurred_composite, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,7,0]) #...We increase the contribution of alpha from the mask, so a small amount ends up being 100% (this still preserves some gradient at the edge as well)
 
-                if clothing.half_off_ignore_regions: #Sometimes you want hard edges, or a section of a piece of clothing not to be moved. These regions are not blured/enlarged and are subtracted from the mask generated above.
+                if len(self.get_half_off_ignore_regions(clothing)) > 0: #Sometimes you want hard edges, or a section of a piece of clothing not to be moved. These regions are not blured/enlarged and are subtracted from the mask generated above.
                     add_composite_list = None
-                    for region_to_add in clothing.half_off_ignore_regions:
+                    for region_to_add in self.get_half_off_ignore_regions(clothing):
                         region_mask = Image(region_to_add.generate_item_image_name(body_type, tit_size, position))
                         if add_composite_list is None:
                             add_composite_list = [position_size_dict.get(position)] #We can reuse the size from our first pass building the mask.
@@ -4581,30 +4611,8 @@ init -2 python:
             self.ordering_variable = ordering_variable #Used for things like hair and pubes when we need to know what can be trimmed into what without any time taken.
             #TODO: Assign ordering variables to all hair based on length (short, medium, long) and then have haircuts and stuff be possible.
 
-            self.half_off = False
-            if half_off_regions is None: #A list of body region "clothing items". When self.half_off is True these regions are hidden.
-                self.half_off_regions = []
-            elif isinstance(half_off_regions, list):
-                self.half_off_regions = half_off_regions
-            else:
-                self.half_off_regions = [half_off_regions]
-
-            if half_off_ignore_regions is None: #A list of region "clothing items" that are added _back_ onto an item when half off. These use no blur, so can preserve sharp edges where, for example, arms interact with a torso.
-                self.half_off_ignore_regions = []
-            elif isinstance(half_off_ignore_regions, list):
-                self.half_off_ignore_regions = half_off_ignore_regions
-            else:
-                self.half_off_ignore_regions = [half_off_ignore_regions]
-
-            if constrain_regions is None: #an area of the body that other clothing items are "constrained" to if this item is worn over top.
-                self.constrain_regions = []
-            elif isinstance(constrain_regions, list):
-                self.constrain_regions = constrain_regions
-            else:
-                self.constrain_regions = [constrain_regions]
-
             if not is_extension: # don't render extensions
-                clothing_manager.add_clothing_item(proper_name, draws_breasts, body_dependant, supported_patterns, crop_offset_dict)
+                clothing_manager.add_clothing_item(proper_name, draws_breasts, body_dependant, supported_patterns, half_off_regions, half_off_ignore_regions, constrain_regions, crop_offset_dict)
 
         def __cmp__(self,other):
             if isinstance(self, type(other)):
@@ -4889,11 +4897,8 @@ init -2 python:
                 else:
                     if not item.is_extension:
                         ordered_displayables.append(item.generate_item_displayable(body_type, tit_size, position, lighting = lighting, regions_constrained = currently_constrained_regions, nipple_wetness = nipple_wetness))
-                        for region in item.constrain_regions:
-
-                            if item.half_off and region in item.half_off_regions:
-                                pass # If an item is half off the regions that are hidden while half off are also not constrained by the clothing.
-                            else:
+                        for region in clothing_manager.get_constrain_regions(item):
+                            if not region in clothing_manager.get_half_off_regions(item):
                                 currently_constrained_regions.append(region)
             return ordered_displayables[::-1] #We iterated over all_items backwards, so our return list needs to be inverted
 
@@ -4921,10 +4926,8 @@ init -2 python:
                 else:
                     if not item.is_extension:
                         item_check = item.generate_item_displayable(body_type, tit_size, position, lighting = lighting, regions_constrained = currently_constrained_regions)
-                        for region in item.constrain_regions:
-                            if item.half_off and region in item.constrain_regions:
-                                pass # If an item is half off the regions that are hidden while half off are also not constrained by the clothing.
-                            else:
+                        for region in clothing_manager.get_constrain_regions(item):
+                            if not region in clothing_manager.get_half_off_regions(item):
                                 currently_constrained_regions.append(region)
 
                 if not item.is_extension:
