@@ -94,7 +94,7 @@ label change_titles_person(the_person):
 
         "Change how you refer to her (tooltip)Change your possessive title for this girl. A possessive title takes the form \"your employee\", \"your sister\", etc. It can also just be their name repeated. Different combinations of stats, roles, and personalities unlock different titles.":
             $ title_choice = new_possessive_title_menu(the_person)
-            if not (title_choice == "Back" or the_person.possessive_title ==  the_person.create_formatted_title(the_person.possessive_title)):
+            if not (title_choice == "Back" or the_person.possessive_title == the_person.create_formatted_title(title_choice)):
                 "You decide to start referring [the_person.name] [the_person.last_name] as [title_choice] instead of [the_person.possessive_title] when you're talking about her."
                 $ the_person.set_possessive_title(title_choice)
     return
