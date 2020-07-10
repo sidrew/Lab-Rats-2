@@ -2401,7 +2401,6 @@ init -2 python:
         def draw_animated_removal(self, the_clothing, position = None, emotion = None, special_modifier = None, show_person_info = True, lighting = None, background_fill = "#0026a5", the_animation = None, animation_effect_strength = 1.0):
             #The new animated_removal method generates two image, one with the clothing item and one without. It then stacks them and layers one on top of the other and blends between them.
 
-
             if position is None:
                 position = self.idle_pose
 
@@ -5847,7 +5846,7 @@ init -2 python:
                 self.verbing = verbing
             self.record_class = record_class #A key to Person.sex_record[] that is updated once (and only once!) per sexual encounter if this position is picked.
 
-            self.current_modifier = None #We will update this if the posisiion has a special modifier that shoudl be applied, like blowjob.
+            self.current_modifier = None #We will update this if the position has a special modifier that shoudl be applied, like blowjob.
 
             if default_animation is None:
                 self.default_animation = idle_wiggle_animation
@@ -10047,6 +10046,9 @@ init -2 python:
         return get_random_from_list(possible_greetings)
 
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
+    $ renpy.checkpoint()
+    $ renpy.scene("Active")
+
     if "action_mod_list" in globals():
         call screen enhanced_main_choice_display(build_menu_items([build_people_list(), build_actions_list()]))
     else:
