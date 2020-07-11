@@ -10394,7 +10394,7 @@ label interview_action_description:
             call hire_select_process(candidates) from _call_hire_select_process
             $ candidates = [] #Prevent it from using up extra memory
 
-            if not _return == "None":
+            if not _return == "None" and isinstance(_return, Person):
                 $ new_person = _return
                 $ new_person.generate_home() #Generate them a home location so they have somewhere to go at night.
                 call hire_someone(new_person, add_to_location = True) from _call_hire_someone #
