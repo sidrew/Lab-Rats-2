@@ -81,7 +81,7 @@ label student_intro_one(the_nora, the_student): #the_nora just because we don't 
 label student_intro_two(the_person):
     the_person.char "Um, excuse me. I don't mean to interrupt you, but do you have a moment?"
     $ the_person.draw_person()
-    "You hear a voice behind you as you're walking across campus. When you turn around you recognise the same student [nora.title] was talking to on your last visit."
+    "You hear a voice behind you as you're walking across campus. When you turn around you recognize the same student [nora.title] was talking to on your last visit."
     mc.name "Sure, how can I help you?"
     the_person.char "You work with Professor [nora.last_name], right? I'm [the_person.title], I'm taking her class right now."
     call person_introduction(the_person, girl_introduction = False) from _call_person_introduction_2
@@ -93,7 +93,7 @@ label student_intro_two(the_person):
     the_person.char "If it's money you're worried about my parents will pay anything. They said to find the best tutor I could."
     "[the_person.possessive_title] waits nervously for your response."
     menu:
-        "Tutor [the_person.title].":
+        "Tutor [the_person.title]":
             mc.name "Okay, I think we'll be able to work out some sort of price."
             $ the_person.draw_person(emotion = "happy")
             "She smiles and claps her hands."
@@ -107,7 +107,7 @@ label student_intro_two(the_person):
             $ the_person.event_triggers_dict["tutor_enabled"] = True
 
 
-        "Refuse.":
+        "Refuse":
             mc.name "I'm sorry, but I don't want to disappoint you if I don't have the time. I'm going to have to say no."
             $ the_person.draw_person(emotion = "sad")
             "She visibly deflates."
@@ -124,7 +124,7 @@ label student_reintro(the_person): #Called when you turned down the student in t
     mc.name "Are you still having trouble with [nora.title]'s class?"
     the_person.char "You mean Professor [nora.last_name]? Yeah, I am. I've tried another tutor but it just isn't sticking."
     menu:
-        "Offer to tutor her.":
+        "Offer to tutor her":
             mc.name "Well I think I'm going to be on campus more often now, if you're still interested in..."
             $ the_person.draw_person(emotion = "happy")
             the_person.char "Yes! My parents are paying the current guy $200 a session, I'm sure they would pay you even more if my grades start to improve."
@@ -135,7 +135,7 @@ label student_reintro(the_person): #Called when you turned down the student in t
             $ the_person.event_triggers_dict["student_reintro_required"] = False
             $ the_person.event_triggers_dict["tutor_enabled"] = True
 
-        "Do nothing.":
+        "Do nothing":
             mc.name "I'm sorry to hear that. I'm sure you'll get the hang of it soon."
             "She sighs and shrugs."
             the_person.char "Yeah, me too. Thanks for asking, at least."
@@ -209,7 +209,7 @@ label student_study_university(the_person):
         the_person.char "Hey, so before we get started do you have any more of that stuff you gave me last time?"
         the_person.char "I feel like it really helped me focus."
         menu:
-            "Give her a dose of serum." if mc.inventory.get_any_serum_count() > 0:
+            "Give her a dose of serum" if mc.inventory.get_any_serum_count() > 0:
                 mc.name "Of course, I'm glad to hear it helped."
                 call give_serum(the_person) from _call_give_serum_22
                 if _return:
@@ -226,11 +226,11 @@ label student_study_university(the_person):
 
 
 
-            "Give her a dose of serum.\nRequires: Serum (disabled)" if mc.inventory.get_any_serum_count() == 0:
+            "Give her a dose of serum\n{color=#ff0000}{size=18}Requires: Serum{/size}{/color} (disabled)" if mc.inventory.get_any_serum_count() == 0:
                 pass
 
 
-            "No serum this time.":
+            "No serum this time":
                 mc.name "We're going to try this session without any serum."
                 the_person.char "Oh, okay."
 
@@ -238,10 +238,10 @@ label student_study_university(the_person):
         pass #Don't talk about serum the first time or if we don't have any on us.
     else:
         menu:
-            "Start studying.":
+            "Start studying":
                 pass
 
-            "Give her a dose of serum." if the_person.obedience >= 110 and mc.inventory.get_any_serum_count() > 0:
+            "Give her a dose of serum" if the_person.obedience >= 110 and mc.inventory.get_any_serum_count() > 0:
                 if the_person.event_triggers_dict.get("student_given_serum", 0) == 0:
                     mc.name "Before we get started I'd like to try something today."
                     the_person.char "Okay, what's that?"
@@ -279,7 +279,7 @@ label student_study_university(the_person):
 
 
 
-            "Give her a dose of serum.\nRequires: 110 Obedience (disabled)" if the_person.obedience < 110 and mc.inventory.get_any_serum_count() > 0:
+            "Give her a dose of serum\nRequires: 110 Obedience (disabled)" if the_person.obedience < 110 and mc.inventory.get_any_serum_count() > 0:
                 pass
 
 
@@ -311,11 +311,11 @@ label student_study_university(the_person):
 
     if not the_person.event_triggers_dict.get("home_tutor_enabled", False):
         menu:
-            "Say goodbye.":
+            "Say goodbye":
                 mc.name "You did a good job today [the_person.title]. Hopefully we can keep that up next time."
                 the_person.char "Thanks [the_person.mc_title], I feel like I'm actually learning something for once!"
 
-            "Offer to tutor her at home." if the_person.love >= 15:
+            "Offer to tutor her at home" if the_person.love >= 15:
                 mc.name "You did a good job today [the_person.title], but I think you would be able to focus even better in a less formal location."
                 mc.name "How would you feel about having these study sessions at your home?"
                 the_person.char "Oh, I guess that would be pretty convenient, but would it really help me focus?"
@@ -329,7 +329,7 @@ label student_study_university(the_person):
                 $ student_mom_intro_action = Action("Student_Mom_Intro", student_mom_intro_requirement, "student_mom_intro")
                 $ christina.on_room_enter_event_list.append(student_mom_intro_action)
 
-            "Offer to tutor her at home.\nRequires: 15 Love (disabled)" if the_person.love < 15:
+            "Offer to tutor her at home\n{color=#ff0000}{size=18}Requires: 15 Love{/size}{/color} (disabled)" if the_person.love < 15:
                 pass
 
     $ the_person.event_triggers_dict["times_studied_university"] = the_person.event_triggers_dict.get("times_studied_university", 0) + 1
@@ -374,7 +374,7 @@ label student_study_home(the_person):
         the_person.char "I was wondering... Do you have any more of that stuff you gave me last time?"
         the_person.char "I feel like it really helped me focus."
         menu:
-            "Give her a dose of serum." if mc.inventory.get_any_serum_count() > 0:
+            "Give her a dose of serum" if mc.inventory.get_any_serum_count() > 0:
                 mc.name "Of course, I'm glad to hear it helped."
                 call give_serum(the_person) from _call_give_serum_25
                 if _return:
@@ -390,16 +390,16 @@ label student_study_home(the_person):
                     the_person.char "Oh, okay."
 
 
-            "No serum this time.":
+            "No serum this time":
                 mc.name "We're going to try this session without any serum."
                 the_person.char "Oh, okay."
 
     else:
         menu:
-            "Start studying.":
+            "Start studying":
                 pass
 
-            "Give her a dose of serum." if the_person.obedience >= 110 and mc.inventory.get_any_serum_count() > 0:
+            "Give her a dose of serum" if the_person.obedience >= 110 and mc.inventory.get_any_serum_count() > 0:
                 if the_person.event_triggers_dict.get("student_given_serum") == 0:
                     mc.name "Before we get started I'd like to try something today."
                     the_person.char "Okay, what's that?"
@@ -435,15 +435,15 @@ label student_study_home(the_person):
                     else:
                         mc.name "On second thought, I think we'll see how you do without serum this session. Let's focus on your studying."
 
-            "Give her a dose of serum.\nRequires: 110 Obedience (disabled)" if the_person.obedience < 110 and mc.inventory.get_any_serum_count() > 0:
+            "Give her a dose of serum\n{color=#ff0000}{size=18}Requires: 110 Obedience{/size}{/color} (disabled)" if the_person.obedience < 110 and mc.inventory.get_any_serum_count() > 0:
                 pass
 
 
     menu:
-        "Study normally.":
+        "Study normally":
             call study_normally(the_person, public = False) from _call_study_normally_1
 
-        "Try something different...": #TODO: These should probably all be events so their requirements can be made dynamic and depend on options ect.
+        "Try something different": #TODO: These should probably all be events so their requirements can be made dynamic and depend on options ect.
             mc.name "I want to try something different today [the_person.title]. I think it will help your focus."
             the_person.char "Okay, what did you have in mind?"
 
@@ -470,13 +470,13 @@ label student_study_home(the_person):
                 "Masturbate first" if the_person.effective_sluttiness() >= 15:
                     call student_masturbate_label(the_person) from _call_student_masturbate_label
 
-                "Masturbate first\nRequires: 15 Sluttiness (disabled)" if the_person.effective_sluttiness() < 15:
+                "Masturbate first\n{color=#ff0000}{size=18}Requires: 15 Sluttiness{/size}{/color} (disabled)" if the_person.effective_sluttiness() < 15:
                     pass
 
-                "Punish her for wrong answers." if the_person.obedience >= 100:
+                "Punish her for wrong answers" if the_person.obedience >= 100:
                     call student_punish_hub_label(the_person) from _call_student_punish_hub_label
 
-                "Punish her for wrong answers.\nRequires: 100 Obedience (disabled)" if the_person.obedience < 100:
+                "Punish her for wrong answers\n{color=#ff0000}{size=18}Requires: 100 Obedience{/size}{/color} (disabled)" if the_person.obedience < 100:
                     pass
 
             # menu:
@@ -594,18 +594,18 @@ label study_normally(the_person, public = True):
     "After an hour of work she sits back in her chair and sighs."
     the_person.char "Ugh, this is so hard! Can we take a break?"
     menu:
-        "Take a break.":
+        "Take a break":
             mc.name "Alright, you've been working well so far, so we can take a short break."
             the_person.char "Phew, thank you."
             menu:
-                "Chat.":
+                "Chat":
                     mc.name "While you're letting your brain rest we can chat a bit. What do you want to talk about?"
                     call small_talk_person(the_person) from _call_small_talk_person
                     $ the_person.change_obedience(-1)
                     mc.name "Well, it's time to get back to work."
                     "[the_person.possessive_title] sighs and reluctantly pulls her chair towards the desk."
 
-                "Stretch.":
+                "Stretch":
                     if the_person.event_triggers_dict.get("student_stretched", 0) == 0: #Doesn't include other ways you might "stretch her".
                         mc.name "We've both been sitting for a while, we should get on our feet and do some stretching."
                         the_person.char "Do we have to?"
@@ -628,14 +628,14 @@ label study_normally(the_person, public = True):
                     "You step into a deep lunge, then stand up and do the same with your other leg. [the_person.title] mirrors you again."
                     mc.name "Does that feel better?"
                     the_person.char "Yeah, I guess."
-                    mc.name "Now let's stretch out your core. Put your hands on the table, set your legs appart, and bend forward."
+                    mc.name "Now let's stretch out your core. Put your hands on the table, set your legs apart, and bend forward."
                     $ the_person.draw_person(position = "walking_away") #TODO: Replace this with "standing doggy" once the images for that aren't broken.
                     the_person.char "Uh, like this?"
                     menu:
-                        "Hold that pose.":
+                        "Hold that pose":
                             mc.name "Perfect. Now just hold that for a few seconds."
                             if the_person.effective_sluttiness() < 15:
-                                the_person.char "I feel silly stikcing my butt in the air like this."
+                                the_person.char "I feel silly sticking my butt in the air like this."
                                 mc.name "Don't worry about that, it's just the two of us here. Nobody out in the library is looking."
                             else:
                                 the_person.char "Hey, you aren't doing this just to stare at my butt, are you?"
@@ -648,8 +648,8 @@ label study_normally(the_person, public = True):
                             $ the_person.change_slut_temp(2, 15)
                             mc.name "Good to hear, now let's get back to it."
 
-                        "\"Help\" her push a little furthur.":
-                            mc.name "You can push your hips out a little furthur. Here."
+                        "\"Help\" her push a little further":
+                            mc.name "You can push your hips out a little further. Here."
                             "You step close behind her and place your hands on her hips. You pull back gently helping her stretch while also pushing her butt against your crotch."
                             the_person.char "Ooh, I can really feel that..."
                             $ the_person.change_slut_temp(3, 25)
@@ -663,13 +663,13 @@ label study_normally(the_person, public = True):
                     $ the_person.draw_person(position = "sitting")
                     "You both sit down and get back to work."
 
-                "Massage." if the_person.effective_sluttiness() >= 10:
+                "Massage" if the_person.effective_sluttiness() >= 10:
                     if the_person.event_triggers_dict.get("student_massaged", 0):
                         "You slide your chair back and stand up."
                         mc.name "You've been doing a really good job so far [the_person.title]. Let me massage your shoulders, it should help you relax."
                         "You step behind her and place your hands on her shoulders."
                         the_person.char "Oh, you don't need to do that [the_person.mc_title]."
-                        mc.name "Studying like this can be suprisingly stressful. I promise this will help improve your marks in the long run."
+                        mc.name "Studying like this can be surprisingly stressful. I promise this will help improve your marks in the long run."
                         "You rub her shoulders gently. She sighs and lets them fall slack."
                         the_person.char "That does feel really good... Okay, just a little massage."
 
@@ -685,14 +685,14 @@ label study_normally(the_person, public = True):
                     $ the_person.change_slut_temp(1,15)
 
                     menu:
-                        "Finish the massage.":
+                        "Finish the massage":
                             mc.name "There you go. Feeling more relaxed now?"
                             "She sighs and nods."
                             $ the_person.change_love(1)
                             the_person.char "Yeah, that actually helped a ton. I guess we have to get back to it then."
 
 
-                        "Massage her tits." if the_person.effective_sluttiness() >= 15:
+                        "Massage her tits" if the_person.effective_sluttiness() >= 15:
                             "You work your massage down [the_person.title]'s arms, then to the front of her chest."
                             if the_person.has_taboo("touching_body"):
                                 the_person.char "Hey, you're... getting a little low there."
@@ -718,13 +718,13 @@ label study_normally(the_person, public = True):
                             the_person.char "Way more relaxed. That was nice."
 
 
-                        "Massage her tits.\nRequires: 15 Sluttiness (disabled)" if the_person.effective_sluttiness() < 15:
+                        "Massage her tits\n{color=#ff0000}{size=18}Requires: 15 Sluttiness{/size}{/color} (disabled)" if the_person.effective_sluttiness() < 15:
                             pass
 
                     $ the_person.event_triggers_dict["student_massaged"] = the_person.event_triggers_dict.get("student_massaged", 0) + 1
                     "You sit down and get back to studying with [the_person.title]."
 
-                "Massage.\nRequires: 10 Sluttiness (disabled)" if the_person.effective_sluttiness() < 10:
+                "Massage\n{color=#ff0000}{size=18}Requires: 10 Sluttiness{/size}{/color} (disabled)" if the_person.effective_sluttiness() < 10:
                     pass
 
 
@@ -732,7 +732,7 @@ label study_normally(the_person, public = True):
             $ mc.log_event(the_person.title + " learns a little bit from your tutoring.", "float_text_grey")
 
 
-        "Keep working.":
+        "Keep working":
             mc.name "You can't take a break now, you've barely started!"
             the_person.char "But it's so boring! Come on, just a few minutes?"
             mc.name "Do you know what has the largest impact on your grades? It's not how smart you are, it's how determined you are."
@@ -779,7 +779,7 @@ label student_masturbate_label(the_person):
         $ the_person.draw_person()
         "The bedroom door opens. Her face is beet red."
         mc.name "Did you have a good time?"
-        the_person.char "Oh my god, this is so embarassing. Come on, let's get to work..."
+        the_person.char "Oh my god, this is so embarrassing. Come on, let's get to work..."
         $ the_person.arousal = 25 # Her arousal goes up because she was touching herself.
         $ the_person.event_triggers_dict["current_marks"] += 1 + the_person.get_opinion_score("masturbating")
         $ the_person.discover_opinion("masturbating")
@@ -806,12 +806,12 @@ label student_masturbate_label(the_person):
         "[the_person.possessive_title] leans back in her chair and spreads her legs. She blushes and looks away as she slides her hand down to her pussy."
         the_person.char "It's a little strange doing this with someone watching..."
         menu:
-            "Watch her masturbate.":
+            "Watch her masturbate":
                 mc.name "Just relax and enjoy yourself. Once you finish we can get to studying."
                 the_person.char "Right. I'll just be a moment."
                 "She closes her eyes and start to run her index finger up and down her slit."
                 the_person.char "Mmm..."
-                #TODO: Add the ability to tkae pictures in a future update.
+                #TODO: Add the ability to take pictures in a future update.
                 "After teasing herself [the_person.title] slowly slips two fingers into her pussy. She moans softly, her chair creaking as she leans even furthur back."
                 the_person.char "Oh yeah... That's it..."
                 "She rubs her clit with her thumb while fingering herself."
@@ -839,12 +839,12 @@ label student_masturbate_label(the_person):
                 $ the_person.discover_opinion("public sex")
                 $ mc.log_event(the_person.title + " seems much more focused.", "float_text_grey")
 
-            "Masturbate with her." if the_person.effective_sluttiness() >= 30: #TODO: Add a mutual masturbation position? At the very least this deserves a more accurate position
+            "Masturbate with her" if the_person.effective_sluttiness() >= 30: #TODO: Add a mutual masturbation position? At the very least this deserves a more accurate position
                 mc.name "Let me help out with that."
                 "You unzip your pants and pull out your hard cock. You give it a few gentle strokes as [the_person.possessive_title] watches."
                 the_person.char "What... Do you want to do?"
                 "You slide one hand onto [the_person.title]'s thigh and caress it, while jerking yourself off with the other."
-                mc.name "I thought I would join in, that way you don't have to feel self concious. If we're both trying to get off we could always..."
+                mc.name "I thought I would join in, that way you don't have to feel self-conscious. If we're both trying to get off we could always..."
                 "You move your hand and rub her inner thigh, dangerously close to her pussy."
                 mc.name "... help each other finish."
                 "[the_person.title] bites her lip and hesitates, then nods nervously."
@@ -859,7 +859,7 @@ label student_masturbate_label(the_person):
                 $ the_person.draw_person()
                 "[the_person.title] stands up, and you do the same. You keep one hand between her legs, rubbing her pussy while you talk to her."
                 mc.name "I'm going to make sure you get off, and then we'll get some studying done. Does that sound nice?"
-                "Your hand on her wet pussy tells you the answer, but she murmers out a response anyways."
+                "Your hand on her wet pussy tells you the answer, but she murmurs out a response anyways."
                 the_person.char "Yes, it does... Mmm."
                 $ the_person.draw_person(position = "walking_away")
                 "You step behind [the_person.possessive_title] and wrap your other arm around her torso to hold her close, your hard cock rubbing against her thigh."
@@ -893,7 +893,7 @@ label student_masturbate_label(the_person):
                     "[the_person.possessive_title] hurries back into her clothing, then sits down."
 
 
-            "Masturbate with her.\nRequires: 50 Sluttiness (disabled)" if the_person.effective_sluttiness() < 30:
+            "Masturbate with her\n{color=#ff0000}{size=18}Requires: 50 Sluttiness{/size}{/color} (disabled)" if the_person.effective_sluttiness() < 30:
                 pass
 
     # TODO: If you enter the sex system add a "Get each other off" option in addition to the masturbate option
@@ -1149,7 +1149,7 @@ label student_mom_intro(the_person):
     $ the_person.draw_person()
     $ the_person.set_title("???")
     the_person.char "Hello. Can I help you?"
-    mc.name "I'm here to turor [emily.title]. Is she in?"
+    mc.name "I'm here to tutor [emily.title]. Is she in?"
     if emily in emily.home.people:
         the_person.char "Yes, I believe she is in her room. You must be the tutor she has been going on about."
         "She steps to the side, letting you move into the front room of the luxurious house."
