@@ -1883,6 +1883,8 @@ init -2 python:
             self.sex_record["Cum Covered"] = 0
             self.sex_record["Vaginal Creampies"] = 0
             self.sex_record["Anal Creampies"] = 0
+            self.sex_record["Fingered"] = 0
+            self.sex_record["Kissing"] = 0
 
             self.broken_taboos = [] #Taboos apply a penalty to the _first_ time you are trying to push some boundry (first time touching her pussy, first time seeing her tits, etc.), and trigger special dialogue when broken.
 
