@@ -4,6 +4,7 @@ init -1 python:
     def pregnant_announce_requirement(the_person, start_day):
         if day >= start_day:
             return True
+        return False
 
     def pregnant_transform_requirement(the_person):
         if day >= the_person.event_triggers_dict.get("preg_transform_day", 0):
@@ -13,7 +14,6 @@ init -1 python:
     def pregnant_tits_requirement(the_person):
         if day >= the_person.event_triggers_dict.get("preg_tits_date", 0):
             return True
-
         return False
 
     def pregnant_tits_announcement_requirement(the_person):
