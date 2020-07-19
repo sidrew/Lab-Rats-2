@@ -942,7 +942,7 @@ init -2 python:
             person.job = self.get_employee_title(person)
             person.set_work([1,2,3], self.r_div)
             self.update_employee_status(person)
-            if add_to_location and not person in self.r_div:
+            if add_to_location and not person in self.r_div.people:
                 self.r_div.add_person(person)
 
         def add_employee_production(self, person, add_to_location = False):
@@ -953,7 +953,7 @@ init -2 python:
             person.job = self.get_employee_title(person)
             person.set_work([1,2,3], self.p_div)
             self.update_employee_status(person)
-            if add_to_location and not person in self.p_div:
+            if add_to_location and not person in self.p_div.people:
                 self.p_div.add_person(person)
 
         def add_employee_supply(self, person, add_to_location = False):
@@ -964,7 +964,7 @@ init -2 python:
             person.job = self.get_employee_title(person)
             person.set_work([1,2,3], self.s_div)
             self.update_employee_status(person)
-            if add_to_location and not person in self.s_div:
+            if add_to_location and not person in self.s_div.people:
                 self.s_div.add_person(person)
 
         def add_employee_marketing(self, person, add_to_location = False):
@@ -975,7 +975,7 @@ init -2 python:
             person.job = self.get_employee_title(person)
             person.set_work([1,2,3], self.m_div)
             self.update_employee_status(person)
-            if add_to_location and not person in self.m_div:
+            if add_to_location and not person in self.m_div.people:
                 self.m_div.add_person(person)
 
         def add_employee_hr(self, person, add_to_location = False):
@@ -986,7 +986,7 @@ init -2 python:
             person.job = self.get_employee_title(person)
             person.set_work([1,2,3], self.h_div)
             self.update_employee_status(person)
-            if add_to_location and not person in self.h_div:
+            if add_to_location and not person in self.h_div.people:
                 self.h_div.add_person(person)
 
         def remove_employee(self, person):
