@@ -377,10 +377,7 @@ label fuck_date_label(the_person):
                                 "Your hand finally slides over her pussy, gently brushing her clit, and she moves the phone away from her face to moan softly."
                                 the_person.char "Hmm? Yes, I'm still here. Just yawning. I think it's time for bed."
                                 "You slide a finger into her pussy and she holds her breath for a second."
-                                if the_person.love >= 0:
-                                    the_person.char "Goodnight, I love you. Talk to you soon!"
-                                else:
-                                    the_person.char "Goodnight, I still hate you. Talk to you soon!"
+                                the_person.char "Goodnight, I love you. Talk to you soon!"
                                 $ the_person.change_obedience(1)
                                 $ the_person.change_slut_core(the_person.get_opinion_score("cheating on men"))
                                 $ the_person.change_arousal((mc.sex_skills["Foreplay"] + the_person.get_opinion_score("cheating on men") + the_person.get_opinion_score("being fingered")) * 5) #Arousal boost to start the encounter.
