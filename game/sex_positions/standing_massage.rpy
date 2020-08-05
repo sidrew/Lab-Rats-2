@@ -78,7 +78,8 @@ label scene_standing_grope_2(the_girl, the_location, the_object):
 label scene_standing_grope_3(the_girl, the_location, the_object):
     if the_girl.outfit.vagina_available():
         "[the_girl.title] presses her hips back against you, grinding her bare ass rubbing against your crotch."
-        the_girl.char "Mmm, I can feel your erection. That's so fucking hot..."
+        if not mc.recently_orgasmed:
+            the_girl.char "Mmm, I can feel your erection. That's so fucking hot..."
     else:
         "[the_girl.title] presses her hips back against you, grinding her ass against your crotch."
     return
