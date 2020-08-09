@@ -176,12 +176,14 @@ label nora_intro_label(the_person):
     $ list_of_traits.append(the_trait)
     $ del the_trait
 
+    $ the_person.draw_person()
     "When you get back to the office [the_person.title] has a new file detailing an untested serum trait."
     the_person.char "Without [the_nora.title]'s research notes all we'll be able to do is put this trait into a serum and manufacture it."
     the_person.char "You'll need to test a serum containing this trait on someone to raise it's mastery level."
     the_person.char "We should bring it up to at least mastery level 2 before we go back to [the_nora.title]."
 
     mc.name "Understood. I'll be back once the testing is done."
+    $ clear_scene()
 
     $ the_nora = None
     $ add_nora_university_research_actions()
@@ -197,7 +199,7 @@ label nora_research_up_label(the_person):
     mc.name "You too. I've got something for you."
     "You hold out the folder containing the details of your testing."
     the_person.char "Good, wait here."
-    $ renpy.scene("Active")
+    $ clear_scene()
     "She slips back into the room and is gone for a couple of minutes."
     $ the_person.draw_person()
     "When she comes back out she has two large binders tucked under her arm."
@@ -283,7 +285,7 @@ label nora_research_cash_first_time(the_person):
 
 
     $ add_nora_research_cash_action(the_person)
-    $ renpy.scene("Active")
+    $ clear_scene()
     return
 
 label nora_research_cash(the_person):
@@ -301,9 +303,10 @@ label nora_research_cash(the_person):
 
     # TODO: The first intro bit returns here
     $ the_trait = mc.business.event_triggers_dict.get("nora_cash_research_trait") #We know won't be None from our initial event check.
+    $ mc.business.event_triggers_dict["nora_cash_research_trait"] = None
+
     $ list_of_traits.remove(the_trait)
     $ list_of_nora_traits.remove(the_trait) #Clear it from Nora's list as well so it cannot be randomly obtained again.
-    $ mc.business.event_triggers_dict["nora_cash_research_trait"] = None
     $ del the_trait
 
     mc.name "I have your research report prepared. The effects of the trait you designed were... {i}interesting{/i}."
@@ -338,7 +341,7 @@ label nora_research_cash(the_person):
 
         $ add_study_person_for_nora_actions(the_person)
     $ mc.business.funds += 2000
-    $ renpy.scene("Active")
+    $ clear_scene()
     return
 
 label nora_special_research(the_person):
@@ -348,7 +351,7 @@ label nora_special_research(the_person):
     mc.name "I have a research profile for you to take a look at [the_person.title]. Let me know if you can find anything interesting out."
     "You give [the_person.possessive_title] the report you have prepared on [the_subject.title]."
     the_person.char "Excellent. This shouldn't take too long to process, I just need to head to the lab and input the data."
-    $ renpy.scene("Active")
+    $ clear_scene()
     "[the_person.title] leaves for her lab. True to her word, she's back in less than half an hour with her findings in hand."
     $ the_person.draw_person()
     if mother_role in the_subject.special_role and the_subject.core_sluttiness > 75 and the_subject.love > 75 and nora_reward_mother_trait not in list_of_traits:
@@ -465,6 +468,6 @@ label nora_profile_person(the_person):
 
 
     $ mc.business.event_triggers_dict["nora_research_subject"] = the_person
-    $ renpy.scene("Active")
+    $ clear_scene()
     call advance_time from _call_advance_time_24
     return

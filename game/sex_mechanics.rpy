@@ -83,7 +83,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
     $ vagina_available = the_person.outfit.vagina_available()
     $ tits_available = the_person.outfit.tits_available()
 
-        
+
     while not finished:
         if girl_in_charge:
             # The girls decisions set round_choice here.
@@ -91,7 +91,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
                 $ pass
             else:
                 $ position_choice = start_position
-            
+
             if position_choice is None and (first_round or not position_locked):
                 call girl_choose_position(the_person, ignore_taboo = ignore_taboo) from _call_girl_choose_position #Get her to pick a position based on what's available #TODO: This function
                 $ position_choice = _return #Can be none, if no option was available for her to take.
@@ -102,7 +102,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
                 if object_choice is None:
                     call girl_choose_object(the_person, position_choice,forced_object = start_object) from _call_girl_choose_object
                     $ object_choice = _return
-                        
+
 
             if report_log.get("girl orgasms", 0) > 0 and the_person.love < 10 and the_person.obedience < 110: #She's cum and doesn't care about you finishing.
                 the_person.char "Whew, that felt great. Thanks for the good time [the_person.mc_title]!"
@@ -198,6 +198,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
                         call clear_object_effects(the_person) from _call_clear_object_effects
 
                 if position_choice and object_choice:
+                    $ position_choice.redraw_scene(the_person)
                     if first_round:
                         if not skip_intro:
                             $ the_person.draw_person() #Draw her standing until we pick a new position
@@ -235,7 +236,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
                 elif girl_in_charge and not position_choice.requires_hard and girl_considers_hard and not position_locked:
                     "[the_person.possessive_title] considers your stiffened cock."
                     $ girl_considers_hard = False
-                    $ position_choice = None                    
+                    $ position_choice = None
                 elif position_choice.guy_energy > mc.energy:
                     if girl_in_charge:
                         "You're too exhausted to let [the_person.possessive_title] keep [position_choice.verbing] you."
@@ -250,14 +251,14 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
                 else: #Nothing major has happened that requires us to change positions, we can have girls take over, strip
                     if self_strip:
                         call girl_strip_event(the_person, position_choice, object_choice) from _call_girl_strip_event
-                        $ girl_considers_vagina = the_person.outfit.vagina_available() != vagina_available 
+                        $ girl_considers_vagina = the_person.outfit.vagina_available() != vagina_available
                         $ vagina_available = the_person.outfit.vagina_available()
                         $ girl_considers_tits = the_person.outfit.tits_available() != tits_available
                         $ tits_available = the_person.outfit.tits_available()
                         if girl_in_charge and position_choice != None and not position_locked:
                             if girl_considers_vagina:
                                 "[the_person.possessive_title]'s fingers brush over her pussy."
-                                $ position_choice = None    
+                                $ position_choice = None
                             elif girl_considers_tits:
                                 "[the_person.possessive_title]'s hand caresses her tits."
                                 $ position_choice = None
@@ -325,6 +326,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
 
     # Teardown the sex modifiers
     $ the_person.clear_situational_slut("love_modifier")
+    $ the_person.clear_situational_slut("happiness_effect")
     $ the_person.clear_situational_slut("cheating")
     $ the_person.clear_situational_slut("taboo_sex")
     $ the_person.clear_situational_slut("public_sex")
@@ -398,8 +400,6 @@ label girl_choose_object(the_person, the_position, forced_object = None):
         $ picked_object = forced_object
     else:
         $ picked_object = get_random_from_list(possible_object_list)
-
-    $ del possible_object_list
     $ the_person.add_situational_slut("sex_object", picked_object.sluttiness_modifier, the_position.verbing + " on a " + picked_object.name)
     $ the_person.add_situational_obedience("sex_object",picked_object.obedience_modifier, the_position.verbing + " on a " + picked_object.name)
     return picked_object

@@ -275,7 +275,6 @@ label pay_strip_scene(the_person):
     #Optional: Some way to ask the person to change into a different outfit.
     #Optional: Way to progress from strip tease to sex and/or masturbation.
 
-
     $ picked_pose = the_person.idle_pose #She starts in her idle pose (which is a string)
     $ ran_num = renpy.random.randint(0,3) #Produce 4 different descriptions at each level to help keep this interesting.
 
@@ -505,5 +504,5 @@ label prostitute_label(the_person):
 
     the_person.char "That was fun, I hope you had a good time [the_person.mc_title]."
     "She gives you a quick peck on the cheek."
-    $ renpy.scene("Active")
+    $ clear_scene()
     return

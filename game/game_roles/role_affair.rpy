@@ -259,7 +259,7 @@ label fuck_date_label(the_person):
                                 else:
                                     "Within minutes you can hear him snoring loudly. [the_person.possessive_title] looks in your direction and nods her head at the door."
                                     "You crack the closet door open and step out as quietly as you can. You sneak out of the bedroom, then hurry to the front door."
-                                $ renpy.scene("Active")
+                                $ clear_scene()
                                 "As soon as you're outside you sprint to the sidewalk, then slow down and walk casually away."
 
                             "Run for it!":
@@ -510,7 +510,7 @@ label fuck_date_label(the_person):
     #Generic stuff to make sure we don't keep showing anyone.
     $ the_person.clear_situational_slut("Date")
     $ mc.change_location(bedroom) # go home
-    $ renpy.scene("Active")
+    $ clear_scene()
     return "Advance Time"
 
 
@@ -575,5 +575,5 @@ label caught_affair_cheating_label(the_other_girl, the_girlfriend):
         the_girlfriend.char "Thank you. And come on, you know if you ever need a little fun you can just find me, right?"
         "She gives you a smile and a wink before walking away."
 
-    $ renpy.scene("Active")
+    $ clear_scene()
     return

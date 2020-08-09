@@ -334,6 +334,7 @@ init 2 python:
         person.body_type = person.event_triggers_dict.get("pre_preg_body", "standard_body")
         person.schedule = person.event_triggers_dict.get("preg_old_schedule")
 
+        the_person.event_triggers_dict["preg_knows"] = False #Otherwise she immediately knows the next time she's pregnant.
         person.kids += 1 #TODO: add a new role related to a girl being a mother of your kid?
 
         tit_shrink_one_day = day + renpy.random.randint(7,14)
