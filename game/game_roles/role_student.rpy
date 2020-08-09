@@ -37,7 +37,12 @@ init -2 python:
             return False
         return True
 
-
+    def add_student_intro_two_action(person):
+        student_intro_two_action = Action("Student_intro_two", student_intro_two_requirement, "student_intro_two")
+        person.on_room_enter_event_list.append(student_intro_two_action)
+        person.special_role.append(student_role)
+        person.event_triggers_dict["current_marks"] = 25 # Should be a value between 0 and 100%
+        return
 
 label student_intro_one(the_nora, the_student): #the_nora just because we don't want to conflict with the global Nora name.
     "You knock on the door to the lab. After a moment [the_nora.title] answers and steps out into the hallway."
@@ -69,12 +74,7 @@ label student_intro_one(the_nora, the_student): #the_nora just because we don't 
     the_nora.char "All they have to do is show up and pay attention, but somehow half of them can't even manage that."
     "She gives an exhausted sigh."
     the_nora.char "But never mind that, we have more important things to discuss."
-
-    python: #Sets up all the variables needed for this story line.
-        student_intro_two_action = Action("Student_intro_two", student_intro_two_requirement, "student_intro_two")
-        the_student.on_room_enter_event_list.append(student_intro_two_action)
-        the_student.special_role.append(student_role)
-        the_student.event_triggers_dict["current_marks"] = 25 # Should be a value between 0 and 100%
+    $ add_student_intro_two_action(the_student)
     return
 
 
@@ -279,7 +279,7 @@ label student_study_university(the_person):
 
 
 
-            "Give her a dose of serum\nRequires: 110 Obedience (disabled)" if the_person.obedience < 110 and mc.inventory.get_any_serum_count() > 0:
+            "Give her a dose of serum\n{color=#ff0000}{size=18}Requires: 110 Obedience{/size}{/color} (disabled)" if the_person.obedience < 110 or mc.inventory.get_any_serum_count() == 0:
                 pass
 
 
