@@ -226,7 +226,7 @@ label nora_research_up_label(the_person):
         del the_trait
 
         nora.set_schedule([1,2,3], university)
-        renpy.scene ("Active")
+        clear_scene()
 
         add_nora_research_intro_action(the_person)
 

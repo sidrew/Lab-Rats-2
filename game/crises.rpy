@@ -1141,13 +1141,12 @@ label trait_for_side_effect_label():
             mc.name "I don't think the side effects are acceptable. Revert back to a more stable version and keep going from there."
 
     the_person.char "Understood sir, I'll make the changes to all of the documentation."
-    $ clear_scene()
 
     python:
         del the_trait
         del the_side_effect
         del the_design
-        renpy.scene("Active")
+        clear_scene()
     return
 
 init 1 python:
