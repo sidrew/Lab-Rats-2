@@ -524,7 +524,8 @@ label transform_affair(the_person):
     # If a girl leaves her SO for crisis reasons call this, which transforms her affair you had into a boyfriend-girlfriend relationship.
     if affair_role in the_person.special_role: # Technically we can use this to immediately jump to girlfrined with someone who is in a relationship as well.
         $ the_person.special_role.remove(affair_role)
-    $ the_person.special_role.append(girlfriend_role)
+    if not girlfriend_role in the_person.special_role:
+        $ the_person.special_role.append(girlfriend_role)
     $ the_person.relationship = "Single" #Technically they aren't "single", but the MC has special roles for their girlfriend.
     $ the_person.SO_name = None #Clear the name of their ex so that it doesn't get used in
     #TODO: Maybe add a crisis that is created to introduce you to the idea that they're now broken up, or maybe handle that in an individual event.
