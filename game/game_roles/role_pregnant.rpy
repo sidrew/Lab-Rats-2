@@ -1,74 +1,75 @@
 # Contains all of the information related to characters being pregnant.
 
 init -1 python:
-    def preg_announce_requirement(the_person, start_day):   # VREN
-        return pregnant_announce_requirement(the_person, start_day)
+    def preg_announce_requirement(person, start_day):   # VREN
+        return pregnant_announce_requirement(person, start_day)
 
     def pregnant_announce_requirement(person, start_day):
         if day >= start_day:
             return True
         return False
 
-    def preg_transform_requirement(the_person): # VREN
-        return pregnant_transform_requirement(the_person)
+    def preg_transform_requirement(person): # VREN
+        return pregnant_transform_requirement(person)
 
     def pregnant_transform_requirement(person):
         if day >= person.event_triggers_dict.get("preg_transform_day", 0):
             return True
         return False
 
-    def preg_tits_requirement(the_person):      # VREN
-        return pregnant_tits_requirement(the_person)
+    def preg_tits_requirement(person):      # VREN
+        return pregnant_tits_requirement(person)
 
     def pregnant_tits_requirement(person):
         if day >= person.event_triggers_dict.get("preg_tits_date", 0):
             return True
         return False
 
-    def pregnant_tits_annouce_requirement(the_person):  # VREN
+    def pregnant_tits_annouce_requirement(person):  # VREN
         return True
 
     def pregnant_tits_announcement_requirement(person):
         return True
 
-    def become_pregnant(the_person): # Called when a girl is knocked up. Establishes all of the necessary bits of info.
-        the_person.event_triggers_dict["preg_accident"] = the_person.on_birth_control # If a girl is on birth control the pregnancy is an accident.
-        the_person.event_triggers_dict["preg_start_date"] = day
-        the_person.event_triggers_dict["preg_tits_date"] = day + 14 + renpy.random.randint(0,5)
-        the_person.event_triggers_dict["preg_transform_day"] = day + 30 + renpy.random.randint(0,10)
-        the_person.event_triggers_dict["preg_finish_announce_day"] = day + 90 + renpy.random.randint(0,10)
-        the_person.event_triggers_dict["pre_preg_tits"] = the_person.tits
+    def become_pregnant(person): # Called when a girl is knocked up. Establishes all of the necessary bits of info.
+        person.event_triggers_dict["preg_accident"] = person.on_birth_control # If a girl is on birth control the pregnancy is an accident.
+        person.event_triggers_dict["preg_start_date"] = day
+        person.event_triggers_dict["preg_tits_date"] = day + 14 + renpy.random.randint(0,5)
+        person.event_triggers_dict["preg_transform_day"] = day + 30 + renpy.random.randint(0,10)
+        person.event_triggers_dict["preg_finish_announce_day"] = day + 90 + renpy.random.randint(0,10)
+        person.event_triggers_dict["pre_preg_tits"] = person.tits
 
         preg_announce_action = Action("Pregnancy Announcement", pregnant_announce_requirement, "pregnant_announce", requirement_args = day + renpy.random.randint(12,18))
-        the_person.on_room_enter_event_list.append(preg_announce_action)
+        person.on_room_enter_event_list.append(preg_announce_action)
 
-        preg_tits_action = Action("Pregnancy Tits Grow", pregnant_tits_requirement, "pregnant_tits_start", args = the_person, requirement_args = the_person)
+        preg_tits_action = Action("Pregnancy Tits Grow", pregnant_tits_requirement, "pregnant_tits_start", args = person, requirement_args = person)
         mc.business.mandatory_morning_crises_list.append(preg_tits_action)
 
-        preg_transform_action = Action("Pregnancy Transform", pregnant_transform_requirement, "pregnant_transform", args = the_person, requirement_args = the_person)
+        preg_transform_action = Action("Pregnancy Transform", pregnant_transform_requirement, "pregnant_transform", args = person, requirement_args = person)
         mc.business.mandatory_morning_crises_list.append(preg_transform_action) #This event adds an announcement event the next time you enter the same room as the girl.
 
-        the_person.special_role.append(pregnant_role)
+        person.special_role.append(pregnant_role)
+        return
 
-    def preg_transform_announce_requirement(the_person):
+    def preg_transform_announce_requirement(person):
         return True
 
-    def preg_finish_announcement_requirement(the_person):
-        if day >= the_person.event_triggers_dict.get("preg_finish_announce_day", 0):
+    def preg_finish_announcement_requirement(person):
+        if day >= person.event_triggers_dict.get("preg_finish_announce_day", 0):
             return True
         return False
 
-    def preg_finish_requirement(the_person, trigger_day):
+    def preg_finish_requirement(person, trigger_day):
         if day >= trigger_day:
             return True
         return False
 
-    def tit_shrink_requirement(the_person, trigger_day):
+    def tit_shrink_requirement(person, trigger_day):
         if day >= trigger_day:
             return True
         return False
 
-    def tit_shrink_announcement_requirement(the_person):
+    def tit_shrink_announcement_requirement(person):
         return True
 
 
@@ -334,7 +335,7 @@ init 2 python:
         person.body_type = person.event_triggers_dict.get("pre_preg_body", "standard_body")
         person.schedule = person.event_triggers_dict.get("preg_old_schedule")
 
-        the_person.event_triggers_dict["preg_knows"] = False #Otherwise she immediately knows the next time she's pregnant.
+        person.event_triggers_dict["preg_knows"] = False #Otherwise she immediately knows the next time she's pregnant.
         person.kids += 1 #TODO: add a new role related to a girl being a mother of your kid?
 
         tit_shrink_one_day = day + renpy.random.randint(7,14)
