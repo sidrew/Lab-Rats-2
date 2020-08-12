@@ -1138,6 +1138,7 @@ label student_punish_strip(the_person, was_failure, wants_to_fail, successes = 0
 
         #TODO: Have some tits-now-free style checks. Generalize that?
 
+        $ the_item = None
         $ the_person.draw_person(position = "sitting")
         $ the_person.update_outfit_taboos()
 
@@ -1226,7 +1227,7 @@ label student_punish_spank(the_person, was_failure, wants_to_fail, successes = 0
         $ the_person.draw_animated_removal(the_item, position = "standing_doggy") #TODO: When we have the ability to pull things half off do that here.
         "You hook your thumb around the waistband of her [the_item.display_name] and pull them down to her ankles."
         $ the_person.update_outfit_taboos()
-
+        $ the_item = None
     else:
         if was_failure:
             mc.name "Well, what are you waiting for?"
