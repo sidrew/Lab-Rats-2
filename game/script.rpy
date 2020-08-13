@@ -3958,7 +3958,6 @@ init -2 python:
             else: #I assume it's a list that contains one string per
                 the_background_image = self.background_image
 
-
             renpy.scene("master")
             renpy.show(name = self.name, what = the_background_image, layer = "master")
 
@@ -3972,26 +3971,28 @@ init -2 python:
             return
 
         def add_object(self,the_object):
-            self.objects.append(the_object)
+            if not the_object in self.objects:
+                self.objects.append(the_object)
 
         def add_person(self,the_person):
-            self.people.append(the_person)
+            if not self.has_person(the_person):
+                self.people.append(the_person)
             #TODO: add situational modifiers for the location
 
         def remove_person(self,the_person):
-            self.people.remove(the_person)
+            if self.has_person(the_person):
+                self.people.remove(the_person)
 
         def move_person(self,the_person,the_destination):
-            if not the_person in the_destination.people: # Don't bother moving people who are already there.
+            if not isinstance(the_destination, Room):
+                return
+            if not self is the_destination and self.has_person(the_person): # Don't bother moving people who are already there.
                 self.remove_person(the_person)
                 the_destination.add_person(the_person)
                 #TODO: add situational modifiers for the location
 
         def has_person(self,the_person):
-            if the_person in self.people:
-                return True
-            else:
-                return False
+            return the_person in self.people
 
         def get_person_count(self):
             return len(self.people)
