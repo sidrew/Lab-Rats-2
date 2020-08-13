@@ -845,7 +845,7 @@ label movie_date_plan_label(the_person):
             $ create_movie_date_action(the_person)
 
         "Maybe some other time":
-            mc.name "I'm busy on Friday unfortunately."
+            mc.name "I'm busy on Tuesday unfortunately."
             the_person.char "Well maybe next week then. Let me know, okay?"
             "She gives you a warm smile."
 
