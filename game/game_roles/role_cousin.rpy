@@ -205,6 +205,8 @@ init -2 python:
 ###COUSIN ACTION LABELS###
 label cousin_intro_phase_one_label():
     #Your cousin bursts into your room at the end of the day frustrated with Lily and how little personal space she has.
+    $ mc.change_location(bedroom)
+    $ mc.location.show_background()
     $ cousin.draw_person(emotion = "angry")
     "Without warning your bedroom door is opened and [cousin.possessive_title] walks in. She closes the door behind her and looks awkwardly at you."
     mc.name "Hey..."
