@@ -1175,9 +1175,10 @@ label student_punish_spank(the_person, was_failure, wants_to_fail, successes = 0
             the_person.char "Right away [the_person.mc_title]."
         else:
             $ the_item = the_person.get_lower_top_layer()
-            the_person.char "Do I really need to? Can't you spank me over my [the_item.display_name]."
-            mc.name "That's a little too much padding. Come on, strip."
-            the_person.char "Fine..."
+            if the_item:
+                the_person.char "Do I really need to? Can't you spank me over my [the_item.display_name]."
+                mc.name "That's a little too much padding. Come on, strip."
+                the_person.char "Fine..."
 
         $ the_item = the_person.outfit.remove_random_lower(top_layer_first = True,do_not_remove = True)
         $ removed_something = False
