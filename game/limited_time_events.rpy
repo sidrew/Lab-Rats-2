@@ -373,7 +373,7 @@ label mom_house_work_nude_label(the_person):
         "You find [the_person.possessive_title] in the kitchen working on dinner. She glances over her shoulder when you enter, seeming meek."
         the_person.char "Hi [the_person.mc_title]. I hope you don't mind the way I'm dressed, it's just a little more comfortable like this after work."
         mc.name "It's fine, I don't mind."
-        "She turns her attention back to prepping dinner."
+        "She turns her attention back to preparing dinner."
 
     elif the_person.effective_sluttiness("underwear_nudity") < 40:
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True))
@@ -392,7 +392,7 @@ label mom_house_work_nude_label(the_person):
         "You find [the_person.possessive_title] in the kitchen, completely nude except for her apron. She glances over her shoulder when you enter."
         the_person.char "Hi [the_person.mc_title]. If me being... naked makes you uncomfortable just let me know. It's just a nice to relax a little after work."
         mc.name "I don't mind at all Mom."
-        "She turns her attention back to prepping dinner."
+        "She turns her attention back to preparing dinner."
 
     else:
         $ the_person.apply_outfit(Outfit("Nude"))
