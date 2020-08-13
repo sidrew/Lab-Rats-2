@@ -834,7 +834,12 @@ label movie_date_plan_label(the_person):
             the_person.char "Oh, a movie sounds fun! I don't have anything going on Tuesday night, would that work for you?"
 
     menu:
-        "Plan a date for Tuesday night":
+        "Plan a date for tonight" if is_tuesday:
+            mc.name "Tonight would be perfect, I'll will see you later."
+            the_person.char "See you!"
+            $ create_movie_date_action(the_person)
+
+        "Plan a date for Tuesday night" if not is_tuesday:
             mc.name "Tuesday would be perfect, I'm already looking forward to it."
             the_person.char "Me too!"
             $ create_movie_date_action(the_person)
@@ -869,6 +874,8 @@ label movie_date_label(the_person):
     #TODO: if she has a boyfriend have him sometime show up. Depending on Love and stuff you can sometimes get them to break up (and instantly be in a relationship), or ruin her love and happiness.
 
     "You get ready and text [the_person.title] confirming the time and place. A little while later you meet her outside the theater."
+    $ mc.change_location(downtown)
+    $ mc.location.show_background()
     $ the_person.draw_person()
     the_person.char "Hey, good to see you!"
     the_person.char "I'm ready to go in, what do you want to see?"
@@ -1043,25 +1050,42 @@ label movie_date_label(the_person):
 
 
 label dinner_date_plan_label(the_person):
+    if day%7 == 4 and time_of_day < 3:
+        $ is_friday = True #It's already Tuesday and early enough that the date would be right about now.
+    else:
+        $ is_friday = False
+
     if sister_role in the_person.special_role:
         mc.name "[the_person.title], I was wondering if you'd like to go out for a dinner date together. Some brother sister bonding time."
-        the_person.char "That sounds great [the_person.mc_title]. Would Friday be good?"
+        if is_friday:
+            the_person.char "That sounds great [the_person.mc_title]. Would tonight work for you?"
+        else:
+            the_person.char "That sounds great [the_person.mc_title]. Would Friday be good?"
 
     elif mother_role in the_person.special_role:
         mc.name "Mom, I was wondering if I could take you out to dinner, just the two of us. I'd enjoy some mother son bonding time."
-        the_person.char "Aww, that's so sweet. How about Friday, after we're both finished with work."
+        if is_friday:
+            the_person.char "Aww, that's so sweet. How about tonight, after we're both finished with work."
+        else:
+            the_person.char "Aww, that's so sweet. How about Friday, after we're both finished with work."
 
     elif aunt_role in the_person.special_role:
         mc.name "[the_person.title], would you like to go out on a dinner date with me? I think it would be a nice treat for you."
         the_person.char "That sounds like it would be amazing. It's been tough, just me and [cousin.title]. I don't get out much any more."
         "She smiles and gives you a quick hug."
-        the_person.char "How about Friday night?"
+        if is_friday:
+            the_person.char "How about tonight?"
+        else:
+            the_person.char "How about Friday night?"
 
     elif cousin_role in the_person.special_role:
         mc.name "Hey, I want to take you out to dinner."
         the_person.char "Jesus, at least buy me dinner first. Wait a moment..."
         "She laughs at her own joke."
-        the_person.char "Fine, how about Friday?"
+        if is_friday:
+            the_person.char "Fine, how about tonight?"
+        else:
+            the_person.char "Fine, how about Friday?"
 
     elif not the_person.relationship == "Single":
         mc.name "[the_person.title], I'd love to spend some time together, just the two of us. Would you let me take you out for dinner?"
@@ -1069,18 +1093,31 @@ label dinner_date_plan_label(the_person):
         the_person.char "[the_person.mc_title], you know I've got a [SO_title], right? Well..."
         if the_person.get_opinion_score("cheating on men") > 0:
             "She doesn't take very long to make up her mind."
-            the_person.char "He won't know about it, right? What he doesn't know can't hurt him. Are you free Friday?"
+            if is_friday:
+                the_person.char "He's out with friends tonight and what he doesn't know can't hurt him. Shall we go tonight?"
+            else:
+                the_person.char "He won't know about it, right? What he doesn't know can't hurt him. Are you free Friday?"
         else:
             "She thinks about it for a long moment."
-            the_person.char "Just this once, and we have to make sure my [SO_title] never finds out. Are you free Friday?"
+            if is_friday:
+                the_person.char "Just this once, and we have to make sure my [SO_title] never finds out. Shall we go tonight?"
+            else:
+                the_person.char "Just this once, and we have to make sure my [SO_title] never finds out. Are you free Friday?"
 
     else:
         mc.name "[the_person.title], I'd love to get to know you better. Would you let me take you out for dinner?"
-        the_person.char "That sounds delightful [the_person.mc_title]. I'm free Friday night, if you would be available."
-
+        if is_friday:
+            the_person.char "That sounds delightful [the_person.mc_title]. I'm free tonight, if you are available."
+        else:
+            the_person.char "That sounds delightful [the_person.mc_title]. I'm free Friday night, if you would be available."
 
     menu:
-        "Plan a date for Friday night":
+        "Plan a date for tonight" if is_friday:
+            mc.name "It's a date. I'll see you tonight."
+            the_person.char "See you!"
+            $ create_dinner_date_action(the_person)
+
+        "Plan a date for Friday night" if not is_friday:
             mc.name "It's a date. I'm already looking forward to it."
             the_person.char "Me too!"
             $ create_dinner_date_action(the_person)
