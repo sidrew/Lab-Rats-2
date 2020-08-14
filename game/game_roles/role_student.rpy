@@ -40,7 +40,6 @@ init -2 python:
     def add_student_intro_two_action(person):
         student_intro_two_action = Action("Student_intro_two", student_intro_two_requirement, "student_intro_two")
         person.on_room_enter_event_list.append(student_intro_two_action)
-        person.special_role.append(student_role)
         person.event_triggers_dict["current_marks"] = 25 # Should be a value between 0 and 100%
         return
 
