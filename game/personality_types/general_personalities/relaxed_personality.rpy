@@ -154,7 +154,7 @@ label relaxed_sex_responses_vaginal(the_person):
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "Fuck me, fuck me harder! My [so_title] never fucks me like this, it feels so good!"
         else:
-            the_person.char "Oh god, I think you're cock is going to make me cum soon!"
+            the_person.char "Oh god, I think your cock is going to make me cum soon!"
 
     return
 

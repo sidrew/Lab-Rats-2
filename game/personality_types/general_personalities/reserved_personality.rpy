@@ -174,7 +174,7 @@ label reserved_sex_responses_anal(the_person):
     else:
         if the_person.sluttiness > 50:
             if the_person.relationship == "Single":
-                the_person.char "You're cock feels so stuffed inside me! Keep going, I might actually climax!"
+                the_person.char "Your cock feels so good, stuffed deep inside me! Keep going, I might actually climax!"
             else:
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "My [so_title] always wanted to try anal, but I told him it would never happen. My ass belongs to you , [the_person.mc_title]!"

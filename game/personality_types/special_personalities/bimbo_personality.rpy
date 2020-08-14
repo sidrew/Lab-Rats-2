@@ -135,7 +135,7 @@ label bimbo_sex_responses_vaginal(the_person):
             the_person.char "Yes! Keep fucking me!"
             "She giggles happily, clearly having a good time."
         else:
-            the_person.char "Oh wow! Mmmm, you're cock is driving me crazy [the_person.mc_title]!"
+            the_person.char "Oh wow! Mmmm, your cock is driving me crazy [the_person.mc_title]!"
     else:
         if the_person.sluttiness > 50:
             if the_person.relationship == "Single":
@@ -146,7 +146,7 @@ label bimbo_sex_responses_vaginal(the_person):
                 the_person.char "Oh well, I just want to cum! Make me cum! Make me cum my brains out!"
 
         else:
-            the_person.char "Oh my god, you're... You might make me cum if you keep going!"
+            the_person.char "Oh my god, you... You might make me cum if you keep going!"
     return
 
 label bimbo_sex_responses_anal(the_person):

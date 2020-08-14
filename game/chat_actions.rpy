@@ -698,7 +698,7 @@ label lunch_date_label(the_person): #Could technically be included in the planni
             "Add some serum to her food" if mc.inventory.get_any_serum_count() > 0:
                 call give_serum(the_person) from _call_give_serum_20
                 if _return:
-                    "Once you're sure nobody else is watching you add a dose of serum to [the_person.title]'s food."
+                    "Once your sure nobody else is watching you add a dose of serum to [the_person.title]'s food."
                     "With that done you lean back and relax, waiting until she returns to start eating your own food."
                 else:
                     "You think about adding a dose of serum to [the_person.title]'s food, but decide against it."

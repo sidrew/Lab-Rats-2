@@ -132,7 +132,7 @@ label wild_sex_responses_vaginal(the_person):
     else:
         if the_person.sluttiness > 50:
             if the_person.relationship == "Single":
-                the_person.char "Fuck! I'm... You're cock is going to make me cum! I want you to make me cum!"
+                the_person.char "Fuck! I'm... Your cock is going to make me cum! I want you to make me cum!"
             else:
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "Your cock is stretching me out, my [so_title] is never going to be enough for me after this!"

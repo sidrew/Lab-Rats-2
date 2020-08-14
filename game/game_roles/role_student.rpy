@@ -813,7 +813,7 @@ label student_pick_reward(the_person, punishment):
         the_person.char "Is there something wrong with it? I..."
         mc.name "No, there's nothing wrong! That sounds like a reward where we both win."
         mc.name "We'll start slowly, and for each question you get right we'll make things more intense."
-        the_person.char "Thank you [the_person.mc_name]."
+        the_person.char "Thank you [the_person.mc_title]."
         return "student_punish_suck"
 
     elif (the_person.effective_sluttiness() >= 65 or the_person.get_opinion_score("being submissive") > 0) and punishment != "student_punish_spank":
@@ -1378,7 +1378,7 @@ label student_punish_suck(the_person, was_failure, wants_to_fail, successes = 0,
         "She nods and opens her mouth, offering it to you."
         "You place your hands on either side of her head and lean her towards you. She wraps her lips around your cock as you bring it close."
         $ the_person.draw_person(position = "blowjob", special_modifier = "blowjob", the_animation = blowjob_bob, animation_effect_strength = 1.0)
-        "You don't waste any time. As soon as you're cock is in her mouth you slam it down to the base. [the_person.title] gags, throwing her arms out to her side."
+        "You don't waste any time. As soon as your cock is in her mouth you slam it down to the base. [the_person.title] gags, throwing her arms out to her side."
         "You slam [the_person.possessive_title]'s head up and down, forcing her to face-fuck you."
         "She struggles to keep up, gagging a little bit with each thrust and trailing spit down her chin and onto her chest."
         "You're already so worked up that it doesn't take long before you feel your climax approaching."
