@@ -667,7 +667,7 @@ label photo_strip_naked(the_person): #A helper label that strips a girl until he
         $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True)
         $ the_person.draw_animated_removal(the_item)
         "" #Just so they can click through and see each thing removed.
-    $ del the_item
+    $ the_item = None
     return
 
 label ad_expire(the_amount):

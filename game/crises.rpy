@@ -792,8 +792,8 @@ label office_flirt_label():
                         $ the_person.draw_person(position="walking_away")
                         "[the_person.title] winks at you, then turns back to the shelf and resumes her search. When she finds it she walks back past you, making sure to shake her ass as you watch."
 
-                    $ del test_outfit
-                    $ del the_item
+                    $ test_outfit = None
+                    $ the_item = None
 
                 else:
                     "With nothing covering her up you're able to get a great look of [the_person.title]'s shapely butt. She works it around for a minute or two while you watch from your desk."
@@ -3165,7 +3165,7 @@ label horny_at_work_crisis_label():
                             $ the_person.draw_animated_removal(the_item)
                             "[the_person.title] strips off her [the_item.name] while you watch."
                             $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True)
-                        $ del the_item
+                        $ the_item = None
                         "When [the_person.possessive_title] is finished stripping down she puts her hands on her hips and watches you jerk off."
 
                         $ the_person.discover_opinion("not wearing anything")
@@ -3270,7 +3270,7 @@ label horny_at_work_crisis_label():
                                     "You pull off her [the_item.name], getting closer to revealing her pussy for you to use."
                                 $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove= True)
 
-                            $ del the_item
+                            $ the_item = None
                             if the_person.outfit.vagina_available():
                                 "You unzip your pants and pull out your hard cock, laying it onto [the_person.title]'s crotch. You rub the shaft against her pussy lips, teasing her with the tip each time."
                                 call condom_ask(the_person) from _call_condom_ask_3
@@ -3536,7 +3536,7 @@ label friends_help_friends_be_sluts_label():
                             $ person_one.outfit.remove_clothing(the_item)
                             $ person_one.draw_person()
                             $ the_item = person_one.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
-                        $ del the_item
+                        $ the_item = None
                         "She pulls her tits out for you, displaying them proudly."
                         if person_one.outfit.tits_visible():
                             $ person_one.break_taboo("bare_tits")
@@ -3579,7 +3579,7 @@ label friends_help_friends_be_sluts_label():
                             $ person_two.draw_person()
                             $ the_item = person_two.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
 
-                        $ del the_item
+                        $ the_item = None
                         if person_two.get_opinion_score("showing her tits") < 0:
                             "When she has her tits out she crosses her arms in front of her in a small attempt to preserve her modesty."
                             $ person_one.draw_person()
@@ -3951,7 +3951,7 @@ label mom_outfit_help_crisis_label():
             "You watch as [the_person.possessive_title] take off her [strip_choice.name]."
             $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
 
-        $ del strip_choice
+        $ strip_choice = None
         "Once she's stripped naked she grabs another outfit and starts to put it on."
 
     $ the_person.apply_outfit(second_outfit, update_taboo = True)
@@ -4052,7 +4052,7 @@ label mom_outfit_help_crisis_label():
                         "You watch as [the_person.possessive_title] take off her [strip_choice.name]."
                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
                     "Once she's stripped naked she grabs another outfit and starts to put it on."
-                    $ del strip_choice
+                    $ strip_choice = None
 
                 $ the_person.apply_outfit(third_outfit, update_taboo = True)
                 #$ the_person.outfit = third_outfit changed v0.24.1

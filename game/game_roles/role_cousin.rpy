@@ -394,7 +394,7 @@ label cousin_blackmail_list(the_person):
                             $ the_item = the_person.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
                             $ the_person.draw_animated_removal(the_item) #Strip down to her underwear.
                             "[the_person.possessive_title] takes off her [the_item.name]."
-                        $ del the_item
+                        $ the_item = None
                     else: #She's not wearing a bra and doesn't want you to see her tits.
                         "[the_person.title] seems nervous and plays with her shirt." #TODO: Check that she is wearing a shirt
                         mc.name "What's wrong?"
@@ -407,7 +407,7 @@ label cousin_blackmail_list(the_person):
                             $ the_item = the_person.outfit.remove_random_lower(top_layer_first = True, do_not_remove = True)
                             $ the_person.draw_animated_removal(the_item)
                             "[the_person.possessive_title] takes off her [the_item.name]."
-                        $ del the_item                        
+                        $ the_item = None
                     else: #TODO: make sure she's actually wearing a dress or skirt or something
                         the_person.char "So, I'm not wearing any panties right now. That means I can't take this off."
                         mc.name "Come on, that's not what the deal is."
@@ -448,7 +448,7 @@ label cousin_blackmail_list(the_person):
                         else:
                             "[the_person.possessive_title] takes off her [the_item.display_name]."
 
-                    $ del the_item
+                    $ the_item = None
 
 
                     if the_person.outfit.wearing_panties():
@@ -456,7 +456,7 @@ label cousin_blackmail_list(the_person):
                             $ the_item = the_person.outfit.remove_random_lower(top_layer_first = True, do_not_remove = True)
                             $ the_person.draw_animated_removal(the_item)
                             "[the_person.possessive_title] takes off her [the_item.display_name]."
-                        $ del the_item
+                        $ the_item = None
                     else: #TODO: make sure she's actually wearing a dress or skirt or something
                         the_person.char "So, I'm not wearing any panties right now. That means I can't take this off."
                         mc.name "Come on, that's not what the deal is."
@@ -503,7 +503,7 @@ label cousin_blackmail_list(the_person):
                         else:
                             "[the_person.possessive_title] takes off her [the_item.name]."
 
-                    $ del the_item
+                    $ the_item = None
                     the_person.char "There, are you satisfied?"
                     $ the_person.draw_person(position = "back_peek")
                     "She spins on the spot, letting you get a look at her ass."
