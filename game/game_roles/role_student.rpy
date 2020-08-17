@@ -536,7 +536,7 @@ label study_normally(the_person, public = True):
                     "You step into a deep lunge, then stand up and do the same with your other leg. [the_person.title] mirrors you again."
                     mc.name "Does that feel better?"
                     the_person.char "Yeah, I guess."
-                    mc.name "Now let's stretch out your core. Put your hands on the table, set your legs appart, and bend forward."
+                    mc.name "Now let's stretch out your core. Put your hands on the table, set your legs apart, and bend forward."
                     $ the_person.draw_person(position = "standing_doggy")
                     the_person.char "Uh, like this?"
                     menu:

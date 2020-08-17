@@ -223,7 +223,7 @@ label student_dinner(the_student, the_mom, first_time):
                 "She runs her hand along the bulge of your crotch, stroking you slowly through the fabric."
                 the_student.char "He's been such a strong, firm presence in my life since I met him. I'm really learning a lot."
                 $ the_student.change_slut_temp(1)
-                "You and [the_student.possessive_title] fondle each other while you eat dinner, doing your best to keep [the_mom.title] from noticing everything."
+                "You and [the_student.possessive_title] fondle each other while you eat desert, doing your best to keep [the_mom.title] from noticing everything."
 
             else:
                 "You fondle [the_student.possessive_title] as you eat your desert, doing your best to keep [the_mom.title] from noticing."
@@ -236,7 +236,7 @@ label student_dinner(the_student, the_mom, first_time):
             $ the_mom.draw_person(position = "sitting")
             the_mom.char "[the_student.title], could you clean things up for us?"
 
-    "[the_student.possessive_title] collects up the dishes again when you are finished desert and carries them to the kitchen."
+    "[the_student.possessive_title] collects up the dishes again when you finished desert and carries them to the kitchen."
     the_mom.char "It's been wonderful having you over [the_mom.mc_title], but I'm sure you're looking forward to getting home."
     mc.name "The dinner was fantastic. I'm lucky to have such a generous, beautiful host."
     "[the_mom.title] seems to blush, although it might just be wine taking effect."
@@ -275,7 +275,7 @@ label student_dinner(the_student, the_mom, first_time):
             $ the_mom.draw_person(position = "kissing", emotion = "happy")
             $ the_mom.change_slut_temp(1)
             $ the_mom.break_taboo("kissing")
-            the_mom.char "Thank you for coming for dinner [the_mom.mc_title]. I hope I see you again soon..."
+            the_mom.char "Thank you for staying for dinner [the_mom.mc_title]. I hope I see you again soon..."
             "She steps back, trailing a hand along your chest."
             mc.name "I hope so too. Goodnight [the_mom.title]."
             "She watches you from the front door as you leave the house."
