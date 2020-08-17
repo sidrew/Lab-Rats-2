@@ -804,8 +804,7 @@ label aunt_share_drinks_label(the_person):
                                         "You watch as [the_person.possessive_title] takes off her [strip_choice.name]."
                                         $ strip_choice = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
                                     $ strip_choice = None
-                                    $ the_person.apply_outfit(the_person.planned_outfit)
-                                    #$ the_person.outfit = the_person.planned_outfit.get_copy() changed v0.24.1
+                                    $ the_person.apply_outfit()
                                     $ the_person.draw_person()
                             the_person.char "This was really fun [the_person.mc_title], but I think that extra glass of wine is starting to get to me."
                             "She yawns dramatically and lies down on her bed."

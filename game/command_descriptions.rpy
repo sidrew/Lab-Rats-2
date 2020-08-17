@@ -390,7 +390,7 @@ label demand_strip_tits_label(the_person):
         "Let her get dressed":
             mc.name "Yeah, you can."
             "You watch her put her clothes back on, covering up her tits."
-            $ the_person.apply_outfit(the_person.planned_outfit)
+            $ the_person.apply_outfit()
             $ the_person.draw_person()
 
         "Keep your tits out":
@@ -483,7 +483,7 @@ label demand_strip_underwear_label(the_person):
         "Let her get dressed":
             mc.name "Yeah, you can."
             "You watch her put her clothes back on."
-            $ the_person.apply_outfit(the_person.planned_outfit)
+            $ the_person.apply_outfit()
             $ the_person.draw_person()
 
         "Stay in your underwear":
@@ -557,7 +557,7 @@ label demand_strip_naked_label(the_person):
         "Let her get dressed":
             mc.name "I've seen enough. You can get dressed."
             "You watch her as she gets dressed again."
-            $ the_person.apply_outfit(the_person.planned_outfit)
+            $ the_person.apply_outfit()
             $ the_person.draw_person()
 
         "Keep her naked":

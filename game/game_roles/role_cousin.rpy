@@ -427,8 +427,7 @@ label cousin_blackmail_list(the_person):
                     the_person.char "Finally..."
                     "[the_person.possessive_title] gets dressed again."
                     $ the_person.update_outfit_taboos()
-                    $ the_person.apply_outfit(the_person.planned_outfit)
-                    #$ the_person.outfit = the_person.planned_outfit.get_copy() changed v0.24.1
+                    $ the_person.apply_outfit()
                     $ the_person.draw_person()
                     $ the_person.change_slut_temp(5)
 
@@ -470,8 +469,7 @@ label cousin_blackmail_list(the_person):
                     the_person.char "Well keep dreaming. I'm not that fucking desperate."
                     "Once you've gotten your fill, [the_person.title] gets dressed again."
                     $ the_person.update_outfit_taboos()
-                    $ the_person.apply_outfit(the_person.planned_outfit)
-                    #$ the_person.outfit = the_person.planned_outfit.get_copy() changed v0.24.1
+                    $ the_person.apply_outfit()
                     $ the_person.draw_person()
                     $ the_person.change_slut_temp(5)
 
@@ -517,7 +515,7 @@ label cousin_blackmail_list(the_person):
                     mc.name "Fine, that'll do."
                     the_person.char "Fucking finally..."
                     $ the_person.update_outfit_taboos()
-                    $ the_person.apply_outfit(the_person.planned_outfit)
+                    $ the_person.apply_outfit()
                     $ the_person.draw_person()
                     $ the_person.change_slut_temp(5)
 

@@ -2651,6 +2651,11 @@ init -2 python:
 
         def apply_outfit(self, the_outfit = None, ignore_base = False, update_taboo = False): #Hand over an outfit, we'll take a copy and apply it to the person, along with their base accessories unless told otherwise.
             if the_outfit is None:
+                # put on uniform if required
+                if self.should_wear_uniform():
+                    self.wear_uniform()
+                    return
+
                 the_outfit = self.planned_outfit
                 if the_outfit is None:
                     return #We don't have a planned outfit, so trying to return to it makes no sense.

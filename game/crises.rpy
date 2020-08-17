@@ -1378,7 +1378,7 @@ label home_fuck_crisis_label():
                 the_person.char "Mmm, that was just what I needed [the_person.mc_title]. Ah..."
                 $ the_person.draw_person(position = "sitting")
                 "You and [the_person.title] lounge around for a few minutes until she has completely recovered."
-                $ the_person.apply_outfit(the_person.planned_outfit)
+                $ the_person.apply_outfit()
                 $ the_person.draw_person()
                 the_person.char "I had a great time [the_person.mc_title], but I should be getting home. Could you call me a cab?"
 
@@ -1387,13 +1387,13 @@ label home_fuck_crisis_label():
                 $ the_person.change_love(-2)
                 $ the_person.change_happiness(-5)
                 $ the_person.change_obedience(-2)
-                $ the_person.apply_outfit(the_person.planned_outfit)
+                $ the_person.apply_outfit()
                 $ the_person.draw_person()
                 the_person.char "Screw it, I'll take care of this at home! Call me a cab, please."
             else:
                 $ the_person.change_obedience(-2)
                 $ the_person.change_happiness(-5)
-                $ the_person.apply_outfit(the_person.planned_outfit)
+                $ the_person.apply_outfit()
                 $ the_person.draw_person()
                 the_person.char "Ugh, fuck! This is worse than it was before! Screw it, I'll take care of this at home. Call me a cab, please."
 
@@ -4387,7 +4387,7 @@ label mom_selfie_label():
             the_person.char "Hi [the_person.mc_title], I'm just checking in to make sure you're doing okay. I hope you don't mind your "
 
     "It's so sweet of her to think of you."
-    $ the_person.apply_outfit(the_person.planned_outfit)
+    $ the_person.apply_outfit()
     $ clear_scene()
     return
 
@@ -4935,8 +4935,7 @@ label lily_morning_encounter_label():
         mc.name "Maybe we'll follow up on this later."
         "[the_person.possessive_title]'s face is flush. She nods and heads towards the laundry room. You get to watch her ass shake as she goes."
 
-    $ the_person.apply_outfit(the_person.planned_outfit)
-    #$ the_person.outfit = the_person.planned_outfit.get_copy() #Make sure to reset their outfits for the day. changed v0.24.1
+    $ the_person.apply_outfit()
     $ clear_scene()
     return
 
@@ -5077,8 +5076,7 @@ label family_morning_breakfast_label():
                     the_mom.char "Oh you two, you're so silly. Fine, I'll be back in a moment. [the_sister.title], could you watch the eggs?"
                     $ the_sister.draw_person(position = "walking_away")
                     "Your mother leaves to get dressed. [the_sister.possessive_title] ends up serving out breakfast for all three of you."
-                    $ the_mom.apply_outfit(the_mom.planned_outfit)
-                    # $ the_mom.outfit = the_mom.planned_outfit.get_copy() changed v0.24.1
+                    $ the_mom.apply_outfit()
                     the_sister.char "She's been so weird lately. I don't know what's going on with her..."
                     $ the_mom.draw_person(position = "sitting")
                     $ the_sister.change_happiness(5)
@@ -5133,8 +5131,7 @@ label family_morning_breakfast_label():
             "[the_sister.title] sulks out of the kitchen."
             $ the_mom.draw_person()
             the_mom.char "I don't know how I manage to survive with you two around!"
-            $ the_sister.apply_outfit(the_sister.planned_outfit)
-            #$ the_sister.outfit = the_sister.planned_outfit.get_copy() changed v0.24.1
+            $ the_sister.apply_outfit()
             $ the_sister.change_obedience(10)
             $ the_sister.change_happiness(-5)
             $ the_mom.change_obedience(-2)
@@ -5226,7 +5223,7 @@ label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
                 else:
                     call girl_shower_enter(the_person, suprised = True) from _call_girl_shower_enter_1 #TODO: Decide if we need different dialogue for this (maybe just a "suprised" tag we can pass)
 
-        $ the_person.apply_outfit(the_person.planned_outfit)
+        $ the_person.apply_outfit()
         $ towel_outfit = None
 
     $ clear_scene()
@@ -5870,7 +5867,7 @@ label girlfriend_nudes_label():
         "Her legs clamp down on her own hand as she cums. After a moment she relaxes, leaving the vibrator running on the bed."
         "She looks into the camera again and sighs happily, then reaches forward and ends the video."
         $ the_person.update_outfit_taboos()
-        $ the_person.apply_outfit(the_person.planned_outfit)
+        $ the_person.apply_outfit()
     #TODO: A blowjob/deep-throat training video, or an anal stretching video she sends you to show she's "getting ready."
 
     $ clear_scene()

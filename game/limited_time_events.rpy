@@ -293,7 +293,7 @@ label sister_walk_in_label(the_person):
 
     $ mc.change_location(hall)
     $ mc.location.show_background()
-    $ the_person.apply_outfit(the_person.planned_outfit)
+    $ the_person.apply_outfit()
     $ clear_scene()
     return
 
@@ -313,7 +313,7 @@ label nude_walk_in_label(the_person):
             the_person.char "Just... Just a minute, I was getting changed!"
             $ clear_scene()
             "[the_person.title] shoos you out of the room. You can hear her getting dressed on the other side."
-            $ the_person.apply_outfit(the_person.planned_outfit)
+            $ the_person.apply_outfit()
             #$ the_person.outfit = the_person.planned_outfit.get_copy() changed v0.24.1
             $ the_person.draw_person()
             "Soon enough she opens the door and invites you in."
@@ -342,8 +342,7 @@ label nude_walk_in_label(the_person):
             the_person.char "Oh! One second, I'm not dressed!"
             $ clear_scene()
             "She hurries to the door and closes it in your face, locking it quickly. You can hear her quickly getting dressed on the other side."
-            #$ the_person.outfit = the_person.planned_outfit.get_copy() changed v0.24.1
-            $ the_person.apply_outfit(the_person.planned_outfit)
+            $ the_person.apply_outfit()
             $ the_person.draw_person()
             "When she opens the door she's fully dressed and invites you in."
             $ the_person.change_slut_temp(1+the_person.get_opinion_score("not wearing anything"))
