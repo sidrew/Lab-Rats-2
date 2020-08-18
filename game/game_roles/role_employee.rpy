@@ -39,6 +39,8 @@ init -2 python:
             return True
 
     def move_employee_requirement(the_person):
+        if not mc.business.is_open_for_business():
+            return False
         return True
 
     def employee_paid_serum_test_requirement(the_person):
@@ -373,15 +375,13 @@ label move_employee_label(the_person):
                 return
 
     the_person.char "Where would you like me then?"
+    
+    if not mc.location.has_person(the_person):
+        "VREN" "Something went wrong."
+        return
+
     $ mc.business.remove_employee(the_person)
-    if rd_division.has_person(the_person):
-        $ rd_division.remove_person(the_person)
-    elif p_division.has_person(the_person):
-        $ p_division.remove_person(the_person)
-    elif office.has_person(the_person):
-        $ office.remove_person(the_person)
-    elif m_division.has_person(the_person):
-        $ m_division.remove_person(the_person)
+    $ mc.location.remove_person(the_person)
 
     menu:
         "Research and Development":
