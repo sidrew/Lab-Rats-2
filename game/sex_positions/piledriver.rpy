@@ -157,7 +157,7 @@ label scene_piledriver_2(the_girl, the_location, the_object):
     "You settle into a steady rhythm pumping in and out of [the_girl.title]'s pussy. Having her legs bent over lets you get deeper than you normally can."
     #TODO: Minor line depending on her vaginal skill.
     if the_girl.sex_skills["Vaginal"] < 3:
-        the_girl.char "Ah... Take it easy, I'm not... use to doing this."
+        the_girl.char "Ah... Take it easy, I'm not... used to doing this."
     else:
         the_girl.char "I can feel you so deep inside me..."
 
