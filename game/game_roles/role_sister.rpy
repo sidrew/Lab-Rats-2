@@ -69,7 +69,7 @@ init -2 python:
         elif __builtin__.len(lily_bedroom.people) > 1:
             return False
         elif time_of_day == 4:
-            return "Too late to take pictures."
+            return "Too late to take pictures"
         else:
             return True
 

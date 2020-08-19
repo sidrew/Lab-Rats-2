@@ -6218,7 +6218,7 @@ init -2 python:
 
     def sleep_action_requirement():
         if time_of_day != 4:
-            return "Too early to sleep."
+            return "Too early to sleep"
         else:
             return True
 
@@ -6227,49 +6227,49 @@ init -2 python:
 
     def hr_work_action_requirement():
         if time_of_day >= 4:
-            return "Too late to work."
+            return "Too late to work"
         else:
             return True
 
     def research_work_action_requirement():
         if time_of_day >= 4:
-            return "Too late to work."
+            return "Too late to work"
         elif mc.business.active_research_design is None:
-            return "No research project set."
+            return "No research project set"
         else:
             return True
 
     def supplies_work_action_requirement():
         if time_of_day >= 4:
-            return "Too late to work."
+            return "Too late to work"
         else:
             return True
 
     def market_work_action_requirement():
         if time_of_day >= 4:
-            return "Too late to work."
+            return "Too late to work"
         else:
             return True
 
     def production_work_action_requirement():
         if time_of_day >= 4:
-            return "Too late to work."
+            return "Too late to work"
         elif len(mc.business.serum_production_array) == 0:
-            return "No serum design set."
+            return "No serum design set"
         else:
             return True
 
     def interview_action_requirement():
         if time_of_day >= 4:
-            return "Too late to work."
+            return "Too late to work"
         elif mc.business.get_employee_count() >= mc.business.max_employee_count:
-            return "At employee limit."
+            return "At employee limit"
         else:
             return True
 
     def serum_design_action_requirement():
         if time_of_day >= 4:
-            return "Too late to work."
+            return "Too late to work"
         else:
             return True
 
@@ -6295,7 +6295,7 @@ init -2 python:
         if mc.business.head_researcher is not None:
             return False
         elif __builtin__.len(mc.business.research_team) == 0:
-            return "Nobody to pick."
+            return "Nobody to pick"
         else:
             return True
 
@@ -6305,7 +6305,7 @@ init -2 python:
         elif not public_advertising_license_policy.is_active():
             return False
         elif mc.business.get_employee_count() == 0:
-            return "Nobody to pick."
+            return "Nobody to pick"
         else:
             return True
 
@@ -6314,7 +6314,7 @@ init -2 python:
 
     def set_serum_requirement():
         if daily_serum_dosage_policy.is_owned() and not daily_serum_dosage_policy.is_active():
-            return "Policy not active."
+            return "Policy not active"
         else:
             return daily_serum_dosage_policy.is_active()
 

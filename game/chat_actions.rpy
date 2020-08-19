@@ -33,9 +33,9 @@ init -2 python:
         love_requirement = 20
 
         if time_of_day < 2:
-            return "Too early to go for lunch."
+            return "Too early to go for lunch"
         elif time_of_day > 2:
-            return "Too late to go for lunch."
+            return "Too late to go for lunch"
         elif the_person.love < love_requirement:
             return "Requires: " + str(love_requirement) + " Love"
         else:

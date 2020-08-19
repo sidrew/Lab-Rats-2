@@ -11,9 +11,9 @@ init -2 python:
         elif mc.business.get_employee_workstation(the_person) is None:
             return False
         elif time_of_day >= 4:
-            return "Too late to start taking pictures."
+            return "Too late to shoot pictures"
         elif mc.business.event_triggers_dict.get("Last Ad Shot Day", -7) + 7 > day:
-            return "An ad is already running."
+            return "An ad is already running"
         else:
             return True
 

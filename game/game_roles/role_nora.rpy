@@ -14,12 +14,12 @@ init -2 python:
         elif mc.business.event_triggers_dict.get("nora_trait_researched",None) is None:
             return False
         elif time_of_day== 0:
-            return "Too early to visit [nora.title]."
+            return "Too early to visit [nora.title]"
         elif time_of_day == 4:
-            return "Too late to visit [nora.title]."
+            return "Too late to visit [nora.title]"
         elif __builtin__.round(mc.business.event_triggers_dict.get("nora_trait_researched").mastery_level, 1) < 2:
             trait_name = mc.business.event_triggers_dict.get("nora_trait_researched").name
-            return "Trait Mastery Level of " + trait_name + " must be 2 or higher."
+            return "Requires: " + trait_name + " Mastery >= 2"
         else:
             return True
 
@@ -39,11 +39,11 @@ init -2 python:
         elif mc.business.event_triggers_dict.get("nora_trait_researched", None) is None and not mc.business.event_triggers_dict.get("nora_cash_research_trigger", False):
             return False
         elif mc.business.is_weekend():
-            return "[nora.title] does not work on the weekend."
+            return "[nora.title] does not work weekends"
         elif time_of_day == 0:
-            return "Too early to talk to [nora.title] about business."
+            return "Too early to talk to [nora.title] about business"
         elif time_of_day == 4:
-            return "Too late to talk to [nora.title] about business."
+            return "Too late to talk to [nora.title] about business"
         else:
             return True
 
@@ -51,30 +51,30 @@ init -2 python:
         if mc.business.event_triggers_dict.get("nora_cash_research_trait", None) is None:
             return False
         elif time_of_day == 0:
-            return "Too early to visit [nora.title]."
+            return "Too early to visit [nora.title]"
         elif time_of_day == 4:
-            return "Too late to visit [nora.title]."
+            return "Too late to visit [nora.title]"
         elif __builtin__.round(mc.business.event_triggers_dict.get("nora_cash_research_trait").mastery_level, 1) < 2:
             trait_name = mc.business.event_triggers_dict.get("nora_cash_research_trait").name
-            return "Trait Mastery Level of " + trait_name + " must be 2 or higher."
+            return "Requires: " + trait_name + " Mastery >= 2"
         else:
             return True
 
     def special_research_requirement(the_person):
         if mc.business.event_triggers_dict.get("nora_research_subject", None) is None:
-            return "No new research to turn in."
+            return "No new research to turn in"
         elif mc.business.is_weekend():
-            return "[nora.title] does not work on the weekend."
+            return "[nora.title] does not work weekends"
         elif time_of_day == 0:
-            return "Too early to visit [nora.title]."
+            return "Too early to visit [nora.title]"
         elif time_of_day == 4:
-            return "Too late to visit [nora.title]."
+            return "Too late to visit [nora.title]"
         else:
             return True
 
     def study_person_requirement(the_person):
         if time_of_day == 4:
-            return "Not enough time."
+            return "Not enough time"
         return True
 
     def add_nora_university_research_actions():

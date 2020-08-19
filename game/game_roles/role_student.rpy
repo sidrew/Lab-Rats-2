@@ -27,7 +27,7 @@ init -2 python:
         elif not ((the_person in university.people and the_person.event_triggers_dict.get("tutor_enabled", False)) or (the_person.event_triggers_dict.get("home_tutor_enabled", False) and the_person in the_person.home.people)):
             return False
         elif ((the_person in university.people and the_person.event_triggers_dict.get("tutor_enabled, False")) or (the_person.event_triggers_dict.get("home_tutor_enabled", False) and the_person in the_person.home.people)) and the_person.event_triggers_dict.get("last_tutor", -5) >= day:
-            return "Already studied today."
+            return "Already studied today"
         return True
 
     def student_mom_intro_requirement(the_person):

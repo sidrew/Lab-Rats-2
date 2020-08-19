@@ -31,15 +31,15 @@ init -2 python:
         if the_person.event_triggers_dict.get("blackmail_level", -1) < 1:
             return False
         elif day < the_person.event_triggers_dict.get("last_blackmailed",-5) + 5:
-            return "Blackmailed too recently."
+            return "Blackmailed too recently"
         elif __builtin__.len(mc.location.people) > 1:
-            return "Must be in private."
+            return "Must be in private"
         else:
             return True
 
     def stripclub_show_requirement():
         if time_of_day in [0,1,2]:
-            return "Too early for the performance to start."
+            return "Too early for performances"
         else:
             return True
 
@@ -61,7 +61,7 @@ init -2 python:
         elif the_person.event_triggers_dict.get("found_stripping_clue", False):
             return False
         elif time_of_day == 4:
-            return "Too late to search thoroughly."
+            return "Too late to search room"
         elif the_person in mc.location.people:
             return the_person.title + " is in the room."
         else:
@@ -93,7 +93,7 @@ init -2 python:
         elif the_person.event_triggers_dict.get("getting boobjob", False):
             return False
         elif aunt in mc.location.people:
-            return "Not while [aunt.title] is around."
+            return "Not while [aunt.title] is around"
         else:
             return True
 

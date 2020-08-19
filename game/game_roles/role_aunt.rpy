@@ -16,16 +16,16 @@ init -2 python:
     def aunt_intro_moving_apartment_requirement(the_person):
         if aunt.event_triggers_dict.get("moving_apartment",-1) >= 0:
             if aunt.event_triggers_dict.get("moving_apartment") >= 4:
-                return "Everything has already been moved."
+                return "Everything has already been moved"
 
             elif time_of_day == 0:
-                return "Too early in the day to start moving."
+                return "Too early to start moving"
 
             elif time_of_day == 4:
-                return "Too late in the day to start moving."
+                return "Too late to start moving"
 
             elif aunt.event_triggers_dict.get("day_of_last_move",-1) == day:
-                return "Too tired to move anything more today."
+                return "Already moved today"
 
             else:
                 return True
@@ -49,9 +49,9 @@ init -2 python:
         if the_person not in aunt_apartment.people:
             return False
         elif time_of_day < 3:
-            return "Too early for drinks."
+            return "Too early for drinks"
         elif time_of_day > 3:
-            return "Too late for drinks."
+            return "Too late for drinks"
         else:
             return True
 

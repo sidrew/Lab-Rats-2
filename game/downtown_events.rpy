@@ -1,7 +1,7 @@
 init -1 python:
     def downtown_search_requirement():
         if time_of_day >= 4:
-            return "Too late to explore."
+            return "Too late to explore"
         else:
             return True
 

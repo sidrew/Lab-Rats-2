@@ -8,7 +8,7 @@ init -2 python:
         if not mc.business.is_open_for_business():
             return False
         elif day - the_person.event_triggers_dict.get("day_last_employee_interaction",-2) <= 0:
-            return "Already talked about work today."
+            return "Already talked about work today"
         else:
             return True
 
@@ -16,7 +16,7 @@ init -2 python:
         if not mc.business.is_open_for_business():
             return False
         elif day - the_person.event_triggers_dict.get("day_last_employee_interaction",-2) <= 0:
-            return "Already talked about work today."
+            return "Already talked about work today"
         else:
             return True
 
@@ -24,7 +24,7 @@ init -2 python:
         if not mc.business.is_open_for_business():
             return False
         elif day - the_person.event_triggers_dict.get("day_last_employee_interaction",-2) <= 0:
-            return "Already talked about work today."
+            return "Already talked about work today"
         else:
             return True
 
@@ -32,9 +32,9 @@ init -2 python:
         if not mc.business.is_open_for_business():
             return False
         elif day - the_person.event_triggers_dict.get("employed_since",-7) < 7:
-            return "Too recently hired."
+            return "Too recently hired"
         elif day - the_person.event_triggers_dict.get("day_last_performance_review", -7) < 7:
-            return "Just had a recent performance review."
+            return "Just had a recent performance review"
         else:
             return True
 

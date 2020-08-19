@@ -15,11 +15,11 @@ init -2 python:
 
     def alexia_intro_phase_two_requirement(the_person): #BUG: Alexia's title appears correctly in the action name but incorrectly in the disabled slug. May be due to some argument list references that are by reference instead of value.
         if mc.business.is_weekend():
-            return "[alexia.title] only works on week days."
+            return "[alexia.title] only works on week days"
         elif time_of_day == 0:
-            return "It's too early to visit [alexia.title]."
+            return "It's too early to visit [alexia.title]"
         elif time_of_day >= 4:
-            return "It's too late to visit [alexia.title]."
+            return "It's too late to visit [alexia.title]"
         else:
             return True
 
@@ -29,7 +29,7 @@ init -2 python:
         elif the_person.love < 10:
             return "Requires: 10 Love"
         elif mc.business.get_employee_count() >= mc.business.max_employee_count:
-            return "At employee limit."
+            return "At employee limit"
         else:
             return True
 
@@ -64,7 +64,7 @@ init -2 python:
         elif mc.business.get_employee_workstation(the_person) is None:
             return False
         elif mc.business.funds < 500:
-            return "Insufficient funds."
+            return "Requires: $500"
         else:
             return True
 
@@ -82,7 +82,7 @@ init -2 python:
         elif mc.business.get_employee_workstation(the_person) is None:
             return False
         elif time_of_day >= 4:
-            return "Too late to start taking pictures."
+            return "Too late to shoot pictures"
         else:
             return True
 
