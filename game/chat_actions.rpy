@@ -745,6 +745,7 @@ label lunch_date_label(the_person): #Could technically be included in the planni
         mc.name "Yeah, we should. I'll see you around."
 
     $ clear_scene()
+    $ mc.location.show_background() # leave restaurant and move back to original location
     call advance_time() from _call_advance_time_29
     return
 
