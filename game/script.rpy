@@ -4733,12 +4733,12 @@ init -2 python:
                 constrained_mask = AlphaBlend(constrained_region_mask, Solid("#FFFFFFFF"), full_body_comp) #This builds the proper final image mask (ie all shown, except for the region around but not including the constrained region)
                 final_image = AlphaBlend(constrained_mask, Solid("#00000000"), final_image)
 
-            if nipple_wetness > 0: #TODO: Expand this system to a generic "Wetness" system
-                region_mask = Image(wet_nipple_region.generate_item_image_name(body_type, tit_size, position)) #TODO: Add a much more specific "nipple region"
-                # darkness_factor = nipple_wetness * 0.1 #Used to darken clothing where it is wet
-                region_mask = im.MatrixColor(region_mask, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1*nipple_wetness,1])
-                region_composite = im.Composite(position_size_dict[position], wet_nipple_region.crop_offset_dict.get(position,(0,0)), region_mask)
-                final_image = AlphaBlend(region_composite, Solid("#00000000"), final_image)
+            # if nipple_wetness > 0: #TODO: Expand this system to a generic "Wetness" system
+            #     region_mask = Image(wet_nipple_region.generate_item_image_name(body_type, tit_size, position)) #TODO: Add a much more specific "nipple region"
+            #     # darkness_factor = nipple_wetness * 0.1 #Used to darken clothing where it is wet
+            #     region_mask = im.MatrixColor(region_mask, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1*nipple_wetness,1])
+            #     region_composite = im.Composite(position_size_dict[position], wet_nipple_region.crop_offset_dict.get(position,(0,0)), region_mask)
+            #     final_image = AlphaBlend(region_composite, Solid("#00000000"), final_image)
 
 
             if self.half_off or (self.has_extension and self.has_extension.half_off):
