@@ -391,8 +391,12 @@ label nora_special_research(the_person):
         $ list_of_traits.append(nora_reward_nora_trait)
 
     elif pregnant_role in the_subject.special_role and the_subject.event_triggers_dict.get("preg_transform_day",day) < day and the_subject.core_sluttiness > 75 and nora_reward_hucow_trait not in list_of_traits:
-        the_person.char "First off, congratulations [the_person.mc_title]. You're the father."
-        the_person.char "Second, I have an interesting development and possible path forward."
+        # Change for mod to exclude girls who didn't get pregnant by MC
+        if the_person.event_triggers_dict.get("preg_mc_father", True):
+            the_person.char "First off, congratulations [the_person.mc_title]. You're the father."
+            the_person.char "Second, I have an interesting development and possible path forward."
+        else:
+            the_person.char "I have an interesting development and possible path forward."
         the_person.char "My testing has revealed a number of major differences between the test subject's hormonal balance and what is expected."
         the_person.char "I believe this is the bodies natural response to her noticeably intense desire for sexual satisfaction."
         the_person.char "If most women have a biological clock ticking, this one has a church bell."
