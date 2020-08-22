@@ -332,6 +332,9 @@ label pregnant_finish_announce(the_person): #TODO: have more variants for girlfr
 
 init 2 python:
     def pregnant_finish_person(person):
+        if not pregnant_role in person.special_role:
+            return
+
         person.body_type = person.event_triggers_dict.get("pre_preg_body", "standard_body")
         person.schedule = person.event_triggers_dict.get("preg_old_schedule")
 
