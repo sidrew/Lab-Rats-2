@@ -1295,7 +1295,11 @@ label wild_body_cum_taboo_break(the_person):
 
 label wild_creampie_taboo_break(the_person):
     if the_person.wants_creampie():
-        if the_person.on_birth_control:
+        if the_person.event_triggers_dict.get("preg_knows", False):
+            the_person.char "Oh yes, shoot your hot load deep inside me."
+            "She sighs happily."
+
+        elif the_person.on_birth_control:
             if the_person.relationship != "Single":
                 $ so_title = girl_relationship_to_title(the_person.relationship)
                 the_person.char "Oh my god, I'm such a horrible [so_title], but I really needed this."
@@ -1332,7 +1336,10 @@ label wild_creampie_taboo_break(the_person):
             the_person.char "I'll just have to hope you haven't knocked me up. We really shouldn't do this again, my luck is going to run out at some point."
 
     else:
-        if not the_person.on_birth_control:
+        if the_person.event_triggers_dict.get("preg_knows", False):
+            the_person.char "Oh shit, you came right inside me."
+
+        elif not the_person.on_birth_control:
             the_person.char "Oh fuck, did you cum inside me?"
 
             if the_person.relationship != "Single":
@@ -1340,7 +1347,7 @@ label wild_creampie_taboo_break(the_person):
                 the_person.char "What if you just got me pregnant? I would be the worst [so_title] of all time!"
 
             else:
-                the_person.char "What if I get pregnant? I'm not ready for that kind of responsability!"
+                the_person.char "What if I get pregnant? I'm not ready for that kind of responsibility!"
 
             the_person.char "You're going to have to wear a condom if we ever do this again, I just can't risk it."
 

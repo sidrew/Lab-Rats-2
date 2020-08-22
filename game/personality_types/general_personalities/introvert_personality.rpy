@@ -723,7 +723,10 @@ label introvert_cum_vagina(the_person):
                 "She sighs happily."
 
     else:
-        if not the_person.on_birth_control:
+        if the_person.event_triggers_dict.get("preg_knows", False):
+            the_person.char "Oh, you came inside me..."
+
+        elif not the_person.on_birth_control:
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "Oh shit, what if I get pregnant?"

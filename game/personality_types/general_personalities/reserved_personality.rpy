@@ -1326,7 +1326,11 @@ label reserved_body_cum_taboo_break(the_person):
 
 label reserved_creampie_taboo_break(the_person):
     if the_person.wants_creampie():
-        if the_person.on_birth_control:
+        if the_person.event_triggers_dict.get("preg_knows", False):
+            the_person.char "Ah yes, I love getting your cum deep inside me."
+            "She sighs happily."
+
+        elif the_person.on_birth_control:
             if the_person.relationship != "Single":
                 $ so_title = girl_relationship_to_title(the_person.relationship)
                 the_person.char "Oh... I feel like such a bad [so_title], but I think I needed this. I'm sure he would understand."
@@ -1358,6 +1362,9 @@ label reserved_creampie_taboo_break(the_person):
             the_person.char "I'll just have to hope you haven't gotten me pregnant. We shouldn't do this again, it's too risky."
 
     else:
+        if the_person.event_triggers_dict.get("preg_knows", False):
+            the_person.char "Oh my, did you just shoot your cum deep inside me."
+
         if not the_person.on_birth_control:
             the_person.char "Oh no, did you just finish [the_person.mc_title]?"
             "She sighs unhappily."

@@ -1308,7 +1308,11 @@ label relaxed_body_cum_taboo_break(the_person):
 
 label relaxed_creampie_taboo_break(the_person):
     if the_person.wants_creampie():
-        if the_person.on_birth_control:
+        if the_person.event_triggers_dict.get("preg_knows", False):
+            the_person.char "Hmm, I love your cum deep inside me."
+            "She sighs happily."
+
+        elif the_person.on_birth_control:
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "Mmm, I finally have your cum in me... I'll have to tell my [so_title] I'm sorry, but this feels so good!"
@@ -1331,14 +1335,17 @@ label relaxed_creampie_taboo_break(the_person):
             if the_person.relationship != "Single":
                 $ so_title = SO_relationship_to_title(the_person.relationship)
                 the_person.char "Ah, I should have told you to pull out, but it just feels so good..."
-                the_person.cahr "We shouldn't do that again though, if I get pregnant I'm going to have to explain it to my [so_title]."
+                the_person.char "We shouldn't do that again though, if I get pregnant I'm going to have to explain it to my [so_title]."
 
             else:
                 the_person.char "Ah, I really should have told you to pull out... I'm not on the pill..."
                 the_person.char "It's just this once, right? It's probably fine..."
 
     else:
-        if not the_person.on_birth_control:
+        if the_person.event_triggers_dict.get("preg_knows", False):
+            the_person.char "Oh, you came deep inside me."
+
+        elif not the_person.on_birth_control:
             the_person.char "Oh my god, [the_person.mc_title]! Did you really just cum inside me?"
             "She groans unhappily."
             if the_person.relationship != "Single":
