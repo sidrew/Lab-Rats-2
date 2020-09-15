@@ -4029,13 +4029,13 @@ init -2 python:
                         return -1
                     else:
                         return 1
+
+            if other is None:
+                return -1
+            elif self.__hash__() < other.__hash__(): #Use hash values to break ties.
+                return -1
             else:
-                if other is None:
-                    return -1
-                elif self.__hash__() < other.__hash__(): #Use hash values to break ties.
-                    return -1
-                else:
-                    return 1
+                return 1
 
         def __hash__(self):
             return hash((self.name,self.requirement,self.effect))
@@ -4088,14 +4088,16 @@ init -2 python:
             return hash((self.the_action.__hash__(), self.turns_valid))
 
         def __cmp__(self,other):
-            if type(self) is type(other):
+            if isinstance(self, Limited_Time_Action):
                 if self.__hash__() == other.__hash__():
                     return 0
 
-            if self.__hash__() > other.__hash__():
-                return 1
-            else:
+            if other is None:
                 return -1
+            elif self.__hash__() < other.__hash__(): #Use hash values to break ties.
+                return -1
+            else:
+                return 1
 
         def __getattr__(self, attr): # If we try and access an attribute not in this class return the matching attribute from the action. This is likely going to be a funciton like "check_is_active" or "call_action"
             if vars(self.the_action).has_key(attr):
@@ -4177,17 +4179,16 @@ init -2 python:
             self.mandatory = mandatory
 
         def __cmp__(self,other):
-            if self.name == other.name:
-                if self.description == other.description:
-                    if self.valid_goal_function == other.valid_goal_function:
-                        if self.on_trigger_function == other.on_trigger_function:
-                            if self.arg_dict == other.arg_dict:
-                                return 0
-            if self.__hash__() > other.__hash__():
+            if isinstance(self, Goal):
+                if self.name == other.name and self.description == other.description and self.valid_goal_function == other.valid_goal_function and self.on_trigger_function == other.on_trigger_function and self.arg_dict == other.arg_dict:
+                    return 0
+
+            if other is None:
+                return -1
+            elif self.__hash__() > other.__hash__():
                 return 1
             else:
                 return -1
-
 
         def __hash__(self):
             return hash((self.name, self.description, self.valid_goal_function, self.on_trigger_function))
@@ -4269,17 +4270,13 @@ init -2 python:
             if isinstance(other, Policy):
                 if self.name == other.name and self.desc == other.desc and self.cost == other.cost:
                     return 0
-                else:
-                    if self.__hash__() < other.__hash__(): #Use hash values to break ties.
-                        return -1
-                    else:
-                        return 1
 
+            if other is None:
+                return -1
+            elif self.__hash__() < other.__hash__(): #Use hash values to break ties.
+                return -1
             else:
-                if self.__hash__() < other.__hash__(): #Use hash values to break ties.
-                    return -1
-                else:
-                    return 1
+                return 1
 
         def __hash__(self):
             return hash((self.name,self.desc,self.cost))
@@ -4563,7 +4560,9 @@ init -2 python:
                 if self.name == other.name and self.hide_below == other.hide_below and self.layer == other.layer and self.is_extension == other.is_extension:
                     return 0
 
-            if self.__hash__() < other.__hash__():
+            if other is None:
+                return -1
+            elif self.__hash__() < other.__hash__():
                 return -1
             else:
                 return 1
