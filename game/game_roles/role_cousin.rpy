@@ -1160,8 +1160,7 @@ label stripclub_dance():
     if the_person is None:
         $ the_person = get_random_from_list(stripclub_strippers) #If there is nobody around make sure to grab them and bring them here so we don't crash.
 
-    $ the_person.apply_outfit(stripclub_wardrobe.pick_random_outfit())
-    #$ the_person.outfit = stripclub_wardrobe.pick_random_outfit() changed v0.24.1 #TODO: Add more stripper outfits.
+    $ the_person.apply_outfit(stripclub_wardrobe.pick_random_outfit()) #TODO: Add more stripper outfits
     $ performer_title = the_person.title
     $ the_person.draw_person()
     "A new song starts playing over the speakers and a girl steps out onto the stage."

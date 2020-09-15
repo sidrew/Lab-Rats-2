@@ -68,9 +68,8 @@ label model_photography_list_label(the_person):
                 the_person.char "Sex sells, right, so it should be something skimpy. Did you have something in mind?"
                 "She seems excited to see what you have in mind."
 
-
-            call screen outfit_select_manager(slut_limit = the_person.sluttiness, show_overwear = False, show_underwear = False)
-            if not _return == "No Return":
+            call outfit_master_manager(slut_limit = the_person.sluttiness, show_overwear = False, show_underwear = False) from _call_outfit_master_manager_7
+            if _return:
                 if the_person.judge_outfit(_return):
                     the_person.char "Yeah, I think that would look good. I'll go put that on."
 

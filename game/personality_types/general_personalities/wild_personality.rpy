@@ -237,13 +237,21 @@ label wild_clothing_review(the_person):
             the_person.char "Damn, everything's out of place after that. Wait here a moment, I'm just going to find a mirror and try and look presentable."
     return
 
-label wild_strip_reject(the_person):
+label wild_strip_reject(the_person, the_clothing, strip_type = "Full"):
     if the_person.obedience > 130:
-        the_person.char "Could we leave that where it is for now, please?"
+        the_person.char "Could we leave my [the_clothing.display_name] on for now, please?"
     elif the_person.obedience < 70:
         the_person.char "No, no, no, I'll decide what comes off and when, okay?"
     else:
-        the_person.char "Not yet... get me a little warmed up first, okay?"
+        the_person.char "Not yet... get me a little warmed up first, okay? Then maybe you can take off my [the_clothing.display_name]."
+    return
+
+label wild_strip_obedience_accept(the_person, the_clothing, strip_type = "Full"):
+    "[the_person.title] laughs nervously as you start to slide her [the_clothing.display_name] away."
+    if the_person.obedience > 130:
+        the_person.char "Hey, I don't know if that's a good idea. Could we just leave it?"
+    else:
+        the_person.char "Hey, let's not take this too far..."
     return
 
 label wild_sex_accept(the_person):

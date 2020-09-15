@@ -11,10 +11,8 @@ init -2:
     else:
         default persistent.vren_animation = True
         default persistent.vren_mac_scale = 1.0
+
     default bugfix_installed = True
-
-
-
     default persistent.pregnancy_pref = 0 # 0 = no content, 1 = predictable, 2 = realistic
 
 init -2 python:
@@ -110,62 +108,15 @@ init -2 python:
     global prepared_animation_arguments #Holds all of the extra arguments that should be passed onto the display code.
     prepared_animation_arguments = []
 
+    build.classify("game/images/character_images/**_Face_10**.png", None) # Bad render
 
 
-    #build.classify("game/images/character_images/**.png", "character_images")
-    #build.classify("game/images/character_images/**.png", None)
+    build.classify("game/images/character_images/**_Face_9**.png", "renpy") # These faces are excluded from the android build due to file size limitaionts
+    build.classify("game/images/character_images/**_Face_11**.png", "renpy")
+    build.classify("game/images/character_images/**_Face_12**.png", "renpy")
+    build.classify("game/images/character_images/**_Face_13**.png", "renpy")
+    build.classify("game/images/character_images/**_Face_14**.png", "renpy")
 
-    build.classify("game/**.rpa", "android")
-
-    #build.archive("character_images","renpy")
-
-
-    build.classify("game/images/character_images/**stand2**.png", "stand2")
-    build.classify("game/images/character_images/**stand3**.png", "stand3")
-    build.classify("game/images/character_images/**stand4**.png", "stand4")
-    build.classify("game/images/character_images/**stand5**.png", "stand5")
-    build.classify("game/images/character_images/**walking_away**.png", "walking_away")
-    build.classify("game/images/character_images/**back_peek**.png", "back_peek")
-    build.classify("game/images/character_images/**sitting**.png", "sitting")
-    build.classify("game/images/character_images/**kissing**.png", "kissing")
-    build.classify("game/images/character_images/**doggy**.png", "doggy")
-    build.classify("game/images/character_images/**missionary**.png", "missionary")
-    build.classify("game/images/character_images/**blowjob**.png", "blowjob")
-    build.classify("game/images/character_images/**against_wall**.png", "against_wall")
-    #build.classify("game/images/character_images/**standing_doggy**.png", "character_images") #Note: This is absorbed by the doggy version. Should be fine until we reach 32k images for each individual position.
-    build.classify("game/images/character_images/**kneeling1**.png", "kneeling1")
-    build.classify("game/images/character_images/**cowgirl**.png", "cowgirl")
-    #
-    build.classify("game/images/character_images/**stand2**.png", None)
-    build.classify("game/images/character_images/**stand3**.png", None)
-    build.classify("game/images/character_images/**stand4**.png", None)
-    build.classify("game/images/character_images/**stand5**.png", None)
-    build.classify("game/images/character_images/**walking_away**.png", None)
-    build.classify("game/images/character_images/**back_peek**.png", None)
-    build.classify("game/images/character_images/**sitting**.png", None)
-    build.classify("game/images/character_images/**kissing**.png", None)
-    build.classify("game/images/character_images/**doggy**.png", None)
-    build.classify("game/images/character_images/**missionary**.png", None)
-    build.classify("game/images/character_images/**blowjob**.png", None)
-    build.classify("game/images/character_images/**against_wall**.png", None)
-    # Standing doggy, for the same reason as above, is not included here
-    build.classify("game/images/character_images/**kneeling1**.png", None)
-    build.classify("game/images/character_images/**cowgirl**.png", None)
-    #
-    build.archive("stand2") #When building all character images are placed into an archive. This archive make it easier to navigate through the game folder without significant slowdown on non-SSD systems.
-    build.archive("stand3")
-    build.archive("stand4")
-    build.archive("stand5")
-    build.archive("walking_away")
-    build.archive("back_peek")
-    build.archive("sitting")
-    build.archive("kissing")
-    build.archive("doggy")
-    build.archive("missionary")
-    build.archive("blowjob")
-    build.archive("against_wall")
-    build.archive("kneeling1")
-    build.archive("cowgirl")
 
 
     def get_obedience_plaintext(obedience_amount):
@@ -2438,9 +2389,8 @@ init -2 python:
                 renpy.invoke_in_thread(self.prepare_animation_screenshot_render, position, emotion, special_modifier, lighting, background_fill, current_draw_number) #This thread prepares the render. When it is finished it is caught by the interact_callback function take_animation_screenshot
 
 
-        def draw_animated_removal(self, the_clothing, position = None, emotion = None, special_modifier = None, show_person_info = True, lighting = None, background_fill = "#0026a5", the_animation = None, animation_effect_strength = 1.0):
+        def draw_animated_removal(self, the_clothing, position = None, emotion = None, special_modifier = None, show_person_info = True, lighting = None, background_fill = "#0026a5", the_animation = None, animation_effect_strength = 1.0, half_off_instead = False):
             #The new animated_removal method generates two image, one with the clothing item and one without. It then stacks them and layers one on top of the other and blends between them.
-
 
             if position is None:
                 position = self.idle_pose
@@ -2458,7 +2408,17 @@ init -2 python:
             if the_animation:
                 # Normally we would display a quick flat version, but we can assume we are already looking at the girl pre-clothing removal.
                 bottom_displayable = Flatten(self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill, no_frame = True)) #Get the starting image without the frame
-                self.outfit.remove_clothing(the_clothing) #Remove the clothing
+                if isinstance(the_clothing, list):
+                    for cloth in the_clothing:
+                        if half_off_instead:
+                            self.outfit.half_off_clothing(cloth) #Half-off the clothing
+                        else:
+                            self.outfit.remove_clothing(cloth) #Remove the clothing
+                else:
+                    if half_off_instead:
+                        self.outfit.half_off_clothing(the_clothing) #Half-off the clothing
+                    else:
+                        self.outfit.remove_clothing(the_clothing) #Remove the clothing
                 top_displayable = Flatten(self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill, no_frame = True)) #Get the top image without the frame
 
                 x_size, y_size = position_size_dict.get(position)
@@ -2482,29 +2442,20 @@ init -2 python:
                     renpy.show_screen("person_info_ui",self)
 
                 bottom_displayable = Flatten(self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill)) #Get the starting image
-                self.outfit.remove_clothing(the_clothing) #Remove the clothing
+                if isinstance(the_clothing, list):
+                    for cloth in the_clothing:
+                        if half_off_instead:
+                            self.outfit.half_off_clothing(cloth) #Half-off the clothing
+                        else:
+                            self.outfit.remove_clothing(cloth) #Remove the clothing
+                else:
+                    if half_off_instead:
+                        self.outfit.half_off_clothing(the_clothing) #Half-off the clothing
+                    else:
+                        self.outfit.remove_clothing(the_clothing) #Remove the clothing
                 top_displayable = Flatten(self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill)) #Get the top image
                 renpy.show(self.name+"_new", at_list=[character_right, scale_person(self.height)], layer = "Active", what = top_displayable, tag = self.name+"_new")
                 renpy.show(self.name+"_old", at_list=[character_right, scale_person(self.height), clothing_fade], layer = "Active", what = bottom_displayable, tag = self.name+"_old") #Blend from old to new.
-
-            # if the_animation:
-            #
-            # else:
-            #     bottom_displayable = Flatten(self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill))
-            #
-            #
-            #
-            #
-            #
-            # if the_animation:
-            #     renpy.show(self.name+"_old", at_list=[character_right, scale_person(self.height)], layer = "Active", what = bottom_displayable, tag = self.name+"_old") #Show old imediately, the new
-            #
-            #     top_displayable = self.build_person_animation(the_animation, position, emotion, special_modifier, lighting, background_fill, animation_effect_strength)
-            #
-            #
-            # else:
-            #
-
 
             return
 
@@ -2966,7 +2917,7 @@ init -2 python:
                 self.wear_uniform()#Reset uniform
 #                self.call_uniform_review() #TODO: actually impliment this call, but only when her outfit significantly differs from the real uniform.
 
-            elif self.outfit.slut_requirement > self.sluttiness:
+            elif self.outfit.slut_requirement > self.effective_sluttiness():
                 self.apply_outfit(self.planned_outfit)
                 if dialogue:
                     self.call_dialogue("clothing_review")
@@ -3389,7 +3340,7 @@ init -2 python:
             "sex_responses_foreplay", "sex_responses_oral", "sex_responses_vaginal", "sex_responses_anal",
             "climax_responses_foreplay", "climax_responses_oral", "climax_responses_vaginal", "climax_responses_anal",
             "clothing_accept", "clothing_reject", "clothing_review",
-            "strip_reject", "sex_accept", "sex_obedience_accept", "sex_gentle_reject", "sex_angry_reject",
+            "strip_reject", "strip_obedience_accept", "sex_accept", "sex_obedience_accept", "sex_gentle_reject", "sex_angry_reject",
             "seduction_response", "seduction_accept_crowded", "seduction_accept_alone", "seduction_refuse",
             "flirt_response", "flirt_response_low", "flirt_response_mid", "flirt_response_high", "flirt_response_girlfriend", "flirt_response_affair",
             "cum_face", "cum_mouth", "cum_pullout", "cum_condom", "cum_vagina", "cum_anal", "suprised_exclaim", "talk_busy",
@@ -4436,29 +4387,9 @@ init -2 python:
                 return self.name
 
     class Clothing(renpy.store.object):
-        #Slots are
 
-        ##Feet##
-        #Layer 1: Socks
-        #Layer 2: Shoes
-
-        ##Lower Body##
-        #Layer 1: Panties
-        #Layer 2: Pantyhose
-        #Layer 3: Pants/Skirt
-
-        ##Upper Body##
-        #Layer 1: Bra
-        #Layer 2: Shirt
-        #Layer 3: Jacket
-
-        ##Accessories##
-        #Layer 1: Skin level
-        #Layer 2: Over underwear
-        #Layer 3: Over shirts
-        #Layer 4: Over everything
         supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
-        
+
         _pattern_sets = {}
         def get_pattern_sets(self):
             if not self.proper_name in self._pattern_sets:
@@ -4513,10 +4444,32 @@ init -2 python:
             self._constrain_regions[self.proper_name] = value
 
         constrain_regions = property(get_constrain_regions, set_constrain_regions, None, "Clothing half off regions")
+        #Slots are
+
+        ##Feet##
+        #Layer 1: Socks
+        #Layer 2: Shoes
+
+        ##Lower Body##
+        #Layer 1: Panties
+        #Layer 2: Pantyhose
+        #Layer 3: Pants/Skirt
+
+        ##Upper Body##
+        #Layer 1: Bra
+        #Layer 2: Shirt
+        #Layer 3: Jacket
+
+        ##Accessories##
+        #Layer 1: Skin level
+        #Layer 2: Over underwear
+        #Layer 3: Over shirts
+        #Layer 4: Over everything
 
         def __init__(self, name, layer, hide_below, anchor_below, proper_name, draws_breasts, underwear, slut_value, has_extension = None, is_extension = False, colour = None, tucked = False, body_dependant = True,
         opacity_adjustment = 1, whiteness_adjustment = 0.0, contrast_adjustment = 1.0, supported_patterns = None, pattern = None, colour_pattern = None, ordering_variable = 0, display_name = None,
-        can_be_half_off = False, half_off_regions = None, half_off_ignore_regions = None, half_off_gives_access = None, half_off_reveals = None, constrain_regions = None):
+        can_be_half_off = False, half_off_regions = None, half_off_ignore_regions = None, half_off_gives_access = None, half_off_reveals = None, constrain_regions = None,
+        crop_offset_dict = None):
             self.name = name
             self.proper_name = proper_name #The true name used in the file system
             if display_name is None:
@@ -4528,8 +4481,9 @@ init -2 python:
             self.anchor_below = anchor_below #If true, you must take this off before you can take off anything of a lower layer.
             self.layer = layer #A list of the slots above that this should take up or otherwise prevent ffrom being filled. Slots are a list of the slot and the layer.
 
-            #self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
-            #self.pattern_sets = {} #A list of patterns for this piece of clothing that are valid. Keys are in the form "position_patternName"
+            self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
+            self.pattern_sets = {} #A list of patterns for this piece of clothing that are valid. Keys are in the form "position_patternName"
+            #self.supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
             self.supported_patterns = supported_patterns
             if not supported_patterns:
                 self.supported_patterns = {"Default":None}
@@ -4544,6 +4498,7 @@ init -2 python:
                             self.pattern_sets[set + "_" + pattern_name] = Clothing_Images(proper_name+"_"+pattern_name, set, draws_breasts, body_dependant = body_dependant)
 
 
+            # self.crop_offset_dict = master_clothing_offset_dict.get(self.proper_name, {}) # All of the offsets are stored in a single array and distributed. Saves time having to manually change values any time a clothing item render is updated.
             #self.crop_offset_dict = master_clothing_offset_dict.get(self.proper_name, {}) # All of the offsets are stored in a single array and distributed. Saves time having to manually change values any time a clothing item render is updated.
 
             self.draws_breasts = draws_breasts
@@ -4617,7 +4572,10 @@ init -2 python:
             return hash((self.name,self.hide_below,self.anchor_below,self.layer,self.draws_breasts,self.underwear,self.slut_value))
 
         def get_copy(self): #Returns a copy of the piece of clothing with the correct underlying references.
-            return copy.copy(self)
+            return_copy = copy.copy(self)
+            if self.has_extension:
+                return_copy.has_extension = self.has_extension.get_copy() # Extensions need to be coppied a layer down, since they can store extra information.
+            return return_copy
 
         def get_layer(self,body_type,tit_size):
             return self.layer
@@ -4733,12 +4691,13 @@ init -2 python:
                 constrained_mask = AlphaBlend(constrained_region_mask, Solid("#FFFFFFFF"), full_body_comp) #This builds the proper final image mask (ie all shown, except for the region around but not including the constrained region)
                 final_image = AlphaBlend(constrained_mask, Solid("#00000000"), final_image)
 
-            # if nipple_wetness > 0: #TODO: Expand this system to a generic "Wetness" system
-            #     region_mask = Image(wet_nipple_region.generate_item_image_name(body_type, tit_size, position)) #TODO: Add a much more specific "nipple region"
-            #     # darkness_factor = nipple_wetness * 0.1 #Used to darken clothing where it is wet
-            #     region_mask = im.MatrixColor(region_mask, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1*nipple_wetness,1])
-            #     region_composite = im.Composite(position_size_dict[position], wet_nipple_region.crop_offset_dict.get(position,(0,0)), region_mask)
-            #     final_image = AlphaBlend(region_composite, Solid("#00000000"), final_image)
+            if nipple_wetness > 0: #TODO: Expand this system to a generic "Wetness" system
+                region_mask = Image(wet_nipple_region.generate_item_image_name(body_type, tit_size, position))
+                position_size = position_size_dict[position]
+                region_mask = im.MatrixColor(region_mask, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,nipple_wetness,0])
+                region_composite = Composite(position_size,(0,0), Solid("00000000", xsize = position_size[0], ysize = position_size[1]), wet_nipple_region.crop_offset_dict.get(position,(0,0)), region_mask)
+                #print(str(position_size))
+                final_image = AlphaBlend(region_composite, final_image, Solid("#00000000"))
 
 
             if self.half_off or (self.has_extension and self.has_extension.half_off):
@@ -4813,6 +4772,7 @@ init -2 python:
             self.layer = layer #A list of the slots above that this should take up or otherwise prevent from being filled. Slots are a list of the slot and the layer.
 
             self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
+        #    self.supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
 
             self.half_off = False # Avoids any problems with the half-off system using facial accessories
             self.half_off_reveals = False
@@ -4829,7 +4789,7 @@ init -2 python:
             self.draws_breasts = draws_breasts
             self.underwear = underwear #True if the item of clothing satisfies the desire for underwear for upper or lower (bra or panties), false if it can pass as outerwear. Underwear on outside of outfit gives higher slut requirement.
             self.slut_value = slut_value #The amount of sluttiness that this piece of clothing adds to an outfit.
-            self.has_extension = has_extension #If the item of clothing spans two zones (say, lower and feet or upper and lower body) has_extension points towards the placeholder item that fills the other part.
+            self.has_extension = has_extension
             self.is_extension = is_extension #If this is true the clothing item exists only as a placeholder. It will draw nothing and not be removed unless the main piece is removed.
             if not colour:
                 self.colour = [1,1,1,1]
@@ -5014,7 +4974,7 @@ init -2 python:
 
             return copy_outfit
 
-        def generate_draw_list(self, the_person, position, emotion = "default", special_modifiers = None, lighting = None): #Generates a sorted list of displayables that when drawn display the outfit correctly.
+        def generate_draw_list(self, the_person, position, emotion = "default", special_modifiers = None, lighting = None, hide_layers = None): #Generates a sorted list of displayables that when drawn display the outfit correctly.
             nipple_wetness = 0.0 # Used to simulate a girl lactating through clothing. Ranges from 0 (none) to 1 (Maximum Effect)
             if the_person is None:
                 body_type = "standard_body"
@@ -5031,16 +4991,21 @@ init -2 python:
                     if nipple_wetness > 1.0:
                         nipple_wetness = 1.0
 
+            if hide_layers is None:
+                hide_layers = []
+
             all_items = self.generate_clothing_list(body_type, tit_size, position) #First generate a list of the clothing objects
             ordered_displayables = []
 
             currently_constrained_regions = []
             for item in reversed(all_items): #To properly constrain items we need to figure out how they look from the outside in, even though we eventually draw from the inside out
                 if type(item) is Facial_Accessory:
-                    ordered_displayables.append(item.generate_item_displayable(position, face_style, emotion, special_modifiers, lighting = lighting))
+                    if item.layer not in hide_layers:
+                        ordered_displayables.append(item.generate_item_displayable(position, face_style, emotion, special_modifiers, lighting = lighting))
                 else:
                     if not item.is_extension:
-                        ordered_displayables.append(item.generate_item_displayable(body_type, tit_size, position, lighting = lighting, regions_constrained = currently_constrained_regions, nipple_wetness = nipple_wetness))
+                        if item.layer not in hide_layers:
+                            ordered_displayables.append(item.generate_item_displayable(body_type, tit_size, position, lighting = lighting, regions_constrained = currently_constrained_regions, nipple_wetness = nipple_wetness))
                         for region in item.constrain_regions:
                             if item.half_off and region in item.half_off_regions:
                                 pass # If an item is half off the regions that are hidden while half off are also not constrained by the clothing.
@@ -5391,7 +5356,7 @@ init -2 python:
                     return_list.append(top)
 
 
-                if top.anchor_below:
+                if top.anchor_below and not (top.can_be_half_off and top.half_off_gives_access):
                     break #Search the list, starting at the outermost item, until you find something that anchors the stuff below it.
             return return_list
 
@@ -5401,7 +5366,7 @@ init -2 python:
                 if bottom.has_extension is None or self.is_item_unanchored(bottom.has_extension):
                     return_list.append(bottom)
 
-                if bottom.anchor_below:
+                if bottom.anchor_below and not (bottom.can_be_half_off and bottom.half_off_gives_access):
                     break
             return return_list
 
@@ -5411,7 +5376,7 @@ init -2 python:
                 if foot.has_extension is None or self.is_item_unanchored(foot.has_extension):
                     return_list.append(foot)
 
-                if foot.anchor_below:
+                if foot.anchor_below and not (foot.can_be_half_off and foot.half_off_gives_access):
                     break
             return return_list
 
@@ -5579,6 +5544,8 @@ init -2 python:
             return self.slut_requirement
 
         def get_tit_strip_list(self, visible_enough = True): #Generates a list of clothing that, when removed from this outfit, result in tits being visible. Useful for animated clothing removal.
+            # TODO: Add a way to generate this while including half-off options.
+            #TODO: Add some pussy equivalent functions, I'll get to them when I need them for a crisis.
             test_outfit = self.get_copy()
             items_to_strip = []
             if visible_enough:
@@ -5610,7 +5577,100 @@ init -2 python:
                         break
             return
 
-        #TODO: Add some pussy equivalent functions, I'll get to them when I need them for a crisis.
+        def can_half_off_to_tits(self, visible_enough = True):
+            # Returns true if all of the clothing blocking her tits can be moved half-off to gain access, or if you already have access
+            if (visible_enough and self.tits_visible()) or (not visible_enough and self.tits_available()) or self.get_half_off_to_tits_list(visible_enough = visible_enough):
+                return True
+            return False
+
+        def get_half_off_to_tits_list(self, visible_enough = True):
+            # If possible returns the list of clothing items, from outer to inner, that must be half-offed to gain view/access to her tits
+            # If not possible returns an empty list.
+            return_list = []
+            possible = True
+            anchored = None #Set to true when we hit something that stays anchored even if half-off. If that
+            for item in self.get_upper_ordered()[::-1]: #Ordered top to bottom
+                if visible_enough:
+                    if item.hide_below and not (item.can_be_half_off and item.half_off_reveals): #If a piece of clothing hides what's be below and it's anchored or
+                        possible = False
+                        break
+                    elif item.hide_below:
+                        if anchored:
+                            if item.can_be_half_off and item.half_off_gives_access:
+                                if anchored not in return_list:
+                                    return_list.append(anchored)
+                                anchord = None #Something would anchor the clothing, but it can be removed easily enough.
+                            else:
+                                possible = False #Something is in the way and we can't get it off because of something else
+                                break
+                        if item not in return_list:
+                            return_list.append(item) #Half-off the anchoring item, then the thing in the way.
+
+                    if item.anchor_below:
+                        anchored = item
+
+                else:
+                    if item.anchor_below and not (item.can_be_half_off and item.half_off_gives_access):
+                        hidden = True
+                        break
+
+                    elif item.anchor_below:
+                        if item not in return_list:
+                            return_list.append(item)
+
+            if not possible:
+                return []
+
+            else:
+                return return_list
+
+        def can_half_off_to_vagina(self, visible_enough = True):
+            # Returns true if all of the clothing blocking her vagina can be moved half-off to gain access
+            if (visible_enough and self.vagina_visible()) or (not visible_enough and self.vagina_available()) or self.get_half_off_to_vagina_list(visible_enough = visible_enough):
+                    return True
+            return False
+
+        def get_half_off_to_vagina_list(self, visible_enough = True):
+            # If possible returns the list of clothing items, from outer to inner, that must be half-offed to gain view/access to her vagina
+            # If not possible returns an empty list.
+            return_list = []
+            possible = True
+            anchored = None #Set to true when we hit something that stays anchored even if half-off. If that
+            for item in self.get_lower_ordered()[::-1]: #Ordered top to bottom
+                if visible_enough:
+                    if item.hide_below and not (item.can_be_half_off and item.half_off_reveals): #If a piece of clothing hides what's be below and it's anchored or
+                        possible = False
+                        break
+                    elif item.hide_below:
+                        if anchored:
+                            if item.can_be_half_off and item.half_off_gives_access:
+                                if anchored not in return_list:
+                                    return_list.append(anchored)
+                                anchord = None #Something would anchor the clothing, but it can be removed easily enough.
+                            else:
+                                possible = False #Something is in the way and we can't get it off because of something else
+                                break
+
+                        if item not in return_list:
+                            return_list.append(item) #Half-off the anchoring item if we didn't already
+
+                    if item.anchor_below:
+                        anchored = item
+
+                else:
+                    if item.anchor_below and not (item.can_be_half_off and item.half_off_gives_access):
+                        hidden = True
+                        break
+
+                    elif item.anchor_below:
+                        if item not in return_list:
+                            return_list.append(item)
+
+            if not possible:
+                return []
+
+            else:
+                return return_list
         #TODO: Update existing crises to make use of these centralised functions instead of handeling stripping as a special case each time.
 
 
@@ -8469,6 +8529,10 @@ screen outfit_creator(starting_outfit, outfit_type = "full"): ##Pass a completel
     default current_b = 1.0
     default current_a = 1.0
 
+    default hide_underwear = False
+    default hide_base = False
+    default hide_overwear = False
+
     default selected_clothing = None
     # $ current_colour = [1.0,1.0,1.0,1.0] #This is the colour we will apply to all of the clothing
 
@@ -8757,17 +8821,22 @@ screen outfit_creator(starting_outfit, outfit_type = "full"): ##Pass a completel
                         xfill True
                         yfill True
                         background "#888888"
-                        vbox:
-                            spacing 5 #TODO: Add a viewport here too.
-                            for cloth in starting_outfit.upper_body + starting_outfit.lower_body + starting_outfit.feet + starting_outfit.accessories:
-                                if not cloth.is_extension: #Don't list extensions for removal.
-                                    button:
-                                        background Color(rgb = (cloth.colour[0], cloth.colour[1], cloth.colour[2]))
-                                        xysize (380, 40)
-                                        action [Function(starting_outfit.remove_clothing, cloth),Function(demo_outfit.remove_clothing, cloth)]
-                                        xalign 0.5
-                                        yalign 0.0
-                                        text cloth.name xalign 0.5 xanchor 0.5 yalign 0.5 yanchor 0.5 style "outfit_style"
+                        viewport:
+                            ysize 500
+                            xminimum 440
+                            scrollbars "vertical"
+                            mousewheel True
+                            vbox:
+                                spacing 5 #TODO: Add a viewport here too.
+                                for cloth in starting_outfit.upper_body + starting_outfit.lower_body + starting_outfit.feet + starting_outfit.accessories:
+                                    if not cloth.is_extension: #Don't list extensions for removal.
+                                        button:
+                                            background Color(rgb = (cloth.colour[0], cloth.colour[1], cloth.colour[2]))
+                                            xysize (380, 40)
+                                            action [Function(starting_outfit.remove_clothing, cloth),Function(demo_outfit.remove_clothing, cloth)]
+                                            xalign 0.5
+                                            yalign 0.0
+                                            text cloth.name xalign 0.5 xanchor 0.5 yalign 0.5 yanchor 0.5 style "outfit_style"
 
             frame:
                 background "#aaaaaa"
@@ -8803,11 +8872,28 @@ screen outfit_creator(starting_outfit, outfit_type = "full"): ##Pass a completel
                         textbutton "Save Outfit" action Return(starting_outfit.get_copy()) style "textbutton_style" text_style "textbutton_text_style" text_text_align 0.5 text_xalign 0.5 xysize (155,80)
                         textbutton "Abandon Design" action Return("Not_New") style "textbutton_style" text_style "textbutton_text_style" text_text_align 0.5 text_xalign 0.5 xysize (185,80)
 
+        frame:
+            background "#aaaaaa"
+            xsize 180
+            vbox:
+                style_prefix "check"
+                label "Show Layers" text_style "menu_text_style" text_size 22
+                textbutton "Underwear" action ToggleScreenVariable("hide_underwear", False, True) text_size 20
+                textbutton "Clothing" action ToggleScreenVariable("hide_base", False, True) text_size 20
+                textbutton "Overwear" action ToggleScreenVariable("hide_overwear", False, True) text_size 20
+
     fixed: #TODO: Move this to it's own screen so it can be shown anywhere
         pos (1450,0)
-
         add mannequin_average
-        for cloth in demo_outfit.generate_draw_list(None,"stand3"):
+        # TODO: Add radio buttons to show or hide layers
+        $ hide_list = []
+        if hide_underwear:
+            $ hide_list.append(1)
+        if hide_base:
+            $ hide_list.append(2)
+        if hide_overwear:
+            $ hide_list.append(3)
+        for cloth in demo_outfit.generate_draw_list(None,"stand3", hide_layers = hide_list):
             add cloth
 
     imagebutton:
@@ -8906,7 +8992,7 @@ screen outfit_delete_manager(the_wardrobe): ##Allows removal of outfits from pla
             for cloth in preview_outfit.generate_draw_list(None,"stand3"):
                 add cloth
 
-screen outfit_select_manager(slut_limit = 999, show_outfits = True, show_overwear = True, show_underwear = True, main_selectable = True, show_make_new = False, show_export = False, show_modify = False, show_duplicate = False, show_delete = False):
+screen outfit_select_manager(slut_limit = 999, show_outfits = True, show_overwear = True, show_underwear = True, main_selectable = True, show_make_new = True, show_export = True, show_modify = True, show_duplicate = True, show_delete = True):
     #If sluttiness_limit is passed, you cannot exit the creator until the proposed outfit has a sluttiness below it (or you create nothing).
     add "Paper_Background.png"
     modal True
@@ -8950,7 +9036,7 @@ screen outfit_select_manager(slut_limit = 999, show_outfits = True, show_overwea
 
                             for outfit in catagory_info[6](mc.designed_wardrobe):
                                 textbutton outfit.name + " (Sluttiness " +str(catagory_info[3](outfit)) +")":
-                                    action Return(outfit.get_copy())
+                                    action Return(["select",outfit.get_copy()])
                                     sensitive (catagory_info[3](outfit) <= slut_limit) and main_selectable
                                     hovered SetScreenVariable("preview_outfit", outfit.get_copy())
                                     unhovered SetScreenVariable("preview_outfit", None)
@@ -8977,7 +9063,7 @@ screen outfit_select_manager(slut_limit = 999, show_outfits = True, show_overwea
 
                                         if show_modify:
                                             textbutton "Modify":
-                                                action Return(outfit) #If we are modifying an outfit just return it. outfit management loop will find which catagory it is in.
+                                                action Return(["modify",outfit]) #If we are modifying an outfit just return it. outfit management loop will find which catagory it is in.
                                                 sensitive (catagory_info[3](outfit) <= slut_limit)
                                                 hovered SetScreenVariable("preview_outfit", outfit.get_copy())
                                                 unhovered SetScreenVariable("preview_outfit", None)
@@ -8989,7 +9075,7 @@ screen outfit_select_manager(slut_limit = 999, show_outfits = True, show_overwea
                                         if show_duplicate:
                                             $ the_copied_outfit = outfit.get_copy() #We make a copy to add to the wardrobe if this is selected. Otherwise continues same as "Modify"
                                             textbutton "Duplicate":
-                                                action [Function(catagory_info[5], mc.designed_wardrobe, the_copied_outfit), Return(the_copied_outfit)]
+                                                action [Function(catagory_info[5], mc.designed_wardrobe, the_copied_outfit), Return(["duplicate",the_copied_outfit])]
                                                 sensitive (catagory_info[3](outfit) <= slut_limit)
                                                 hovered SetScreenVariable("preview_outfit", outfit.get_copy())
                                                 unhovered SetScreenVariable("preview_outfit", None)
@@ -10096,54 +10182,66 @@ init -2 python:
                 possible_greetings.append(person)
         return get_random_from_list(possible_greetings)
 
-label outfit_master_manager(): #WIP new outfit manager that centralizes exporting, modifying, duplicating, and deleting.
-
-    call screen outfit_select_manager(main_selectable = False, show_make_new = True, show_export = True, show_modify = True, show_duplicate = True, show_delete = True)
+label outfit_master_manager(*args, **kwargs): #WIP new outfit manager that centralizes exporting, modifying, duplicating, and deleting.
+    call screen outfit_select_manager(*args, **kwargs)
 
     if _return == "No Return":
-        return #We're done and want to leave.
+        return None #We're done and want to leave.
 
     $ outfit_type = None
+    $ outfit = None
     if _return == "new_full":
         $ outfit_type = "full"
         call screen outfit_creator(Outfit("New Outfit"), outfit_type = outfit_type)
+        $ outfit = _return
+
 
     elif _return == "new_over":
         $ outfit_type = "over"
         call screen outfit_creator(Outfit("New Overwear Set"), outfit_type = outfit_type)
+        $ outfit = _return
 
     elif _return == "new_under":
         $ outfit_type = "under"
         call screen outfit_creator(Outfit("New Underwear Set"), outfit_type = outfit_type)
+        $ outfit = _return
 
-    elif isinstance(_return, Outfit):
+
+    elif isinstance(_return, list):
         #If we are returning an outfit we should be in one of the three sets (if not: panic!)
-        if _return in mc.designed_wardrobe.outfits:
+        $ command = _return[0]
+        $ outfit = _return[1]
+
+        if command == "select":
+            return outfit
+
+        elif outfit in mc.designed_wardrobe.outfits:
             $ outfit_type = "full"
 
-        elif _return in mc.designed_wardrobe.overwear_sets:
+        elif outfit in mc.designed_wardrobe.overwear_sets:
             $ outfit_type = "over"
 
-        elif _return in mc.designed_wardrobe.underwear_sets:
+        elif outfit in mc.designed_wardrobe.underwear_sets:
             $ outfit_type = "under"
 
         else:
             "We couldn't find it anywhere! PANIC!"
 
-        $ mc.designed_wardrobe.remove_outfit(_return) # Remove it so we can re-add it later. Note that "dupicate" has already copied an outfit and added it so we can re-use this code.
+        $ mc.designed_wardrobe.remove_outfit(outfit) # Remove it so we can re-add it later. Note that "dupicate" has already copied an outfit and added it so we can re-use this code.
 
-        call screen outfit_creator(_return, outfit_type = outfit_type)
+        call screen outfit_creator(outfit, outfit_type = outfit_type)
+        $ outfit = _return
 
-    $ new_outfit = _return #This is the outfit the player has created.
-    if not new_outfit == "Not_New":
-        $ new_outfit_name = renpy.input("Please name this outfit.", default = new_outfit.name)
+    if not outfit == "Not_New":
+        $ new_outfit_name = renpy.input("Please name this outfit.", default = outfit.name)
         while new_outfit_name == "":
-            $ new_outfit_name = renpy.input("Please enter a non-empty name.", default = new_outfit.name)
+            $ new_outfit_name = renpy.input("Please enter a non-empty name.", default = outfit.name)
 
 
-        $ mc.save_design(new_outfit, new_outfit_name, outfit_type)
+        $ mc.save_design(outfit, new_outfit_name, outfit_type)
 
-    jump outfit_master_manager
+    call outfit_master_manager(*args, **kwargs) from _call_outfit_master_manager #Loop around until the player decides they want to leave.
+    return _return
 
 label wardrobe_import(): #TODO: Figure out where we want to put this. Might be interesting to embed this at the clothing store as a location option.
     $ list_of_xml_files = []
@@ -10797,9 +10895,9 @@ label set_uniform_description:
 
     else:
         if uniform_mode == "full":
-            call screen outfit_select_manager(slut_limit = slut_limit)
+            call outfit_master_manager(slut_limit = slut_limit) from _call_outfit_master_manager_3
             $ new_outfit = _return
-            if new_outfit == "No Return":
+            if new_outfit is None:
                 return
 
 
@@ -10807,18 +10905,18 @@ label set_uniform_description:
             $ selected_div.add_outfit(new_outfit.get_copy())
 
         elif uniform_mode == "under":
-            call screen outfit_select_manager(slut_limit = underwear_limit, show_outfits = False, show_underwear = True, show_overwear = False)
+            call outfit_master_manager(slut_limit = underwear_limit, show_outfits = False, show_underwear = True, show_overwear = False) from _call_outfit_master_manager_4
             $ new_outfit = _return
-            if new_outfit == "No Return":
+            if new_outfit is None:
                 return
 
             $ mc.business.listener_system.fire_event("add_uniform", the_outfit = new_outfit, the_type = "under")
             $ selected_div.add_underwear_set(new_outfit.get_copy())
 
         else: #uniform_mode == "over":
-            call screen outfit_select_manager(slut_limit = slut_limit, show_outfits = False, show_underwear = False, show_overwear = True)
+            call outfit_master_manager(slut_limit = slut_limit, show_outfits = False, show_underwear = False, show_overwear = True) from _call_outfit_master_manager_5
             $ new_outfit = _return
-            if new_outfit == "No Return":
+            if new_outfit is None:
                 return
 
             $ mc.business.listener_system.fire_event("add_uniform", the_outfit = new_outfit, the_type = "over")
@@ -11106,6 +11204,8 @@ init -1 python:
     ##Actions unlocked by policies##
     set_uniform_action = Action("Manage Employee Uniforms",set_uniform_requirement,"set_uniform_description")
     set_serum_action = Action("Set Daily Serum Doses",set_serum_requirement,"set_serum_description")
+
+    business_wardrobe = wardrobe_from_xml("Business_Wardrobe") #Used in some of Mom's events when we need a business-ish outfit
 
 label create_test_variables(character_name,business_name,last_name,stat_array,skill_array,_sex_array,max_num_of_random=4): #Gets all of the variables ready. TODO: Move some of this stuff to an init block?
 

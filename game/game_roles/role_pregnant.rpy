@@ -192,7 +192,6 @@ label pregnant_announce(the_person):
             the_person.char "I wasn't on any sort of birth control when we fooled around. It felt so good when you came inside me, but..."
             "She sighs and shrugs."
             the_person.char "It must have been the right time of the month, because I'm pregnant."
-
         the_person.char "You don't need to do anything, I knew the risks when we had sex. I just thought you should know."
         menu:
             "Take responsibility" if ask_girlfriend_requirement(the_person):
