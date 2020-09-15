@@ -664,7 +664,7 @@ label mom_climax_responses_foreplay(the_person):
     if the_person.sluttiness > 50:
         the_person.char "Oh my..."
         "She pauses and moans passionately."
-        the_person.char "You know just what to do to your mother feel alive. I'm going to cum!"
+        the_person.char "You know just what to do to make your mother feel alive. I'm going to cum!"
     else:
         the_person.char "I... I shouldn't be feeling like this... I shouldn't but you're going to..."
         "She hesitates before continuing, almost at a whisper."
@@ -1158,7 +1158,7 @@ label mom_creampie_taboo_break(the_person):
             mc.name "It's not a big deal. I really liked it."
             "She's silent for a moment before responding."
             the_person.char "You did? You don't think I'm a terrible mother for letting you... cum inside me?"
-            mc.name "Of cource not! I think it actually brings us closer together. I don't know anyone who is as close to their mom as I am."
+            mc.name "Of course not! I think it actually brings us closer together. I don't know anyone who is as close to their mom as I am."
             the_person.char "I guess that's true... Next time you really should still pull out though, we don't want any accidents."
 
         else:
