@@ -80,7 +80,7 @@ label lily_sex_responses_foreplay(the_person):
 
     else:
         if the_person.sluttiness > 50:
-            the_person.char "[the_person.mc_name], do you want to make me cum? Keep going!"
+            the_person.char "[the_person.mc_title], do you want to make me cum? Keep going!"
         else:
             the_person.char "Oh god, I feel strange, I think... I think you're going to make me cum soon!"
 
@@ -93,7 +93,7 @@ label lily_sex_responses_oral(the_person):
             "[the_person.possessive_title] sighs happily."
         else:
             the_person.char "Oh god, ah! Ah..."
-            "[the_person.title] tries and fails to stiffle her moans."
+            "[the_person.title] tries and fails to stifle her moans."
 
     elif the_person.arousal < 50:
         if the_person.sluttiness > 50:
@@ -103,7 +103,7 @@ label lily_sex_responses_oral(the_person):
 
     elif the_person.arousal < 75:
         if the_person.sluttiness > 50:
-            the_person.char "How does my pussy taste [the_person.mc_title]? Do you like eatting me out?"
+            the_person.char "How does my pussy taste [the_person.mc_title]? Do you like eating me out?"
             "You respond by making her moan even louder."
             the_person.char "Oh fuck..."
 
@@ -177,7 +177,7 @@ label lily_sex_responses_anal(the_person):
             the_person.char "Stuff me full of your big cock [the_person.mc_title]! Make your sister cum like a desperate anal slut!"
         else:
             the_person.char "Oh god, I'm... I think I'm going to cum soon!"
-            the_person.char "I can't belive... My brother's cock is in my ass and it's going to make me cum! I feel like such a slut!"
+            the_person.char "I can't believe... My brother's cock is in my ass and it's going to make me cum! I feel like such a slut!"
             "The way she's moaning makes her sound more proud than ashamed."
     return
 
@@ -212,7 +212,7 @@ label lily_strip_reject(the_person, the_clothing, strip_type = "Full"):
     if the_person.obedience > 130:
         the_person.char "I wish I could let you, but I don't think I should be taking off my [the_clothing.display_name] in front of my brother."
     elif the_person.obedience < 70:
-        the_person.char "Sorry [the_person.mc_title], your little sister likes being a tease. I'm going to keem my [the_clothing.display_name] on for a little bit longer."
+        the_person.char "Sorry [the_person.mc_title], your little sister likes being a tease. I'm going to keep my [the_clothing.display_name] on for a little bit longer."
     else:
         the_person.char "I couldn't take off my [the_clothing.display_name] in front of you [the_person.mc_title]. You're my brother, I'd die of embarrassment!"
     return
@@ -1074,7 +1074,7 @@ label lily_creampie_taboo_break(the_person):
             the_person.char "...It did."
             mc.name "Then what's the problem? You're on the pill, right?"
             "She nods."
-            the_person.char "Yeah, I am. I guesss you're right, it's not such a big deal as long as you don't do it too often."
+            the_person.char "Yeah, I am. I guess you're right, it's not such a big deal as long as you don't do it too often."
 
         else:
             the_person.char "You just... came inside of me. I've got a pussy full of my brothers cum, and I'm not on birth control."
