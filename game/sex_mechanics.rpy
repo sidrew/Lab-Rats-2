@@ -775,17 +775,17 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
 
         $ willing_if_ordered = False
         if not willing_to_strip: #If she won't strip we might have a chance to command her toself.
-            $ obedeince_modifier = the_person.obedience - 100
+            $ ran_num = the_person.obedience - 100
             if strip_type == "Half":
-                $ obedeince_modifier += 10 #She's more likely to listen to you obediently when you strip her quickly.
+                $ ran_num += 10 #She's more likely to listen to you obediently when you strip her quickly.
 
             if is_private:
-                $ willing_if_ordered = the_person.effective_sluttiness() + obedeince_modifier >= strip_requirement
+                $ willing_if_ordered = the_person.effective_sluttiness() + ran_num >= strip_requirement
             else:
-                $ willing_if_ordered = the_person.judge_outfit(test_outfit, temp_sluttiness_boost = obedeince_modifier, use_taboos = True)
+                $ willing_if_ordered = the_person.judge_outfit(test_outfit, temp_sluttiness_boost = ran_num, use_taboos = True)
 
             if willing_if_ordered:
-                $ the_person.call_dialogue("strip_obedience_accept", strip_choice, strip_type)
+                $ the_person.call_dialogue("strip_obedience_accept", the_clothing = strip_choice, strip_type = strip_type)
                 menu:
                     "Do it anyways.":
                         "You proceed despite [the_person.possessive_title]'s objections, trusting her to remain obedient and docile."
@@ -795,7 +795,7 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
                         $ the_person.change_happiness(-5 + (5*the_person.get_opinion_score("being submissive")))
 
                     "Let it be.":
-                        "You leave [the_person.possessive_title]'s [strip_choice.display_name] in place, and she relaxs."
+                        "You leave [the_person.possessive_title]'s [strip_choice.display_name] in place, and she relaxes."
 
         if willing_to_strip:
             if ass_revealed and the_person.has_taboo("bare_pussy"):
