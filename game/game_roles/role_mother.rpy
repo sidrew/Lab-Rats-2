@@ -853,9 +853,9 @@ label mom_work_promotion_two_prep(the_person):
             "She gets off the bed and onto her knees, reaching slowly for the pen."
             menu:
                 "Slap her ass":
-                    "You sit forward and slap your hand across [the_person.possessive_title]'s butt. She gasps and stands up"
+                    "You sit forward and slap your hand across [the_person.possessive_title]'s butt. She gasps and stands up."
                     $ the_person.draw_person()
-                    the_person.char "[the_person.title], try and take this seriously."
+                    the_person.char "[the_person.mc_title], try and take this seriously."
                     mc.name "I am being serious. If something like this happens you need to be ready."
                     the_person.char "You mean my boss might..."
                     mc.name "I don't think he would be bold enough, but if he does it means our plan is working."
