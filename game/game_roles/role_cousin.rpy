@@ -154,9 +154,10 @@ init -2 python:
 
     def add_cousin_house_phase_two_action(the_person):
         #Changes her schedule to be at your house
-        the_person.schedule[2] = hall
-        cousin_house_phase_two_action = Action("Cousin visits house", cousin_house_phase_two_requirement, "cousin_house_phase_two_label")
-        cousin.on_room_enter_event_list.append(cousin_house_phase_two_action) #When you see her next in your house this event triggers and she explains why she's there.
+        if not find_in_list(lambda x: x.effect == "cousin_house_phase_two_label", the_person.on_room_enter_event_list):
+            the_person.schedule[2] = hall
+            cousin_house_phase_two_action = Action("Cousin visits house", cousin_house_phase_two_requirement, "cousin_house_phase_two_label")
+            the_person.on_room_enter_event_list.append(cousin_house_phase_two_action) #When you see her next in your house this event triggers and she explains why she's there.
         return
 
     def add_cousin_house_phase_three_action():
@@ -166,8 +167,9 @@ init -2 python:
 
     def add_cousin_blackmail_intro_action(the_person):
         the_person.schedule[2] = lily_bedroom #Set her to be in Lily's room AND for an event to trigger when you walk in on her.
-        cousin_blackmail_intro_action = Action("Cousin caught stealing", cousin_blackmail_intro_requirement, "cousin_blackmail_intro_label")
-        the_person.on_room_enter_event_list.append(cousin_blackmail_intro_action)
+        if not find_in_list(lambda x: x.effect == "cousin_blackmail_intro_label", the_person.on_room_enter_event_list):
+            cousin_blackmail_intro_action = Action("Cousin caught stealing", cousin_blackmail_intro_requirement, "cousin_blackmail_intro_label")
+            the_person.on_room_enter_event_list.append(cousin_blackmail_intro_action)
         return
 
     def add_cousin_stripping_and_setup_search_room_action(the_aunt, the_cousin):
