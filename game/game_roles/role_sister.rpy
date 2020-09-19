@@ -860,7 +860,7 @@ label sister_instathot_label_mom(the_sister, the_mom):
 
     if the_mom.event_triggers_dict.get("mom_instathot_pic_count", 0) == 0:
         $ the_mom.event_triggers_dict["mom_instathot_pic_count"] = 1
-        $ add_sister_instathot_mom_report_action(person)
+        $ add_sister_instathot_mom_report_action(the_sister)
     else:
         $ the_mom.event_triggers_dict["mom_instathot_pic_count"] += 1
 
