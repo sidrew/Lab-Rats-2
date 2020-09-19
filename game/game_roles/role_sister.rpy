@@ -600,6 +600,8 @@ label sister_instathot_special_pictures(the_person):
     return
 
 label sister_instathot_mom_discover(the_person): # TODO: Hook this up as a night time crisis triggered if you tell Mom about Lily's Insta job
+    $ mc.change_location(bedroom)
+    $ mc.location.show_background()
     $ the_person.change_happiness(-15, add_to_log = False)
     "You're getting ready for bed when your door is opened suddenly."
     $ the_person.draw_person(emotion = "angry")
