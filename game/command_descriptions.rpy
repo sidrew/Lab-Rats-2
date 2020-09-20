@@ -591,7 +591,7 @@ label suck_demand_label(the_person):
     mc.name "Get on your knees. You're going to suck my cock."
     if the_person.effective_sluttiness("sucking_cock") + (the_person.get_opinion_score("being_submissive") * 10) >= 60: #She would do it anyways and doesn't even think it's strange. Note: We require you to already have broken the blowjob taboo to get here as well.
         the_person.char "Right away [the_person.mc_title]."
-        $ the_person.draw_person(position = blowjob)
+        $ the_person.draw_person(position = "blowjob")
         "She drops to her knees immediately, spreading her legs and planting her hands on the ground between them."
 
     elif the_person.effective_sluttiness("sucking_cock") + (the_person.get_opinion_score("being_submissive") * 10) >= 40:
@@ -601,7 +601,7 @@ label suck_demand_label(the_person):
             "[the_person.possessive_title] hesitates, glancing around."
             the_person.char "I... Right here? Wouldn't you like to find somewhere private so we can..."
             mc.name "Right here. Get on your knees and get my cock in your mouth before I run out of patience."
-        $ the_person.draw_person(position = blowjob)
+        $ the_person.draw_person(position = "blowjob")
         "She drops to her knees, putting her hands on her thighs and moving her face to cock level."
 
     else:
@@ -611,7 +611,7 @@ label suck_demand_label(the_person):
             mc.name "I wasn't asking you a question. On your knees, now. The longer you take the more stress I'm going to need relieved."
             "She seems on the verge of refusing, but drops slowly to her knees to put her face at cock level."
         else:
-            "[the_person.possessive_title] looks around, almost paniced."
+            "[the_person.possessive_title] looks around, almost panicked."
             the_person.char "I can't... We can't do that here! People would see me, I would..."
             mc.name "I've already got my cock out, and I'm not putting it back in my pants until it's been down your throat."
             mc.name "On your knees. Now."
