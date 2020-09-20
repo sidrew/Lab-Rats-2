@@ -714,13 +714,13 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
         full_off_list = ["Take off"]
         for clothing in the_person.outfit.get_unanchored():
             if not clothing.is_extension:
-                formatted_name = clothing.display_name + "\n-5 {image=gui/extra_images/arousal_token.png}"
+                formatted_name = clothing.display_name.capitalize() + "\n-5 {image=gui/extra_images/arousal_token.png}"
                 full_off_list.append([formatted_name, [clothing,"Full"]]) #Keeps track if this was a full or partial strip, so we can reuse all of the strip taboo logic/dialogue
 
         half_off_list = ["Move away"]
         for clothing in the_person.outfit.get_unanchored():
             if clothing.can_be_half_off and not clothing.half_off:
-                half_off_list.append([clothing.display_name, [clothing,"Half"]])
+                half_off_list.append([clothing.display_name.capitalize(), [clothing,"Half"]])
 
         other_list = ["Other","Finish"]
 
