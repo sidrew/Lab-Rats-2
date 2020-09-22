@@ -526,7 +526,7 @@ label aunt_intro_phase_final_label():
         $ mom.draw_person(position = "sitting", emotion = "happy")
         $ mom.change_love(3)
         $ mom.change_happiness(8)
-        mom.char "[aunt.title] has been telling me all morning how helpful you've been. I'm so proud of you [mom.mc_title].:"
+        mom.char "[aunt.title] has been telling me all morning how helpful you've been. I'm so proud of you [mom.mc_title]."
         $ aunt.draw_person(position = "sitting", emotion = "happy")
         aunt.char "He was a godsend, he really was."
 
