@@ -328,7 +328,7 @@ label nora_research_cash(the_person):
         #Unlock the boss trait phase
         the_person.char "I also have some good news. Thanks in part to your assistance I have been given a long term grant to continue my research."
         mc.name "Congratulations [the_person.title], after all your hard work you deserve it."
-        the_person.char "Thank you. I had to pressure on my boss but I was able to... Well, I was able to convince him, let's leave it at that."
+        the_person.char "Thank you. I had to pressure my boss, but I was able to... Well, I was able to convince him, let's leave it at that."
         the_person.char "This money relieves the pressure on me to produce results quickly, and means I will not need you to perform any more field tests."
         the_person.char "But I have an idea we may both benefit from."
         mc.name "Go on, you always have interesting ideas for me."
