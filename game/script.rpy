@@ -5349,7 +5349,7 @@ init -2 python:
         def get_upper_unanchored(self):
             return_list = []
             for top in reversed(sorted(self.upper_body, key=lambda clothing: clothing.layer)):
-                if top.has_extension is None or self.is_item_unanchored(bottom.has_extension):
+                if top.has_extension is None or self.is_item_unanchored(top.has_extension):
                     return_list.append(top)
 
                 if top.anchor_below and (not top.can_be_half_off or not top.half_off):
