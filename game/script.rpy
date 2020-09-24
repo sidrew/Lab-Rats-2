@@ -5349,14 +5349,11 @@ init -2 python:
         def get_upper_unanchored(self):
             return_list = []
             for top in reversed(sorted(self.upper_body, key=lambda clothing: clothing.layer)):
-                if top.has_extension is None:
-                    return_list.append(top)
-                elif self.is_item_unanchored(top.has_extension):
+                if top.has_extension is None or self.is_item_unanchored(bottom.has_extension):
                     return_list.append(top)
 
-
-                if top.anchor_below and not (top.can_be_half_off and top.half_off_gives_access):
-                    break #Search the list, starting at the outermost item, until you find something that anchors the stuff below it.
+                if top.anchor_below and (not top.can_be_half_off or not top.half_off):
+                    break #Search the list, starting at the outermost item, until you find something that anchors the stuff below it.               
             return return_list
 
         def get_lower_unanchored(self):
@@ -5365,7 +5362,7 @@ init -2 python:
                 if bottom.has_extension is None or self.is_item_unanchored(bottom.has_extension):
                     return_list.append(bottom)
 
-                if bottom.anchor_below and not (bottom.can_be_half_off and bottom.half_off_gives_access):
+                if bottom.anchor_below and (not bottom.can_be_half_off or not bottom.half_off):
                     break
             return return_list
 
@@ -5375,7 +5372,7 @@ init -2 python:
                 if foot.has_extension is None or self.is_item_unanchored(foot.has_extension):
                     return_list.append(foot)
 
-                if foot.anchor_below and not (foot.can_be_half_off and foot.half_off_gives_access):
+                if foot.anchor_below and (not foot.can_be_half_off or not foot.half_off):
                     break
             return return_list
 
