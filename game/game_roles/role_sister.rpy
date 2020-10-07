@@ -627,7 +627,7 @@ label sister_instathot_mom_discover(the_person): # TODO: Hook this up as a night
             the_person.char "Oh my god, could you imagine? There's no way she would do it."
             mc.name "She wants a reason to spend time with you, I think she'd give it a try."
             the_person.char "You really think so? But she's still my mom, isn't that a little weird."
-            mc.name "It's just to keep your followers hooked. I bet a a bunch of them would be into an older woman."
+            mc.name "It's just to keep your followers hooked. I bet that a bunch of them would be into an older woman."
             the_person.char "Eww, gross. Still..."
             $ the_person.change_slut_temp(2)
             the_person.char "Alright, I'll think about it. At least I don't have to worry about her catching me anymore."
@@ -792,7 +792,7 @@ label sister_instathot_label_mom(the_sister, the_mom):
             the_mom.char "Like this?"
             mc.name "A little more. Try putting your arms around her."
             "[the_mom.possessive_title] slips behind [the_sister.possessive_title] and pulls her into a hug"
-            the_mom.char "I haven't played ith you like this since you were a kid [the_sister.title]!"
+            the_mom.char "I haven't played with you like this since you were a kid [the_sister.title]!"
             $ the_sister.draw_person(position = "kneeling1", emotion = "happy")
             the_sister.char "Oh my god, you're so embarrassing [the_mom.title]!"
             $ the_mom.draw_person(position = "kneeling1", emotion = "happy")
