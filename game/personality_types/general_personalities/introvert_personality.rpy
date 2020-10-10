@@ -184,7 +184,7 @@ label introvert_climax_responses_vaginal(the_person):
 
 label introvert_climax_responses_anal(the_person):
     if the_person.sluttiness > 70:
-        the_person.char "Your going to make me cum! Ah!"
+        the_person.char "You're going to make me cum! Ah!"
     else:
         the_person.char "Oh fuck, I'm..."
         "She tenses up and moans loudly."
