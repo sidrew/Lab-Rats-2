@@ -3,7 +3,7 @@
 #Each position has a "position_tag". When you start having sex with someone the draw_person code will check it's dictionary to see if it has a position_tag entry. If yes, it uses that set.
 #Otherwise, it uses the default standing images. Right now, this should have changed absolutely nothing about the way the game works.
 
-init -2:
+init -5:
     if renpy.macintosh: #Macs have a bug related to high resolution monitors that breaks the animation system. Animation is possible on some monitors, but users must explicitly enable it from the menu.
         default persistent.vren_animation = False
         default persistent.vren_mac_scale = 2.0
@@ -15,7 +15,7 @@ init -2:
     default bugfix_installed = True
     default persistent.pregnancy_pref = 0 # 0 = no content, 1 = predictable, 2 = realistic
 
-init -2 python:
+init -5 python:
     import os
     import copy
     import math
