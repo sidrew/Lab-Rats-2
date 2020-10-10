@@ -6735,19 +6735,19 @@ init -1:
             # check line 1618 -> it should read self.height = height since all heights should be .8 and 1
             # if persistent.vren_animation:
             #     return height_factor
-            return height_factor - .2   # for now render at 80% size
+            return 0.7 - ((1 - height_factor) / 2)   # for now render at 70% size
 
 transform scale_person(height_factor = 1):
     zoom calculate_scale(height_factor)
 
 transform character_right():
-    yalign 0.90
+    yalign 0.85
     yanchor 1.0
     xalign 1.0
     xanchor 1.0
 
 transform position_shift(character_xalign = 1.0, scale_mod = 1.0, character_alpha = 1.0):
-    yalign 0.90
+    yalign 0.85
     yanchor 1.0
     xanchor 1.0
     xalign character_xalign
@@ -10288,7 +10288,7 @@ init -2 python:
     def initialize_stephanie_in_our_business():
         mc.business.add_employee_research(stephanie, add_to_location = True)
         mc.business.hire_head_researcher(stephanie)
-        mc.business.r_div.move_person(stephanie,lobby)
+        mc.business.r_div.move_person(stephanie, lobby)
         stephanie.special_role.append(steph_role)
         return
 
