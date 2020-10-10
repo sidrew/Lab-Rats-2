@@ -589,12 +589,12 @@ label suck_demand_label(the_person):
 
     "You unzip your pants and pull your cock free, already hardening with excitement."
     mc.name "Get on your knees. You're going to suck my cock."
-    if the_person.effective_sluttiness("sucking_cock") + (the_person.get_opinion_score("being_submissive") * 10) >= 60: #She would do it anyways and doesn't even think it's strange. Note: We require you to already have broken the blowjob taboo to get here as well.
+    if the_person.effective_sluttiness("sucking_cock") + (the_person.get_opinion_score("being submissive") * 10) >= 60: #She would do it anyways and doesn't even think it's strange. Note: We require you to already have broken the blowjob taboo to get here as well.
         the_person.char "Right away [the_person.mc_title]."
         $ the_person.draw_person(position = "blowjob")
         "She drops to her knees immediately, spreading her legs and planting her hands on the ground between them."
 
-    elif the_person.effective_sluttiness("sucking_cock") + (the_person.get_opinion_score("being_submissive") * 10) >= 40:
+    elif the_person.effective_sluttiness("sucking_cock") + (the_person.get_opinion_score("being submissive") * 10) >= 40:
         if private:
             "[the_person.possessive_title] hesitates, but starts to move before you have to command her again."
         else:

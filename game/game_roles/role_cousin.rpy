@@ -121,7 +121,7 @@ init -2 python:
         return True
 
     def add_cousin_blackmail_hint_action(the_person):
-        the_person.schedule[2] = hall
+        the_person.set_schedule(hall, times = [2])
         the_person.event_triggers_dict["blackmail_level"] = 1
 
         blackmail_2_event = Action("Blackmail hint", blackmail_hint_requirement, "aunt_cousin_hint_label", args = [aunt, the_person], requirement_args = [the_person, day + renpy.random.randint(2,4)])
@@ -155,7 +155,7 @@ init -2 python:
     def add_cousin_house_phase_two_action(the_person):
         #Changes her schedule to be at your house
         if not find_in_list(lambda x: x.effect == "cousin_house_phase_two_label", the_person.on_room_enter_event_list):
-            the_person.schedule[2] = hall
+            the_person.set_schedule(hall, times = [2])
             cousin_house_phase_two_action = Action("Cousin visits house", cousin_house_phase_two_requirement, "cousin_house_phase_two_label")
             the_person.on_room_enter_event_list.append(cousin_house_phase_two_action) #When you see her next in your house this event triggers and she explains why she's there.
         return
@@ -166,7 +166,7 @@ init -2 python:
         return
 
     def add_cousin_blackmail_intro_action(the_person):
-        the_person.schedule[2] = lily_bedroom #Set her to be in Lily's room AND for an event to trigger when you walk in on her.
+        the_person.set_schedule(lily_bedroom, times = [2])
         if not find_in_list(lambda x: x.effect == "cousin_blackmail_intro_label", the_person.on_room_enter_event_list):
             cousin_blackmail_intro_action = Action("Cousin caught stealing", cousin_blackmail_intro_requirement, "cousin_blackmail_intro_label")
             the_person.on_room_enter_event_list.append(cousin_blackmail_intro_action)
@@ -174,7 +174,7 @@ init -2 python:
 
     def add_cousin_stripping_and_setup_search_room_action(the_aunt, the_cousin):
         stripclub_strippers.append(the_cousin)
-        the_cousin.set_schedule([3,4], strip_club)
+        the_cousin.set_schedule(strip_club, times = [3, 4])
 
         the_cousin.event_triggers_dict["stripping"] = True #Used to flag the blackmail event.
         cousin_room_search_action = Action("Search her room. {image=gui/heart/Time_Advance.png}", cousin_room_search_requirement, "cousin_search_room_label",requirement_args = [the_cousin], args = [the_cousin, the_aunt])

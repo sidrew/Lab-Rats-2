@@ -131,6 +131,11 @@ init -2:
         list_of_names.append("Fae")
         list_of_names.append("Beth")
         list_of_names.append("Lystra")
+        list_of_names.append("Katreena")
+        list_of_names.append("Hannah")
+        list_of_names.append("Mara")
+        list_of_names.append("Trinity")
+        list_of_names.append("Stephine")
 
         def get_random_name():
             return get_random_from_list(list_of_names)
@@ -227,6 +232,11 @@ init -2:
         list_of_last_names.append("Duroche")
         list_of_last_names.append("Hampson")
         list_of_last_names.append("Faith")
+        list_of_last_names.append("Lee")
+        list_of_last_names.append("Carbonero")
+        list_of_last_names.append("Cotten")
+        list_of_last_names.append("Ookami")
+        list_of_last_names.append("Du Roche")
 
         def get_random_last_name():
             return get_random_from_list(list_of_last_names)
@@ -330,17 +340,23 @@ init -2:
         list_of_faces.append("Face_6")
         list_of_faces.append("Face_7")
         list_of_faces.append("Face_8")
+        list_of_faces.append("Face_5")
+        list_of_faces.append("Face_9")
+        list_of_faces.append("Face_11")
+        list_of_faces.append("Face_12")
+        list_of_faces.append("Face_13")
+        list_of_faces.append("Face_14")
 
         #list_of_faces.append("Face_10") #Bad render
 
 
-        if not renpy.android: #Extra faces are only included in the PC version due to file count limitations
-            list_of_faces.append("Face_5")
-            list_of_faces.append("Face_9")
-            list_of_faces.append("Face_11")
-            list_of_faces.append("Face_12")
-            list_of_faces.append("Face_13")
-            list_of_faces.append("Face_14")
+        # if not renpy.android: #Extra faces are only included in the PC version due to file count limitations
+        #     list_of_faces.append("Face_5")
+        #     list_of_faces.append("Face_9")
+        #     list_of_faces.append("Face_11")
+        #     list_of_faces.append("Face_12")
+        #     list_of_faces.append("Face_13")
+        #     list_of_faces.append("Face_14")
 
 
         def get_random_face():
@@ -780,6 +796,8 @@ init -2:
         def add_aunt_introduction_actions():
             aunt_intro_action = Action("Aunt introduction", aunt_intro_requirement, "aunt_intro_label", requirement_args = renpy.random.randint(15,20))
             mc.business.mandatory_crises_list.append(aunt_intro_action) #Aunt and cousin will be visiting tomorrow in the morning
+            family_games_night_intro_action = Action("Family games night intro", family_games_night_intro_requirement, "family_games_night_intro")
+            aunt.on_room_enter_event_list.append(family_games_night_intro_action)
             return
 
 init -1 python:
@@ -888,7 +906,7 @@ init 1 python:
 
         nora.generate_home()
         nora.special_role.append(nora_role)
-        nora.set_schedule([0,1,2,3,4], nora.home)
+        nora.set_schedule(nora.home, times = [0,1,2,3,4])
         nora.home.add_person(nora)
 
         ### ALEXIA ###
@@ -902,7 +920,7 @@ init 1 python:
         add_alexia_introduction_actions()
 
         alexia.special_role.append(alexia_role)
-        alexia.set_schedule([0,1,2,3,4], alexia.home)
+        alexia.set_schedule(alexia.home, times = [0,1,2,3,4])#Hide them in their bedroom off the map until they're ready.
         alexia.home.add_person(alexia)
 
         ### EMILY (18) ###
@@ -913,8 +931,8 @@ init 1 python:
             start_sluttiness = 6, start_obedience = 0, start_happiness = 100, start_love = 0, relationship = "Single", kids = 0, base_outfit = emily_base)
 
         emily.generate_home()
-        emily.set_schedule([1,2], university)
-        emily.schedule[3] = emily.home
+        emily.set_schedule(university, times = [1,2])
+        emily.set_schedule(emily.home, times = [3])
         emily.home.add_person(emily)
         emily.special_role.append(student_role)
 
@@ -927,7 +945,7 @@ init 1 python:
             eyes = "light blue", personality = reserved_personality, starting_wardrobe = christina_wardrobe, stat_array = [4,2,3], skill_array = [2,1,1,1,1], sex_array = [2,3,3,2], \
             start_sluttiness = 10, start_obedience = 5, start_happiness = 85, start_love = 0, start_home = emily.home, relationship = "Married", kids = 1, base_outfit = christina_base)
 
-        christina.set_schedule([1,2,3], christina.home) #She's a stay-at-home Mom.
+        christina.set_schedule(christina.home, times = [1,2,3]) #She's a stay-at-home Mom.
         christina.home.add_person(christina)
         #Note: She plays an important role to Emily's story, but she is just given the normal affair role during the game.
 
@@ -941,8 +959,8 @@ init 1 python:
         add_lily_introduction_actions()
 
         lily.special_role.append(sister_role)
-        lily.schedule[3] = lily.home
-        lily.set_schedule([1,2],university)
+        lily.set_schedule(lily.home, times = [3])
+        lily.set_schedule(university, times = [1,2])
         lily.home.add_person(lily)
 
         ### MOM ###
@@ -958,7 +976,7 @@ init 1 python:
         add_mom_introduction_actions()
 
         mom.special_role.append(mother_role)
-        mom.schedule[3] = kitchen
+        mom.set_schedule(kitchen, times = [3])
 
         mom.home.add_person(mom)
 
@@ -972,8 +990,9 @@ init 1 python:
         add_aunt_introduction_actions()
 
         aunt.special_role.append(aunt_role)
-        aunt.set_schedule([0,1,2,3,4], aunt_bedroom)
+        aunt.set_schedule(aunt_bedroom, times = [0,1,2,3,4]) #Hide them in their bedroom off the map until they're ready.
         aunt.home.add_person(aunt)
+
 
         ### COUSIN ###
         global cousin
@@ -983,7 +1002,7 @@ init 1 python:
             title = "Gabrielle", possessive_title = "Your cousin", mc_title = mc.name, relationship = "Single", kids = 0)
 
         cousin.special_role.append(cousin_role)
-        cousin.set_schedule([0,1,2,3,4], cousin_bedroom)
+        cousin.set_schedule(cousin_bedroom, times = [0,1,2,3,4]) #Hide them in their bedroom off the map until they're ready
         cousin.home.add_person(cousin)
 
         town_relationships.update_relationship(nora, stephanie, "Friend")

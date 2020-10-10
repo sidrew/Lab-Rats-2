@@ -95,9 +95,7 @@ init -2 python:
         alexia_intro_phase_two_action = Action("Visit " + the_person.title + " at work", alexia_intro_phase_two_requirement, "alexia_intro_phase_two_label", args = the_person, requirement_args = the_person)
         downtown.actions.append(alexia_intro_phase_two_action)
         downtown.move_person(the_person, the_person.home) #Change her schedule again so you don't see her anymore unless you visit her explicitly.
-        alexia.schedule[1] = alexia.home
-        alexia.schedule[2] = alexia.home
-        alexia.schedule[3] = alexia.home
+        alexia.set_schedule(alexia.home, times = [1,2,3])
         return
 
     def remove_item_from_list(search, action_list):
@@ -112,10 +110,7 @@ init -2 python:
 
     def add_alexia_hire_action(the_person):
         remove_item_from_list(lambda x: x.effect == "alexia_intro_phase_two_label", downtown.actions)
-        
-        alexia.schedule[1] = downtown #She spends her time downtown "working".
-        alexia.schedule[2] = downtown
-        alexia.schedule[3] = downtown
+        alexia.set_schedule(downtown, times = [1,2,3]) #She spends her time downtown "working".
 
         alexia_hire_action = Action("Hire " + alexia.title + " to work in sales", alexia_hire_requirement, "alexia_hire_label")
         the_person.get_role_reference_by_name("Alexia").actions.append(alexia_hire_action)
@@ -139,10 +134,7 @@ init -2 python:
 
 label alexia_phase_zero_label():
     #Sets Alexia's schedule so she is downtown during time periods 1,2,3.
-    python:
-        alexia.schedule[1] = downtown
-        alexia.schedule[2] = downtown
-        alexia.schedule[3] = downtown
+    $alexia.set_schedule(downtown, times = [1,2,3])
     return
 
 label alexia_intro_phase_one_label(the_person):

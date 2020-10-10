@@ -225,7 +225,7 @@ label nora_research_up_label(the_person):
         list_of_nora_traits.remove(the_trait)
         del the_trait
 
-        nora.set_schedule([1,2,3], university)
+        nora.set_schedule(university, times =[1,2,3])
         clear_scene()
 
         add_nora_research_intro_action(the_person)

@@ -534,7 +534,7 @@ label sex_description(the_person, the_position, the_object, private = True, repo
                     interfering_clothing.append(clothing)
 
     if clothing_count > 0:
-        $ clothing_string = format_list_of_clothing(interfering_clothing) 
+        $ clothing_string = format_list_of_clothing(interfering_clothing)
         "[the_person.title]'s half off [clothing_string] get in the way, lowering your enjoyment somewhat."
 
 

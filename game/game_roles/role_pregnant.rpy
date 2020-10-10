@@ -300,7 +300,7 @@ label pregnant_transform_announce(start_day, the_person):
 init 2 python:
     def pregnant_finish_announce_person(person):
         person.event_triggers_dict["preg_old_schedule"] = person.schedule.copy() #Take a shallow copy so we can change their current schedule to nothing
-        person.set_schedule([0,1,2,3,4], person.home)
+        person.set_schedule(person.home, times = [0,1,2,3,4])
 
         preg_finish_action = Action("Pregnancy Finish", preg_finish_requirement, "pregnant_finish", args = person, requirement_args = [person, day + renpy.random.randint(4,7)])
         mc.business.mandatory_morning_crises_list.append(preg_finish_action)
@@ -390,6 +390,10 @@ label tits_shrink(the_person, reduce_lactation, announcement_function):
     return
 
 label tits_shrink_announcement_one(the_person):
+    #She lets you know that her tits are getting back to normal (Base reaction based on opinion and sluttiness).
+    if day - day_shrunk >= 7:
+        return # If it's been a week sincei t's happened just move on and don't comment on it.
+
     the_person.char "Hey [the_person.mc_title]."
     "[the_person.possessive_title] sighs and looks down at her chest. She cups a boob and rubs it gently."
     the_person.char "It looks like my milk is starting to dry up. I'm going to miss having my tits that big..."
@@ -405,6 +409,10 @@ label tits_shrink_announcement_one(the_person):
     return
 
 label tits_shrink_announcement_two(the_person):
+    #She lets you know that her tits are getting back to normal (Base reaction based on opinion and sluttiness).
+    if day - day_shrunk >= 7:
+        return # If it's been a week sincei t's happened just move on and don't comment on it.
+
     the_person.char "Hey [the_person.mc_title]."
     "[the_person.possessive_title] sighs and looks down down at her chest. She cups one of her boobs and rubs it gently."
     the_person.char "My chest is back to it's old size. I had gotten so use to them when I was pregnant that these feel tiny now."

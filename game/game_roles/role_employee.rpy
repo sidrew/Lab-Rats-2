@@ -141,7 +141,7 @@ label employee_pay_cash_bonus(the_person):
                 $ the_person.add_situational_slut("situation", 10, "He's given me such a generous bonus, I should repay the favour!")
                 call fuck_person(the_person) from _call_fuck_person_3
                 #Now that you've had sex, we calculate the change to her stats and move on.
-                $ the_person.clear_situational_slut("situation")                
+                $ the_person.clear_situational_slut("situation")
                 $ the_person.review_outfit()
             else:
                 the_person.char "Wow... this is amazing sir. I'll do everything I can for you and the company!"
