@@ -10630,6 +10630,7 @@ init -2 python:
 
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
     $ renpy.checkpoint()
+    $ clear_scene()
 
     if "action_mod_list" in globals():
         call screen enhanced_main_choice_display(build_menu_items([build_people_list(), build_actions_list()]))
