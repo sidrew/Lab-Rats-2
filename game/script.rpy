@@ -1788,23 +1788,25 @@ init -5 python:
             ## Personality stuff, name, ect. Non-physical stuff.
             self.name = name
             self.last_name = last_name
-            self.character_number = Person.global_character_number #This is a gunique number for each character. Used as a tag when showing a character to identify if they are already drawn (and thus need to be hidden)
+
+            self.character_number = Person.global_character_number #This is a unique number for each character. Used as a tag when showing a character to identify if they are already drawn (and thus need to be hidden)
             Person.global_character_number += 1
 
             self.draw_number = defaultdict(int) #Used while drawing a character to avoid drawing an animation that has already been replaced with a new draw. Defaults to 0
 
             self.title = title #Note: We format these down below!
-            self.possessive_title = possessive_title #The way the girl is refered to in relation to you. For example "your sister", "your head researcher", or just their title again.
+            self.possessive_title = possessive_title #The way the girl is referred to in relation to you. For example "your sister", "your head researcher", or just their title again.
             if mc_title:
                 self.mc_title = mc_title #What they call the main character. Ie. "first name", "mr.last name", "master", "sir".
             else:
                 self.mc_title = "Stranger"
 
-            self.home = home #The room the character goes to at night. If none a ranjdom public location is picked.
+            self.home = home #The room the character goes to at night. If none a random public location is picked.
             self.work = work #The room the character goes to for work.
             self.schedule = {}
-            for x in range(0,7):
-                self.schedule[x] = {0:home,1:None,2:None,3:None,4:home}
+            for x in range(7):
+                self.schedule[x] = { 0: None, 1: None, 2: None, 3: None, 4: None }
+
             #If there is a place in the schedule the character will go there. Otherwise they have free time and will do whatever they want.
             self.job = job
 
@@ -2024,17 +2026,20 @@ init -5 python:
 
         def generate_home(self, set_home_time = True): #Creates a home location for this person and adds it to the master list of locations so their turns are processed.
             if self.home is None:
-                start_home = Room(self.name + " " + self.last_name +" home", self.name + " " + self.last_name + " home", [], standard_bedroom_backgrounds[:], [],[],[],False,[0.5,0.5], visible = False, hide_in_known_house_map = False, lighting_conditions = standard_indoor_lighting)
-                #start_home.link_locations_two_way(downtown)
-
-                start_home.add_object(make_wall())
-                start_home.add_object(make_floor())
-                start_home.add_object(make_bed())
-                start_home.add_object(make_window())
+                home_objects =[
+                    make_wall(),
+                    make_floor(),
+                    make_bed(),
+                    make_window()
+                ]
+                start_home = Room(self.name + " " + self.last_name + " home", self.name + " " + self.last_name + " home", [], standard_bedroom_backgrounds[:], home_objects,[],[],False,[0.5,0.5], visible = False, hide_in_known_house_map = False, lighting_conditions = standard_indoor_lighting)
                 self.home = start_home
-                if set_home_time:
-                    self.set_schedule(start_home, times = [0,4])
-                list_of_places.append(start_home)
+
+            if not self.home in list_of_places:
+                list_of_places.append(self.home)
+
+            if set_home_time:
+                self.set_schedule(the_location = self.home, times = [0,4])
             return self.home
 
         def generate_daughter(self): #Generates a random person who shares a number of similarities to the mother
@@ -3022,7 +3027,7 @@ init -5 python:
         def review_outfit(self, dialogue = True):
             if self.should_wear_uniform():
                 self.wear_uniform()#Reset uniform
-#                self.call_uniform_review() #TODO: actually impliment this call, but only when her outfit significantly differs from the real uniform.
+                # self.call_uniform_review() #TODO: actually impliment this call, but only when her outfit significantly differs from the real uniform.
 
             elif self.judge_outfit(self.outfit) > self.effective_sluttiness():
                 self.apply_outfit(self.planned_outfit)
@@ -3415,7 +3420,6 @@ init -5 python:
                     for the_time in range(0,5):
                         if self.schedule[the_day][the_time] == self.work:
                             self.schedule[the_day][the_time] = None
-
             else:
                 self.set_schedule(the_location, work_days, work_times) #Set them to work M-F, morning till afternoon
 
