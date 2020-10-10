@@ -657,7 +657,7 @@ label bimbo_cum_mouth(the_person):
             the_person.char "Your cum tastes great [the_person.mc_title], thanks for giving me so much of it."
             "[the_person.title] licks her lips and sighs happily."
         else:
-            the_person.char "Bleh, I don't know if I'll ever get use to that."
+            the_person.char "Bleh, I don't know if I'll ever get used to that."
     return
 
 label bimbo_cum_pullout(the_person):

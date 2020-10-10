@@ -472,7 +472,7 @@ label mom_cum_mouth(the_person):
         if the_person.sluttiness > 50:
             the_person.char "I guess that means I did a good job, right [the_person.mc_title]?"
         else:
-            the_person.char "I... Oh I'm not sure I'm going to be able to to get use to that. I'll try for you though [the_person.mc_title]."
+            the_person.char "I... Oh I'm not sure I'm going to be able to to get used to that. I'll try for you though [the_person.mc_title]."
     else:
         if the_person.sluttiness > 70:
             the_person.char "Mmm, you taste great [the_person.mc_title]. Thank you for giving mommy such a wonderful reward."

@@ -605,7 +605,7 @@ label mom_work_promotion_outfit_create(the_person):
             the_person.char "I couldn't wear this [the_person.mc_title], my breasts are..."
             mc.name "Maybe that'll get you the promotion!"
             "She rolls her eyes."
-            the_person.char "I don't think the office dress code will ever be that formal."
+            the_person.char "I don't think the office dress code will ever be that informal."
             the_person.char "You've had your fun, now let's be serious about this, okay?"
 
         elif the_person.judge_outfit(interview_outfit): # It's not really pushing the limit

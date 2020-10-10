@@ -2049,7 +2049,7 @@ label work_chat_crisis_label:
                             "You turn your chair to face [the_person.title] and spread your legs. She reaches over with her free hand and plants it on your crotch."
                             $ the_person.change_obedience(the_person.get_opinion_score("giving handjobs"))
                             the_person.char "Oh god, it's so nice and big..."
-                            "She rubs your dick with her hand, feeling it's outline through your pants."
+                            "She rubs your dick with her hand, feeling its outline through your pants."
                             "You're thinking about pulling your cock out for [the_person.title] when she takes her hand off of you and sits back in her office chair."
 
                         "Say no":
