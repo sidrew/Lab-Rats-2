@@ -3710,7 +3710,10 @@ init -5 python:
             start_sluttiness += 20
 
         if relationship is None:
-            relationship = get_random_from_weighted_list([["Single",120-age],["Girlfriend",100-age],["Fiancée",120-(age*2)],["Married",(age*3)]]) #Age plays a major factor.
+            if age < 23:
+                relationship = get_random_from_weighted_list([["Single", 70], ["Girlfriend", 30]])
+            else:
+                relationship = get_random_from_weighted_list([["Single", 80 - age], ["Girlfriend", 100 - age], ["Fiancée", age * 3], ["Married", age * 4]])
 
         if starting_wardrobe is None:
             starting_wardrobe = Wardrobe(name +"'s Wardrobe")
