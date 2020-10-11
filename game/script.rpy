@@ -4989,7 +4989,7 @@ init -5 python:
 
                 for region_to_hide in total_half_off_regions: #We first add together all of the region masks so we only operate on a single displayable
                     #region_mask = Image(region_to_hide.generate_item_image_name(body_type, tit_size, position))
-                    region_mask = region.generate_raw_image(body_type, tit_size, position)
+                    region_mask = region_to_hide.generate_raw_image(body_type, tit_size, position)
                     composite_list.append(region_to_hide.crop_offset_dict.get(position, (0,0)))
                     composite_list.append(region_mask)
 
@@ -5000,7 +5000,7 @@ init -5 python:
                 if self.half_off_ignore_regions: #Sometimes you want hard edges, or a section of a piece of clothing not to be moved. These regions are not blured/enlarged and are subtracted from the mask generated above.
                     add_composite_list = None
                     for region_to_add in self.half_off_ignore_regions:
-                        region_mask = region.generate_raw_image(body_type, tit_size, position)
+                        region_mask = region_to_add.generate_raw_image(body_type, tit_size, position)
                         #region_mask = Image(region_to_add.generate_item_image_name(body_type, tit_size, position))
                         if add_composite_list is None:
                             add_composite_list = [position_size_dict.get(position)] #We can reuse the size from our first pass building the mask.
