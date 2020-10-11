@@ -1805,7 +1805,10 @@ init -5 python:
             self.work = work #The room the character goes to for work.
             self.schedule = {}
             for x in range(7):
-                self.schedule[x] = { 0: None, 1: None, 2: None, 3: None, 4: None }
+                if home:
+                    self.schedule[x] = { 0: home, 1: None, 2: None, 3: None, 4: home }
+                else:
+                    self.schedule[x] = { 0: None, 1: None, 2: None, 3: None, 4: None }
 
             #If there is a place in the schedule the character will go there. Otherwise they have free time and will do whatever they want.
             self.job = job
