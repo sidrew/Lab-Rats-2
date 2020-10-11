@@ -2340,13 +2340,11 @@ init -5 python:
             config_y = config.screen_height * 1.
 
             if physical_x/(16.0/9.0) > physical_y: #Account for the screen resolution difference from 16x9
-                #y_scale = 1080.0/physical_y
                 # TODO: Remove references to vren_mac_scale once we are sure they are no longer needed
                 y_scale = 1*(config_y/(physical_y*persistent.vren_mac_scale)) #This should adjust for high DPI displays that have a higher physical pixel density than their stated resolution
 
                 x_scale = y_scale
             else:
-                #x_scale = 1920.0/physical_x
                 x_scale = 1*(config_x/(physical_x*persistent.vren_mac_scale))
 
                 y_scale = x_scale
@@ -2359,13 +2357,12 @@ init -5 python:
 
             scaled_image = im.FactorScale(static_image, x_scale, y_scale)
 
-            the_image_name = self.name + " | " + str(self.character_number) #Note: use to make use of a unique time stamp
+            the_image_name = self.name + " | " + str(time.time()) #Note: use to make use of a unique time stamp
 
             composite_components = []
             region_weight_items_dict = the_animation.get_weight_items()
             for region_weight_name in region_weight_items_dict: #Goes through each region ie. "breasts", "butt", and others to come, and applies the animation strength, the personal region strength, and animation region strength
                 the_weight_item = region_weight_items_dict[region_weight_name]
-                #composite_components.append((0,0))
                 composite_components.append(the_weight_item.crop_offset_dict.get(position, (0,0)))
                 region_weight_modifier = animation_effect_strength * self.personal_region_modifiers.get(region_weight_name, 1) * the_animation.innate_animation_strength * the_animation.region_specific_weights.get(region_weight_name, 1)
                 if region_weight_modifier > 1:
@@ -2374,7 +2371,6 @@ init -5 python:
 
                 region_brightness_matrix = im.matrix.brightness(-1 + region_weight_modifier)
                 region_mask = the_weight_item.generate_raw_image(self.body_type, self.tits, position)
-                #region_mask = renpy.displayable(the_weight_item.generate_item_image_name(self.body_type, self.tits, position))
                 region_mask = im.MatrixColor(region_mask, region_brightness_matrix)
                 composite_components.append(region_mask)
 
