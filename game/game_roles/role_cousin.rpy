@@ -152,21 +152,21 @@ init -2 python:
         cousin.event_triggers_dict["seen_cousin_stripping"] = True
         return
 
-    def add_cousin_house_phase_two_action(the_person):
+    def add_cousin_at_house_phase_two_action(the_person):
         #Changes her schedule to be at your house
         if not find_in_list(lambda x: x.effect == "cousin_house_phase_two_label", the_person.on_room_enter_event_list):
-            the_person.set_schedule(hall, times = [2])
-            cousin_house_phase_two_action = Action("Cousin visits house", cousin_house_phase_two_requirement, "cousin_house_phase_two_label")
-            the_person.on_room_enter_event_list.append(cousin_house_phase_two_action) #When you see her next in your house this event triggers and she explains why she's there.
+            the_person.set_schedule(hall, days = [0, 1, 2, 3, 4], times = [2])
+            cousin_at_house_phase_two_action = Action("Cousin visits house", cousin_house_phase_two_requirement, "cousin_house_phase_two_label")
+            the_person.on_room_enter_event_list.append(cousin_at_house_phase_two_action) #When you see her next in your house this event triggers and she explains why she's there.
         return
 
-    def add_cousin_house_phase_three_action():
+    def add_cousin_at_house_phase_three_action():
         cousin_at_house_phase_three_action = Action("Cousin changes schedule", cousin_house_phase_three_requirement, "cousin_house_phase_three_label", args = cousin, requirement_args = day+renpy.random.randint(2,5))
         mc.business.mandatory_crises_list.append(cousin_at_house_phase_three_action) #In a couple of days change her schedule so she starts stealing from Lily.
         return
 
     def add_cousin_blackmail_intro_action(the_person):
-        the_person.set_schedule(lily_bedroom, times = [2])
+        the_person.set_schedule(lily_bedroom, days = [0, 1, 2, 3, 4], times = [2])
         if not find_in_list(lambda x: x.effect == "cousin_blackmail_intro_label", the_person.on_room_enter_event_list):
             cousin_blackmail_intro_action = Action("Cousin caught stealing", cousin_blackmail_intro_requirement, "cousin_blackmail_intro_label")
             the_person.on_room_enter_event_list.append(cousin_blackmail_intro_action)
@@ -249,7 +249,7 @@ label cousin_intro_phase_one_label():
     return
 
 label cousin_house_phase_one_label(the_person):
-    $ add_cousin_house_phase_two_action(the_person)
+    $ add_cousin_at_house_phase_two_action(the_person)
     return
 
 label cousin_house_phase_two_label(the_person):
@@ -261,7 +261,7 @@ label cousin_house_phase_two_label(the_person):
     mc.name "What's up? Why are you over here?"
     the_person.char "Your mom said I could come over whenever I wanted. My mom won't stop bothering me and our crappy apartment is tiny."
     "[the_person.possessive_title] shrugs and turns her full attention back to her TV show."
-    $ add_cousin_house_phase_three_action()
+    $ add_cousin_at_house_phase_three_action()
     return
 
 label cousin_house_phase_three_label(the_person):

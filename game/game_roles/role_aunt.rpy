@@ -120,11 +120,6 @@ init -2 python:
         mc.business.mandatory_crises_list.append(cousin_at_house_phase_one_action) #This event changes the cousin's schedule so she shows up at your house.
         return
 
-    def add_cousin_at_house_phase_two_action():
-        cousin_at_house_phase_two_action = Action("Cousin at house", cousin_house_phase_two_requirement, "cousin_house_phase_two_label")
-        cousin.on_room_enter_event_list.append(cousin_at_house_phase_two_action)
-        return
-
     def add_aunt_share_drink_intro():
         aunt_share_drink_intro = Action("Aunt drink intro", aunt_drink_intro_requirement, "aunt_share_drink_intro_label")
         aunt.on_talk_event_list.append(aunt_share_drink_intro)
@@ -623,7 +618,6 @@ label aunt_intro_phase_final_label():
         cousin.set_schedule(None, times = [1, 2, 3])
 
         add_cousin_at_house_phase_one_action()
-        add_cousin_at_house_phase_two_action()
 
         add_aunt_share_drink_intro()
         the_group = None
