@@ -93,8 +93,6 @@ init -5 python:
     config.cache_surfaces = True
     config_image_cache_size = 8
 
-    config.image_cache_size = 2
-
     config.has_autosave = False
     config.autosave_frequency = None
     config.has_quicksave = True
@@ -3907,23 +3905,37 @@ init -5 python:
             return "Problem, height not found in chart."
 
     class ZipManager():
-        zipfiles = {}
         zippath = {}
         zipfilenames = {}
 
         def __init__(self):
-            for position in ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]:
-                file_path = os.path.abspath(os.path.join(config.basedir, "game", "images", "character_images", position + ".zip"))
-                if os.path.isfile(file_path):
-                    self.zippath[position] = file_path
-                    self.zipfiles[position] = zipfile.ZipFile(file_path, 'r')
-                    self.zipfilenames[position] = []
-                    for file_name in self.zipfiles[position].namelist():
-                        self.zipfilenames[position].append(file_name)
+            def get_file_handle(file_name):
+                found = None       
+                for file in renpy.list_files():
+                    if file_name in file:
+                        found = file
+                        break
 
+                return found
+
+            for position in ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]:
+                file_handle = get_file_handle(position + ".zip")
+                if file_handle:
+                    # store path
+                    if renpy.android and ("ANDROID_PUBLIC" in os.environ):
+                        file_path = os.path.abspath(os.path.join(os.environ["ANDROID_PUBLIC"], "game", file_handle))
+                    else:
+                        file_path = os.path.abspath(os.path.join(config.basedir, "game", file_handle))
+                    self.zippath[position] = file_path
+
+                    # store filenames
+                    with zipfile.ZipFile(file_path, 'r') as zf:
+                        self.zipfilenames[position] = []
+                        for file_name in zf.namelist():
+                            self.zipfilenames[position].append(file_name)
 
         def has_file(self, position, file_name):
-            if self.zipfiles.has_key(position):
+            if self.zipfilenames.has_key(position):
                 return file_name in self.zipfilenames[position]
             return False
 
@@ -3983,7 +3995,7 @@ init -5 python:
             if renpy.loadable("character_images/" + base_name):
                 base_image = Image("character_images/" + base_name)
                 mask_name = base_name.replace("_" + self.skin_colour,"_Pattern_1") # Match the naming scheme used for the eye patterns.
-                mask_image = Image("character_images/" + base_name)
+                mask_image = Image("character_images/" + mask_name)
             elif zip_manager.has_file(position, base_name):
                 base_image = zip_manager.get_image(position, base_name)
                 mask_name = base_name.replace("_" + self.skin_colour,"_Pattern_1") # Match the naming scheme used for the eye patterns.
@@ -4991,7 +5003,7 @@ init -5 python:
                 final_image = AlphaBlend(constrained_mask, Solid("#00000000"), final_image)
 
             if nipple_wetness > 0: #TODO: Expand this system to a generic "Wetness" system
-                region_mask = region.generate_raw_image(body_type, tit_size, position)
+                region_mask = wet_nipple_region.generate_raw_image(body_type, tit_size, position)
                 #region_mask = Image(wet_nipple_region.generate_item_image_name(body_type, tit_size, position))
                 position_size = position_size_dict[position]
                 region_mask = im.MatrixColor(region_mask, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,nipple_wetness,0])
