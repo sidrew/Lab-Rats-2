@@ -17,6 +17,8 @@ init -2 python:
             return "Too early to visit [nora.title]"
         elif time_of_day == 4:
             return "Too late to visit [nora.title]"
+        elif not nora.get_destination() is university:
+            return "[nora.title] does not work now"
         elif __builtin__.round(mc.business.event_triggers_dict.get("nora_trait_researched").mastery_level, 1) < 2:
             trait_name = mc.business.event_triggers_dict.get("nora_trait_researched").name
             return "Requires: " + trait_name + " Mastery >= 2"
@@ -38,14 +40,13 @@ init -2 python:
             return False
         elif mc.business.event_triggers_dict.get("nora_trait_researched", None) is None and not mc.business.event_triggers_dict.get("nora_cash_research_trigger", False):
             return False
-        elif mc.business.is_weekend():
-            return "[nora.title] does not work weekends"
         elif time_of_day == 0:
             return "Too early to talk to [nora.title] about business"
         elif time_of_day == 4:
             return "Too late to talk to [nora.title] about business"
-        else:
-            return True
+        elif not nora.get_destination() is university:
+            return "[nora.title] does not work now"
+        return True
 
     def nora_research_cash_requirement(the_person):
         if mc.business.event_triggers_dict.get("nora_cash_research_trait", None) is None:
@@ -54,6 +55,8 @@ init -2 python:
             return "Too early to visit [nora.title]"
         elif time_of_day == 4:
             return "Too late to visit [nora.title]"
+        elif not nora.get_destination() is university:
+            return "[nora.title] does not work now"
         elif __builtin__.round(mc.business.event_triggers_dict.get("nora_cash_research_trait").mastery_level, 1) < 2:
             trait_name = mc.business.event_triggers_dict.get("nora_cash_research_trait").name
             return "Requires: " + trait_name + " Mastery >= 2"
@@ -63,12 +66,12 @@ init -2 python:
     def special_research_requirement(the_person):
         if mc.business.event_triggers_dict.get("nora_research_subject", None) is None:
             return "No new research to turn in"
-        elif mc.business.is_weekend():
-            return "[nora.title] does not work weekends"
         elif time_of_day == 0:
             return "Too early to visit [nora.title]"
         elif time_of_day == 4:
             return "Too late to visit [nora.title]"
+        elif not nora.get_destination() is university:
+            return "[nora.title] does not work now"
         else:
             return True
 
