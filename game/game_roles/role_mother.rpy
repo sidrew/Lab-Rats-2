@@ -19,10 +19,10 @@
             return False
         return True
 
-    def mom_work_prmotion_one_before_requirement(start_day):
+    def mom_work_promotion_one_before_requirement(start_day):
         if day < start_day:
             return False
-        elif mc.business.is_weekend(): #TODO: we really need to stop using the buisness to define what the weekend is.
+        elif mc.business.is_weekend(): #TODO: we really need to stop using the business to define what the weekend is.
             return False #No interview on the weekend
         else:
             return True
@@ -68,7 +68,7 @@
         return
 
     def add_mom_work_promotion_one_before_crisis():
-        mom_work_promotion_one_before_crisis = Action("mom work promotion one before", mom_work_prmotion_one_before_requirement, "mom_work_promotion_one_before", args = the_person, requirement_args = renpy.random.randint(day+3, day+8))
+        mom_work_promotion_one_before_crisis = Action("mom work promotion one before", mom_work_promotion_one_before_requirement, "mom_work_promotion_one_before", args = the_person, requirement_args = renpy.random.randint(day+3, day+8))
         mc.business.mandatory_morning_crises_list.append(mom_work_promotion_one_before_crisis)
         return
 
@@ -730,6 +730,9 @@ label mom_work_promotion_one_report(the_person): # She tells you how her intervi
     return
 
 label mom_work_promotion_two_intro(the_person): # She asks you to help her prepare for her one-on-one interview.
+    $ mc.change_location(bedroom)
+    $ mc.location.show_background()
+
     "There's a soft knock at your door as you are getting ready for bed."
     the_person.char "It's me, can I come in?"
     mc.name "Come on on [the_person.title]."
