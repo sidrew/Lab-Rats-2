@@ -1588,7 +1588,6 @@ label family_games_night_fun(the_mom, the_aunt, the_sister, partner):
         opponents = None
         opponent_a = None
         opponent_b = None
-        the_group = None
     return
 
 label family_games_night_cash(the_mom, the_aunt, the_sister, partner):
@@ -1678,7 +1677,6 @@ label family_games_night_cash(the_mom, the_aunt, the_sister, partner):
         opponents = None
         opponent_a = None
         opponent_b = None
-        the_group = None        
     return
 
 label family_games_night_strip(the_mom, the_aunt, the_sister, partner):
@@ -1935,7 +1933,6 @@ label family_games_night_strip(the_mom, the_aunt, the_sister, partner):
         opponents = None
         opponent_a = None
         opponent_b = None
-        the_group = None
     return
 
 label card_round_description(the_mom, the_aunt, the_sister, partner, round_count):
@@ -1980,10 +1977,6 @@ label card_round_description(the_mom, the_aunt, the_sister, partner, round_count
             "Your hand looks strong, but as the cards start to fall you see that [partner.possessive_title] has a much weaker set of cards."
             "It's a close round, but by working together [opponent_a.possessive_title] and [opponent_b.possessive_title] are beat you and secure the win."
 
-    python:
-        opponents = None
-        opponent_a = None
-        opponent_b = None
     return player_win
 
 label cards_winner_reward(the_mom, the_aunt, the_sister, partner):
