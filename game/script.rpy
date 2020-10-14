@@ -3935,12 +3935,12 @@ init -5 python:
                             self.zipfilenames[position].append(file_name)
 
         def has_file(self, position, file_name):
-            if self.zipfilenames.has_key(position):
+            if position in self.zipfilenames:
                 return file_name in self.zipfilenames[position]
             return False
 
         def get_image(self, position, file_name):
-            if self.zippath.has_key(position):
+            if position in self.zippath:
                 return renpy.display.im.ZipFileImage(self.zippath[position], file_name)
             return Image("character_images/empty_holder.png")
 
@@ -5180,16 +5180,16 @@ init -5 python:
         def get_image(self, face, emotion, special_modifier = None):
             if special_modifier:
                 index_string = face + "_" + emotion + "_" + special_modifier
-                if self.images.has_key(index_string):
+                if index_string in self.images:
                     return Image("character_images/" + self.images[index_string])
-                elif self.zip_images.has_key(index_string):
+                elif index_string in self.zip_images:
                     return zip_manager.get_image(self.position_name, self.zip_images[index_string])
 
             index_string = face + "_" + emotion
 
-            if self.images.has_key(index_string):
+            if index_string in self.images:
                 return Image("character_images/" + self.images[index_string])
-            elif self.zip_images.has_key(index_string):
+            elif index_string in self.zip_images:
                 return zip_manager.get_image(self.position_name, self.zip_images[index_string])
 
             return Image("character_images/empty_holder.png")
@@ -5197,15 +5197,15 @@ init -5 python:
         def get_image_name(self, face, emotion, special_modifier = None):
             if special_modifier:
                 index_string = face + "_" + emotion + "_" + special_modifier
-                if self.images.has_key(index_string):
+                if index_string in self.images:
                     return self.images[index_string]
-                elif self.zip_images.has_key(index_string):
+                elif index_string in self.zip_images:
                     return self.zip_images[index_string]
 
             index_string = face + "_" + emotion
-            if self.images.has_key(index_string):
+            if index_string in self.images:
                 return self.images[index_string]
-            elif self.zip_images.has_key(index_string):
+            elif index_string in self.zip_images:
                 return self.zip_images[index_string]
 
             return "empty_holder.png"
@@ -5233,18 +5233,18 @@ init -5 python:
         def get_image(self, body_type, breast_size = "AA" ): #Generates a proper Image object from the file path strings we have stored previously. Prevents object bloat by storing large objects repeatedly for everyone.
             index_string = body_type + "_" + breast_size
 
-            if self.images.has_key(index_string):
+            if index_string in self.images:
                 return Image("character_images/" + self.images[index_string])
-            elif self.zip_images.has_key(index_string):
+            elif index_string in self.zip_images:
                 return zip_manager.get_image(self.position_name, self.zip_images[index_string])
 
             return Image("character_images/empty_holder.png")
 
         def get_image_name(self, body_type, breast_size = "AA" ): #Generates a proper Image object from the file path strings we have stored previously. Prevents object bloat by storing large objects repeatedly for everyone.
             index_string = body_type + "_" + breast_size
-            if self.images.has_key(index_string):
+            if index_string in self.images:
                 return self.images[index_string]
-            elif self.zip_images.has_key(index_string):
+            elif index_string in self.zip_images:
                 return self.zip_images[index_string]
 
             return "empty_holder.png"
