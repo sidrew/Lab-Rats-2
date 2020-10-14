@@ -110,7 +110,7 @@ init -2 python:
 
     def add_alexia_hire_action(the_person):
         remove_item_from_list(lambda x: x.effect == "alexia_intro_phase_two_label", downtown.actions)
-        alexia.set_schedule(downtown, times = [1,2,3]) #She spends her time downtown "working".
+        alexia.set_schedule(downtown, days = [0, 1, 2, 3, 4], times = [1,2,3]) #She spends her time downtown "working".
 
         alexia_hire_action = Action("Hire " + alexia.title + " to work in sales", alexia_hire_requirement, "alexia_hire_label")
         the_person.get_role_reference_by_name("Alexia").actions.append(alexia_hire_action)
