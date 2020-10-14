@@ -253,6 +253,10 @@ label pregnant_tits_announce(start_day, the_person):
 
 init 2 python:
     def pregnant_transform_person(person):
+        if "pre_preg_body" in person.event_triggers_dict:
+            renpy.say("Warning", "Something went wrong with pregnancy transform for " + person.name + ", she is already transformed.")
+            return # already transformed
+
         person.event_triggers_dict["pre_preg_body"] = person.body_type
         person.body_type = "standard_preg_body"
         person.tits = get_larger_tits(person.tits) # Her tits get even larger
@@ -299,7 +303,11 @@ label pregnant_transform_announce(start_day, the_person):
 
 init 2 python:
     def pregnant_finish_announce_person(person):
-        person.event_triggers_dict["preg_old_schedule"] = person.schedule.copy() #Take a shallow copy so we can change their current schedule to nothing
+        if "preg_old_schedule" in person.event_triggers_dict:
+            renpy.say("Warning", "Something went wrong with setting the pregnancy for " + person.name + ", she is already giving birth.")
+            return # she is already giving birth
+
+        person.event_triggers_dict["preg_old_schedule"] = person.schedule.copy()
         person.set_schedule(person.home, times = [0,1,2,3,4])
 
         preg_finish_action = Action("Pregnancy Finish", preg_finish_requirement, "pregnant_finish", args = person, requirement_args = [person, day + renpy.random.randint(4,7)])
@@ -331,11 +339,12 @@ label pregnant_finish_announce(the_person): #TODO: have more variants for girlfr
 
 init 2 python:
     def pregnant_finish_person(person):
-        if not pregnant_role in person.special_role:
-            return
+        if not "preg_old_schedule" in person.event_triggers_dict or not "pre_preg_body" in person.event_triggers_dict:
+            renpy.say("Warning", "Something went wrong with restoring the pregnancy of " + person.name)
+            return False # she is not giving birth
 
-        person.body_type = person.event_triggers_dict.get("pre_preg_body", "standard_body")
-        person.schedule = person.event_triggers_dict.get("preg_old_schedule")
+        person.body_type = person.event_triggers_dict.pop("pre_preg_body")
+        person.schedule =  person.event_triggers_dict.pop("preg_old_schedule") # restore old schedule and clear from dict
 
         person.event_triggers_dict["preg_knows"] = False #Otherwise she immediately knows the next time she's pregnant.
         person.kids += 1 #TODO: add a new role related to a girl being a mother of your kid?
@@ -350,7 +359,7 @@ init 2 python:
 
         if pregnant_role in person.special_role:
             person.special_role.remove(pregnant_role)
-        return
+        return True
 
     def add_tits_shrink_one_announcement(person):
         tit_shrink_one_announcement_action = Action("Tits Shrink One Announcement", tit_shrink_announcement_requirement, "tits_shrink_announcement_one", event_duration = 28)
@@ -363,7 +372,9 @@ init 2 python:
         return
 
 label pregnant_finish(the_person):
-    $ pregnant_finish_person(the_person)
+    $ done = pregnant_finish_person(the_person)
+    if not done:
+        return
 
     "You get a call from [the_person.possessive_title] early in the morning. You answer it."
     the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl! I'll be coming back to work today." #Obviously they're all girls for extra fun in 18 years.
