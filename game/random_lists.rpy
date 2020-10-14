@@ -931,7 +931,7 @@ init 1 python:
             start_sluttiness = 6, start_obedience = 0, start_happiness = 100, start_love = 0, relationship = "Single", kids = 0, base_outfit = emily_base)
 
         emily.generate_home()
-        emily.set_schedule(university, times = [1,2])
+        emily.set_schedule(university, days = [0, 1, 2, 3, 4, 5], times = [1,2])
         emily.set_schedule(emily.home, times = [3])
         emily.home.add_person(emily)
         emily.special_role.append(student_role)
@@ -960,7 +960,7 @@ init 1 python:
 
         lily.special_role.append(sister_role)
         lily.set_schedule(lily.home, times = [3])
-        lily.set_schedule(university, times = [1,2])
+        lily.set_schedule(university, days = [0, 1, 2, 3, 4, 5], times = [1,2])
         lily.home.add_person(lily)
 
         ### MOM ###
