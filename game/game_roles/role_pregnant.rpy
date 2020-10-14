@@ -307,7 +307,7 @@ init 2 python:
             renpy.say("Warning", "Something went wrong with setting the pregnancy for " + person.name + ", she is already giving birth.")
             return # she is already giving birth
 
-        person.event_triggers_dict["preg_old_schedule"] = person.schedule.copy()
+        person.event_triggers_dict["preg_old_schedule"] = copy.deepcopy(person.schedule)
         person.set_schedule(person.home, times = [0,1,2,3,4])
 
         preg_finish_action = Action("Pregnancy Finish", preg_finish_requirement, "pregnant_finish", args = person, requirement_args = [person, day + renpy.random.randint(4,7)])
