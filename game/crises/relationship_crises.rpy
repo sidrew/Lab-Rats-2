@@ -707,7 +707,7 @@ label friends_help_friends_be_sluts_label():
 
 
                     menu:
-                        "Let [person_one.title] give you a blowjob":
+                        "Let [person_two.title] give you a blowjob":
                             mc.name "I'm not about to say no to an offer like that."
                             $ the_group.draw_person(person_one)
                             if girlfriend_role in person_one.special_role or affair_role in person_one.special_role:
