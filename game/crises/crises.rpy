@@ -422,7 +422,7 @@ label broken_AC_crisis_label():
 init 1 python:
     def get_drink_crisis_requirement():
         if anyone_else_in_office():
-            if len(mc.location.people) > 0: #We want this to trigger when the mc is at work and there's someone else in the room.
+            if mc.location.get_person_count() > 0: #We want this to trigger when the mc is at work and there's someone else in the room.
                 return True
         return False
 
@@ -660,7 +660,7 @@ label no_uniform_punishment_label():
 init 1 python:
     def office_flirt_requirement():
         if anyone_else_in_office():
-            if len(mc.location.people) > 0: # Requires you to be in the office during work hours and for other people to be with you.
+            if mc.location.get_person_count() > 0: # Requires you to be in the office during work hours and for other people to be with you.
                 return True
         return False
 
@@ -668,7 +668,7 @@ init 1 python:
     crisis_list.append([office_flirt_crisis,5])
 
 label office_flirt_label():
-    if not len(mc.location.people) > 0:
+    if not mc.location.get_person_count() > 0:
         return #Someone must have quit or moved, so we no longer have anyone to flirt with
 
     $ the_person = get_random_from_list(mc.location.people)
@@ -1721,7 +1721,7 @@ label invest_rep_visit_label(rep_name):
 init 1 python:
     def work_chat_crisis_requirement():
         if mc.business.is_open_for_business() and mc.is_at_work():
-            if len(mc.location.people) > 0: #If we're open for business and there are people in the same location as us
+            if mc.location.get_person_count() > 0: #If we're open for business and there are people in the same location as us
                 return True
         return False
 
@@ -1750,7 +1750,7 @@ label work_chat_crisis_label:
 
     $ the_person.draw_person(position = "sitting")
     "[the_person.title] sits beside you while you're working."
-    if len(mc.location.people) <= 1: #it's just you and her.
+    if mc.location.get_person_count() <= 1: #it's just you and her.
         the_person.char "It's nice to have some company, glad you're here [the_person.mc_title]."
     else:
         the_person.char "Glad to have you helping out [the_person.mc_title]."
@@ -1788,7 +1788,7 @@ label work_chat_crisis_label:
 
             "Talk about her body":
                 mc.name "Hey, I wanted to tell you that you're looking really good. You must really take care of yourself."
-                if len(mc.location.people) <= 1:
+                if mc.location.get_person_count() <= 1:
                     the_person.char "Oh, well thank you. Should we really be talking about that though?"
                     "She looks away, a little embarrassed."
                     mc.name "There's nobody else around; I don't think there's anything wrong with appreciating the work someone puts into making sure they look good."
@@ -1878,7 +1878,7 @@ label work_chat_crisis_label:
         the_person.char "It's nice having you here as a distraction [the_person.mc_title]. Sitting at a desk all day drives me a little stir crazy."
         $ the_person.draw_person(position="sitting")
 
-        if len(mc.location.people) <= 1:
+        if mc.location.get_person_count() <= 1:
             if not the_person.get_opinion_score("public sex") < 0:
                 "She sits back down beside you. You work together for a few more minutes before she sighs and puts her pen down again."
                 if the_person.obedience < 110:
@@ -2002,7 +2002,7 @@ label work_chat_crisis_label:
                 mc.name "Having fun?"
                 the_person.char "Oh! I'm sorry I just..."
                 "She keeps moving her hand, fingering herself below the desk."
-                if len(mc.location.people) > 2:
+                if mc.location.get_person_count() > 2:
                     the_person.char "I can't focus and need to do relax. Keep your voice down, I don't want everyone to know."
                 else:
                     $ other_people = []
@@ -3204,7 +3204,7 @@ label horny_at_work_crisis_label():
 
                 #TODO: Make sure all of this is context aware in some way for other people in the room.
                 $ willingness_value = the_person.sluttiness + (the_person.obedience - 100) + the_person.get_opinion_score("being submissive") * 10
-                if len(mc.location.people) > 1:
+                if mc.location.get_person_count() > 1:
                     $ willingness_value += the_person.get_opinion_score("public sex") * 10
 
                 $ others = mc.location.people[:]
@@ -3299,7 +3299,7 @@ label horny_at_work_crisis_label():
                         mc.name "Well, I need this taken care of so I can get back to work. I want you to get under my desk and suck me off."
                         $ willingness_value += the_person.get_opinion_score("giving blowjobs") * 10
                         if willingness_value >= blowjob.slut_requirement:
-                            if (the_person.get_opinion_score("public sex") > 0 and len(mc.location.people) > 1) or the_person.get_opinion_score("giving blowjobs") > 0:
+                            if (the_person.get_opinion_score("public sex") > 0 and mc.location.get_person_count() > 1) or the_person.get_opinion_score("giving blowjobs") > 0:
                                 the_person.char "Okay, if that's what you need."
                                 "She gets onto her hands and knees, crawling under your desk and nestling herself between your legs."
                             else:
