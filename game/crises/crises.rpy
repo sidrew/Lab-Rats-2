@@ -2930,12 +2930,12 @@ label horny_at_work_crisis_label():
                 # $ the_group.draw_group(position = "sitting", emotion = "angry")
 
                 $ main_unhappy_person.draw_person(position = "sitting")
-                if len(mc.location.get_person_count()) == 1: #She's the only person in the room.
+                if mc.location.get_person_count() == 1: #She's the only person in the room.
                     "It doesn't take long for [main_unhappy_person.title] to notice what you're doing. When she glances over she does a double take before gasping and yelling out."
                 else: #It's more than one person
                     "It doesn't take long for someone to notice what you're doing. When [main_unhappy_person.title] glances at you she does a double take before gasping and yelling out."
                 main_unhappy_person.char "Oh my god, what are you doing? [main_unhappy_person.mc_title], are you insane?!"
-                if len(mc.location.get_person_count()) == 1:
+                if mc.location.get_person_count() == 1:
                     $ clear_scene()
                     $ the_group.draw_group(position = "sitting", emotion = "angry")
                     "The rest of the office girls look up from their work, surprised by the sudden interruption."
