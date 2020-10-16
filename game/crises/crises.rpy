@@ -3063,7 +3063,7 @@ label horny_at_work_crisis_label():
                         else:
                             "[the_choice.title] stumbles back to her desk and collapses into her chair, legs still quivering."
 
-                        if len(helpful_people > 1):
+                        if len(helpful_people) > 1:
                             "The other girls are still standing next to your desk, and you haven't exhausted yourself quite yet..."
                         else:
                             $ renpy.say("", helpful_people[0].title + " is still standing next to your desk, and you haven't exhausted yourself quite yet...")
@@ -3073,7 +3073,7 @@ label horny_at_work_crisis_label():
                         $ display_list.append(exit_option)
                         call screen person_choice(display_list, person_prefix = "Pick")
                         if _return == exit_option:
-                            if len(helpful_people > 1):
+                            if len(helpful_people) > 1:
                                 "You wave the girls back to their desk. They seem disappointed they didn't get a chance to service you."
                             else:
                                 "You wave her back to her desk. She seems disappointed that she didn't get a chance to service you."
