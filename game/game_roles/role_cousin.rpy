@@ -32,7 +32,7 @@ init -2 python:
             return False
         elif day < the_person.event_triggers_dict.get("last_blackmailed",-5) + 5:
             return "Blackmailed too recently"
-        elif __builtin__.len(mc.location.people) > 1:
+        elif mc.location.get_person_count() > 1:
             return "Must be in private"
         else:
             return True
@@ -70,8 +70,9 @@ init -2 python:
     def blackmail_2_confront_requirement(the_person):
         if the_person.event_triggers_dict.get("blackmail_level", -1) != 1:
             return False
-        else:
-            return True
+        elif the_person.get_destination() == strip_club:
+            return "Not in the strip club"
+        return True
 
     def cousin_boobjob_ask_requirement(the_person, start_day):
         if day < start_day:
