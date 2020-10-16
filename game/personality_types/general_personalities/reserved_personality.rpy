@@ -906,7 +906,7 @@ label reserved_being_watched(the_person, the_watcher, the_position):
 
     elif the_person.sluttiness >= the_position.slut_cap and the_watcher.sluttiness < the_position.slut_requirement:
         #She's super slutty and doesn't care what people think.
-        "[the_person.title] ignores [the_watcher.title] and keeps [the_position.verb] you."
+        "[the_person.title] ignores [the_watcher.title] and keeps [the_position.verbing] you."
 
     elif the_person.sluttiness >= the_position.slut_cap and the_watcher.sluttiness < the_position.slut_cap:
         #She's super slutty and encourages the watcher to be slutty.

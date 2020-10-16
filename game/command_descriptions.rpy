@@ -635,7 +635,7 @@ label suck_demand_label(the_person):
                 "Her eyes flutter briefly as you bottom out, balls rubbing against her chin. You can feel her quiver as she tries to suppress her gag reflex."
 
             else: #Gags
-                "[the_person.title] instinctively tries to jerk away, but clamp down and don't let her move."
+                "[the_person.title] instinctively tries to jerk away, but you clamp down and don't let her move."
                 "Her eyes open wide as you force your cock clear down her throat. She gags hard, blowing spit out where her lips meet the base of your shaft."
                 mc.name "I think you still need a little more practice. Let's see what we can do about that..."
 
