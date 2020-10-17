@@ -17,6 +17,8 @@ init -2 python:
             return "Too early to visit [nora.title]"
         elif time_of_day == 4:
             return "Too late to visit [nora.title]"
+        elif not nora.get_destination() is university:
+            return "[nora.title] does not work now"
         elif __builtin__.round(mc.business.event_triggers_dict.get("nora_trait_researched").mastery_level, 1) < 2:
             trait_name = mc.business.event_triggers_dict.get("nora_trait_researched").name
             return "Requires: " + trait_name + " Mastery >= 2"
