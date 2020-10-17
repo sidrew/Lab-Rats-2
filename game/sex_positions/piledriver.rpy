@@ -66,7 +66,7 @@ label scene_piledriver_1(the_girl, the_location, the_object):
                 "You pause and give [the_girl.possessive_title] a chance to get use to having your cock buried inside of her cunt."
                 "She takes a few deep breaths, then nods to you."
                 the_girl.char "Okay, I think I'm ready. Take it slow though."
-                if the_girl.arousal < 50:
+                if the_girl.arousal > 50:
                     "You start to pump your hips. [the_girl.title]'s pussy is tight but wet, giving you just enough lubrication to slide in and out easily."
                     mc.name "There you go, I knew you could manage it."
                     the_girl.char "Oh... I can... I can do this..."
