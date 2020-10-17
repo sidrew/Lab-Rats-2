@@ -2199,16 +2199,16 @@ init -5 python:
 
 
             for event_list in [self.on_room_enter_event_list, self.on_talk_event_list]: #Go through both of these lists and curate them, ie trim out events that should have expired.
-                removal_list = [] #So we can iterate through without removing and damaging the list.
-                for an_action in event_list:
+                removal_list_index = [] #So we can iterate through without removing and damaging the list.
+                for an_index, an_action in enumerate(event_list):
                     if isinstance(an_action, Limited_Time_Action): #It's a LTA holder, so it has a turn counter
                         an_action.turns_valid += -1
                         if an_action.turns_valid <= 0:
-                            removal_list.append(an_action)
+                            removal_list_index.append(an_index)
 
-                for action_to_remove in removal_list:
-                    event_list.remove(action_to_remove)
-
+                removal_list_index.reverse()
+                for action_index_to_remove in removal_list_index:
+                    del event_list[action_index_to_remove]
 
 
         def run_day(self): #Called at the end of the day.

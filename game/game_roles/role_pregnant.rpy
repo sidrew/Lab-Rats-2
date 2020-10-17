@@ -372,12 +372,12 @@ init 2 python:
 
     def add_tits_shrink_one_announcement(person):
         tit_shrink_one_announcement_action = Action("Tits Shrink One Announcement", tit_shrink_announcement_requirement, "tits_shrink_announcement_one", event_duration = 28)
-        person.on_talk_event_list.append(tit_shrink_one_announcement_action) #And here is where she tells you about those changes
+        person.on_talk_event_list.append(Limited_Time_Action(tit_shrink_one_announcement_action, tit_shrink_one_announcement_action.event_duration))
         return
 
     def add_tits_shrink_two_announcement(person):
         tit_shrink_two_announcement_action = Action("Tits Shrink Two Announcement", tit_shrink_announcement_requirement, "tits_shrink_announcement_two", event_duration = 28)
-        person.on_talk_event_list.append(tit_shrink_two_announcement_action)
+        person.on_talk_event_list.append(Limited_Time_Action(tit_shrink_two_announcement_action, tit_shrink_two_announcement_action.event_duration))
         return
 
 label pregnant_finish(the_person):
@@ -403,7 +403,8 @@ label pregnant_finish(the_person):
 
 label tits_shrink(the_person, reduce_lactation, announcement_function):
     python:
-        the_person.lactation_sources -= 1
+        if person.lactation_sources > 0:
+            the_person.lactation_sources -= 1
         the_person.tits = get_smaller_tits(the_person.tits)
         the_person.personal_region_modifiers["breasts"] = the_person.personal_region_modifiers["breasts"] - 0.1
         announcement_function(the_person)
