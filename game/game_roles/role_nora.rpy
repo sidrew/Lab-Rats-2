@@ -186,6 +186,9 @@ label nora_intro_label(the_person):
     mc.name "Understood. I'll be back once the testing is done."
     $ clear_scene()
 
+    $ the_nora.set_schedule(university, days=[0, 1, 2, 3, 4], times =[1,2,3])
+    $ the_nora.set_schedule(university, days=[5], times =[1,2])
+
     $ the_nora = None
     $ add_nora_university_research_actions()
     $ mc.location.show_background()
@@ -226,12 +229,9 @@ label nora_research_up_label(the_person):
         list_of_nora_traits.remove(the_trait)
         del the_trait
 
-        nora.set_schedule(university, days=[0, 1, 2, 3, 4], times =[1,2,3])
-        nora.set_schedule(university, days=[5], times =[1,2])
         clear_scene()
 
         add_nora_research_intro_action(the_person)
-
     return
 
 label nora_research_cash_intro(the_person):
