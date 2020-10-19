@@ -650,7 +650,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
         the_person.char "Ah... Ah... Mmph..."
         "You hear her panting softly under her breath."
         $ the_item = the_person.outfit.get_lower_top_layer()
-        if the_item is None:
+        if the_item:
             "You take another step closer and you can see that she has her legs spread wide, one hand underneath her [the_item.display_name] fingering her cunt."
         else:
             "You take another step closer and you can see that she has her legs spread wide, one hand between them fingering her cunt."
