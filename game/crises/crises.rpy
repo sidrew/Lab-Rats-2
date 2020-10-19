@@ -534,7 +534,7 @@ label no_uniform_punishment_label():
                     $ the_person.change_happiness(-2)
                     "[the_person.title] walks off."
 
-                "Reduce her pay/n{color=#ff0000}{size=18} -$[pay_percent]/day {/size}{/color}":
+                "Reduce her pay\n{color=#ff0000}{size=18} -$[pay_percent]/day {/size}{/color}":
                     mc.name "This is honestly unacceptable [the_person.title]. You knew what the uniform policy was and chose to violate it anyway."
                     the_person.char "It won't happen again, I'll go get changed right now."
                     mc.name "I'm sorry, but that's not good enough. I'm going to have to reduce your pay until your behavior improves."
