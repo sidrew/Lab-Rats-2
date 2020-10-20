@@ -3319,6 +3319,7 @@ init -5 python:
             self.sex_record["Anal Creampies"] += 1
 
         def cum_on_face(self):
+            mc.listener_system.fire_event("sex_cum_on_face", the_person = self)
             if self.outfit.can_add_accessory(face_cum):
                 the_cumshot = face_cum.get_copy()
                 the_cumshot.layer = 0
@@ -3335,6 +3336,7 @@ init -5 python:
             self.sex_record["Cum Facials"] += 1
 
         def cum_on_tits(self):
+            mc.listener_system.fire_event("sex_cum_on_tits", the_person = self)
             if self.outfit.can_add_accessory(tits_cum):
                 the_cumshot = tits_cum.get_copy()
                 if self.outfit.get_upper_visible():
@@ -3351,6 +3353,7 @@ init -5 python:
             self.sex_record["Cum Covered"] += 1
 
         def cum_on_stomach(self):
+            mc.listener_system.fire_event("sex_cum_on_stomach", the_person = self)
             if self.outfit.can_add_accessory(stomach_cum):
                 the_cumshot = stomach_cum.get_copy()
                 if self.outfit.get_upper_visible():
@@ -3367,6 +3370,7 @@ init -5 python:
             self.sex_record["Cum Covered"] += 1
 
         def cum_on_ass(self):
+            mc.listener_system.fire_event("sex_cum_on_ass", the_person = self)
             if self.outfit.can_add_accessory(ass_cum):
                 the_cumshot = ass_cum.get_copy()
                 if self.outfit.get_lower_visible():
