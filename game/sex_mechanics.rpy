@@ -816,8 +816,8 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
                     $ renpy.say("", "You pull her " + strip_choice.display_name + " off, dropping it to the ground.")
 
             $ arousal_change = 0
-            if strip_type == "Half":
-                $ arousal_change += -5
+            if strip_type == "Full":
+                $ arousal_change -= 5
 
             if underwear_revealed or boobs_revealed or ass_revealed:
                 $ arousal_change += the_person.get_opinion_score("not wearing anything") * 2
