@@ -175,7 +175,7 @@ label mom_sex_responses_anal(the_person):
             "She pants happily."
 
         else:
-            the_personchar "Oh my god, I'm starting to feel like I might... actually cum!"
+            the_person.char "Oh my god, I'm starting to feel like I might... actually cum!"
             "She gasps and pants happily as you anal her."
     return
 
