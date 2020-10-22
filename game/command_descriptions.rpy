@@ -474,7 +474,7 @@ label demand_strip_underwear_label(the_person):
     else:
         "[the_person.title] immediately puts her hands behind her back and pushes her chest forward, accentuating her tits."
         the_person.char "So, what do you think? Does my underwear look good?"
-        mc.name "I does, you look cute."
+        mc.name "It does, you look cute."
         "She smiles and gives you a spin, letting you take a look at her from behind."
         $ the_person.draw_person(position = "back_peek")
         "You enjoy the view for a little while longer, then nod approvingly to [the_person.possessive_title]."
