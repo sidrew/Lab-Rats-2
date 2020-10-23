@@ -56,7 +56,7 @@ label study_check_up(the_student, the_mom):
         $ the_group.draw_person(the_student)
         $ the_student.change_obedience(1)
         $ the_student.change_love(1)
-        the_student.char "Thanks Mom, It was really [the_student.title], he's a very engaging teacher."
+        the_student.char "Thanks Mom, It was really [the_student.mc_title], he's a very engaging teacher."
 
 
     else:
