@@ -403,7 +403,7 @@ label pregnant_finish(the_person):
 
 label tits_shrink(the_person, reduce_lactation, announcement_function):
     python:
-        if person.lactation_sources > 0:
+        if the_person.lactation_sources > 0:
             the_person.lactation_sources -= 1
         the_person.tits = get_smaller_tits(the_person.tits)
         the_person.personal_region_modifiers["breasts"] = the_person.personal_region_modifiers["breasts"] - 0.1
