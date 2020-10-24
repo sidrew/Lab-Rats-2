@@ -7391,7 +7391,7 @@ screen employee_overview(white_list = None, black_list = None, person_select = F
 
                     for person in display_list:
                         vbox:
-                            textbutton person.name + "\n" + person.last_name style "textbutton_style" text_style "menu_text_style" action Show("person_info_detailed",None,person) xmaximum 120 xfill True text_size 12
+                            textbutton person.name + "\n" + person.last_name style "textbutton_style" text_style "menu_text_style" action Show("person_info_detailed", the_person = person) xmaximum 120 xfill True text_size 12
                             if person_select:
                                 textbutton "Select" style "textbutton_style" text_style "menu_text_style" action Return(person) xsize 120 yalign 0.5 text_size 12
                         text "$" + str(person.salary) + "/day" style "menu_text_style" xsize 120 yalign 0.5 size 12
@@ -7609,7 +7609,7 @@ screen person_info_detailed(the_person):
 
                     text "Kids: [the_person.kids]" style "menu_text_style"
                     #TODO: Decide how much of this information we want to give to the player directly and how much we want to have delivered in game.
-                    if persistent.pregnancy_pref > 0:
+                    if isinstance(the_person, Person) and persistent.pregnancy_pref > 0:
                         if persistent.pregnancy_pref == 1:
                             text "Fertility: " + str(round(the_person.fertility_percent)) + "%" style "menu_text_style"
                         if persistent.pregnancy_pref == 2:
