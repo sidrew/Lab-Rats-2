@@ -3272,7 +3272,7 @@ init -5 python:
 
             slut_change_amount = 5*self.get_opinion_score("creampies")
 
-            if the_person.wants_creampie():
+            if self.wants_creampie():
                 self.change_happiness(5*self.get_opinion_score("creampies"))
             else:
                 self.change_happiness(-5 + (5*self.get_opinion_score("creampies")))
