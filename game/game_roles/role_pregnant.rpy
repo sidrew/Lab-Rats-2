@@ -32,6 +32,9 @@ init -1 python:
         return True
 
     def become_pregnant(person): # Called when a girl is knocked up. Establishes all of the necessary bits of info.
+        if not person or pregnant_role in person.special_role:
+            return
+
         person.event_triggers_dict["preg_accident"] = person.on_birth_control # If a girl is on birth control the pregnancy is an accident.
         person.event_triggers_dict["preg_start_date"] = day
         person.event_triggers_dict["preg_tits_date"] = day + 14 + renpy.random.randint(0,5)
