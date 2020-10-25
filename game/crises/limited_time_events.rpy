@@ -80,7 +80,7 @@ init -1 python:
             return False
         elif the_person not in mc.business.get_employee_list():
             return False
-        elif the_person.effective_sluttiness() < 20 - (5*the_person.get_opinion_score("masturbating")):
+        elif the_person.effective_sluttiness() < 40 - (5*the_person.get_opinion_score("masturbating")):
             return False
         else:
             return True
