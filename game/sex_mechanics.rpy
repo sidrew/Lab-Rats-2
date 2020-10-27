@@ -191,7 +191,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
                     $ object_choice = _return
 
                 if position_choice and object_choice:
-                    call check_position_willingness(the_person, position_choice, ignore_taboo = ignore_taboo, skip_dialog = True) from _call_check_position_willingness
+                    call check_position_willingness(the_person, position_choice, ignore_taboo = ignore_taboo) from _call_check_position_willingness
                     if not _return: #If she wasn't willing for whatever reason (too slutty a position, not willing to wear a condom) we clear our settings and try again.
                         $ position_choice = None
                         $ object_choice = None
@@ -271,7 +271,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
 
 
         elif isinstance(round_choice, Position): #The only non-strings on the list are positions we are changing to
-            call check_position_willingness(the_person, round_choice, ignore_taboo = ignore_taboo) from _call_check_position_willingness_1
+            call check_position_willingness(the_person, round_choice, ignore_taboo = ignore_taboo, skip_dialog = True) from _call_check_position_willingness_1
             if _return:
                 $ round_choice.redraw_scene(the_person)
                 if the_person.has_taboo(round_choice.associated_taboo) and not ignore_taboo:
