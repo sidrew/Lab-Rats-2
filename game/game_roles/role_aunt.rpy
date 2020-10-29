@@ -685,8 +685,11 @@ label aunt_share_drinks_label(the_person):
                 the_person.char "Okay, okay, you've twisted my arm. I'm not to blame for any of my actions beyond this point though!"
                 "She hands you her glass and you head to the kitchen to uncork her bottle of wine."
                 menu:
-                    "Add a dose of serum to her wine":
+                    "Add a dose of serum to her wine" if mc.inventory.get_any_serum_count() > 0:
                         call give_serum(the_person) from _call_give_serum_13
+
+                    "Add a dose of serum to her wine\n{color=#ff0000}{size=18}Requires: Serum{/size}{/color} (disabled)" if mc.inventory.get_any_serum_count() == 0:
+                        pass
 
                     "Leave her drink alone":
                         pass
