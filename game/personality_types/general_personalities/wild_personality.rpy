@@ -530,7 +530,7 @@ label wild_flirt_response_high(the_person):
                 else:
                     "You put your arm around [the_person.possessive_title] and pull her close, leaning in to kiss her."
                     "She responds immediately, pressing her body against yours and kissing you back."
-                call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_50
+                call fuck_person(the_person, start_position = kissing, private = mc.location.get_person_count() < 2, skip_intro = True) from _call_fuck_person_50
 
             "Just flirt":
                 $ the_person.draw_person()
@@ -574,7 +574,7 @@ label wild_flirt_response_girlfriend(the_person):
                 "Make out":
                     "You don't say a word as you lean back and kiss her again, slowly and sensually this time."
                     "[the_person.title] presses her body against you in response, grinding her hips against your thigh."
-                    call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_77
+                    call fuck_person(the_person, start_position = kissing, private = False, skip_intro = True) from _call_fuck_person_77
 
                 "Just flirt":
                     mc.name "I just like to tease you."

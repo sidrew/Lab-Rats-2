@@ -501,7 +501,7 @@ label bimbo_flirt_response_high(the_person):
                     "You kiss her, and she rubs her body against you eagerly."
                 else:
                     "You put your arm around [the_person.title]'s waist and pull her close. She leans her body against you eagerly as you kiss her."
-                call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_56
+                call fuck_person(the_person, start_position = kissing, private = mc.location.get_person_count() < 2, skip_intro = True) from _call_fuck_person_56
 
             "Just flirt":
                 mc.name "I do, but it'll have to be some other time."
@@ -548,7 +548,7 @@ label bimbo_flirt_response_girlfriend(the_person):
                     $ blowjob.current_modifier = "blowjob"
                     $ blowjob.redraw_scene(the_person)
                     "She slips you into her warm, wet mouth and sucks on the tip eagerly."
-                    call fuck_person(the_person, start_position = blowjob, skip_intro = True) from _call_fuck_person_62
+                    call fuck_person(the_person, start_position = blowjob, private = False, skip_intro = True) from _call_fuck_person_62
 
                 "Just flirt":
                     mc.name "Thanks for the offer, but I'm a little busy at the moment."

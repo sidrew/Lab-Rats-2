@@ -517,7 +517,7 @@ label introvert_flirt_response_high(the_person):
                     "You lean forward and press your lips against hers. [the_person.possessive_title] responds, leaning her body against yours."
                 else:
                     "You wrap your hands around [the_person.title]'s waist and pull her close to kiss her. She returns the kiss immediately, pressing her body against yours."
-                call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_58
+                call fuck_person(the_person, start_position = kissing, private = mc.location.get_person_count() < 2, skip_intro = True) from _call_fuck_person_58
 
             "Just flirt":
                 $ the_person.draw_person()
@@ -558,7 +558,7 @@ label introvert_flirt_response_girlfriend(the_person):
                 "Kiss her":
                     mc.name "Why wait until later? You aren't that shy, are you?"
                     "You put your arm around her waist and pull her close. She closes her eyes and leans against you as you kiss her."
-                    call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_82
+                    call fuck_person(the_person, start_position = kissing, private = False, skip_intro = True) from _call_fuck_person_82
 
                 "Just flirt":
                     mc.name "Well when we're alone I'll make sure you feel just as lucky. I've got a few ideas how to do that..."

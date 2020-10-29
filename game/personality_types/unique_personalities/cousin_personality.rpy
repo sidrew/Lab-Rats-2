@@ -155,7 +155,7 @@ label cousin_flirt_response_high(the_person):
             mc.name "Well... I wouldn't say no."
             the_person.char "Yeah, that's what I thought. So let's try not to get in trouble, okay?"
             $ the_person.draw_person()
-            "She lets go of her boobs and lets them drop. It takes a second before they stop jiggling completely."
+            "She legs go of her boobs and lets them drop. It takes a second before they stop jiggling completely."
             mc.name "Alright, I get it."
 
     return

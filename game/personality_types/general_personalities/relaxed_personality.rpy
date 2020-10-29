@@ -549,7 +549,7 @@ label relaxed_flirt_response_high(the_person):
                     pass
 
                 "You close the final gap and kiss her. She returns the kiss immediately, leaning her body against yours."
-                call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_48
+                call fuck_person(the_person, start_position = kissing, private = mc.location.get_person_count() < 2, skip_intro = True) from _call_fuck_person_48
 
             "Just flirt":
                 mc.name "I wish we could, but I'll need to take a rain check."
@@ -589,7 +589,7 @@ label relaxed_flirt_response_girlfriend(the_person):
                 "Make out":
                     "You put your hand on the back of her neck and pull her close again, kissing her slowly and sensually."
                     "She sighs happily and leans her body against you, clearly unworried about anyone else around."
-                    call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_72
+                    call fuck_person(the_person, start_position = kissing, private = False, skip_intro = True) from _call_fuck_person_72
 
                 "Just flirt":
                     mc.name "So, is there anything else you want to kiss? I've got some suggestions..."

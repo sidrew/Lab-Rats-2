@@ -365,7 +365,7 @@ label reserved_seduction_refuse(the_person):
 label reserved_flirt_response(the_person):
     if the_person.obedience > 130:
         if the_person.sluttiness > 50:
-            the_person.char "It would be so improper, but for you I'm sure I could arange something special."
+            the_person.char "It would be so improper, but for you I'm sure I could arrange something special."
         else:
             the_person.char "Thank you for the compliment, [the_person.mc_title], I appreciate it."
 
@@ -551,7 +551,7 @@ label reserved_flirt_response_high(the_person):
                     "You lean in and kiss her. She presses her body up against yours."
                 else:
                     "When you lean in and kiss her she responds by pressing her body tight against you."
-                call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_52
+                call fuck_person(the_person, start_position = kissing, private = mc.location.get_person_count() < 2, skip_intro = True) from _call_fuck_person_52
 
             "Just flirt":
                 $ the_person.draw_person()
@@ -597,7 +597,7 @@ label reserved_flirt_response_girlfriend(the_person):
                 "Make out":
                     "You respond by putting your arm around her waist and pulling her tight against you."
                     "You kiss her, and she eagerly grinds her body against you."
-                    call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_67
+                    call fuck_person(the_person, start_position = kissing, private = False, skip_intro = True) from _call_fuck_person_67
 
                 "Just flirt":
                     mc.name "It was very nice. I've got some other nice things for you to kiss too, if you'd like."
