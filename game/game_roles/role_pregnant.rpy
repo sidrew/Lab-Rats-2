@@ -386,7 +386,10 @@ label pregnant_finish(the_person):
         return
 
     "You get a call from [the_person.possessive_title] early in the morning. You answer it."
-    the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl! I'll be coming back to work today." #Obviously they're all girls for extra fun in 18 years.
+    if day%7 == 5 or day%7 == 6:    # event triggers at start of day (so on sat or sun, next workday is monday)
+        the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl! I'll be coming back to work monday." #Obviously they're all girls for extra fun in 18 years.
+    else:
+        the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl! I'll be coming back to work today." #Obviously they're all girls for extra fun in 18 years.
     #TODO: Let you pick a name (or at low obedience she's already picked one)
     mc.name "That's amazing, but are you sure you don't need more rest?"
     if affair_role in the_person.special_role:
