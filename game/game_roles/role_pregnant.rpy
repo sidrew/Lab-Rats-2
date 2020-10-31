@@ -77,9 +77,6 @@ init -1 python:
 
 
 label pregnant_announce(the_person):
-     #It's been a long time since this event was added. She's surprised to see you.
-    #if the_person.event_triggers_dict.get("preg_accident", False):
-        #It was an accident.
     $ the_person.draw_person()
     $ the_person.event_triggers_dict["preg_knows"] = True #Set here and in the larger tits, represents the person knowing they're pregnant so they don't ask for condoms ect.
     $ was_accident = the_person.event_triggers_dict.get("preg_accident", False)
