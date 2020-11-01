@@ -120,7 +120,7 @@ label grope_ass(the_person):
             the_person.char "Uh... [the_person.mc_title]. Do you mind?"
             mc.name "Is something wrong?"
             "You grab a handful of her ass and squeeze, making her yelp quietly."
-            the_person.char "Ah! You're hand is on my..."
+            the_person.char "Ah! Your hand is on my..."
             $ the_person.change_arousal(5 + mc.sex_skills["Foreplay"])
             $ the_person.change_slut_temp(2)
             $ the_person.change_love(-1)
