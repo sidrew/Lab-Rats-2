@@ -205,7 +205,7 @@ init -5 python:
 
         elif obedience_amount < 200: #150 to 200
             obedience_string = "Subservient"
-        
+
         else:    #200 or more
             obedience_string = "Slave"
 
@@ -859,7 +859,7 @@ init -5 python:
                     self.add_normal_message("+" + str((value_change-1)*100) + "% serum value due to " + maxed_multiplier + ".")
                 elif value_change < 1: #No message shown for exactly 1.
                     self.add_normal_message(str((value_change-1)*100) + "% serum value due to " + maxed_multiplier + ".") #Duplicate normal messages are not shown twice, so this should only exist once per turn, per multiplier.
-            
+
             #Total number of doses of serum that can be sold by this person.
             serum_sale_count = __builtin__.int(__builtin__.round( (((3 * cha) + focus + (2 * skill)) * self.team_effectiveness) / 100, 0))
             sorted_by_value = sorted(self.sale_inventory.serums_held, key = lambda serum: serum[0].value) #List of tuples [SerumDesign, count], sorted by the value of each design. Used so most valuable serums are sold first.
@@ -1248,7 +1248,7 @@ init -5 python:
                 self.fire_head_researcher()
             self.head_researcher = person
             person.special_role.append(head_researcher)
-        
+
         def fire_head_researcher(self):
             if self.head_researcher:
                 self.head_researcher.special_role.remove(head_researcher)
@@ -3104,7 +3104,7 @@ init -5 python:
                 no_condom_threshold += 10 #If pregnancy content is being ignored we return to the baseline of 60
             elif pregnant_role in self.special_role and self.event_triggers_dict.get("preg_knows", False): # Is pregnant and knows, it so she doesn't mind doing it without
                 no_condom_threshold -= 20
-            elif not the_person.on_birth_control: # much more likely to want it when not using BC.
+            elif not self.on_birth_control: # much more likely to want it when not using BC.
                 no_condom_threshold += 20
 
             return no_condom_threshold
@@ -3192,22 +3192,22 @@ init -5 python:
 
         def wants_creampie(self): #Returns True if the girl is going to use dialogue where she wants you to creampie her, False if she's going to be angry about it. Used to help keep dialogue similar throughout events
             creampie_threshold = 75
-            effective_slut = the_person.effective_sluttiness("creampie") + (10*the_person.get_opinion_score("creampies"))
-            if the_person.on_birth_control:
+            effective_slut = self.effective_sluttiness("creampie") + (10*self.get_opinion_score("creampies"))
+            if self.on_birth_control:
                 effective_slut += -20 #Much more willing to let you creampie her if she's on BC
 
-            if affair_role in the_person.special_role:
-                effective_slut += 5 - (10 * the_person.get_opinion_score("cheating on men"))
-            elif the_person.relationship != "Single": # Less likely to want to be creampied if she's in a relationship, but cares less if you're officially cheating.
-                effective_slut += 15 - (10 * the_person.get_opinion_score("cheating on men"))
+            if affair_role in self.special_role:
+                effective_slut += 5 - (10 * self.get_opinion_score("cheating on men"))
+            elif self.relationship != "Single": # Less likely to want to be creampied if she's in a relationship, but cares less if you're officially cheating.
+                effective_slut += 15 - (10 * self.get_opinion_score("cheating on men"))
 
-            if girlfriend_role in the_person.special_role:
-                effective_slut += -(10 + (5*the_person.get_opinion_score("being submissive"))) #Desire to be a "good wife"
+            if girlfriend_role in self.special_role:
+                effective_slut += -(10 + (5*self.get_opinion_score("being submissive"))) #Desire to be a "good wife"
 
-            if the_person.is_family():
-                effective_slut += 10 - (10 * the_person.get_opinion_score("incest"))
+            if self.is_family():
+                effective_slut += 10 - (10 * self.get_opinion_score("incest"))
 
-            if effective_slut >= creampie_threshold or the_person.event_triggers_dict.get("preg_knows", False):
+            if effective_slut >= creampie_threshold or self.event_triggers_dict.get("preg_knows", False):
                 return True
 
             return False
@@ -3482,8 +3482,8 @@ init -5 python:
             "improved_serum_unlock", "sex_strip", "sex_watch", "being_watched", "work_enter_greeting", "date_seduction", "sex_end_early", "sex_take_control", "sex_beg_finish", "introduction",
             "kissing_taboo_break", "touching_body_taboo_break", "touching_penis_taboo_break", "touching_vagina_taboo_break", "sucking_cock_taboo_break", "licking_pussy_taboo_break", "vaginal_sex_taboo_break", "anal_sex_taboo_break",
             "condomless_sex_taboo_break", "underwear_nudity_taboo_break", "bare_tits_taboo_break", "bare_pussy_taboo_break",
-            "facial_cum_taboo_break", "mouth_cum_taboo_break", "body_cum_taboo_break", "creampie_taboo_break", "anal_creampie_taboo_break"]    
-        
+            "facial_cum_taboo_break", "mouth_cum_taboo_break", "body_cum_taboo_break", "creampie_taboo_break", "anal_creampie_taboo_break"]
+
         def __init__(self, personality_type_prefix, default_prefix = None,
             common_likes = None, common_dislikes = None, common_sexy_likes = None, common_sexy_dislikes = None,
             titles_function = None, possessive_titles_function = None, player_titles_function = None):
@@ -3910,7 +3910,7 @@ init -5 python:
 
         def __init__(self):
             def get_file_handle(file_name):
-                found = None       
+                found = None
                 for file in renpy.list_files():
                     if file_name in file:
                         found = file
@@ -5228,7 +5228,7 @@ init -5 python:
                         if renpy.loadable("character_images/" + image_name):
                             self.images[body + "_" + breast] = image_name
                         elif zip_manager.has_file(position_name, image_name):
-                            self.zip_images[body + "_" + breast] = image_name                       
+                            self.zip_images[body + "_" + breast] = image_name
 
         def get_image(self, body_type, breast_size = "AA" ): #Generates a proper Image object from the file path strings we have stored previously. Prevents object bloat by storing large objects repeatedly for everyone.
             index_string = body_type + "_" + breast_size
@@ -11012,7 +11012,7 @@ label interview_action_description:
                     for x in __builtin__.range(0,reveal_count): #Reveal all of their opinions based on our policies.
                         a_candidate.discover_opinion(a_candidate.get_random_opinion(include_known = False, include_sexy = reveal_sex),add_to_log = False) #Get a random opinion and reveal it.
                 a_candidate = None
-            
+
             call hire_select_process(candidates) from _call_hire_select_process
             $ candidates = [] #Prevent it from using up extra memory
 
@@ -11026,7 +11026,7 @@ label interview_action_description:
                 $ del new_person
             else:
                 "You decide against hiring anyone new for now."
-           
+
             call advance_time from _call_advance_time_6
         "Never mind":
             pass
