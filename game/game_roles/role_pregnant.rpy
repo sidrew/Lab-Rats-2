@@ -386,23 +386,43 @@ label pregnant_finish(the_person):
         return
 
     "You get a call from [the_person.possessive_title] early in the morning. You answer it."
-    if day%7 == 5 or day%7 == 6:    # event triggers at start of day (so on sat or sun, next workday is monday)
-        the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl! I'll be coming back to work monday." #Obviously they're all girls for extra fun in 18 years.
+    if the_person in [aunt, mom]:
+        the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl!"
+        mc.name "That's amazing, where is she now?"
+        the_person.char "I'll be leaving her with my mother, your grand-mother for now, so we can continue seeing each other."
+        the_person.char "I just wanted to let you know. I'll talk to you soon."
+        "You say goodbye and [the_person.title] hangs up."
+        return
+
+    elif the_person in [lily, cousin]:
+        the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl!"
+        mc.name "That's amazing, where is she now?"
+        the_person.char "I'll be leaving her with our grandma for now, so we can continue seeing each other."
+        the_person.char "I just wanted to let you know. I'll talk to you soon."
+        "You say goodbye and [the_person.title] hangs up."
+        return
+
+    if employee_role in the_person.special_role:
+        if day%7 == 5 or day%7 == 6:    # event triggers at start of day (so on sat or sun, next workday is monday)
+            the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl! I'll be coming back to work monday." #Obviously they're all girls for extra fun in 18 years.
+        else:
+            the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl! I'll be coming back to work today." #Obviously they're all girls for extra fun in 18 years.
+        #TODO: Let you pick a name (or at low obedience she's already picked one)
+        mc.name "That's amazing, but are you sure you don't need more rest?"
     else:
-        the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl! I'll be coming back to work today." #Obviously they're all girls for extra fun in 18 years.
-    #TODO: Let you pick a name (or at low obedience she's already picked one)
-    mc.name "That's amazing, but are you sure you don't need more rest?"
+        the_person.char "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl!"
+        mc.name "That's amazing, how are you doing?"
+
+
     if affair_role in the_person.special_role:
         $ so_title = SO_relationship_to_title(the_person.relationship)
         the_person.char "I'll be fine, I'll be leaving our girl with her \"father\" so I can come back and see you again."
-
     else:
         the_person.char "I'll be fine. I'm leaving her with my mother for a little while so I can get back to a normal life."
 
     the_person.char "I just wanted to let you know. I'll talk to you soon."
     "You say goodbye and [the_person.title] hangs up."
     return
-
 
 label tits_shrink(the_person, reduce_lactation, announcement_function):
     python:
