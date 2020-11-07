@@ -121,7 +121,6 @@ init -2:
         list_of_names.append("Raislyn")
         list_of_names.append("Gina")
         list_of_names.append("Chrystal")
-        list_of_names.append("Jenny")
         list_of_names.append("Selene")
         list_of_names.append("Piper")
         list_of_names.append("Nicole")
@@ -133,7 +132,6 @@ init -2:
         list_of_names.append("Lystra")
         list_of_names.append("Katreena")
         list_of_names.append("Hannah")
-        list_of_names.append("Mara")
         list_of_names.append("Trinity")
         list_of_names.append("Stephine")
 
@@ -155,7 +153,6 @@ init -2:
         list_of_last_names.append("Kurokami")
         list_of_last_names.append("Bergstrom")
         list_of_last_names.append("Fernandez")
-        list_of_last_names.append("Bergstrom")
         list_of_last_names.append("Sasamiya")
         list_of_last_names.append("Onihime")
         list_of_last_names.append("Lancie")
@@ -733,7 +730,7 @@ init -2:
             if student_role in the_person.special_role:
                 list_of_player_titles.append("Teacher")
 
-            return list(set(list_of_player_titles)) 
+            return list(set(list_of_player_titles))
 
         def get_random_player_title(the_person):
             return get_random_from_list(get_player_titles(the_person))
@@ -776,7 +773,7 @@ init -2:
             alexia_intro_phase_one_action = Action("Alexia Intro Phase One", alexia_intro_phase_one_requirement, "alexia_intro_phase_one_label")
             alexia.on_room_enter_event_list.append(alexia_intro_phase_one_action)
             return
-        
+
         def add_lily_introduction_actions():
             sister_intro_crisis = Action("sister_intro_crisis", sister_intro_crisis_requirements, "sister_intro_crisis_label", args=lily, requirement_args = [lily, renpy.random.randint(7,14)]) #Def is in roles.rpy
             sister_strip_intro_crisis = Action("sister_strip_intro_crisis", sister_strip_intro_requirement, "sister_strip_intro_label", args=lily, requirement_args = lily)
