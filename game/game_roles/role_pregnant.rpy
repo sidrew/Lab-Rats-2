@@ -51,7 +51,7 @@ init -1 python:
         preg_transform_action = Action("Pregnancy Transform", pregnant_transform_requirement, "pregnant_transform", args = person, requirement_args = person)
         mc.business.mandatory_morning_crises_list.append(preg_transform_action) #This event adds an announcement event the next time you enter the same room as the girl.
 
-        person.special_role.append(pregnant_role)
+        the_person.add_role(pregnant_role)
         return
 
     def preg_transform_announce_requirement(person):
@@ -177,7 +177,7 @@ label pregnant_announce(the_person):
 
             "Start having an affair" if ask_girlfriend_requirement(the_person):
                 mc.name "Just tell him it's his, and we can start seeing each other more so I can help you in this difficult time."
-                $ the_person.special_role.append(affair_role)
+                $ the_person.add_role(affair_role)
 
             "Tell him it's his":
                 mc.name "Just tell him it's his. I'm sure he'll be ecstatic to hear the good news."
@@ -199,7 +199,7 @@ label pregnant_announce(the_person):
                 "She blinks away a few tears and nods."
                 $ the_person.change_happiness(10)
                 the_person.char "I'm sorry, I guess the hormones are already getting to me. I'd like that."
-                $ the_person.special_role.append(girlfriend_role)
+                $ the_person.add_role(girlfriend_role)
                 "You hug [the_person.possessive_title], and she hugs you back."
                 the_person.char "That's all for now, I'll keep you informed as things progress."
 
@@ -366,8 +366,7 @@ init 2 python:
         tit_shrink_two = Action("Tits Shrink Two", tit_shrink_requirement, "tits_shrink", args = [person, False, add_tits_shrink_two_announcement], requirement_args = [person, tit_shrink_two_day])
         mc.business.mandatory_morning_crises_list.append(tit_shrink_two)
 
-        if pregnant_role in person.special_role:
-            person.special_role.remove(pregnant_role)
+        the_person.remove_role(pregnant_role)
         return True
 
     def add_tits_shrink_one_announcement(person):

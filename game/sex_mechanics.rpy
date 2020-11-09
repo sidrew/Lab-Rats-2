@@ -657,6 +657,7 @@ label condom_ask(the_person):
         # They suggest you put on a condom.
         if the_person.on_birth_control:
             the_person.char "Do you think you should put on a condom? I'm on birth control, but it might be a good idea to be sure."
+            $ the_person.update_birth_control_knowledge()
         elif the_person.get_opinion_score("creampies") > 0:
             $ the_person.discover_opinion("creampies")
             the_person.char "I think you should put on a condom. If you do you won't have to pull out when you cum."
@@ -718,8 +719,8 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
                 full_off_list.append([formatted_name, [clothing,"Full"]]) #Keeps track if this was a full or partial strip, so we can reuse all of the strip taboo logic/dialogue
 
         half_off_list = ["Move away"]
-        for clothing in the_person.outfit.get_unanchored():
-            if clothing.can_be_half_off and not clothing.half_off:
+        for clothing in the_person.outfit.get_unanchored(half_off_instead = True):
+            if not clothing.half_off:
                 half_off_list.append([clothing.display_name.capitalize(), [clothing,"Half"]])
 
         other_list = ["Other","Finish"]
@@ -903,7 +904,7 @@ label affair_check(the_person, report_log): #Report log is handed over so we can
         "Have an affair with [the_person.title]":
             mc.name "I want that too, anything that will let me be close to you."
             $ the_person.draw_person(emotion = "happy")
-            $ the_person.special_role.append(affair_role)
+            $ the_person.add_role(affair_role)
             $ the_person.change_slut_temp(2)
             "She smiles and hugs you."
 

@@ -73,8 +73,14 @@ init -1 python:
             menu_tooltip = "Pay her to willingly take a dose of serum, per company policy.")
         employee_unpaid_serum_test = Action("Test serum", employee_unpaid_serum_test_requirement, "employee_unpaid_serum_test_label",
             menu_tooltip = "Give her a dose of serum to test on herself, per company policy.")
+        employee_punishment = Action("Punish her", employee_punishment_hub_requirement, "employee_punishment_hub",
+            menu_tooltip = "Punish her for any violations of company policy.", priority = 5)
+        employee_generate_infraction = Action("Invent an infraction", employee_generate_infraction_requirement, "employee_generate_infraction_label",
+            menu_tooltip = "Company policy here is so complicated it's nearly impossible to go a day without violating some minor rule. If you were paranoid, you might think it was written that way on purpose...")
         
         return [employee_paid_serum_test, employee_unpaid_serum_test, employee_complement_action, employee_insult_action, employee_pay_cash_action, employee_performance_review, move_employee_action]
+
+        employee_role = Role("Employee", [employee_paid_serum_test, employee_unpaid_serum_test, employee_complement_action, employee_insult_action, employee_pay_cash_action, employee_performance_review, move_employee_action])
 
     def get_head_researcher_actions():
         #HEAD RESEARCHER ACTIONS#
@@ -196,6 +202,21 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
     python:
 
         employee_role = Role("Employee", get_employee_role_actions())
+
+        #EMPLOYEE BUSYWORK ACTIONS#
+        employee_busywork_role = Role("Office Busywork", [], hidden = True) #TODO: Add some other actions to this role
+        employee_role.link_role(employee_busywork_role) #Link this role to the employee_role, so they are removed at the same time.
+
+        #EMPLOYEE HUMILIATING WORK ACTIONS#
+        employee_humiliating_work_role = Role("Humiliating Office Work", [], hidden = True) #TODO: Add some other actions to this role.
+        employee_role.link_role(employee_humiliating_work_role)
+
+        #EMPLOYEE FREEUSE ACTIONS#
+        freeuse_fuck = Action("Fuck her", freeuse_fuck_requirement, "employee_freeuse_fuck",
+            menu_tooltip = "Grab your free use slut and have some fun with her.")
+
+        employee_freeuse_role = Role("Freeuse Slut", [freeuse_fuck], hidden = True)
+        employee_role.link_role(employee_freeuse_role)
 
         head_researcher = Role("Head Researcher", get_head_researcher_actions())
 
