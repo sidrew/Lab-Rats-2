@@ -1096,7 +1096,7 @@ init -5 python:
             if add_to_location and not person in self.h_div.people:
                 self.h_div.add_person(person)
 
-        def remove_employee(self, person, removed_linked = True):
+        def remove_employee(self, person, remove_linked = True):
             if person in self.research_team:
                 self.research_team.remove(person)
             if person in self.production_team:
