@@ -113,6 +113,30 @@ init -2 python:
         else:
             return True
 
+    def get_infraction_list_menu(person):
+        infraction_list = []
+        for infraction in person.infractions:
+            infraction_list.append([infraction.name + "\n{size=16}Severity " + str(infraction.severity) + ", Valid for " + str(infraction.days_valid) + " days{/size} (tooltip)" + infraction.desc, infraction])
+
+        infraction_list.append(["Return", "Return"])
+
+        return infraction_list
+
+    def build_employee_infraction_choice_menu(person, selected_infraction):
+        valid_punishments = ["Available Punishments"]
+        invalid_punishments = ["Locked Punishments"]
+        other_actions = ["Other Actions"]
+
+        for punishment in list_of_punishments:
+            if punishment.is_action_enabled([person, selected_infraction]):
+                valid_punishments.append([punishment,[person, selected_infraction]]) # This list is broken down by the menu function, the nested list are extra arguments so it can check which buttons are enabled.
+            else:
+                invalid_punishments.append([punishment,[person, selected_infraction]])
+
+        other_actions.append(["Back", "Back"])
+
+        return [valid_punishments, invalid_punishments, other_actions]
+
 
 #### EMPLOYEE ACTION LABELS ####
 
@@ -410,10 +434,10 @@ label employee_performance_review(the_person):
                     mc.name "I'm going to take some time to think about what punishment would be suitable."
                     $ the_person.add_infraction(Infraction.underperformance_factory())
                     if the_person.get_job_happiness_score() > 0:
-                        the_person "I can improve [the_person.mc_title], I promise."
+                        the_person.char "I can improve [the_person.mc_title], I promise."
 
                     else:
-                        the_person "I... Fine, I understand."
+                        the_person.char "I... Fine, I understand."
                     mc.name "Good to hear it."
 
 
@@ -439,7 +463,7 @@ label move_employee_label(the_person):
                 return
 
     the_person.char "Where would you like me then?"
-    
+
     if not mc.location.has_person(the_person):
         "VREN" "Something went wrong."
         return
@@ -480,49 +504,31 @@ label employee_unpaid_serum_test_label(the_person):
     return
 
 label employee_punishment_hub(the_person):
-    #TODO: Decide if we need intro dialogue.
-    python:
-        infraction_list = []
-        for infraction in the_person.infractions:
-            infraction_list.append([infraction.name + "\n{size=16}Severity " + str(infraction.severity) + ", Valid for " + str(infraction.days_valid) + " days{/size} (tooltip)" + infraction.desc, infraction])
-
-        infraction_list.append(["Return", "Return"])
-
-    $ selected_infraction = renpy.display_menu(infraction_list,True,"Choice")
+    $ selected_infraction = renpy.display_menu(get_infraction_list_menu(the_person), True, "Choice")
     if selected_infraction == "Return":
         return
 
-    $ valid_punishments = ["Available Punishments"]
-    $ invalid_punishments = ["Locked Punishments"]
-    $ other_actions = ["Other Actions","Back"]
+    if "action_mod_list" in globals():
+        call screen enhanced_main_choice_display(build_menu_items(build_employee_infraction_choice_menu(the_person, selected_infraction)))
+    else:
+        call screen main_choice_display(build_employee_infraction_choice_menu(the_person, selected_infraction))
 
-    python:
-        for punishment in list_of_punishments:
-            if punishment.is_action_enabled([the_person, selected_infraction]):
-                valid_punishments.append([punishment,[the_person, selected_infraction]]) # This list is broken down by the menu function, the nested list are extra arguments so it can check which buttons are enabled.
-            else:
-                invalid_punishments.append([punishment,[the_person, selected_infraction]])
-
-    call screen main_choice_display([valid_punishments, invalid_punishments, other_actions])
     $ selected_option = _return
-    $ valid_punishments = None
-    $ invalid_punishments = None
-    $ other_actions = None
     if selected_option == "Back":
         call employee_punishment_hub(the_person) from _call_employee_punishment_hub
     else:
         $ selected_option.call_action([the_person, selected_infraction])
-        $ the_person.remove_infraction(selected_infraction)
-        $ happiness_drop = -2*(selected_infraction.severity - the_person.get_opinion_score("being submissive"))
-        if happiness_drop < 0:
-            $ happiness_drop = 0
-        $ the_person.change_happiness(happiness_drop)
-        $ the_person.event_triggers_dict["last_punished"] = day
+
+        python:
+            the_person.remove_infraction(selected_infraction)
+            ran_num = -2*(selected_infraction.severity - the_person.get_opinion_score("being submissive"))
+            the_person.change_happiness(ran_num if ran_num > 0 else 0)
+            the_person.event_triggers_dict["last_punished"] = day
     return
 
 label employee_generate_infraction_label(the_person):
     mc.name "[the_person.title], I was reviewing your work and I've found some discrepancies."
-    the_person "Oh, I'm sorry [the_person.mc_title], I..."
+    the_person.char "Oh, I'm sorry [the_person.mc_title], I..."
     mc.name "Unfortunately company policy requires I write you up for it. Don't worry, everyone makes mistakes."
     $ the_person.change_happiness(-5)
     "She frowns, but nods obediently."
