@@ -989,12 +989,12 @@ label lab_accident_crisis_label():
     $the_person.give_serum(copy.copy(the_serum))
     if office_punishment.is_active():
         menu:
-            "Punish her for the mistake.":
+            "Punish her for the mistake":
                 mc.name "I'll stay, but I'm going to have to write you up for this."
                 $ the_person.add_infraction(Infraction.careless_accident_factory())
                 "She shrugs and nods."
 
-            "Let it go.":
+            "Let it go":
                 mc.name "I'll hang around, but I'm sure you'll be fine."
     else:
         mc.name "I'll hang around, but I'm sure you'll be fine."
@@ -1046,12 +1046,12 @@ label production_accident_crisis_label():
     $the_person.give_serum(copy.copy(the_serum))
     if office_punishment.is_active():
         menu:
-            "Punish her for the mistake.":
+            "Punish her for the mistake":
                 mc.name "I'll stay, but I'm going to have to write you up for this."
                 $ the_person.add_infraction(Infraction.careless_accident_factory())
                 "She shrugs and nods."
 
-            "Let it go.":
+            "Let it go":
                 mc.name "I'll hang around, but I'm sure you'll be fine."
     else:
         mc.name "I'll hang around, but I'm sure you'll be fine."
@@ -2005,7 +2005,7 @@ label work_chat_crisis_label:
                         the_person.char "Oh that's so much better... Whew."
                         "[the_person.title] pulls her chair back to her desk and gets back to work, as if nothing out of the ordinary happened."
 
-                    "Punish her for inappropriate behaviour." if office_punishment.is_active():
+                    "Punish her for inappropriate behaviour" if office_punishment.is_active():
                         mc.name "[the_person.title], this isn't appropriate for the office. I'm going to have to write you up for this."
                         the_person "Oh, I... I'm sorry [the_person.mc_title], I didn't think you would care..."
                         $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
@@ -2077,7 +2077,7 @@ label work_chat_crisis_label:
                 the_person.char "Oh... Oh that's so much better..."
                 if office_punishment.is_active():
                     menu:
-                        "Punish her for her inappropriate behaviour.":
+                        "Punish her for her inappropriate behaviour":
                             mc.name "Good, but I'm still going to have to write you up for this."
                             the_person "Ha ha, very... Wait, are you serious? You let me do all of... that, just to punish me?"
                             mc.name "It looked like you really needed it. Sorry, but these are the rules."
@@ -2132,7 +2132,7 @@ label work_chat_crisis_label:
                     $ the_person.change_happiness(-5)
                     "[the_person.possessive_title] takes her hand off of your dick and pouts a little, but does eventually focus on her work."
 
-                "Punish her for inappropriate behaviour." if office_punishment.is_active():
+                "Punish her for inappropriate behaviour" if office_punishment.is_active():
                     mc.name "[the_person.title], this isn't appropriate for the office. I'm going to have to write you up for this."
                     the_person "Oh, I... I'm sorry [the_person.mc_title], I didn't actually mean anything by it."
                     $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
@@ -2165,7 +2165,7 @@ label work_chat_crisis_label:
                     $ the_person.change_happiness(-5)
                     "She looks a little disappointed, but goes back to her work immediately."
 
-                "Punish her for inappropriate behaviour." if office_punishment.is_active():
+                "Punish her for inappropriate behaviour" if office_punishment.is_active():
                     mc.name "[the_person.title], this isn't appropriate for the office. I'm going to have to write you up for this."
                     the_person "Oh, I... I'm sorry [the_person.mc_title], I didn't actually mean anything by it."
                     $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
@@ -3237,7 +3237,7 @@ label horny_at_work_crisis_label():
                         "You pull up some porn on your phone and get comfortable, jerking yourself off until you cum."
                         "When you're finished you clean up and get back to work, your mind now crystal clear."
 
-                    "Punish her for inappropriate behaviour." if office_punishment.is_active():
+                    "Punish her for inappropriate behaviour" if office_punishment.is_active():
                         mc.name "[the_person.title], this isn't appropriate. I'm going to have to write you up."
                         your_follower.char "I... Oh, I'm sorry [your_follower.mc_title], I don't know what I was thinking..."
                         $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())

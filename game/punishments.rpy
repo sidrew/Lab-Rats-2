@@ -87,13 +87,13 @@ label punishment_verbal_scolding(the_person, the_infraction): #Note: Pass the in
         "[the_person.possessive_title] looks meekly at the floor."
         mc.name "Look at me."
         $ the_person.draw_person(emotion = "sad")
-        "She raies her head slowly and looks you in the eye."
+        "She raises her head slowly and looks you in the eye."
     mc.name "I need you get it through your head that what I want are results."
     $ the_person.change_obedience(1 + the_person.get_opinion_score("being submissive"))
     $ the_person.change_happiness(-2 + the_person.get_opinion_score("being submissive"))
     $ the_person.discover_opinion("being submissive")
     menu:
-        "Keep going.":
+        "Keep going":
             # Insult her work ethic. More obedience, lowers happiness
             mc.name "I expect results because I'm paying you for those results. If you can't deliver I'll have to cut your pay, or cut you loose."
             mc.name "You need to get yourself together and improve, because right now you're letting everyone down."
@@ -106,7 +106,7 @@ label punishment_verbal_scolding(the_person, the_infraction): #Note: Pass the in
             $ the_person.change_obedience(2 + the_person.get_opinion_score("being submissive"))
             $ the_person.change_happiness(-5 + (2*the_person.get_opinion_score("being submissive")))
             menu:
-                "Insult her.":
+                "Insult her":
                     mc.name "Frankly, I'm not sure you really even deserve to be here."
                     mc.name "There were plenty of eager applicants who could have had your job, and I'm sure they could have followed simple instructions."
                     if the_person.obedience < (90 - (15*the_person.get_opinion_score("being submissive"))):
@@ -136,13 +136,13 @@ label punishment_verbal_scolding(the_person, the_infraction): #Note: Pass the in
                     # More obedience, lowers happiness and Love
                     # Low obedience girls or girls who dislike being submissive may mouth back at you, generating a more severe infraction (at the cost of stats to get there though.)
 
-                "Let her go.":
+                "Let her go":
                     mc.name "Do you understand me?"
                     the_person "Yes [the_person.mc_title], I understand."
                     mc.name "Good. Now get back to work, you're wasting everyone's time."
 
 
-        "Let her go.":
+        "Let her go":
             mc.name "Do you understand me?"
             the_person "Yes, [the_person.mc_title]."
             mc.name "Good. Now get back to work, you've wasted enough time already."
@@ -177,7 +177,7 @@ label punishment_wrist_slap(the_person, the_infraction):
 
     the_person "I'm sorry [the_person.mc_title], it won't happen again."
     menu:
-        "Keep going.":
+        "Keep going":
             mc.name "I hope not, or I'll have to find some way to actually get through to you."
             "She tries to gently pull her hand back, but you keep your grip on it."
             "You give it another hard slap across the back, and this time she jumps slightly."
@@ -193,11 +193,11 @@ label punishment_wrist_slap(the_person, the_infraction):
             "When you're satisfied you let go of her hands. She holds them, rubbing their backs gingerly."
             mc.name "Have you learned your lesson?"
             the_person "Yes [the_person.mc_title], I have."
-            mc.name "Good. I don't enjoy this, but I'll continue to do what is nessesary to maintain good disipline in my staff."
+            mc.name "Good. I don't enjoy this, but I'll continue to do what is necessary to maintain good discipline in my staff."
             "She nods obediently."
 
 
-        "Let her go.":
+        "Let her go":
             "You let go of her hands. She holds them, rubbing their backs gingerly."
             mc.name "It better not, or I won't be so gentle with you."
             $ the_person.change_love(1 + the_person.get_opinion_score("being submissive"))
@@ -222,14 +222,14 @@ label punishment_serum_test(the_person, the_infraction):
         "You hand [the_person.title] the small vial. She looks at it for a moment, then removes the stopper at the top and drinks the contents down."
         the_person "Is that all?"
         menu:
-            "Make her pay for it." if mandatory_unpaid_serum_testing_policy.is_active():
+            "Make her pay for it" if mandatory_unpaid_serum_testing_policy.is_active():
                 mc.name "Not quite. You're going to have to pay for that dose."
                 if the_person.obedience >= 130:
                     the_person "Right, of course."
                 else:
                     the_person "What? But this was your idea, why do I need to pay?"
                     mc.name "It's already company policy that I can have you test serum whenever I need you to."
-                    mc.name "As this is a punishment, you have forfit the right to any special company access. You need to pay for it just like anyone else."
+                    mc.name "As this is a punishment, you have forfeit the right to any special company access. You need to pay for it just like anyone else."
                     "She sighs."
                     the_person "This should be illegal. Fine."
                     $ the_person.change_obedience(1)
@@ -237,10 +237,10 @@ label punishment_serum_test(the_person, the_infraction):
                 "[the_person.title] hands over the market value of the dose you gave her."
                 $ mc.business.funds += _return.value
 
-            "Make her pay for it.\nRequires Policy: Mandatory Unpaid Serum Testing (disabled)" if not mandatory_unpaid_serum_testing_policy.is_active():
+            "Make her pay for it\n{color=#ff0000}{size=18}Requires Policy: Mandatory Unpaid Serum Testing{/size}{/color} (disabled)" if not mandatory_unpaid_serum_testing_policy.is_active():
                 pass
 
-            "Let her go.":
+            "Let her go":
                 pass
 
         mc.name "That's all for now. I may need to speak with you to record the effects of that dose."
@@ -291,6 +291,13 @@ init -1 python:
         else:
             return True
 
+    def add_office_busywork_action(person):
+        person.add_role(employee_busywork_role)
+        clear_action = Action("Clear employee busywork", employee_busywork_remove_requirement, "employee_busywork_remove_label", args = person, requirement_args = [person, day + 7])
+        mc.business.mandatory_crises_list.append(clear_action)
+        return
+
+
     punishment_office_busywork_action = Action("Office Busywork", punishment_office_busywork_requirement, "punishment_office_busywork")
     punishment_spank_action = Action("Spanking", punishment_spank_requirement, "punishment_spank")
     punishment_underwear_only_action = Action("Underwear only", punishment_underwear_only_requirement, "punishment_underwear_only") #Note: Actually level 2, move it
@@ -308,9 +315,7 @@ label punishment_office_busywork(the_person, the_infraction):
     mc.name "If I don't hear a glowing review from your coworkers by the end of the week there will be further disciplinary action."
     mc.name "Your punishment does not, of course, absolve you of your normal duties."
 
-    $ the_person.add_role(employee_busywork_role)
-    $ clear_action = Action("Clear employee busywork", employee_busywork_remove_requirement, "employee_busywork_remove_label", args = the_person, requirement_args = [the_person, day + 7])
-    $ mc.business.mandatory_crises_list.append(clear_action)
+    $ add_office_busywork_action(the_person)
     return
 
 label punishment_spank(the_person, the_infraction):
@@ -333,7 +338,7 @@ label punishment_spank(the_person, the_infraction):
     $ top_clothing = the_person.outfit.get_lower_top_layer()
     if top_clothing and top_clothing.can_be_half_off and top_clothing.half_off_gives_access and top_clothing.hide_below and not top_clothing.anchor_below and not top_clothing.underwear:
         menu:
-            "Pull up her [top_clothing.display_name] first.":
+            "Pull up her [top_clothing.display_name] first":
                 if the_person.obedience + 10*the_person.get_opinion_score("being submissive") < 120 and the_person.effective_sluttiness("underwear_nudity") < 30:
                     "You grab the hem of [the_person.title]'s [top_clothing.display_name]."
                     the_person "Hey! what are you doing?"
@@ -353,7 +358,7 @@ label punishment_spank(the_person, the_infraction):
 
                 $ the_person.update_outfit_taboos()
 
-            "Leave her [top_clothing.display_name] in place.":
+            "Leave her [top_clothing.display_name] in place":
                 pass
 
     call spank_description(the_person, the_infraction) from _call_spank_description
@@ -371,13 +376,13 @@ label spank_description(the_person, the_infraction):
         the_person.char "Ah..."
 
     menu:
-        "Go easy on her.":
+        "Go easy on her":
             "You give her butt a few more smacks, alternating between her left and right cheek, and then step back."
             if the_person.get_opinion_score("being submissive") > 0:
                 the_person "Is that all? I thought this would go on longer..."
                 $ the_person.outfit.restore_all_clothing()
                 $ the_person.draw_person()
-                "She seems dissapointed as she stands up straight."
+                "She seems disappointed as she stands up straight."
             else:
                 the_person "Are we done?"
                 $ the_person.outfit.restore_all_clothing()
@@ -388,7 +393,7 @@ label spank_description(the_person, the_infraction):
             $ the_person.change_obedience(2)
             the_person "Right away."
 
-        "Teach her a lesson.":
+        "Teach her a lesson":
             "You keep smacking her butt, putting more force behind your blow each time."
             if not_cushioned: #Ass gets red, she gets sore.
                 "Her exposed ass jiggles with each hit, and quickly starts to turn red."
@@ -416,12 +421,12 @@ label spank_description(the_person, the_infraction):
                 mc.name "Do you have anything to say for your actions?"
                 if the_person.get_opinion_score("being submissive") > 0:
                     the_person "It won't happen again [the_person.mc_title], I..."
-                    "You interupt her with a slap on the ass. She pauses, then continues."
+                    "You interrupt her with a slap on the ass. She pauses, then continues."
                     the_person "I'm sorry to let you down, and I see just how wrong I was now! Ah!"
 
                 else:
                     the_person "Ow... It won't happen again [the_person.mc_title], I... Ow!"
-                    "You interupt her with a slap on the ass. She takes a moment to collect herself before continuing."
+                    "You interrupt her with a slap on the ass. She takes a moment to collect herself before continuing."
                     the_person "I promise it won't happen again!"
 
                 "You give her one last hit on her now red butt and then step back, letting her stand up."
@@ -462,7 +467,7 @@ label punishment_underwear_only(the_person, the_infraction):
     if not (the_person.outfit.wearing_bra() and the_person.outfit.wearing_panties()): # Whoops, not wearing underwear today! Tough luck.
         the_person "I... I can't do that [the_person.mc_title]."
         mc.name "What do you mean you can't? These are the rules you agreed with to work here, if you..."
-        "She shakes her head and interupts you."
+        "She shakes her head and interrupts you."
         $ slut_continue_requirement = 40
         if not (the_person.outfit.wearing_bra() or the_person.outfit.wearing_panties()):
             the_person "No, I mean I can't strip down to my underwear because... I'm not wearing any."
@@ -739,11 +744,11 @@ label strip_naked_command_helper(the_person, the_infraction): #Helper function f
             $ top_feet = feet_ordered[-1]
             the_person "Can I keep my [top_feet.display_name] on?"
             menu:
-                "Strip it all off.":
+                "Strip it all off":
                     mc.name "Take it all off, I don't want you to be wearing anything."
                     $ remove_shoes = True
 
-                "Leave them on.":
+                "Leave them on":
                     mc.name "Fine, you can leave them on."
 
     else: # No big deal, she just gets right to it
@@ -753,11 +758,11 @@ label strip_naked_command_helper(the_person, the_infraction): #Helper function f
             $ top_feet = feet_ordered[-1]
             the_person "Would you like me to take off my [top_feet.display_name] too?"
             menu:
-                "Strip it all off.":
+                "Strip it all off":
                     mc.name "Take it all off, I want you naked."
                     $ remove_shoes = True
 
-                "Leave them on.":
+                "Leave them on":
                     mc.name "Fine, you can leave them on."
 
     $ feet_ordered = None
@@ -795,6 +800,12 @@ init -1 python:
         else:
             return True
 
+    def add_humiliating_work_action(person):
+        person.add_role(employee_humiliating_work_role)
+        clear_action = Action("Clear employee busywork", employee_humiliating_work_role, "employee_humiliating_work_remove_requirement", args = person, requirement_args = [person, day + 7])
+        mc.business.mandatory_crises_list.append(clear_action)
+        return
+
     punishment_office_humiliating_work_action = Action("Humiliating Office Work", punishment_office_humiliating_work_requirement, "punishment_office_humiliating_work")
     punishment_orgasm_denial_action = Action("Orgasm Denial", punishment_orgasm_denial_requirement, "punishment_orgasm_denial")
     punishment_forced_punishment_outfit_action = Action("Punishment Outfit", punishment_forced_punishment_outfit_requirement, "punishment_forced_punishment_outfit")
@@ -827,9 +838,7 @@ label punishment_office_humiliating_work(the_person, the_infraction):
         mc.name "We're done here, you can get back to work."
         the_person "Right away, [the_person.mc_title]."
 
-    $ the_person.add_role(employee_humiliating_work_role)
-    $ clear_action = Action("Clear employee busywork", employee_humiliating_work_role, "employee_humiliating_work_remove_requirement", args = the_person, requirement_args = [the_person, day + 7])
-    $ mc.business.mandatory_crises_list.append(clear_action)
+    $ add_humiliating_work_action(the_person)
     return
 
 label punishment_orgasm_denial(the_person, the_infraction):
@@ -887,7 +896,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
                 the_person "I need it!"
                 $ the_person.add_situational_slut("orgasm denial", 20, "I was so close! I need to cum, I need to!")
                 menu:
-                    "Fuck her.":
+                    "Fuck her":
                         mc.name "Beg for it."
                         the_person "Please, I... I want you to fuck me! Fuck me and cum inside me, I want it!"
                         the_person "Put that cock in me before I go crazy!"
@@ -911,7 +920,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
                             the_person "I understand [the_person.mc_title]..."
                             mc.name "Good, now get back to work."
 
-                    "Ignore her pleas.":
+                    "Ignore her pleas":
                         mc.name "Need it or not, this is your punishment."
                         mc.name "If I catch you trying to pleasure yourself, or having someone else do it for you, there will be further punishments."
                         mc.name "Do you understand me?"
@@ -1112,7 +1121,7 @@ label punishment_office_freeuse_slut(the_person, the_infraction):
             mc.name "These tits are what I'm interested in, along with the rest of you."
             the_person "[the_person.mc_title]! I can't... You don't really expect me to just take this, do you?"
             mc.name "I do. All of the punishments are laid out in the employee manual. I suggest you read through it at some point."
-            mc.name "You're welcom to quit, but you might have a hard time finding future employment without a positive reference."
+            mc.name "You're welcome to quit, but you might have a hard time finding future employment without a positive reference."
             "You play with her tits while she stands still, frozen by indecision."
             "She finally sighs and lowers her head."
             the_person "Just for a week... Fine."

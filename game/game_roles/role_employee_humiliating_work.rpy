@@ -48,17 +48,17 @@ label employee_humiliating_work_report_label(the_person):
             mc.name "Good. Tell me about it."
             the_person "It was terrible, [the_person.mc_title]. The bathrooms are disgusting, and things get dirty the moment I finish cleaning them!"
             the_person "I never want to have to do that again, it felt so demeaning!"
-            mc.name "What about your other work? Any performace issues to report?"
+            mc.name "What about your other work? Any performance issues to report?"
             the_person "I tried my best, but there was just so much to do every day. I'm sorry, but I haven't been able to keep up."
             menu:
-                "Punish her for unfinished work.":
+                "Punish her for unfinished work":
                     mc.name "Well that's simply not acceptable. We'll have to talk about this later. Understood?"
                     $ the_person.add_infraction(Infraction.underperformance_factory())
 
-                "Let her go.":
+                "Let her go":
                     mc.name "I hope you've learned something from the experience. Don't let this happen again."
 
-        "Let her go.":
+        "Let her go":
             mc.name "Good. Don't let this happen again."
 
     "She nods and steps away."

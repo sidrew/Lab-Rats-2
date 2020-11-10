@@ -42,21 +42,21 @@ label employee_busywork_report_label(the_person):
     mc.name "Sure, what do you need?"
     the_person "I wanted to let you know that I've finished my week of punishment."
     menu:
-        "Tell me about it.":
+        "Tell me about it":
             mc.name "Good. Tell me about it."
             the_person "I've been doing coffee runs for the office every day, which people seemed to appreciate."
             the_person "Someone told a client I was the office secretary and gave them my phone number. I've been answering calls all week, every hour of the day."
             the_person "The hardest part was getting my normal work done. I tried to stay on top of it, but it's been piling up."
             menu:
-                "Punish her for unfinished work.":
+                "Punish her for unfinished work":
                     mc.name "I've noticed that you have been leaving unfinished work."
                     $ the_person.add_infraction(Infraction.underperformance_factory())
                     mc.name "That will be a separate disciplinary problem to resolve later. Don't let this happen again, understood?"
 
-                "Let her go.":
+                "Let her go":
                     mc.name "I hope you've learned something from the experience. Don't let this happen again."
 
-        "Let her go.":
+        "Let her go":
             mc.name "Good. Don't let this happen again."
     "She nods and steps away."
     $ clear_scene()

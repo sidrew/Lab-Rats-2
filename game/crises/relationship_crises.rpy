@@ -665,7 +665,7 @@ label friends_help_friends_be_sluts_label():
                             $ person_one.review_outfit()
                             $ person_two.review_outfit()
 
-                        "Punish them for inappropriate behaviour." if office_punishment.is_active():
+                        "Punish them for inappropriate behaviour" if office_punishment.is_active():
                             mc.name "[person_one.title], [person_two.title], this is completely inappropriate, even if you're on your break."
                             mc.name "I don't have any choice but to record this for disciplinary action later."
                             $ person_one.add_infraction(infraction.inappropriate_behaviour_factory())
@@ -764,7 +764,7 @@ label friends_help_friends_be_sluts_label():
                             "She shrugs and leaves your office, following her friend."
 
 
-                        "Punish them for inappropriate behaviour." if office_punishment.is_active():
+                        "Punish them for inappropriate behaviour" if office_punishment.is_active():
                             mc.name "[person_one.title], [person_two.title], I expected better from both of you."
                             mc.name "This is completely inappropriate, I'm going to have to write both of you up for this."
                             $ person_one.add_infraction(infraction.inappropriate_behaviour_factory())
