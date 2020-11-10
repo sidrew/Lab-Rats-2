@@ -77,10 +77,8 @@ init -1 python:
             menu_tooltip = "Punish her for any violations of company policy.", priority = 5)
         employee_generate_infraction = Action("Invent an infraction", employee_generate_infraction_requirement, "employee_generate_infraction_label",
             menu_tooltip = "Company policy here is so complicated it's nearly impossible to go a day without violating some minor rule. If you were paranoid, you might think it was written that way on purpose...")
-        
-        return [employee_paid_serum_test, employee_unpaid_serum_test, employee_complement_action, employee_insult_action, employee_pay_cash_action, employee_performance_review, move_employee_action]
 
-        employee_role = Role("Employee", [employee_paid_serum_test, employee_unpaid_serum_test, employee_complement_action, employee_insult_action, employee_pay_cash_action, employee_performance_review, move_employee_action])
+        return [employee_paid_serum_test, employee_unpaid_serum_test, employee_complement_action, employee_insult_action, employee_pay_cash_action, employee_performance_review, move_employee_action, employee_punishment, employee_generate_infraction]
 
     def get_head_researcher_actions():
         #HEAD RESEARCHER ACTIONS#
@@ -180,13 +178,13 @@ init -1 python:
         ask_get_boobjob_action = Action("Ask her to get a boob job\n{color=#ff0000}{size=18}Costs: $7000{/size}{/color}", ask_get_boobjob_requirement, "ask_get_boobjob_label", menu_tooltip = "A little silicone goes a long way. Ask her to get breast enhancement surgery for you.")
         girlfriend_ask_trim_pubes_action = Action("Ask her to trim her pubes", girlfriend_ask_trim_pubes_requirement, "girlfriend_ask_trim_pubes_label", menu_tooltip = "Ask her to do a little personal landscaping. Tell her to wax it off, grow it out, or shape it into anything in between.")
         ask_leave_SO_action = Action("Ask her to leave her significant other for you", ask_leave_SO_requirement, "ask_leave_SO_label", menu_tooltip = "This affair has been secret long enough! Ask her to leave her significant other and make your relationship official.")
-    
+
         return [plan_fuck_date_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action, ask_leave_SO_action]
 
     def get_prostitute_role_actions():
         prostitute_action = Action("Pay her for sex\n{color=#ff0000}{size=18}Costs: $200{/size}{/color}", prostitute_requirement, "prostitute_label",
             menu_tooltip = "You know she's a prostitute, pay her to have sex with you.")
-        
+
         return [prostitute_action]
 
     def get_student_role_actions():
@@ -201,7 +199,8 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
     #All of the role labels and requirements are defined in their own file, but their Action representations are stored here for saving purposes.
     python:
 
-        employee_role = Role("Employee", get_employee_role_actions())
+        employee_role = Role("Employee", get_employee_role_actions(),
+            on_turn = employee_on_turn, on_move = employee_on_move, on_day = employee_on_day)
 
         #EMPLOYEE BUSYWORK ACTIONS#
         employee_busywork_role = Role("Office Busywork", [], hidden = True) #TODO: Add some other actions to this role
@@ -212,8 +211,7 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         employee_role.link_role(employee_humiliating_work_role)
 
         #EMPLOYEE FREEUSE ACTIONS#
-        freeuse_fuck = Action("Fuck her", freeuse_fuck_requirement, "employee_freeuse_fuck",
-            menu_tooltip = "Grab your free use slut and have some fun with her.")
+        freeuse_fuck = Action("Fuck her", freeuse_fuck_requirement, "employee_freeuse_fuck", menu_tooltip = "Grab your free use slut and have some fun with her.")
 
         employee_freeuse_role = Role("Freeuse Slut", [freeuse_fuck], hidden = True)
         employee_role.link_role(employee_freeuse_role)
