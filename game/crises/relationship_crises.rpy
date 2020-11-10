@@ -221,17 +221,18 @@ label girlfriend_nudes_label():
         "You open the video."
         $ the_person.draw_person(position = "stand5", the_animation = blowjob_bob, animation_effect_strength = 0.8)
         "It's [the_person.title] in her room in front of a mirror. She smiles and waves at you, then bounces her tits up and down."
-        $ tit_strip_list = the_person.outfit.get_tit_strip_list(visible_enough = True)
-        if tit_strip_list: #She has something to strip to show off her tits more
+        $ strip_list = the_person.outfit.get_tit_strip_list(visible_enough = True)
+        if strip_list: #She has something to strip to show off her tits more
             "She dances for a moment, then starts to strip down even more."
             python:
-                for the_item in tit_strip_list:
+                for the_item in strip_list:
                     the_person.draw_animated_removal(the_item, position = "stand5", the_animation = blowjob_bob, animation_effect_strength = 0.8)
                     if the_person.outfit.tits_visible():
                         renpy.say("", "She pulls her " + the_item.name + " off and lets her tits fall free.")
                         renpy.say("", "She at the camera and shakes them for you.")
                     else:
                         renpy.say("","")
+                strip_list = None
             if the_person.has_large_tits():
                 "Tits out, she dances a little more for you, then blows a kiss and waves goodbye. Her breasts dangle directly in front of the camera as she turns it off."
             else:
@@ -787,6 +788,7 @@ label friends_help_friends_be_sluts_label():
         del the_relationship
         clear_scene()
         the_group = None
+        strip_list = None
     return
 
 init 1 python:
