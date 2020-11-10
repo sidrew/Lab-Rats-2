@@ -1584,6 +1584,7 @@ init -5 python:
         def inappropriate_behaviour_factory(name = "Inappropriate Behaviour", desc = None, severity = 3, days_valid = 7):
             if desc is None:
                 desc = "Actions inappropriate for a workplace setting. Strange how this never applies to the owner..."
+            return Infraction(name, desc, severity, days_valid)
 
         def __init__(self, name, desc, severity, days_valid, days_existed = 0):
             self.name = name #The name of the infraction, as might show up on a menu
