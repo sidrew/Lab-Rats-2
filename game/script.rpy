@@ -24,7 +24,19 @@ init -5 python:
     if not renpy.mobile: #Mobile platforms do not support animation, so we only want to try to import it if we're going to use it.
         import shader
 
-    #config.use_cpickle = False
+    test_zip = False # Debug setting. Won't work on your system, unless you pack all of the position images into appropriately named zip files.
+
+    if renpy.mobile or test_zip:
+        global mobile_zip_dict
+        mobile_zip_dict = {}
+        for position in ["stand2", "stand3", "stand4", "stand5", "walking_away", "back_peek", "sitting", "kissing", "doggy", "missionary", "blowjob", "against_wall", "standing_doggy", "kneeling1", "cowgirl"]:
+            file_path = "images/character_images/" + position + ".zip"
+            renpy_file = renpy.file(file_path)
+            mobile_zip_dict[position] = zipfile.ZipFile(renpy_file, "r") #Cache all of the zip files so we have a single static pointer to them.
+
+    #config.use_cpickle = False #Set to True for more useful save failure info
+
+
 
     def take_animation_screenshot(): #Called on every interact beginning, if animation_draw_requested is True it makes the screenshot and starts a new thread to display the image.
         # This approach is needed because draw.screenshot is fast, but must be done in the main thread. Rendering is slower, but can be threaded. This lets us get the best of both worlds.
@@ -2325,19 +2337,17 @@ init -5 python:
             if not persistent.vren_animation:
                 background_fill = None
 
+            x_size = position_size_dict.get(position)[0]
+            y_size = position_size_dict.get(position)[1]
+
             displayable_list.append(self.body_images.generate_item_displayable(self.body_type,self.tits,position,lighting)) #Add the body displayable
             displayable_list.append(self.expression_images.generate_emotion_displayable(position,emotion, special_modifier = special_modifier, eye_colour = self.eyes[1], lighting = lighting)) #Get the face displayable
             displayable_list.append(self.pubes_style.generate_item_displayable(self.body_type,self.tits, position, lighting = lighting)) #Add in her pubes. #TODO: See if we need to mask this with her body profile for particularly bush-y bushes to prevent clothing overflow.
 
-            x_size = position_size_dict.get(position)[0]
-            y_size = position_size_dict.get(position)[1]
-            # hair_backplate = im.Blur(self.hair_style.generate_item_displayable("standard_body",self.tits,position, lighting = lighting),2) #Add a hair backplate
-            #
-            # displayable_list.insert(0, ((0,0),hair_backplate)) #The hair plate is what we want to actually be displayed first, but we need to know the XY sizes of the body first
-
             displayable_list.extend(self.outfit.generate_draw_list(self,position,emotion,special_modifier, lighting = lighting)) #Get the displayables for everything we wear. Note that extnsions do not return anything because they have nothing to show.
             displayable_list.append(self.hair_style.generate_item_displayable("standard_body",self.tits,position, lighting = lighting)) #Get hair
-            #NOTE: default return for the_size is floats, even though it is in exact pixels. Use int here otherwise positional modifiers like xanchor and yalign do not work (no displayable is shown at all!)
+            #NOTE: Positional modifiers like xanchor that expect pixles need to be given ints, they do not auto convert from floats.
+
             composite_list = [(x_size,y_size)] #Now we build a list of our parameters, done like this so they are arbitrarily long
             if background_fill: #If we have a background add it now.
                 composite_list.append((0,0))
@@ -5134,8 +5144,6 @@ init -5 python:
                 # We want to support clothing "constraining", or masking, lower images. This is done by region.
                 # Each constraining region effectively subtracts itself + a blurred border around it, and then the body region is added back in so it appears through clothing.
 
-                x_size = 0
-                y_size = 0
                 composite_list = None
                 for region in regions_constrained:
                     #Begin by building a total mask of all constrained regions
@@ -5172,8 +5180,6 @@ init -5 python:
                 #NOTE: Particularly for water/stains, this could work really well (and can use skin-tight region marking, ie. not clothing item dependant).
 
                 composite_list = [position_size_dict.get(position)]
-                x_size = 0
-                y_size = 0
 
                 total_half_off_regions = [] #Check what all of the half-off regions should be
                 if self.half_off:
@@ -6049,7 +6055,7 @@ init -5 python:
                     extension_items.append(item)
 
             for item in extension_items:
-                items_to_strip.remove(extension_items) #Don't try and strip extension directly.
+                items_to_strip.remove(item) #Don't try and strip extension directly.
             return items_to_strip[::-1] #Put it in reverse order so when stripped it will be done from outside in.
 
         def get_underwear_strip_list(self, visible_enough = True, avoid_nudity = False): #Gets a list of things to strip until this outfit would have a girl in her underwear
@@ -7012,14 +7018,6 @@ transform position_shift(character_xalign = 1.0, scale_mod = 1.0, character_alph
     zoom scale_mod
     alpha character_alpha
 
-# init -1 python:
-#     def clothing_fade_function(trans, st, at):
-#         if st > 1.0:
-#             trans.alpha = 0.0
-#
-#         else:
-#             trans.alpha = st
-
 transform clothing_fade():
     linear 1.0 alpha 0.0
 
@@ -7028,6 +7026,9 @@ transform breathe_animation():
     ease 3.0 yzoom 0.995
     ease 3.0 yzoom 1.0
     repeat
+
+transform hair_backplate_zoom(): #Zooms out, shrinking the hair backplate displayable by 10% so that it covers head gaps for small heads.
+    zoom 0.9
 
 init -2 style textbutton_style: ##The generic style used for text button backgrounds. TODO: Replace this with a pretty background image instead of a flat colour.
     padding [5,5]
@@ -7644,7 +7645,7 @@ screen employee_overview(white_list = None, black_list = None, person_select = F
 
 
 screen person_info_ui(the_person, display_layer = "solo"): #Used to display stats for a person while you're talking to them.
-    layer "solo" #By making this layer active it is cleared whenever we draw a person or clear them off the screen.
+    layer "solo" #It is cleared whenever we draw a person or clear them off the screen.
     $ formatted_tooltip = ""
     $ formatted_obedience_tooltip = ""
     python:
@@ -8579,16 +8580,7 @@ screen review_designs_screen():
                     textbutton serum_name:
                         action SetScreenVariable("selected_serum",serum_design) hovered [SetScreenVariable("selected_serum", None), Show("serum_tooltip",None,serum_design)] unhovered Hide("serum_tooltip") style "textbutton_style" text_style "textbutton_text_style"
 
-                # if serum_design.researched:
-                #     textbutton serum_design.name + " - Research Finished":
-                #         action Show("serum_tooltip",None,serum_design) style "textbutton_style" text_style "textbutton_text_style"
-                # else:
-                #     textbutton serum_design.name + :
-                #         action Show("serum_tooltip",None,serum_design) style "textbutton_style" text_style "textbutton_text_style"
-
                 textbutton "Scrap Design" action Function(mc.business.remove_serum_design,serum_design) style "textbutton_style" text_style "textbutton_text_style"
-
-                #unhovered Hide("serum_tooltip")
 
     frame:
         background None
@@ -8612,7 +8604,7 @@ screen serum_tooltip(the_serum, set_x_align = 0.9, set_y_align = 0.1):
         yanchor 0.0
         viewport:
             xsize 540
-            ymaximum 800 #TODO: Figure this out
+            ymaximum 800
             scrollbars "vertical"
             mousewheel True
             vbox:
@@ -8992,6 +8984,7 @@ screen serum_production_select_ui:
 
 screen serum_inventory_select_ui(the_inventory): #Used to let the player select a serum from an inventory.
     add "Science_Menu_Background.png"
+    modal True
     frame:
         background "#888888"
         xsize 400
