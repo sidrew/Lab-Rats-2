@@ -4032,8 +4032,23 @@ init -5 python:
         else:
             return "Problem, height not found in chart."
 
+    class ZippyImage(renpy.display.im.ImageBase):
+        def __init__(self, zipfile, filename, **properties):
+            super(ZippyImage, self).__init__(zipfile, filename, **properties)
+            self.zipfile = zipfile
+            self.filename = filename
+
+        def load(self):
+            try:
+                data = self.zipfile.read(self.filename)
+                sio = io.BytesIO(data)
+                rv = renpy.display.pgrender.load_image(sio, self.filename)
+                return rv
+            except:
+                return renpy.display.pgrender.surface((2, 2), True)
+
     class ZipManager():
-        zippath = {}
+        zipfile = {}
         zipfilenames = {}
 
         def __init__(self):
@@ -4046,16 +4061,14 @@ init -5 python:
 
                 return found
 
-            for position in ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]:
+            for position in supported_positions:
                 file_handle = get_file_handle(position + ".zip")
                 if file_handle:
-                    self.zippath[position] = file_handle
-                    file = renpy.file(file_handle)
+                    self.zipfile[position] = zipfile.ZipFile(renpy.file(file_handle), 'r')
+                    self.zipfilenames[position] = []
                     # store filenames
-                    with zipfile.ZipFile(file, 'r') as zf:
-                        self.zipfilenames[position] = []
-                        for file_name in zf.namelist():
-                            self.zipfilenames[position].append(file_name)
+                    for file_name in self.zipfile[position].namelist():
+                        self.zipfilenames[position].append(file_name)
 
         def has_file(self, position, file_name):
             if position in self.zipfilenames:
@@ -4063,17 +4076,20 @@ init -5 python:
             return False
 
         def get_image(self, position, file_name):
-            if position in self.zippath:
-                file = renpy.file(self.zippath[position])
-                return renpy.display.im.ZipFileImage(file, file_name)
+            if self.has_file(position, file_name):
+                return ZippyImage(self.zipfile[position], file_name)
             return Image("character_images/empty_holder.png")
+
+
+    # all image sets availabe
+    global supported_positions
+    supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
 
     global zip_manager
     zip_manager = ZipManager()
 
     class Expression():
         emotion_set = ["default","happy","sad","angry","orgasm"]
-        positions_set = ["stand2","stand3","stand4","stand5","walking_away","kissing","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"] #The set of images we are going to draw emotions for. These are positions that look towards the camera
         special_modifiers = {"blowjob":["blowjob"],"kissing":["kissing"]} #Special modifiers that are sometimes applied to expressions, but not always. ie. for blowjobs that may be either in normal crouching mode or blowjob mode.
         ignore_position_set = ["doggy","walking_away","standing_doggy"] #The set of positions that we are not goign to draw emotions for. These look away from the camera TODO: This should reference the Position class somehow.
 
@@ -4082,10 +4098,10 @@ init -5 python:
             self.skin_colour = skin_colour
             self.facial_style = facial_style #The style of face the person has, currently creatively named "Face_1", "Face_2", "Face_3", etc..
             self.position_dict = {}
-            for position in self.positions_set+self.ignore_position_set:
+            for position in supported_positions:    # create dict item for each position
                 self.position_dict[position] = {}
 
-            for position in self.positions_set:
+            for position in [x for x in supported_positions if x not in self.ignore_position_set]: # limit to supported
                 for emotion in self.emotion_set:
                     self.position_dict[position][emotion] = emotion + "_" + facial_style + "_" + position + "_" + skin_colour + ".png"
 
@@ -4101,9 +4117,6 @@ init -5 python:
 
 
         def generate_emotion_displayable(self,position,emotion, special_modifier = None, eye_colour = None, lighting = None):
-
-            if not position in self.positions_set+self.ignore_position_set:
-                position = "stand3"
             if not emotion in self.emotion_set:
                 emotion = "default" #Get our default emotion to show if we get an incorrect one.
             elif special_modifier is not None and special_modifier in self.special_modifiers:
@@ -4114,6 +4127,9 @@ init -5 python:
 
             if eye_colour is None:
                 eye_colour = [0.8,0.8,0.8,1] #grey by default.
+
+            if not emotion in self.position_dict[position]:
+                return Image("character_images/empty_holder.png")
 
             base_name = self.position_dict[position][emotion]
             if renpy.loadable("character_images/" + base_name):
@@ -4826,9 +4842,6 @@ init -5 python:
                 return self.name
 
     class Clothing(renpy.store.object):
-
-        supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
-
         _pattern_sets = {}
         def get_pattern_sets(self):
             if not self.proper_name in self._pattern_sets:
@@ -4922,13 +4935,12 @@ init -5 python:
 
             self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
             self.pattern_sets = {} #A list of patterns for this piece of clothing that are valid. Keys are in the form "position_patternName"
-            #self.supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
             self.supported_patterns = supported_patterns
             if not supported_patterns:
                 self.supported_patterns = {"Default":None}
             self.supported_patterns["Default"] = None
 
-            for set in self.supported_positions:
+            for set in supported_positions:
                 self.position_sets[set] = Clothing_Images(proper_name,set,draws_breasts, body_dependant = body_dependant)
                 if supported_patterns and not proper_name is None:
                     for the_pattern in supported_patterns:
@@ -5197,8 +5209,6 @@ init -5 python:
 
 
     class Facial_Accessory(Clothing): #This class inherits from Clothing and is used for special accessories that require extra information
-        supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
-
         _position_sets = {}
         def get_position_sets(self):
             if not self.proper_name in self._position_sets:
@@ -5228,7 +5238,6 @@ init -5 python:
             self.layer = layer #A list of the slots above that this should take up or otherwise prevent from being filled. Slots are a list of the slot and the layer.
 
             self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
-        #    self.supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
 
             self.half_off = False # Avoids any problems with the half-off system using facial accessories
             self.half_off_reveals = False
@@ -5237,7 +5246,7 @@ init -5 python:
             self.half_off_regions = []
             self.half_off_ignore_regions = []
 
-            for set in self.supported_positions:
+            for set in supported_positions:
                 self.position_sets[set] = Facial_Accessory_Images(proper_name,set)
 
             # self.crop_offset_dict = master_clothing_offset_dict.get(self.proper_name, {})
