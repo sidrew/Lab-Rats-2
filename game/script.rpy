@@ -26,10 +26,14 @@ init -5 python:
 
     test_zip = False # Debug setting. Won't work on your system, unless you pack all of the position images into appropriately named zip files.
 
+    # all image sets availabe
+    global supported_positions
+    supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
+
     if renpy.mobile or test_zip:
         global mobile_zip_dict
         mobile_zip_dict = {}
-        for position in ["stand2", "stand3", "stand4", "stand5", "walking_away", "back_peek", "sitting", "kissing", "doggy", "missionary", "blowjob", "against_wall", "standing_doggy", "kneeling1", "cowgirl"]:
+        for position in supported_positions:
             file_path = "images/character_images/" + position + ".zip"
             renpy_file = renpy.file(file_path)
             mobile_zip_dict[position] = zipfile.ZipFile(renpy_file, "r") #Cache all of the zip files so we have a single static pointer to them.
@@ -4042,62 +4046,6 @@ init -5 python:
         else:
             return "Problem, height not found in chart."
 
-    class ZippyImage(renpy.display.im.ImageBase):
-        def __init__(self, zipfile, filename, **properties):
-            super(ZippyImage, self).__init__(zipfile, filename, **properties)
-            self.zipfile = zipfile
-            self.filename = filename
-
-        def load(self):
-            try:
-                data = self.zipfile.read(self.filename)
-                sio = io.BytesIO(data)
-                rv = renpy.display.pgrender.load_image(sio, self.filename)
-                return rv
-            except:
-                return renpy.display.pgrender.surface((2, 2), True)
-
-    class ZipManager():
-        zipfile = {}
-        zipfilenames = {}
-
-        def __init__(self):
-            def get_file_handle(file_name):
-                found = None
-                for file in renpy.list_files():
-                    if file_name in file:
-                        found = file
-                        break
-
-                return found
-
-            for position in supported_positions:
-                file_handle = get_file_handle(position + ".zip")
-                if file_handle:
-                    self.zipfile[position] = zipfile.ZipFile(renpy.file(file_handle), 'r')
-                    self.zipfilenames[position] = []
-                    # store filenames
-                    for file_name in self.zipfile[position].namelist():
-                        self.zipfilenames[position].append(file_name)
-
-        def has_file(self, position, file_name):
-            if position in self.zipfilenames:
-                return file_name in self.zipfilenames[position]
-            return False
-
-        def get_image(self, position, file_name):
-            if self.has_file(position, file_name):
-                return ZippyImage(self.zipfile[position], file_name)
-            return Image("character_images/empty_holder.png")
-
-
-    # all image sets availabe
-    global supported_positions
-    supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
-
-    global zip_manager
-    zip_manager = ZipManager()
-
     class Expression():
         emotion_set = ["default","happy","sad","angry","orgasm"]
         special_modifiers = {"blowjob":["blowjob"],"kissing":["kissing"]} #Special modifiers that are sometimes applied to expressions, but not always. ie. for blowjobs that may be either in normal crouching mode or blowjob mode.
@@ -4141,15 +4089,17 @@ init -5 python:
             if not emotion in self.position_dict[position]:
                 return Image("character_images/empty_holder.png")
 
-            base_name = self.position_dict[position][emotion]
-            if renpy.loadable("character_images/" + base_name):
+            if renpy.mobile or test_zip: #On mobile platforms we use .zip files to hold all of the individual images to bypass the andorid file limit. This results in significantly slower animation (for reasons currently unknown), but android douesn't animate anyways.
+                base_name = self.position_dict[position][emotion]
+                base_image = VrenZipImage(position, base_name)
+
+                mask_name = self.position_dict[position][emotion].replace("_" + self.skin_colour,"_Pattern_1")
+                mask_image = VrenZipImage(position, mask_name)
+            else:
+                base_name = self.position_dict[position][emotion]
                 base_image = Image("character_images/" + base_name)
                 mask_name = base_name.replace("_" + self.skin_colour,"_Pattern_1") # Match the naming scheme used for the eye patterns.
                 mask_image = Image("character_images/" + mask_name)
-            elif zip_manager.has_file(position, base_name):
-                base_image = zip_manager.get_image(position, base_name)
-                mask_name = self.position_dict[position][emotion].replace("_" + self.skin_colour,"_Pattern_1")
-                mask_image = zip_manager.get_image(position, mask_name)
 
             #inverted_mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1,1])
             #mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,1,0]) #Does this even do anything??? #TODO: Check that this does something. (Might have been used to ensure image values were capped properly)
@@ -5313,7 +5263,6 @@ init -5 python:
 
         def __init__(self,accessory_name,position):
             self.images = {}
-            self.zip_images = {}
             self.position_name = position
 
             for face in self.supported_faces:
@@ -5324,48 +5273,52 @@ init -5 python:
                     image_name = accessory_name + "_" + position + "_" + face + "_" + emotion + ".png"
                     if renpy.loadable("character_images/" + image_name):
                         self.images[face + "_" + emotion] = image_name # Save the file string so we can generate a proper image from it easily later.
-                    elif zip_manager.has_file(position, image_name):
-                        self.zip_images[face + "_" + emotion] = image_name
 
                     if position in self.special_modifiers:
                         #self.images[face + "_" + emotion + "_" + self.special_modifiers[position]] = "character_images/" + accessory_name + "_" + position + "_" + face + "_" + emotion + "_" + self.special_modifiers[position] + ".png"
                         image_name = accessory_name + "_" + position + "_" + face + "_" + emotion + "_" + self.special_modifiers[position] + ".png"
                         if renpy.loadable("character_images/" + image_name):
                             self.images[face + "_" + emotion + "_" + self.special_modifiers[position]] = image_name
-                        elif zip_manager.has_file(position, image_name):
-                            self.zip_images[face + "_" + emotion + "_" + self.special_modifiers[position]] = image_name
                         #There is a special modifier, we need to add that version as well.
 
         def get_image(self, face, emotion, special_modifier = None):
-            if special_modifier:
-                index_string = face + "_" + emotion + "_" + special_modifier
+            if renpy.mobile or test_zip:
+                global mobile_zip_dict
+                file = mobile_zip_dict[self.position_name]
+
+                index_string = face + "_" + emotion
+                if special_modifier:
+                    if index_string + "_" + special_modifier in file.namelist():
+                        index_string += "_" + special_modifier #We only want to try and load special modifier images if they exist. Otherwise we use the unmodified image to avoid a crash. This lets us omit images we do not plan on actually using, such as glasses not needing blowjob poses.
+
+                return VrenZipImage(self.position_name, self.images[index_string])
+            else:
+                if special_modifier:
+                    index_string = face + "_" + emotion + "_" + special_modifier
+                    if index_string in self.images:
+                        return Image("character_images/" + self.images[index_string])
+
+                index_string = face + "_" + emotion
                 if index_string in self.images:
                     return Image("character_images/" + self.images[index_string])
-                elif index_string in self.zip_images:
-                    return zip_manager.get_image(self.position_name, self.zip_images[index_string])
-
-            index_string = face + "_" + emotion
-
-            if index_string in self.images:
-                return Image("character_images/" + self.images[index_string])
-            elif index_string in self.zip_images:
-                return zip_manager.get_image(self.position_name, self.zip_images[index_string])
 
             return Image("character_images/empty_holder.png")
 
         def get_image_name(self, face, emotion, special_modifier = None):
-            if special_modifier:
-                index_string = face + "_" + emotion + "_" + special_modifier
-                if index_string in self.images:
-                    return self.images[index_string]
-                elif index_string in self.zip_images:
-                    return self.zip_images[index_string]
-
             index_string = face + "_" + emotion
-            if index_string in self.images:
+            if renpy.mobile or test_zip:
+                global mobile_zip_dict
+                file = mobile_zip_dict[self.position_name]
+                if special_modifier:
+                    if index_string+"_"+special_modifier in file.namelist():
+                        index_string += "_" + special_modifier
+
                 return self.images[index_string]
-            elif index_string in self.zip_images:
-                return self.zip_images[index_string]
+            elif index_string in self.images:
+                if special_modifier and index_string + "_" + special_modifier in self.images:
+                    index_string += "_" + special_modifier
+
+                return self.images[index_string]
 
             return "empty_holder.png"
 
@@ -5374,7 +5327,6 @@ init -5 python:
 
         def __init__(self,clothing_name,position_name,is_top, body_dependant = True):
             self.images = {}
-            self.zip_images = {}
             self.clothing_name = clothing_name #Used for some debugging, not needed for the actual game logic.
             self.position_name = position_name #Used so we can access the correct .zip file
 
@@ -5384,18 +5336,19 @@ init -5 python:
                         self.images[body + "_" + breast] = "empty_holder.png" #Placeholder for clothing items that exist but don't get drawn for some reason (or that don't have image sets yet).
                     else:
                         image_name = clothing_name+"_"+position_name+"_"+body+"_"+breast+".png"
-                        if renpy.loadable("character_images/" + image_name):
+                        if renpy.mobile or test_zip:
                             self.images[body + "_" + breast] = image_name
-                        elif zip_manager.has_file(position_name, image_name):
-                            self.zip_images[body + "_" + breast] = image_name
+                        elif renpy.loadable("character_images/" + image_name):
+                            self.images[body + "_" + breast] = image_name
 
         def get_image(self, body_type, breast_size = "AA" ): #Generates a proper Image object from the file path strings we have stored previously. Prevents object bloat by storing large objects repeatedly for everyone.
             index_string = body_type + "_" + breast_size
 
+            if renpy.mobile or test_zip:
+                return VrenZipImage(self.position_name, self.images[index_string])
+
             if index_string in self.images:
                 return Image("character_images/" + self.images[index_string])
-            elif index_string in self.zip_images:
-                return zip_manager.get_image(self.position_name, self.zip_images[index_string])
 
             return Image("character_images/empty_holder.png")
 
@@ -5403,9 +5356,6 @@ init -5 python:
             index_string = body_type + "_" + breast_size
             if index_string in self.images:
                 return self.images[index_string]
-            elif index_string in self.zip_images:
-                return self.zip_images[index_string]
-
             return "empty_holder.png"
 
     class VrenAnimation():
