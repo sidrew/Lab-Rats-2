@@ -669,7 +669,7 @@ label friends_help_friends_be_sluts_label():
                         "Punish them for inappropriate behaviour" if office_punishment.is_active():
                             mc.name "[person_one.title], [person_two.title], this is completely inappropriate, even if you're on your break."
                             mc.name "I don't have any choice but to record this for disciplinary action later."
-                            $ person_one.add_infraction(infraction.inappropriate_behaviour_factory())
+                            $ person_one.add_infraction(Infraction.inappropriate_behaviour_factory())
                             $ person_two.add_infraction(Infraction.inappropriate_behaviour_factory())
                             $ the_group.draw_person(person_one)
                             person_one "Really? I..."
@@ -768,7 +768,7 @@ label friends_help_friends_be_sluts_label():
                         "Punish them for inappropriate behaviour" if office_punishment.is_active():
                             mc.name "[person_one.title], [person_two.title], I expected better from both of you."
                             mc.name "This is completely inappropriate, I'm going to have to write both of you up for this."
-                            $ person_one.add_infraction(infraction.inappropriate_behaviour_factory())
+                            $ person_one.add_infraction(Infraction.inappropriate_behaviour_factory())
                             $ person_two.add_infraction(Infraction.inappropriate_behaviour_factory())
                             person_two "I... Of course, I'm sorry I even brought it up [person_two.mc_title]!"
                             "She hurries out of your office. [person_one.title] sighs and rolls her eyes."
