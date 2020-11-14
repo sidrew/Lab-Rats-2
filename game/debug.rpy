@@ -70,9 +70,7 @@ init -15 python:
                 global mobile_zip_dict
                 data = mobile_zip_dict[self.position].read(self.filename)
                 sio = io.BytesIO(data)
-                the_image = renpy.display.pgrender.load_image(sio, self.filename)
-                return the_image
-
+                return renpy.display.pgrender.load_image(sio, self.filename)
             except:
                 return renpy.display.pgrender.surface((2, 2), True)
 
