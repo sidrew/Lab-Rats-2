@@ -6,16 +6,12 @@ init -2 python:
         return False
 
     def freeuse_fuck_requirement(person):
-        if not mc.is_at_work():
-            return False
-        elif not mc.business.is_open_for_business():
-            return False
-        return True
+        return mc.is_at_work() and mc.business.is_open_for_business()
 
     def remove_employee_freeuse_role(person):
         person.remove_role(employee_freeuse_role, remove_linked = False)
         if person.has_role(employee_role):
-            busywork_report_action = Action("Freeuse report crisis", employee_freeuse_report_requirement, "employee_freeuse_report_label", args = person, requirement_args = person)
+            busywork_report_action = Action("Freeuse report crisis", freeuse_fuck_requirement, "employee_freeuse_report_label", args = person, requirement_args = person)
             mc.business.mandatory_crises_list.append(busywork_report_action)
 
 
