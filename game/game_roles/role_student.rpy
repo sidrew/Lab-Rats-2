@@ -242,7 +242,7 @@ label student_study_university(the_person):
                 mc.name "We're going to try this session without any serum."
                 the_person.char "Oh, okay."
 
-    elif the_person.event_triggers_dict.get("times_studied_university",0) or mc.inventory.get_any_serum_count() == 0:
+    elif the_person.event_triggers_dict.get("times_studied_university",0) == 0 or mc.inventory.get_any_serum_count() == 0:
         pass #Don't talk about serum the first time or if we don't have any on us.
     else:
         menu:
