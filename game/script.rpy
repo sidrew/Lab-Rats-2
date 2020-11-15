@@ -5274,8 +5274,8 @@ init -5 python:
                         self.images[face + "_" + emotion + "_" + self.special_modifiers[position]] = accessory_name + "_" + position + "_" + face + "_" + emotion + "_" + self.special_modifiers[position] + ".png"
 
         def get_image(self, face, emotion, special_modifier = None):
+            index_string = face + "_" + emotion
             if renpy.mobile or test_zip:
-                index_string = face + "_" + emotion
                 if special_modifier:
                     global mobile_zip_dict
                     if index_string + "_" + special_modifier in mobile_zip_dict[self.position_name].namelist():
