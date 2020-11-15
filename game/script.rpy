@@ -4096,10 +4096,11 @@ init -5 python:
                 mask_name = self.position_dict[position][emotion].replace("_" + self.skin_colour,"_Pattern_1")
                 mask_image = VrenZipImage(position, mask_name)
             else:
-                base_name = self.position_dict[position][emotion]
-                base_image = Image("character_images/" + base_name)
+                base_name = "character_images/" + self.position_dict[position][emotion]
+                base_image = Image(base_name)
+
                 mask_name = base_name.replace("_" + self.skin_colour,"_Pattern_1") # Match the naming scheme used for the eye patterns.
-                mask_image = Image("character_images/" + mask_name)
+                mask_image = Image(mask_name)
 
             #inverted_mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,-1,1])
             #mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,1,0]) #Does this even do anything??? #TODO: Check that this does something. (Might have been used to ensure image values were capped properly)
@@ -5267,60 +5268,40 @@ init -5 python:
 
             for face in self.supported_faces:
                 for emotion in self.supported_emotions:
-                    #Add the image string to the dict. We do not use Image obects directly because it greatly slows down the game (character objects become huge.)
-                    #self.images[face + "_" + emotion] = "character_images/" + accessory_name + "_" + position + "_" + face + "_" + emotion + ".png" # Save the file string so we can generate a proper image from it easily later.
-
-                    image_name = accessory_name + "_" + position + "_" + face + "_" + emotion + ".png"
-                    if renpy.loadable("character_images/" + image_name):
-                        self.images[face + "_" + emotion] = image_name # Save the file string so we can generate a proper image from it easily later.
+                    self.images[face + "_" + emotion] = accessory_name + "_" + position + "_" + face + "_" + emotion + ".png" # Save the file string so we can generate a proper image from it easily later.
 
                     if position in self.special_modifiers:
-                        #self.images[face + "_" + emotion + "_" + self.special_modifiers[position]] = "character_images/" + accessory_name + "_" + position + "_" + face + "_" + emotion + "_" + self.special_modifiers[position] + ".png"
-                        image_name = accessory_name + "_" + position + "_" + face + "_" + emotion + "_" + self.special_modifiers[position] + ".png"
-                        if renpy.loadable("character_images/" + image_name):
-                            self.images[face + "_" + emotion + "_" + self.special_modifiers[position]] = image_name
-                        #There is a special modifier, we need to add that version as well.
+                        self.images[face + "_" + emotion + "_" + self.special_modifiers[position]] = accessory_name + "_" + position + "_" + face + "_" + emotion + "_" + self.special_modifiers[position] + ".png"
 
         def get_image(self, face, emotion, special_modifier = None):
             if renpy.mobile or test_zip:
-                global mobile_zip_dict
-                file = mobile_zip_dict[self.position_name]
-
                 index_string = face + "_" + emotion
                 if special_modifier:
-                    if index_string + "_" + special_modifier in file.namelist():
+                    global mobile_zip_dict
+                    if index_string + "_" + special_modifier in mobile_zip_dict[self.position_name].namelist():
                         index_string += "_" + special_modifier #We only want to try and load special modifier images if they exist. Otherwise we use the unmodified image to avoid a crash. This lets us omit images we do not plan on actually using, such as glasses not needing blowjob poses.
 
                 return VrenZipImage(self.position_name, self.images[index_string])
             else:
                 if special_modifier:
-                    index_string = face + "_" + emotion + "_" + special_modifier
-                    if index_string in self.images:
-                        return Image("character_images/" + self.images[index_string])
+                    if renpy.loadable("character_images/" + self.images[index_string + "_" + special_modifier]):
+                        index_string += "_" + special_modifier
 
-                index_string = face + "_" + emotion
-                if index_string in self.images:
-                    return Image("character_images/" + self.images[index_string])
-
-            return Image("character_images/empty_holder.png")
+                return Image("character_images/" + self.images[index_string]) #We have made an index string, use it to get the full filepath for the image used in this position.
 
         def get_image_name(self, face, emotion, special_modifier = None):
             index_string = face + "_" + emotion
             if renpy.mobile or test_zip:
-                global mobile_zip_dict
-                file = mobile_zip_dict[self.position_name]
                 if special_modifier:
-                    if index_string+"_"+special_modifier in file.namelist():
+                    global mobile_zip_dict
+                    if index_string + "_" +special_modifier in mobile_zip_dict[self.position_name].namelist():
+                        index_string += "_" + special_modifier #We only want to try and load special modifier images if they exist. Otherwise we use the unmodified image to avoid a crash. This lets us omit images we do not plan on actually using, such as glasses not needing blowjob poses.
+            else:
+                if special_modifier:
+                    if renpy.loadable("character_images/" + self.images[index_string + "_" + special_modifier]):
                         index_string += "_" + special_modifier
 
-                return self.images[index_string]
-            elif index_string in self.images:
-                if special_modifier and index_string + "_" + special_modifier in self.images:
-                    index_string += "_" + special_modifier
-
-                return self.images[index_string]
-
-            return "empty_holder.png"
+            return self.images[index_string]
 
     class Clothing_Images(renpy.store.object): # Stores a set of images for a single piece of clothing in a single position. The position is stored when it is put into the clothing object dict.
         breast_sizes = ["AA","A","B","C","D","DD","DDD","E","F","FF"]
@@ -5354,9 +5335,7 @@ init -5 python:
 
         def get_image_name(self, body_type, breast_size = "AA" ): #Generates a proper Image object from the file path strings we have stored previously. Prevents object bloat by storing large objects repeatedly for everyone.
             index_string = body_type + "_" + breast_size
-            if index_string in self.images:
-                return self.images[index_string]
-            return "empty_holder.png"
+            return self.images[index_string]
 
     class VrenAnimation():
         def __init__(self, name, shader, tex_1_regions, innate_animation_strength = 1.0, region_specific_weights = None):
