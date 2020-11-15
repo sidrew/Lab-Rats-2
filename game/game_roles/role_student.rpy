@@ -408,7 +408,7 @@ label student_study_home(the_person):
                 pass
 
             "Give her a dose of serum" if the_person.obedience >= 110 and mc.inventory.get_any_serum_count() > 0:
-                if the_person.event_triggers_dict.get("student_given_serum") == 0:
+                if the_person.event_triggers_dict.get("student_given_serum", 0) == 0:
                     mc.name "Before we get started I'd like to try something today."
                     the_person.char "Okay, what's that?"
                     mc.name "My pharmaceutical produces a number of products. Some of them help aid focus, and I think that could also help you."
