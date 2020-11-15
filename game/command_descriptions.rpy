@@ -604,7 +604,7 @@ label demand_strip_naked_label(the_person):
     $ feet_ordered = the_person.outfit.get_feet_ordered()
     if feet_ordered:
         $ top_feet = feet_ordered[-1]
-        the_person "Do you want me to keep my [top_feet.display_name] on?"
+        the_person.char "Do you want me to keep my [top_feet.display_name] on?"
         menu:
             "Strip it all off":
                 mc.name "Take it all off, I don't want you to be wearing anything."

@@ -265,24 +265,24 @@ label bimbo_strip_obedience_accept(the_person, the_clothing, strip_type = "Full"
 
 label bimbo_grope_body_reject(the_person):
     if the_person.effective_sluttiness("touching_body") < 5: #Fail point for touching shoulder
-        the_person "Oh my god [the_person.title], you can't touch me like this."
+        the_person.char "Oh my god [the_person.title], you can't touch me like this."
         "She takes a step back and giggles."
-        the_person "I'm flattered, but I don't think it's okay..."
+        the_person.char "I'm flattered, but I don't think it's okay..."
         "You pull your hand back and laugh along with her, diffusing the tension."
         mc.name "Of course, forget I did anything."
     else: #Fail point for touching waist
-        the_person "Hey... I don't think you should be touching me like that..."
+        the_person.char "Hey... I don't think you should be touching me like that..."
         "She giggles to herself."
-        the_person "It's kind of fun, but I know where this is going."
+        the_person.char "It's kind of fun, but I know where this is going."
         "You give her a last squeeze and pull your hand back."
         mc.name "Yeah, of course. Maybe I'll be able to convince you."
-        the_person "Hehe, we'll see..."
+        the_person.char "Hehe, we'll see..."
     return
 
 label bimbo_sex_accept(the_person):
     if the_person.sluttiness > 70:
         if the_person.obedience < 70:
-            the_person.char "Oh yeah, that's one of my favourite things to do! Come on, let's do it!"
+            the_person.char "Oh yeah, that's one of my favorite things to do! Come on, let's do it!"
         else:
             the_person.char "Yeah, let's do it! You're so cute when you're horny, did you know that?"
     else:

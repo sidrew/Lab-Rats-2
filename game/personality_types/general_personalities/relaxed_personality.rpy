@@ -272,15 +272,15 @@ label relaxed_strip_obedience_accept(the_person, the_clothing, strip_type = "Ful
 label relaxed_grope_body_reject(the_person):
     if the_person.effective_sluttiness("touching_body") < 5: #Fail point for touching shoulder
         "[the_person.possessive_title] steps back, then laughs awkwardly."
-        the_person "Hey, sorry. We don't need to be that friendly, okay?"
+        the_person.char "Hey, sorry. We don't need to be that friendly, okay?"
         mc.name "Oh yeah, of course."
         "She gives you another awkward smile and stays a little further away."
     else: #Fail point for touching waist
         "[the_person.possessive_title] shifts awkwardly, trying to pull away from your hand."
-        the_person "Hey, can you move your hand? It's no big deal, I'm just not super comfortable with it."
+        the_person.char "Hey, can you move your hand? It's no big deal, I'm just not super comfortable with it."
         "You pull your hands back and nod apologetically."
         mc.name "Of course, sorry."
-        the_person "Don't worry about it, it's no big deal..."
+        the_person.char "Don't worry about it, it's no big deal..."
         "She doesn't say anything more, but she still seems uncomfortable with the situation."
     return
 

@@ -256,19 +256,19 @@ label wild_strip_obedience_accept(the_person, the_clothing, strip_type = "Full")
 
 label wild_grope_body_reject(the_person):
     if the_person.effective_sluttiness("touching_body") < 5: #Fail point for touching shoulder
-        the_person "Ah!"
+        the_person.char "Ah!"
         "[the_person.title] steps back as you touch her, then laughs awkwardly."
-        the_person "Haha, sorry... Your hand just kind of came out of nowhere."
+        the_person.char "Haha, sorry... Your hand just kind of came out of nowhere."
         mc.name "Sorry, I didn't mean to startle you."
-        the_person "Don't worry about it, just give me a little warning next time, okay?"
+        the_person.char "Don't worry about it, just give me a little warning next time, okay?"
         "She seems a little uncomfortable, but you both laugh about it and try and move on."
     else: #Fail point for touching waist
-        the_person "Hey, could you just..."
+        the_person.char "Hey, could you just..."
         "[the_person.title] takes your hand and pulls it off of her waist."
-        the_person "... Keep your hands to yourself? Thanks."
+        the_person.char "... Keep your hands to yourself? Thanks."
         mc.name "Oh yeah, of course. My bad."
-        the_person "No problem, just don't make a habit of it. Alright?"
-        "She doesn't say anything else, but she still sems uncomfortable with the situation."
+        the_person.char "No problem, just don't make a habit of it. Alright?"
+        "She doesn't say anything else, but she still seams uncomfortable with the situation."
     return
 
 label wild_sex_accept(the_person):

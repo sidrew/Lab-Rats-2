@@ -230,21 +230,21 @@ label lily_strip_obedience_accept(the_person, the_clothing, strip_type = "Full")
 
 label lily_grope_body_reject(the_person):
     if the_person.effective_sluttiness("touching_body") < 5: #Fail point for touching shoulder
-        the_person "Hey, what are you doing?"
+        the_person.char "Hey, what are you doing?"
         mc.name "I was just... going to give you a brotherly hug?"
         if the_person.love > 20:
-            the_person "Aww, that's sweet."
+            the_person.char "Aww, that's sweet."
             "She gives you a quick hug, then steps back and smiles."
             $ the_person.change_love(1) #Just cancels out the -1 Love you'd get otherwise.
 
         else:
-            the_person "We're a little old for that, aren't we?"
+            the_person.char "We're a little old for that, aren't we?"
             "She looks away awkwardly until you move your hand away."
             mc.name "Yeah, I guess you're right. Never mind."
     else: #Fail point for touching waist
-        the_person "Could... You maybe move your hand [the_person.mc_title]?"
+        the_person.char "Could... You maybe move your hand [the_person.mc_title]?"
         mc.name "What? Why, is there something wrong?"
-        the_person "It just feels weird, you know? I don't know, I can't really explain it."
+        the_person.char "It just feels weird, you know? I don't know, I can't really explain it."
         "She squirms uncomfortably until you move your hand back."
         mc.name "Sorry, don't worry about it [the_person.title]."
     return

@@ -264,9 +264,9 @@ label reserved_strip_obedience_accept(the_person, the_clothing, strip_type = "Fu
 label reserved_grope_body_reject(the_person):
     if the_person.effective_sluttiness("touching_body") < 5: #Fail point for touching shoulder
         "She shoots you a cold look and steps back, away from your touch."
-        the_person "I'm sorry, I'd prefer if you didn't touch me without permission."
+        the_person.char "I'm sorry, I'd prefer if you didn't touch me without permission."
         mc.name "Of course, I was just trying to be friendly."
-        the_person "I understand, it just makes me... Uncomfortable."
+        the_person.char "I understand, it just makes me... Uncomfortable."
         "She seems more guarded, but you both try and move past the awkward moment."
     else: #Fail point for touching waist
         "[the_person.title] shifts and tries to move away from you."

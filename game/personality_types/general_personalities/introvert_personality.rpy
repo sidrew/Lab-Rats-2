@@ -241,16 +241,16 @@ label introvert_strip_obedience_accept(the_person, the_clothing, strip_type = "F
 label introvert_grope_body_reject(the_person): #TODO: Might be more of a reserved response.
     if the_person.effective_sluttiness("touching_body") < 5: #Fail point for touching shoulder
         "[the_person.title] steps back suddenly to avoid your touch."
-        the_person "Sorry. I don't like people touching me..."
+        the_person.char "Sorry. I don't like people touching me..."
         mc.name "Right, of course. Don't worry about it."
         "[the_person.possessive_title] doesn't say anything else, but she seems more uncomfortable than she was before."
 
     else: #Fail point for touching waist
         "[the_person.possessive_title] squirms in place, then finally takes a step back to get out of your reach."
-        the_person "I just... Don't like people touching me. Sorry..."
+        the_person.char "I just... Don't like people touching me. Sorry..."
         "You hold your hands up."
         mc.name "Oh, no problem. I understand."
-        the_person "Thanks..."
+        the_person.char "Thanks..."
         "She seems uncomfortable, but doesn't say anything more about it."
     return
 

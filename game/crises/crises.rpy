@@ -2007,7 +2007,7 @@ label work_chat_crisis_label:
 
                     "Punish her for inappropriate behaviour" if office_punishment.is_active():
                         mc.name "[the_person.title], this isn't appropriate for the office. I'm going to have to write you up for this."
-                        the_person "Oh, I... I'm sorry [the_person.mc_title], I didn't think you would care..."
+                        the_person.char "Oh, I... I'm sorry [the_person.mc_title], I didn't think you would care..."
                         $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
                         mc.name "I'm sure you'll have learned your lesson in the future."
 
@@ -2079,11 +2079,11 @@ label work_chat_crisis_label:
                     menu:
                         "Punish her for her inappropriate behaviour":
                             mc.name "Good, but I'm still going to have to write you up for this."
-                            the_person "Ha ha, very... Wait, are you serious? You let me do all of... that, just to punish me?"
+                            the_person.char "Ha ha, very... Wait, are you serious? You let me do all of... that, just to punish me?"
                             mc.name "It looked like you really needed it. Sorry, but these are the rules."
                             $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
                             "She sits up and her chair and sighs."
-                            the_person "Fine, those are the rules..."
+                            the_person.char "Fine, those are the rules..."
                         "Let it go.":
                             mc.name "Well thanks for letting me be part of the show."
                             "She sits up in her chair and smiles."
@@ -2134,11 +2134,11 @@ label work_chat_crisis_label:
 
                 "Punish her for inappropriate behaviour" if office_punishment.is_active():
                     mc.name "[the_person.title], this isn't appropriate for the office. I'm going to have to write you up for this."
-                    the_person "Oh, I... I'm sorry [the_person.mc_title], I didn't actually mean anything by it."
+                    the_person.char "Oh, I... I'm sorry [the_person.mc_title], I didn't actually mean anything by it."
                     $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
                     mc.name "I think we both know you're lying. Let's just move on, alright?"
                     "She sits back and sighs dramatically."
-                    the_person "Fine, whatever..."
+                    the_person.char "Fine, whatever..."
 
         else:
             "You're getting some good work done when [the_person.title] slides her chair next to yours and runs her hands along your thighs."
@@ -2167,11 +2167,11 @@ label work_chat_crisis_label:
 
                 "Punish her for inappropriate behaviour" if office_punishment.is_active():
                     mc.name "[the_person.title], this isn't appropriate for the office. I'm going to have to write you up for this."
-                    the_person "Oh, I... I'm sorry [the_person.mc_title], I didn't actually mean anything by it."
+                    the_person.char "Oh, I... I'm sorry [the_person.mc_title], I didn't actually mean anything by it."
                     $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
                     mc.name "I think we both know you're lying. Let's just move on, alright?"
                     "She sits back and looks away, avoiding making eye contact."
-                    the_person "Okay, I should be getting back to my work anyways..."
+                    the_person.char "Okay, I should be getting back to my work anyways..."
 
     $ clear_scene()
     return

@@ -234,25 +234,25 @@ label mom_strip_obedience_accept(the_person, the_clothing, strip_type = "Full"):
 label mom_grope_body_reject(the_person):
     if the_person.effective_sluttiness("touching_body") < 5: #Fail point for touching shoulder
         "[the_person.title] seems uncomfortable as you touch her."
-        the_person "What are you doing [the_person.mc_title]?"
+        the_person.char "What are you doing [the_person.mc_title]?"
         mc.name "I was... going to give you a shoulder rub? You seem tense."
         if the_person.love > 20:
-            the_person "It's so sweet of you to think about that. I'm okay right now though."
+            the_person.char "It's so sweet of you to think about that. I'm okay right now though."
             "She gives you a quick hug, then steps back and smiles."
-            the_person "I'm so lucky, you're always looking out for ways to help me."
+            the_person.char "I'm so lucky, you're always looking out for ways to help me."
             $ the_person.change_love(1) #Just cancels out the -1 Love you'd get otherwise.
 
         else:
-            the_person "Oh, it's okay [the_person.title]. My shoulders feel fine."
+            the_person.char "Oh, it's okay [the_person.title]. My shoulders feel fine."
             mc.name "Well, if you ever change your mind."
             "She smiles and nods, but she still seems slightly uncomfortable."
 
     else: #Fail point for touching waist
-        the_person "[the_person.mc_title], maybe you should move your hand..."
+        the_person.char "[the_person.mc_title], maybe you should move your hand..."
         mc.name "Is there something wrong?"
-        the_person "I know you're just being affectionate, but it's a little... personal."
+        the_person.char "I know you're just being affectionate, but it's a little... personal."
         mc.name "Oh, I'm sorry [the_person.title], I didn't mean..."
-        the_person "It's fine, it really is. Let's just forget about it, okay?"
+        the_person.char "It's fine, it really is. Let's just forget about it, okay?"
         "You nod, and [the_person.possessive_title] seems to relax a little bit."
     return
 
