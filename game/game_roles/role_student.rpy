@@ -680,6 +680,7 @@ label student_masturbate_label(the_person):
         mc.name "I thought it worked well last time. Any problems?"
         the_person.char "No, I guess not. It's still a little strange though..."
 
+    $ the_person.event_triggers_dict["student_masturbate"] = the_person.event_triggers_dict.get("student_masturbate", 0) + 1
     if the_person.effective_sluttiness() < 20:
         # She asks you to leave
         "[the_person.possessive_title] hums awkwardly for a moment, glancing around the room."
