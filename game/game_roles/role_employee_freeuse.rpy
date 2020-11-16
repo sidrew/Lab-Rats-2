@@ -95,4 +95,6 @@ label employee_freeuse_fuck(the_person):
         $ the_person.event_triggers_dict["freeuse orgasms"] += the_report.get("girl orgasms", 0)
     else:
         $ the_person.event_triggers_dict["freeuse orgasms"] = the_report.get("girl orgasms", 0)
+
+    $ the_person.review_outfit()
     return

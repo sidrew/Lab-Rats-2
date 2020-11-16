@@ -362,6 +362,7 @@ label punishment_spank(the_person, the_infraction):
                 pass
 
     call spank_description(the_person, the_infraction) from _call_spank_description
+    $ the_person.review_outfit()
     $ clear_scene()
     return
 
@@ -692,6 +693,7 @@ label punishment_strip_and_spank(the_person, the_infraction):
 
     $ the_person.draw_person(position = "standing_doggy")
     call spank_description(the_person, the_infraction) from _call_spank_description_1
+    $ the_person.review_outfit()
     $ clear_scene()
     return
 
