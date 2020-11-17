@@ -804,7 +804,7 @@ init -1 python:
 
     def add_humiliating_work_action(person):
         person.add_role(employee_humiliating_work_role)
-        clear_action = Action("Clear employee busywork", employee_busywork_remove_requirement, "employee_humiliating_work_remove_requirement", args = person, requirement_args = [person, day + 7])
+        clear_action = Action("Clear employee humiliating work", employee_humiliating_work_remove_requirement, "employee_humiliating_work_remove_label", args = person, requirement_args = [person, day + 7])
         mc.business.mandatory_crises_list.append(clear_action)
         return
 
