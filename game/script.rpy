@@ -5283,11 +5283,14 @@ init -5 python:
 
                 return VrenZipImage(self.position_name, self.images[index_string])
             else:
-                if special_modifier:
-                    if renpy.loadable("character_images/" + self.images[index_string + "_" + special_modifier]):
-                        index_string += "_" + special_modifier
+                if renpy.loadable("character_images/" + self.images[index_string]):
+                    if special_modifier:
+                        if renpy.loadable("character_images/" + self.images[index_string + "_" + special_modifier]):
+                            index_string += "_" + special_modifier
 
-                return Image("character_images/" + self.images[index_string]) #We have made an index string, use it to get the full filepath for the image used in this position.
+                    return Image("character_images/" + self.images[index_string]) #We have made an index string, use it to get the full filepath for the image used in this position.
+
+            return Image("character_images/empty_holder.png")
 
         def get_image_name(self, face, emotion, special_modifier = None):
             index_string = face + "_" + emotion
