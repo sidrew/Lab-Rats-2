@@ -203,7 +203,7 @@ label ask_be_girlfriend_label(the_person):
             "She puts her arms around you and pulls you close."
 
         else:
-            the_person.char "Oh my god, I'm so happy! Yes, I want you to be your girlfriend!"
+            the_person.char "Oh my god, I'm so happy! Yes, I want to be your girlfriend!"
             "She puts her arms around you and pulls you close."
         "She kisses you, and you kiss her back."
         $ the_person.add_role(girlfriend_role)
