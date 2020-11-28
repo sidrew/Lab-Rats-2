@@ -1298,6 +1298,7 @@ label water_spill_crisis_label():
                 "Keep going... \n{color=#ff0000}{size=18}Requires: Minimal Coverage Corporate Uniforms{/size}{/color} (disabled)" if not minimal_coverage_uniform_policy.is_active():
                     pass
 
+            $ the_clothing.colour[3] *= 1.25
             $ the_person.review_outfit()
 
         else:
@@ -1325,7 +1326,7 @@ label water_spill_crisis_label():
                     $ the_person.change_obedience(1)
                     $ slut_report = the_person.change_slut_temp(1)
                     "After a few minutes you've answered all of [the_person.possessive_title]'s questions, and she heads off to dry her [the_clothing.name] off."
-                    $ the_clothing.colour[3] = 1.25
+                    $ the_clothing.colour[3] *= 1.25
 
                 "Take it off":
                     mc.name "I'm really quite busy right now, just take it off now and you can dry it off later."
