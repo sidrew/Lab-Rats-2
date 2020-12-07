@@ -794,7 +794,7 @@ label aunt_share_drinks_label(the_person):
                     the_person.char "Okay, so here's what I have to work with. Tell me what you think."
                     "She opens her wardrobe and stands back, giving you room to look around."
                     call screen outfit_creator(Outfit("New Outfit"))
-                    if _return:
+                    if _return != "Not_New":
                         $ created_outfit = _return
                         "You pull out a few pieces of clothing and lay them out on [the_person.possessive_title]'s bed."
                         "She looks at the outfit you've laid out for her and seems to think for a second."
