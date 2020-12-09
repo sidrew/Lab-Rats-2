@@ -26,7 +26,7 @@ init -1 python:
 
     # Definitions for the events
     def ask_new_title_requirement(the_person):
-        if the_person.obedience > 130: #If she has higher obedience she ONLY lets you change her title.
+        if time_of_day > 0 and time_of_day < 3 and the_person.obedience > 130: #If she has higher obedience she ONLY lets you change her title.
             return False
         return True
 
@@ -113,7 +113,7 @@ init -1 python:
 
     work_walk_in = Action("Employee walk in", work_walk_in_requirement, "work_walk_in_label", event_duration = 4) #TODO: THis event. Girl is horny and is masturbating when you walk in. You can offer to help.
 
-    limited_time_event_pool.append([ask_new_title_action,3,"on_talk"])
+    limited_time_event_pool.append([ask_new_title_action,8,"on_talk"])
     limited_time_event_pool.append([work_walk_in,4,"on_talk"])
     #TODO: Add some girlfriend/paramour events where they ask right away if you want to fuck
 
@@ -129,7 +129,7 @@ init -1 python:
     limited_time_event_pool.append([nude_walk_in,4,"on_enter"])
     limited_time_event_pool.append([mom_house_work_nude,4,"on_enter"])
     limited_time_event_pool.append([breeding_mom,4,"on_enter"])
-    limited_time_event_pool.append([sleeping_walk_in,4,"on_enter"])
+    limited_time_event_pool.append([sleeping_walk_in,8,"on_enter"])
 
 
 
