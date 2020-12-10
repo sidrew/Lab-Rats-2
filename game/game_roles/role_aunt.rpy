@@ -521,6 +521,7 @@ label aunt_intro_moving_apartment_label(the_person):
                 aunt.char "Hmm? What is it?"
                 mc.name "The pizza guy's here."
                 aunt.char "Oh! I didn't think he would be here so soon! Just, uh... just come in and get it, it's in my purse."
+                $ home_bathroom.show_background()
                 "You open the door to the bathroom. [aunt.possessive_title]'s shower has a clear glass door that doesn't hide anything. She turns away as you come in."
                 $ aunt.apply_outfit(Outfit("Nude"))
                 #$ aunt.outfit = default_wardrobe.get_outfit_with_name("Nude 1") changed v0.24.1
@@ -528,6 +529,7 @@ label aunt_intro_moving_apartment_label(the_person):
                 $ aunt.change_slut_temp(2)
                 aunt.char "It's right over there. Just grab it and go."
                 "She nods her head towards her purse. You hurry inside, grab it, then retreat. You pull the cash out of her wallet and give it to the pizza guy."
+                $ mc.location.show_background()
                 $ clear_scene()
                 "Pizza Guy" "Thanks man, enjoy."
                 $ aunt.apply_outfit()
