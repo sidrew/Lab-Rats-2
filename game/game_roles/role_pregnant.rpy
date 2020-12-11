@@ -87,7 +87,7 @@ label pregnant_announce(the_person):
     if day - the_person.event_triggers_dict.get("preg_start_date", 0) > 30:
         return # If you don't ever check in with her for 30 days you probably don't care and we don't need to show this event.
 
-    if the_person.event_triggers_dict("immaculate_conception", False):
+    if the_person.event_triggers_dict.get("immaculate_conception", False):
         the_person "So, I have some news. This is really surprising, even to me..."
         mc.name "What's up? Is everything alright?"
     elif the_person.event_triggers_dict.get("preg_accident", False):
@@ -98,7 +98,7 @@ label pregnant_announce(the_person):
         mc.name "Okay, what's up?"
 
     if girlfriend_role in the_person.special_role:
-        if the_person.event_triggers_dict("immaculate_conception", False):
+        if the_person.event_triggers_dict.get("immaculate_conception", False):
             the_person "I know this might sound crazy but... I'm pregnant!"
             the_person "I don't know when it happened, or how, since we haven't even had sex, but I definitely am."
             the_person "Maybe some of your cum dripped between my legs? Or it was on my hands when I touched myself? It doesn't really matter."
@@ -116,7 +116,7 @@ label pregnant_announce(the_person):
 
     elif affair_role in the_person.special_role: #Note: Requires her to be in a relationship, so there's no "immaculate conception" chance. She'll just think it's his.
         $ so_title = SO_relationship_to_title(the_person.relationship)
-        if the_person.event_triggers_dict("immaculate_conception", False):
+        if the_person.event_triggers_dict.get("immaculate_conception", False):
             the_person "So I know this is going to sound crazy, but I'm pregnant."
             the_person "I don't think it's [so_title]'s, the dates just don't line up."
             the_person "Maybe I got some of your cum on my hand and touched myself, or maybe it dripped down between my legs."
@@ -152,7 +152,7 @@ label pregnant_announce(the_person):
         the_person "That's all, I suppose. I'll keep you updated on how things are going."
 
     elif the_person.is_family(): #TODO: Expand this into full events for each family member. This is a placeholder until then
-        if the_person.event_triggers_dict("immaculate_conception", False):
+        if the_person.event_triggers_dict.get("immaculate_conception", False):
             the_person "There's no easy way to explain this, so I'll just say it. I'm pregnant."
             the_person "I don't know how it could have even happened. I haven't had sex in so long!"
             the_person "It's not important now though, what is important is that I'm going to have a baby!"
@@ -175,7 +175,7 @@ label pregnant_announce(the_person):
 
     elif the_person.relationship != "Single": # You aren't having a formal affair, but she's in a relationship. More of a "one night stand" kind of thing.
         $ so_title = SO_relationship_to_title(the_person.relationship)
-        if the_person.event_triggers_dict("immaculate_conception", False):
+        if the_person.event_triggers_dict.get("immaculate_conception", False):
             the_person "Well I wanted you to know that... I'm pregnant. It's probably not yours, since we've never had sex."
             the_person "You don't think your cum might have ended up in my by... accident, do you?"
             mc.name "Nothing's impossible, I suppose."
@@ -207,7 +207,7 @@ label pregnant_announce(the_person):
                 the_person "I guess that's what I'll have to do. Anyways, you don't need to do anything. I just thought you should know."
 
     else: #She's single, a true one night stand kind of encounter.
-        if the_person.event_triggers_dict("immaculate_conception", False):
+        if the_person.event_triggers_dict.get("immaculate_conception", False):
             the_person "I know this is going to come out of the blue, but... I'm pregnant."
             the_person "I know we haven't had sex, but I can't even think of anyone else I've been close to other than you."
             the_person "Maybe... I got some of your cum inside me by accident? Like it dripped between my legs? I don't know."
