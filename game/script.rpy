@@ -2350,8 +2350,7 @@ init -5 python:
             if not persistent.vren_animation:
                 background_fill = None
 
-            x_size = position_size_dict.get(position)[0]
-            y_size = position_size_dict.get(position)[1]
+            x_size, y_size = position_size_dict.get(position)
 
             displayable_list.append(self.body_images.generate_item_displayable(self.body_type,self.tits,position,lighting)) #Add the body displayable
             displayable_list.append(self.expression_images.generate_emotion_displayable(position,emotion, special_modifier = special_modifier, eye_colour = self.eyes[1], lighting = lighting)) #Get the face displayable
@@ -2386,13 +2385,10 @@ init -5 python:
 
             the_displayable = self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill, no_frame = True)
 
-            x_size = position_size_dict.get(position)[0]
-            y_size = position_size_dict.get(position)[1]
-
-            the_render = the_displayable.render(x_size,y_size,0,0)
+            x_size, y_size = position_size_dict.get(position)
 
             global prepared_animation_render
-            prepared_animation_render[draw_layer][self.character_number] = the_render
+            prepared_animation_render[draw_layer][self.character_number] = the_displayable.render(x_size,y_size,0,0)
 
             global animation_draw_requested
             animation_draw_requested[draw_layer].append([self, given_reference_draw_number])
@@ -10757,25 +10753,6 @@ init -2 python:
         for outfit in the_wardrobe.overwear_sets:
             log_outfit(outfit, outfit_class = "OverwearSets", wardrobe_name = file_name)
 
-    def pick_room_talk_event(person):
-        enabled_talk_events = []
-        for possible_talk_event in person.on_talk_event_list:
-            if possible_talk_event.is_action_enabled(person):
-                enabled_talk_events.append(possible_talk_event)
-        return get_random_from_list(enabled_talk_events)
-    def pick_room_enter_event(location):
-        enabled_room_events = []
-        for person in location.people:
-            for possible_room_event in person.on_room_enter_event_list:
-                if possible_room_event.is_action_enabled(person): #See what events the are enabled...
-                    enabled_room_events.append([person, possible_room_event]) #Then keep track of the person so we know who to remove it from if it triggers.
-        return get_random_from_list(enabled_room_events)
-    def pick_room_greeting_event(location):
-        possible_greetings = []
-        for person in location.people:
-            if mc.business.get_employee_title(person) != "None":
-                possible_greetings.append(person)
-        return get_random_from_list(possible_greetings)
 
 label outfit_master_manager(*args, **kwargs): #WIP new outfit manager that centralizes exporting, modifying, duplicating, and deleting.
     call screen outfit_select_manager(*args, **kwargs)
@@ -10891,6 +10868,18 @@ init -2 python:
         people_list.insert(0, "Talk to Someone")
         return people_list
 
+    def main_loop_pick_talk_event(person):
+        enabled_talk_events = []
+        for possible_talk_event in person.on_talk_event_list:
+            if possible_talk_event.is_action_enabled(person):
+                enabled_talk_events.append(possible_talk_event)
+
+        if enabled_talk_events:
+            chosen = get_random_from_list(enabled_talk_events)
+            person.on_talk_event_list.remove(chosen)
+            return chosen
+        return None
+
     def main_loop_pick_room_event(location):
         enabled_room_events = []
         for a_person in location.people:
@@ -10923,13 +10912,9 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
 
     if isinstance(picked_option, Person):
         $ picked_option.draw_person() #the_animation = sudden_bounce_animation) TODO: Experiment more with this once we are predicting images a little bit.
-        $ talk_action = pick_room_talk_event(picked_option)
-
+        $ talk_action = main_loop_pick_talk_event(picked_option)
         if talk_action:
-            #If there are any events we want to trigger it happens instead of talking to the person. If we want it to lead into talk_person we can call that separately. Only one event per interaction.
             $ talk_action.call_action(picked_option)
-            if talk_action in picked_option.on_talk_event_list: #This shouldn't come up much, but it an event is double removed this helps us fail gracefully.
-                $ picked_option.on_talk_event_list.remove(talk_action)
 
         else:
             if picked_option.title is None:
