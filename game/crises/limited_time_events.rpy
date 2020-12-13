@@ -650,9 +650,12 @@ label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom
                     "She murmurs to herself, still asleep, and rolls onto her back."
                     call nightime_grope(the_person) from _call_nightime_grope #Break this out into a separate function so we can loop easily. Returns True if our action woke her up
                     $ awake = _return
-                    $ clear_scene()
-                    $ the_person.on_room_enter_event_list.append(Limited_Time_Action(sleeping_walk_in, sleeping_walk_in.event_duration)) #Readd LTE.
-                    $ mc.change_location(hall)
+                    python:
+                        clear_scene()
+                        the_person.reset_arousal()
+                        if not awake: # only add event again when she's not awake
+                            the_person.on_room_enter_event_list.append(Limited_Time_Action(sleeping_walk_in, sleeping_walk_in.event_duration)) #Readd LTE.
+                        mc.change_location(hall)
 
         "Let her sleep":
             "You back out of the room and close door slowly, careful not to wake [the_person.possessive_title]."
