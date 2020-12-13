@@ -809,7 +809,7 @@ init -5 python:
             self.active_research_design = new_research
 
         def research_progress(self,int,focus,skill):
-            research_amount = __builtin__.round(((3*int) + (focus) + (2*skill) + 10) * (self.team_effectiveness))/100
+            research_amount = ((3*int) + (focus) + (2*skill) + 10) * (self.team_effectiveness / 100.0)
 
             if self.head_researcher:
                 bonus_percent = (self.head_researcher.int - 2)*0.05
@@ -821,6 +821,8 @@ init -5 python:
             else:
                 research_amount = research_amount * 0.9 #No head researcher is treated like int 0.
                 self.add_normal_message("No head researcher resulted in a 10% reduction in research produced! Assign a head researcher at R&D!")
+
+            research_amount = __builtin__.int( research_amount ) # round off values
 
             if self.active_research_design is not None:
                 the_research = self.active_research_design
@@ -859,7 +861,7 @@ init -5 python:
             return amount_bought
 
         def supply_purchase(self,focus,cha,skill):
-            max_supply = __builtin__.round(((3*focus) + (cha) + (2*skill) + 10) * (self.team_effectiveness))/100
+            max_supply = __builtin__.int( ((3*focus) + (cha) + (2*skill) + 10) * (self.team_effectiveness / 100.0) )
             max_supply = int(max_supply)
             if max_supply + self.supply_count > self.supply_goal:
                 max_supply = self.supply_goal - self.supply_count
@@ -901,7 +903,7 @@ init -5 python:
                     self.add_normal_message(str((value_change-1)*100) + "% serum value due to " + maxed_multiplier + ".") #Duplicate normal messages are not shown twice, so this should only exist once per turn, per multiplier.
 
             #Total number of doses of serum that can be sold by this person.
-            serum_sale_count = __builtin__.int(__builtin__.round( (((3 * cha) + focus + (2 * skill)) * self.team_effectiveness) / 100, 0))
+            serum_sale_count = __builtin__.int( ((3 * cha) + focus + (2 * skill) + 5) * (self.team_effectiveness / 100.0) )
             sorted_by_value = sorted(self.sale_inventory.serums_held, key = lambda serum: serum[0].value) #List of tuples [SerumDesign, count], sorted by the value of each design. Used so most valuable serums are sold first.
             if self.sale_inventory.get_any_serum_count() < serum_sale_count:
                 serum_sale_count = self.sale_inventory.get_any_serum_count()
@@ -941,7 +943,7 @@ init -5 python:
 
         def production_progress(self,focus,int,skill):
             #First, figure out how many production points we can produce total. Subtract that much supply and mark that much production down for the end of day report.
-            production_amount = __builtin__.round(((3*focus) + (int) + (2*skill) + 10) * (self.team_effectiveness))/100
+            production_amount = __builtin__.int( ((3*focus) + (int) + (2*skill) + 10) * (self.team_effectiveness / 100.0) )
             self.production_potential += production_amount
 
             if self.serum_production_array is None:
