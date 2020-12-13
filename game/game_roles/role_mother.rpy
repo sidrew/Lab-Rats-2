@@ -109,7 +109,7 @@ label mom_weekly_pay_label(the_person):
     $ the_person.draw_person(position = "sitting")
     "[the_person.title] is sitting at the kitchen table, a collection of bills laid out in front of her."
 
-    if the_person.effective_sluttiness() < 20:
+    if the_person.effective_sluttiness() < 40:
         the_person.char "This new mortgage on the house is really stressing our finances. It would really help if you could chip in."
         call mom_low_sluttiness_weekly_pay(the_person) from _call_mom_low_sluttiness_weekly_pay #The menu is separated out to make looping easier.
     else:
