@@ -2,7 +2,7 @@
 
 init 1 python:
     def mom_outfit_help_requirement():
-        if mc_at_home() and time_of_day==4 and (day%7==6 or day%7==0 or day%7==1 or day%7==2 or day%7==3): #It has to be a day before a weekday, so she has work in the morning.
+        if time_of_day == 4 and (day%7 <= 3 or day%7==7) and mc_at_home(): #It has to be a day before a weekday, so she has work in the morning.
             return True
         return False
 
@@ -641,9 +641,8 @@ label mom_selfie_label():
 
 init 1 python:
     def mom_morning_surprise_requirement():
-        if mc_at_home() and time_of_day==0 and mc.business.is_work_day(): #It is the end of the day.
-            if mom.love >= 45:
-                return True
+        if time_of_day == 0 and mc.business.is_work_day() and mc_at_home() and mom.love >= 45:
+            return True
         return False
 
     mom_morning_surprise_crisis = Action("Mom Morning Surprise", mom_morning_surprise_requirement, "mom_morning_surprise_label")
@@ -922,7 +921,7 @@ label mom_morning_surprise_label():
 
 init 1 python:
     def lily_new_underwear_requirement():
-        if mc_at_home() and time_of_day==4: #It is the end of the day.
+        if time_of_day==4 and mc_at_home(): #It is the end of the day.
             if lily.effective_sluttiness("underwear_nudity") >= 10 and lily.love >= 0: #She's slutty enough to show you her new underwear.
                 return True
         return False
@@ -1042,7 +1041,7 @@ label lily_new_underwear_crisis_label():
 
 init 1 python:
     def lily_morning_encounter_requirement():
-        if mc_at_home() and time_of_day == 0:
+        if time_of_day == 0 and day%7 != 5 and mc_at_home(): # not on saturday morning
             return True
         return False
 
@@ -1187,7 +1186,7 @@ label lily_morning_encounter_label():
 
 init 1 python:
     def family_weekend_breakfast_requirement():
-        if mc_at_home() and time_of_day == 0 and mc.business.is_weekend() and mom.love > 20:
+        if time_of_day == 0 and day%7 == 6 and mc_at_home() and mom.love > 20:  # only on sunday morning
             return True
         return False
 
@@ -1410,9 +1409,10 @@ label family_morning_breakfast_label():
 
 init 1 python:
     def morning_shower_requirement():
-        if mc_at_home() and time_of_day == 0:
+        if time_of_day == 0 and day%7 != 5 and mc_at_home():    # not on saturdays
             return True #You're at home for the night, when you take a shower in the morning something might happen.
         return False
+
     morning_shower_criris = Action("Morning Shower", morning_shower_requirement, "morning_shower_label")
     morning_crisis_list.append([morning_shower_criris, 15])
 
