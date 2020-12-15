@@ -104,7 +104,7 @@ label uniform_disobedience_event(planned_uniform, the_person):
             "She hurries out of the room. You wait by her desk until she comes back."
             $ the_person.set_uniform(planned_uniform, wear_now = True)
             $ the_person.draw_person()
-            "A few moments later [the_person.possessive_title] comes back, now properly in unform."
+            "A few moments later [the_person.possessive_title] comes back, now properly in uniform."
 
 
         "Have her change right here." if reduced_coverage_uniform_policy.is_active():
