@@ -1001,7 +1001,6 @@ label movie_date_label(the_person):
                                 $ movie_bathroom = Room("theater bathroom", "Theater Bathroom", [], bathroom_background, [], [], [], False, [0,0], visible = False) #TODO: Decide if we need any objects in the bathroom
                                 $ movie_bathroom.show_background()
                                 $ movie_bathroom.add_object(make_wall())
-                                $ movie_bathroom.add_object(make_floor())
                                 $ mc.change_location(movie_bathroom)
                                 $ the_person.change_arousal(20 + (the_person.get_opinion_score("public sex") * 10))
                                 $ mc.change_arousal(40)
@@ -1010,7 +1009,7 @@ label movie_date_label(the_person):
                                 $ the_person.review_outfit()
                                 $ del movie_bathroom
                                 $ renpy.show("Theater", what = theater_background)
-                                "You slip out of the bathroom as quickly as possible and return to your seats with some time pleasantly passed."                           
+                                "You slip out of the bathroom as quickly as possible and return to your seats with some time pleasantly passed."
 
                             "Cum right here":
                                 mc.name "I want you to finish me here."
@@ -1459,7 +1458,7 @@ label grope_person(the_person):
                                 $ the_person.change_obedience(1)
                                 call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_grope_person_prostitute_role
                             "Pay her\n{color=#ff0000}{size=18}Requires: $200{/size}{/color} (disabled)" if mc.business.funds <= 200:
-                                pass                                
+                                pass
                             "No":
                                 mc.name "Thanks for the offer, but no thanks."
                                 "She shrugs."
