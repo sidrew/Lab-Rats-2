@@ -1202,6 +1202,18 @@ init -1 python:
         family_games_night_LTE = Limited_Time_Action(family_games_night_action, 2)
         mom.on_room_enter_event_list.append(family_games_night_LTE)
 
+    def get_opponents_with_info(mom, aunt, sister, partner):
+        opponents = [mom, aunt, sister]
+        opponents.remove(partner)
+        opp_int = 0
+        for x in opponents:
+            opp_int += x.int
+
+        win_chance = 50 + ((mc.int + partner.int - opponents_int))*10
+
+        return (opponents[0], opponents[1], win_chance)
+
+
 
 label family_games_night_start(the_aunt, the_mom): # Triggered as an on enter event
     # Girls ask if you want to have some drinks, and then play cards some cards.
@@ -1569,10 +1581,7 @@ label family_games_night_fun(the_mom, the_aunt, the_sister, partner):
         round_count = 1
         max_rounds = 5
 
-        opponents = [the_mom, the_aunt, the_sister]
-        opponents.remove(partner)
-        opponent_a = opponents[0]
-        opponent_b = opponents[1]
+        opponent_a, opponent_b, win_chance = get_opponents_with_info(the_mom, the_aunt, the_sister, partner)
 
         the_group = GroupDisplayManager([the_mom, the_aunt, the_sister], partner)
         clear_scene()
@@ -1619,7 +1628,6 @@ label family_games_night_fun(the_mom, the_aunt, the_sister, partner):
         $ round_count += 1 #The only thing that stops us is if we're over our round count.
 
     python:
-        opponents = None
         opponent_a = None
         opponent_b = None
     return
@@ -1631,10 +1639,7 @@ label family_games_night_cash(the_mom, the_aunt, the_sister, partner):
         round_count = 1
         max_rounds = 5
 
-        opponents = [the_mom, the_aunt, the_sister]
-        opponents.remove(partner)
-        opponent_a = opponents[0]
-        opponent_b = opponents[1]
+        opponent_a, opponent_b, win_chance = get_opponents_with_info(the_mom, the_aunt, the_sister, partner)
 
         the_group = GroupDisplayManager([the_mom, the_aunt, the_sister], partner)
         clear_scene()
@@ -1708,7 +1713,6 @@ label family_games_night_cash(the_mom, the_aunt, the_sister, partner):
         the_mom.char "As long as you bring the wine!"
 
     python:
-        opponents = None
         opponent_a = None
         opponent_b = None
     return
@@ -1724,10 +1728,7 @@ label family_games_night_strip(the_mom, the_aunt, the_sister, partner):
         player_wins = 0 #AKA girl losses
         player_losses = 0
 
-        opponents = [the_mom, the_aunt, the_sister]
-        opponents.remove(partner)
-        opponent_a = opponents[0]
-        opponent_b = opponents[1]
+        opponent_a, opponent_b, win_chance = get_opponents_with_info(the_mom, the_aunt, the_sister, partner)
 
         the_group = GroupDisplayManager([the_mom, the_aunt, the_sister], partner)
         clear_scene()
@@ -1964,7 +1965,6 @@ label family_games_night_strip(the_mom, the_aunt, the_sister, partner):
 
 
     python:
-        opponents = None
         opponent_a = None
         opponent_b = None
     return
@@ -1972,16 +1972,7 @@ label family_games_night_strip(the_mom, the_aunt, the_sister, partner):
 label card_round_description(the_mom, the_aunt, the_sister, partner, round_count):
     # Describes a technical round of cards and picks a winner (returns True if player).
     python:
-        opponents = [the_mom, the_aunt, the_sister]
-        opponents.remove(partner)
-        opponent_a = opponents[0]
-        opponent_b = opponents[1]
-        opponents_int = 0
-        for opp in opponents:
-            opponents_int += opp.int
-
-        team_int = mc.int + partner.int
-        win_chance = 50 + ((team_int - opponents_int))*10
+        opponent_a, opponent_b, win_chance = get_opponents_with_info(the_mom, the_aunt, the_sister, partner)
 
     "The cards are dealt. You look at your hand and take a moment to formulate a plan."
 

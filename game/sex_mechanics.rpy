@@ -870,9 +870,11 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
                 $ the_person.call_dialogue("strip_reject", the_clothing = strip_choice , strip_type = strip_type) #TODO: pass the piece of clothing and base some dialogue off of that.
         $ renpy.call("strip_menu", the_person, the_verbing, is_private) #TODO: Girl sometimes interupts you to get you to keep going. Have to strip them down in segments.
 
-    $ test_outfit = None
-    $ full_off_list = None
-    $ half_off_list = None
+    python:
+        test_outfit = None
+        full_off_list = None
+        half_off_list = None
+        other_list = None
     return
 
 label girl_strip_event(the_person, the_position, the_object):

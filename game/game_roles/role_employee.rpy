@@ -524,6 +524,7 @@ label employee_punishment_hub(the_person):
             ran_num = -2*(selected_infraction.severity - the_person.get_opinion_score("being submissive"))
             the_person.change_happiness(ran_num if ran_num > 0 else 0)
             the_person.event_triggers_dict["last_punished"] = day
+            selected_infraction = None
     return
 
 label employee_generate_infraction_label(the_person):

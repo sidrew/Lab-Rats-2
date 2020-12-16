@@ -11838,8 +11838,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
         strip_club = Room(strip_club_owner + "'s Gentlemen's Club", strip_club_owner + "'s Gentlemen's Club", [], stripclub_background, [], [], [strip_club_show_action], False, [6,5], None, False, lighting_conditions = standard_club_lighting)
 
         ##PC starts in his bedroom##
-        main_business = Business(business_name, m_division, p_division, rd_division, office, office)
-        mc = MainCharacter(bedroom,character_name,last_name,main_business,stat_array,skill_array,_sex_array)
+        mc = MainCharacter(bedroom,character_name,last_name, Business(business_name, m_division, p_division, rd_division, office, office),stat_array,skill_array,_sex_array)
         town_relationships = RelationshipArray() #Singleton class used to track relationships. Remvoes need for recursive character references (which messes with Ren'py's saving methods)
         mc.generate_goals()
 

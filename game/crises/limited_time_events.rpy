@@ -662,7 +662,10 @@ label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom
             $ the_person.on_room_enter_event_list.append(Limited_Time_Action(sleeping_walk_in, sleeping_walk_in.event_duration)) # Re-add this LTE so it keeps triggering when you go back.
             $ mc.change_location(hall) #Make sure to change our location so we aren't immediately inside again.
 
-    $ old_location.lighting_conditions = old_lighting
+    python:
+        old_location.lighting_conditions = old_lighting
+        old_location = None
+        old_lighting = None
     return
 
 label nightime_grope(the_person, masturbating = False):
@@ -672,40 +675,41 @@ label nightime_grope(the_person, masturbating = False):
     # 3) You do some stuff, get caught, but she's into it. Enter sex system.
     # Goal is to have this be relatively person agnostic, so we can use it with anyone.
     # Options to feel up/strip girl may be their own path?
-    $ awake = False
-    $ bra_item = the_person.outfit.get_bra()
-    $ panties_item = the_person.outfit.get_panties()
+    python:
+        awake = False
+        bra_item = the_person.outfit.get_bra()
+        panties_item = the_person.outfit.get_panties()
 
-    # Establish the Sluttiness requirement tokes ahead of time so we can reference them inline.
-    $ grope_tits_slut_requirement = 10
-    $ grope_tits_slut_token = get_red_heart(grope_tits_slut_requirement)
+        # Establish the Sluttiness requirement tokes ahead of time so we can reference them inline.
+        grope_tits_slut_requirement = 10
+        grope_tits_slut_token = get_red_heart(grope_tits_slut_requirement)
 
-    $ grope_pussy_slut_requirement = 15
-    $ grope_pussy_slut_token = get_red_heart(grope_pussy_slut_requirement)
+        grope_pussy_slut_requirement = 15
+        grope_pussy_slut_token = get_red_heart(grope_pussy_slut_requirement)
 
-    $ jerk_off_slut_requirement = 10
-    $ jerk_off_slut_token = get_red_heart(jerk_off_slut_requirement)
+        jerk_off_slut_requirement = 10
+        jerk_off_slut_token = get_red_heart(jerk_off_slut_requirement)
 
-    $ titfuck_slut_requirement = 30
-    $ titfuck_slut_token = get_red_heart(titfuck_slut_requirement)
+        titfuck_slut_requirement = 30
+        titfuck_slut_token = get_red_heart(titfuck_slut_requirement)
 
-    $ facefuck_slut_requirement = 40
-    $ facefuck_slut_token = get_red_heart(facefuck_slut_requirement)
+        facefuck_slut_requirement = 40
+        facefuck_slut_token = get_red_heart(facefuck_slut_requirement)
 
-    $ fuck_slut_requirement = 50
-    $ fuck_slut_token = get_red_heart(fuck_slut_requirement)
+        fuck_slut_requirement = 50
+        fuck_slut_token = get_red_heart(fuck_slut_requirement)
 
-    $ cum_tits_slut_requirement = 30
-    $ cum_tits_slut_token = get_red_heart(cum_tits_slut_requirement)
+        cum_tits_slut_requirement = 30
+        cum_tits_slut_token = get_red_heart(cum_tits_slut_requirement)
 
-    $ cum_face_slut_requirement = 40
-    $ cum_face_slut_token = get_red_heart(cum_face_slut_requirement)
+        cum_face_slut_requirement = 40
+        cum_face_slut_token = get_red_heart(cum_face_slut_requirement)
 
-    $ cum_throat_slut_requirement = 55
-    $ cum_throat_slut_token = get_red_heart(cum_throat_slut_requirement)
+        cum_throat_slut_requirement = 55
+        cum_throat_slut_token = get_red_heart(cum_throat_slut_requirement)
 
-    $ cum_inside_slut_requirement = 65
-    $ cum_inside_slut_token = get_red_heart(cum_inside_slut_requirement)
+        cum_inside_slut_requirement = 65
+        cum_inside_slut_token = get_red_heart(cum_inside_slut_requirement)
 
 
     if masturbating: #TODO: Add a few variations of this since we might loop through here a few times
@@ -1279,6 +1283,20 @@ label nightime_grope(the_person, masturbating = False):
                     else:
                         "You give your cock a few more strokes, then reluctantly stuff it back into your underwear and zip up your pants."
                     "You back slowly out of the room, leaving [the_person.possessive_title] asleep and unaware of your visit."
+
+    python:
+        grope_tits_slut_token = None
+        grope_pussy_slut_token = None
+        jerk_off_slut_token = None
+        titfuck_slut_token = None
+        facefuck_slut_token = None
+        fuck_slut_token = None
+        cum_tits_slut_token = None
+        cum_face_slut_token = None
+        cum_throat_slut_token = None
+        cum_inside_slut_token = None
+        panties_item = None
+        bra_item = None
 
     return awake
 

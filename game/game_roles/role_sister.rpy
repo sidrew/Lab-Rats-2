@@ -863,7 +863,10 @@ label sister_instathot_label_mom(the_sister, the_mom):
     else:
         $ the_sister.event_triggers_dict["sister_instathot_pic_count"] += 1
 
-    $ the_group = None
+    python:
+        insta_outfit_mom = None
+        insta_outfit_sister = None
+        the_group = None
     return
 
 label sister_instathot_mom_report(the_person): #Lily tells you that her shots with Mom were super popular and that you want to do more

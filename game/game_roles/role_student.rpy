@@ -45,6 +45,11 @@ init -2 python:
         person.event_triggers_dict["current_marks"] = 25 # Should be a value between 0 and 100%
         return
 
+    def add_student_mom_intro_action(person):
+        student_mom_intro_action = Action("Student_Mom_Intro", student_mom_intro_requirement, "student_mom_intro")
+        person.on_room_enter_event_list.append(student_mom_intro_action)
+        return
+
 label student_intro_one(the_nora, the_student): #the_nora just because we don't want to conflict with the global Nora name.
     "You knock on the door to the lab. After a moment [the_nora.title] answers and steps out into the hallway."
     $ the_group = GroupDisplayManager([the_nora], primary_speaker = the_nora)
@@ -334,8 +339,7 @@ label student_study_university(the_person):
                 $ mc.known_home_locations.append(the_person.home)
                 $ the_person.event_triggers_dict["home_tutor_enabled"] = True
 
-                $ student_mom_intro_action = Action("Student_Mom_Intro", student_mom_intro_requirement, "student_mom_intro")
-                $ christina.on_room_enter_event_list.append(student_mom_intro_action)
+                $ add_student_mom_intro_action(christina)
 
             "Offer to tutor her at home\n{color=#ff0000}{size=18}Requires: 15 Love{/size}{/color} (disabled)" if the_person.love < 15:
                 pass
