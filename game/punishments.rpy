@@ -461,7 +461,7 @@ label punishment_underwear_only(the_person, the_infraction):
     mc.name "You've let me down [the_person.title], and more importantly you've let down the entire company."
     mc.name "Strip down to your underwear."
     if the_person.should_wear_uniform():
-        mc.name "You don't deserve to wear your uniform, so for the rest of today you won't."
+        mc.name "You don't deserve to wear your uniform, so for the rest of the week you won't."
     else:
         mc.name "You can consider that your official uniform for the day."
 
