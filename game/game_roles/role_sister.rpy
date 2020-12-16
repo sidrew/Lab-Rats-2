@@ -575,6 +575,7 @@ label sister_instathot_special_pictures(the_person):
                 renpy.say("","Her perky breasts are set free as she pulls her " + clothing.display_name + " off and drops it beside her bed.")
             else:
                 renpy.say("","")
+        clothing = None
 
     $ the_person.update_outfit_taboos()
     "She gets onto her bed, onto her knees, and looks at you and the camera."

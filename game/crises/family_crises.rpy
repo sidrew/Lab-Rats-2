@@ -96,7 +96,7 @@ label mom_outfit_help_crisis_label():
                             "Stop peeking.":
                                 "You pull your eyes away from the mirror and do your best not to peek."
                                 $ clear_scene()
-                                $ strip_choice = None
+                $ strip_choice = None
 
                 if not caught:
                     "[the_person.possessive_title] finishes stripping down and starts to get dressed in her new outfit. After a few moments she's all put together again."
@@ -199,7 +199,7 @@ label mom_outfit_help_crisis_label():
                             "Stop peeking":
                                 "You pull your eyes away from the mirror and do your best not to peek."
                                 $ clear_scene()
-                                $ strip_choice = None
+                $ strip_choice = None
 
                 if not caught:
                     "[the_person.possessive_title] finishes stripping down and starts to get dressed in her new outfit. After a few moments she's all put together again."
@@ -294,7 +294,7 @@ label mom_outfit_help_crisis_label():
                                         "Stop peeking.":
                                             "You pull your eyes away from the mirror and do your best not to peek."
                                             $ clear_scene()
-                                            $ strip_choice = None
+                            $ strip_choice = None
 
                             if not caught:
                                 "[the_person.possessive_title] finishes stripping down and starts to get dressed in her new outfit. After a few moments she's all put together again."

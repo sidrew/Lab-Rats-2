@@ -10980,6 +10980,7 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
         picked_event = None
         new_location = None
         talk_action = None
+        outfit = None
 
     jump game_loop
 

@@ -525,6 +525,7 @@ label employee_punishment_hub(the_person):
             the_person.change_happiness(ran_num if ran_num > 0 else 0)
             the_person.event_triggers_dict["last_punished"] = day
             selected_infraction = None
+            selected_option = None
     return
 
 label employee_generate_infraction_label(the_person):
