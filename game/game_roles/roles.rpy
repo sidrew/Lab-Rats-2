@@ -144,7 +144,7 @@ init -1 python:
         mother_offer_make_dinner = Action("Offer to make dinner {image=gui/heart/Time_Advance.png}", mom_offer_make_dinner_requirement, "mom_offer_make_dinner_label",
             menu_tooltip = "Earn some good will by making dinner for your mother and sister.", priority = 5)
 
-        mom_work_promotion_two_prep_action = Action("Prepare for her interview.", mom_work_promotion_two_prep_requirement, "mom_work_promotion_two_prep",
+        mom_work_promotion_two_prep_action = Action("Prepare for her interview", mom_work_promotion_two_prep_requirement, "mom_work_promotion_two_prep",
             menu_tooltip = "Help your mom prepare for her one-on-one interview.", priority = 10)
 
         return [mother_offer_make_dinner, mom_work_promotion_two_prep_action]
