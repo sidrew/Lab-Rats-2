@@ -28,10 +28,11 @@
             return True
 
     def mom_work_promotion_one_report_requirement(the_person, start_day):
-        if time_of_day <= 2 and day == start_day:
-            return False #Too early in the day for the interview to have happened
-        else:
-            return True
+        if not the_person in kitchen.people + mom_bedroom.people: # only talk at home
+            return False
+        if day == start_day and time_of_day <= 2:   # same day too early for interview to have happened
+            return False
+        return True
 
     def mom_work_promotion_two_intro_requirement(start_day):
         if day < start_day:
