@@ -22,7 +22,7 @@ label employee_freeuse_remove_label(the_person):
 label employee_freeuse_report_label(the_person):
     $ the_person.draw_person()
     "[the_person.title] catches your attention while you are working."
-    the_person.char "Do you have a moment [the_person.title]?"
+    the_person.char "Do you have a moment [the_person.mc_title]?"
     mc.name "Sure, what do you need?"
     the_person.char "I wanted to let you know that I've finished my week of punishment."
     mc.name "Good, I hope you've learned your lesson."
