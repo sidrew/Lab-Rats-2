@@ -678,17 +678,22 @@ label mom_work_promotion_one_before(the_person): # She tells you in the morning 
     $ interview_outfit = None
     the_person.char "I've got my first interview for my promotion today, so I'm heading to the office early."
     the_person.char "How do I look? Is it okay?"
+    $ the_person.draw_person(position = "back_peek")
     "She gives you a quick turn left and right."
+    $ the_person.draw_person()
     mc.name "You look great [the_person.title], you're going to blow them away."
     the_person.char "Aw, thank you [the_person.mc_title]. Come on, give me a kiss for good luck"
     if the_person.effective_sluttiness("kissing") > 30:
+        $ the_person.draw_person(position = "kissing")
         "[the_person.possessive_title] steps close to you and leans towards you."
         "You kiss her on the lips. She closes her eyes and kisses you back, maintaining it for a few long seconds before stepping back."
+        $ the_person.draw_person()
     else:
         "She leans in and turns her head, letting you give her a peck on the cheek."
 
     mc.name "Good luck [the_person.title]."
     the_person.char "I'll let you know how it goes when I see you later today. Have a good time at work."
+    $ the_person.draw_person(position = "walking_away")
     "She steps out of your room, blowing you a kiss as she closes the door behind her."
     $ clear_scene()
     $ mom_bedroom.move_person(the_person, downtown)
@@ -703,15 +708,17 @@ label mom_work_promotion_one_report(the_person): # She tells you how her intervi
         mc.name "That's great news!"
         the_person.char "I think you were right about my outfit. I was getting comments on it all day!"
         the_person.char "The interview board seems very receptive to my points about bringing a womans viewpoint onto the team, too!"
+        $ the_person.draw_person(position = "kissing", emotion = "happy")
         "She gives you a tight hug."
         $ the_person.change_love(3)
+        $ the_person.draw_person(emotion = "happy")
         the_person.char "Thank you for all of the help and encouragement. You're such a sweetheart."
         mc.name "I'm just happy to see you happy [the_person.title]."
         the_person.char "The next stage of interviews is next week. I'm having a one-on-one lunch with the man who would be my boss."
         the_person.char "I'll worry about that later though, right now I'm just going to have a drink and be happy!"
         # She was using her slutty outfit, things went well
     else:
-        $ the_person.draw_person()
+        $ the_person.draw_person(emotion = "sad")
         the_person.char "Oh, hi [the_person.mc_title]."
         mc.name "Hey [the_person.title]. Did you have your interview today?"
         the_person.char "I did. It went... Fine, I suppose."
@@ -843,7 +850,7 @@ label mom_work_promotion_two_prep(the_person):
             mc.name "If you think you're losing him try dropping a fork, and then get on your knees to get it."
             mc.name "Let him get a good look at your butt when he thinks you won't notice."
             the_person.char "What if he doesn't look?"
-            mc.name "Trust me, he'll look. Give it a try, we can roleplay it a little bit."
+            mc.name "Trust me, he'll look. Give it a try, we can role play it a little bit."
             "[the_person.possessive_title] takes a pen from her bed stand and drops it on the floor in front of her."
             the_person.char "Oops. One moment..."
             $ the_person.draw_person(position = "doggy")
@@ -880,8 +887,10 @@ label mom_work_promotion_two_prep(the_person):
                     the_person.char "Okay, I think I can do all of that. Once I have his attention I can make sure to talk about all my qualifications."
                     mc.name "Yeah, I'm sure he'll want to hear about that too."
 
+            $ the_person.draw_person(position = "kissing")
             "[the_person.possessive_title] gives you a warm hug."
             the_person.char "Thank you for the help [the_person.mc_title]. I couldn't have done this without you."
+            $ the_person.draw_person()
             mc.name "It was my pleasure [the_person.title]. Let me know how it goes, okay?"
             $ the_person.event_triggers_dict["mom_work_promotion_two_tactic"] = "slutty"
 
@@ -900,7 +909,9 @@ label mom_work_promotion_two_prep(the_person):
             the_person.char "Shall we sit down and talk?"
             mc.name "That's perfect [the_person.title]. Keep that up for the whole interview and I think you'll do well."
             the_person.char "Thank you sweetheart, I'm going to do my best."
+            $ the_person.draw_person(position = "kissing")
             "She pulls you into a real hug for a few seconds."
+            $ the_person.draw_person()
             mc.name "Let me know how it goes, okay?"
             $ the_person.event_triggers_dict["mom_work_promotion_two_tactic"] = "friendly"
 
@@ -913,7 +924,9 @@ label mom_work_promotion_two_prep(the_person):
             "You help her organize her notes and prepare for the interview."
             the_person.char "I think I'm ready, now I just have to wait and try not to worry too much."
             the_person.char "Thank you for the help sweetheart."
+            $ the_person.draw_person(position = "kissing")
             "She leans over and gives you a hug, followed by a kiss on the cheek."
+            $ the_person.draw_person()
             mc.name "No problem [the_person.title]. Let me know how it goes, okay?"
             $ the_person.event_triggers_dict["mom_work_promotion_two_tactic"] = "professional"
 
@@ -954,8 +967,10 @@ label mom_work_promotion_two_report(the_person): #TODO: Hook this up as an on_ro
             the_person.char "You were right about being a little flirty with him. He had his eyes all over me the entire time."
             the_person.char "I almost think he gave me the job just so he could spend more time looking at me."
 
+        $ the_person.draw_person(position = "kissing")
         "[the_person.possessive_title] gives you a tight hug."
         the_person.char "Thank you so much for all of your help sweetheart. You're the best son in the whole world."
+        $ the_person.draw_person()
         "You hug her back. When she steps away she's still smiling ear to ear."
 
     else: #No promotion
@@ -966,9 +981,11 @@ label mom_work_promotion_two_report(the_person): #TODO: Hook this up as an on_ro
         mc.name "Hey [the_person.title]. Is something wrong?"
         the_person.char "I had my second round interview today, and I was told I'm not getting the position."
         mc.name "Oh, I'm sorry."
+        $ the_person.draw_person(position = "kissing")
         "You give [the_person.possessive_title] a gentle hug."
         the_person.char "Thank you. I'll be okay."
         mc.name "I know you will [the_person.title]. They're idiots for not believing in you."
+        $ the_person.draw_person()
         "She let's you hold her for a few moments, then she steps back and smiles. It seems a little more sincere this time."
 
     $ clear_scene()
