@@ -4293,7 +4293,8 @@ init -5 python:
             self.connections = connections
             self.background_image = background_image #If a string this is used at all points in the day. If it is a list each entry corrisponds to the background for a different part of the day
             self.objects = objects
-            self.objects.append(Object("stand",["Stand"], sluttiness_modifier = 0, obedience_modifier = -5)) #Add a standing position that you can always use.
+            if not any(x for x in self.objects if x.name == "stand"): #Add a standing position that you can always use.
+                self.objects.append(Object("stand",["Stand"], sluttiness_modifier = 0, obedience_modifier = -5))
             self.people = people
             self.actions = actions #A list of Action objects
             self.public = public #If True, random people can wander here.
