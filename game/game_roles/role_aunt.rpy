@@ -1209,7 +1209,7 @@ init -1 python:
         for x in opponents:
             opp_int += x.int
 
-        win_chance = 50 + ((mc.int + partner.int - opponents_int))*10
+        win_chance = 50 + ((mc.int + partner.int - opp_int))*10
 
         return (opponents[0], opponents[1], win_chance)
 
