@@ -11875,6 +11875,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
 
         for room in [bedroom, lily_bedroom, mom_bedroom, aunt_bedroom, cousin_bedroom]:
             room.add_object(make_wall())
+            room.add_object(make_floor())
             room.add_object(make_bed())
             room.add_object(make_window())
 
@@ -11882,57 +11883,75 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
 
         home_bathroom.add_object(make_wall())
         home_bathroom.add_object(Object("shower door", ["Lean"], sluttiness_modifier = 5, obedience_modifier = 5))
+        home_bathroom.add_object(make_floor())
 
         kitchen.add_object(make_wall())
+        kitchen.add_object(make_floor())
         kitchen.add_object(make_chair())
         kitchen.add_object(make_table())
 
         hall.add_object(make_wall())
+        hall.add_object(make_floor())
 
         lobby.add_object(make_wall())
+        lobby.add_object(make_floor())
         lobby.add_object(make_chair())
         lobby.add_object(make_desk())
         lobby.add_object(make_window())
 
         office.add_object(make_wall())
+        office.add_object(make_floor())
         office.add_object(make_chair())
         office.add_object(make_desk())
         office.add_object(make_window())
 
         rd_division.add_object(make_wall())
+        rd_division.add_object(make_floor())
         rd_division.add_object(make_chair())
         rd_division.add_object(make_desk())
 
         m_division.add_object(make_wall())
+        m_division.add_object(make_floor())
         m_division.add_object(make_chair())
         m_division.add_object(make_desk())
 
         p_division.add_object(make_wall())
+        p_division.add_object(make_floor())
         p_division.add_object(make_chair())
         p_division.add_object(make_desk())
+
+        downtown.add_object(make_floor())
 
         university.add_object(make_grass())
 
         office_store.add_object(make_wall())
+        office_store.add_object(make_floor())
         office_store.add_object(make_chair())
 
         clothing_store.add_object(make_wall())
+        clothing_store.add_object(make_floor())
 
         sex_store.add_object(make_wall())
+        sex_store.add_object(make_floor())
 
         home_store.add_object(make_wall())
+        home_store.add_object(make_floor())
         home_store.add_object(make_chair())
 
         mall.add_object(make_wall())
+        mall.add_object(make_floor())
 
         gym.add_object(make_wall())
+        gym.add_object(make_floor())
 
         aunt_apartment.add_object(make_wall())
+        aunt_apartment.add_object(make_floor())
         aunt_apartment.add_object(make_couch())
         aunt_apartment.add_object(make_table())
         aunt_apartment.add_object(make_chair())
 
         strip_club.add_object(make_wall())
+        strip_club.add_object(make_floor())
         strip_club.add_object(make_table())
         strip_club.add_object(make_chair())
         strip_club.add_object(make_stage())
