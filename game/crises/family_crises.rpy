@@ -1472,6 +1472,7 @@ label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
                     call girl_shower_enter(the_person, suprised = True) from _call_girl_shower_enter_1 #TODO: Decide if we need different dialogue for this (maybe just a "suprised" tag we can pass)
 
         $ the_person.apply_outfit(initial_outfit)
+        $ initial_outfit = None
         #$ the_person.outfit = initial_outfit #put her back in her normal outfit after her shower #changed v0.24.1
 
     $ clear_scene()
