@@ -623,8 +623,6 @@ label flirt_person(the_person): #Tier 1. Raises a character's sluttiness up to a
         mc.name "[the_person.title], your outfit is driving me crazy. What are my chances of getting you out of it?"
         $ the_person.call_dialogue("flirt_response_high")
 
-    $ the_person.review_outfit() #In case we had sex, she sorts out her outfit.
-
     # mc.name "Hey [the_person.title], you're looking particularly good today. I wish I got to see a little bit more of that fabulous body."
     $ mc.listener_system.fire_event("player_flirt", the_person = the_person)
     $ change_amount = mc.charisma + 1 + the_person.get_opinion_score("flirting") #We still cap out at 20, but we get there a little faster or slower depending on if they like flirting
@@ -1010,7 +1008,7 @@ label movie_date_label(the_person):
                                 $ the_person.review_outfit()
                                 $ del movie_bathroom
                                 $ renpy.show("Theater", what = theater_background)
-                                "You slip out of the bathroom as quickly as possible and return to your seats with some time pleasantly passed."                           
+                                "You slip out of the bathroom as quickly as possible and return to your seats with some time pleasantly passed."
 
                             "Cum right here":
                                 mc.name "I want you to finish me here."
@@ -1459,7 +1457,7 @@ label grope_person(the_person):
                                 $ the_person.change_obedience(1)
                                 call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_grope_person_prostitute_role
                             "Pay her\n{color=#ff0000}{size=18}Requires: $200{/size}{/color} (disabled)" if mc.business.funds <= 200:
-                                pass                                
+                                pass
                             "No":
                                 mc.name "Thanks for the offer, but no thanks."
                                 "She shrugs."

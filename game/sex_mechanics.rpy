@@ -362,6 +362,8 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
 
     $ the_person.outfit.restore_all_clothing() #Pull all of her half-off clothing back into place.
 
+    $ the_person.review_outfit()    # let her check her outfit
+
     # We return the report_log so that events can use the results of the encounter to figure out what to do.
     return report_log
 
