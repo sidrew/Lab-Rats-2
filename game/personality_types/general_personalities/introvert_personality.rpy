@@ -506,7 +506,7 @@ label introvert_flirt_response_high(the_person):
                     "You step close and put your arms around her waist. She closes her eyes, sighs happily, and waits for you to kiss her."
                 "You lean forward and press your lips against hers. [the_person.possessive_title] responds, leaning her body against yours."
                 call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_57
-
+                $ the_person.review_outfit()
             "Just flirt":
                 mc.name "So if it wasn't for the audience I'd have you naked by now? That's good to know."
                 "She slaps your shoulder playfully and smiles."
@@ -534,7 +534,7 @@ label introvert_flirt_response_high(the_person):
                 else:
                     "You wrap your hands around [the_person.title]'s waist and pull her close to kiss her. She returns the kiss immediately, pressing her body against yours."
                 call fuck_person(the_person, start_position = kissing, private = mc.location.get_person_count() < 2, skip_intro = True) from _call_fuck_person_58
-
+                $ the_person.review_outfit()
             "Just flirt":
                 $ the_person.draw_person()
                 mc.name "I do, but you'll have to wait until later."
@@ -561,7 +561,7 @@ label introvert_flirt_response_girlfriend(the_person):
                     "You lead her away, and after a few minutes of searching you find a place for you and [the_person.title] to be alone."
                     "You put your arm around her waist and pull her close. She presses her body against you eagerly as you kiss her."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_81
-
+                    $ the_person.review_outfit()
                 "Just flirt":
                     mc.name "Well then I'll have to get you alone and see what you have planned."
                     "She bites her lower lip and shrugs innocently."
@@ -575,7 +575,7 @@ label introvert_flirt_response_girlfriend(the_person):
                     mc.name "Why wait until later? You aren't that shy, are you?"
                     "You put your arm around her waist and pull her close. She closes her eyes and leans against you as you kiss her."
                     call fuck_person(the_person, start_position = kissing, private = False, skip_intro = True) from _call_fuck_person_82
-
+                    $ the_person.review_outfit()
                 "Just flirt":
                     mc.name "Well when we're alone I'll make sure you feel just as lucky. I've got a few ideas how to do that..."
                     "You put an arm around her waist and rest your hand on her ass, rubbing it gently."
@@ -589,7 +589,7 @@ label introvert_flirt_response_girlfriend(the_person):
             "Make out":
                 "You lean in and kiss her more sensually. She sighs and relaxes, her body pressing against yours."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_83
-
+                $ the_person.review_outfit()
             "Just flirt":
                 "You lower your hand and rub [the_person.title]'s ass."
                 mc.name "Of course you're special. You're smart, pretty, and..."
@@ -614,7 +614,7 @@ label introvert_flirt_response_affair(the_person):
                     "You put your arm around her waist and pull her into a deep, sensual kiss."
                     "She presses her body against you, grinding her hips against your leg."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_84
-
+                    $ the_person.review_outfit()
                 "Just flirt":
                     "You put your arm around [the_person.possessive_title] and rest your hand on her ass."
                     mc.name "I wish I could, but I don't have the time right now."
@@ -636,6 +636,7 @@ label introvert_flirt_response_affair(the_person):
                 mc.name "Good. Just relax and leave everything to me."
                 "You circle around her and grab her tits, bouncing them a couple times. [the_person.title] leans back against you."
                 call fuck_person(the_person, private = True, start_position = standing_grope, skip_intro = True) from _call_fuck_person_85
+                $ the_person.review_outfit()
             "Just flirt":
                 mc.name "Tempting, but I don't have the time right now."
                 the_person.char "Aw, that's a shame. Well, if you do have the time you know where to find me."

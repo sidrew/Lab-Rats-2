@@ -103,6 +103,7 @@ label aunt_flirt_response_high(the_person):
                     else:
                         "You lean in and kiss her. She hesitates for a moment before responding, leaning her body against yours and kissing you back."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_59
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "How about you just jiggle your tits for me, and that'll be all. I always want to see that."
@@ -142,6 +143,7 @@ label aunt_flirt_response_high(the_person):
                         the_person.char "Oh! Now what?"
                         "You kiss her. She holds back for a second, then returns the kiss eagerly."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_60
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "It's fine, nobody is going to overhear anything."

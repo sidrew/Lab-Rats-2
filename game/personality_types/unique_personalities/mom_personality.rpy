@@ -414,6 +414,7 @@ label mom_flirt_response_high(the_person):
                     else:
                         "You lean in and kiss her. She seems startled for a second, then wraps her arms around you and returns the kiss."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_20
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "And you'll always be my beautiful, loving mom."
@@ -460,6 +461,7 @@ label mom_flirt_response_high(the_person):
                         the_person.char "Only because you really need it."
                         "You lean forward and kiss her passionately. It takes her a few seconds to warm up, but soon she is kissing you back with just as much enthusiasm."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_21
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "Relax, I'm just joking around. What I mean is you're looking stunning today."

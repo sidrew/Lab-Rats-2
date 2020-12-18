@@ -522,11 +522,10 @@ label relaxed_flirt_response_high(the_person):
                 if the_person.has_taboo("kissing"):
                     $ the_person.call_dialogue("kissing_taboo_break")
                     $ the_person.break_taboo("kissing")
-                else:
-                    pass
 
                 "You close the final gap and kiss her. She returns the kiss immediately, leaning her body against yours."
                 call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_47
+                $ the_person.review_outfit()
 
             "Just flirt":
                 mc.name "I'm a patient man, I can wait until we have some privacy. It's probably for the best; you might get a little loud."
@@ -560,11 +559,10 @@ label relaxed_flirt_response_high(the_person):
                 if the_person.has_taboo("kissing"):
                     $ the_person.call_dialogue("kissing_taboo_break")
                     $ the_person.break_taboo("kissing")
-                else:
-                    pass
 
                 "You close the final gap and kiss her. She returns the kiss immediately, leaning her body against yours."
                 call fuck_person(the_person, start_position = kissing, private = mc.location.get_person_count() < 2, skip_intro = True) from _call_fuck_person_48
+                $ the_person.review_outfit()
 
             "Just flirt":
                 mc.name "I wish we could, but I'll need to take a rain check."
@@ -591,6 +589,7 @@ label relaxed_flirt_response_girlfriend(the_person):
                     "After a few minutes of searching you find a quiet spot and put an arm around [the_person.possessive_title]."
                     "She sighs happily as you pull her close and kiss her. She puts her arms around you and hugs you tight, opening her lips for you."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_71
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "That's depends on what you're going to kiss. I've got a few suggestions..."
@@ -605,6 +604,7 @@ label relaxed_flirt_response_girlfriend(the_person):
                     "You put your hand on the back of her neck and pull her close again, kissing her slowly and sensually."
                     "She sighs happily and leans her body against you, clearly unworried about anyone else around."
                     call fuck_person(the_person, start_position = kissing, private = False, skip_intro = True) from _call_fuck_person_72
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "So, is there anything else you want to kiss? I've got some suggestions..."
@@ -633,6 +633,7 @@ label relaxed_flirt_response_girlfriend(the_person):
                 "You place a gentle hand on her chin and raise her lips back to yours."
                 "This time when you kiss her it's slow and sensual. You hear her sigh happily, and she presses her body against yours."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_73
+                $ the_person.review_outfit()
 
             "Just flirt":
                 "You place your hands around her and hold her close. You run one hand down her back and rest it on her ass, massaging it gently."
@@ -661,6 +662,7 @@ label relaxed_flirt_response_affair(the_person):
                     "You put your arm around her waist and rest your hand on her ass as you lean in and kiss her."
                     "She presses her body enthusiastically against you and returns your kiss with just as much excitement."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_74
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "You're that easy, huh? I drop one complement and you're ready to get on your knees."
@@ -690,6 +692,7 @@ label relaxed_flirt_response_affair(the_person):
                 "You put your arm around her waist, resting your hand on her ass, and pull her into an intense kiss."
                 "She leans into you eagerly, returning the kiss with just as much enthusiasm."
                 call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_75
+                $ the_person.review_outfit()
             "Just flirt":
                 mc.name "You're always exciting, but I think I'll be able to hold out for a little while longer."
                 "You put your arm around her waist and grab her ass, massaging it as you talk."

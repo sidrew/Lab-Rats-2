@@ -101,6 +101,7 @@ label cousin_flirt_response_high(the_person):
                     else:
                         "You put your arm around her waist and kiss her. She hesitates for a moment, then leans her body eagerly against yours."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_53
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "Yeah? What are you planning to do with that power?"
@@ -135,6 +136,7 @@ label cousin_flirt_response_high(the_person):
                     else:
                         "When you finally have some privacy you don't waste any time. You put an arm around [the_person.title] and pull her into a passionate kiss."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_54
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "Come on, you're really going to make me wait?"

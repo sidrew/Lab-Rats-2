@@ -515,6 +515,7 @@ label wild_flirt_response_high(the_person):
                     "You step close to [the_person.title] and put your arm around her waist, pulling her close and kissing her."
                     "She responds immediately and eagerly presses her body against yours."
                 call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_49
+                $ the_person.review_outfit()
 
             "Just flirt":
                 mc.name "Not here, huh? How about back at your place then?"
@@ -575,6 +576,7 @@ label wild_flirt_response_girlfriend(the_person):
                     "You and [the_person.possessive_title] hurry off, searching for a private spot."
                     "After a few minutes of searching you find one. She doesn't waste any time, wrapping her arms around you and kissing you sensually."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_76
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     "You reach behind [the_person.possessive_title] and grab her ass, giving it a firm squeeze."
@@ -592,6 +594,7 @@ label wild_flirt_response_girlfriend(the_person):
                     "You don't say a word as you lean back and kiss her again, slowly and sensually this time."
                     "[the_person.title] presses her body against you in response, grinding her hips against your thigh."
                     call fuck_person(the_person, start_position = kissing, private = False, skip_intro = True) from _call_fuck_person_77
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "I just like to tease you."
@@ -609,6 +612,7 @@ label wild_flirt_response_girlfriend(the_person):
                 "You put your arms around [the_person.possessive_title]'s waist and rest your hands on her ass. You pull her close and kiss her sensually."
                 "She responds by pressing her body against you and grinding her hips against your thigh."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_78
+                $ the_person.review_outfit()
 
             "Just flirt":
                 "You reach your arms around her waist and grab her ass, squeezing it playfully."
@@ -632,6 +636,7 @@ label wild_flirt_response_affair(the_person):
                     the_person.char "Ah... You aren't the only one having dirty thoughts. You get me so fucking horny!"
                     "You wrap your arms around her waist and kiss her back."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_79
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     "You slide your arm around [the_person.title]'s waist and rest your hand on her ass, rubbing it gently."
@@ -663,6 +668,8 @@ label wild_flirt_response_affair(the_person):
                 "You spin her around and shift your hands to her breasts, squeezing them."
                 mc.name "No need to rush things. Just relax and enjoy for now..."
                 call fuck_person(the_person, private = True, start_position = standing_grope, skip_intro = True) from _call_fuck_person_80
+                $ the_person.review_outfit()
+
             "Just flirt":
                 "You put your arms around [the_person.possessive_title]'s waist and rest your hands on her ass."
                 mc.name "I wish I had the time. You'll have to wait until later."

@@ -482,11 +482,10 @@ label bimbo_flirt_response_high(the_person):
                 if the_person.has_taboo("kissing"):
                     $ the_person.call_dialogue("kissing_taboo_break")
                     $ the_person.break_taboo("kissing")
-                else:
-                    pass
+
                 "You kiss her, and she responds by leaning her body against you eagerly."
                 call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_55
-
+                $ the_person.review_outfit()
             "Just flirt":
                 mc.name "Wait until I get you alone and you'll see how naughty I can get."
                 the_person.char "Hehe, I'm excited to find out!"
@@ -518,7 +517,7 @@ label bimbo_flirt_response_high(the_person):
                 else:
                     "You put your arm around [the_person.title]'s waist and pull her close. She leans her body against you eagerly as you kiss her."
                 call fuck_person(the_person, start_position = kissing, private = mc.location.get_person_count() < 2, skip_intro = True) from _call_fuck_person_56
-
+                $ the_person.review_outfit()
             "Just flirt":
                 mc.name "I do, but it'll have to be some other time."
                 $ the_person.draw_person(emotion = "sad")
@@ -546,7 +545,7 @@ label bimbo_flirt_response_girlfriend(the_person):
                     "You put your arm around her waist, resting your hand on her ass, and kiss her passionately."
                     "[the_person.possessive_title] returns the kiss and begins to grind her hips against your thigh."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_61
-
+                    $ the_person.review_outfit()
                 "Just flirt":
                     mc.name "I don't have time right now, but I like the enthusiasm."
                     "She pouts and nods."
@@ -565,7 +564,7 @@ label bimbo_flirt_response_girlfriend(the_person):
                     $ blowjob.redraw_scene(the_person)
                     "She slips you into her warm, wet mouth and sucks on the tip eagerly."
                     call fuck_person(the_person, start_position = blowjob, private = False, skip_intro = True) from _call_fuck_person_62
-
+                    $ the_person.review_outfit()
                 "Just flirt":
                     mc.name "Thanks for the offer, but I'm a little busy at the moment."
                     "She pouts and sighs."
@@ -580,6 +579,7 @@ label bimbo_flirt_response_girlfriend(the_person):
                 "You put your arms around her and pull her tight against you as you return her kisses."
                 "Bit by bit they transition from energetic to sensual, and soon you have [the_person.possessive_title]'s body grinding against yours as you make out."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_63
+                $ the_person.review_outfit()
 
             "Just flirt":
                 "You give [the_person.possessive_title] a few quick kisses, then lean your head back to get some air."
@@ -607,7 +607,7 @@ label bimbo_flirt_response_affair(the_person):
                     "She kisses you right back, pressing her tits against your chest and pawing at your crotch in her excitement."
 
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_64
-
+                    $ the_person.review_outfit()
                 "Just flirt":
                     mc.name "I do, but you'll have to wait a little while longer. I just don't have the time right now."
                     "She pouts and sighs."
@@ -635,7 +635,7 @@ label bimbo_flirt_response_affair(the_person):
                 $ blowjob.redraw_scene(the_person)
                 call fuck_person(the_person, start_position = blowjob, skip_intro = True) from _call_fuck_person_65
                 $ blowjob.current_modifier = None
-
+                $ the_person.review_outfit()
             "Just flirt":
                 mc.name "How did you guess?"
                 the_person.char "Everyone likes having their cock sucked. Well, not women I guess. But all men do."

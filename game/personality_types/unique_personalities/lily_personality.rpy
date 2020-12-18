@@ -404,6 +404,7 @@ label lily_flirt_response_high(the_person):
                         the_person.char "What are you doing..."
                         "You respond by kissing her. She hesitates for a second, then relaxes and leans her body against you."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_45
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "Thanks. Do you want to get me out of my clothes?"
@@ -444,6 +445,7 @@ label lily_flirt_response_high(the_person):
                     else:
                         "You lean down and kiss her. She hesitates for a split second before returning the kiss, pressing her body against yours."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_46
+                    $ the_person.review_outfit()
 
                 "Just flirt":
                     mc.name "I'll save all the really dirty stuff for when we're alone then."
