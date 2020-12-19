@@ -940,7 +940,6 @@ label lily_new_underwear_crisis_label():
     # Lily has some new underwear she wants to demo for you.
     # We base the underwear sluttiness on Lily's sluttiness and use Love+Sluttiness to see if she'll show you as a "full outfit".
     $ the_person = lily #Just so we can keep
-    $ valid_underwear_options = []
     $ the_underwear = lily_new_underwear_get_underwear(the_person)
     if the_underwear is None:
         return #Lily doesn't have any skimpy underwear to show us :(
