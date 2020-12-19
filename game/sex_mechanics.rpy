@@ -875,6 +875,7 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
         full_off_list = None
         half_off_list = None
         other_list = None
+        strip_choice = None
     return
 
 label girl_strip_event(the_person, the_position, the_object):

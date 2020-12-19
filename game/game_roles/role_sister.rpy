@@ -112,6 +112,15 @@ init -2 python:
         person.on_talk_event_list.append(sister_instathot_mom_report_crisis)
         return
 
+    def sister_instahot_special_pictures_strip(person):
+        for clothing in person.outfit.get_tit_strip_list(): #TODO: Have a way of figuring out if pieces of clothing can be moved half off to get to her tits
+            person.draw_animated_removal(clothing)
+            if person.outfit.tits_visible():
+                renpy.say("","Her perky breasts are set free as she pulls her " + clothing.display_name + " off and drops it beside her bed.")
+            else:
+                renpy.say("","")
+        return
+
 #SISTER ACTION LABELS#
 
 label sister_intro_crisis_label(the_person):
@@ -568,14 +577,7 @@ label sister_instathot_special_pictures(the_person):
 
     "[the_person.title] starts to pull her clothes off."
 
-    python:
-        for clothing in the_person.outfit.get_tit_strip_list(): #TODO: Have a way of figuring out if pieces of clothing can be moved half off to get to her tits
-            the_person.draw_animated_removal(clothing)
-            if the_person.outfit.tits_visible():
-                renpy.say("","Her perky breasts are set free as she pulls her " + clothing.display_name + " off and drops it beside her bed.")
-            else:
-                renpy.say("","")
-        clothing = None
+    $ sister_instahot_special_pictures_strip(the_person)
 
     $ the_person.update_outfit_taboos()
     "She gets onto her bed, onto her knees, and looks at you and the camera."

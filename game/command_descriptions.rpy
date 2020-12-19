@@ -207,6 +207,7 @@ label demand_touch_label(the_person):
                 $ mc.business.funds += -200
                 $ the_person.change_obedience(1)
                 call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_demand_touch_prostitute
+                $ the_person.review_outfit()
             "Pay her\n{color=#ff0000}{size=18}Requires: $200{/size}{/color} (disabled)" if mc.business.funds <= 200:
                 pass
             "No":

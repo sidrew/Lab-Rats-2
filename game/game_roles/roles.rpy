@@ -195,6 +195,11 @@ init -1 python:
 
         return [student_reintro_action, student_study_propose_action]
 
+    def get_freeuse_actions():
+        #EMPLOYEE FREEUSE ACTIONS#
+        freeuse_fuck = Action("Fuck her", freeuse_fuck_requirement, "employee_freeuse_fuck", menu_tooltip = "Grab your free use slut and have some fun with her.")
+        return [freeuse_fuck]
+
 label instantiate_roles(): #This section instantiates all of the key roles in the game. It is placed here to ensure it is properly created, saved, ect. by Renpy.
     #All of the role labels and requirements are defined in their own file, but their Action representations are stored here for saving purposes.
     python:
@@ -210,10 +215,7 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         employee_humiliating_work_role = Role("Humiliating Office Work", [], hidden = True) #TODO: Add some other actions to this role.
         employee_role.link_role(employee_humiliating_work_role)
 
-        #EMPLOYEE FREEUSE ACTIONS#
-        freeuse_fuck = Action("Fuck her", freeuse_fuck_requirement, "employee_freeuse_fuck", menu_tooltip = "Grab your free use slut and have some fun with her.")
-
-        employee_freeuse_role = Role("Freeuse Slut", [freeuse_fuck], hidden = True)
+        employee_freeuse_role = Role("Freeuse Slut", get_freeuse_actions(), hidden = True)
         employee_role.link_role(employee_freeuse_role)
 
         head_researcher = Role("Head Researcher", get_head_researcher_actions())
