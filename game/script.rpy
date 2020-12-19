@@ -9573,11 +9573,11 @@ screen outfit_delete_manager(the_wardrobe): ##Allows removal of outfits from pla
         textbutton "Return" align [0.5,0.5] text_style "return_button_style"
 
     fixed:
-        pos (1450,0)
-        add mannequin_average
+        pos (1500,100)
+        add mannequin_average zoom .8
         if preview_outfit:
             for cloth in preview_outfit.generate_draw_list(None,"stand3"):
-                add cloth
+                add cloth zoom .8
 
 screen outfit_select_manager(slut_limit = 999, show_outfits = True, show_overwear = True, show_underwear = True, main_selectable = True, show_make_new = True, show_export = True, show_modify = True, show_duplicate = True, show_delete = True):
     #If sluttiness_limit is passed, you cannot exit the creator until the proposed outfit has a sluttiness below it (or you create nothing).
@@ -9699,11 +9699,11 @@ screen outfit_select_manager(slut_limit = 999, show_outfits = True, show_overwea
         textbutton "Return" align [0.5,0.5] text_style "return_button_style"
 
     fixed:
-        pos (1450,0)
-        add mannequin_average
+        pos (1500,100)
+        add mannequin_average zoom .8
         if preview_outfit:
             for cloth in preview_outfit.generate_draw_list(None,"stand3"):
-                add cloth
+                add cloth zoom .8
 
 screen girl_outfit_select_manager(the_wardrobe, show_sets = False): ##Brings up a list of outfits currently in a girls wardrobe.
     add "Paper_Background.png"
@@ -9771,11 +9771,11 @@ screen girl_outfit_select_manager(the_wardrobe, show_sets = False): ##Brings up 
         textbutton "Return" align [0.5,0.5] text_style "return_button_style"
 
     fixed:
-        pos (1450,0)
-        add mannequin_average
+        pos (1500,100)
+        add mannequin_average zoom .8
         if preview_outfit:
             for cloth in preview_outfit.generate_draw_list(None,"stand3"):
-                add cloth
+                add cloth zoom .8
 
 screen map_manager():
     add "Paper_Background.png"
