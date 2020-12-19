@@ -336,10 +336,11 @@ label student_study_university(the_person):
                 "[the_person.possessive_title] nods and smiles."
                 the_person.char "Okay then, I'll text you my address and let my mom know you might be coming by."
                 the_person.char "I really need to do well in this course, so you're welcome any time."
-                $ mc.known_home_locations.append(the_person.home)
-                $ the_person.event_triggers_dict["home_tutor_enabled"] = True
-
-                $ add_student_mom_intro_action(christina)
+                python:
+                    if not the_person.home in mc.known_home_locations:
+                        mc.known_home_locations.append(the_person.home)
+                    the_person.event_triggers_dict["home_tutor_enabled"] = True
+                    add_student_mom_intro_action(christina)
 
             "Offer to tutor her at home\n{color=#ff0000}{size=18}Requires: 15 Love{/size}{/color} (disabled)" if the_person.love < 15:
                 pass
