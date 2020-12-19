@@ -656,6 +656,19 @@ label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom
                         if not awake: # only add event again when she's not awake
                             the_person.on_room_enter_event_list.append(Limited_Time_Action(sleeping_walk_in, sleeping_walk_in.event_duration)) #Readd LTE.
                         mc.change_location(hall)
+                        # cleanup groping variables
+                        grope_tits_slut_token = None
+                        grope_pussy_slut_token = None
+                        jerk_off_slut_token = None
+                        titfuck_slut_token = None
+                        facefuck_slut_token = None
+                        fuck_slut_token = None
+                        cum_tits_slut_token = None
+                        cum_face_slut_token = None
+                        cum_throat_slut_token = None
+                        cum_inside_slut_token = None
+                        panties_item = None
+                        bra_item = None
 
         "Let her sleep":
             "You back out of the room and close door slowly, careful not to wake [the_person.possessive_title]."
@@ -1284,19 +1297,6 @@ label nightime_grope(the_person, masturbating = False):
                         "You give your cock a few more strokes, then reluctantly stuff it back into your underwear and zip up your pants."
                     "You back slowly out of the room, leaving [the_person.possessive_title] asleep and unaware of your visit."
 
-    python:
-        grope_tits_slut_token = None
-        grope_pussy_slut_token = None
-        jerk_off_slut_token = None
-        titfuck_slut_token = None
-        facefuck_slut_token = None
-        fuck_slut_token = None
-        cum_tits_slut_token = None
-        cum_face_slut_token = None
-        cum_throat_slut_token = None
-        cum_inside_slut_token = None
-        panties_item = None
-        bra_item = None
 
     return awake
 
