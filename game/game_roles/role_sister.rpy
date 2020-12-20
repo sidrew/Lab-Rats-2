@@ -653,12 +653,11 @@ label sister_instathot_mom_discover(the_person): # TODO: Hook this up as a night
 label sister_instathot_label_mom(the_sister, the_mom):
     $ clear_scene()
     "You leave [the_sister.title] in her room and go to find [the_mom.possessive_title]."
-    $ first_time = the_mom.event_triggers_dict.get("mom_instathot_pic_count",0) == 0
     $ kitchen.show_background()
     $ the_mom.draw_person(position = "back_peek")
     "You find her in the kitchen, standing in front of the open fridge."
     the_mom.char "Oh, hi sweetheart. I'm just thinking about what to make for dinner. Do you need anything?"
-    if first_time:
+    if the_mom.event_triggers_dict.get("mom_instathot_pic_count",0) == 0:
         mc.name "[the_sister.title] is getting ready to take some pictures for her Insta-pic account."
         mc.name "She wanted to know if you wanted to join in."
         $ the_mom.draw_person(emotion = "happy")
@@ -678,7 +677,7 @@ label sister_instathot_label_mom(the_sister, the_mom):
     $ the_group = GroupDisplayManager([the_sister, the_mom], primary_speaker = the_sister)
     $ the_group.draw_group()
 
-    if first_time:
+    if the_mom.event_triggers_dict.get("mom_instathot_pic_count",0) == 0:
         the_sister.char "Hey [the_mom.title], come on in."
         $ the_group.draw_person(the_mom)
         the_mom.char "Thank you for inviting me, I just hope I'm not going to get in your way."
@@ -784,7 +783,7 @@ label sister_instathot_label_mom(the_sister, the_mom):
     mc.name "That's looking good you two, now look at me and smile."
     "You take a few pictures of them, moving around the bed to get a few different angles."
     menu:
-        "Get a little friendlier" if not first_time:
+        "Get a little friendlier" if not the_mom.event_triggers_dict.get("mom_instathot_pic_count",0) == 0:
             mc.name "Squeeze together you two, I need to get you both in the shot."
             "[the_mom.title] slides closer to [the_sister.title] on the bed."
             the_mom.char "Like this?"
