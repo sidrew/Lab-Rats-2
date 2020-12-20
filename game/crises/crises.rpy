@@ -1928,7 +1928,7 @@ label work_chat_crisis_label:
                             $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
                             "She sits up and her chair and sighs."
                             the_person.char "Fine, those are the rules..."
-                        "Let it go.":
+                        "Let it go":
                             mc.name "Well thanks for letting me be part of the show."
                             "She sits up in her chair and smiles."
                             the_person.char "Any time. Now, I really do have work I need to get done."
@@ -2722,15 +2722,15 @@ init 1 python:
 
     def horny_at_work_get_person_and_cause():
         potential_cause = []
-        for a_person in mc.location.people:
-            if a_person.outfit.slut_requirement >= 20:
-                potential_cause.append([a_person, "slutty_outfit"])
-            if a_person.has_large_tits():
-                potential_cause.append([a_person, "large_tits"])
-            if a_person.outfit.vagina_visible():
-                potential_cause.append([a_person, "vagina_visible"])
-            if a_person.outfit.tits_visible():
-                potential_cause.append([a_person, "tits_visible"])
+        for person in mc.location.people:
+            if person.outfit.slut_requirement >= 20:
+                potential_cause.append([person, "slutty_outfit"])
+            if person.has_large_tits():
+                potential_cause.append([person, "large_tits"])
+            if person.outfit.vagina_visible():
+                potential_cause.append([person, "vagina_visible"])
+            if person.outfit.tits_visible():
+                potential_cause.append([person, "tits_visible"])
 
         if potential_cause:
             the_cause = get_random_from_list(potential_cause)
@@ -2747,19 +2747,45 @@ init 1 python:
 
     def horny_at_work_get_follower():
         potential_follower = []
-        for a_person in mc.location.people:
-            if a_person.sluttiness >= 30 and renpy.random.randint(0,10) < a_person.focus:
-                potential_follower.append(a_person)
+        for person in mc.location.people:
+            if person.sluttiness >= 30 and renpy.random.randint(0,10) < person.focus:
+                potential_follower.append(person)
         return get_random_from_list(potential_follower)
 
     def horny_at_work_get_licker(helpful_people):
         licker = None
-        for a_person in helpful_people:
-            a_person.change_obedience(3)
-            a_person.change_slut_temp(1)
-            if a_person.get_opinion_score("being submissive") > 0 and a_person.get_opinion_score("drinking cum") > 0 and licker is None:
-                licker = a_person #The list was randomized, so even if you have multiple people who meet this criteria this should still end up random.
+        for person in helpful_people:
+            person.change_obedience(3)
+            person.change_slut_temp(1)
+            if person.get_opinion_score("being submissive") > 0 and person.get_opinion_score("drinking cum") > 0 and licker is None:
+                licker = person #The list was randomized, so even if you have multiple people who meet this criteria this should still end up random.
         return licker
+
+    def horny_at_work_get_people_sets():
+        unhappy_people = [] #They're surprised/shocked/disgusted that you're doing this.
+        neutral_people = [] #They're neither surprised that you're doing this, nor willing to come help out.
+        masturbating_people = []
+        helpful_people = [] #They're happy to come over and help you take care of your "needs"
+        for person in mc.location.people:
+            person.discover_opinion("public sex")
+            if person.sluttiness < (30 - person.get_opinion_score("public sex")*10):
+                unhappy_people.append(person)
+
+            elif person.obedience > (130 - (person.get_opinion_score("being submissive")*10)):
+                helpful_people.append(person)
+
+            else:
+                neutral_people.append(person)
+
+        for person in neutral_people:
+            if person.get_opinion_score("masturbating") > 0 and person.sluttiness >= 40:
+                masturbating_people.append(person)
+
+        renpy.random.shuffle(unhappy_people)
+        renpy.random.shuffle(neutral_people)
+        renpy.random.shuffle(masturbating_people)
+        renpy.random.shuffle(helpful_people)
+        return (unhappy_people, neutral_people, masturbating_people, helpful_people)
 
     horny_at_work_crisis = Action("Horny at work crisis", horny_at_work_crisis_requirement, "horny_at_work_crisis_label")
     crisis_list.append([horny_at_work_crisis,8])
@@ -2815,29 +2841,7 @@ label horny_at_work_crisis_label():
             $ clear_scene()
             # Girls around the room react. If some are particularly obedient and slutty they will offer to help get you off.
             "You wheel your chair back to give yourself some space, then unzip your pants and pull out your cock. You relax and start to jerk yourself off."
-            $ unhappy_people = [] #They're surprised/shocked/disgusted that you're doing this.
-            $ neutral_people = [] #They're neither surprised that you're doing this, nor willing to come help out.
-            $ masturbating_people = []
-            $ helpful_people = [] #They're happy to come over and help you take care of your "needs"
-            python:
-                for a_person in mc.location.people:
-                    a_person.discover_opinion("public sex")
-                    if a_person.sluttiness < (30 - a_person.get_opinion_score("public sex")*10):
-                        unhappy_people.append(a_person)
-
-                    elif a_person.obedience > (130 - (a_person.get_opinion_score("being submissive")*10)):
-                        helpful_people.append(a_person)
-
-                    else:
-                        neutral_people.append(a_person)
-
-                for a_person in neutral_people:
-                    if a_person.get_opinion_score("masturbating") > 0 and a_person.sluttiness >= 40:
-                        masturbating_people.append(a_person)
-
-                renpy.random.shuffle(unhappy_people)
-                renpy.random.shuffle(helpful_people)
-                renpy.random.shuffle(neutral_people)
+            $ unhappy_people, neutral_people, masturbating_people, helpful_people = horny_at_work_get_people_sets()
 
             if unhappy_people: #There's someone in this list.
                 $ main_unhappy_person = get_random_from_list(unhappy_people) #Someone to lead the unhappy group, if there is more than one person.
@@ -2883,29 +2887,32 @@ label horny_at_work_crisis_label():
                         unhappy_person.change_slut_temp(2)
                         mc.location.move_person(unhappy_person, lobby) #Move everyone to the lobby so they aren't considered observers for the rest of teh event.
                 #TODO: ALso move them to the lobby so they aren't considered watchers forthe rest of the event.
+                $ del main_unhappy_person
                 $ clear_scene() #TODO We should have an event for the angry girls coming back (maybe we need a general apology event?)
 
             if neutral_people:
-                $ the_group = GroupDisplayManager(neutral_people)
-                $ the_group.draw_group(position = "sitting")
-                if len(neutral_people) > 1:
-                    $ neutral_string = format_group_of_people(neutral_people) + " all see you jerking off at your desk, but none of them seem upset or surprised by it."
-                else:
-                    $ neutral_string = format_group_of_people(neutral_people) + " notices you jerking off, but she doesn't seem upset or surprised by it."
-                $ renpy.say("",neutral_string)
+                python:
+                    the_group = GroupDisplayManager(neutral_people)
+                    the_group.draw_group(position = "sitting")
+                    if len(neutral_people) > 1:
+                        neutral_string = format_group_of_people(neutral_people) + " all see you jerking off at your desk, but none of them seem upset or surprised by it."
+                    else:
+                        neutral_string = format_group_of_people(neutral_people) + " notices you jerking off, but she doesn't seem upset or surprised by it."
+                    renpy.say("", neutral_string)
+                    neutral_string = None
 
                 if masturbating_people:
                     python:
                         for mast_person in masturbating_people:
                             the_group.draw_person(mast_person, make_primary = False, emotion = "happy")
-                    $ renpy.random.shuffle(masturbating_people)
-                    if len(masturbating_people) == 1:
-                        $ masturbating_string = format_group_of_people(masturbating_people) + " even joins in, quietly sliding her hand down to her crotch and rubbing her pussy."
-                    elif len(masturbating_people) == 2:
-                        $ masturbating_string = format_group_of_people(masturbating_people) + " even join in, both sliding their hands down to their pussies and rubbing them quietly."
-                    else:
-                        $ masturbating_string =  format_group_of_people(masturbating_people) + " all quietly join in as well, quietly sliding hands down to their pussies and joining the group masturbation session."
-                    $ renpy.say("",masturbating_string)
+                            if len(masturbating_people) == 1:
+                                masturbating_string = format_group_of_people(masturbating_people) + " even joins in, quietly sliding her hand down to her crotch and rubbing her pussy."
+                            elif len(masturbating_people) == 2:
+                                masturbating_string = format_group_of_people(masturbating_people) + " even join in, both sliding their hands down to their pussies and rubbing them quietly."
+                            else:
+                                masturbating_string = format_group_of_people(masturbating_people) + " all quietly join in as well, quietly sliding hands down to their pussies and joining the group masturbation session."
+                            renpy.say("",masturbating_string)
+                        masturbating_string = None
 
             if helpful_people:
                 $ helpful_person = get_random_from_list(helpful_people)
@@ -2927,10 +2934,10 @@ label horny_at_work_crisis_label():
 
                     else:
                         $ others_string =  format_group_of_people(others) + " all get up and stand behind [helpful_person.possessive_title], obviously willing to do the same."
-                    $ others = None
+                    $ del others
                     $ renpy.say("",others_string)
                     $ others_string = None
-                $ helpful_person = None
+                $ del helpful_person
                 if len(helpful_people) > 1:
                     $ exit_option = "Just have them watch."
                 else:
@@ -2959,7 +2966,7 @@ label horny_at_work_crisis_label():
                         licker.char "Right away!"
                         $ licker.change_obedience(2)
                         "She licks your still-warm cum directly off of the floor, drinking it down eagerly. When she's finished she stands up and wipes her lips with the back of her hand."
-                        $ licker = None
+                        $ del licker
                     else:
                         "You pull your pants up and get back to work, basking in your post orgasm clarity."
 
@@ -3004,6 +3011,7 @@ label horny_at_work_crisis_label():
                             $ the_report = _return
                             $ the_choice.review_outfit()
                             $ helpful_people.remove(the_choice)
+                            $ del the_choice
 
                     if the_report.get("guy orgasms",0) == 0:
                         "You've worn yourself out, but you still haven't gotten off. You relax in your office chair and stroke yourself off until you cum."
@@ -3031,7 +3039,6 @@ label horny_at_work_crisis_label():
                 del neutral_people
                 del masturbating_people
                 del helpful_people
-                a_person = None
 
         "Sneak away to the bathroom and jerk off (tooltip)A few minutes in private should fix this right up." if mc.location.people: #If there are people around here's an option to jerk off. There might
             $ clear_scene()
@@ -3336,7 +3343,7 @@ label horny_at_work_crisis_label():
                             "She stammers for something more to say before settling on storming out of the room instead."
                             $ clear_scene()
                             "Frustrated, her rejection has at least taken your mind off of your erection and you're able to get back to work eventually."
-
+                $ del others
     $ clear_scene()
     $ the_group = None
     return
