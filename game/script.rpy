@@ -1868,6 +1868,50 @@ init -5 python:
             while len(self.log_items) > self.log_max_size:
                 self.log_items.pop() #Pop off extra items until we are down to size.
 
+    class DaySchedule():
+        def __init__(self, home_location = None):
+            self.schedule = [None] * 5
+            if isinstance(home_location, Room):
+                self.schedule[0] = home_location.name
+                self.schedule[4] = home_location.name
+
+        def __getitem__(self, key):
+            return find_in_list(lambda x: x.name == self.schedule[key], list_of_places)
+
+        def __setitem__(self, key, value):
+            if isinstance(value, Room):
+                self.schedule[key] = value.name
+            else:
+                self.schedule[key] = None
+
+        def __copy__(self):
+            new_schedule = DaySchedule()
+            new_schedule.schedule = self.schedule.copy()    # make copy of list
+            return new_schedule
+
+    class Schedule():
+        def __init__(self, home_location = None):
+            self.schedule = [DaySchedule(home_location)] * 7
+
+        def __getitem__(self, key):
+            return self.schedule[key]
+
+        def __setitem__(self, key, location):
+            pass
+
+        def __copy__(self):
+            new_schedule = Schedule()
+            for x in range(7):
+                new_schedule.schedule[x] = copy.copy(self.schedule[x]) # call copy function for each day schedule
+            return new_schedule
+
+        def clear_schedule(self):
+            for x in range(7):
+                for y in range(5):
+                    self.schedule[x][y] = None
+
+        def get_copy(self):
+            return copy.copy(self)
 
     class Person(renpy.store.object): #Everything that needs to be known about a person.
         global_character_number = 0 #This is increased for each character that is created.
@@ -1898,9 +1942,7 @@ init -5 python:
 
             self.home = home #The room the character goes to at night. If none a random public location is picked.
             self.work = work #The room the character goes to for work.
-            self.schedule = {}
-            for x in range(7):
-                self.schedule[x] = { 0: home, 1: None, 2: None, 3: None, 4: home }
+            self.schedule = Schedule(home)
 
             #If there is a place in the schedule the character will go there. Otherwise they have free time and will do whatever they want.
             self.job = job

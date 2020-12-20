@@ -329,21 +329,13 @@ label pregnant_transform_announce(start_day, the_person):
     return
 
 init 2 python:
-    def clone_schedule(person):
-        schedule = {}
-        for day in range(0, 7):
-            schedule[day] = {}
-            for tod in range(0, 5):
-                schedule[day][tod] = person.schedule[day][tod]
-        return schedule
-
     def pregnant_finish_announce_person(person):
         if "preg_old_schedule" in person.event_triggers_dict:
             renpy.say("Warning", "Something went wrong with setting the pregnancy for " + person.name + ", she is already giving birth.")
             return # she is already giving birth
 
         # copy schedule
-        person.event_triggers_dict["preg_old_schedule"] = clone_schedule(person)
+        person.event_triggers_dict["preg_old_schedule"] = copy.copy(person.schedule)
         person.set_schedule(person.home, times = [0,1,2,3,4])
 
         preg_finish_action = Action("Pregnancy Finish", preg_finish_requirement, "pregnant_finish", args = person, requirement_args = [person, day + renpy.random.randint(4,7)])
