@@ -1747,7 +1747,7 @@ label family_games_night_strip(the_mom, the_aunt, the_sister, partner):
                     the_item = person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True)
                     if the_item:
                         something_to_strip = True
-
+                person = None
 
             if something_to_strip:
                 mc.name "Good try girls, but that round is ours."
