@@ -1989,6 +1989,13 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                     the_person.char "I think... you've just made things worse."
                     $ mc.business.change_team_effectiveness(-5)
                     the_person.char "I'll have to deal with this later. What did you want to talk about [the_person.mc_title]?"
+
+            "Punish her for inappropriate behaviour" if office_punishment.is_active():
+                mc.name "[the_person.title], this isn't appropriate for the office. I'm going to have to write you up for this."
+                the_person.char "Oh, I... I'm sorry [the_person.mc_title], I didn't think you would mind..."
+                $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
+                mc.name "I'll make sure you'll learn your lesson in the future."
+
         call talk_person(the_person) from _call_talk_person_17
     $ clear_scene()
     return
