@@ -1405,7 +1405,10 @@ label family_morning_breakfast_label():
         "You enjoy a relaxing breakfast bonding with your mother and sister. Your mom seems particularly happy she gets to spend time with you."
         "When you're done you help Mom put the dirty dishes away and get on with your day."
 
-    $ clear_scene()
+    python:
+        clear_scene()
+        the_mom = None
+        the_sister = None
     return
 
 init 1 python:
