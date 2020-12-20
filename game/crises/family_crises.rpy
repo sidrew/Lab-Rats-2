@@ -927,6 +927,7 @@ init 1 python:
         return False
 
     def lily_new_underwear_get_underwear(person):
+        valid_underwear_options = []
         for underwear in default_wardrobe.get_underwear_sets_list():
             #She picks underwear that is in the top 20 sluttiness of what she considers slutty underwear AND that she would feel comfortable wearing in front of her (hopefully loving) brother.
             if underwear.get_underwear_slut_score() <= person.sluttiness and underwear.get_underwear_slut_score() >= person.sluttiness-20 and person.judge_outfit(underwear, person.love+30):
