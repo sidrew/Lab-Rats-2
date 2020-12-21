@@ -19,6 +19,7 @@ init -5 python:
     import time
     import zipfile
     import io
+    import hashlib
     from collections import defaultdict
 
     if not renpy.mobile: #Mobile platforms do not support animation, so we only want to try to import it if we're going to use it.
@@ -1872,15 +1873,17 @@ init -5 python:
         def __init__(self, home_location = None):
             self.schedule = [None] * 5
             if isinstance(home_location, Room):
-                self.schedule[0] = home_location.name
-                self.schedule[4] = home_location.name
+                self.schedule[0] = home_location.identifier
+                self.schedule[4] = home_location.identifier
 
         def __getitem__(self, key):
-            return find_in_list(lambda x: x.name == self.schedule[key], list_of_places)
+            return next((x for x in list_of_places if x.identifier == self.schedule[key]), None)
 
         def __setitem__(self, key, value):
             if isinstance(value, Room):
-                self.schedule[key] = value.name
+                self.schedule[key] = value.identifier
+            elif isinstance(value, basestring) and any(x for x in list_of_places if x.identifier == value):
+                self.schedule[key] = value
             else:
                 self.schedule[key] = None
 
@@ -1896,8 +1899,9 @@ init -5 python:
         def __getitem__(self, key):
             return self.schedule[key]
 
-        def __setitem__(self, key, location):
-            pass
+        def __setitem__(self, key, day_schedule):
+            if isinstance(day_schedule, DaySchedule):
+                self.schedule[key] = day_schedule
 
         def __copy__(self):
             new_schedule = Schedule()
@@ -2166,22 +2170,50 @@ init -5 python:
             self.sexed_count = 0
 
         def generate_home(self, set_home_time = True): #Creates a home location for this person and adds it to the master list of locations so their turns are processed.
-            if self.home is None:
-                home_objects =[
-                    make_wall(),
-                    make_floor(),
-                    make_bed(),
-                    make_window()
-                ]
-                start_home = Room(self.name + " " + self.last_name + " home", self.name + " " + self.last_name + " home", [], standard_bedroom_backgrounds[:], home_objects,[],[],False,[0.5,0.5], visible = False, hide_in_known_house_map = False, lighting_conditions = standard_indoor_lighting)
-                self.home = start_home
+            if not self.home is None:
+                return self.home    # return existing home
 
-            if not self.home in list_of_places:
-                list_of_places.append(self.home)
+            home_objects =[
+                make_wall(),
+                make_floor(),
+                make_bed(),
+                make_window()
+            ]
+
+            start_home = Room(self.name + " " + self.last_name + " home", self.name + " " + self.last_name + " home", [], standard_bedroom_backgrounds[:], home_objects,[],[],False,[0.5,0.5], visible = False, hide_in_known_house_map = False, lighting_conditions = standard_indoor_lighting)
+            if not start_home in list_of_places:
+                list_of_places.append(start_home)
+            self.home = start_home
 
             if set_home_time:
                 self.set_schedule(the_location = self.home, times = [0,4])
             return self.home
+
+        @property
+        def home(self):
+            if not hasattr(self, "_home"):
+                self._home = None
+            return next((x for x in list_of_places if x.identifier == self._home), None)
+
+        @home.setter
+        def home(self, value):
+            if isinstance(value, Room):
+                self._home = value.identifier
+            else:
+                self._home = None
+
+        @property
+        def work(self):
+            if not hasattr(self, "_work"):
+                self._work = None
+            return next((x for x in list_of_places if x.identifier == self._work), None)
+
+        @work.setter
+        def work(self, value):
+            if isinstance(value, Room):
+                self._work = value.identifier
+            else:
+                self._work = None
 
         def generate_daughter(self): #Generates a random person who shares a number of similarities to the mother
             age = renpy.random.randint(18, self.age-16)
@@ -4354,6 +4386,12 @@ init -5 python:
                 self.lighting_conditions = lighting_conditions
 
             #TODO: add an "appropriateness" or something trait that decides how approrpaite it would be to have sex, be seduced, etc. in this location.
+
+        @property
+        def identifier(self):
+            if not hasattr(self, "_identifier"):
+                self._identifier = hashlib.md5(self.name + str(renpy.random.randint(10000, 90000000))).hexdigest()
+            return self._identifier
 
         def show_background(self):
             if isinstance(self.background_image, list):
@@ -11886,8 +11924,6 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
         town_relationships = RelationshipArray() #Singleton class used to track relationships. Remvoes need for recursive character references (which messes with Ren'py's saving methods)
         mc.generate_goals()
 
-        generate_premade_list() # Creates the list with all the premade characters for the game in it. Without this we both break the policies call in create_random_person, and regenerate the premade list on each restart.
-
         ##Keep a list of all the places##
         list_of_places.append(bedroom)
         list_of_places.append(lily_bedroom)
@@ -12011,6 +12047,8 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
                     the_person.home.add_person(the_person) # add to home instead of place (hides them on game start)
                     #We are using create_random_person instead of make_person because we want premade character bodies to be hirable instead of being eaten up by towns-folk.
         place = None
+
+        generate_premade_list() # Creates the list with all the premade characters for the game in it. Without this we both break the policies call in create_random_person, and regenerate the premade list on each restart.
 
         stripclub_strippers = []
         add_stripclub_strippers()
