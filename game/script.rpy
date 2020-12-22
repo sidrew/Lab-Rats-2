@@ -215,6 +215,25 @@ init -5 python:
     # build.classify("game/images/character_images/**_Face_12**.png", "renpy")
     # build.classify("game/images/character_images/**_Face_13**.png", "renpy")
     # build.classify("game/images/character_images/**_Face_14**.png", "renpy")
+    def all_people_in_the_game(excluded_people = []): # Pass excluded_people as array of people [mc, lily, aunt, cousin, alexia]
+        all_people = []
+        for location in list_of_places:
+            for person in location.people:
+                if person not in excluded_people:
+                    all_people.append(person)
+        return all_people
+    def all_locations_in_the_game(excluded_locations = []):
+        all_locations = []
+        for location in list_of_places:
+            if not location in excluded_locations:
+                all_locations.append(location)
+        return all_locations
+    def all_policies_in_the_game(excluded_policies = []):
+        all_policies = []
+        for policy in uniform_policies_list + recruitment_policies_list + serum_policies_list + organisation_policies_list:
+            if not policy in excluded_policies:
+                all_policies.append(policy)
+        return all_policies
 
     def get_obedience_plaintext(obedience_amount):
         obedience_string = "ERROR - Please Tell Vren!"
@@ -529,13 +548,81 @@ init -5 python:
                 global_draw_number[a_layer] += 1
                 renpy.scene(a_layer)
 
+    # Custom implementation for mapped list, that reference the list_item.identifier instead of the actual object
+    # list_func is the function retrieving the original list (we don't want to reference the original list)
+    class MappedList():
+        def __init__(self, type, list_func, new_list = []):
+            self.type = type
+            self.list_func = list_func
+            if new_list:
+                self.mapped_list = new_list
+            else:
+                self.mapped_list = []
+
+        def __getitem__(self, key):
+            return next((x for x in self.list_func() if x.identifier == self.mapped_list[key]), None)
+
+        def __setitem__(self, key, item):
+            if isinstance(item, self.type):
+                self.mapped_list[key] = item.identifier
+
+        def __iter__(self):
+            for item in self.mapped_list:
+                yield next((x for x in self.list_func() if x.identifier == item), None)
+
+        def __len__(self):
+            return len(self.mapped_list)
+
+        def __contains__(self, item):
+            if isinstance(item, self.type):
+                return any(x for x in self.mapped_list if x == item.identifier)
+
+        def __add__(self, other):
+            if isinstance(other, MappedList):
+                return MappedList(self.type, self.list_func, self.mapped_list.copy() + other.mapped_list.copy())
+            if isinstance(other, list):
+                new_list = self.mapped_list.copy()
+                for item in other:
+                    if isinstance(item, self.type):
+                        new_list.append(item.identifier)
+                return MappedList(self.type, self.list_func, new_list)
+
+        def __sub__(self, other):
+            if isinstance(other, MappedList):
+                return MappedList(self.type, self.list_func, list(set(self.mapped_list.copy())-set(other.mapped_list.copy())))
+
+        def __iadd__(self, other):
+            self.append(other)
+            return self
+
+        def __isub__(self, other):
+            self.remove(other)
+            return self
+
+        def append(self, item):
+            if isinstance(item, self.type):
+                if not item.identifier in self.mapped_list:
+                    self.mapped_list.append(item.identifier)
+
+        def remove(self, item):
+            if isinstance(item, self.type):
+                if item.identifier in self.mapped_list:
+                    self.mapped_list.remove(item.identifier)
+
+        def clear(self):
+            self.mapped_list.clear()
+
+        def pop(self, index = -1):
+            identifier = self.mapped_list.pop(index)
+            return next((x for x in self.list_func() if x.identifier == identifier), None)
+
     class Business(renpy.store.object):
         # main jobs to start with:
         # 1) buying raw supplies.
         # 2) researching new serums.
         # 2a) The player (only) designs new serums to be researched.
         # 3) working in the lab to produce serums.
-        # 4) Working in marketing. Increases volumn you can sell, and max price you can sell for.
+        # 4) Working in marketing. Increases volume you can sell, and max price you can sell for.
         # 5) Packaging and selling serums that have been produced.
         # 6) General secretary work. Starts at none needed, grows as your company does (requires an "HR", eventually). Maybe a general % effectivness rating.
         def __init__(self, name, m_div, p_div, r_div, s_div, h_div):
@@ -545,14 +632,14 @@ init -5 python:
             self.bankrupt_days = 0 #How many days you've been bankrupt. If it hits the max value you lose.
             self.max_bankrupt_days = 3 #How many days you can be negative without loosing the game. Can be increased through research.
 
-            self.m_div = m_div #The phsyical locations of all of the teams, so you can move to different offices in the future.
+            self.m_div = m_div #The physical locations of all of the teams, so you can move to different offices in the future.
             self.p_div = p_div
             self.r_div = r_div
             self.s_div = s_div
             self.h_div = h_div
 
-            #Uniforms are stored as a wardrobe specific to each department. There is also a company wide wardrobe that can be accessed.
-#            self.all_uniform = Wardrobe(self.name + " All Wardrobe")
+            # Uniforms are stored as a wardrobe specific to each department. There is also a company wide wardrobe that can be accessed.
+            # self.all_uniform = Wardrobe(self.name + " All Wardrobe")
             self.m_uniform = Wardrobe(self.name + " Marketing Wardrobe")
             self.p_uniform = Wardrobe(self.name + " Production Wardrobe")
             self.r_uniform = Wardrobe(self.name + " Research Wardrobe")
@@ -566,14 +653,14 @@ init -5 python:
             self.s_serum = None
             self.h_serum = None
 
-            self.research_team = [] #Researches new serums that the player designs, does theoretical research into future designs, or improves old serums slightly over time
-            self.market_team = [] # Increases company marketability. Raises max price serum can be sold for, and max volumn that can be sold.
-            self.supply_team = [] # Buys the raw supplies used by the other departments.
-            self.production_team = [] # Physically makes the serum and sends it off to be sold.
-            self.hr_team = [] # Manages everyone else and improves effectiveness. Needed as company grows.
+            # self.research_team = [] #Researches new serums that the player designs, does theoretical research into future designs, or improves old serums slightly over time
+            # self.market_team = [] # Increases company marketability. Raises max price serum can be sold for, and max volume that can be sold.
+            # self.supply_team = [] # Buys the raw supplies used by the other departments.
+            # self.production_team = [] # Physically makes the serum and sends it off to be sold.
+            # self.hr_team = [] # Manages everyone else and improves effectiveness. Needed as company grows.
 
             self.head_researcher = None #A reference to the head researcher is stored here, for use in important events.
-            self.company_model = None #A reference to the currnet company model. May be used for some events.
+            self.company_model = None #A reference to the current company model. May be used for some events.
 
             self.max_employee_count = 5
 
@@ -585,7 +672,7 @@ init -5 python:
             self.team_effectiveness = 100 #Ranges from 50 (Chaotic, everyone functions at 50% speed) to 200 (masterfully organized). Normal levels are 100, special traits needed to raise it higher.
             self.effectiveness_cap = 100 #Max cap, can be raised.
 
-            self.research_tier = 0 #The tier of research the main charcter has unlocked with storyline events. 0 is starting, 3 is max.
+            self.research_tier = 0 #The tier of research the main character has unlocked with storyline events. 0 is starting, 3 is max.
 
             self.serum_designs = [] #Holds serum designs that you have researched.
             self.active_research_design = None #The current research (serum design or serum trait) the business is working on
@@ -598,8 +685,8 @@ init -5 python:
             self.inventory = SerumInventory([])
             self.sale_inventory = SerumInventory([])
 
-            self.policy_list = [] #This is a list of Policy objects.
-            self.active_policy_list = [] #This is a list of currently active policies (vs just owned ones)
+            #self.policy_list = [] #This is a list of Policy objects.
+            #self.active_policy_list = [] #This is a list of currently active policies (vs just owned ones)
 
             self.message_list = [] #This list of strings is shown at the end of each day on the business update screen. Cleared each day.
             self.counted_message_list = {} #This is a dict holding the count of each message stored in it. Used when you want to have a message that is counted and the total shown at the end of the day.
@@ -626,6 +713,129 @@ init -5 python:
             self.event_triggers_dict["hiring_tutorial"] = 1 #We have an outfit design tutorial.
 
             self.listener_system = Listener_Management_System()
+
+        @property
+        def active_policy_list(self):
+            if not hasattr(self, "_active_policy_list"):
+                self._active_policy_list = MappedList(Policy, all_policies_in_the_game)
+            return self._active_policy_list
+
+        @property
+        def policy_list(self):
+            if not hasattr(self, "_policy_list"):
+                self._policy_list = MappedList(Policy, all_policies_in_the_game)
+            return self._policy_list
+
+        @property
+        def m_div(self):
+            if not hasattr(self, "_m_div"):
+                self._m_div = None
+            return next((x for x in list_of_places if x.identifier == self._m_div), None)
+
+        @m_div.setter
+        def m_div(self, value):
+            if isinstance(value, Room):
+                self._m_div = value.identifier
+
+        @property
+        def p_div(self):
+            if not hasattr(self, "_p_div"):
+                self._p_div = None
+            return next((x for x in list_of_places if x.identifier == self._p_div), None)
+
+        @p_div.setter
+        def p_div(self, value):
+            if isinstance(value, Room):
+                self._p_div = value.identifier
+
+        @property
+        def r_div(self):
+            if not hasattr(self, "_r_div"):
+                self._r_div = None
+            return next((x for x in list_of_places if x.identifier == self._r_div), None)
+
+        @r_div.setter
+        def r_div(self, value):
+            if isinstance(value, Room):
+                self._r_div = value.identifier
+
+        @property
+        def s_div(self):
+            if not hasattr(self, "_s_div"):
+                self._s_div = None
+            return next((x for x in list_of_places if x.identifier == self._s_div), None)
+
+        @s_div.setter
+        def s_div(self, value):
+            if isinstance(value, Room):
+                self._s_div = value.identifier
+
+        @property
+        def h_div(self):
+            if not hasattr(self, "_h_div"):
+                self._h_div = None
+            return next((x for x in list_of_places if x.identifier == self._h_div), None)
+
+        @h_div.setter
+        def h_div(self, value):
+            if isinstance(value, Room):
+                self._h_div = value.identifier
+
+        @property
+        def head_researcher(self):
+            if not hasattr(self, "_head_researcher"):
+                self._head_researcher = None
+            return next((x for x in all_people_in_the_game() if x.identifier == self._head_researcher), None)
+
+        @head_researcher.setter
+        def head_researcher(self, value):
+            if isinstance(value, Person):
+                self._head_researcher = value.identifier
+            else:
+                self._head_researcher = None
+
+        @property
+        def company_model(self):
+            if not hasattr(self, "_company_model"):
+                self._company_model = None
+            return next((x for x in all_people_in_the_game() if x.identifier == self._company_model), None)
+
+        @company_model.setter
+        def company_model(self, value):
+            if isinstance(value, Person):
+                self._company_model = value.identifier
+            else:
+                self._company_model = None
+
+        @property
+        def research_team(self):
+            if not hasattr(self, "_research_team"):
+                self._research_team = MappedList(Person, all_people_in_the_game)
+            return self._research_team
+
+        @property
+        def market_team(self):
+            if not hasattr(self, "_market_team"):
+                self._market_team = MappedList(Person, all_people_in_the_game)
+            return self._market_team
+
+        @property
+        def supply_team(self):
+            if not hasattr(self, "_supply_team"):
+                self._supply_team = MappedList(Person, all_people_in_the_game)
+            return self._supply_team
+
+        @property
+        def production_team(self):
+            if not hasattr(self, "_production_team"):
+                self._production_team = MappedList(Person, all_people_in_the_game)
+            return self._production_team
+
+        @property
+        def hr_team(self):
+            if not hasattr(self, "_hr_team"):
+                self._hr_team = MappedList(Person, all_people_in_the_game)
+            return self._hr_team
 
         def run_turn(self): #Run each time the time segment changes. Most changes are done here.
             if time_of_day == 1 and daily_serum_dosage_policy.is_active() and self.is_work_day(): #Not done on run_day because we want it to apply at the _start_ of the day.
@@ -1673,7 +1883,7 @@ init -5 python:
             self.condom = False #True if you currently have a condom on. (maintained by sex scenes). TODO: Allow a third "broken" state and add dialgoue and descriptions for that.
             self.recently_orgasmed = False #If True you recently orgasmsed and aren't hard until your arousal rises to 10 or the encounter ends.
 
-            self.known_home_locations = [] #When the MC learns a character's home location the room reference should be added here. They can then get to it from the map.
+            self.known_home_locations = MappedList(Room, all_locations_in_the_game) #When the MC learns a character's home location the room reference should be added here. They can then get to it from the map.
 
             self.listener_system = Listener_Management_System() #A listener manager to let us enroll to events and update goals when they are triggered.
 
@@ -1704,6 +1914,17 @@ init -5 python:
             self.scrap_goal_available = True
 
             self.can_skip_time = False #A flag used to determine when it is safe to skip time and when it is not. Left in as of v0.19.0 to ensure missed references do not cause a crash; has no function.
+
+        @property
+        def location(self):
+            if not hasattr(self, "_location"):
+                self._location = None
+            return next((x for x in list_of_places if x.identifier == self._location), None)
+
+        @location.setter
+        def location(self, value):
+            if isinstance(value, Room):
+                self._location = value.identifier
 
         def change_location(self,new_location): #TODO: Check if we can add the "show_background" command for our new location here. Is there any time where we want to be in a location but _not_ show it's background?
             self.location = new_location
@@ -2188,6 +2409,12 @@ init -5 python:
             if set_home_time:
                 self.set_schedule(the_location = self.home, times = [0,4])
             return self.home
+
+        @property
+        def identifier(self):
+            if not hasattr(self, "_identifier"):
+                self._identifier = hashlib.md5(self.name + self.last_name + str(renpy.random.randint(10000, 90000000))).hexdigest()
+            return self._identifier
 
         @property
         def home(self):
@@ -4208,6 +4435,28 @@ init -5 python:
             else:
                 self.visible = visible
 
+        @property
+        def person_a(self):
+            if not hasattr(self, "_person_a"):
+                self._person_a = None
+            return next((x for x in all_people_in_the_game() if x.identifier == self._person_a), None)
+
+        @person_a.setter
+        def person_a(self, value):
+            if isinstance(value, Person):
+                self._person_a = value.identifier
+
+        @property
+        def person_b(self):
+            if not hasattr(self, "_person_b"):
+                self._person_b = None
+            return next((x for x in all_people_in_the_game() if x.identifier == self._person_b), None)
+
+        @person_b.setter
+        def person_b(self, value):
+            if isinstance(value, Person):
+                self._person_b = value.identifier
+
         def get_other_person(self, the_person): #Used to make it simpler to get a relationship for one person and know who the "other" person is.
             if the_person == self.person_a:
                 return self.person_b
@@ -4232,6 +4481,8 @@ init -5 python:
 
         def update_relationship(self, person_a, person_b, type_a, type_b = None, visible = None): #Note that type_a is required, but if you want to do just one half of a relationship you can flip the person order around.
             if person_a is person_b: #Don't form relationships with yourself!
+                return
+            if not person_a or not person_b:    # Don't create empty relationship
                 return
 
             the_relationship = self.get_relationship(person_a, person_b)
@@ -4263,7 +4514,8 @@ init -5 python:
 
         def get_relationship(self, person_a, person_b):
             for relationship in self.relationships:
-                if (relationship.person_a == person_a and relationship.person_b == person_b) or (relationship.person_a == person_b and relationship.person_b == person_a):
+                if (relationship.person_a == person_a and relationship.person_b == person_b) or \
+                    (relationship.person_a == person_b and relationship.person_b == person_a):
                     return relationship #If we find a relationship containing the same two people (but perhaps with their position inverted) return it.
 
             return None #Otherwise these people have no relationship.
@@ -4273,7 +4525,8 @@ init -5 python:
             if isinstance(types, basestring):
                 types = [types]
             for relationship in self.relationships:
-                if (the_person == relationship.person_a and (types is None or relationship.type_a in types)) or (the_person == relationship.person_b and (types is None or relationship.type_b in types)): #What type we are looking at depends on if this is person A or B.
+                if (the_person == relationship.person_a and relationship.person_b and (types is None or relationship.type_a in types)) or \
+                    (the_person == relationship.person_b and relationship.person_a and (types is None or relationship.type_b in types)): #What type we are looking at depends on if this is person A or B.
                     if visible is None or visible == relationship.visible:
                         return_list.append(relationship)
 
@@ -4284,7 +4537,9 @@ init -5 python:
             if isinstance(types, basestring):
                 types = [types]
             for relationship in self.get_relationship_list(the_person, types, visible):
-                return_list.append([relationship.get_other_person(the_person), self.get_relationship_type(the_person, relationship.get_other_person(the_person))]) #Creates a tuple of [Person, Type] for every entry in the list.
+                other_person = relationship.get_other_person(the_person)
+                if other_person:
+                    return_list.append([other_person, self.get_relationship_type(the_person, other_person)]) #Creates a tuple of [Person, Type] for every entry in the list.
             return return_list
 
         def get_business_relationships(self, types = None): #Returns a list containing all relationships between people in your company.
@@ -4768,7 +5023,7 @@ init -5 python:
             else:
                 self.dependant_policies = dependant_policies # Otherwise we have a list already.
 
-            self.depender_policies = [] #These policies depend _on_ us, and are declared when other policies are defined. If they are on, we cannot toggle off.
+            self.depender_policies = MappedList(Policy, all_policies_in_the_game) #These policies depend _on_ us, and are declared when other policies are defined. If they are on, we cannot toggle off.
             for policy in self.dependant_policies:
                 policy.depender_policies.append(self) #Esentially builds a two way linked list of policies while allowing us to only define the requirements from the base up. Also conveniently stops dependency cycles from forming.
 
@@ -4787,6 +5042,12 @@ init -5 python:
 
         def __hash__(self):
             return hash((self.name,self.desc,self.cost))
+
+        @property
+        def identifier(self):
+            if not hasattr(self, "_identifier"):
+                self._identifier = hashlib.md5(self.name + self.desc + str(renpy.random.randint(10000, 90000000))).hexdigest()
+            return self._identifier
 
         def is_owned(self):
             if self in mc.business.policy_list:
@@ -7547,7 +7808,7 @@ screen employee_overview(white_list = None, black_list = None, person_select = F
 
     python:
         if division_select == "none":
-            showing_team = [] + mc.business.research_team + mc.business.production_team + mc.business.supply_team + mc.business.market_team + mc.business.hr_team
+            showing_team = mc.business.research_team + mc.business.production_team + mc.business.supply_team + mc.business.market_team + mc.business.hr_team
             division_name = "Everyone"
         elif division_select == "r":
             showing_team = mc.business.research_team #ie. take a shallow copy, so we can modify the team without everything exploding.
@@ -10983,9 +11244,17 @@ init -2 python:
                 possible_greetings.append(a_person)
         return get_random_from_list(possible_greetings)
 
+    common_variable_list = ["talk_action", "new_location", "picked_option", "picked_event" "outfit", "the_outfit", "the_uniform", "the_underwear", "person_one", "person_two", "the_person_one", "the_person_two", "the_item", "the_clothing", "the_group", "the_report", "the_trait", "the_mom", "the_aunt", "the_sister", "the_student", "the_place", "the_girl", "test_outfit"]
+    def main_loop_cleanup():
+        clear_scene()
+        # generic cleanup routine for common variable names
+        for name in common_variable_list:
+            if name in globals():
+                del globals()[name]
+        renpy.checkpoint()
+
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
-    $ renpy.checkpoint()
-    $ clear_scene()
+    $ main_loop_cleanup()
 
     if "action_mod_list" in globals():
         call screen enhanced_main_choice_display(build_menu_items([build_people_list(), build_actions_list()]))
@@ -11055,13 +11324,6 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
             $ mc.change_energy(mc.max_energy * .1) #Extra 10 energy gain if you spend your time waiting around
         call advance_time from _call_advance_time_15
         $ mc.location.show_background() #Redraw the background in case it has changed due to the new time.
-
-    python:
-        picked_option = None
-        picked_event = None
-        new_location = None
-        talk_action = None
-        outfit = None
 
     jump game_loop
 
@@ -12050,7 +12312,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
 
         generate_premade_list() # Creates the list with all the premade characters for the game in it. Without this we both break the policies call in create_random_person, and regenerate the premade list on each restart.
 
-        stripclub_strippers = []
+        stripclub_strippers = MappedList(Person, all_people_in_the_game)
         add_stripclub_strippers()
 
         ##Global Variable Initialization##
