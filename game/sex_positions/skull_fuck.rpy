@@ -181,10 +181,10 @@ label transition_default_skull_fuck(the_girl, the_location, the_object):
 label strip_skull_fuck(the_girl, the_clothing, the_location, the_object):
     "[the_girl.title] taps on your thigh and tries to move her head back."
     menu:
-        "Ignore her.": #You're really in control here.
+        "Ignore her": #You're really in control here.
             mc.name "I can't stop now, this feels too good!"
 
-        "Let her up.":
+        "Let her up":
             $ skull_fuck.current_modifier = None
             $ skull_fuck.redraw_scene(the_girl)
             "You give her throat one last thrust, then let her slide back until the tip of your cock clears her lips."
@@ -201,22 +201,22 @@ label strip_skull_fuck(the_girl, the_clothing, the_location, the_object):
 label strip_ask_skull_fuck(the_girl, the_clothing, the_location, the_object):
     "[the_girl.title] taps on your thigh and tries to move her head back."
     menu:
-        "Ignore her.": #You're really in control here.
+        "Ignore her": #You're really in control here.
             mc.name "I can't stop now, this feels too good!"
 
-        "Let her up.":
+        "Let her up":
             $ skull_fuck.current_modifier = None
             $ skull_fuck.redraw_scene(the_girl)
             "You give her throat one last thrust, then let her slide back until the tip of your cock just barely clears her lips."
             the_girl.char "I'm going to take off my [the_clothing.name], if that's okay with you."
             menu:
-                "Let her strip.":
+                "Let her strip":
                     mc.name "Take it off."
                     $ the_girl.draw_animated_removal(the_clothing, position = blowjob.position_tag)
                     "[the_girl.possessive_title] strips out of her [the_clothing.name], your hard shaft hovering inches from her face."
                     "When she drops it to the side you press yourself forward, parting her lips and sliding your cock back down her throat."
 
-                "Leave it on.":
+                "Leave it on":
                     mc.name "No, I like how you look with it on."
                     the_girl.char "Well then, what are you waiting for?"
                     "She opens her mouth wide and you slam your dick back down her throat."
