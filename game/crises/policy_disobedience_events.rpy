@@ -93,7 +93,7 @@ label uniform_disobedience_event(planned_uniform, the_person):
     $ the_person.add_infraction(Infraction.out_of_uniform_factory())
     mc.name "The uniform policy isn't a suggestion [the_person.title], it's a requirement for continued employment."
     menu:
-        "Send her to get changed.":
+        "Send her to get changed":
             mc.name "Go get your uniform and get changed."
             if the_person.obedience < 90:
                 "[the_person.possessive_title] sighs and rolls her eyes."
@@ -107,7 +107,7 @@ label uniform_disobedience_event(planned_uniform, the_person):
             "A few moments later [the_person.possessive_title] comes back, now properly in uniform."
 
 
-        "Have her change right here." if reduced_coverage_uniform_policy.is_active():
+        "Have her change right here" if reduced_coverage_uniform_policy.is_active():
             mc.name "Do you have your uniform with you?"
             the_person "I have it in my desk."
             mc.name "Good. Get it and get changed."
@@ -131,10 +131,10 @@ label uniform_disobedience_event(planned_uniform, the_person):
             $ the_person.draw_person()
 
 
-        "Have her change right here.\nRequires policy: Reduced Coverage Corporate Uniforms (disabled)" if not reduced_coverage_uniform_policy.is_active():
+        "Have her change right here\n{color=#ff0000}{size=18}Requires policy: Reduced Coverage Corporate Uniforms{/size}{/color} (disabled)" if not reduced_coverage_uniform_policy.is_active():
             pass
 
-        "Let her stay out of uniform.":
+        "Let her stay out of uniform":
             mc.name "But, just this once, I'll make an exception. I expect you in uniform for your next shift."
             the_person "Thank you [the_person.mc_title], the break is appreciated."
 
