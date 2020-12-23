@@ -463,7 +463,7 @@ label punishment_underwear_only(the_person, the_infraction):
     if the_person.should_wear_uniform():
         mc.name "You don't deserve to wear your uniform, so for the rest of the week you won't."
     else:
-        mc.name "You can consider that your official uniform for the day."
+        mc.name "You can consider that your official uniform for the rest of the week."
 
     if not (the_person.outfit.wearing_bra() and the_person.outfit.wearing_panties()): # Whoops, not wearing underwear today! Tough luck.
         the_person.char "I... I can't do that [the_person.mc_title]."
