@@ -568,7 +568,11 @@ init -5 python:
 
         def __iter__(self):
             for item in self.mapped_list:
-                yield next((x for x in self.list_func() if x.identifier == item), None)
+                found = next((x for x in self.list_func() if x.identifier == item), None)
+                if found:
+                    yield found
+                else: # item is no longer in main list (remove it from mapping)
+                    self.mapped_list.remove(item)
 
         def __len__(self):
             return len(self.mapped_list)
@@ -2413,7 +2417,7 @@ init -5 python:
         @property
         def identifier(self):
             if not hasattr(self, "_identifier"):
-                self._identifier = hashlib.md5(self.name + self.last_name + str(renpy.random.randint(10000, 90000000))).hexdigest()
+                self._identifier = hashlib.md5(self.name + self.last_name + str(self.age)).hexdigest()
             return self._identifier
 
         @property
@@ -4645,7 +4649,7 @@ init -5 python:
         @property
         def identifier(self):
             if not hasattr(self, "_identifier"):
-                self._identifier = hashlib.md5(self.name + str(renpy.random.randint(10000, 90000000))).hexdigest()
+                self._identifier = hashlib.md5(self.name + self.formalName).hexdigest()
             return self._identifier
 
         def show_background(self):
@@ -5046,7 +5050,7 @@ init -5 python:
         @property
         def identifier(self):
             if not hasattr(self, "_identifier"):
-                self._identifier = hashlib.md5(self.name + self.desc + str(renpy.random.randint(10000, 90000000))).hexdigest()
+                self._identifier = hashlib.md5(self.name + self.desc).hexdigest()
             return self._identifier
 
         def is_owned(self):
