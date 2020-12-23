@@ -2446,6 +2446,13 @@ init -5 python:
             else:
                 self._work = None
 
+        def has_limited_time_event(self, the_event):
+            if isinstance(the_event, Action):
+                return any(x for x in self.on_room_enter_event_list + self.on_talk_event_list if x == the_event)
+            if isinstance(the_event, basestring):
+                return any(x for x in self.on_room_enter_event_list + self.on_talk_event_list if x.effect == the_event)
+            return False
+
         def generate_daughter(self): #Generates a random person who shares a number of similarities to the mother
             age = renpy.random.randint(18, self.age-16)
 

@@ -24,6 +24,8 @@
             return False
         elif mc.business.is_weekend(): #TODO: we really need to stop using the business to define what the weekend is.
             return False #No interview on the weekend
+        elif mom.has_limited_time_event("sleeping_walk_in_label"):
+            return False #she is sleeping in
         else:
             return True
 
@@ -55,6 +57,8 @@
             return False
         elif mc.business.is_weekend():
             return False
+        elif mom.has_limited_time_event("sleeping_walk_in_label"):
+            return False #she is sleeping in
         else:
             return True
 
