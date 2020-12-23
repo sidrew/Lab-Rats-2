@@ -12116,7 +12116,7 @@ init -1 python:
 
     sleep_action = Action("Sleep for the night {image=gui/heart/Time_Advance.png}{image=gui/heart/Time_Advance.png}",sleep_action_requirement,"sleep_action_description",
         menu_tooltip = "Go to sleep and advance time to the next day. Night time counts as three time chunks when calculating serum durations.")
-    faq_action = Action("Check the FAQ.",faq_action_requirement,"faq_action_description",
+    faq_action = Action("Check the FAQ",faq_action_requirement,"faq_action_description",
         menu_tooltip = "Answers to frequently asked questions about Lab Rats 2.")
 
     downtown_search_action = Action("Wander the streets {image=gui/heart/Time_Advance.png}", downtown_search_requirement, "downtown_search_label",
@@ -12126,7 +12126,7 @@ init -1 python:
     strip_club_show_action = Action("Watch a show", stripclub_show_requirement, "stripclub_dance",
         menu_tooltip = "Take a seat and wait for the next girl to come out on stage.")
 
-    import_wardrobe_action = Action("Import a wardrobe file.", faq_action_requirement, "wardrobe_import",
+    import_wardrobe_action = Action("Import a wardrobe file", faq_action_requirement, "wardrobe_import",
         menu_tooltip = "Select and import a wardrobe file, adding all outfits to your current wardrobe.")
 
     test_action = Action("This is a test.", faq_action_requirement, "faq_action_description")
