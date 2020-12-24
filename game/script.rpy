@@ -11262,6 +11262,7 @@ init -2 python:
         for name in common_variable_list:
             if name in globals():
                 del globals()[name]
+        renpy.block_rollback()
         renpy.checkpoint()
 
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
