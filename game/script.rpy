@@ -6288,7 +6288,7 @@ init -5 python:
 
             new_score += self.get_total_slut_modifiers()
 
-            return new_score
+            return new_score if new_score > 0 else 0
 
         def get_overwear_slut_score(self): #Calculates the sluttiness of this outfit assuming it's an overwear set. That means we assume a modest underwear set is used (ie. one that denies access).
             new_score = 0
@@ -6300,7 +6300,7 @@ init -5 python:
 
             new_score += self.get_total_slut_modifiers()
 
-            return new_score
+            return new_score if new_score > 0 else 0
 
 
         def get_full_outfit_slut_score(self): #Calculates the sluttiness of this outfit assuming it's a full outfit. Full penalties and such apply.
