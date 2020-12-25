@@ -6332,7 +6332,7 @@ init -5 python:
 
             new_score += self.get_total_slut_modifiers()
 
-            return new_score
+            return new_score if new_score > 0 else 0
 
         def update_slut_requirement(self): # Recalculates the slut requirement of the outfit. Should be called after each new addition.
             self.slut_requirement = self.get_full_outfit_slut_score()
