@@ -594,6 +594,12 @@ init -5 python:
         def __sub__(self, other):
             if isinstance(other, MappedList):
                 return MappedList(self.type, self.list_func, list(set(self.mapped_list.copy())-set(other.mapped_list.copy())))
+            if isinstance(other, list):
+                new_list = self.mapped_list.copy()
+                for item in other:
+                    if isinstance(item, self.type) and item.identifier in new_list:
+                        new_list.remove(item.identifier)
+                return MappedList(self.type, self.list_func, new_list)
 
         def __iadd__(self, other):
             self.append(other)
@@ -1286,9 +1292,9 @@ init -5 python:
                 person.special_role.append(employee_role)
             person.job = self.get_employee_title(person)
             person.set_work(self.r_div)
-            self.update_employee_status(person)
             if add_to_location and not person in self.r_div.people:
                 self.r_div.add_person(person)
+            self.update_employee_status(person)
 
         def add_employee_production(self, person, add_to_location = False):
             if not person in self.production_team:
@@ -1297,9 +1303,9 @@ init -5 python:
                 person.special_role.append(employee_role)
             person.job = self.get_employee_title(person)
             person.set_work(self.p_div)
-            self.update_employee_status(person)
             if add_to_location and not person in self.p_div.people:
                 self.p_div.add_person(person)
+            self.update_employee_status(person)
 
         def add_employee_supply(self, person, add_to_location = False):
             if not person in self.supply_team:
@@ -1308,9 +1314,9 @@ init -5 python:
                 person.special_role.append(employee_role)
             person.job = self.get_employee_title(person)
             person.set_work(self.s_div)
-            self.update_employee_status(person)
             if add_to_location and not person in self.s_div.people:
                 self.s_div.add_person(person)
+            self.update_employee_status(person)
 
         def add_employee_marketing(self, person, add_to_location = False):
             if not person in self.market_team:
@@ -1319,9 +1325,9 @@ init -5 python:
                 person.special_role.append(employee_role)
             person.job = self.get_employee_title(person)
             person.set_work(self.m_div)
-            self.update_employee_status(person)
             if add_to_location and not person in self.m_div.people:
                 self.m_div.add_person(person)
+            self.update_employee_status(person)
 
         def add_employee_hr(self, person, add_to_location = False):
             if not person in self.hr_team:
@@ -1330,9 +1336,9 @@ init -5 python:
                 person.special_role.append(employee_role)
             person.job = self.get_employee_title(person)
             person.set_work(self.h_div)
-            self.update_employee_status(person)
             if add_to_location and not person in self.h_div.people:
                 self.h_div.add_person(person)
+            self.update_employee_status(person)
 
         def remove_employee(self, person, remove_linked = True):
             if person in self.research_team:
@@ -4477,12 +4483,15 @@ init -5 python:
                 return None #In theory this shouldn't come up unless this class is being abused in some way. (But some classes are into that sort of thing. I don't judge)
 
         def get_type(self, the_person = None):
-            if the_person is None or the_person == self.person_a:
+            if the_person == self.person_a:
                 return self.type_a
             elif the_person == self.person_b:
                 return self.type_b
+            return None
 
     class RelationshipArray(renpy.store.object):
+        relationship_scale = ["Nemesis", "Rival", "Acquaintance", "Friend", "Best Friend"]
+
         def __init__(self):
             self.relationships = [] #List of relationships. Relationships are bi-directional, so if you look for person_a, person_b you'll get the same object as person_b, person_a (but the type can be relative to the order).
             ### Types of Relationships (* denotes currently unused but planned roles)
@@ -4519,8 +4528,8 @@ init -5 python:
                     else:
                         the_relationship.type_a = type_b
 
-                if visible is not None:
-                    the_relationship.visible = visible
+            if visible is not None:
+                the_relationship.visible = visible
 
 
         def get_relationship(self, person_a, person_b):
@@ -4569,8 +4578,7 @@ init -5 python:
             the_relationship = self.get_relationship(person_a, person_b)
             if the_relationship is not None:
                 return the_relationship.get_type(person_a)
-            else:
-                return None
+            return None
 
         def get_existing_children(self, the_person):
             return_list = []
@@ -4590,30 +4598,28 @@ init -5 python:
             the_relationship = self.get_relationship(person_a, person_b)
             if the_relationship is not None: #If it exists we're going to improve it by one step, up to best friend.
                 the_type = the_relationship.get_type()
-                relationship_scale = ["Nemesis", "Rival", "Acquaintance", "Friend", "Best Friend"]
-                if the_type in relationship_scale: #You can only change non-family and non-romantic relationships like this.
-                    the_state = relationship_scale.index(the_type)
+                if the_type in self.relationship_scale: #You can only change non-family and non-romantic relationships like this.
+                    the_state = self.relationship_scale.index(the_type)
                     the_state += 1
-                    if the_state+1 >= len(relationship_scale): #Get the current state and increase it by one.
-                        the_state = len(relationship_scale)-1
+                    if the_state+1 >= len(self.relationship_scale): #Get the current state and increase it by one.
+                        the_state = len(self.relationship_scale)-1
 
-                    self.update_relationship(person_a,person_b, relationship_scale[the_state], visible)
+                    self.update_relationship(person_a,person_b, self.relationship_scale[the_state], visible)
 
             else:
-                self.update_relationship(person_a, person_b, "Acquaintance", visible)
+                self.update_relationship(person_a, person_b, "Friend", visible)
 
         def worsen_relationship(self, person_a, person_b, visible = None): #Worsens a non-familial relationship between two people
             the_relationship = self.get_relationship(person_a, person_b)
             if the_relationship is not None: #If it exists we're going to improve it by one step, up to best friend.
                 the_type = the_relationship.get_type()
-                relationship_scale = ["Nemesis", "Rival", "Acquaintance", "Friend", "Best Friend"]
-                if the_type in relationship_scale: #You can only change non-family and non-romantic relationships like this.
-                    the_state = relationship_scale.index(the_type)
+                if the_type in self.relationship_scale: #You can only change non-family and non-romantic relationships like this.
+                    the_state = self.relationship_scale.index(the_type)
                     the_state -= 1
                     if the_state < 0: #Get the current state and increase it by one.
                         the_state = 0
 
-                    self.update_relationship(person_a,person_b, relationship_scale[the_state], visible)
+                    self.update_relationship(person_a,person_b, self.relationship_scale[the_state], visible)
 
             else:
                 self.update_relationship(person_a, person_b, "Rival", visible)
@@ -4621,8 +4627,7 @@ init -5 python:
         def begin_relationship(self, person_a, person_b, visible = None): #Sets their relationship to Acquaintance if they do not have one, otherwise leaves it untouched.
             the_relationship = self.get_relationship(person_a, person_b)
             if the_relationship is None: #Only sets a relationship for these people if one does not exist, so as to not override friendships or familial relationships
-                self.update_relationship(person_a, person_b, "Acquaintance")
-
+                self.update_relationship(person_a, person_b, get_random_from_weighted_list([[self.relationship_scale[1], 20], [self.relationship_scale[2], 60], [self.relationship_scale[3], 20]]))
 
     class Room(renpy.store.object): #Contains people and objects.
         def __init__(self,name,formalName,connections,background_image,objects,people,actions,public,map_pos,
