@@ -11283,8 +11283,16 @@ init -2 python:
         renpy.block_rollback()
         renpy.checkpoint()
 
+    def main_loop_auto_save():
+        last_save_day = mc.business.event_triggers_dict.get("last_save_day", 0)
+        if day > last_save_day and time_of_day == 0:
+            #renpy.notify("Saving game: " + str(day))
+            renpy.force_autosave(take_screenshot = True, block = True)
+            mc.business.event_triggers_dict["last_save_day"] = day
+
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
     $ main_loop_cleanup()
+    $ main_loop_auto_save()
 
     if "action_mod_list" in globals():
         call screen enhanced_main_choice_display(build_menu_items([build_people_list(), build_actions_list()]))
