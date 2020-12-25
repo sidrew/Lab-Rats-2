@@ -178,7 +178,7 @@ init -2 python:
         the_cousin.set_schedule(strip_club, times = [3, 4])
 
         the_cousin.event_triggers_dict["stripping"] = True #Used to flag the blackmail event.
-        cousin_room_search_action = Action("Search her room. {image=gui/heart/Time_Advance.png}", cousin_room_search_requirement, "cousin_search_room_label",requirement_args = [the_cousin], args = [the_cousin, the_aunt])
+        cousin_room_search_action = Action("Search her room {image=gui/heart/Time_Advance.png}", cousin_room_search_requirement, "cousin_search_room_label",requirement_args = [the_cousin], args = [the_cousin, the_aunt])
         cousin_bedroom.actions.append(cousin_room_search_action) #Lets you search her room for a clue about where to go to find her.
         return
 
@@ -196,7 +196,7 @@ init -2 python:
         cousin_talk_boobjob_again_action = Action("Talk to her about getting a boobjob\nCosts: $5000", cousin_talk_boobjob_again_requirement, "cousin_talk_boobjob_again_label")
         cousin_role.actions.append(cousin_talk_boobjob_again_action)
         return
-    
+
     def remove_cousin_talk_boobjob_again_action():
         for role in cousin.special_role:
             for act in role.actions:
@@ -611,7 +611,7 @@ label aunt_cousin_hint_label(the_aunt, the_cousin):
     # prevent event from triggering twice
     python:
         if any(x.effect == "cousin_search_room_label" for x in cousin.home.actions):
-            renpy.return_statement()       
+            renpy.return_statement()
 
     #Your aunt calls at night to ask if you know where Gabrielle is. Hints that she's up to something late at night.
     "You get a call on your phone. It's [the_aunt.possessive_title]."
