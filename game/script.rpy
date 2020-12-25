@@ -2125,7 +2125,9 @@ init -5 python:
 
     class Schedule():
         def __init__(self, home_location = None):
-            self.schedule = [DaySchedule(home_location)] * 7
+            self.schedule = [DaySchedule(home_location), DaySchedule(home_location), \
+                DaySchedule(home_location), DaySchedule(home_location), DaySchedule(home_location), \
+                DaySchedule(home_location), DaySchedule(home_location)]
 
         def __getitem__(self, key):
             return self.schedule[key]
