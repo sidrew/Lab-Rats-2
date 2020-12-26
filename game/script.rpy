@@ -1929,7 +1929,7 @@ init -5 python:
         def location(self):
             if not hasattr(self, "_location"):
                 self._location = None
-            return next((x for x in list_of_places if x.identifier == self._location), None)
+            return next((x for x in list_of_places if x.identifier == self._location), bedroom) # fallback location is MC bedroom
 
         @location.setter
         def location(self, value):
