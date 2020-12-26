@@ -11287,7 +11287,7 @@ init -2 python:
         last_save_day = mc.business.event_triggers_dict.get("last_save_day", 0)
         if day > last_save_day and time_of_day == 0:
             #renpy.notify("Saving game: " + str(day))
-            renpy.force_autosave(take_screenshot = True, block = True)
+            renpy.force_autosave(take_screenshot = False, block = True)
             mc.business.event_triggers_dict["last_save_day"] = day
 
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
