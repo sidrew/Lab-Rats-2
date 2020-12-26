@@ -11273,7 +11273,7 @@ init -2 python:
         "the_report", "the_relationship", "partner", "the_subject", "the_suggested_outfit", "stripper", \
         "not_stripper", "the_student", "strip_choice", "new_pose", "picked_pose", "pose_choice", "new_person" \
         "clothing", "formatted_name", "formatted_title", "hair_style_check", "pubic_style_check", "the_cause", \
-        "text_one", "text_two", "the_goal", "the_serum", "title", "opinion_tag", "overhear_topic"]
+        "text_one", "text_two", "the_goal", "the_serum", "title", "opinion_tag", "overhear_topic", "the_choice"]
     def main_loop_cleanup():
         clear_scene()
         # generic cleanup routine for common variable names

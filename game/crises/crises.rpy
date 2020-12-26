@@ -3011,7 +3011,6 @@ label horny_at_work_crisis_label():
                             $ the_report = _return
                             $ the_choice.review_outfit()
                             $ helpful_people.remove(the_choice)
-                            $ del the_choice
 
                     if the_report.get("guy orgasms",0) == 0:
                         "You've worn yourself out, but you still haven't gotten off. You relax in your office chair and stroke yourself off until you cum."
@@ -3020,7 +3019,7 @@ label horny_at_work_crisis_label():
                     else:
                         "You sit back down in your office chair, feeling satisfied."
                         "After getting yourself cleaned up you're able to focus perfectly again and you get back to work."
-
+                $ del the_choice
 
 
             else: #You get yourself off.

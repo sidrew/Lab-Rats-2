@@ -922,6 +922,7 @@ label movie_date_label(the_person):
             mc.name "I haven't heard much about it, but I think we should watch [the_choice]. It should be a really unique one."
             mc.name "I'll go get us tickets; be back in a moment."
 
+    $ del the_choice
     if the_person.personality is bimbo_personality and movie_type != "foreign":
         $ likes_movie = True # Bimbos like anything other than weird art pieces.
 
