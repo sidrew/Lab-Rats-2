@@ -997,17 +997,13 @@ label movie_date_label(the_person):
                         menu:
                             "Fuck her":
                                 "You zip up your pants and stand up. [the_person.title] takes your hand and you rush out of the theater."
-                                $ movie_bathroom = Room("theater bathroom", "Theater Bathroom", [], bathroom_background, [], [], [], False, [0,0], visible = False) #TODO: Decide if we need any objects in the bathroom
-                                $ movie_bathroom.show_background()
-                                $ movie_bathroom.add_object(make_wall())
-                                $ movie_bathroom.add_object(make_floor())
-                                $ mc.change_location(movie_bathroom)
+                                $ mc.change_location(work_bathroom)
+                                $ mc.location.show_background()
                                 $ the_person.change_arousal(20 + (the_person.get_opinion_score("public sex") * 10))
                                 $ mc.change_arousal(40)
                                 "You hurry into the women's bathroom and lock yourselves in an empty stall."
                                 call fuck_person(the_person, private = True) from _call_fuck_person_28
                                 $ the_person.review_outfit()
-                                $ del movie_bathroom
                                 $ renpy.show("Theater", what = theater_background)
                                 "You slip out of the bathroom as quickly as possible and return to your seats with some time pleasantly passed."
 

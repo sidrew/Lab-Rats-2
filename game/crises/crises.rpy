@@ -3048,9 +3048,8 @@ label horny_at_work_crisis_label():
             if your_follower is not None:
                 #You were followed.
                 $ old_location = mc.location
-                $ work_bathroom = Room("work bathroom", "Work Bathroom", [], bathroom_background, [make_wall(), make_floor()], [], [], False, [0,0], visible = False)
-                $ work_bathroom.show_background()
                 $ mc.change_location(work_bathroom)
+                $ mc.location.show_background()
                 "You relax when you reach the bathroom, but a moment after you enter [your_follower.title] opens the door and comes inside too."
                 $ your_follower.draw_person()
                 mc.name "[your_follower.title], I..."
@@ -3098,7 +3097,6 @@ label horny_at_work_crisis_label():
                 $ mc.change_location(old_location)
                 $ mc.location.show_background()
                 $ del your_follower
-                $ del work_bathroom
                 $ del old_location
 
             else:
