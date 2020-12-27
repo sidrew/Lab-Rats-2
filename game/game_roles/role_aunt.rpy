@@ -1,7 +1,7 @@
 ﻿#Aunt Role Action Requirements
 init -2 python:
     def aunt_intro_requirement(day_trigger):
-        if day >= day_trigger and time_of_day == 4:
+        if day >= day_trigger and day%7!=4 and time_of_day == 4:
             return True
         return False
 
