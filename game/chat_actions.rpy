@@ -1826,7 +1826,7 @@ label bc_demand_label(the_person):
             pass
 
         "That's all I wanted to know":
-            the_person.char "Good. That's all I wanted to know."
+            mc.name "Good. That's all I wanted to know."
     return
 
 init 5 python:
