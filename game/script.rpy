@@ -559,8 +559,9 @@ init -5 python:
                 self.mapped_list[key] = item.identifier
 
         def __iter__(self):
+            item_list = self.list_func()
             for item in self.mapped_list:
-                found = next((x for x in self.list_func() if x.identifier == item), None)
+                found = next((x for x in item_list if x.identifier == item), None)
                 if found:
                     yield found
                 else: # item is no longer in main list (remove it from mapping)
