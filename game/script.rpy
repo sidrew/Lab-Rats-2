@@ -215,25 +215,17 @@ init -5 python:
     # build.classify("game/images/character_images/**_Face_12**.png", "renpy")
     # build.classify("game/images/character_images/**_Face_13**.png", "renpy")
     # build.classify("game/images/character_images/**_Face_14**.png", "renpy")
-    def all_people_in_the_game(excluded_people = []): # Pass excluded_people as array of people [mc, lily, aunt, cousin, alexia]
+    def all_people_in_the_game(excluded_people = [], excluded_locations = []): # Pass excluded_people as array of people [mc, lily, aunt, cousin, alexia]
         all_people = []
-        for location in list_of_places:
-            for person in location.people:
-                if person not in excluded_people:
-                    all_people.append(person)
+        for location in all_locations_in_the_game(excluded_locations):
+            all_people.extend([x for x in location.people if x not in excluded_people])
         return all_people
+
     def all_locations_in_the_game(excluded_locations = []):
-        all_locations = []
-        for location in list_of_places:
-            if not location in excluded_locations:
-                all_locations.append(location)
-        return all_locations
+        return [x for x in list_of_places if x not in excluded_locations]
+
     def all_policies_in_the_game(excluded_policies = []):
-        all_policies = []
-        for policy in uniform_policies_list + recruitment_policies_list + serum_policies_list + organisation_policies_list:
-            if not policy in excluded_policies:
-                all_policies.append(policy)
-        return all_policies
+        return [x for x in uniform_policies_list + recruitment_policies_list + serum_policies_list + organisation_policies_list if x not in excluded_policies]
 
     def get_obedience_plaintext(obedience_amount):
         obedience_string = "ERROR - Please Tell Vren!"
