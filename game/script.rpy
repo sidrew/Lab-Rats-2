@@ -578,9 +578,7 @@ init -5 python:
                 return MappedList(self.type, self.list_func, self.mapped_list.copy() + other.mapped_list.copy())
             if isinstance(other, list):
                 new_list = self.mapped_list.copy()
-                for item in other:
-                    if isinstance(item, self.type):
-                        new_list.append(item.identifier)
+                new_list.extend([x.identifier for x in other if isinstance(x, self.type)])
                 return MappedList(self.type, self.list_func, new_list)
 
         def __sub__(self, other):
@@ -613,6 +611,12 @@ init -5 python:
 
         def clear(self):
             self.mapped_list.clear()
+
+        def extend(self, other):
+            if isinstance(other, MappedList):
+                self.mapped_list.extend(other.mapped_list)
+            if isinstance(other, list):
+                self.mapped_list.extend([x.identifier for x in other])
 
         def pop(self, index = -1):
             identifier = self.mapped_list.pop(index)
