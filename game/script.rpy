@@ -847,16 +847,14 @@ init -5 python:
             if time_of_day == 1 and daily_serum_dosage_policy.is_active() and self.is_work_day(): #Not done on run_day because we want it to apply at the _start_ of the day.
                 self.give_daily_serum()
 
-            #Compute efficiency drop
-            for person in self.supply_team + self.research_team + self.production_team + self.market_team:
-                if person in self.s_div.people + self.r_div.people + self.p_div.people + self.m_div.people: #Only people in the office lower effectiveness, no loss on weekends, not in for the day, etc.
-                    self.team_effectiveness += -1 #TODO: Make this dependant on charisma (High charisma have a lower impact on effectiveness) and happiness.
+            #Compute efficiency drop Only people in the office lower effectiveness, no loss on weekends, not in for the day, etc.
+            for person in [x for x in self.supply_team + self.research_team + self.production_team + self.market_team if x in self.s_div.people + self.r_div.people + self.p_div.people + self.m_div.people]:
+                self.team_effectiveness -= 1 #TODO: Make this dependant on charisma (High charisma have a lower impact on effectiveness) and happiness.
 
             #Compute effiency rise from HR
-            for person in self.hr_team:
-                if person in self.h_div.people:
-                    self.hr_progress(person.charisma,person.int,person.hr_skill)
-                    person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("HR work"), add_to_log = False)
+            for person in [x for x in self.hr_team if x in self.h_div.people]:
+                self.hr_progress(person.charisma,person.int,person.hr_skill)
+                person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("HR work"), add_to_log = False)
 
             if self.team_effectiveness < 50:
                 self.team_effectiveness = 50
@@ -865,30 +863,26 @@ init -5 python:
                 self.team_effectiveness = self.effectiveness_cap
 
             #Compute other deparement effects
-            for person in self.supply_team:
-                if person in self.s_div.people: #Check to see if the person is in the room, otherwise don't count their progress (they are at home, dragged away by PC, weekend, etc.)
-                    self.supply_purchase(person.focus,person.charisma,person.supply_skill)
-                    person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("supply work"), add_to_log = False)
+            for person in [x for x in self.supply_team if x in self.s_div.people]:
+                self.supply_purchase(person.focus,person.charisma,person.supply_skill)
+                person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("supply work"), add_to_log = False)
 
-            for person in self.research_team:
-                if person in self.r_div.people:
-                    self.research_progress(person.int,person.focus,person.research_skill)
-                    person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("research work"), add_to_log = False)
+            for person in [x for x in self.research_team if x in self.r_div.people]:
+                self.research_progress(person.int,person.focus,person.research_skill)
+                person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("research work"), add_to_log = False)
 
-            for person in self.production_team:
-                if person in self.p_div.people:
-                    self.production_progress(person.focus,person.int,person.production_skill)
-                    person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("production work"), add_to_log = False)
+            for person in [x for x in self.production_team if x in self.p_div.people]:
+                self.production_progress(person.focus,person.int,person.production_skill)
+                person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("production work"), add_to_log = False)
 
             self.mark_autosale() #Mark extra serums to be sold by marketing.
 
-            for person in self.market_team:
-                if person in self.m_div.people:
-                    if person.should_wear_uniform():
-                        self.sale_progress(person.charisma,person.focus, person.market_skill, slut_modifier = person.outfit.slut_requirement) #If there is a uniform pass it's sluttiness along.
-                    else:
-                        self.sale_progress(person.charisma, person.focus, person.market_skill) #Otherwise their standard outfit provides no bonuses.
-                    person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("marketing work"), add_to_log = False)
+            for person in [x for x in self.market_team if x in self.m_div.people]:
+                if person.should_wear_uniform():
+                    self.sale_progress(person.charisma,person.focus, person.market_skill, slut_modifier = person.outfit.slut_requirement) #If there is a uniform pass it's sluttiness along.
+                else:
+                    self.sale_progress(person.charisma, person.focus, person.market_skill) #Otherwise their standard outfit provides no bonuses.
+                person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("marketing work"), add_to_log = False)
 
             for policy in self.active_policy_list:
                 policy.on_turn()
