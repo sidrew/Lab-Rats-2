@@ -122,14 +122,14 @@ init -1 python:
     nude_walk_in = Action("Nude walk in", nude_walk_in_requirement, "nude_walk_in_label", event_duration = 5)
     mom_house_work_nude = Action("Mom nude house work", mom_house_work_nude_requirement, "mom_house_work_nude_label", event_duration = 5)
     breeding_mom = Action("Mom breeding", mom_breeding_requirement, "breeding_mom_label", event_duration = 5)
-    sleeping_walk_in = Action("Sleeping walk in", sleeping_walk_in_requirement, "sleeping_walk_in_label", event_duration = 1)
+    sleeping_walk_in = Action("Sleeping walk in", sleeping_walk_in_requirement, "sleeping_walk_in_label", event_duration = 2)
 
 
     limited_time_event_pool.append([sister_walk_in,4,"on_enter"])
     limited_time_event_pool.append([nude_walk_in,4,"on_enter"])
     limited_time_event_pool.append([mom_house_work_nude,4,"on_enter"])
     limited_time_event_pool.append([breeding_mom,3,"on_enter"])
-    limited_time_event_pool.append([sleeping_walk_in,3,"on_enter"])
+    limited_time_event_pool.append([sleeping_walk_in,8,"on_enter"])
 
 
 
