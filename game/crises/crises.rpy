@@ -2561,15 +2561,13 @@ init 1 python:
         # Requires you and her to be at work.
         # Requires you to have a free slot in the company
         if mc.business.is_open_for_business() and mc.is_at_work() and mc.business.get_employee_count() < mc.business.max_employee_count:
-            for person in mc.business.get_employee_list():
-                if person.kids != 0 and person.age >= 34 and person.kids > town_relationships.get_existing_child_count(person): #At least one person fits the criteria we need to select a mother, the crisis is valid.
-                    return True
+            return not daughter_work_crisis_get_mother() is None
         return False
 
     def daughter_work_crisis_get_mother():
         valid_people_list = []
-        for person in mc.business.get_employee_list():
-            if person.kids != 0 and person.age >= 34 and person.kids > town_relationships.get_existing_child_count(person): #They have undiscovered kids we can add in.
+        for person in [x for x in mc.business.get_employee_list() if x.kids != 0 and x.age >= 34]:
+            if person.kids > town_relationships.get_existing_child_count(person): #They have undiscovered kids we can add in.
                 valid_people_list.append(person)
 
         return get_random_from_list(valid_people_list) #Pick someone appropriate from the company.
