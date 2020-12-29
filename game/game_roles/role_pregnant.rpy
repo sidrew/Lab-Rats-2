@@ -43,8 +43,9 @@ init -1 python:
         person.event_triggers_dict["preg_finish_announce_day"] = day + 90 + renpy.random.randint(0,10)
         person.event_triggers_dict["pre_preg_tits"] = person.tits
 
-        preg_announce_action = Action("Pregnancy Announcement", pregnant_announce_requirement, "pregnant_announce", requirement_args = day + renpy.random.randint(12,18))
-        person.on_room_enter_event_list.append(Limited_Time_Action(preg_announce_action, 12))
+        random = renpy.random.randint(12,18)
+        preg_announce_action = Action("Pregnancy Announcement", pregnant_announce_requirement, "pregnant_announce", requirement_args = day + random)
+        person.on_room_enter_event_list.append(Limited_Time_Action(preg_announce_action, (random * 5) + 12))
 
         preg_tits_action = Action("Pregnancy Tits Grow", pregnant_tits_requirement, "pregnant_tits_start", args = person, requirement_args = person)
         mc.business.mandatory_morning_crises_list.append(preg_tits_action)
@@ -243,7 +244,7 @@ init 2 python:
         person.personal_region_modifiers["breasts"] = person.personal_region_modifiers["breasts"] + 0.1 #As her tits get larger they also become softer, unlike large fake tits. (Although even huge fake tits get softer)
 
         pregnant_tits_announce_action = Action("Announce Pregnant Tits", pregnant_tits_announcement_requirement, "pregnant_tits_announce", args = day)
-        person.on_talk_event_list.append(Limited_Time_Action(pregnant_tits_announce_action, 7))
+        person.on_talk_event_list.append(Limited_Time_Action(pregnant_tits_announce_action, 15))
         return
 
 label pregnant_tits_start(the_person):

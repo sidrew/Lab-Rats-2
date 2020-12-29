@@ -2593,7 +2593,7 @@ init -5 python:
             for event_list in [self.on_room_enter_event_list, self.on_talk_event_list]: #Go through both of these lists and curate them, ie trim out events that should have expired.
                 removal_list_index = [] #So we can iterate through without removing and damaging the list.
                 for an_index, an_action in enumerate(event_list):
-                    if isinstance(an_action, Limited_Time_Action) and an_action.is_action_enabled(self): #It's a LTA holder, so it has a turn counter only count down when active
+                    if isinstance(an_action, Limited_Time_Action): #It's a LTA holder, so it has a turn counter only count down when active
                         an_action.turns_valid -= 1
                         if an_action.turns_valid <= 0:
                             removal_list_index.append(an_index)
