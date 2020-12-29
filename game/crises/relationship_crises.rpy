@@ -801,6 +801,17 @@ init 1 python:
     work_relationship_change_crisis = Action("Work Relationship Change Crisis", work_relationship_change_crisis_requirement, "work_relationship_change_label")
     crisis_list.append([work_relationship_change_crisis,12])
 
+    def work_relationship_get_friend_chance(person_one, person_two):
+        friend_chance = 50
+        for an_opinion in person_one.opinions:
+            if person_one.get_opinion_score(an_opinion) == person_two.get_opinion_score(an_opinion):
+                friend_chance += 10
+            elif (person_one.get_opinion_score(an_opinion) > 0 and person_two.get_opinion_score(an_opinion) < 0) or (person_two.get_opinion_score(an_opinion) > 0 and person_one.get_opinion_score(an_opinion) < 0):
+                friend_chance += -10
+
+        friend_chance += (person_one.get_opinion_score("small talk")*5) + (person_two.get_opinion_score("small talk")*5)
+        return friend_chance
+
 label work_relationship_change_label():
     $ the_relationship = get_random_from_list(town_relationships.get_business_relationships())
     if the_relationship is None:
@@ -813,18 +824,7 @@ label work_relationship_change_label():
         $ person_one = the_relationship.person_b
         $ person_two = the_relationship.person_a
 
-    $ friend_chance = 50
-    python:
-        for an_opinion in person_one.opinions:
-            if person_one.get_opinion_score(an_opinion) == person_two.get_opinion_score(an_opinion):
-                friend_chance += 10
-            elif (person_one.get_opinion_score(an_opinion) > 0 and person_two.get_opinion_score(an_opinion) < 0) or (person_two.get_opinion_score(an_opinion) > 0 and person_one.get_opinion_score(an_opinion) < 0):
-                friend_chance += -10
-
-        friend_chance += (person_one.get_opinion_score("small talk")*5) + (person_two.get_opinion_score("small talk")*5)
-
-
-    if renpy.random.randint(0,100) < friend_chance:
+    if renpy.random.randint(0,100) < work_relationship_get_friend_chance(person_one, person_two):
         #Their relationship improves
         $ town_relationships.improve_relationship(person_one, person_two)
         if mc.is_at_work():
@@ -835,4 +835,8 @@ label work_relationship_change_label():
         if mc.is_at_work():
             "While working you notice [person_one.title] and [person_two.title] aren't getting along with each other. They seem to have developed an unfriendly rivalry."
 
+    python:
+        del person_one
+        del person_two
+        del the_relationship
     return
