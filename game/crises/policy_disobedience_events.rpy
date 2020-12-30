@@ -17,7 +17,7 @@ init -1 python:
             if person.should_wear_uniform() and person.outfit == person.planned_uniform and person.planned_uniform != person.planned_outfit: #If she's already out of uniform she won't generate another.
                 disobedience_chance = 0
                 if not person.judge_outfit(person.planned_uniform):
-                    disobedience_chance = person.planned_uniform.slut_requirement - (person.effective_sluttiness() + (person.obedience - 100)) #Girls who find the outfit too slutty might disobey, scaled by their obedience
+                    disobedience_chance = person.planned_uniform.slut_requirement - int( person.effective_sluttiness() * (person.obedience / 150.0) ) #Girls who find the outfit too slutty might disobey, scaled by their obedience
                     disobedience_chance += -5*(person.get_opinion_score("skimpy uniforms"))
                 else:
                     disobedience_chance = (100 - person.obedience)/2 #Disobedient girls sometimes don't wear uniforms, just because they don't like following orders. Less likely than when outfits are too slutty.
@@ -25,19 +25,16 @@ init -1 python:
 
                 if renpy.random.randint(0,100) < disobedience_chance:
                     uniform_disobedience_action = Action("Uniform Disobedience LTE", uniform_disobedience_requirement, "uniform_disobedience_event", event_duration = 3, args = person.planned_uniform.get_copy()) #Needs to be created here so we can reference what we disliked about the uniform.
-                    people.on_talk_event_list.append(Limited_Time_Action(uniform_disobedience_action, uniform_disobedience_action.event_duration))
+                    person.on_talk_event_list.append(Limited_Time_Action(uniform_disobedience_action, uniform_disobedience_action.event_duration))
                     person.set_uniform(person.planned_outfit) #Overwrites the uniform they intended to wear for the day, so the next Move doesn't change it but the end of day will.
                     person.apply_outfit() #Change them into their planned outfits for the day
 
         return
 
     def uniform_disobedience_requirement(the_person):
-        if the_person.should_wear_uniform() and the_person.planned_uniform is the_person.planned_outfit: #ie. they should be in uniform, but they've decided their "uniform" is their normal outfit because of the event above.
+        if the_person.should_wear_uniform() and the_person.planned_uniform == the_person.planned_outfit: #ie. they should be in uniform, but they've decided their "uniform" is their normal outfit because of the event above.
             return True
         return False
-
-
-
 
 
 label uniform_disobedience_event(planned_uniform, the_person):
@@ -50,7 +47,7 @@ label uniform_disobedience_event(planned_uniform, the_person):
         "[the_person.possessive_title] seems nervous when she notices you approaching."
     mc.name "Is there some reason you're out of your uniform [the_person.title]?"
 
-    if the_person.effective_sluttiness() >= planned_uniform.slut_required: #Just disobedient
+    if the_person.effective_sluttiness() >= planned_uniform.slut_requirement: #Just disobedient
         $ random_excuse = renpy.random.randint(0,2) #Get a random excuse for why she's not wearing her uniform. #TODO: Base this on her obedience/sluttiness. Personality maybe?
         if random_excuse == 0:
             the_person "I'm sorry, I just had to step out for a moment to pick something up. I was assuming that wouldn't be a problem."
@@ -121,10 +118,9 @@ label uniform_disobedience_event(planned_uniform, the_person):
                 the_person "You don't really mean that, do you? Right here?"
                 mc.name "Do I need to write you up for insubordination too?"
                 the_person "No, I'll do it..."
-                $ change_obedience(1 + the_person.get_opinion_score("being submissive"))
+                $ the_person.change_obedience(1 + the_person.get_opinion_score("being submissive"))
 
-            $ strip_list = the_person.outfit.get_full_strip_list(strip_feet = True, strip_accessories = True)
-            $ generalised_strip_description(the_person, strip_list)
+            $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list(strip_feet = True, strip_accessories = True))
 
             "Once stripped down [the_person.possessive_title] puts on her uniform."
             $ the_person.set_uniform(planned_uniform, wear_now = True)
