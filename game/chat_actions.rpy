@@ -864,6 +864,8 @@ label movie_date_plan_label(the_person):
 label movie_date_label(the_person):
     #The actual event produced when it's time to go on your date.
     $ mc.business.event_triggers_dict["date_scheduled"] = False #Deflag this event so you can schedule a date with another person for next week.
+
+    $ the_person.apply_outfit(the_person.wardrobe.decide_on_outfit(the_person.sluttiness + 10))
     "You have a movie date planned with [the_person.title] right now."
 
     menu:
@@ -1137,6 +1139,8 @@ label dinner_date_plan_label(the_person):
 
 label dinner_date_label(the_person):
     $ mc.business.event_triggers_dict["date_scheduled"] = False #Deflag this event so you can schedule a date with another person for next week.
+
+    $ the_person.apply_outfit(the_person.wardrobe.decide_on_outfit(the_person.sluttiness + 20))
     "You have a dinner date planned with [the_person.title]."
     menu:
         "Get ready for the date {image=gui/heart/Time_Advance.png}" if mc.business.funds >= 50:
