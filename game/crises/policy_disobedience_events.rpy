@@ -17,10 +17,10 @@ init -1 python:
             if person.should_wear_uniform() and person.outfit == person.planned_uniform and person.planned_uniform != person.planned_outfit: #If she's already out of uniform she won't generate another.
                 disobedience_chance = 0
                 if not person.judge_outfit(person.planned_uniform):
-                    disobedience_chance = person.planned_uniform.slut_requirement - int( person.effective_sluttiness() * (person.obedience / 150.0) ) #Girls who find the outfit too slutty might disobey, scaled by their obedience
+                    disobedience_chance = person.planned_uniform.slut_requirement - int( person.effective_sluttiness() * (person.obedience / 120.0) ) #Girls who find the outfit too slutty might disobey, scaled by their obedience
                     disobedience_chance += -5*(person.get_opinion_score("skimpy uniforms"))
                 else:
-                    disobedience_chance = (100 - person.obedience)/2 #Disobedient girls sometimes don't wear uniforms, just because they don't like following orders. Less likely than when outfits are too slutty.
+                    disobedience_chance = (120 - person.obedience)/2 #Disobedient girls sometimes don't wear uniforms, just because they don't like following orders. Less likely than when outfits are too slutty.
                     disobedience_chance += -5*(person.get_opinion_score("work uniforms"))
 
                 if renpy.random.randint(0,100) < disobedience_chance:
