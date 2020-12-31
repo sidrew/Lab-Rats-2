@@ -552,11 +552,33 @@ init -5 python:
                 self.mapped_list = []
 
         def __getitem__(self, key):
-            return next((x for x in self.list_func() if x.identifier == self.mapped_list[key]), None)
+            if isinstance( key, slice ) :
+                #Get the start, stop, and step from the slice
+                return [self[ii] for ii in xrange(*key.indices(len(self)))]
+            elif isinstance(key, int):
+                if key < 0 : #Handle negative indices
+                    key += len( self )
+                if key < 0 or key >= len( self ) :
+                    raise IndexError
+                return next((x for x in self.list_func() if x.identifier == self.mapped_list[key]), None)
+            raise TypeError
 
         def __setitem__(self, key, item):
+            if not isinstance(key, int):
+                raise TypeError
             if isinstance(item, self.type):
                 self.mapped_list[key] = item.identifier
+
+        def __delitem__(self, key):
+            if not isinstance(key, int):
+                raise TypeError
+            del self.mapped_list[key]
+
+        def __repr__(self):
+            return repr(self())
+
+        def __call__(self):
+            return [x for x in self.list_func() if x.identifier in self.mapped_list]
 
         def __iter__(self):
             item_list = self.list_func()
