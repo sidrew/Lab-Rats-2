@@ -66,7 +66,7 @@ init -2 python:
     def get_nora_research_subject():
         subject = mc.business.event_triggers_dict.get("nora_research_subject", None)
         if isinstance(subject, basestring):
-            return return next((x for x in all_people_in_the_game() if x.identifier == subject), None)
+            return next((x for x in all_people_in_the_game() if x.identifier == subject), None)
         return subject
 
     def special_research_requirement(the_person):
