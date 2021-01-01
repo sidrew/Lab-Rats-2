@@ -115,6 +115,7 @@ label study_check_up(the_student, the_mom):
 label student_dinner(the_student, the_mom, first_time):
     #TODO Have a unique dining room background
     $ clear_scene()
+    $ renpy.show(name = "living room", what = house_background, layer = "master")
     $ the_group = GroupDisplayManager([the_student], primary_speaker = the_student)
     $ the_group.draw_group()
 
@@ -254,6 +255,8 @@ label student_dinner(the_student, the_mom, first_time):
     the_mom.char "It's been wonderful having you over [the_mom.mc_title], but I'm sure you're looking forward to getting home."
     mc.name "The dinner was fantastic. I'm lucky to have such a generous, beautiful host."
     "[the_mom.title] seems to blush, although it might just be wine taking effect."
+
+    $ renpy.show(name = "apartment lobby", what = apartment_background, layer = "master")
     $ the_group.draw_group()
     "[the_mom.title] and [the_student.title] walk you to the door to say goodbye."
     the_student.char "Bye [the_student.mc_title], I hope you'll be by again soon!"
