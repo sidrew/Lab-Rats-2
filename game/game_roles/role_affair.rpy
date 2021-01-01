@@ -139,7 +139,7 @@ label fuck_date_label(the_person):
         the_person.char "Hello, I'm ready for you [the_person.mc_title]..."
         "She licks her lips and watches you from her knees."
         the_person.char "Don't waste any time, I want you in my mouth."
-        call fuck_person(the_person, private = True, start_position = blowjob) from _call_fuck_person_34
+        call fuck_person(the_person, private = True, start_position = blowjob, skip_intro = True) from _call_fuck_person_34
 
     else:
         #She's standing and ready to make out as soon as you come in."
