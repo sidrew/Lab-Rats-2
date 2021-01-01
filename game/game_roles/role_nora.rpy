@@ -63,8 +63,14 @@ init -2 python:
         else:
             return True
 
+    def get_nora_research_subject():
+        subject = mc.business.event_triggers_dict.get("nora_research_subject", None)
+        if isinstance(subject, basestring):
+            return return next((x for x in all_people_in_the_game() if x.identifier == subject), None)
+        return subject
+
     def special_research_requirement(the_person):
-        if mc.business.event_triggers_dict.get("nora_research_subject", None) is None:
+        if get_nora_research_subject() is None:
             return "No new research to turn in"
         elif time_of_day == 0:
             return "Too early to visit [nora.title]"
@@ -81,7 +87,7 @@ init -2 python:
         return True
 
     def add_nora_university_research_actions():
-        university_research_action = Action("Present your research to [nora.title]", nora_research_up_requirement, "nora_research_up_label", args = nora, 
+        university_research_action = Action("Present your research to [nora.title]", nora_research_up_requirement, "nora_research_up_label", args = nora,
             menu_tooltip = "Deliver your field research to [nora.title] in exchange for her theoretical research notes.")
         mc.business.event_triggers_dict["nora_research_up"] = university_research_action
         university.actions.append(university_research_action)
@@ -272,7 +278,7 @@ label nora_research_cash_first_time(the_person):
             mc.business.event_triggers_dict["nora_cash_research_trait"] = the_trait
             list_of_traits.append(the_trait)
             del the_trait
-        
+
     else:
         the_person.char "Do you have your finished research for me?"
         mc.name "I don't. My lab went in another direction and we found the breakthrough we were looking for."
@@ -350,7 +356,7 @@ label nora_research_cash(the_person):
 
 label nora_special_research(the_person):
     # Bring a report about a special person to Nora and she generates a special serum trait for them.
-    $ the_subject = mc.business.event_triggers_dict.get("nora_research_subject") #This is guaranteed to exist thanks to the pre action checks.
+    $ the_subject = get_nora_research_subject() #This is guaranteed to exist thanks to the pre action checks.
 
     mc.name "I have a research profile for you to take a look at [the_person.title]. Let me know if you can find anything interesting out."
     "You give [the_person.possessive_title] the report you have prepared on [the_subject.title]."
@@ -453,8 +459,8 @@ label nora_special_research(the_person):
     return
 
 label nora_profile_person(the_person):
-    if mc.business.event_triggers_dict.get("nora_research_subject", None) is not None:
-        $ the_other_person = mc.business.event_triggers_dict.get("nora_research_subject")
+    if get_nora_research_subject() is not None:
+        $ the_other_person = get_nora_research_subject()
         "Studying [the_person.title] will replace your information about [the_other_person.title]."
         menu:
             "Discard the report and continue":
@@ -475,7 +481,7 @@ label nora_profile_person(the_person):
         "All that is left now is to take it back to her and see if she finds anything interesting."
 
 
-    $ mc.business.event_triggers_dict["nora_research_subject"] = the_person
+    $ mc.business.event_triggers_dict["nora_research_subject"] = the_person.identifier
     $ clear_scene()
     call advance_time from _call_advance_time_24
     return
