@@ -1902,7 +1902,7 @@ label family_games_night_strip(the_mom, the_aunt, the_sister, partner):
                         $ the_group.redraw_person(the_mom)
                         "[the_mom.title] leans closer to her sister and half-whispers."
                         the_mom.char "[the_aunt.title], he's clearly... excited. Isn't this going a little too far?"
-                        $ the_aunt.redraw_person(the_aunt)
+                        $ the_group.redraw_person(the_aunt)
                         the_aunt.char "You're worrying way too much. Go ahead [the_aunt.mc_title], take it off!"
                     else:
                         the_mom.char "No need to be embarrassed [the_mom.mc_title], we're all family here."
