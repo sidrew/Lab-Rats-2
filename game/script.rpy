@@ -7201,8 +7201,9 @@ init -5 python:
     def market_work_action_requirement():
         if time_of_day >= 4:
             return "Too late to work"
-        else:
-            return True
+        elif mc.business.sale_inventory.get_any_serum_count() == 0:
+            return "Nothing to sell"
+        return True
 
     def production_work_action_requirement():
         if time_of_day >= 4:
