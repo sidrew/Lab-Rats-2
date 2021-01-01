@@ -993,7 +993,11 @@ label mom_work_promotion_two_report(the_person): #TODO: Hook this up as an on_ro
         $ the_person.draw_person()
         "She let's you hold her for a few moments, then she steps back and smiles. It seems a little more sincere this time."
 
-    $ clear_scene()
+    python:
+        clear_scene()
+        # delete the interview outfit
+        if "mom_work_promotion_outfit" in the_person.event_triggers_dict:
+            del the_person.event_triggers_dict["mom_work_promotion_outfit"]
     return
 
 label mom_weekly_pay_lily_question(the_person):
