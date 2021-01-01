@@ -918,7 +918,7 @@ init -5 python:
 
         def run_day(self): #Run at the end of the day.
             #Pay everyone for the day
-            if mc.business.is_work_day():
+            if self.is_work_day():
                 cost = self.calculate_salary_cost()
                 self.funds += -cost
 
@@ -12199,11 +12199,9 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
 
     $ list_of_traits = [] #List of serum traits that can be used. Established here so they play nice with rollback, saving, etc.
     $ list_of_nora_traits = []
-    $ list_of_side_effects = [] #List of special serum traits that are reserved for bad results.
     $ list_of_places = [] #By having this in an init block it may be set to null each time the game is reloaded, because the initialization stuff below is only called once.
 
     call instantiate_serum_traits() from _call_instantiate_serum_traits #Creates all of the default LR2 serum traits. TODO: Create a mod loading list that has labels that can be externally added and called here.
-    call instantiate_side_effect_traits() from _call_instantiate_side_effect_traits
     call instantiate_roles() from _call_instantiate_roles #Broken out as a renpy statement instead of using the python equivalent because returning from a label might skip to the end of the whole pyton statement.
     python:
         ##PC's Home##
