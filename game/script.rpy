@@ -6866,16 +6866,12 @@ init -5 python:
             return self.overwear_sets
 
         def has_outfit_with_name(self, the_name):
-            has_name = False
-            for checked_outfit in self.outfits + self.underwear_sets + self.overwear_sets:
-                if checked_outfit.name == the_name:
-                    has_name = True
-            return has_name
+            return any(x for x in self.outfits + self.underwear_sets + self.overwear_sets if x.name == the_name)
 
         def get_outfit_with_name(self, the_name):
-            for outfit in self.outfits + self.underwear_sets + self.overwear_sets:
-                if outfit.name == the_name:
-                    return outfit.get_copy()
+            found = next((x for x in self.outfits + self.underwear_sets + self.overwear_sets if x.name == the_name), None)
+            if found:
+                return found.get_copy()
             return None
 
     def make_wall(): #Helper functions for creating instances of commonly used objects.
