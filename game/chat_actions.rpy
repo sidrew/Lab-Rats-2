@@ -998,15 +998,19 @@ label movie_date_label(the_person):
                         the_person.char "Do you want to go to the bathroom and fuck me, or do you want to finish in my mouth right here?"
                         menu:
                             "Fuck her":
+                                $ the_person.draw_person(position = "walking_away", lighting = [0.5, 0.5, 0.5])
                                 "You zip up your pants and stand up. [the_person.title] takes your hand and you rush out of the theater."
                                 $ mc.change_location(work_bathroom)
                                 $ mc.location.show_background()
                                 $ the_person.change_arousal(20 + (the_person.get_opinion_score("public sex") * 10))
                                 $ mc.change_arousal(40)
+                                $ the_person.draw_person()
                                 "You hurry into the women's bathroom and lock yourselves in an empty stall."
                                 call fuck_person(the_person, private = True) from _call_fuck_person_28
-                                $ the_person.review_outfit()
+                                $ the_person.draw_person()
+                                $ the_person.apply_outfit(the_person.planned_outfit)
                                 $ renpy.show("Theater", what = theater_background)
+                                $ the_person.draw_person(position = "sitting", lighting = [0.5,0.5,0.5])
                                 "You slip out of the bathroom as quickly as possible and return to your seats with some time pleasantly passed."
 
                             "Cum right here":
