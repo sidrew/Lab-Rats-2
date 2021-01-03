@@ -48,7 +48,7 @@ label employee_humiliating_work_report_label(the_person):
     mc.name "Sure, what do you need?"
     the_person.char "I wanted to let you know that I've finished my week of punishment."
     menu:
-        "Tell me about it.":
+        "Tell me about it":
             mc.name "Good. Tell me about it."
             the_person.char "It was terrible, [the_person.mc_title]. The bathrooms are disgusting, and things get dirty the moment I finish cleaning them!"
             the_person.char "I never want to have to do that again, it felt so demeaning!"
