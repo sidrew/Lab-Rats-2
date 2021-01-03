@@ -662,12 +662,12 @@ label suck_demand_label(the_person):
     if mc.location.get_person_count() > 1:
         # There are other people here, let's ask if we want to go someplace quiet first.
         menu:
-            "Find someplace quiet first.":
+            "Find someplace quiet":
                 mc.name "Follow me."
                 "[the_person.possessive_title] nods and follows obediently after you."
                 "You find a quiet spot where you're unlikely to be interrupted and turn back to her."
 
-            "Do it right here.":
+            "Do it right here":
                 $ private = False
                 pass
 
