@@ -704,13 +704,13 @@ label suck_demand_label(the_person):
     $ the_person.draw_person(position = "blowjob", special_modifier = "blowjob", the_animation = blowjob_bob, animation_effect_strength = 0.3)
     "[the_person.title] licks the tip of your cock, then slides it tenderly into her mouth."
     menu:
-        "Let her worship your cock.":
+        "Let her worship your cock":
             "You sigh and enjoy the feeling of her warm, wet blowjob."
             mc.name "That's a good girl..."
             call fuck_person(the_person, private = private, start_position = deepthroat, skip_intro = True) from _call_fuck_person_87
             #TODO: Some end of sex stuff if we want it
 
-        "Grab her head and fuck her mouth.":
+        "Grab her head and fuck her mouth":
             "You place your hands on either side of [the_person.possessive_title]'s head. She cocks her head and looks up at you."
             mc.name "That's a good girl, now let's put you to good use."
             "You hold her head in place as you shove your hips forward."
