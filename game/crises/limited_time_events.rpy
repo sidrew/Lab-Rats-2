@@ -1809,7 +1809,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                 the_person.char "Ah! Oh my god, [the_person.mc_title], I nearly had a heart attack!"
                 mc.name "Sorry about that. I hope I wasn't interrupting anything."
                 $ the_item = the_person.outfit.get_lower_top_layer()
-                if the_item is None:
+                if the_item:
                     "[the_person.possessive_title] swivels her chair around to face you, wiping her hand off onto her [the_item.display_name]."
                 else:
                     "[the_person.possessive_title] swivels her chair around to face you, wiping her hand off onto her thigh."
