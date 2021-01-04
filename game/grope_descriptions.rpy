@@ -57,7 +57,7 @@ label grope_waist(the_person):
             "Slide your hand onto her ass\n-5 {image=gui/extra_images/energy_token.png} (disabled)" if the_person.energy < 5:
                 pass
 
-            "Stop touching her.":
+            "Stop touching her":
                 return False
 
     else: #Sluttiness 80 or higher, wants to fuck right away.
@@ -81,12 +81,12 @@ label grope_waist(the_person):
             the_person.char "We both know where this is going, what are we waiting for?"
 
         menu:
-            "Skip the foreplay.":
+            "Skip the foreplay":
                 call fuck_person(the_person) from _call_fuck_person
                 $ the_person.review_outfit()
                 return False
 
-            "Stop touching her.":
+            "Stop touching her":
                 "You give her hips a final squeeze, then push her back."
                 mc.name "Maybe later, I just wanted a feel."
                 "She pouts and sighs unhappily."
