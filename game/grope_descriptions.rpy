@@ -71,7 +71,7 @@ label grope_waist(the_person):
                 "[the_person.possessive_title] pulls her [strip_description] out of the way and spreads her legs."
                 the_person.char "Come on, do you want to fuck me?"
             else:
-                "She spreads her legs, emphasising the easy availability of her pussy."
+                "She spreads her legs, emphasizing the easy availability of her pussy."
                 the_person.char "Do you want to fuck me?"
 
             $ strip_list = None #Clear the list to save memory
