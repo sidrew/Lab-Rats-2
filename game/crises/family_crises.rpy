@@ -1423,7 +1423,7 @@ init 1 python:
         return False
 
     morning_shower_criris = Action("Morning Shower", morning_shower_requirement, "morning_shower_label")
-    morning_crisis_list.append([morning_shower_criris, 15])
+    morning_crisis_list.append([morning_shower_criris, 5])
 
 label morning_shower_label(): #TODO: make a similar event for your Aunt's place.
     # You wake up and go to take a shower, lily or your mom are already in there.
