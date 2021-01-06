@@ -1614,7 +1614,7 @@ screen notify(message):
     frame at notify_appear:
         text message
 
-    timer 3.25 action Hide('notify')
+    timer 5 action Hide('notify')
 
 
 transform notify_appear:
