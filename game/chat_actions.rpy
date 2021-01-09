@@ -103,7 +103,7 @@ init -2 python:
         if the_person.sluttiness < 5:
             return False #Don't show the option at all at minimal sluttiness.
         elif the_person.event_triggers_dict.get("last_groped", (-1,-1)) == (day, time_of_day):
-            return "Just groped her."
+            return "Just groped her"
         elif mc.energy < 5:
             return "Not enough {image=gui/extra_images/energy_token.png}"
         else:
