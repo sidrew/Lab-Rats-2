@@ -139,6 +139,10 @@ init -2:
         list_of_names.append("Edith")
         list_of_names.append("Alina")
         list_of_names.append("Jae")
+        list_of_names.append("Abbigail")
+        list_of_names.append("Kayla")
+        list_of_names.append("Tia")
+        list_of_names.append("Mimi")
 
         def get_random_name():
             return get_random_from_list(list_of_names)
@@ -246,6 +250,10 @@ init -2:
         list_of_last_names.append("Anne")
         list_of_last_names.append("Li")
         list_of_last_names.append("West")
+        list_of_last_names.append("Everette")
+        list_of_last_names.append("Derry")
+        list_of_last_names.append("Ling")
+        list_of_last_names.append("Bjornson")
 
         def get_random_last_name():
             return get_random_from_list(list_of_last_names)

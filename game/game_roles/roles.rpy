@@ -16,38 +16,55 @@ init -1 python:
         # Low obedience characters will strip off less when told but can be left to run the show on their own and will remove some.
         for item in the_person.outfit.get_unanchored():
             if not item.is_extension:
-                (willingness, price) = pay_strip_scene_calculate_willingness_and_price(the_person, strip_willingness, item)
+                (willingness, price, taboo_break) = pay_strip_scene_calculate_willingness_and_price(the_person, strip_willingness, item)
+
+                taboo_break_string = ""
+                if taboo_break:
+                    taboo_break_string = " {image=gui/extra_images/taboo_break_token.png}"
 
                 if willingness >= 100 - the_person.obedience:
                     if price < mc.business.funds:
-                        display_string = "Strip " + item.name + "\n$" + str(price)
+                        display_string = "Strip " + item.name + taboo_break_string + "\n$" + str(price)
                     else:
-                        display_string = "Strip " + item.name + "\nNot enough money (disabled)"
+                        display_string = "Strip " + item.name + taboo_break_string + "\nNot enough money (disabled)"
 
                     menu_items.append([display_string, [item,price]])
 
                 else:
                     menu_items.append(["Strip " + item.name + "\nToo Slutty (disabled)", [item,-1]])
 
-        menu_items.append(["Just watch.","Watch"])
-        menu_items.append(["Tell her to pose.","Pose"])
-        menu_items.append(["Finish the show.","Finish"])
+        menu_items.append(["Just watch","Watch"])
+        menu_items.append(["Tell her to pose","Pose"])
+        menu_items.append(["Finish the show","Finish"])
         return menu_items
 
     def pay_strip_scene_calculate_willingness_and_price(the_person, strip_willingness, tease_item):
         test_outfit = the_person.outfit.get_copy()
         test_outfit.remove_clothing(tease_item)
         willingness = the_person.effective_sluttiness(["underwear_nudity"]) + (5*the_person.get_opinion_score("not wearing anything")) - test_outfit.slut_requirement
-        price = 0
-        if willingness >= 40: #She's slutty enough to do it for free!
-            price = 0
-        elif willingness >= 20:
-            price = (strip_willingness - willingness) * 3
-        else:
+        taboo_break = None
+
+        if test_outfit.vagina_visible() and the_person.has_taboo("bare_pussy"):
             price = (strip_willingness - willingness) * 10
+            taboo_break = "bare_pussy"
+        elif test_outfit.tits_visible() and the_person.has_taboo("bare_tits"):
+            price = (strip_willingness - willingness) * 10
+            taboo_break = "bare_tits"
+        elif test_outfit.underwear_visible() and the_person.has_taboo("underwear_nudity"):
+            price = (strip_willingness - willingness) * 5
+            taboo_break = "underwear_nudity"
+        elif willingness >= 30: #She's slutty enough to do it for free!
+            price = 0
+        elif willingness >= 10:
+            price = (strip_willingness - willingness) * 1
+        else:
+            price = (strip_willingness - willingness) * 3
+
+        if price < 0:   # make sure price is never less than 0
+            price = 0
 
         price = math.ceil((price/5.0))*5 #Round up to the next $5 increment
-        return (willingness, price)
+        return (willingness, price, taboo_break)
 
     def pay_strip_scene_get_pose(picked_pose):
         pose_menu_tuple = []
@@ -300,6 +317,8 @@ label pay_strip_scene(the_person):
     #Optional: Way to progress from strip tease to sex and/or masturbation.
 
     $ pose_list = [["Turn around","walking_away"],["Turn around and look back","back_peek"],["Be flirty","stand2"],["Be casual","stand3"],["Strike a pose","stand4"],["Move your hands out of the way","stand5"],["Hands down, ass up.","standing_doggy"]]
+    $ pose_dances = {} #Dict that maps poses to animations that look good for them.
+
 
     $ picked_pose = the_person.idle_pose #She starts in her idle pose (which is a string)
     $ ran_num = renpy.random.randint(0,3) #Produce 4 different descriptions at each level to help keep this interesting.
@@ -328,7 +347,7 @@ label pay_strip_scene(the_person):
                 "[the_person.title] shakes her head and mutters to herself."
                 the_person.char "I can't believe I'm doing this..."
 
-        elif strip_willingness < 20:
+        elif strip_willingness < 10:
             if ran_num == 0:
                 "[the_person.title] stands awkwardly in front of you and avoids making eye contact."
             elif ran_num == 1:
@@ -341,7 +360,7 @@ label pay_strip_scene(the_person):
             else:
                 "[the_person.title] blushes and looks around the room to avoid making eye contact."
 
-        elif strip_willingness < 60:
+        elif strip_willingness < 30:
             $the_clothing = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True) #She's slutty enough that she wants to tease you a little more
             if ran_num == 0:
                 if the_clothing is not None:
@@ -371,7 +390,7 @@ label pay_strip_scene(the_person):
                 "She wiggles her hips for you and winks."
             $ the_clothing = None
 
-        else: #strip_willingness >= 60
+        else: #strip_willingness >= 30
             $the_clothing = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True) #She's slutty enough that she wants to tease you a little more
             if ran_num == 0:
                 if the_clothing is not None:
@@ -403,12 +422,21 @@ label pay_strip_scene(the_person):
                 $ free_spirit_threshold = 40 + (100 - the_person.obedience)
                 if renpy.random.randint(0,100) < free_spirit_threshold: #She's independent enough to strip, change pose, etc. on her own.
                     if the_clothing:
-                        $ (willingness, price) = pay_strip_scene_calculate_willingness_and_price(the_person, strip_willingness, the_clothing)
+                        $ (willingness, price, taboo_break) = pay_strip_scene_calculate_willingness_and_price(the_person, strip_willingness, the_clothing)
 
                     if the_clothing and willingness >= (the_person.obedience-100): #A more obedient person is less willing to strip without being told to. A less obedient person will strip further on their own.
                         if price > 0:
                             "[the_person.title] steps a little closer to you and plays with the edge of her [the_clothing.display_name]."
-                            the_person.char "$[price] and I'll take this off for you..."
+                            if taboo_break: #TODO: If this style of stripping becomes more important this dialogue should be personality based (mainly for family related dialogue)
+                                if taboo_break == "bare_pussy":
+                                    the_person "Would you like a look at my pussy? How about... $[price] and I'll take off my [tease_item.display_name]."
+                                elif taboo_break == "bare_tits":
+                                    the_person "So, would you like to see my tits? Just, oh... $[price] and I'll take off my [tease_item.display_name]."
+                                else: #Underwear_nudity
+                                    the_person "Want to see what I'm wearing underneath this [tease_item.display_name]? Just $[price] and I'll show you."
+                            else:
+                                the_person.char "$[price] and I'll take this off for you..."
+
                             menu:
                                 "Pay her\n{color=#ff0000}{size=18}Costs: $[price]{/size}{/color}" if price <= mc.business.funds:
                                     "You pull the cash out of your wallet and hand it over."
@@ -417,7 +445,8 @@ label pay_strip_scene(the_person):
                                     $ the_person.change_slut_temp(1)
                                     $ the_person.draw_animated_removal(the_clothing, position = picked_pose)
                                     "[the_person.title] takes it, puts it to the side, and starts to slide her [the_clothing.display_name] off."
-
+                                    if the_person.update_outfit_taboos():
+                                        "She seems momentarily uneasy about undressing, but shakes the feeling quickly and returns her attention to you."
 
                                 "Pay her\n{color=#ff0000}{size=18}Requires: $[price]{/size}{/color} (disabled)" if price > mc.business.funds:
                                     pass
@@ -473,9 +502,22 @@ label pay_strip_scene(the_person):
             $ test_outfit = the_person.outfit.get_copy() #We use a temp copy so that we can get her reaction first.
             $ test_outfit.remove_clothing(strip_choice[0])
             $ the_clothing = strip_choice[0]
-            # $ the_person.draw_animated_removal(strip_choice[0], position = picked_pose)
+
+            $ taboo_break = None
+            if test_outfit.vagina_visible() and the_person.has_taboo("bare_pussy"):
+                $ taboo_break = "bare_pussy"
+            elif test_outfit.tits_visible() and the_person.has_taboo("bare_tits"):
+                $ taboo_break = "bare_tits"
+            elif test_outfit.underwear_visible() and the_person.has_taboo("underwear_nudity"):
+                $ taboo_break = "underwear_nudity"
+
             $ strip_willingness = the_person.effective_sluttiness("underwear_nudity") + (5*the_person.get_opinion_score("not wearing anything")) - test_outfit.slut_requirement
-            if strip_choice[1] > 0:
+            mc.name "Take off your [the_clothing.display_name] for me."
+            if taboo_break: #Always use special dialogue for the taboo breaks
+                $ the_person.call_dialogue(taboo_break + "_taboo_break")
+                $ the_person.break_taboo(taboo_break)
+
+            elif strip_choice[1] > 0:
                 if strip_willingness < 0:
                     "You pull some cash from your wallet and offer it to [the_person.title]. She takes it and looks at it for a long second."
                     the_person.char "Oh my god... I shouldn't be doing this..."
@@ -501,14 +543,10 @@ label pay_strip_scene(the_person):
                 $ the_person.draw_animated_removal(strip_choice[0], position = picked_pose)
                 "[the_person.title] strips off her [the_clothing.display_name] for free, leaving it on the ground at her feet."
 
-            if the_person.update_outfit_taboos():
-                the_person.char "Don't... Look so closely at me like that."
-                mc.name "Why not? It's what I'm paying for, isn't it?"
-                the_person.char "I guess..."
-
             $ test_outfit = None
             $ the_clothing = None
         $ strip_choice = None
+        $ taboo_break = None
     return
 
 

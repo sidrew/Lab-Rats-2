@@ -607,11 +607,11 @@ label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom
                             the_person "I'm sure that'll do it. Okay?"
                             mc.name "Okay, thanks for the help [the_person.title]."
                             "She smiles sleepily at you, and seems to be asleep by the time you make it to the door."
-                            $ the_person.on_room_enter_event_list.append(Limited_Time_Action(sleeping_walk_in, sleeping_walk_in.event_duration)) #readd the LTE since she's still asleep. Note that we can't have stat effects for this, otherwise it's infinitely farmable
+                            $ the_person.on_room_enter_event_list.append(Limited_Time_Action(sleeping_walk_in, sleeping_walk_in.event_duration)) #re-add the LTE since she's still asleep. Note that we can't have stat effects for this, otherwise it's infinitely farmable
                             $ mc.change_location(hall)
                         else:
                             $ the_person.change_love(2)
-                            the_person "You still come right to your mommy when you can't sleep that's so sweet."
+                            the_person "You still come right to your mommy when you can't sleep. That's so sweet."
                             "She gives you a gentle kiss on the forehead."
                             the_person "Of course you can stay. Let's get some rest."
                             #TODO: Break some of this out to a "sleep with Mom" event
@@ -679,6 +679,7 @@ label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom
         old_location.lighting_conditions = old_lighting
         old_location = None
         old_lighting = None
+        clear_scene()
     return
 
 label nightime_grope(the_person, masturbating = False):
@@ -937,8 +938,7 @@ label nightime_grope(the_person, masturbating = False):
                                 "[the_person.possessive_title] kisses the tip of your dick, then opens her lips and slides you into her mouth."
                                 "She looks up at you from her knees, maintaining eye contact as she begins to bob her head up and down your shaft."
                                 call fuck_person(the_person, start_position = blowjob, position_locked = True, girl_in_charge = True) from _call_fuck_person_94 #Standing position should be selected by default
-                                $ the_report = _return
-                                call sex_report_helper(the_person, the_report) from _call_sex_report_helper
+                                call sex_report_helper(the_person, _return) from _call_sex_report_helper
 
                             else:
                                 $ the_person.draw_person()
@@ -947,8 +947,7 @@ label nightime_grope(the_person, masturbating = False):
                                 the_person "Just relax, I'm going to take care of this for you [the_person.mc_title]."
                                 "[the_person.possessive_title] holds you close as she begins to jerk you off."
                                 call fuck_person(the_person, start_position = handjob, position_locked = True, girl_in_charge = True) from _call_fuck_person_95
-                                $ the_report = _return
-                                call sex_report_helper(the_person, the_report) from _call_sex_report_helper_1
+                                call sex_report_helper(the_person, _return) from _call_sex_report_helper_1
 
                         "Just leave":
                             mc.name "I'm fine, I can take care of it. Sorry for waking you up."
@@ -1019,8 +1018,7 @@ label nightime_grope(the_person, masturbating = False):
                             else:
                                 "They're warm, soft, and feel like they melt around your sensitive dick. The tip of your cock just barely pops out of the top of her cleavage."
                             call fuck_person(the_person, start_position = tit_fuck, position_locked = True, girl_in_charge = True) from _call_fuck_person_96
-                            $ the_report = _return
-                            call sex_report_helper(the_person, the_report) from _call_sex_report_helper_2
+                            call sex_report_helper(the_person, _return) from _call_sex_report_helper_2
 
                         "Just leave":
                             mc.name "That sounds like a good time, but maybe some other time..."
@@ -1105,8 +1103,7 @@ label nightime_grope(the_person, masturbating = False):
                             "[the_person.possessive_title] kisses the tip of your dick, then opens her lips and slides you into her mouth."
                             "She looks up at you from her knees, maintaining eye contact as she begins to bob her head up and down your shaft."
                             call fuck_person(the_person, start_position = blowjob, position_locked = True, girl_in_charge = True) from _call_fuck_person_97 #Standing position should be selected by default
-                            $ the_report = _return
-                            call sex_report_helper(the_person, the_report) from _call_sex_report_helper_3
+                            call sex_report_helper(the_person, _return) from _call_sex_report_helper_3
 
                         "Just leave":
                             mc.name "I'm fine, I can take care of it. Sorry for waking you up."
@@ -1226,8 +1223,7 @@ label nightime_grope(the_person, masturbating = False):
                                 the_person "It's fine, just... Ah... Be sure to pull out..."
 
                     call fuck_person(the_person, start_position = missionary, start_object = mc.location.get_object_with_name("bed"), skip_intro = True) from _call_fuck_person_98
-                    $ the_report = _return
-                    call sex_report_helper(the_person, the_report) from _call_sex_report_helper_4
+                    call sex_report_helper(the_person, _return) from _call_sex_report_helper_4
 
                 else:
                     "She takes a moment to comprehend what's happening, then she gasps and shakes her head."

@@ -157,7 +157,7 @@ label mom_outfit_help_crisis_label():
 
 
     #Strip choices for the second peek section
-    if the_person.effective_sluttiness(["underwear_nudity","bare_pussy","bare_tits"]) + the_person.love < 35 or caught: #She really doesn't want you to see anything
+    if the_person.effective_sluttiness(["underwear_nudity","bare_pussy","bare_tits"]) + the_person.love < 30 or caught: #She really doesn't want you to see anything
         the_person.char "Okay, I just need to get changed again."
         $ clear_scene()
         "[the_person.possessive_title] shoos you out of the room while she changes into her new outfit."
@@ -216,7 +216,6 @@ label mom_outfit_help_crisis_label():
         "Once she's stripped naked she grabs another outfit and starts to put it on."
 
     $ the_person.apply_outfit(second_outfit, update_taboo = True)
-    #$ the_person.outfit = second_outfit changed v0.24.1
     $ the_person.draw_person()
 
     the_person.char "Alright, there we go! Now, do you think this is better or worse than what I was just wearing?"
@@ -240,7 +239,7 @@ label mom_outfit_help_crisis_label():
             mc.name "They both look good, but I think I have another idea for something you could wear..."
             "You go to [the_person.possessive_title]'s closet and start to put together an outfit of your own for her."
             $ clear_scene()
-            call outfit_master_manager(slut_limit = the_person.sluttiness + 10) from _call_outfit_master_manager_2
+            call outfit_master_manager(slut_limit = the_person.sluttiness + 10, show_underwear = False) from _call_outfit_master_manager_2
             $ third_outfit = _return
             $ the_person.draw_person()
 
@@ -249,11 +248,11 @@ label mom_outfit_help_crisis_label():
                 mc.name "Sorry Mom, I thought I had an idea but I guess I was wrong."
                 the_person.char "That's fine [the_person.mc_title]. I think I'm going to go with the first one anyway."
                 $ the_person.change_happiness(5)
+
             else:
                 "You lay the outfit out for [the_person.possessive_title]. She looks it over and nods."
                 the_person.char "I'll try it on, but I think I like it!"
-
-                if the_person.sluttiness + the_person.love < 35 or caught: #She really doesn't want you to see anything
+                if the_person.effective_sluttiness() + the_person.love < 30 or caught: #She really doesn't want you to see anything
                     $ clear_scene()
                     "[the_person.possessive_title] shoos you out of the room while she changes into her new outfit."
                     the_person.char "Okay, come back!"

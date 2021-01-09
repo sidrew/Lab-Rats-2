@@ -234,7 +234,7 @@ label pregnant_announce(the_person):
             "Thanks for telling me":
                 mc.name "Thank you for telling me. Let me know how things are progressing."
                 the_person "Okay, I will."
-
+    $ clear_scene()
     return
 
 init 2 python:

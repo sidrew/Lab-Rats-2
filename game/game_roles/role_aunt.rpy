@@ -1924,7 +1924,7 @@ label family_games_night_strip(the_mom, the_aunt, the_sister, partner):
                     the_aunt.char "What? It's true, and men just don't get complemented enough these days."
                     the_aunt.char "It's good for his mental health to hear stuff like this."
                     $ the_group.redraw_person(the_mom)
-                    the_mom.char "You shouldn't be commenting on my sons... penis. Especially not in front of me!"
+                    the_mom.char "You shouldn't be commenting on my son's... penis. Especially not in front of me!"
                     mc.name "What's wrong with my penis [the_mom.title]?"
                     the_mom.char "Oh! Nothing is wrong with it sweetheart, it's very attractive."
                     $ the_group.redraw_person(the_aunt)
@@ -2012,7 +2012,7 @@ init -1 python:
                 renpy.say("", person.title + " glances around the table nervously.")
                 renpy.say(person.char, "Maybe we should call it here?")
                 renpy.say(mc.name, "Relax " + person.title + ", it's just a game! Come on, get those tits out for us.")
-                renpy.say("", person.possessive_title + "hesitates, and the other girls start to cheer her on.")
+                renpy.say("", person.possessive_title + " hesitates, and the other girls start to cheer her on.")
                 renpy.say(person.char, "Okay, okay...")
 
             the_group.draw_animated_removal(person, make_primary = False, the_clothing = the_item)
