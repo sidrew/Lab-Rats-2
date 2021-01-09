@@ -217,7 +217,7 @@ label demand_touch_label(the_person):
                 the_person.char "Your loss."
     else:
         call fuck_person(the_person, private = should_be_private, start_position = standing_grope, start_object = None, skip_intro = True) from _call_fuck_person_44
-	    $ the_person.call_dialogue("sex_review", the_report = _return)
+        $ the_person.call_dialogue("sex_review", the_report = _return)
         $ the_person.review_outfit()
     return
 
