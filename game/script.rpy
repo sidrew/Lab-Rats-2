@@ -10,6 +10,14 @@ init -5: # Establish some platform specific stuff.
     default bugfix_installed = True
     default persistent.pregnancy_pref = 0 # 0 = no content, 1 = predictable, 2 = realistic
 
+init -1 python:
+    global emotion_images_dict
+    emotion_images_dict = {}
+    for skin in ["white", "tan", "black"]:
+        emotion_images_dict[skin] = {}
+        for face in list_of_faces:
+            emotion_images_dict[skin][face] = Expression(skin + "_" + face, skin, face)
+
 init -5 python:
     import os
     import copy
@@ -39,7 +47,6 @@ init -5 python:
         mobile_zip_dict[position] = zipfile.ZipFile(renpy_file, "r") #Cache all of the zip files so we have a single static pointer to them.
 
     #config.use_cpickle = False #Set to True for more useful save failure info
-
 
     def take_animation_screenshot(): #Called on every interact beginning, if animation_draw_requested is True it makes the screenshot and starts a new thread to display the image.
         # This approach is needed because draw.screenshot is fast, but must be done in the main thread. Rendering is slower, but can be threaded. This lets us get the best of both worlds.
@@ -2272,7 +2279,7 @@ init -5 python:
             self.height = height #This is the scale factor for height, with the tallest girl being 1.0 and the shortest being 0.8
             self.body_images = body_images #instance of Clothing class, which uses full body shots.
             self.face_style = face_style
-            self.expression_images = expression_images #instance of the Expression class, which stores facial expressions for different skin colours
+            #self.expression_images = expression_images #instance of the Expression class, which stores facial expressions for different skin colours
             self.hair_colour = hair_colour #A list of [description, color value], where colour value is a standard RGBA list.
             self.hair_style = hair_style
 
@@ -2440,6 +2447,11 @@ init -5 python:
             if not hasattr(self, "_identifier"):
                 self._identifier = hashlib.md5(self.name + self.last_name + str(self.age)).hexdigest()
             return self._identifier
+
+        @property
+        def expression_images(self):
+            global emotion_images_dict
+            return emotion_images_dict[self.skin][self.face_style]
 
         @property
         def home(self):
@@ -4154,7 +4166,9 @@ init -5 python:
         else:
             body_images = black_skin
 
-        emotion_images = Expression(name+"\'s Expression Set", skin, face_style)
+        # HANDLED BY GLOBAL DICTIONARY
+        #emotion_images = Expression(name+"\'s Expression Set", skin, face_style)
+        emotion_images = None
 
         if eyes is None:
             eyes = get_random_eye()
@@ -4421,24 +4435,28 @@ init -5 python:
 
     class Expression():
         emotion_set = ["default","happy","sad","angry","orgasm"]
-        special_modifiers = {"blowjob":["blowjob"],"kissing":["kissing"]} #Special modifiers that are sometimes applied to expressions, but not always. ie. for blowjobs that may be either in normal crouching mode or blowjob mode.
         ignore_position_set = ["doggy","walking_away","standing_doggy"] #The set of positions that we are not goign to draw emotions for. These look away from the camera TODO: This should reference the Position class somehow.
 
         def __init__(self,name,skin_colour,facial_style):
             self.name = name
             self.skin_colour = skin_colour
             self.facial_style = facial_style #The style of face the person has, currently creatively named "Face_1", "Face_2", "Face_3", etc..
+            self.special_modifiers = {"kissing":["kissing"]} #Special modifiers that are sometimes applied to expressions, but not always. ie. for blowjobs that may be either in normal crouching mode or blowjob mode.
             self.position_dict = {}
-            for position in supported_positions:    # create dict item for each position
+            for position in [x for x in supported_positions if x not in self.ignore_position_set]: #All positions support the blowjob special modifier now.
+                if position in self.special_modifiers.keys():
+                    self.special_modifiers[position].extend(["blowjob"])
+                else:
+                    self.special_modifiers[position] = ["blowjob"]
+
+            for position in supported_positions:
                 self.position_dict[position] = {}
-
-            for position in [x for x in supported_positions if x not in self.ignore_position_set]: # limit to supported
-                for emotion in self.emotion_set:
-                    self.position_dict[position][emotion] = emotion + "_" + facial_style + "_" + position + "_" + skin_colour + ".png"
-
-            for position in self.ignore_position_set: #Positions that ignore emotions always use the "default" emotion for the back of the head.
-                for emotion in self.emotion_set:
-                    self.position_dict[position][emotion] = "default" + "_" + facial_style + "_" + position + "_" + skin_colour + ".png" ##An empty image to be drawn when we don't want to draw any emotion, because the character's face is turned away.
+                if position in self.ignore_position_set:
+                    for emotion in self.emotion_set:
+                        self.position_dict[position][emotion] = "default" + "_" + facial_style + "_" + position + "_" + skin_colour + ".png" ##An empty image to be drawn when we don't want to draw any emotion, because the character's face is turned away.
+                else:
+                    for emotion in self.emotion_set:
+                        self.position_dict[position][emotion] = emotion + "_" + facial_style + "_" + position + "_" + skin_colour + ".png"
 
             for position, modifiers in self.special_modifiers.iteritems(): #Position is the key of our special modifers dict, get all the positions with a special modifier assigned.
                 for modifier in modifiers: #If that position has multiple special modifers we want to add them all.
@@ -5720,6 +5738,7 @@ init -5 python:
                         self.images[face + "_" + emotion + "_" + self.special_modifiers[position]] = accessory_name + "_" + position + "_" + face + "_" + emotion + "_" + self.special_modifiers[position] + ".png"
 
         def get_image(self, face, emotion, special_modifier = None):
+            print("Running Default Get Image")
             index_string = face + "_" + emotion
             global mobile_zip_dict
             file = mobile_zip_dict[self.position_name]
