@@ -485,7 +485,7 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
         #TODO: Refactor this huge conditional. It's hard to read
     elif (the_person.effective_sluttiness(["vaginal_sex", "sucking_cock"]) >= 70 and the_person.relationship == "Single") or (the_person.effective_sluttiness(["vaginal_sex", "sucking_cock"]) >= 70-(10*the_person.get_opinion_score("cheating on men")) and the_person.relationship != "Single"): #TODO: Figure out what triggers we want for this
         "You're barely in the door before [the_person.title] has her hands all over you."
-        $ her_hallway = Room(the_person.name +"'s front hall", the_person.name +"'s front hall", standard_house_backgrounds[:],[],[],[],False,[3,3], visible = False, lighting_conditions = standard_indoor_lighting)
+        $ her_hallway = Room(the_person.name +"'s front hall", the_person.name +"'s front hall", [], standard_house_backgrounds[:],[],[],[],False,[3,3], visible = False, lighting_conditions = standard_indoor_lighting)
         $ her_hallway.add_object(Object("Front Door", ["Lean"], sluttiness_modifier = 10, obedience_modifier = 5))
         $ her_hallway.add_object(Object("Hall Carpet", ["Kneel", "Lay"], sluttiness_modifier = 5, obedience_modifier = 10))
         $ her_hallway.add_object(Object("Stairs", ["Sit", "Low"], sluttiness_modifier = 5, obedience_modifier = 10))
