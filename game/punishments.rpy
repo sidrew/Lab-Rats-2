@@ -741,9 +741,9 @@ label strip_naked_command_helper(the_person, the_infraction): #Helper function f
         "She sighs and nods."
         the_person.char "Yes [the_person.mc_title]."
 
-        $ item = the_person.outfit.get_feet_top_layer()
-        if item:
-            the_person.char "Can I keep my [item.display_name] on?"
+        $ the_item = the_person.outfit.get_feet_top_layer()
+        if the_item:
+            the_person.char "Can I keep my [the_item.display_name] on?"
             menu:
                 "Strip it all off":
                     mc.name "Take it all off, I don't want you to be wearing anything."
@@ -751,13 +751,13 @@ label strip_naked_command_helper(the_person, the_infraction): #Helper function f
 
                 "Leave them on":
                     mc.name "Fine, you can leave them on."
-        $ del item
+        $ del the_item
 
     else: # No big deal, she just gets right to it
         "She nods and starts to strip immediately."
-        $ item = the_person.outfit.get_feet_top_layer()
-        if item:
-            the_person.char "Would you like me to take off my [item.display_name] too?"
+        $ the_item = the_person.outfit.get_feet_top_layer()
+        if the_item:
+            the_person.char "Would you like me to take off my [the_item.display_name] too?"
             menu:
                 "Strip it all off":
                     mc.name "Take it all off, I want you naked."
@@ -765,7 +765,7 @@ label strip_naked_command_helper(the_person, the_infraction): #Helper function f
 
                 "Leave them on":
                     mc.name "Fine, you can leave them on."
-        $ del item
+        $ del the_item
 
     return remove_shoes
 

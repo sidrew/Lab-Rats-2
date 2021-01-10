@@ -395,9 +395,9 @@ label employee_performance_review(the_person):
                                             "Make her strip naked" if the_person.obedience > 110:
                                                 mc.name "You aren't finished yet. Keep stripping, I want to see you naked."
                                                 $ remove_shoes = False
-                                                $ item = the_person.outfit.get_feet_top_layer()
-                                                if item:
-                                                    the_person "Do you want me to keep my [item.display_name] on?"
+                                                $ the_item = the_person.outfit.get_feet_top_layer()
+                                                if the_item:
+                                                    the_person "Do you want me to keep my [the_item.display_name] on?"
                                                     menu:
                                                         "Strip it all off.":
                                                             mc.name "Take it all off, I don't want you to be wearing anything."
@@ -405,7 +405,7 @@ label employee_performance_review(the_person):
 
                                                         "Leave them on.":
                                                             mc.name "You can leave them on."
-                                                $ del item
+                                                $ del the_item
 
                                                 if the_person.has_taboo(["bare_pussy", "bare_tits"]):
                                                     the_person "I... I'm not sure [the_person.mc_title]."
@@ -561,9 +561,9 @@ label employee_performance_review(the_person):
                                     mc.name "Is that so? Alright, first things first then. Get naked."
                                     "[the_person.possessive_title] doesn't seem to have any problem with the command."
                                     $ remove_shoes = False
-                                    $ item = the_person.outfit.get_feet_top_layer()
-                                    if item:
-                                        the_person "Do you want me to keep my [item.display_name] on?"
+                                    $ the_item = the_person.outfit.get_feet_top_layer()
+                                    if the_item:
+                                        the_person "Do you want me to keep my [the_item.display_name] on?"
                                         menu:
                                             "Strip it all off":
                                                 mc.name "Take it all off, I don't want you to be wearing anything."
@@ -571,7 +571,7 @@ label employee_performance_review(the_person):
 
                                             "Leave them on":
                                                 mc.name "You can leave them on."
-                                    $ del item
+                                    $ del the_item
 
                                     "She nods obediently."
                                     the_person "Yes [the_person.mc_title], whatever you want."

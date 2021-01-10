@@ -632,16 +632,16 @@ label demand_strip_naked_label(the_person):
             "She starts to strip down for you."
 
     $ remove_shoes = False
-    $ item = the_person.outfit.get_feet_top_layer()
-    if item:
-        the_person.char "Do you want me to keep my [item.display_name] on?"
+    $ the_item = the_person.outfit.get_feet_top_layer()
+    if the_item:
+        the_person.char "Do you want me to keep my [the_item.display_name] on?"
         menu:
             "Strip it all off":
                 mc.name "Take it all off, I don't want you to be wearing anything."
                 $ remove_shoes = True
             "Leave them on":
                 mc.name "You can leave them on."
-    $ del item
+    $ del the_item
 
     $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list(strip_feet = remove_shoes))
 
