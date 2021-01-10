@@ -1164,6 +1164,10 @@ label introvert_sex_review(the_person, the_report):
 
         else:  # She's suprised she even tried that.
             the_person "Yeah, you're right. This went too far, we should stop while we can."
+
+    # Gave creampie while she is not on birth control (extra dialog when she could get pregnant)
+    if the_report.get("creampies", 0) > 0 and not the_person.on_birth_control and not self.event_triggers_dict.get("preg_knows", False):
+        the_person "Dammit...why did you cum inside me? I could get pregnant, you know."
     return
 
 ## Role Specific Section ##

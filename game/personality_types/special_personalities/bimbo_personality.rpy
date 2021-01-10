@@ -1190,6 +1190,10 @@ label bimbo_sex_review(the_person, the_report):
             the_person "One minute we're just talking, then boom! It's all hot and heavy and all I can think of is..."
             "She giggles and nods down to your crotch."
             the_person "I just go crazy! I can't help it!"
+
+    # Gave creampie while she is not on birth control (extra dialog when she could get pregnant)
+    if the_report.get("creampies", 0) > 0 and not the_person.on_birth_control and not self.event_triggers_dict.get("preg_knows", False):
+        the_person "You know, I could be like, pregnant here."
     return
 
 label bimbo_sex_take_control(the_person):

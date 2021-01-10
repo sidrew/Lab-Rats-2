@@ -1236,6 +1236,10 @@ label relaxed_sex_review(the_person, the_report):
         else:  # She's suprised she even tried that.
             the_person "You're right, we should probably stop. I just go so carried away, I wouldn't normally do something like this..."
             "She laughs nervously, trying to hide her embarrassment."
+
+    # Gave creampie while she is not on birth control (extra dialog when she could get pregnant)
+    if the_report.get("creampies", 0) > 0 and not the_person.on_birth_control and not self.event_triggers_dict.get("preg_knows", False):
+        the_person "Oh my...you know that you can get me pregnant, right?"
     return
 
 ## Role Specific Section ##

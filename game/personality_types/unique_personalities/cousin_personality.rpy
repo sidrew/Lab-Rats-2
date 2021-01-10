@@ -165,6 +165,10 @@ label cousin_sex_review(the_person, the_report):
             the_person "Fuck, you're right... I mean, did you really think I was going to let you keep going?"
             the_person "I was just teasing you, obviously..."
             "She doesn't sound to sure of herself."
+
+    # Gave creampie while she is not on birth control (extra dialog when she could get pregnant)
+    if the_report.get("creampies", 0) > 0 and not the_person.on_birth_control and not self.event_triggers_dict.get("preg_knows", False):
+        the_person "Fuck, [the_person.mc_title], how do I tell my mom how I got pregnant?"
     return
 
 label cousin_flirt_response_low(the_person):

@@ -150,6 +150,10 @@ label aunt_sex_review(the_person, the_report):
             mc.name "No, of course not. That was fun."
             "She sighs, obviously relieved, and smiles."
             the_person "Good, I'm glad you had a good time. I don't think my sister would be very impressed with us right now."
+
+    # Gave creampie while she is not on birth control (extra dialog when she could get pregnant)
+    if the_report.get("creampies", 0) > 0 and not the_person.on_birth_control and not self.event_triggers_dict.get("preg_knows", False):
+        the_person "And how am I going to explain to my sister when you got me pregnant?"
     return
 
 label aunt_flirt_response_low(the_person):

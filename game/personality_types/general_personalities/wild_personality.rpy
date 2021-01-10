@@ -1223,6 +1223,10 @@ label wild_sex_review(the_person, the_report):
         else:  # She's suprised she even tried that.
             the_person "Fuck, you're probably right. We should stop now before we take this too far."
             the_person "If I get too turned on I might do something I regret. Let's just keep this casual."
+
+    # Gave creampie while she is not on birth control (extra dialog when she could get pregnant)
+    if the_report.get("creampies", 0) > 0 and not the_person.on_birth_control and not self.event_triggers_dict.get("preg_knows", False):
+        the_person "Oh baby, you are a mad dog, you must really love to see me pregnant."
     return
 
 ## Role Specific Section ##

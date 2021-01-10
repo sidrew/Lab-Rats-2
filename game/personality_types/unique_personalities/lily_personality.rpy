@@ -160,6 +160,10 @@ label lily_sex_review(the_person, the_report):
             the_person "Oh my god, you're totally right. I don't know what I was thinking, agreeing to that..."
             "She laughs nervously, trying to hide her embarrassment."
             the_person "Let's not tell [mom.title] about this, obviously."
+
+    # Gave creampie while she is not on birth control (extra dialog when she could get pregnant)
+    if the_report.get("creampies", 0) > 0 and not the_person.on_birth_control and not self.event_triggers_dict.get("preg_knows", False):
+        the_person "Well [the_person.mc_title], how are going to tell mom when I got pregnant?"
     return
 
 label lily_greetings(the_person):

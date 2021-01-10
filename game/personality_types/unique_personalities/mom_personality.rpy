@@ -892,6 +892,10 @@ label mom_sex_review(the_person, the_report):
             the_person "I'm sorry [the_person.mc_title], it's my job to be the responsible one and set boundaries."
             # the_person "You're right, we should probably stop. I just go so carried away, I wouldn't normally do something like this..."
             # "She laughs nervously, trying to hide her embarrassment."
+
+    # Gave creampie while she is not on birth control (extra dialog when she could get pregnant)
+    if the_report.get("creampies", 0) > 0 and not the_person.on_birth_control and not self.event_triggers_dict.get("preg_knows", False):
+        the_person "Well [the_person.mc_title], how can I explain to your sister how I got pregnant?"
     return
 
 ## Taboo break dialogue ##
