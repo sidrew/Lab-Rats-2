@@ -396,10 +396,9 @@ label employee_performance_review(the_person):
                                             "Make her strip naked" if the_person.obedience > 110:
                                                 mc.name "You aren't finished yet. Keep stripping, I want to see you naked."
                                                 $ remove_shoes = False
-                                                $ feet_ordered = the_person.outfit.get_feet_ordered()
-                                                if feet_ordered:
-                                                    $ top_feet = feet_ordered[-1]
-                                                    the_person "Do you want me to keep my [top_feet.display_name] on?"
+                                                $ item = the_person.outfit.get_feet_top_layer()
+                                                if item:
+                                                    the_person "Do you want me to keep my [item.display_name] on?"
                                                     menu:
                                                         "Strip it all off.":
                                                             mc.name "Take it all off, I don't want you to be wearing anything."
@@ -407,6 +406,7 @@ label employee_performance_review(the_person):
 
                                                         "Leave them on.":
                                                             mc.name "You can leave them on."
+                                                $ del item
 
                                                 if the_person.has_taboo(["bare_pussy", "bare_tits"]):
                                                     the_person "I... I'm not sure [the_person.mc_title]."
