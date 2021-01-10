@@ -6113,6 +6113,11 @@ init -5 python:
                 return self.get_lower_ordered()[-1]
             return None
 
+        def get_feet_top_layer(self):
+            if self.get_feet_ordered():
+                return self.get_feet_ordered()[-1]
+            return None
+
         def get_feet_ordered(self):
             return sorted(self.feet, key=lambda clothing: clothing.layer)
 
