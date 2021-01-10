@@ -5,8 +5,6 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
         $ report_log = defaultdict(int) #Holds information about the encounter: what positiosn were tried, how many rounds it went, who came and how many times, etc. Defaultdict sets values to 0 if they don't exist when accessed
         $ report_log["positions_used"] = [] #This is a list, not an int.
 
-    $ creampie_counter = the_person.sex_record.get("Vaginal Creampies",0)
-
     $ finished = False #When True we exit the main loop (or never enter it, if we can't find anything to do)
     $ position_choice = None
     $ object_choice = None
@@ -601,10 +599,6 @@ label sex_description(the_person, the_position, the_object, private = True, repo
         $ mc.reset_arousal()
         $ mc.recently_orgasmed = True
         $ report_log["guy orgasms"] += 1
-        if the_person.sex_record.get("Vaginal Creampies", 0) > creampie_counter:
-            $ report_log["creampies"] += the_person.sex_record.get("Vaginal Creampies", 0) - creampie_counter #The positions determine how you can finish, so we need to go directly off of the character record.
-            $ creampie_counter = the_person.sex_record.get("Vaginal Creampies", 0)
-
 
     if not private:
         call watcher_check(the_person, the_position, the_object, report_log) from _call_watcher_check

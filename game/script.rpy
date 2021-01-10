@@ -3764,6 +3764,8 @@ init -5 python:
             self.discover_opinion("creampies")
 
             self.sex_record["Vaginal Creampies"] += 1
+            if report_log:
+                report_log["creampies"] += report_log.get("creampies", 0) + 1
 
             # Pregnancy Check #
             if persistent.pregnancy_pref > 0 and not pregnant_role in self.special_role:
