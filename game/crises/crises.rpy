@@ -1965,6 +1965,7 @@ label work_chat_crisis_label:
                     else:
                         the_person.char "Fuck... I don't think that's made the situation any better. All I can think about is getting off..."
                     $ the_person.review_outfit()
+                    $ the_person.draw_person()
                     #Tidy up our situational modifiers, if any.
                     $ the_person.clear_situational_slut("seduction_approach")
                     $ the_person.clear_situational_obedience("seduction_approach")
@@ -1997,6 +1998,7 @@ label work_chat_crisis_label:
                     call fuck_person(the_person,private = False) from _call_fuck_person_10
                     the_person.char "Ah... Thank you sir, I hope that helps you focus on all your hard, hard work."
                     $ the_person.review_outfit()
+                    $ the_person.draw_person()
                     #Tidy up our situational modifiers, if any.
                     $ the_person.clear_situational_slut("seduction_approach")
                     $ the_person.clear_situational_obedience("seduction_approach")
