@@ -1507,11 +1507,9 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                         the_mom "Of course, you probably want to see mommy's tits. Let me get those out for you to look at."
                     "She lets go of your cock and steps back."
                     if the_mom.outfit.can_half_off_to_tits():
-                        $ strip_list = the_mom.outfit.get_half_off_to_tits_list()
-                        $ generalised_strip_description(the_mom, strip_list, half_off_instead = True)
+                        $ generalised_strip_description(the_mom, the_mom.outfit.get_half_off_to_tits_list(), half_off_instead = True)
                     else:
-                        $ strip_list = the_mom.outfit.get_tit_strip_list()
-                        $ generalised_strip_description(the_mom, strip_list)
+                        $ generalised_strip_description(the_mom, the_mom.outfit.get_tit_strip_list())
                     the_mom "There, now you have something to ogle while I get you off."
                     if not the_mom.outfit.vagina_visible():
                         menu:
