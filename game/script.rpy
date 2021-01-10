@@ -3764,7 +3764,7 @@ init -5 python:
             self.discover_opinion("creampies")
 
             self.sex_record["Vaginal Creampies"] += 1
-            if report_log:
+            if "report_log" in globals():
                 report_log["creampies"] += report_log.get("creampies", 0) + 1
 
             # Pregnancy Check #
