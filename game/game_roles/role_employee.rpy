@@ -383,8 +383,7 @@ label employee_performance_review(the_person):
                                         the_person "Well, if that's what it's going to take I guess I have no choice..."
                                         $ the_person.change_obedience(1)
 
-                                    $ strip_list = the_person.outfit.get_underwear_strip_list()
-                                    $ generalised_strip_description(the_person, strip_list)
+                                    $ generalised_strip_description(the_person, the_person.outfit.get_underwear_strip_list())
                                     if the_person.has_taboo("underwear_nudity") or (the_person.has_taboo("bare_pussy") and the_person.outfit.vagina_visible()) or (the_person.has_taboo("bare_tits") and the_person.outfit.tits_visible()):
                                         the_person "Is this what you wanted to see? Are we done?"
                                         "[the_person.title] tries to cover herself up with her hands, shuffling nervously in front of your desk."
@@ -416,8 +415,7 @@ label employee_performance_review(the_person):
                                                     "She nods obediently."
                                                     the_person "Yes [the_person.mc_title], whatever you want."
 
-                                                $ strip_list = the_person.outfit.get_full_strip_list(strip_feet = remove_shoes)
-                                                $ generalised_strip_description(the_person, strip_list)
+                                                $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list(strip_feet = remove_shoes))
 
                                             "Make her strip naked\n{size=16}{color=#FF0000}Requires: 110 Obedience{/size}{/color} (disabled)" if the_person.obedience < 110:
                                                 pass
