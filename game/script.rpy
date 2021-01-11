@@ -2647,7 +2647,7 @@ init -5 python:
             if self.arousal > (self.max_arousal/2): #TODO: Have this trigger an LTE where girls might be getting off when you walk in.
                 self.arousal = __builtin__.int(self.arousal/2) # If her arousal is high she masturbates at night, generating a small amount of sluttiness
                 self.change_slut_temp(1, add_to_log = False)
-                self.change_happiness(5*the_person.get_opinion_score("masturbating"), add_to_log = False)
+                self.change_happiness(5 * self.get_opinion_score("masturbating"), add_to_log = False)
 
             #Now we will normalize happiness towards 100 over time. Every 5 points of happiness above or below 100 results in a -+1 per time chunk, rounded towards 0.
             hap_diff = self.happiness - 100
