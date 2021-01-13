@@ -932,7 +932,7 @@ label nightime_grope(the_person, masturbating = False):
                         "Let her \"help\"":
                             mc.name "Sure, come take care of this for me."
                             if (the_person.effective_sluttiness() + 10*the_person.get_opinion_score("giving blowjobs")) > 50 and not the_person.has_taboo("sucking_cock"):
-                                "She nods and sits up, then slides out of bedd and gets onto her knees in front of you."
+                                "She nods and sits up, then slides out of bed and gets onto her knees in front of you."
                                 $ the_person.draw_person(position = "blowjob")
                                 the_person "Mmm, I want to suck on that cock..."
                                 "[the_person.possessive_title] kisses the tip of your dick, then opens her lips and slides you into her mouth."
