@@ -155,7 +155,8 @@ style namebox:
 style say_label:
     color gui.accent_color
     font gui.name_font
-    size gui.name_text_size
+    size gui.name_text_size - 4
+    xoffset -4
     xalign gui.name_xalign
     yalign 0.5
     outlines [(2,"#222222",0,0)]
