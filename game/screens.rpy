@@ -140,7 +140,7 @@ style window:
     yalign gui.textbox_yalign
     ysize gui.textbox_height
 
-    background im.Alpha("gui/textbox.png", .7, xalign=0.54, yalign=1.0)
+    background im.Alpha("gui/textbox.png", .9, xalign=0.54, yalign=1.0)
 
 style namebox:
     xpos gui.name_xpos
