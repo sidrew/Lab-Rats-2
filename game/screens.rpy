@@ -165,6 +165,7 @@ style say_dialogue:
     xanchor gui.text_xalign
     xsize gui.text_width
     ypos gui.text_ypos
+    yoffset -10
     first_indent 50
     outlines [(2,"#222222",0,0)]
 
