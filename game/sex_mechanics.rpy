@@ -525,15 +525,16 @@ label sex_description(the_person, the_position, the_object, private = True, repo
 
     if the_position.opinion_tags: #If she likes or dislikes this position in particular she will gain (or lose) a little bit of arousal.
         python:
+            opinion_score = 0
             for opinion_tag in the_position.opinion_tags:
-                her_arousal_change += the_person.get_opinion_score(opinion_tag) #Add a bonus or penalty if she likes or dislikes the position.
+                opinion_score += the_person.get_opinion_score(opinion_tag) #Add a bonus or penalty if she likes or dislikes the position.
                 the_person.discover_opinion(opinion_tag)
+            her_arousal_change += opinion_score
 
     if the_person.sluttiness > the_position.slut_cap: #She's sluttier than this position, it's only good to warm her up.
-        if the_person.arousal > the_position.slut_cap: #Once her arousal is higher than the cap he's completely bored by it.
+        if opinion_score < 0 and the_person.arousal > the_position.slut_cap: #Once her arousal is higher than the cap he's completely bored by it.
             $ mc.log_event(the_person.title + ": Bored by position. Arousal gain halved.", "float_text_red")
-            $ her_arousal_change = her_arousal_change/2.
-
+            $ her_arousal_change = her_arousal_change / 2
 
     $ clothing_count = 0
     $ interfering_clothing = []
@@ -554,7 +555,7 @@ label sex_description(the_person, the_position, the_object, private = True, repo
     if clothing_count > 0:
         $ clothing_string = format_list_of_clothing(interfering_clothing)
         "[the_person.title]'s half off [clothing_string] get in the way, lowering your enjoyment somewhat."
-
+    $ del interfering_clothing
 
     $ her_arousal_change += -clothing_count
     $ the_person.change_arousal(her_arousal_change)

@@ -7180,8 +7180,12 @@ init -5 python:
                 final_slut_requirement += 10 #It's harder to convince a family member to have vaginal sex
                 final_slut_cap += 10
 
+            opinion_score = 0
+            for opinion_tag in self.opinion_tags:
+                opinion_score += the_person.get_opinion_score(opinion_tag)
+
             if the_person.effective_sluttiness(position_taboo) > final_slut_cap:
-                if the_person.arousal > final_slut_cap:
+                if opinion_score < 0 and the_person.arousal > final_slut_cap:
                     willingness_string = "{color=#6b6b6b}Boring{/color}" #No sluttiness gain AND half arousal gain
                     tooltip_string = " (tooltip)This position is too boring to interest her when she is this horny. No sluttiness increase and her arousal gain is halved."
                 else:
@@ -11395,7 +11399,6 @@ init -2 python:
 label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS YOU TAKE
     $ main_loop_cleanup()
     $ main_loop_auto_save()
-
     if "action_mod_list" in globals():
         call screen enhanced_main_choice_display(build_menu_items([build_people_list(), build_actions_list()]))
     else:
