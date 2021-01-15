@@ -869,13 +869,17 @@ label mom_morning_surprise_label():
         # First we need to take her and remove enough clothing that we can get to her vagina, otherwise none of this stuff makes sense.
         # We do that by getting her lowest level pieces of bottom clothing and removing it, then working our way up until we can use her vagina.
         # This makes sure skirts are kept on (because this is suppose to be a quicky).
-        $ bottom_list = the_person.outfit.get_lower_ordered()
-        $ removed_something = False
-        $ the_index = 0
-        while not the_person.outfit.vagina_available() and the_index < __builtin__.len(bottom_list):
-            $ the_person.outfit.remove_clothing(bottom_list[the_index])
-            $ removed_something = True
-            $ the_index += 1
+        python:
+            removed_something = False
+            if not the_person.outfit.vagina_available():
+                if the_person.outfit.can_half_off_to_vagina():
+                    for item in the_person.outfit.get_half_off_to_vagina_list():
+                        the_person.outfit.half_off_clothing(item)
+                else:
+                    for item in the_person.outfit.get_full_strip_list(strip_feet = False):
+                        the_person.outfit.remove_clothing(item)
+                    removed_something = True
+
         "You're woken up by your bed shifting under you and a sudden weight around your waist."
         $ the_person.draw_person(position = "cowgirl", emotion = "happy")
         "[the_person.possessive_title] has pulled down your sheets and underwear and is straddling you. The tip of your morning wood is brushing against her pussy."
@@ -911,7 +915,7 @@ label mom_morning_surprise_label():
                 $ the_person.draw_person()
                 the_person.char "Of course [the_person.mc_title], if you need me for anything just let me know. I hope you aren't running too late!"
                 if removed_something:
-                    "[the_person.title] collects some of her discarded from your floor and heads for the door."
+                    "[the_person.title] collects some of her discarded clothes from your floor and heads for the door."
                 else:
                     "[the_person.title] gives you a kiss on the forehead and heads for the door."
                 $ clear_scene()
