@@ -532,7 +532,7 @@ label sex_description(the_person, the_position, the_object, private = True, repo
             her_arousal_change += opinion_score
 
     if the_person.sluttiness > the_position.slut_cap: #She's sluttier than this position, it's only good to warm her up.
-        if opinion_score < 0 and the_person.arousal > the_position.slut_cap: #Once her arousal is higher than the cap he's completely bored by it.
+        if opinion_score < 1 and the_person.arousal > the_position.slut_cap: #Once her arousal is higher than the cap he's completely bored by it.
             $ mc.log_event(the_person.title + ": Bored by position. Arousal gain halved.", "float_text_red")
             $ her_arousal_change = her_arousal_change / 2
 
