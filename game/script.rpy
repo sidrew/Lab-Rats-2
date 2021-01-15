@@ -7181,8 +7181,9 @@ init -5 python:
                 final_slut_cap += 10
 
             opinion_score = 0
-            for opinion_tag in self.opinion_tags:
-                opinion_score += the_person.get_opinion_score(opinion_tag)
+            if self.opinion_tags:
+                for opinion_tag in self.opinion_tags:
+                    opinion_score += the_person.get_opinion_score(opinion_tag)
 
             if the_person.effective_sluttiness(position_taboo) > final_slut_cap:
                 if opinion_score < 0 and the_person.arousal > final_slut_cap:
