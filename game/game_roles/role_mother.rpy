@@ -1412,7 +1412,8 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                                         mc.name "You can leave them on."
                             $ del item
 
-                            call naked_strip_description(the_mom, remove_shoes = remove_shoes) from _call_naked_strip_description_1
+                            $ generalised_strip_description(the_mom, the_mom.outfit.get_full_strip_list(strip_feet = remove_shoes))
+
                             the_mom "There, now you can properly enjoy the view. Shall I get to it, then?"
                             mc.name "Go ahead."
 
@@ -1538,7 +1539,7 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                                             mc.name "You can leave them on."
                                 $ del item
 
-                                call naked_strip_description(the_mom, remove_shoes = remove_shoes) from _call_naked_strip_description_2
+                                $ generalised_strip_description(the_mom, the_mom.outfit.get_full_strip_list(strip_feet = remove_shoes))
                                 if the_mom.break_taboo("bare_pussy"):
                                     the_mom "There. I guess this isn't so strange, really. Now, where were we..."
                                 else:
