@@ -6986,7 +6986,14 @@ init -5 python:
         the_stage = Object("stripclub stage",["Lay","Sit"], sluttiness_modifier = 5, obedience_modifier = -5)
         return the_stage
 
+    def make_front_door():
+        return Object("Front Door", ["Lean"], sluttiness_modifier = 10, obedience_modifier = 5)
 
+    def make_hall_carpet():
+        return Object("Hall Carpet", ["Kneel", "Lay"], sluttiness_modifier = 5, obedience_modifier = 10)
+
+    def make_stairs():
+        return Object("Stairs", ["Sit", "Low"], sluttiness_modifier = 5, obedience_modifier = 10)
 
     class Position():
         def __init__(self,name,slut_requirement,slut_cap,requires_hard, requires_large_tits,
@@ -12295,6 +12302,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
 
         home_bathroom = Room("bathroom", "Bathroom", [], home_bathroom_background, [], [], [], False, [0,0], visible = False) #Note: Only used by special events. Not connected to the main map
 
+        her_hallway = Room("Front hall", "Front hall", [], standard_house_backgrounds[:],[],[],[],False,[3,3], visible = False, lighting_conditions = standard_indoor_lighting)
 
         ##PC's Work##
         lobby = Room(business_name + " lobby",business_name + " Lobby",[],standard_office_backgrounds[:],[],[],[],False,[11,3], tutorial_label = "lobby_tutorial_intro", lighting_conditions = standard_indoor_lighting)
@@ -12337,6 +12345,7 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
         list_of_places.append(mom_bedroom)
         list_of_places.append(kitchen)
         list_of_places.append(hall)
+        list_of_places.append(her_hallway)
 
         list_of_places.append(lobby)
         list_of_places.append(office)
@@ -12379,6 +12388,10 @@ label create_test_variables(character_name,business_name,last_name,stat_array,sk
 
         hall.add_object(make_wall())
         hall.add_object(make_floor())
+
+        her_hallway.add_object(make_front_door())
+        her_hallway.add_object(make_hall_carpet())
+        her_hallway.add_object(make_stairs())
 
         lobby.add_object(make_wall())
         lobby.add_object(make_floor())
