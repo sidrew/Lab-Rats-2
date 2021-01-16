@@ -368,14 +368,16 @@ label mom_lingerie_surprise_label():
             call fuck_person(the_person) from _call_fuck_person_14
             $ the_report = _return
             if the_report.get("girl orgasms", 0):
+                $ the_person.draw_person(position = "missionary", emotion = "happy")
                 "[the_person.possessive_title] needs a few minutes to lie down when you're finished. Bit by bit her breathing slows down."
                 $ the_person.change_love(5)
                 the_person.char "Oh [the_person.mc_title], that was magical. I've never felt so close to you before..."
 
             else:
+                $ the_person.draw_person(emotion = "happy")
                 "When you're finished [the_person.possessive_title] gives you a kiss on your forehead and stands up to leave."
                 $ the_person.change_love(3)
-                $ the_person.draw_person(position = "back_peek")
+                $ the_person.draw_person(position = "back_peek", emotion = "happy")
                 the_person.char "Sweet dreams."
 
             $ the_person.clear_situational_obedience("crisis_stuff")
