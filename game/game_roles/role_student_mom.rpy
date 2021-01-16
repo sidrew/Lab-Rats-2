@@ -20,10 +20,10 @@ label study_check_up(the_student, the_mom):
     # If her marks have improved enough, and if you haven't been already, Christina invites you to stay for dinner.
 
     $ clear_scene()
+    $ hall.show_background()
     $ the_group = GroupDisplayManager([the_student, the_mom], primary_speaker = the_mom)
     $ the_group.draw_group()
     "[the_student.title] opens the door to her room and leads you downstairs. [the_mom.title] is waiting at the front door."
-    $ hall.show_background()
     the_mom.char "All done for tonight? Tell me [the_mom.mc_title], how is my daughter doing?"
     $ current_marks = the_student.event_triggers_dict.get("current_marks",0)
     if current_marks < 20:
