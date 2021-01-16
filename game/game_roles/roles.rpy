@@ -514,7 +514,7 @@ label pay_strip_scene(the_person):
             $ strip_willingness = the_person.effective_sluttiness("underwear_nudity") + (5*the_person.get_opinion_score("not wearing anything")) - test_outfit.slut_requirement
             mc.name "Take off your [the_clothing.display_name] for me."
             if taboo_break: #Always use special dialogue for the taboo breaks
-                $ the_person.call_dialogue(taboo_break + "_taboo_break")
+                $ the_person.call_dialogue(taboo_break + "_taboo_break", the_clothing = the_clothing)
                 $ the_person.break_taboo(taboo_break)
 
             elif strip_choice[1] > 0:
