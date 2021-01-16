@@ -1017,7 +1017,8 @@ label trait_for_side_effect_label():
     else:
         "You get a call from your head researcher [the_person.title]."
         the_person.char "[the_person.mc_title], if you can come down to the research lab I think I've discovered something interesting."
-        $mc.change_location(mc.business.r_div)
+        $ mc.change_location(mc.business.r_div)
+        $ mc.location.show_background()
         "You head to your R&D lab and meet [the_person.title]. She leads you over to her lab bench."
 
     the_person.char "I've been working on the design you set out for [the_design.name] and one of the test batches developed some very interesting side effects."

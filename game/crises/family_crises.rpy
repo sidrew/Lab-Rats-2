@@ -950,8 +950,8 @@ label lily_new_underwear_crisis_label():
     if the_underwear is None:
         return #Lily doesn't have any skimpy underwear to show us :(
 
-    $ bedroom.show_background()
     $ mc.change_location(bedroom) #Make sure we're in our bedroom.
+    $ mc.location.show_background()
     if the_person.obedience >= 95:
         "There's a knock at your door."
         the_person.char "[the_person.mc_title], can I talk to you for a sec?"
@@ -1240,7 +1240,7 @@ label family_morning_breakfast_label():
 
     "You get up, get dressed, and head for the kitchen."
     $ mc.change_location(kitchen)
-    $ kitchen.show_background()
+    $ mc.location.show_background()
     $ the_mom.draw_person(position = "walking_away")
     if mom_slutty:
         if the_mom.outfit.wearing_panties():
@@ -1504,7 +1504,7 @@ label girl_shower_leave(the_person):
 
 label girl_shower_enter(the_person, suprised):
     $ mc.change_location(home_bathroom)
-    $ home_bathroom.show_background()
+    $ mc.location.show_background()
     $ the_person.apply_outfit(Outfit("Nude"))
     #$ the_person.outfit = Outfit("Nude") changed v0.24.1
     $ the_person.draw_person(position = "back_peek")

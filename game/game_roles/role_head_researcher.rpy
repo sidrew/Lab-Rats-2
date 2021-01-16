@@ -97,7 +97,7 @@ init -2 python:
             return "Requires: 15 Love"
         else:
             return True
-    
+
     def add_advance_serum_unlock_stage_two(the_person):
         mc.business.event_triggers_dict["advanced_serum_stage_1"] = True
         advanced_serum_unlock_stage_2 = Action("Advanced serum unlock stage 2",advanced_serum_stage_2_requirement,"advanced_serum_stage_2_label", args = the_person, requirement_args = [the_person, day + renpy.random.randint(2,4)])
@@ -245,7 +245,7 @@ label advanced_serum_stage_2_label(the_person):
         the_person.char "I have news about the prototype serum you asked me to retrieve. Meet me in the R&D department when you have a moment."
         "You finish up what you were working on and head over to meet [the_person.title]."
         $ mc.change_location(mc.business.r_div)
-        $ mc.business.r_div.show_background()
+        $ mc.location.show_background()
         $ the_person.draw_person()
         mc.name "What's the news [the_person.title]?"
 

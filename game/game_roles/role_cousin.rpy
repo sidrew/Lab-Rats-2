@@ -728,6 +728,7 @@ label cousin_search_room_label(the_cousin, the_aunt):
             $ mom.change_happiness(-5)
             $ mom.change_love(-1)
             $ mc.change_location(downtown)
+            $ mc.location.show_background()
             "You'll need [the_aunt.possessive_title] out of the apartment if you want to search [the_cousin.title]'s room undisturbed."
             return
         else:
@@ -740,6 +741,7 @@ label cousin_search_room_label(the_cousin, the_aunt):
                 $ the_aunt.change_love(-1)
                 "You're forced to abandon your search. [the_aunt.possessive_title] escorts you to the living room."
                 $ mc.change_location(aunt_apartment)
+                $ mc.location.show_background()
                 "If she was more obedient she might let you continue the search, or you could wait until she isn't in the apartment."
                 return
 

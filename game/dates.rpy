@@ -486,6 +486,7 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
     elif (the_person.effective_sluttiness(["vaginal_sex", "sucking_cock"]) >= 70 and the_person.relationship == "Single") or (the_person.effective_sluttiness(["vaginal_sex", "sucking_cock"]) >= 70-(10*the_person.get_opinion_score("cheating on men")) and the_person.relationship != "Single"): #TODO: Figure out what triggers we want for this
         "You're barely in the door before [the_person.title] has her hands all over you."
         $ mc.change_location(her_hallway)
+        $ mc.location.show_background()
         the_person "Fuck, I can't wait any longer [the_person.mc_title]! I've been thinking about this all night long!"
         "She puts her arms around you and kisses your neck, grinding her body against you."
         mc.name "Don't you want to go to your bedroom first?"
