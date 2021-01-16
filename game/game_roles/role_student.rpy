@@ -354,6 +354,9 @@ label student_study_university(the_person):
 
 
 label student_study_home(the_person):
+    $ mc.change_location(emily.home)
+    $ mc.location.show_background()
+
     $ starting_focus = the_person.focus #Record her starting focus so we can compare it at the end (ie. after being given serum)
     $ starting_int = the_person.int
 
@@ -1437,6 +1440,7 @@ label student_punish_suck(the_person, was_failure, wants_to_fail, successes = 0,
 label student_mom_intro(the_person):
     # An on_room event called when you enter Emily's home for the first time while her Mom is there and meet Christina.
     "You ring the doorbell to [emily.title]'s house and wait. A moment later you hear footsteps and the door opens."
+    $ hall.show_background()
     $ the_person.draw_person()
     $ the_person.set_title("???")
     the_person.char "Hello. Can I help you?"
