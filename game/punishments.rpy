@@ -559,6 +559,7 @@ label punishment_underwear_only(the_person, the_infraction):
     the_person.char "Yes, [the_person.mc_title]."
     mc.name "Good. We're done here."
     $ the_person.event_triggers_dict["forced_uniform"] = the_person.outfit.get_copy()
+    $ the_person.set_uniform(the_person.event_triggers_dict["forced_uniform"], wear_now = True)
     $ clear_scene()
     return
 
@@ -717,6 +718,7 @@ label punishment_office_nudity(the_person, the_infraction):
         mc.name "You're already un-dressed for the occasion, consider this your uniform for the rest of the week."
 
     $ the_person.event_triggers_dict["forced_uniform"] = the_person.outfit.get_copy()
+    $ the_person.set_uniform(the_person.event_triggers_dict["forced_uniform"], wear_now = True)
     $ slut_change = 0
     if the_person.outfit.tits_visible():
         $ slut_change += the_person.get_opinion_score("showing her tits")
