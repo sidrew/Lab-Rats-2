@@ -883,6 +883,7 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
         $ renpy.call("strip_menu", the_person, the_verbing, is_private) #TODO: Girl sometimes interupts you to get you to keep going. Have to strip them down in segments.
 
     python:
+        choice_return = None
         test_outfit = None
         full_off_list = None
         half_off_list = None
