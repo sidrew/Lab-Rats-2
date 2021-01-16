@@ -1156,6 +1156,17 @@ label relaxed_sex_review(the_person, the_report):
             mc.name "Relax [the_person.title], nobody really cares what we're doing."
             "[the_person.possessive_title] seems unconvinced, but nods anyways."
 
+    # special condition - you fucked her brains out
+    elif the_report.get("girl orgasms", 0) > 2:
+        if used_obedience:
+            the_person "Oh wow...I just can't believe...I got so...nasty..."
+            mc.name "A minute ago you were begging me to make you cum again."
+            "[the_person.possessive_title] looks away, embarrassed by what she's done with you."
+        else:
+            the_person "I have never...fucked like that...It was just amazing..."
+            "She seems dazed by her orgasm as she struggles to put full sentences together."
+            the_person "Something took over...and I did....just gimme a second."
+
     #No special conditions, just respond based on how orgasmed and how slutty the position was.
     elif the_report.get("girl orgasms", 0) > 0 and the_report.get("guy orgasms", 0) > 0: #You both came
         if the_person.effective_sluttiness() > comment_position.slut_cap: #She's sluttier than the position cap, it was tame

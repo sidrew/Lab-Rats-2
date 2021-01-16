@@ -806,6 +806,19 @@ label mom_sex_review(the_person, the_report):
             mc.name "It's fine [the_person.title], I don't think anyone knows who we are."
             "[the_person.possessive_title] seems unconvinced, but she doesn't say anything more."
 
+    # special condition - you fucked her brains out
+    elif the_report.get("girl orgasms", 0) > 2:
+        if used_obedience:
+            the_person "Are you feeling satisfied now [the_person.mc_title]?"
+            mc.name "Yeah, that was great [the_person.title]. I know you enjoyed it too?"
+            "[the_person.possessive_title] blushes and looks away from you."
+            the_person "It was... amazing. You're so good, I won't ask you who you learned that from."
+        else:
+            the_person "Oh my... I'm sorry sweetheart, I shouldn't have let myself go like that."
+            the_person "I don't know what came over me, I just stopped thinking straight after my second orgasm! I..."
+            "She stops herself and takes a deep breath."
+            mc.name "Don't worry [the_person.title], I really enjoyed our time together."
+
     #No special conditions, just respond based on how orgasmed and how slutty the position was.
     elif the_report.get("girl orgasms", 0) > 0 and the_report.get("guy orgasms", 0) > 0: #You both came
         if the_person.effective_sluttiness() > comment_position.slut_cap: #She's sluttier than the position cap, it was tame

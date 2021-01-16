@@ -1091,6 +1091,17 @@ label introvert_sex_review(the_person, the_report):
             mc.name "Relax [the_person.title]. Nobody cares what we're doing."
             "[the_person.possessive_title] shrugs and seems unconvinced."
 
+    # special condition - you fucked her brains out
+    elif the_report.get("girl orgasms", 0) > 2:
+        if used_obedience:
+            the_person "My god...I can't stop shaking...I never thought I would do that..."
+            "She seems quite astonished by her own actions."
+            mc.name "The girl next door act doesn't work when you just keep on begging me to make you cum."
+            "[the_person.possessive_title] scowls and looks away, but she can't exactly argue with you."
+        else:
+            the_person "Fuck me...I just got a little carried away, I guess..."
+            "She still in a brain stupor from the bliss you just gave her."
+
     #No special conditions, just respond based on how orgasmed and how slutty the position was.
     elif the_report.get("girl orgasms", 0) > 0 and the_report.get("guy orgasms", 0) > 0: #You both came
         if the_person.effective_sluttiness() > comment_position.slut_cap: #She's sluttier than the position cap, it was tame

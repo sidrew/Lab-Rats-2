@@ -70,6 +70,19 @@ label lily_sex_review(the_person, the_report):
             mc.name "Relax, [mom.title] isn't going to find out. Nobody here knows who you are, and nobody cares what we do together."
             "[the_person.possessive_title] seems unconvinced, but nods anyways."
 
+    # special condition - you fucked her brains out
+    elif the_report.get("girl orgasms", 0) > 2:
+        if used_obedience:
+            "[the_person.possessive_title] looks away, embarrassed by what just happened."
+            the_person "Are we done?"
+            mc.name "Don't act so innocent [the_person.title], you obviously had a great time."
+            mc.name "Did you know you looked really cute when you came the third time?"
+            the_person "It was... amazing. But I don't want to discuss how my brother fucked my brains out, please?"
+        else:
+            the_person "Oh wow, that was... I can't believe we just did that."
+            "She seems dazed by her orgasms as she struggles to put full sentences together."
+            the_person "We shouldn't have done that... But it felt really good."
+
     #No special conditions, just respond based on how orgasmed and how slutty the position was.
     elif the_report.get("girl orgasms", 0) > 0 and the_report.get("guy orgasms", 0) > 0: #You both came
         if the_person.effective_sluttiness() > comment_position.slut_cap: #She's sluttier than the position cap, it was tame

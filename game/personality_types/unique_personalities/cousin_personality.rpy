@@ -89,6 +89,21 @@ label cousin_sex_review(the_person, the_report):
             "[the_person.title] seems unconvinced, but she shrugs and drops the subject."
             the_person "I hope you're right..."
 
+    # special condition - you fucked her brains out
+    elif the_report.get("girl orgasms", 0) > 2:
+        if used_obedience:
+            the_person "Jezus, you fucking creep...I should never..."
+            "She's trying to fight her feelings, still breathing heavily from her multiple orgasms."
+            mc.name "Still don't want to admit what you are?"
+            the_person "Shut up, it's just a natural reaction."
+            mc.name "Yeah, you're a natural nymphomaniac."
+            "[the_person.possessive_title] tries to look upset, but fails miserably, betrayed by her little tremors."
+        else:
+            the_person "Fuck, how...did you even...do that, that's just not possible..."
+            mc.name "Having a good time, are we?"
+            the_person "Ah, fuck you, this won't happen again!"
+            "[the_person.possessive_title] tries to look angry, but she isn't very convincing."
+
     #No special conditions, just respond based on how orgasmed and how slutty the position was.
     elif the_report.get("girl orgasms", 0) > 0 and the_report.get("guy orgasms", 0) > 0: #You both came
         if the_person.effective_sluttiness() > comment_position.slut_cap: #She's sluttier than the position cap, it was tame

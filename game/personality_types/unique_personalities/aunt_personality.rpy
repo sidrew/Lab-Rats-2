@@ -62,6 +62,17 @@ label aunt_sex_review(the_person, the_report):
             the_person "[the_person.mc_title], everyone is watching us... We need to find somewhere private next time, alright?"
             the_person "People are going to start talking, and they just won't understand our special relationship."
 
+    # special condition - you fucked her brains out
+    elif the_report.get("girl orgasms", 0) > 2:
+        if used_obedience:
+            the_person "Wow, that was...so intense. I didn't think you could make me do that!"
+            "[the_person.possessive_title] seems a little embarrassed, but hides it well."
+        else:
+            the_person "Oh my... I never expected this to happen!"
+            the_person "Who would have thought that my nephew could do that. I hope I haven't made you uncomfortable [the_person.mc_title]."
+            mc.name "No, not at all [the_person.title]."
+            "She sighs and smiles."
+
     #No special conditions, just respond based on how orgasmed and how slutty the position was.
     elif the_report.get("girl orgasms", 0) > 0 and the_report.get("guy orgasms", 0) > 0: #You both came
         if the_person.effective_sluttiness() > comment_position.slut_cap: #She's sluttier than the position cap, it was tame

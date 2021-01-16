@@ -1148,6 +1148,19 @@ label reserved_sex_review(the_person, the_report):
             "She scowls, seeming unconvinced."
             the_person "I hope you're right. Can we find somewhere more private next time?"
 
+    # special condition - you fucked her brains out
+    elif the_report.get("girl orgasms", 0) > 2:
+        if used_obedience:
+            "[the_person.possessive_title] looks away, embarrassed by what she's done with you."
+            the_person "Are we done now? It was nice, but a little too much for me..."
+            mc.name "Really, so that multi-orgasmic train you were riding is your default setting?"
+            the_person "Well not that...perhaps we could give it another try, someday."
+        else:
+            "[the_person.possessive_title] looks away, embarrassed by her own actions."
+            the_person "Oh my...my apologies, it seems I lost control of myself."
+            mc.name "Don't worry, I really enjoyed giving you the time of your life."
+            the_person "Indeed, that was quite a feat, I didn't even know I could do that."
+
     #No special conditions, just respond based on how orgasmed and how slutty the position was.
     elif the_report.get("girl orgasms", 0) > 0 and the_report.get("guy orgasms", 0) > 0: #You both came
         if the_person.effective_sluttiness() > comment_position.slut_cap: #She's sluttier than the position cap, it was tame
