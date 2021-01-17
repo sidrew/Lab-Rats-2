@@ -133,7 +133,7 @@ label mom_weekly_pay_label(the_person):
         call mom_low_sluttiness_weekly_pay(the_person) from _call_mom_low_sluttiness_weekly_pay #The menu is separated out to make looping easier.
     else:
         if mc.business.event_triggers_dict.get("Mom_Payment_Level",0) >= 1: #We've been through this song and dance already.
-            if the_person.event_triggers_dict.get("Mom_forced_off_bc", False) or pregnant_role in the_person.special_role:
+            if the_person.event_triggers_dict.get("Mom_forced_off_bc", False) and not pregnant_role in the_person.special_role:
                 if the_person.on_birth_control:
                     the_person.char "The budget is still really tight [the_person.mc_title], so I was wondering if you wanted to buy any sort of favour from me?"
                     $ the_person.event_triggers_dict["Mom_forced_off_bc"] = False
