@@ -70,7 +70,9 @@ init -1 python:
             return False
         elif the_person.love < (75 - (10*the_person.get_opinion_score("creampies"))):
             return False
-        if pregnant_role in the_person.special_role and the_person.event_triggers_dict.get("preg_knows", False):
+        elif the_person.on_birth_control:   # when she's taking BC she won't ask for breeding her
+            return False
+        elif pregnant_role in the_person.special_role and the_person.event_triggers_dict.get("preg_knows", False):
             return False
         return True
 
