@@ -3765,7 +3765,7 @@ init -5 python:
 
             self.sex_record["Vaginal Creampies"] += 1
             if "report_log" in globals():
-                report_log["creampies"] += report_log.get("creampies", 0) + 1
+                report_log["creampies"] = report_log.get("creampies", 0) + 1
 
             # Pregnancy Check #
             if persistent.pregnancy_pref > 0 and not pregnant_role in self.special_role:
@@ -3800,6 +3800,8 @@ init -5 python:
             self.discover_opinion("anal creampies")
 
             self.sex_record["Anal Creampies"] += 1
+            if "report_log" in globals():
+                report_log["anal creampies"] = report_log.get("anal creampies", 0) + 1
 
         def cum_on_face(self):
             if self.outfit.can_add_accessory(face_cum):
@@ -5450,13 +5452,13 @@ init -5 python:
 
             if self.has_extension: #Display a second token if the clothing item is a different part (split coverage into top and bottom?)
                 if self.has_extension.layer == 3:
-                    cloth_info += "|{image=gui/extra_images/overwear_token.png}"
+                    cloth_info += " | {image=gui/extra_images/overwear_token.png}"
                 if self.has_extension.layer == 2:
-                    cloth_info += "|{image=gui/extra_images/clothing_token.png}"
+                    cloth_info += " | {image=gui/extra_images/clothing_token.png}"
                 if self.has_extension.layer == 1:
-                    cloth_info += "|{image=gui/extra_images/underwear_token.png}"
+                    cloth_info += " | {image=gui/extra_images/underwear_token.png}"
 
-            cloth_info += "+" +str(self.slut_value) + "{image=gui/heart/red_heart.png}"
+            cloth_info += " +" +str(self.slut_value) + " {image=gui/heart/red_heart.png}"
             return cloth_info
 
         def generate_item_image_name(self, body_type, tit_size, position):
