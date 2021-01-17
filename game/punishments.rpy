@@ -885,11 +885,11 @@ label punishment_orgasm_denial(the_person, the_infraction):
     $ the_person.break_taboo("touching_body")
     $ the_person.add_situational_obedience("punishment", 20, "I'm being punished, I don't have any right to refuse.")
     call fuck_person(the_person, private = False, start_position = standing_grope, start_object = mc.location.objects_with_trait("Stand")[0], skip_intro = True, affair_ask_after = False) from _call_fuck_person_92
-    $ report = _return
+    $ the_report = _return
     $ the_person.clear_situational_obedience("punishment")
 
-    if report.get("girl orgasms", 0) == 0: #Successfully didn't let her orgasm.
-        if report.get("end arousal", 0) >= 95 : # Got her very close
+    if the_report.get("girl orgasms", 0) == 0: #Successfully didn't let her orgasm.
+        if the_report.get("end arousal", 0) >= 95 : # Got her very close
             the_person.char "No [the_person.mc_title], you can't... You can't leave me like this!"
             "She moans desperately."
             if the_person.wants_creampie():
@@ -902,8 +902,8 @@ label punishment_orgasm_denial(the_person, the_infraction):
                         the_person.char "Please, I... I want you to fuck me! Fuck me and cum inside me, I want it!"
                         the_person.char "Put that cock in me before I go crazy!"
                         call fuck_person(the_person, private = False, affair_ask_after = False) from _call_fuck_person_93
-                        $ report = _return
-                        if report.get("girl orgasms", 0) > 0:
+                        $ the_report = _return
+                        if the_report.get("girl orgasms", 0) > 0:
                             mc.name "I hope that satisfied you."
                             the_person.char "It was everything I needed it to be. Ah..."
                             $ the_person.change_slut_temp(2)
@@ -939,7 +939,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
                 the_person.char "Yes [the_person.mc_title]."
 
 
-        elif report.get("end arousal", 0) >= 80: # Reasonably high
+        elif the_report.get("end arousal", 0) >= 80: # Reasonably high
             the_person.char "God, I was getting close... Fuck."
             "She groans unhappily."
             mc.name "Good, that's the point. If I catch you trying to pleasure yourself, or having someone else do it for you, there will be further punishments."
@@ -950,7 +950,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
             the_person.char "Yes [the_person.mc_title]."
 
 
-        elif report.get("end arousal", 0) >= 50: # At least you tried
+        elif the_report.get("end arousal", 0) >= 50: # At least you tried
             the_person.char "Ah... Ah..."
             mc.name "If I catch you trying to pleasure yourself, or having someone else do it for you, there will be further punishments."
             the_person.char "Right, I understand [the_person.mc_title]."

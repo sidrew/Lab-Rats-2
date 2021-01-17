@@ -1233,7 +1233,7 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
 
                 $ the_mom.add_situational_slut("Eager", 10, "I'll show that skank how a {i}real{/i} woman should treat him!")
                 call fuck_person(the_mom, private = True, skip_intro = skip_intro, start_position = start_position, skip_condom = skip_condom) from _call_fuck_person_36
-                $ report = _return
+                $ the_report = _return
                 $ the_mom.clear_situational_slut("Eager")
                 if the_report.get("guy orgasms", 0) > 0:
                     the_mom "Ah... Well, wasn't that better than anything that girl would have done?"
@@ -1268,7 +1268,7 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                             "She nods happily."
                             $ the_mom.add_situational_slut("Eager", 20, "I need to drain those balls before that skank touches him!")
                             call fuck_person(the_mom, private = True) from _call_fuck_person_40
-                            $ report = _return
+                            $ the_report = _return
                             $ the_mom.clear_situational_slut("Eager")
                             if the_report.get("guy orgasms", 0) > 0:
                                 the_mom "Mmm, that was great [the_mom.mc_title]. Whatever happens I'll always be the first woman you come to, right?"
