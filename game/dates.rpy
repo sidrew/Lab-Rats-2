@@ -129,6 +129,7 @@ label movie_date_label(the_person):
 
     $ the_person.apply_outfit(the_person.wardrobe.decide_on_outfit(the_person.sluttiness + 10))
     "You get ready and text [the_person.title] confirming the time and place. A little while later you meet her outside the theater."
+    $ downtown.show_background()
     $ the_person.draw_person()
     the_person.char "Hey, good to see you!"
     the_person.char "I'm ready to go in, what do you want to see?"
@@ -299,7 +300,8 @@ label movie_date_label(the_person):
             "She leans towards you and gives you a quick kiss."
             $ the_person.call_dialogue("date_seduction")
             menu:
-                "Go to [the_person.title]'s place.":
+                "Go to [the_person.title]'s place":
+                    $ downtown.show_background()
                     mc.name "That sounds like a great idea. Let's get a cab."
                     if not the_person.has_role(aunt_role) and not the_person.has_role(cousin_role):
                         if not the_person.home in mc.known_home_locations:
@@ -310,7 +312,7 @@ label movie_date_label(the_person):
                     call date_take_home_her_place(the_person, date_type = "movie") from _call_date_take_home_her_place
                     $ the_person.clear_situational_slut("Romanced")
 
-                "Call it a night.":
+                "Call it a night":
                     mc.name "I'd like to call it an early night today, but maybe I'll take you up on the offer some other time."
                     "Her taxi arrives. You give her a goodbye kiss and head home yourself."
         else:
@@ -448,6 +450,7 @@ label dinner_date_label(the_person):
             $ the_person.call_dialogue("date_seduction") #She invites you back to her place to "spend some more time together". She's been seduced.
             menu:
                 "Go to [the_person.title]'s place":
+                    $ downtown.show_background()
                     mc.name "That sounds like a great idea."
                     if not aunt_role in the_person.special_role and not cousin_role in the_person.special_role:
                         if not the_person.home in mc.known_home_locations:
@@ -498,6 +501,7 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
                 the_person "It's already hard! Oh my god... Come on, how do you want me?"
                 call fuck_person(the_person, private = True) from _call_fuck_person_103
                 $ the_person.call_dialogue("sex_review", the_report = _return)
+                "When you and [the_person.title] are finished you get dressed and say goodnight."
 
             "Turn her down":
                 "You push her back firmly. She seems confused and tries to kiss you again, but you don't let her."
