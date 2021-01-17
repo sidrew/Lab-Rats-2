@@ -523,9 +523,9 @@ label sex_description(the_person, the_position, the_object, private = True, repo
         else:
             $ her_arousal_change += 2 * the_person.get_opinion_score("bareback sex")
 
-    if the_position.opinion_tags: #If she likes or dislikes this position in particular she will gain (or lose) a little bit of arousal.
-        python:
-            opinion_score = 0
+    $ opinion_score = 0
+    python:
+        if the_position.opinion_tags: #If she likes or dislikes this position in particular she will gain (or lose) a little bit of arousal.
             for opinion_tag in the_position.opinion_tags:
                 opinion_score += the_person.get_opinion_score(opinion_tag) #Add a bonus or penalty if she likes or dislikes the position.
                 the_person.discover_opinion(opinion_tag)
