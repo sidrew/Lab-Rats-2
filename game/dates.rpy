@@ -380,6 +380,7 @@ label dinner_date_label(the_person):
         "An expensive restaurant\n{color=#ff0000}{size=18}Requires: $300{/size}{/color} (disabled)" if mc.business.funds < 300:
             pass
 
+    $ renpy.show("restaurant", what = restaraunt_background)
     $ the_person.draw_person(emotion = "happy", position = "sitting")
     if sister_role in the_person.special_role or mother_role in the_person.special_role:
         if the_person.sluttiness >= 20:
@@ -417,6 +418,7 @@ label dinner_date_label(the_person):
         the_person.char "Mmm, so good!"
     $ the_person.change_love(mc.charisma)
     $ the_person.change_happiness(mc.charisma)
+    $ the_person.draw_person()
     if sister_role in the_person.special_role or mother_role in the_person.special_role:
         "At the end of the night you pay the bill and leave with [the_person.title]. The two of you travel home together."
         if renpy.random.randint(0,100) < the_person.sluttiness + the_person.love + (mc.charisma * 10): #She invites you back to her place.
@@ -480,10 +482,10 @@ label dinner_date_label(the_person):
 label date_take_home_her_place(the_person, date_type = None): #Your date went well and you go back to her place. This event starts off when you enter the door.
     #TODO: See about combining this with the fuck_date from the paramour. That's basically a "date" where you just show up and fuck her. At the very least this should trigger some of the same thigns if they're in a relationship.
     #date_type can be passed through to identify what type of date it was to trigger different dialogue
-    $ mc.change_location(the_person.home)
-    $ mc.location.show_background()
-
     if the_person.has_role(affair_role):
+        $ mc.change_location(the_person.home)
+        $ mc.location.show_background()
+
         call fuck_date_event(the_person) from _call_fuck_date_event_1 #You're having an affair, leads to all of the normal affair stuff like being caught. #TODO: Make sure the date seduction dialogue leads into this properly.
 
         #TODO: Refactor this huge conditional. It's hard to read
@@ -526,6 +528,9 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
                     "[the_person.title] watches you leave, then sulks back inside of her house."
 
     elif (the_person.effective_sluttiness(["underwear_nudity", "bare_tits", "bare_pussy"]) + (5 * the_person.get_opinion_score("not wearing anything")) + (5 * the_person.get_opinion_score("lingerie")) > 45) or the_person.has_role(girlfriend_role):
+        $ mc.change_location(the_person.home)
+        $ mc.location.show_background()
+
         the_person "Let me get you a drink and show you around."
         "She pours you a drink and leads you around her place. The tour ends in the living room."
         the_person "Have a seat and enjoy your drink, I'll be back in a moment."
@@ -571,6 +576,8 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
                 "You say goodnight and leave, heading back to your place."
 
     else:
+        $ mc.change_location(the_person.home)
+        $ mc.location.show_background()
         #Normal date-turned-fuck session.
         the_person "Let me get you a drink and show you around."
         "She pours you a drink and leads you around her place. The tour ends with the two of you sitting on the couch in the living room."
