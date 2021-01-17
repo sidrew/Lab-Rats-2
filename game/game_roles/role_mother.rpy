@@ -1156,7 +1156,10 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     "You call [the_date.title] as [the_mom.possessive_title] starts to lick at your shaft."
                     $ the_mom.draw_person(position = "blowjob", special_modifier = "blowjob", the_animation = blowjob_bob, animation_effect_strength = 0.3)
                     the_date "Hello?"
-                    mc.name "Hey [the_date.title], it's [the_date.mc_title]."
+                    if the_date.is_family():
+                        mc.name "Hey Sweety, it's me."
+                    else:
+                        mc.name "Hey [the_date.title], it's [the_date.mc_title]."
                     the_date "Hey [the_date.mc_title], I was just about to head out the door. Is everything okay?"
                     mc.name "Well, I hate to tell you this so late, but..."
                     "[the_mom.possessive_title] looks up at you from her knees, your cock bulging out one cheek."
@@ -1168,7 +1171,10 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     $ the_date.change_happiness(-20)
                     $ the_date.change_love(-3)
                     "[the_date.possessive_title]'s disappointment is clear, even over the phone."
-                    mc.name "It's a family situation, I'm sorry that I can't say any more."
+                    if the_date.is_family():
+                        mc.name "Something urgent came up at work, that has to be taken care of."
+                    else:
+                        mc.name "It's a family situation, I'm sorry that I can't say any more."
                     "[the_mom.possessive_title] sucks gently on the tip of your cock."
                     the_date "Okay, well... I hope you get that resolved. Let's try and reschedule, okay?"
                     mc.name "Yeah, I'll be in touch. Thanks for understanding [the_date.title]. Bye."
@@ -1182,7 +1188,10 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                 else:
                     the_mom "I'll just be over here, ready for you..."
                     "[the_mom.title] climbs onto your bed, face down and ass up, while she waits for you."
-                    mc.name "Hey [the_date.title], it's [the_date.mc_title]."
+                    if the_date.is_family():
+                        mc.name "Hey Sweety, it's me."
+                    else:
+                        mc.name "Hey [the_date.title], it's [the_date.mc_title]."
                     the_date "Hey [the_date.mc_title], I was just about to head out the door. Is everything okay?"
                     if not the_mom.outfit.vagina_available():
                         if the_mom.outfit.can_half_off_to_vagina():
@@ -1200,13 +1209,19 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     menu:
                         "Fuck [the_mom.title]'s pussy right away":
                             "You unzip your pants and step closer to [the_mom.possessive_title]."
-                            mc.name "It's my Mom, she really needs me close right now."
+                            if the_date.is_family():
+                                mc.name "Something urgent came up at work and requires my full attention."
+                            else:
+                                mc.name "It's my Mom, she really needs me close right now."
                             "You grab [the_mom.title]'s hips with your free hand and hold her steady as you slide your cock into her wet pussy. You fuck her slowly while you talk."
                             $ the_mom.draw_person(position = "doggy", the_animation = blowjob_bob, animation_effect_strength = 0.3)
                             mc.name "I can't really say any more than that right now. I'm sorry."
                             the_date "I understand, I hope everything works out. Let's try and reschedule some time soon, okay?"
                             "[the_mom.possessive_title] grabs one of your pillows to muffle her moans with."
-                            mc.name "Yeah, I'll be in touch. Thanks for understanding [the_date.title]. Bye."
+                            if the_date.is_family():
+                                mc.name "Yeah, I'll be in touch. Thanks for understanding sweety. Bye."
+                            else:
+                                mc.name "Yeah, I'll be in touch. Thanks for understanding [the_date.title]. Bye."
                             the_date "Bye..."
                             if the_mom.has_taboo("condomless_sex"):
                                 the_mom "[the_mom.mc_title], did you put on a condom?"
@@ -1223,11 +1238,17 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
 
                         "Wait until you're off the phone":
                             "You place a hand on [the_mom.possessive_title]'s butt and squeeze it idly as you talk."
-                            mc.name "It's my Mom, she really needs me close right now."
+                            if the_date.is_family():
+                                mc.name "Something urgent came up at work and requires my full attention."
+                            else:
+                                mc.name "It's my Mom, she really needs me close right now."
                             mc.name "I can't really say any more than that right now. I'm sorry."
                             the_date "I understand, I hope everything works out. Let's try and reschedule some time soon, okay?"
                             "[the_mom.possessive_title] puts a hand between her legs and starts to massage her clit while you're talking."
-                            mc.name "Yeah, I'll be in touch. Thanks for understanding [the_date.title]. Bye."
+                            if the_date.is_family():
+                                mc.name "Yeah, I'll be in touch. Thanks for understanding sweety. Bye."
+                            else:
+                                mc.name "Yeah, I'll be in touch. Thanks for understanding [the_date.title]. Bye."
                             the_date "Bye..."
 
 
@@ -1281,9 +1302,14 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                                 $ the_mom.change_happiness(-5)
 
                             "You're interrupted by a phone call. It's [the_date.title]."
-                            mc.name "Hey [the_date.title]..."
-                            the_date "[the_date.mc_title], are you on your way?"
-                            mc.name "I'm just heading out the door. Something important came up, but it's taken care of. Family related."
+                            if the_date.is_family():
+                                mc.name "Hey Sweety...."
+                                the_date "[the_date.mc_title], are you on your way?"
+                                mc.name "I'm just heading out the door. Something important came up at work, but it's taken care of."
+                            else:
+                                mc.name "Hey [the_date.title]..."
+                                the_date "[the_date.mc_title], are you on your way?"
+                                mc.name "I'm just heading out the door. Something important came up, but it's taken care of. Family related."
                             $ the_date.change_happiness(-5)
                             $ the_date.change_love(-1)
                             the_date "Okay, well I'm waiting here."
@@ -1342,7 +1368,10 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     "You call [the_date.title] as [the_mom.possessive_title] starts to lick at your shaft."
                     $ the_mom.draw_person(position = "blowjob", special_modifier = "blowjob", the_animation = blowjob_bob, animation_effect_strength = 0.3)
                     the_date "Hello?"
-                    mc.name "Hey [the_date.title], it's [the_date.mc_title]."
+                    if the_date.is_family():
+                        mc.name "Hey Sweety, it's me."
+                    else:
+                        mc.name "Hey [the_date.title], it's [the_date.mc_title]."
                     the_date "Hey [the_date.mc_title], I was just about to head out the door. Is everything okay?"
                     mc.name "Well, I hate to tell you this so late, but..."
                     "[the_mom.possessive_title] looks up at you from her knees, your cock bulging out one cheek."
@@ -1354,7 +1383,10 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     $ the_date.change_happiness(-20)
                     $ the_date.change_love(-3)
                     "[the_date.possessive_title]'s disappointment is clear, even over the phone."
-                    mc.name "It's a family situation, I'm sorry that I can't say any more."
+                    if the_date.is_family():
+                        mc.name "Something urgent came up at work and requires my full attention."
+                    else:
+                        mc.name "It's a family situation, I'm sorry that I can't say any more."
                     "[the_mom.possessive_title] sucks gently on the tip of your cock."
                     the_date "Okay, well... I hope you get that resolved. Let's try and reschedule, okay?"
                     mc.name "Yeah, I'll be in touch. Thanks for understanding [the_date.title]. Bye."
@@ -1366,7 +1398,10 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                 else:
                     "[the_mom.title] nods and waits, still on her knees, while you get your phone out and call [the_date.title]."
                     the_date "Hello?"
-                    mc.name "Hey [the_date.title], it's [the_date.mc_title]."
+                    if the_date.is_family():
+                        mc.name "Hey Sweety, it's me."
+                    else:
+                        mc.name "Hey [the_date.title], it's [the_date.mc_title]."
                     the_date "Hey [the_date.mc_title], I was just about to head out the door. Is everything okay?"
                     mc.name "Well, I hate to tell you this so late, but..."
                     mc.name "Something important has come up, and it needs to be taken care of. I won't be able to go out tonight."
@@ -1377,9 +1412,15 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     $ the_date.change_happiness(-20)
                     $ the_date.change_love(-3)
                     "[the_date.possessive_title]'s disappointment is clear, even over the phone."
-                    mc.name "It's a family situation, I'm sorry that I can't say any more."
+                    if the_date.is_family():
+                        mc.name "Something urgent came up at work and requires my full attention."
+                    else:
+                        mc.name "It's a family situation, I'm sorry that I can't say any more."
                     the_date "Okay, well... I hope you get that resolved. Let's try and reschedule, okay?"
-                    mc.name "Yeah, I'll be in touch. Thanks for understanding [the_date.title]. Bye."
+                    if the_date.is_family():
+                        mc.name "Yeah, I'll contact you soon, thanks for understanding. Bye."
+                    else:
+                        mc.name "Yeah, I'll be in touch. Thanks for understanding [the_date.title]. Bye."
                     the_date "Bye..."
                     the_mom "Thank you [the_mom.mc_title]. Now, should I take care of this?"
                     "She unzips your pants and pulls them down. Your hard cock springs free, bouncing in front of her face."
