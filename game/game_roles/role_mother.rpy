@@ -1448,7 +1448,7 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                 return True
 
 
-            "Tell her no.":
+            "Tell her no":
                 mc.name "I can't do that [the_mom.title]! I'm sorry, but I really do have to get going."
                 "You leave her on her knees and hurry out of your room."
                 $ the_mom.change_happiness(-5)

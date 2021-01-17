@@ -346,6 +346,7 @@ label dinner_date_label(the_person):
             $ clear_scene()
             return "Advance Time"
 
+    $ clear_scene()
     $ mc.change_location(downtown)
     $ downtown.show_background()
     $ the_person.apply_outfit(the_person.wardrobe.decide_on_outfit(the_person.sluttiness + 20))
