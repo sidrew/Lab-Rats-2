@@ -20,8 +20,8 @@ init -1 python:
             return True
 
     def fuck_date_requirement(the_person):
-        if mc.business.event_triggers_dict.get("date_scheduled", False):
-            return "You already have a date planned!"
+        if mc.business.event_triggers_dict.get("fuck_date_scheduled", False):
+            return "Already planned fuck date!"
         else:
             return True
 
@@ -29,9 +29,9 @@ init -1 python:
         return True
 
     def add_plan_fuck_date_action(the_person):
-        evening_fuck_date_action = Action("Fuck date", evening_date_trigger, "fuck_date_label", args = the_person, requirement_args = 4) #Happens on a friday
+        evening_fuck_date_action = Action("Fuck date", evening_date_trigger, "fuck_date_label", args = the_person, requirement_args = 3) #Happens on a thursday
         mc.business.mandatory_crises_list.append(evening_fuck_date_action)
-        mc.business.event_triggers_dict["date_scheduled"] = True
+        mc.business.event_triggers_dict["fuck_date_scheduled"] = True
         return
 
     def add_so_morning_breakup_crisis(the_person):
@@ -69,12 +69,12 @@ label plan_fuck_date_label(the_person):
     "You place a hand on [the_person.possessive_title]'s hips and caress her leg. She smiles and leans into your hand."
     mc.name "I want to be alone with you. When will your [so_title] be out of the way so I can have you all to myself?"
     if the_person.kids > 0:
-        the_person.char "He normally stays late at work on Fridays. I can make sure the house is empty and we can get down to business the moment you're in the door."
+        the_person.char "He normally stays late at work on Thursdays. I can make sure the house is empty and we can get down to business the moment you're in the door."
     else:
-        the_person.char "He's normally stuck late at work on Fridays. Just come on over and we can get down to business."
+        the_person.char "He's normally stuck late at work on Thursdays. Just come on over and we can get down to business."
 
     menu:
-        "Plan a date for Friday night":
+        "Plan a date for Thursday night":
             mc.name "Good, I'll be there."
             the_person.char "I'll be ready and waiting."
             "She winks at you and smiles."
@@ -92,7 +92,7 @@ label fuck_date_label(the_person):
     #You go to her home and fuck her as much as your energy can support. Small chance her SO either calls or walks in.
     # Occurs at night. You go to her place.
 
-    $ mc.business.event_triggers_dict["date_scheduled"] = False #Deflag this event so you can schedule a date with another person for next week.
+    $ mc.business.event_triggers_dict["fuck_date_scheduled"] = False #Deflag this event so you can schedule a date with another person for next week.
     if the_person.relationship == "Single":
         return #If she's single she must have broken up with her SO at some point, which means you're no longer having an affair with her. Clear out your date and move on with your life.
 
@@ -202,7 +202,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                 "Fuck her again":
                     "Soon you're ready to go again and you wrap your arms around [the_person.title]."
                     mc.name "Come here you little slut."
-                    if renpy.random.randint(0,100) < 8 and not so_called:
+                    if renpy.random.randint(0,100) < 10 and not so_called:
                         #Her SO Comes home (unless he's called, in which case we know where he is.)
                         "She smiles and wraps her arms around you in return, pressing her body against yours."
                         the_person.char "Come and take me. I..."
