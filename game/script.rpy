@@ -2423,19 +2423,15 @@ init -5 python:
             self.sexed_count = 0
 
         def generate_home(self, set_home_time = True): #Creates a home location for this person and adds it to the master list of locations so their turns are processed.
-            if not self.home is None:
-                return self.home    # return existing home
+            # generate new home location if we don't have one
+            start_home = self.home
+            if not start_home:
+                start_home = Room(self.name + " " + self.last_name + " home", self.name + " " + self.last_name + " home", [], standard_bedroom_backgrounds[:], [make_wall(), make_floor(), make_bed(), make_window()],[],[],False,[0.5,0.5], visible = False, hide_in_known_house_map = False, lighting_conditions = standard_indoor_lighting)
 
-            home_objects =[
-                make_wall(),
-                make_floor(),
-                make_bed(),
-                make_window()
-            ]
-
-            start_home = Room(self.name + " " + self.last_name + " home", self.name + " " + self.last_name + " home", [], standard_bedroom_backgrounds[:], home_objects,[],[],False,[0.5,0.5], visible = False, hide_in_known_house_map = False, lighting_conditions = standard_indoor_lighting)
+            # add home location to list of places, before assignment
             if not start_home in list_of_places:
                 list_of_places.append(start_home)
+
             self.home = start_home
 
             if set_home_time:
