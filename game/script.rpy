@@ -11416,7 +11416,6 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
         $ talk_action = main_loop_pick_talk_event(picked_option)
         if talk_action:
             $ talk_action.call_action(picked_option)
-
         else:
             if picked_option.title is None:
                 "You decide to approach the stranger and introduce yourself."
@@ -11445,10 +11444,11 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
                     "As you talk she seems to become more comfortable, and eventually she lets her arms drop to her sides."
 
                 $ picked_option.update_outfit_taboos()
-        call talk_person(picked_option) from _call_talk_person
+            call talk_person(picked_option) from _call_talk_person
 
     elif isinstance(picked_option, Action):
         $ picked_option.call_action()
+        $ renpy.restart_interaction()
 
     elif picked_option == "Travel":
         call screen map_manager
