@@ -1091,6 +1091,9 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
     #Triggers when you've got a date planned with a girl, but Mom has high Love.
     #TODO: Write a Mom specific movie date. Maybe mirror the LR1 event and have Lily join in sometimes.
 
+    $ mc.change_location(bedroom)
+    $ mc.location.show_background()
+
     "You're getting ready for your date with [the_date.title] when you hear a knock at your door."
     the_mom "Knock knock. Are you in there [the_mom.mc_title]?"
     mc.name "Yeah, come on in [the_mom.title]."
