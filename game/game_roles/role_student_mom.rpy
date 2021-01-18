@@ -111,6 +111,8 @@ label study_check_up(the_student, the_mom):
         the_mom.char "Thank you for your hard work [the_mom.mc_title]. I hope we see you again soon."
 
     $ the_group = None
+    $ mc.change_location(bedroom)
+    $ mc.location.show_background()
     return
 
 label student_dinner(the_student, the_mom, first_time):
