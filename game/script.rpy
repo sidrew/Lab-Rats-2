@@ -2591,11 +2591,7 @@ init -5 python:
             else:
                 #She finds somewhere to burn some time
                 self.apply_outfit(self.planned_outfit)
-                available_locations = [] #Check to see where is public (or where you are white listed) and move to one of those locations randomly
-                for potential_location in list_of_places:
-                    if potential_location.public:
-                        available_locations.append(potential_location)
-                location.move_person(self, get_random_from_list(available_locations))
+                location.move_person(self, get_random_from_list([x for x in list_of_places if x.public]))
 
             #We do uniform/outfit checks in run move because it happens at the _start_ of the time chunk. The girl looks forward to wearing her outfit (or dreads it) rather than responds to actually doing it.
             if self.outfit and self.planned_outfit.slut_requirement > self.sluttiness*0.75: #A skimpy outfit is defined as the top 25% of a girls natural sluttiness.
