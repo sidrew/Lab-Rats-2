@@ -364,9 +364,12 @@ label student_mom_appologise_label(the_person): #TODO Provide a way to not activ
     mc.name "It's natural for you to need some sort of physical contact. Isn't that what you want?"
     "She stutters out a few half answers."
     the_person.char "I don't... I mean, it would be nice, but I can't... I..."
+    $ the_person.draw_person(position = "kissing", special_modifier = "kissing")
     "You kiss her, and after a moment of hesitation she kisses you back."
+    $ the_person.draw_person(position = "kissing")
     "When you break the kiss she looks deep into your eyes."
     the_person.char "Wow..."
+    $ the_person.draw_person()
     mc.name "I'm going to be here to tutor your daughter. I could also give you the physical contact you need."
     the_person.char "You mean, cheat on my..."
     "You nod. She sighs and closes her eyes, thinking it over. Your hand wanders down her back until you are cradling her ass."
