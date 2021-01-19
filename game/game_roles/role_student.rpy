@@ -792,6 +792,7 @@ label student_masturbate_label(the_person):
                 "She gasps and leans against you when you slide a couple of fingers into her cunt."
                 call fuck_person(the_person, private = True, start_position = standing_finger, skip_intro = True) from _call_fuck_person_86
                 $ the_report = _return
+                $ the_person.draw_person(position = "sitting")
                 if the_report.get("girl orgasms", 0) > 0:
                     "[the_person.title] collapses into her chair and sighs happily."
                     the_person.char "I think... I'm ready to do some studying."
@@ -813,6 +814,7 @@ label student_masturbate_label(the_person):
                     pass #She's fine with what she's now "wearing"
 
                 else:
+                    $ the_person.draw_person(position = "stand3")
                     the_person.char "Just... One second, let me get dressed again."
                     $ the_person.apply_outfit()
                     $ the_person.draw_person(position = "sitting")
