@@ -3518,12 +3518,14 @@ init -5 python:
                 return True
 
         def should_wear_uniform(self):
+            if not mc.business.is_open_for_business():  # quick exit
+                return False
+
             #Check to see if we are: 1) Employed by the PC. 2) At work right now. 3) there is a uniform set for our department.
             employment_title = mc.business.get_employee_title(self)
             if employment_title != "None":
-                if mc.business.is_open_for_business(): #We should be at work right now, so if there is a uniform we should wear it.
-                    if mc.business.get_uniform_wardrobe(employment_title).get_count() > 0 or self.event_triggers_dict.get("forced_uniform", False): #Check to see if there's anything stored in the uniform section.
-                        return True
+                if mc.business.get_uniform_wardrobe(employment_title).get_count() > 0 or self.event_triggers_dict.get("forced_uniform", False): #Check to see if there's anything stored in the uniform section.
+                    return True
 
             return False #If we fail to meet any of the above conditions we should return false.
 
