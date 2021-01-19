@@ -359,7 +359,7 @@ label aunt_intro_moving_apartment_label(the_person):
                 "You clear out a couple of boxes, putting away shirts, skirts, and pants for [aunt.title]. [aunt.possessive_title] reaches for the last box, marked \"Private,\" then hesitates."
                 aunt.char "I can go through this one myself. It's all my underwear and that's probably the last thing you want to be digging through."
                 mc.name "We're both adults, it's no big deal."
-                "[aunt.possessive_title] shrugs, opens the box, and starts to sort through it. She hands you a pile of colourful panties."
+                "[aunt.possessive_title] shrugs, opens the box, and starts to sort through it. She hands you a pile of colorful panties."
                 aunt.char "Okay, put these in that drawer on the left..."
                 "You slide the garments into their drawer. Next [aunt.title] hands you a stack of lacey bras and small thongs."
                 aunt.char "This goes to the side... and then... Oh my."
@@ -1161,7 +1161,7 @@ label family_games_night_intro(the_person): # Triggered as an on-talk event in h
             mc.name "I'd love to spend time with both of you. I'll do my best to make it."
             the_person.char "I'm looking forward to it even more now!"
 
-        "You'll think about it.":
+        "You'll think about it":
             mc.name "It sounds like fun, but I'm not sure if I'll be free."
             the_person.char "I understand, you're a busy boy."
 
@@ -1239,11 +1239,11 @@ label family_games_night_start(the_aunt, the_mom): # Triggered as an on enter ev
         the_aunt.char "Hi [the_aunt.mc_title]. We're having some drinks first, do you want to join us?"
 
     menu:
-        "Join them.":
+        "Join them":
             call family_games_night_drinks(the_mom, the_aunt) from _call_family_games_night_drinks
             $ mc.business.event_triggers_dict["family_games_drink"] += 1
 
-        "Say you're busy.":
+        "Say you're busy":
             mc.name "Sorry, but I'll have to take a rain check tonight. Maybe next time."
             $ the_group.redraw_person(the_mom)
             the_mom.char "Have a good evening sweetheart. We'll try not to make too much noise."
@@ -1565,6 +1565,8 @@ label family_games_night_cards(the_mom, the_aunt, the_sister): #Breakout functio
     python:
         the_group = None
         partner = None
+        mc.change_location(bedroom)
+        mc.location.show_background()
 
     return
 
@@ -1774,10 +1776,10 @@ label family_games_night_strip(the_mom, the_aunt, the_sister, partner):
                 $ the_group.redraw_person(partner)
                 partner.char "What do you think [partner.mc_title]? Should we let them off easy?"
                 menu:
-                    "Let them get dressed.":
+                    "Let them get dressed":
                         mc.name "Good game everyone, now let's get dressed and get everything cleaned up."
 
-                    "Give us a dance.": #TODO: Decide on any requirements. Maybe sluttiness or obedience for the two dancers
+                    "Give us a dance": #TODO: Decide on any requirements. Maybe sluttiness or obedience for the two dancers
                         mc.name "I don't think so [partner.title]. I think we should get a little reward for winning."
                         $ the_group.redraw_person(opponent_a)
                         opponent_a.char "What do you want?"
