@@ -6,28 +6,27 @@
 init -1 python:
     def uniform_disobedience_on_move(uniform_disobedience_priority): #This is an on_move function called by the business on_move phase. It is only run once, by the uniform policy with the highest priority
         highest_active_priority = -1
-        for policy in mc.business.active_policy_list:
+        for policy in [x for x in mc.business.active_policy_list if "uniform_disobedience_priority" in x.extra_arguments]:
             if policy.extra_arguments.get("uniform_disobedience_priority", -1) > highest_active_priority:
                 highest_active_priority = policy.extra_arguments.get("uniform_disobedience_priority",-1) #Check all policies and make sure we are only running this function once (with the highest priority, just in case)
 
         if highest_active_priority != uniform_disobedience_priority: #ie. only run this function if we have the highest priority, otherwise some other policy is responsible for it.
             return
 
-        for person in mc.business.get_employee_list():
-            if person.should_wear_uniform() and person.outfit == person.planned_uniform and person.planned_uniform != person.planned_outfit: #If she's already out of uniform she won't generate another.
-                disobedience_chance = 0
-                if not person.judge_outfit(person.planned_uniform):
-                    disobedience_chance = person.planned_uniform.slut_requirement - int( person.effective_sluttiness() * (person.obedience / 120.0) ) #Girls who find the outfit too slutty might disobey, scaled by their obedience
-                    disobedience_chance += -5*(person.get_opinion_score("skimpy uniforms"))
-                else:
-                    disobedience_chance = (120 - person.obedience)/2 #Disobedient girls sometimes don't wear uniforms, just because they don't like following orders. Less likely than when outfits are too slutty.
-                    disobedience_chance += -5*(person.get_opinion_score("work uniforms"))
+        for person in [x for x in mc.business.get_employee_list() if x.should_wear_uniform() and x.outfit == x.planned_uniform and x.planned_uniform != x.planned_outfit]:
+            disobedience_chance = 0
+            if not person.judge_outfit(person.planned_uniform):
+                disobedience_chance = person.planned_uniform.slut_requirement - int( person.effective_sluttiness() * (person.obedience / 120.0) ) #Girls who find the outfit too slutty might disobey, scaled by their obedience
+                disobedience_chance += -5*(person.get_opinion_score("skimpy uniforms"))
+            else:
+                disobedience_chance = (120 - person.obedience)/2 #Disobedient girls sometimes don't wear uniforms, just because they don't like following orders. Less likely than when outfits are too slutty.
+                disobedience_chance += -5*(person.get_opinion_score("work uniforms"))
 
-                if renpy.random.randint(0,100) < disobedience_chance:
-                    uniform_disobedience_action = Action("Uniform Disobedience LTE", uniform_disobedience_requirement, "uniform_disobedience_event", event_duration = 3, args = person.planned_uniform.get_copy()) #Needs to be created here so we can reference what we disliked about the uniform.
-                    person.on_talk_event_list.append(Limited_Time_Action(uniform_disobedience_action, uniform_disobedience_action.event_duration))
-                    person.set_uniform(person.planned_outfit) #Overwrites the uniform they intended to wear for the day, so the next Move doesn't change it but the end of day will.
-                    person.apply_outfit() #Change them into their planned outfits for the day
+            if renpy.random.randint(0,100) < disobedience_chance:
+                uniform_disobedience_action = Action("Uniform Disobedience LTE", uniform_disobedience_requirement, "uniform_disobedience_event", event_duration = 3, args = person.planned_uniform.get_copy()) #Needs to be created here so we can reference what we disliked about the uniform.
+                person.on_talk_event_list.append(Limited_Time_Action(uniform_disobedience_action, uniform_disobedience_action.event_duration))
+                person.set_uniform(person.planned_outfit) #Overwrites the uniform they intended to wear for the day, so the next Move doesn't change it but the end of day will.
+                person.apply_outfit() #Change them into their planned outfits for the day
 
         return
 
