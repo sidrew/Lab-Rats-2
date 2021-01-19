@@ -311,6 +311,7 @@ label movie_date_label(the_person):
                     $ the_person.add_situational_slut("Romanced",15,"What a wonderful date!")
                     call date_take_home_her_place(the_person, date_type = "movie") from _call_date_take_home_her_place
                     $ the_person.clear_situational_slut("Romanced")
+                    "When you and [the_person.possessive_title] are finished you give her a goodbye kiss and head home yourself.."
 
                 "Call it a night":
                     mc.name "I'd like to call it an early night today, but maybe I'll take you up on the offer some other time."
@@ -462,6 +463,7 @@ label dinner_date_label(the_person):
                     $ the_person.add_situational_slut("Romanced",25,"What a wonderful date!")
                     call date_take_home_her_place(the_person, date_type = "dinner") from _call_date_take_home_her_place_1
                     $ the_person.clear_situational_slut("Romanced")
+                    "When you and [the_person.possessive_title] are finished you give her a goodbye kiss and head home yourself.."
 
                 "Call it a night":
                     mc.name "I'd like to call it an early night today, but maybe I'll take you up on the offer some other time."
@@ -473,6 +475,8 @@ label dinner_date_label(the_person):
             "[the_person.title]'s taxi arrives and she gives you a kiss goodbye. You watch her drive away, then head home yourself."
 
     $ clear_scene()
+    $ mc.change_location(bedroom)
+    $ mc.location.show_background()
     return "Advance Time"
 
 #TODO: Add a "date_take_home_your_place" where you take her to your house.
