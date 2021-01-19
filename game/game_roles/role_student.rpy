@@ -376,9 +376,9 @@ label student_study_home(the_person):
     mc.name "Let's talk about your grades. How have you been doing recently?"
     the_person.char "Well, I got a [current_marks]%% on my last assignment."
     if current_marks > 80:
-            mc.name "Fantastic! A little more work and you'll be the best in your class!"
-            the_person.char "Thanks, you've really helped everything come together!"
-            "Vren" "This section of the game is under construction. In v0.30.1 you will have the ability to hire [the_person.title] once her marks are high enough."
+        mc.name "Fantastic! A little more work and you'll be the best in your class!"
+        the_person.char "Thanks, you've really helped everything come together!"
+        "Vren" "This section of the game is under construction. In v0.30.1 you will have the ability to hire [the_person.title] once her marks are high enough."
     elif current_marks > 50:
         mc.name "That sounds like a pass to me!"
         the_person.char "Yeah! I need to convince Professor [nora.last_name] to shift more weight to my exam, but I might be able to do this!"
@@ -506,11 +506,16 @@ label student_study_home(the_person):
     # TODO: Help the student study at home. Opens up more options for rewards/punishments
     # TODO: If you make her orgasm, and as her marks improve, she'll "talk to her mom" and improves your pay.
 
-    $ mc.business.funds += 200
-    $ the_person.event_triggers_dict["times_studied_home"] = the_person.event_triggers_dict.get("times_studied_home", 0) + 1
-    if the_person.event_triggers_dict.get("current_marks",0) > 100:
-        $ the_person.event_triggers_dict["current_marks"] = 100
-    $ clear_scene()
+    python:
+        mc.business.funds += 200
+        the_person.event_triggers_dict["times_studied_home"] = the_person.event_triggers_dict.get("times_studied_home", 0) + 1
+        if the_person.event_triggers_dict.get("current_marks",0) > 100:
+            the_person.event_triggers_dict["current_marks"] = 100
+        clear_scene()
+        del current_marks
+        del starting_int
+        del starting_focus
+
     call advance_time() from _call_advance_time_22
     return
 
