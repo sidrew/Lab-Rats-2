@@ -166,6 +166,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
             $ the_person.change_love(2 + the_person.get_opinion_score("cheating on men"))
             $ the_person.change_slut_temp(1)
             the_person.char "Oh god... That was amazing. You're so much better at that than my [so_title]."
+            $ the_person.draw_person(position = "missionary")
             "[the_person.title] lies down on her bed and catches her breath."
             the_person.char "Ready to get back to it?"
             $ girl_came = True
@@ -173,6 +174,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
         else:
             the_person.char "Whew, good job. Get some water and let's go for another!"
             "You take some time to catch your breath, drink some water, and wait for your refractory period to pass."
+            $ the_person.draw_person(position = "missionary")
             "You hold [the_person.title] in bed while she caresses you and touches herself, keeping herself ready for you."
 
 
