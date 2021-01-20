@@ -501,6 +501,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                     "You kiss [the_person.title], then get up and start collecting your clothes."
                     if girl_came:
                         the_person.char "Okay then. We need to do this again, you rocked my world [the_person.mc_title]."
+                        $ the_person.draw_person(position = "missionary")
                         "She sighs happily and lies down on her bed."
 
                     else:
@@ -514,9 +515,12 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
 
     #As soon as done is True we finish looping. This means each path should narrate it's own end of encounter stuff.
     #Generic stuff to make sure we don't keep showing anyone.
-    $ the_person.clear_situational_slut("Date")
-    $ mc.change_location(bedroom) # go home
-    $ clear_scene()
+    python:
+        the_person.clear_situational_slut("Date")
+        mc.change_location(bedroom) # go home
+        clear_scene()
+        so_title = None
+        del energy_gain_amount
     return "Advance Time"
 
 
