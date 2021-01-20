@@ -492,7 +492,6 @@ label mom_offer_make_dinner_label(the_person):
             "Leave [aunt.name]'s food alone":
                 pass
 
-    if hall.has_person(cousin) or lily_bedroom.has_person(cousin):
         menu:
             "Add serum to [cousin.name]'s food":
                 call give_serum(cousin) from _call_give_serum_33
