@@ -111,6 +111,7 @@ label fuck_date_label(the_person):
             return
 
     $ mc.change_location(the_person.home)
+    $ mc.location.show_background()
     $ so_title = SO_relationship_to_title(the_person.relationship) #TODO: Make sure she's still in a relationship, or void this date if she isn't (because she's your girlfriend now).
 
     if the_person.home not in mc.known_home_locations:
@@ -120,7 +121,7 @@ label fuck_date_label(the_person):
         "You make your way to [the_person.possessive_title]'s house. You text her first, in case her [so_title] is unexpectedly home."
     mc.name "I'm here. Are you ready?"
     the_person.char "Come on in, the door is unlocked. I'm in the bedroom"
-    $ mc.location.show_background()
+    $ aunt_bedroom.show_background()
     "You go inside. The only light in the house comes from a room with its door ajar. When you swing it open you see [the_person.title] waiting."
     $ the_person.add_situational_slut("Date", 20, "There's no reason to hold back, he's here to fuck me!") # Bonus to sluttiness since you're in an affair and this is blatently a date to get fucked on.
     call fuck_date_event(the_person) from _call_fuck_date_event

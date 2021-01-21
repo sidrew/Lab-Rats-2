@@ -2426,7 +2426,7 @@ init -5 python:
             # generate new home location if we don't have one
             start_home = self.home
             if not start_home:
-                start_home = Room(self.name + " " + self.last_name + " home", self.name + " " + self.last_name + " home", [], standard_bedroom_backgrounds[:], [make_wall(), make_floor(), make_bed(), make_window()],[],[],False,[0.5,0.5], visible = False, hide_in_known_house_map = False, lighting_conditions = standard_indoor_lighting)
+                start_home = Room(self.name + " " + self.last_name + " home", self.name + " " + self.last_name + " home", [], standard_house_backgrounds, [make_wall(), make_floor(), make_couch(), make_window()],[],[],False,[0.5,0.5], visible = False, hide_in_known_house_map = False, lighting_conditions = standard_indoor_lighting)
 
             # add home location to list of places, before assignment
             if not start_home in list_of_places:
