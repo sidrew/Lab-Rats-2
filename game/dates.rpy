@@ -489,6 +489,7 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
         $ mc.location.show_background()
 
         call fuck_date_event(the_person) from _call_fuck_date_event_1 #You're having an affair, leads to all of the normal affair stuff like being caught. #TODO: Make sure the date seduction dialogue leads into this properly.
+        $ the_person.draw_person(position = "missionary") # drop on the bed to rest
         "When you and [the_person.possessive_title] are finished you give her a goodbye kiss and head home yourself.."
 
         #TODO: Refactor this huge conditional. It's hard to read
