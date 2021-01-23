@@ -95,7 +95,7 @@ init -2 python:
         aunt.home = hall
         aunt.set_schedule(aunt.home, times = [0,1,2,3,4]) #Hide them in their bedroom off the map until they're ready.
 
-        aunt_intro_phase_three = Action("aunt_intro_phase_three", aunt_intro_phase_three_requirement, "aunt_intro_phase_three_label", requirement_args = day + renpy.random.randint(6,10))
+        aunt_intro_phase_three = Action("aunt_intro_phase_three", aunt_intro_phase_three_requirement, "aunt_intro_phase_three_label", requirement_args = day + renpy.random.randint(18,24))
         mc.business.mandatory_morning_crises_list.append(aunt_intro_phase_three)
         return
 
