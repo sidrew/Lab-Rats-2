@@ -11232,6 +11232,8 @@ label outfit_master_manager(*args, **kwargs): #WIP new outfit manager that centr
     if _return == "No Return":
         if "the_person" in globals():   # restore character on screen
             $ the_person.draw_person()
+        else:
+            $ clear_scene()
         return None #We're done and want to leave.
 
     $ outfit_type = None
