@@ -187,7 +187,7 @@ label employee_pay_cash_bonus(the_person):
             "[the_person.title] looks visibly disappointed."
             the_person.char "Right, of course."
 
-        "Give her a days wages -$[the_person.salary]" if mc.business.funds >= the_person.salary:
+        "Give her a days wages\n{color=#ff0000}{size=18}Costs: $[the_person.salary]{/size}{/color}" if mc.business.funds >= the_person.salary:
             mc.name "Here you go, treat yourself to something nice tonight."
             $ the_person.draw_person(emotion = "happy")
             $ mc.business.funds -= the_person.salary
@@ -196,7 +196,7 @@ label employee_pay_cash_bonus(the_person):
             the_person.char "Thank you sir."
 
 
-        "Give her a weeks wages -$[weeks_wages]" if mc.business.funds >= weeks_wages:
+        "Give her a weeks wages\n{color=#ff0000}{size=18}Costs: $[weeks_wages]{/size}{/color}" if mc.business.funds >= weeks_wages:
             mc.name "Here you go, don't spend it all in once place."
             $ the_person.draw_person(emotion = "happy")
             $ the_person.change_happiness(5 + mc.charisma)
@@ -205,7 +205,7 @@ label employee_pay_cash_bonus(the_person):
             "[the_person.title] takes the bills, then smiles broadly at you."
             the_person.char "That's very generous of you sir, thank you."
 
-        "Give her a months wages -$[months_wages]" if mc.business.funds >= months_wages:
+        "Give her a months wages\n{color=#ff0000}{size=18}Costs: $[months_wages]{/size}{/color}" if mc.business.funds >= months_wages:
             mc.name "Here, you're a key part of the team and you deserved to be rewarded as such."
             $ the_person.draw_person(emotion = "happy")
             $ the_person.change_happiness(10 + mc.charisma)
@@ -271,7 +271,7 @@ label employee_performance_review(the_person):
                 "Offer her kind words": #Raise happiness and obedience a little.
                     call employee_complement_work(the_person) from _call_employee_complement_work
 
-                "Give her a raise (+$[raise_amount]/day)": #Pay her more money. Large happiness and obedience raise.
+                "Give her a raise\n{color=#ff0000}{size=18}Costs: $[raise_amount] / day{/size}{/color}": #Pay her more money. Large happiness and obedience raise.
                     mc.name "I've been very impressed by your work lately, and I'd like to make sure you stay happy with your decision to work here."
                     mc.name "I'm going to put you down for a 10%% raise. How does that sound?"
                     $ the_person.change_salary(raise_amount)
@@ -313,7 +313,7 @@ label employee_performance_review(the_person):
                 "Chastise her": #Lower happiness and love a little, large obedience boost.
                     call insult_recent_work(the_person) from _call_insult_recent_work
 
-                "Cut her pay (-$[cut_amount]/day)": #Pay her less. Large happiness and obedience drop.
+                "Cut her pay\n{color=#00ff00}{size=18}Saves: $[cut_amount] / day{/size}{/color}": #Pay her less. Large happiness and obedience drop.
                     mc.name "I'm really sorry to do this [the_person.title], but your performance lately just doesn't justify what I'm paying you."
                     mc.name "I'm going to have to cut your pay by 10%%."
                     $ the_person.change_salary(-cut_amount)
@@ -344,7 +344,7 @@ label employee_performance_review(the_person):
                         if the_person.effective_sluttiness() < 20:
                             the_person.char "No sir, I really need this job. What if I took a pay cut? Would that be enough?"
                             menu:
-                                "Cut her pay (-$[cut_amount]/day)":
+                                "Cut her pay\n{color=#00ff00}{size=18}Profit: $[cut_amount] / day{/size}{/color}":
                                     mc.name "If you're willing to take a pay cut I think I can keep you around and see if your performance improves."
                                     $ the_person.change_salary(-cut_amount)
                                     $ the_person.change_happiness(10)
@@ -399,11 +399,11 @@ label employee_performance_review(the_person):
                                                 if the_item:
                                                     the_person "Do you want me to keep my [the_item.display_name] on?"
                                                     menu:
-                                                        "Strip it all off.":
+                                                        "Strip it all off":
                                                             mc.name "Take it all off, I don't want you to be wearing anything."
                                                             $ remove_shoes = True
 
-                                                        "Leave them on.":
+                                                        "Leave them on":
                                                             mc.name "You can leave them on."
                                                 $ del the_item
 
@@ -638,6 +638,8 @@ label employee_performance_review(the_person):
                                     "You hold yourself deep inside of her and enjoy the sudden warmth around your shaft."
                                     "When you think she's ready you pull your hips back and start to pump in and out of her."
 
+                                    if not mc.condom:
+                                        $ the_person.break_taboo("condomless_sex")
                                     if the_person.get_opinion_score("being submissive") > 0:
                                         $ the_person.add_situational_slut("seduction_approach", 5*the_person.get_opinion_score("being submissive"), "He's using me just like a toy!")
                                     else:
