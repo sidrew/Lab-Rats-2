@@ -6708,16 +6708,25 @@ init -5 python:
 
             return base_wardrobe
 
-        def add_outfit(self, new_outfit):
-            new_outfit.restore_all_clothing() #Ensure none of the outfits have half-off clothing.
-            self.outfits.append(new_outfit)
+        def add_outfit(self, the_outfit):
+            the_outfit.restore_all_clothing() #Ensure none of the outfits have half-off clothing.
+            found = find_in_list(lambda x: x.name == the_outfit.name, self.outfits)
+            if found:   # if we already have an outfit with that name, replace it (outfit name must be unique)
+                self.outfits.remove(found)
+            self.outfits.append(the_outfit)
 
         def add_underwear_set(self, the_outfit):
             the_outfit.restore_all_clothing()
+            found = find_in_list(lambda x: x.name == the_outfit.name, self.underwear_sets)
+            if found:   # if we already have an outfit with that name, replace it (outfit name must be unique)
+                self.underwear_sets.remove(found)
             self.underwear_sets.append(the_outfit)
 
         def add_overwear_set(self, the_outfit):
             the_outfit.restore_all_clothing()
+            found = find_in_list(lambda x: x.name == the_outfit.name, self.overwear_sets)
+            if found:   # if we already have an outfit with that name, replace it (outfit name must be unique)
+                self.overwear_sets.remove(found)
             self.overwear_sets.append(the_outfit)
 
         def remove_outfit(self, old_outfit):
