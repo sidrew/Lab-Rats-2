@@ -161,7 +161,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
     $ done = False
     $ girl_came = False
     $ so_called = False
-    $ energy_gain_amount = 50 #Drops each round, representing your flagging endurance.
+    $ energy_gain_amount = mc.max_energy // 3 #Drops each round, representing your flagging endurance.
     while not done:
         if the_report.get("girl orgasms", 0) > 0: #TODO: Have some variation to this based on how many times we've looped around.
             $ the_person.change_love(2 + the_person.get_opinion_score("cheating on men"))
@@ -200,12 +200,13 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
             $ mc.change_energy(energy_gain_amount)
             $ the_person.change_energy(energy_gain_amount) #She gains some back too
             if energy_gain_amount >= 10:
-                $ energy_gain_amount += -10 #Gain less and less energy back each time until eventually you're exhausted and gain nothing back.
+                $ energy_gain_amount -= 10 #Gain less and less energy back each time until eventually you're exhausted and gain nothing back.
             menu:
                 "Fuck her again":
                     "Soon you're ready to go again and you wrap your arms around [the_person.title]."
                     mc.name "Come here you little slut."
-                    if renpy.random.randint(0,100) < 10 and not so_called:
+                    $ ran_num = renpy.random.randint(0,100)
+                    if ran_num < 15 and not so_called:
                         #Her SO Comes home (unless he's called, in which case we know where he is.)
                         "She smiles and wraps her arms around you in return, pressing her body against yours."
                         the_person.char "Come and take me. I..."
@@ -347,7 +348,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                                 the_person.char "Oh my god, that was actually it. It's just me and you, nobody else in our way."
                                 "She holds onto you tightly and rests her head on your chest."
 
-                    elif ran_num < 20 and not so_called:
+                    elif ran_num < 30 and not so_called:
                         #Her SO calls home. Depending on Love/Sluttiness she might want to stop, or keep going while talking to him.
                         $ so_called = True
                         "She smiles and moves to kiss you, when a happy little jingle fills the room."
