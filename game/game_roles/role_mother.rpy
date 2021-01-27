@@ -671,6 +671,7 @@ label mom_work_promotion_outfit_create(the_person):
                 mc.name "I think we've nailed it. You're going to get this promotion [the_person.title]."
                 $ the_person.event_triggers_dict["mom_work_promotion_outfit"] = interview_outfit
                 $ the_person.wardrobe.add_outfit(interview_outfit.get_copy()) #Add it to her wardrobe so she'll wear it after too.
+                $ the_person.planned_outfit = interview_outfit.get_copy() # switch planned outfit for the day so when you talk to her she's still wearing it
 
             "Try something else" if acceptable:
                 mc.name "Let's try something else before we commit. You've only got one shot at this, we want to get it right."
