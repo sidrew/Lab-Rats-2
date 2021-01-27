@@ -717,7 +717,7 @@ label mom_work_promotion_one_before(the_person): # She tells you in the morning 
     "She gives you a quick turn left and right."
     $ the_person.draw_person()
     mc.name "You look great [the_person.title], you're going to blow them away."
-    the_person.char "Aw, thank you [the_person.mc_title]. Come on, give me a kiss for good luck"
+    the_person.char "Aw, thank you [the_person.mc_title]. Come on, give me a kiss for good luck."
     if the_person.effective_sluttiness("kissing") > 30:
         $ the_person.draw_person(position = "kissing")
         "[the_person.possessive_title] steps close to you and leans towards you."
