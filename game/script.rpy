@@ -6521,17 +6521,15 @@ init -5 python:
             return items_to_strip
 
         def strip_to_tits(self, visible_enough = True): #Removes all clothing from this item until breasts are visible.
-            if visible_enough:
-                while not self.tits_visible():
-                    the_item = self.remove_random_upper(top_layer_first = True)
-                    if not the_item:
-                        break
+            removed_something = False
+            if self.can_half_off_to_tits(visible_enough):
+                for item in self.get_half_off_to_tits_list(visible_enough):
+                    self.half_off_clothing(item)
             else:
-                while not (self.tits_visible() and self.tits_available()):
-                    the_item = self.remove_random_upper(top_layer_first = True)
-                    if not the_item:
-                        break
-            return
+                for item in self.get_tit_strip_list(visible_enough):
+                    self.remove_clothing(item)
+                removed_something = True
+            return removed_something
 
         def can_half_off_to_tits(self, visible_enough = True):
             # Returns true if all of the clothing blocking her tits can be moved half-off to gain access, or if you already have access
@@ -6580,10 +6578,21 @@ init -5 python:
             else:
                 return return_list
 
+        def strip_to_vagina(self, visible_enough = True):
+            removed_something = False
+            if self.can_half_off_to_vagina(visible_enough):
+                for item in self.get_half_off_to_vagina_list(visible_enough):
+                    self.half_off_clothing(item)
+            else:
+                for item in self.get_full_strip_list(strip_feet = False):
+                    self.remove_clothing(item)
+                removed_something = True
+            return removed_something
+
         def can_half_off_to_vagina(self, visible_enough = True):
             # Returns true if all of the clothing blocking her vagina can be moved half-off to gain access
             if (visible_enough and self.vagina_visible()) or (not visible_enough and self.vagina_available()) or self.get_half_off_to_vagina_list(visible_enough = visible_enough):
-                    return True
+                return True
             return False
 
         def get_half_off_to_vagina_list(self, visible_enough = True):

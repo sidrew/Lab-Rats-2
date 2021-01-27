@@ -871,17 +871,7 @@ label mom_morning_surprise_label():
         # First we need to take her and remove enough clothing that we can get to her vagina, otherwise none of this stuff makes sense.
         # We do that by getting her lowest level pieces of bottom clothing and removing it, then working our way up until we can use her vagina.
         # This makes sure skirts are kept on (because this is suppose to be a quicky).
-        python:
-            removed_something = False
-            if not the_person.outfit.vagina_available():
-                if the_person.outfit.can_half_off_to_vagina():
-                    for item in the_person.outfit.get_half_off_to_vagina_list():
-                        the_person.outfit.half_off_clothing(item)
-                else:
-                    for item in the_person.outfit.get_full_strip_list(strip_feet = False):
-                        the_person.outfit.remove_clothing(item)
-                    removed_something = True
-
+        $ removed_something = the_person.outfit.strip_to_vagina()
         "You're woken up by your bed shifting under you and a sudden weight around your waist."
         $ the_person.draw_person(position = "cowgirl", emotion = "happy")
         "[the_person.possessive_title] has pulled down your sheets and underwear and is straddling you. The tip of your morning wood is brushing against her pussy."
@@ -1679,7 +1669,7 @@ label cousin_tease_crisis_label():
                             "You send her the money from your phone."
                             mc.name "Alright, there's your cash. Whip those girls out for me."
                             the_person.char "Ugh, I didn't think you'd actually do it."
-                            $ the_person.outfit.strip_to_tits()
+                            $ the_person.outfit.strip_to_tits(visible_enough = False)
                             $ the_person.draw_person(position = "back_peek")
                             "She sends you a picture, with her back turned to the camera."
                             the_person.char "There."
@@ -1723,7 +1713,7 @@ label cousin_tease_crisis_label():
 
                             the_person.char "Oh my god, you little rat. You wouldn't."
                             mc.name "You know I would. Come on, whip those girls out and take some shots for me."
-                            $ the_person.outfit.strip_to_tits()
+                            $ the_person.outfit.strip_to_tits(visible_enough = False)
                             $ the_person.draw_person()
                             "There's a pause, then [the_person.title] sends you some shots of herself topless."
                             the_person.char "There. Satisfied?"
