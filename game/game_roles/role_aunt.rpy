@@ -392,7 +392,7 @@ label aunt_intro_moving_apartment_label(the_person):
         "You head to the garage and look at the dwindling pile of boxes that need to be moved."
         aunt.char "I think we can move [cousin.title]'s things today. I'll go get her."
         $ clear_scene()
-        $ the_group = GroupDisplayManager([aunt, cousin], primary_speaker = aunt)
+        $ the_group = GroupDisplayManager([cousin, aunt], primary_speaker = aunt)
         $ the_group.draw_group()
         "[aunt.possessive_title] is gone for a few minutes before coming back with [cousin.title] in tow."
         aunt.char "Let's get this show on the road! I know [cousin.title] is excited to have a room to herself again, aren't you sweetheart."
