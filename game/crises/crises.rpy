@@ -993,11 +993,15 @@ init 1 python:
 
     def trait_for_side_effect_get_trait_and_side_effect(the_design):
         list_of_valid_traits = []
-        for trait in list_of_traits:
-            if trait.researched and trait not in the_design.traits:
-                list_of_valid_traits.append(trait)
+        exclude_tags = []
+        for trait in the_design.traits:
+            exclude_tags.extend(trait.exclude_tags)
 
-        return (get_random_from_list(list_of_valid_traits), get_random_from_list(list_of_side_effects))
+        for trait in list_of_traits:
+            if trait.researched and trait not in the_design.traits and not any([x for x in trait.exclude_tags if x in exclude_tags]):
+                list_of_valid_traits.append([trait, int(trait.mastery_level)])
+
+        return (get_random_from_weighted_list(list_of_valid_traits), get_random_from_list(list_of_side_effects))
 
     trait_for_side_effect_crisis = Action("Trait for Side Effect Crisis", trait_for_side_effect_requirement, "trait_for_side_effect_label")
     crisis_list.append([trait_for_side_effect_crisis,5])
