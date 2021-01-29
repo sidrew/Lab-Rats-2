@@ -205,7 +205,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                 "Fuck her again":
                     "Soon you're ready to go again and you wrap your arms around [the_person.title]."
                     mc.name "Come here you little slut."
-                    $ ran_num = renpy.random.randint(0,100)
+                    $ ran_num = renpy.random.randint(0, 100)
                     if ran_num < 15 and not so_called:
                         #Her SO Comes home (unless he's called, in which case we know where he is.)
                         "She smiles and wraps her arms around you in return, pressing her body against yours."
@@ -347,6 +347,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                                 $ the_person.change_obedience(5)
                                 the_person.char "Oh my god, that was actually it. It's just me and you, nobody else in our way."
                                 "She holds onto you tightly and rests her head on your chest."
+                                $ so_called = True
 
                     elif ran_num < 30 and not so_called:
                         #Her SO calls home. Depending on Love/Sluttiness she might want to stop, or keep going while talking to him.
