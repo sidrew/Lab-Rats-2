@@ -295,17 +295,11 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                                 the_person.char "I... I can't believe I'm actually doing this! Oh my god!"
                                 if not the_person.outfit.vagina_available():
                                     "You strip her down as quickly as you can, not a minute to spare."
-                                    python:
-                                        while not the_person.outfit.vagina_available():
-                                            the_item = the_person.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
-                                            the_person.draw_animated_removal(the_item)
-                                            renpy.pause(1)
+                                    if the_person.outfit.can_half_off_to_vagina():
+                                        $ generalised_strip_description(the_person, the_person.outfit.get_half_off_to_vagina_list(), position = "doggy", half_off_instead = True)
+                                    else:
+                                        $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list(), position = "doggy")
 
-                                        while not the_person.outfit.vagina_available():
-                                            the_item = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
-                                            the_person.draw_animated_removal(the_item)
-                                            renpy.pause(1)
-                                        the_item = None
                                 menu:
                                     "Put on a condom":
                                         "You pause for a second to put on a condom, spreading it over your hard cock before lining it up with her wet pussy."
@@ -432,25 +426,17 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                                 the_person.char "Yeah? You don't say... Uh huh?"
                                 "With a little bit of pressure on her shoulders you guide [the_person.possessive_title] down onto her back."
                                 $ the_person.draw_person(position = "missionary")
-                                if the_person.outfit.vagina_available():
-                                    "She spreads her legs as you climb on top of her, still talking to her [so_title] on her phone."
+                                if not the_person.outfit.vagina_available():
+                                    "You strip her down as quickly as you can, not a minute to spare."
+                                    if the_person.outfit.can_half_off_to_vagina():
+                                        $ generalised_strip_description(the_person, the_person.outfit.get_half_off_to_vagina_list(), position = "missionary", half_off_instead = True)
+                                    else:
+                                        $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list(), position = "missionary")
 
-                                else:
-                                    # You undress her so you can get to the point you can fuck her
-                                    "You undress her while she's still on the phone with her [so_title]."
-                                    python:
-                                        while not the_person.outfit.vagina_available():
-                                            the_item = the_person.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
-                                            the_person.draw_animated_removal(the_item)
-                                            renpy.pause(1)
-
-                                        while not the_person.outfit.vagina_available():
-                                            the_item = the_person.outfit.remove_random_any(top_layer_first = True, do_not_remove = True)
-                                            the_person.draw_animated_removal(the_item)
-                                            renpy.pause(1)
-                                        the_item = None
                                     "Once her cute little pussy is available, she spreads her legs for you."
                                     $ the_person.update_outfit_taboos()
+                                else:
+                                    "She spreads her legs as you climb on top of her, still talking to her [so_title] on her phone."
 
                                 $ wanted_condom = False
                                 if the_person.effective_sluttiness("condomless_sex") < the_person.get_no_condom_threshold():
