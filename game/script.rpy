@@ -10133,7 +10133,7 @@ screen outfit_select_manager(slut_limit = 999, show_outfits = True, show_overwea
 
                                         if show_modify:
                                             textbutton "Modify":
-                                                action Return(["modify",outfit]) #If we are modifying an outfit just return it. outfit management loop will find which catagory it is in.
+                                                action Return(["modify", outfit]) #If we are modifying an outfit just return it. outfit management loop will find which catagory it is in.
                                                 sensitive (catagory_info[3](outfit) <= slut_limit)
                                                 hovered SetScreenVariable("preview_outfit", outfit.get_copy())
                                                 unhovered SetScreenVariable("preview_outfit", None)
@@ -10143,9 +10143,8 @@ screen outfit_select_manager(slut_limit = 999, show_outfits = True, show_overwea
                                                 xsize 100
 
                                         if show_duplicate:
-                                            $ the_copied_outfit = outfit.get_copy() #We make a copy to add to the wardrobe if this is selected. Otherwise continues same as "Modify"
                                             textbutton "Duplicate":
-                                                action [Function(catagory_info[5], mc.designed_wardrobe, the_copied_outfit), Return(["duplicate",the_copied_outfit])]
+                                                action Return(["duplicate", outfit.get_copy()])
                                                 #sensitive (catagory_info[3](outfit) <= slut_limit)
                                                 hovered SetScreenVariable("preview_outfit", outfit.get_copy())
                                                 unhovered SetScreenVariable("preview_outfit", None)
@@ -11293,16 +11292,19 @@ label outfit_master_manager(*args, **kwargs): #WIP new outfit manager that centr
         else:
             "We couldn't find it anywhere! PANIC!"
 
-        $ mc.designed_wardrobe.remove_outfit(outfit) # Remove it so we can re-add it later. Note that "dupicate" has already copied an outfit and added it so we can re-use this code.
+        if command == "duplicate":
+            $ outfit.name = ""
 
         call screen outfit_creator(outfit, outfit_type = outfit_type, slut_limit = slut_limit)
         $ outfit = _return
 
-    if not outfit == "Not_New":
+        if command == "modify" and outfit != "Not_New":
+            $ mc.designed_wardrobe.remove_outfit(outfit)
+
+    if outfit != "Not_New":
         $ new_outfit_name = renpy.input("Please name this outfit.", default = outfit.name)
         while new_outfit_name == "":
             $ new_outfit_name = renpy.input("Please enter a non-empty name.", default = outfit.name)
-
 
         $ mc.save_design(outfit, new_outfit_name, outfit_type)
 
