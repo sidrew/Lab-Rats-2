@@ -5822,8 +5822,6 @@ init -5 python:
             self.lower_body = []
             self.feet = []
             self.accessories = [] #Extra stuff that doesn't fit anywhere else. Hats, glasses, ect.
-            self.slut_requirement = 0 #The slut score requirement for this outfit.
-            self.update_slut_requirement()
 
         def get_copy(self):
             copy_outfit = Outfit(self.name)
@@ -5843,8 +5841,6 @@ init -5 python:
 
             for accessory in self.accessories:
                 copy_outfit.accessories.append(accessory.get_copy())
-            copy_outfit.update_slut_requirement() #Make sure to properly set sluttiness because we haven't used the correct functions to add otherwise.
-
             return copy_outfit
 
         def generate_draw_list(self, the_person, position, emotion = "default", special_modifiers = None, lighting = None, hide_layers = None): #Generates a sorted list of displayables that when drawn display the outfit correctly.
@@ -5957,7 +5953,6 @@ init -5 python:
                 self.add_feet(an_item.get_copy())
             for an_item in other_outfit.accessories:
                 self.add_accessory(an_item.get_copy())
-            self.update_slut_requirement()
             return self
 
         def can_add_dress(self, new_clothing):
@@ -5994,7 +5989,6 @@ init -5 python:
                 self.upper_body.append(new_clothing)
                 if new_clothing.has_extension:
                     self.lower_body.append(new_clothing.has_extension)
-                self.update_slut_requirement()
 
         def can_add_lower(self,new_clothing):
             allowed = True
@@ -6015,7 +6009,6 @@ init -5 python:
 
             if self.can_add_lower(new_clothing):
                 self.lower_body.append(new_clothing)
-                self.update_slut_requirement()
 
         def can_add_feet(self, new_clothing):
             allowed = True
@@ -6037,7 +6030,6 @@ init -5 python:
 
             if self.can_add_feet(new_clothing):
                 self.feet.append(new_clothing)
-                self.update_slut_requirement()
 
         def can_add_accessory(self, new_clothing):
             allowed = True #For now all we do not filter what accessories we let people apply. All we require is that this exact type of accessory is not already part of the outfit.
@@ -6058,7 +6050,6 @@ init -5 python:
 
             if self.can_add_accessory(new_clothing):
                 self.accessories.append(new_clothing)
-                self.update_slut_requirement()
 
         def has_clothing(self, the_clothing): #Returns True if this outfit includes the given clothing item, false otherwise. Checks only for exact match (ie. down to exact colour, opacity, etc.)
             if the_clothing in self.upper_body:
@@ -6085,11 +6076,8 @@ init -5 python:
             elif old_clothing in self.accessories:
                 self.accessories.remove(old_clothing)
 
-            self.update_slut_requirement()
-
         def half_off_clothing(self, the_clothing):
             the_clothing.half_off = True
-            self.update_slut_requirement()
 
         def restore_all_clothing(self):
             for cloth in self.upper_body + self.lower_body + self.feet + self.accessories:
@@ -6395,7 +6383,6 @@ init -5 python:
 
             return new_score if new_score > 0 else 0
 
-
         def get_full_outfit_slut_score(self): #Calculates the sluttiness of this outfit assuming it's a full outfit. Full penalties and such apply.
             new_score = 0
 
@@ -6427,11 +6414,13 @@ init -5 python:
 
             return new_score if new_score > 0 else 0
 
-        def update_slut_requirement(self): # Recalculates the slut requirement of the outfit. Should be called after each new addition.
-            self.slut_requirement = self.get_full_outfit_slut_score()
+        @property
+        def slut_requirement(self):
+            return self.get_full_outfit_slut_score()
 
-        def get_slut_requirement(self): #A getter function for slut_requriement to be used for functional programming stuff.
-            return self.slut_requirement
+        @slut_requirement.setter
+        def update_slut_requirement(self): # converted to dummy method
+            return
 
         def get_full_strip_list(self, strip_feet = True, strip_accessories = False): #TODO: This should support visible_enough at some point.
             items_to_strip = self.lower_body + self.upper_body
@@ -6815,7 +6804,6 @@ init -5 python:
             for acc in picked_overwear.accessories:
                 picked_underwear.accessories.append(acc.get_copy())
 
-            picked_underwear.update_slut_requirement()
             if picked_underwear.slut_requirement < remaining_sluttiness_min or picked_underwear.slut_requirement > sluttiness_limit: #BUG: we sometimes have no valid outfits and hit our recursion limit.
                 return self.build_appropriate_outfit(sluttiness_limit+1, sluttiness_min) #If for some reason our outfit violates our limits retry but with a slightly more slutty tolerance. Better to fail in favour of sluttiness then not have an outfit.
 
@@ -6935,7 +6923,6 @@ init -5 python:
             for acc in uniform_over.accessories:
                 assembled_uniform.accessories.append(acc.get_copy())
 
-            assembled_uniform.update_slut_requirement()
             return assembled_uniform
 
 
@@ -10071,7 +10058,7 @@ screen outfit_select_manager(slut_limit = 999, show_outfits = True, show_overwea
 
     $ outfit_info_array = []
     ## ["Catagory name", is_catagory_enabled, "return value when new is made", slut score calculation field/function, "export field type", add_outfit_to_wardrobe_function] ##
-    $ outfit_info_array.append([show_outfits, "Full Outfit", "new_full", Outfit.get_slut_requirement , "FullSets", Wardrobe.add_outfit, Wardrobe.get_outfit_list])
+    $ outfit_info_array.append([show_outfits, "Full Outfit", "new_full", Outfit.get_full_outfit_slut_score , "FullSets", Wardrobe.add_outfit, Wardrobe.get_outfit_list])
     $ outfit_info_array.append([show_overwear, "Overwear Set", "new_over", Outfit.get_overwear_slut_score, "OverwearSets",  Wardrobe.add_overwear_set, Wardrobe.get_overwear_sets_list])
     $ outfit_info_array.append([show_underwear, "Underwear Set", "new_under", Outfit.get_underwear_slut_score, "UnderwearSets", Wardrobe.add_underwear_set, Wardrobe.get_underwear_sets_list])
 
