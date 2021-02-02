@@ -340,13 +340,14 @@ label mom_high_sluttiness_weekly_pay(the_person):
             call fuck_person(the_person, private = True, start_position = blowjob, skip_intro = True, position_locked = True) from _call_fuck_person_33
             $ the_person.clear_situational_obedience("deal")
             $ the_report = _return
+            $ the_person.apply_outfit()
             if the_report.get("girl orgasms", 0) > 0:
                 "You pull up your pants while [the_person.possessive_title] is on her knees panting, trying to get her breath back."
                 mc.name "I didn't know you were going to enjoy that so much. Maybe you should be paying me next time."
                 the_person.char "Ah... I hope we can come to some sort of deal... Ah... In the future..."
             else:
+                $ the_person.draw_person()
                 "You pull your pants up while [the_person.possessive_title] gets off of her knees and cleans herself up."
-            $ the_person.review_outfit()
             $ the_person.change_obedience(4)
 
         "Suck me off\n{color=#ff0000}{size=18}Requires: $300{/size}{/color} (disabled)" if mc.business.funds < 300 and the_person.effective_sluttiness("sucking_cock") >= 30:
@@ -1263,16 +1264,20 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     the_mom "Ah... Well, wasn't that better than anything that girl would have done?"
                     mc.name "That was great [the_mom.title]."
                     $ the_mom.change_happiness(10)
+                    $ the_mom.draw_person()
                     the_mom "Anything for my special man."
                 else:
                     the_mom "I'm sorry [the_mom.mc_title], I just don't have the energy I use to have..."
                     mc.name "It's okay [the_mom.title], maybe later we can finish this up."
+                    $ the_mom.draw_person()
                     $ the_mom.change_happiness(-5)
                     the_mom "I'll do my best. For my special man I'll try anything at all."
 
                 the_mom "Now, would you like to watch some TV with me? I'll get us some snacks, we can spend the whole night together."
                 mc.name "Sounds good [the_mom.title]."
                 $ the_mom.change_love(1 + mc.charisma)
+                $ the_mom.apply_outfit()
+                $ the_mom.draw_person(position = "sitting")
                 "You spend the rest of the evening with [the_mom.possessive_title], sitting on the couch, watching TV, and chatting."
                 #TODO: Add a proper Mom date that this leads into
 
@@ -1318,6 +1323,7 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                             the_date "Okay, well I'm waiting here."
                             mc.name "I'm on my way, I won't be long."
                             "You hang up and stuff your cock back into your pants."
+                            $ the_mom.draw_person()
                             the_mom "Have a good date [the_mom.mc_title]. Give me a kiss before you go."
                             "You kiss [the_mom.possessive_title], then hurry out of your room."
 
@@ -1488,6 +1494,8 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                 the_mom "Now, would you like to watch some TV with me? I'll get us some snacks, we can spend the whole night together."
                 mc.name "Sounds good [the_mom.title]."
                 $ the_mom.change_love(1 + mc.charisma)
+                $ the_mom.apply_outfit()
+                $ the_mom.draw_person(position = "sitting")
                 "You spend the rest of the evening with [the_mom.possessive_title], sitting on the couch, watching TV, and chatting."
                 return True
 
@@ -1607,11 +1615,14 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     "She gives you a happy smile."
                     $ the_mom.change_slut_temp(2)
                     $ the_mom.change_love(2)
+                    $ the_mom.draw_person()
                     the_mom "Now go on, you've got a date to keep. Have fun out there, okay?"
                     mc.name "Thanks [the_mom.title], I will."
                     "You stuff your cock back in your pants and get ready to leave."
                     the_mom "Wait, one last thing..."
+                    $ the_mom.draw_person(position = "kissing", special_modifier = "kissing")
                     "She hurries over to you and kisses you, deeply and passionately."
+                    $ the_mom.draw_person()
                     the_mom "Mmm... Remember, Mommy loves you and will always be here for you."
                     mc.name "I love you too [the_mom.title]. See you later."
 
@@ -1619,6 +1630,7 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     the_mom "I'm sorry [the_mom.mc_title], I just don't have the energy to finish you off. I need more practice I guess."
                     "She seems rather disappointed in herself."
                     $ the_mom.change_slut_temp(1)
+                    $ the_mom.draw_person()
                     mc.name "We can work on that. Thanks for trying [the_mom.title], it was still nice."
                     "[the_mom.possessive_title] gives you a weak smile."
                     the_mom "Go on, you've got a date to keep. Have fun out there."

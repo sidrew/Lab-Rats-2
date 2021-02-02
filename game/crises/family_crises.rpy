@@ -889,13 +889,16 @@ label mom_morning_surprise_label():
                 if the_report.get("girl orgasms", 0) > 0:
                     $ the_person.change_love(5)
                     the_person.char "That was amazing [the_person.mc_title], you know how to make me feel like women again!"
+                    $ the_person.draw_person(position = "missionary")
                     "She rolls over and kisses you, then rests her head on your chest."
                     "After a minute she sighs and starts to get up."
+                    $ the_person.draw_person()
                     the_person.char "I shouldn't be keeping you from your work, I don't want to make you any more late!"
                     "She reaches down to help you up. She smiles at you longingly, eyes lingering on your crotch, and leaves you alone in your room."
                 else:
                     the_person.char "I'm glad I could help [the_person.mc_title]. Now you should hurry up before you're late!"
                     "[the_person.possessive_title] kisses you on the forehead and stands up to leave."
+                    $ the_person.draw_person(position = "walking_away")
                     "You get yourself put together and rush to make up for lost time."
                 $ the_person.review_outfit()
 
@@ -906,6 +909,7 @@ label mom_morning_surprise_label():
                 "She frowns but nods. She swings her leg back over you and stands up."
                 $ the_person.draw_person()
                 the_person.char "Of course [the_person.mc_title], if you need me for anything just let me know. I hope you aren't running too late!"
+                $ the_person.draw_person(position = "walking_away")
                 if removed_something:
                     "[the_person.title] collects some of her discarded clothes from your floor and heads for the door."
                 else:

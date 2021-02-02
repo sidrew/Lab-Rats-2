@@ -1074,6 +1074,7 @@ label aunt_share_drinks_label(the_person):
                         "Fool around":
                             call fuck_person(the_person) from _call_fuck_person_22
                             $ the_report = _return
+                            $ the_person.draw_person(position = "missionary")
                             "[the_person.possessive_title] lies down on the couch when you're finished."
                             if the_report.get("girl orgasms",0) > 0 and the_report.get("guy orgasms", 0) > 0:
                                 the_person "That was great [the_person.mc_title], I feel like I'm floating."

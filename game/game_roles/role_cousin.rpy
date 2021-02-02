@@ -578,6 +578,7 @@ label cousin_blackmail_list(the_person):
 
                 call fuck_person(the_person) from _call_fuck_person_25
                 $ the_report = _return
+                $ the_person.draw_person()
                 if the_report.get("girl orgasms", 0) > 0:
                     "[the_person.possessive_title] closes her eyes and tries to catch her breath."
                     the_person.char "Fuck... God fucking damn it..."

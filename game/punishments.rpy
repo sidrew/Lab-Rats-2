@@ -908,6 +908,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
                             the_person.char "It was everything I needed it to be. Ah..."
                             $ the_person.change_slut_temp(2)
                             $ the_person.change_obedience(1)
+                            $ the_person.draw_person()
                             mc.name "Good, now get back to work."
                             the_person.char "Yes [the_person.mc_title], right away."
                         else:
@@ -918,6 +919,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
                             mc.name "Do you understand?"
                             $ the_person.change_happiness(-5)
                             $ the_person.change_obedience(4)
+                            $ the_person.draw_person()
                             the_person.char "I understand [the_person.mc_title]..."
                             mc.name "Good, now get back to work."
 
@@ -928,6 +930,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
                         the_person.char "I... Oh fuck, fine. I understand."
                         $ the_person.change_happiness(-5)
                         $ the_person.change_obedience(4)
+                        $ the_person.draw_person()
                         mc.name "Good, now get back to work."
                         the_person.char "Yes [the_person.mc_title]."
 
@@ -946,6 +949,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
             the_person.char "I understand... God this is going to be hard!"
             $ the_person.change_happiness(-5)
             $ the_person.change_obedience(3)
+            $ the_person.draw_person()
             mc.name "Get back to work, It'll take your mind off of it."
             the_person.char "Yes [the_person.mc_title]."
 
@@ -956,6 +960,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
             the_person.char "Right, I understand [the_person.mc_title]."
             $ the_person.change_happiness(-5)
             $ the_person.change_obedience(2)
+            $ the_person.draw_person()
             mc.name "Good, now get back to work."
             the_person.char "Yes [the_person.mc_title]."
 
@@ -964,6 +969,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
             mc.name "We are, and if I catch you trying to pleasure yourself, or having someone else do it for you, there will be further punishments."
             the_person.char "I understand, but I think I'll be able to manage."
             $ the_person.change_obedience(1)
+            $ the_person.draw_person()
             mc.name "Get back to work, you've wasted enough time already."
             the_person.char "Yes [the_person.mc_title]."
 
@@ -973,6 +979,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
         the_person.char "Do you want to punish me some more?"
         $ the_person.change_slut_temp(3)
         $ the_person.change_obedience(-3)
+        $ the_person.draw_person()
         "You sigh and give up."
         mc.name "Get back to work, or I'll come up with something more unpleasant."
         the_person.char "Yes [the_person.mc_title]."

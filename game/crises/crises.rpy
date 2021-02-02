@@ -1396,8 +1396,11 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
                 the_person.char "Ah... Ah..."
                 mc.name "Well [the_person.title], are you still thinking of leaving?"
                 "[the_person.title] pants slowly and shakes her head."
+                $ the_person.draw_person()
                 the_person.char "I don't think I will be, sir. Sorry to have wasted your time."
                 mc.name "It was my pleasure."
+                $ the_person.apply_outfit()
+                $ the_person.draw_person(position = "walking_away")
                 "[the_person.possessive_title] takes a moment to put herself back together, then steps out of your office."
 
             else: #If you fail to make them cum first they quit and leave.

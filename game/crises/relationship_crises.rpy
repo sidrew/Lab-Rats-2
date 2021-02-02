@@ -745,14 +745,17 @@ label friends_help_friends_be_sluts_label():
                             if the_report.get("guy orgasms", 0) > 0:
                                 "You sit down in your office chair, thoroughly drained. [person_two.title] smiles, seemingly proud of her work."
                                 mc.name "So, was that everything you wanted it to be?"
+                                $ person_two.draw_person()
                                 person_two.char "It was fun, I can't wait to tell [person_one.title] all about it."
 
                             else:
                                 "You sit down in your office chair and sigh."
                                 person_two.char "I'm sorry, I'm not doing a good job, am I?"
+                                $ person_two.draw_person()
                                 mc.name "You were doing fine, I'm just not in the mood. You should get back to work."
                                 $ person_two.change_happiness(-5)
                             $ person_two.review_outfit(dialogue = False)
+                            $ person_two.draw_person(position = "walking_away")
                             "[person_two.possessive_title] takes a moment to get herself tidied up, then steps out of your office."
 
                         "Decline her offer":
@@ -771,12 +774,14 @@ label friends_help_friends_be_sluts_label():
                             $ person_one.add_infraction(Infraction.inappropriate_behaviour_factory())
                             $ person_two.add_infraction(Infraction.inappropriate_behaviour_factory())
                             person_two "I... Of course, I'm sorry I even brought it up [person_two.mc_title]!"
+                            $ person_two.draw_person(position = "walking_away")
                             "She hurries out of your office. [person_one.title] sighs and rolls her eyes."
                             $ clear_scene()
                             $ person_one.draw_person()
                             person_one "Really? I bring you a cute girl to suck your dick and you decide you need to punish both of us? What more do you want?"
                             mc.name "I'm sorry, but rules are rules. You didn't leave me much of a choice."
                             person_one "Whatever, I need to go make sure [person_one.title] is fine."
+                            $ person_one.draw_person(position = "walking_away")
                             "She turns and leaves your office, following after her friend."
 
             "Ignore them":

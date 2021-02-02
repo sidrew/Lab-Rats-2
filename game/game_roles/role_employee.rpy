@@ -292,6 +292,7 @@ label employee_performance_review(the_person):
                     $ the_report = _return
                     $ the_person.clear_situational_slut("seduction_approach")
                     $ the_person.clear_situational_obedience("seduction_approach")
+                    $ the_person.draw_person()
                     if the_report.get("girl orgasms", 0) > 1: #We made her cum! Congratulations!
                         $ the_person.change_happiness(20)
                         $ the_person.change_slut_temp(5)
@@ -483,6 +484,7 @@ label employee_performance_review(the_person):
                                     "[the_person.title] starts to stroke it, rhythmically running her hand up and down your length."
                                     call fuck_person(the_person, private = True, start_position = handjob, start_object = make_floor(), girl_in_charge = True, skip_intro = True, position_locked = True) from _call_fuck_person_12
                                     $ the_report = _return
+                                    $ the_person.draw_person(position = "sitting")
                                     "[the_person.possessive_title] sits back and rubs her arm."
                                     if the_report.get("guy orgasms", 0) > 0:
                                         the_person "Whew, that's an arm workout!"

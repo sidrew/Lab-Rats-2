@@ -565,8 +565,10 @@ label prostitute_label(the_person):
         "It takes [the_person.title] a few moments to catch her breath."
         the_person.char "Maybe I should be paying you... Whew!"
     $ the_person.review_outfit()
+    $ the_person.draw_person()
 
     the_person.char "That was fun, I hope you had a good time [the_person.mc_title]."
-    "She gives you a quick peck on the cheek."
+    $ the_person.draw_person(position = "walking_away")
+    "She gives you a quick peck on the cheek, turns around, and walks away."
     $ clear_scene()
     return

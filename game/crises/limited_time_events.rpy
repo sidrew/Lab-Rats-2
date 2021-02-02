@@ -472,6 +472,7 @@ label breeding_mom_label(the_person):
                 mc.name "Do you think that did it?"
                 the_person.char "I don't know. It's the right time of the month."
                 "You lie together in silence. [the_person.possessive_title] rocks herself side to side. You imagine your cum sloshing around her womb."
+                $ the_person.draw_person(position = "sitting")
                 "Eventually she puts her legs down and the two of you sit up in bed."
                 #TODO: Add an action where you can try and breed her some more.
 
@@ -483,6 +484,7 @@ label breeding_mom_label(the_person):
                 "You wrap your arms around her and hold her close."
                 mc.name "Shh... You were fantastic. It's me, I'm just not feeling it today. Maybe we can try some other day."
                 the_person.char "I don't know, this might have all been a mistake. Let's just... be quiet for a while, okay?"
+                $ the_person.draw_person(position = "sitting")
                 "You hold [the_person.possessive_title] until she's feeling better, then sit up in bed with her."
 
         "Say no":
@@ -495,6 +497,7 @@ label breeding_mom_label(the_person):
             $ the_person.change_love(-2)
             the_person.char "Of course... I was just being silly. I should know better."
 
+    $ clear_scene()
     return
 
 label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom or Lily, but we could add more generic paths and have it useable for everyone.
