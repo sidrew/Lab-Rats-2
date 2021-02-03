@@ -1124,7 +1124,7 @@ label punishment_unpaid_intern(the_person, the_infraction):
     return
 
 label employee_unpaid_remove_label(the_person):
-    $ the_person.change_salary(the_person.calculate_salary_cost() * .9)
+    $ the_person.change_salary(the_person.calculate_base_salary() * .9)
     return
 
 label punishment_office_freeuse_slut(the_person, the_infraction):
