@@ -498,6 +498,7 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
         $ mc.change_location(her_hallway)
         $ mc.location.show_background()
         the_person "Fuck, I can't wait any longer [the_person.mc_title]! I've been thinking about this all night long!"
+        $ the_person.draw_person(position = "kissing")
         "She puts her arms around you and kisses your neck, grinding her body against you."
         mc.name "Don't you want to go to your bedroom first?"
         the_person "I can't wait! I want you right here, right now!"
@@ -510,6 +511,7 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
                 "When you and [the_person.title] are finished you get dressed and say goodnight."
 
             "Turn her down":
+                $ the_person.draw_person()
                 "You push her back firmly. She seems confused and tries to kiss you again, but you don't let her."
                 mc.name "Slow down, this is going way too fast for me. You need to get yourself under control."
                 the_person "What? But don't you want this too? Don't you want me?"
