@@ -161,6 +161,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
     $ done = False
     $ girl_came = False
     $ so_called = False
+    $ count = 0
     $ energy_gain_amount = mc.max_energy // 3 #Drops each round, representing your flagging endurance.
     while not done:
         if the_report.get("girl orgasms", 0) > 0: #TODO: Have some variation to this based on how many times we've looped around.
@@ -205,7 +206,8 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                 "Fuck her again":
                     "Soon you're ready to go again and you wrap your arms around [the_person.title]."
                     mc.name "Come here you little slut."
-                    $ ran_num = renpy.random.randint(0, 100)
+                    $ ran_num = renpy.random.randint(0, 100 - (count * 10))
+                    $ count += 1
                     if ran_num < 15 and not so_called:
                         #Her SO Comes home (unless he's called, in which case we know where he is.)
                         "She smiles and wraps her arms around you in return, pressing her body against yours."
