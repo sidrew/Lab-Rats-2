@@ -562,7 +562,7 @@ init 1300 python:
 
     def draconian_enforcement_on_day():
         for employee in mc.business.get_employee_list():
-            employee.change_happiness(-5)
+            employee.change_happiness(-5, add_to_log = False)
 
     draconian_enforcement = Policy(name = "Draconian Enforcement",
         desc = "Each policy infraction is to be punished to the utmost tolerable. All infraction severities are increased by one, but the restrictive office environment affects company morale, lowering all empolyee happiness by -5 per day.",
