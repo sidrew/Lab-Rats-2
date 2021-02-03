@@ -10508,18 +10508,20 @@ init -2 screen policy_selection_screen_v2():
                                     style "textbutton_style"
                                     text_style "textbutton_text_style"
                                     text_size 16
+                                    insensitive_background "#222222"
                                     if policy.is_owned():
-                                        background "#59853f"
-                                        hover_background "#a9d59f"
-                                        #insensitive_background "#305012"
-                                        insensitive_background "#222222"
+                                        if policy.is_active():
+                                            background "#59853f"
+                                            hover_background "#a9d59f"
+                                        else:
+                                            background "#85593f"
+                                            hover_background "#d5a99f"
                                     else:
                                         if policy.requirement() and (policy.cost <= mc.business.funds):
                                             background "#000080"
                                         else:
                                             background "#000040"
                                         hover_background "#1a45a1"
-                                        insensitive_background "#222222"
                                     sensitive selected_policy != policy
 
                 frame: #Container for the seleected policy info.
