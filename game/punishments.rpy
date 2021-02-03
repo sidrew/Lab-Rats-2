@@ -1069,6 +1069,16 @@ init -1 python:
         mc.business.mandatory_crises_list.append(clear_action)
         return
 
+    def employee_unpaid_intern_remove_requirement(person, trigger_day):
+        if day >= trigger_day:
+            return True
+        return False
+
+    def add_unpaid_intern_clear_punishment_action(person):
+        clear_action = Action("Clear employee freeuse", employee_freeuse_remove_requirement, "employee_unpaid_remove_label", args = person, requirement_args = [person, day + 7])
+        mc.business.mandatory_crises_list.append(clear_action)
+        return
+
     punishment_unpaid_intern_action = Action("Unpaid Internship", punishment_unpaid_intern_requirement, "punishment_unpaid_intern")
     punishment_orgasm_denial_action = Action("Freeuse Office Slut", punishment_freeuse_slut_requirement, "punishment_office_freeuse_slut")
 
@@ -1079,7 +1089,7 @@ init -1 python:
 label punishment_unpaid_intern(the_person, the_infraction):
     mc.name "Because of your actions, I have no choice but to slash your salary."
     the_person.char "Slash how badly?"
-    mc.name "Completely. Right down to zero. From now on you will be working as an unpaid intern."
+    mc.name "Completely. Right down to zero. The next week you will be working as an unpaid intern."
     $ the_person.draw_person(emotion = "sad")
     if the_person.obedience < 150:
         $ the_person.change_happiness(-20)
@@ -1109,7 +1119,12 @@ label punishment_unpaid_intern(the_person, the_infraction):
 
     "You leave [the_person.title] to consider her new position in the company."
     $ the_person.change_salary(-the_person.salary) #You get nothing! Good day sir!
+    $ add_unpaid_intern_clear_punishment_action(the_person)
     $ clear_scene()
+    return
+
+label employee_unpaid_remove_label(the_person):
+    $ the_person.change_salary(the_person.calculate_salary_cost() * .9)
     return
 
 label punishment_office_freeuse_slut(the_person, the_infraction):
