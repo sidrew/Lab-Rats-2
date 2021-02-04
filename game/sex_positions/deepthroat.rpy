@@ -386,22 +386,22 @@ label outro_deepthroat(the_girl, the_location, the_object):
         "Cum on her face":
             mc.name "Fuck, here I come!"
             $ deepthroat.current_modifier = None
-            $ deepthroat.redraw_scene(the_girl)
             "You take a step back, pulling your cock out of [the_girl.possessive_title]'s throat with a satisfyingly wet pop, and take aim at her face."
+            $ the_girl.draw_person(position = "kneeling1")
             if the_girl.sluttiness > 80:
                 "[the_girl.title] sticks out her tongue for you and holds still, eager to take your hot load."
                 $ the_girl.cum_on_face()
-                $ deepthroat.redraw_scene(the_girl)
+                $ the_girl.draw_person(position = "kneeling1")
                 "You let out a shudder moaning as you cum, pumping your sperm onto [the_girl.title]'s face and into her open mouth. She makes sure to wait until you're completely finished."
             elif the_girl.sluttiness > 60:
                 "[the_girl.title] closes her eyes and waits patiently for you to cum."
                 $ the_girl.cum_on_face()
-                $ deepthroat.redraw_scene(the_girl)
+                $ the_girl.draw_person(position = "kneeling1")
                 "You let out a shudder moaning as you cum, pumping your sperm onto [the_girl.title]'s face. She waits until she's sure you're finished, then opens one eye and looks up at you."
             else:
                 "[the_girl.title] closes her eyes and turns away, presenting her cheek to you as you finally climax."
                 $ the_girl.cum_on_face()
-                $ deepthroat.redraw_scene(the_girl)
+                $ the_girl.draw_person(position = "kneeling1")
                 "You let out a shudder moaning as you cum, pumping your sperm onto [the_girl.title]'s face. She flinches as the first splash of warm liquid lands on her cheek, but doesn't pull away entirely."
             "You take a deep breath to steady yourself once you've finished cumming. [the_girl.possessive_title] looks up at you from her knees, face covered in your semen."
             $ the_girl.call_dialogue("cum_face")

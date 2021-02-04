@@ -105,10 +105,10 @@ label outro_skull_fuck(the_girl, the_location, the_object):
             mc.name "Fuck, here I cum!"
             "With both hands firmly on [the_girl.possessive_title]'s head you wait until the last possible moment to stop skull fucking her and pull out."
             $ skull_fuck.current_modifier = None
-            $ skull_fuck.redraw_scene(the_girl)
+            $ the_girl.draw_person(position = "kneeling1")
             "You step back, dragging your hard cock from her lips just as it starts to spasm out your hot load."
             $ the_girl.cum_on_face()
-            $ skull_fuck.redraw_scene(the_girl)
+            $ the_girl.draw_person(position = "kneeling1")
             "She opens her mouth to gasp for air and gets a mouthful of cum along with it."
             "You take one hand off [the_girl.title]'s head and grab your cock, guiding it as you pulse your semen all over her face."
             if the_girl.get_opinion_score("drinking cum") > 0:
