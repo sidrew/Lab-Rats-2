@@ -2,8 +2,8 @@ init:
     python:
         skull_fuck = Position(name = "Skull Fuck", slut_requirement = 65, slut_cap = 100, requires_hard = True, requires_large_tits = False,
             position_tag = "blowjob", requires_location = "Kneel", requires_clothing = "None", skill_tag = "Oral",
-            girl_arousal = 5, girl_energy = 15, #TODO: Balance energy costs
-            guy_arousal = 25, guy_energy = 8,
+            girl_arousal = 5, girl_energy = 10,
+            guy_arousal = 25, guy_energy = 12,
             connections = [],
             intro = "intro_skull_fuck",
             scenes = ["scene_skull_fuck_1","scene_skull_fuck_2","scene_skull_fuck_3"],
@@ -13,7 +13,7 @@ init:
             orgasm_description = "orgasm_skull_fuck",
             taboo_break_description = "taboo_break_skull_fuck",
             verb = "throat fuck",
-            opinion_tags = ["giving blowjobs","being submissive"], record_class = "Blowjobs",
+            opinion_tags = ["giving blowjobs", "being submissive"], record_class = "Blowjobs",
             default_animation = idle_wiggle_animation, modifier_animations = {"blowjob":blowjob_bob},
             associated_taboo = "sucking_cock")
 

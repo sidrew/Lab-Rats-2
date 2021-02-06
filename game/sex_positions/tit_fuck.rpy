@@ -2,8 +2,8 @@ init:
     python:
         tit_fuck = Position(name = "Tit Fuck", slut_requirement = 30, slut_cap = 55, requires_hard = True, requires_large_tits = True,
             position_tag = "blowjob", requires_location = "Kneel", requires_clothing = "Tits", skill_tag = "Foreplay",
-            girl_arousal = 5, girl_energy = 14,
-            guy_arousal = 15, guy_energy = 3,
+            girl_arousal = 5, girl_energy = 20,
+            guy_arousal = 15, guy_energy = 5,
             connections = [],
             intro = "intro_tit_fuck",
             scenes = ["scene_tit_fuck_1","scene_tit_fuck_2", "scene_tit_fuck_3"],

@@ -2,8 +2,8 @@ init:
     python:
         doggy_anal = Position(name = "Anal Doggy", slut_requirement = 70, slut_cap = 90, requires_hard = True, requires_large_tits = False,
             position_tag = "doggy", requires_location = "Lay", requires_clothing = "Vagina", skill_tag = "Anal",
-            girl_arousal = 11, girl_energy = 6,
-            guy_arousal = 14, guy_energy = 6,
+            girl_arousal = 16, girl_energy = 14,
+            guy_arousal = 22, guy_energy = 20,
             connections = [],
             intro = "intro_doggy_anal",
             scenes = ["scene_doggy_anal_1","scene_doggy_anal_2"],

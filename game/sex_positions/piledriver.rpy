@@ -2,8 +2,8 @@
     python:
         piledriver = Position(name = "Piledriver", slut_requirement = 70, slut_cap = 90, requires_hard = True, requires_large_tits = False,
             position_tag = "missionary", requires_location = "Lay", requires_clothing = "Vagina", skill_tag = "Vaginal",
-            girl_arousal = 18, girl_energy = 8,
-            guy_arousal = 26, guy_energy = 14,
+            girl_arousal = 14, girl_energy = 12,
+            guy_arousal = 26, guy_energy = 20,
             connections = [],
             intro = "intro_piledriver",
             scenes = ["scene_piledriver_1","scene_piledriver_2"],

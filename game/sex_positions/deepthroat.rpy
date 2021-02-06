@@ -2,8 +2,8 @@
     python:
         deepthroat = Position(name = "Deepthroat", slut_requirement = 55, slut_cap = 80, requires_hard = True, requires_large_tits = False,
             position_tag = "blowjob", requires_location = "Kneel", requires_clothing = "None", skill_tag = "Oral",
-            girl_arousal = 3, girl_energy = 13,
-            guy_arousal = 23, guy_energy = 3,
+            girl_arousal = 3, girl_energy = 20,
+            guy_arousal = 23, guy_energy = 5,
             connections = [],
             intro = "intro_deepthroat",
             scenes = ["scene_deepthroat_1","scene_deepthroat_2","scene_deepthroat_3"],
@@ -13,7 +13,7 @@
             orgasm_description = "orgasm_deepthroat",
             taboo_break_description = "taboo_break_deepthroat",
             verb = "throat fuck",
-            opinion_tags = ["giving blowjobs","being submissive"], record_class = "Blowjobs",
+            opinion_tags = ["giving blowjobs", "being submissive"], record_class = "Blowjobs",
             default_animation = idle_wiggle_animation, modifier_animations = {"blowjob":blowjob_bob},
             associated_taboo = "sucking_cock")
 
