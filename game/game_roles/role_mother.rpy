@@ -13,7 +13,7 @@
     def mom_work_promotion_one_requirement(the_person):
         if the_person.love < 15:
             return False
-        elif the_person.sluttiness < 15:
+        elif the_person.sluttiness < 30:
             return False
         elif the_person.obedience < 100:
             return False
