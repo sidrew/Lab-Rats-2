@@ -2280,7 +2280,7 @@ label mom_promotion_boss_phase_one(the_secretary):
     $ clear_scene()
     "She motions to a wing of seats in an alcove to your side. You walk over and sit down across from a young woman."
 
-    $ the_wife = create_random_person(last_name = mom_boss_last_name, age = 42)
+    $ the_wife = create_random_person(last_name = mom.event_triggers_dict.get("mom_boss_last_name", "Games"), age = 42)
     $ the_wife.generate_home()
     $ the_wife.home.add_person(the_wife)
 
