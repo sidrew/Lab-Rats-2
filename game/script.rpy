@@ -6352,13 +6352,13 @@ init -5 python:
             return return_list
 
         def is_item_unanchored(self, the_clothing, half_off_instead = False): #Returns true if the clothing item passed is unanchored, ie. could be logically taken off.
-            if the_clothing in self.upper_body:
+            if the_clothing in self.upper_body and not the_clothing.is_extension:
                 if the_clothing in self.get_upper_unanchored(half_off_instead):
                     return True
                 else:
                     return False
 
-            elif the_clothing in self.lower_body:
+            elif the_clothing in self.lower_body and the_clothing.is_extension:
                 if the_clothing in self.get_lower_unanchored(half_off_instead):
                     return True
                 else:
