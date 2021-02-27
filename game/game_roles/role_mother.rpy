@@ -1796,7 +1796,7 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                 mc.name "I need to get going."
                 if the_mom.love > 80:
                     "You hurry to the door, but [the_mom.possessive_title] grabs your arm."
-                    the_mom "Wait! How about about just a quickie? You can tell her you're running late."
+                    the_mom "Wait! How about just a quickie? You can tell her you're running late."
                     the_mom "I want to take all of your cum, so she doesn't get any. Can you give me that, at least?"
                     menu:
                         "Fuck [the_mom.title] before your date":
