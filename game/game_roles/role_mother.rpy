@@ -2316,7 +2316,7 @@ label mom_promotion_boss_phase_one(the_secretary):
     mom_boss_quick_name "Come on in. I don't have much time, so let's make this quick, okay?"
     "You move inside the office and nudge the door closed. [mom_boss_quick_name] is older than you expected, slightly overweight with a two hundred dollar buzz cut."
     mc.name "That suits me just fine. I need to talk to you about one of your employees."
-    mc.name "Miss.[mc.last_name] works for you as your technical assistant. I think you've given her that position because you expect something from her."
+    mc.name "Mrs. [mc.last_name] works for you as your technical assistant. I think you've given her that position because you expect something from her."
     "[mom_boss_quick_name] cocks an eyebrow, taking you seriously for the first time."
     mom_boss_quick_name "Are you her lawyer, or something? You look a little young for this kid. What was your name again?"
     mc.name "[mc.name] [mc.last_name]. Ring any bells?"
