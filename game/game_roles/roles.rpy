@@ -167,6 +167,7 @@ init -1 python:
         mom_work_bigger_tits_reintro = Action("Talk to her about getting bigger tits.", mom_work_secretary_replacement_bigger_tits_reintro_requirement, "mom_work_secretary_replacement_bigger_tits_reintro",
             menu_tooltip = "Talk to her about improving her natural assets, either with implants or by using some of your serum.", priority = 10)
 
+        mother_role = Role("Mother", [mother_offer_make_dinner, mom_work_promotion_two_prep_action, mom_work_bigger_tits_reintro])
         return [mother_offer_make_dinner, mom_work_promotion_two_prep_action, mom_work_bigger_tits_reintro]
 
 
@@ -264,6 +265,17 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
 
         #COUSIN After start actions# - Actions that are meant to be added to her action list after the game has begun.
         #cousin_role.actions.append(cousin_talk_boobjob_again_action)
+
+        ################
+        #INTERNET ROLES#
+        ################
+        #These roles are given to any girl who has an account on the particular site, even if you don't know about it.
+
+        instapic_role = Role("On InstaPic", [], hidden = True, on_turn = insta_on_turn, on_day = insta_on_day)
+
+        dikdok_role = Role("On Dikdok", [], hidden = True, on_turn = dikdok_on_turn, on_day = dikdok_on_day)
+
+        onlyfans_role = Role("On OnlyFanatics", [], hidden = True, on_turn = onlyfans_on_turn, on_day = onlyfans_on_day)
 
         ####################
         #RELATIONSHIP ROLES#

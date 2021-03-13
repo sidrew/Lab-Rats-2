@@ -64,6 +64,7 @@ init -5 python:
                     reference_draw_number = draw_package[1]
 
                     the_render = prepared_animation_render[draw_layer].get(the_person.character_number, None) #TODO: Change how we are stashing things in prepared_animation_render
+                    del prepared_animation_render[draw_layer][the_person.character_number] #Clear the render, we don't need to track it any more. Without this image renders build up over the course of the day, consuming massive amounts of memory.
 
                     if reference_draw_number == the_person.draw_number[draw_layer]+global_draw_number[draw_layer] and the_render is not None: #Only make draws taht are current. If eitehr the personal or global draw number has increased we do not need to draw this.
                         if isinstance(the_render, list): #It's a removal draw (Which makes prepared_animation_render a list of renders, the first (old) one should be drawn on top and faded out.
@@ -115,12 +116,12 @@ init -5 python:
     def text_message_history_callback(history_entry): #Manages taking the history entry and slotting it into the appropriate list
         if hasattr(store,"mc"): #Make sure the main character has been instantiated
             if mc.having_text_conversation: #This is set to a Person when talking via text, to allow us to log the interaction correctly.
-                if history_entry != "": #Record the entry, we'll figure out in the history display section if it's messages from us or a Person.
+                if history_entry.who is not None and not mc.text_conversation_paused: #Record the dialogue, we'll figure out in the history display section if it's messages from us or a Person.
                     mc.phone.add_message(mc.having_text_conversation, history_entry)
                 else:
                     pass #Nothing to do. We don't record narration.
 
-    def text_message_say_callback(who, *args, **kwargs): #Manually sets the style of anything sent as part of a text conversation
+    def text_message_say_callback(who, *args, **kwargs): #Manually sets the style of anything sent as part of a text conversation #NOTE: No longer used or hooked up once the proper phone UI was added
         if hasattr(store,"mc"):
             if mc.having_text_conversation:
                 kwargs["what_color"] = "#19e9f7" #We need to define these explicitly so they are not overridden by the characters defaults.
@@ -128,7 +129,7 @@ init -5 python:
         return args, kwargs
 
     config.history_callbacks.append(text_message_history_callback) #Ensures conversations had via text are recorded properly
-    config.say_arguments_callback = text_message_say_callback #Recolours and re-fonts say statements made while having a text conversation
+    # config.say_arguments_callback = text_message_say_callback #Recolours and re-fonts say statements made while having a text conversation #NOTE: NOt needed now that we properly store messages into the phone and display them from a custom screen.
 
     config.predict_screen_statements = True
     config.predict_statements = 50
@@ -1946,6 +1947,8 @@ init -5 python:
             self.known_home_locations = MappedList(Room, all_locations_in_the_game) #When the MC learns a character's home location the room reference should be added here. They can then get to it from the map.
 
             self.having_text_conversation = None #Set to a Person when dialogue should be taking place on the phone. Logs dialogue (but not narration) as appropriate.
+            self.text_conversation_paused = False #Shows the say window as normal for all dialogue with the phone display underneath if having_text_conversation is set to a Person
+
             self.phone = Text_Message_Manager()
 
             self.listener_system = Listener_Management_System() #A listener manager to let us enroll to events and update goals when they are triggered.
@@ -2153,6 +2156,33 @@ init -5 python:
             while len(self.log_items) > self.log_max_size:
                 self.log_items.pop() #Pop off extra items until we are down to size.
 
+        def start_text_convo(self, the_person): #Triggers all the appropriate variables so say entries will go into the phone text log.
+            self.having_text_conversation = the_person
+            self.text_conversation_paused = False
+
+            # renpy.show_screen("text_message_log", the_person)
+            return
+
+        def end_text_convo(self): #Resets all triggers from texting someone, so say messages are displayed properly again, ect.
+            self.having_text_conversation = None
+            self.text_conversation_paused = False
+
+            # renpy.hide_screen("text_message_log")
+            return
+
+        def pause_text_convo(self): #Keeps the phone UI and display up, but your dialogue and dialogue from any girl other than the one you're texting will display as normal and not be logged.
+            self.text_conversation_paused = True #TODO: We no longer need to give characters a specific phone font, because it all goes right into the phone log itself. Otherwise this breaks the MC dialogue.
+            return
+
+        def resume_text_convo(self): #Start hiding the phone UI again. Use after you have paused a text convo
+            self.text_conversation_paused = False
+            return
+
+        def log_text_message(self, the_person, the_message):
+            #TODO: Allow you to insert arbitrary messages by building history entries here! Use this for a narrator sytle "[Sent a picture]"!
+            return
+
+
     class DaySchedule():
         def __init__(self, home_location = None):
             self.schedule = [None] * 5
@@ -2212,7 +2242,8 @@ init -5 python:
             face_style = "Face_1",
             special_role = None,
             title = None, possessive_title = None, mc_title = None,
-            relationship = None, SO_name = None, kids = None, base_outfit = None):
+            relationship = None, SO_name = None, kids = None, base_outfit = None,
+            generate_insta = False, generate_dikdok = False, generate_onlyfans = False):
 
             ## Personality stuff, name, ect. Non-physical stuff.
             self.name = name
@@ -2453,8 +2484,17 @@ init -5 python:
             self.apply_outfit(self.planned_outfit)
 
 
+            ## Internet things ##
+            if generate_insta: #NOTE: By default all of these are not visible to the player.
+                self.special_role.append(instapic_role)
+            if generate_dikdok:
+                self.special_role.append(dikdok_role)
+            if generate_onlyfans:
+                self.special_role.append(onlyfans_role)
+
             ## Conversation things##
             self.sexed_count = 0
+
 
         def generate_home(self, set_home_time = True): #Creates a home location for this person and adds it to the master list of locations so their turns are processed.
             # generate new home location if we don't have one
@@ -2766,6 +2806,8 @@ init -5 python:
                 background_fill = "#0026a5"
 
             the_displayable = self.build_person_displayable(position, emotion, special_modifier, lighting, background_fill, no_frame = True)
+            if the_displayable is None:
+                renpy.notify("NONE IMAGE ERROR!")
 
             x_size, y_size = position_size_dict.get(position)
 
@@ -3507,14 +3549,14 @@ init -5 python:
                 self.apply_outfit()#Reset uniform
                 if dialogue:
                     self.call_dialogue("clothing_review")
-                if draw_person():
+                if draw_person:
                     self.draw_person()
 
             elif not self.judge_outfit(self.outfit):
                 self.apply_outfit()
                 if dialogue:
                     self.call_dialogue("clothing_review")
-                if draw_person():
+                if draw_person:
                     self.draw_person()
 
         def judge_outfit(self,outfit, temp_sluttiness_boost = 0, use_taboos = True, as_underwear = False, as_overwear = False): #Judge an outfit and determine if it's too slutty or not. Can be used to judge other people's outfits to determine if she thinks they look like a slut.
@@ -4093,7 +4135,7 @@ init -5 python:
             "clothing_accept", "clothing_reject", "clothing_review",
             "strip_reject", "strip_obedience_accept", "grope_body_reject", "sex_accept", "sex_obedience_accept", "sex_gentle_reject", "sex_angry_reject",
             "seduction_response", "seduction_accept_crowded", "seduction_accept_alone", "seduction_refuse",
-            "flirt_response", "flirt_response_low", "flirt_response_mid", "flirt_response_high", "flirt_response_girlfriend", "flirt_response_affair",
+            "flirt_response", "flirt_response_low", "flirt_response_mid", "flirt_response_high", "flirt_response_girlfriend", "flirt_response_affair", "flirt_response_text",
             "cum_face", "cum_mouth", "cum_pullout", "cum_condom", "cum_vagina", "cum_anal", "suprised_exclaim", "talk_busy",
             "improved_serum_unlock", "sex_strip", "sex_watch", "being_watched", "work_enter_greeting", "date_seduction", "sex_end_early", "sex_take_control", "sex_beg_finish", "sex_review" ,"introduction",
             "kissing_taboo_break", "touching_body_taboo_break", "touching_penis_taboo_break", "touching_vagina_taboo_break", "sucking_cock_taboo_break", "licking_pussy_taboo_break", "vaginal_sex_taboo_break", "anal_sex_taboo_break",
@@ -4102,7 +4144,8 @@ init -5 python:
 
         def __init__(self, personality_type_prefix, default_prefix = None,
             common_likes = None, common_dislikes = None, common_sexy_likes = None, common_sexy_dislikes = None,
-            titles_function = None, possessive_titles_function = None, player_titles_function = None):
+            titles_function = None, possessive_titles_function = None, player_titles_function = None,
+            insta_chance = 0, dikdok_chance = 0):
 
             self.personality_type_prefix = personality_type_prefix
             if default_prefix is None:
@@ -4113,6 +4156,9 @@ init -5 python:
             self.titles_function = titles_function
             self.possessive_titles_function = possessive_titles_function
             self.player_titles_function = player_titles_function
+
+            self.insta_chance = insta_chance
+            self.dikdok_chance = dikdok_chance
 
             self.response_dict = {}
             for ending in self.response_label_ending:
@@ -4209,10 +4255,26 @@ init -5 python:
         hair_colour = None, hair_style = None, pubes_colour = None, pubes_style = None, skin = None, eyes = None, job = None,
         personality = None, custom_font = None, name_color = None, dial_color = None, starting_wardrobe = None, stat_array = None, skill_array = None, sex_array = None,
         start_sluttiness = None, start_obedience = None, start_happiness = None, start_love = None, start_home = None,
-        title = None, possessive_title = None, mc_title = None, relationship = None, kids = None, SO_name = None, base_outfit = None):
+        title = None, possessive_title = None, mc_title = None, relationship = None, kids = None, SO_name = None, base_outfit = None,
+        generate_insta = None, generate_dikdok = None, generate_onlyfans = None):
 
         if personality is None:
             personality = get_random_personality()
+
+        if generate_insta is None:
+            if renpy.random.randint(0,100) < personality.insta_chance:
+                generate_insta = True
+            else:
+                generate_insta = False
+
+        if generate_dikdok is None:
+            if renpy.random.randint(0,100) < personality.dikdok_chance:
+                generate_dikdok = True
+            else:
+                generate_dikdok = False
+
+        if generate_onlyfans is None:
+            generate_onlyfans = False
 
 
         if name is None:
@@ -4380,7 +4442,8 @@ init -5 python:
             font = my_custom_font, name_color = name_color , dialogue_color = dial_color,
             face_style = face_style,
             title = title, possessive_title = possessive_title, mc_title = mc_title,
-            relationship = relationship, kids = kids, SO_name = SO_name, base_outfit = base_outfit)
+            relationship = relationship, kids = kids, SO_name = SO_name, base_outfit = base_outfit,
+            generate_insta = generate_insta, generate_dikdok = generate_dikdok, generate_onlyfans = generate_onlyfans)
 
     class GroupDisplayManager(renpy.store.object):
         default_shift_amount = 0.15
@@ -4801,9 +4864,10 @@ init -5 python:
 
 
     # Aaaand immediately after creating this class I've decided it's not wanted. All I expect it to do for now is to act as a per-character message log.
-    class Text_Message_Manager(): #Manages text conversations you've had with other girls
+    class Text_Message_Manager(): #Manages text conversations you've had with other girls. Also stores information for other phone related stuff
         def __init__(self): #TODO: Add support for manufacturing a message history.
             self.message_history = {} # A dict that stores entries of Person:[HistoryEntry,HistoryEntry...] representing your recorded conversation with this girl.
+            self.current_message = None # Set to a tuple of [who, what] when someone texts you, allowing for it to be displayed immediately (instead of after the statement is passed into history). Should be
             #TODO: Then figure out how we are gong to store pictures, videos, allow custom avatar pics, ect. We could either store them as .pngs, or store all the required parameters (including outfit).
 
         def register_number(self, person): #Now just used to keep track of who's number we know
@@ -4813,19 +4877,39 @@ init -5 python:
         def add_message(self, person, history_entry):
             self.register_number(person)
             self.message_history[person.identifier].append(history_entry)
+            # auto delete old messages
+            while len(self.message_history[person.identifier]) > 15:
+                del self.message_history[person.identifier][0]
+
+        def add_non_convo_message(self, person, message): #Allows you to add an entry to the log without it having to appear as dialogue.
+            new_entry = renpy.character.HistoryEntry() #TODO: Check if this results in double entries (it might be grabbed by the history callback immediately)
+            new_entry.who = person.title
+            new_entry.what = message
+            self.add_message(person, new_entry)
+
+
+        def add_system_message(self, person, message): #Adds a history entry that does not have a "who" variable set. Use to add phone messages like "[SENT A PICTURE]".
+            new_entry = renpy.character.HistoryEntry()
+            new_entry.who = None
+            new_entry.what = message
+            self.add_message(person, new_entry)
 
         def get_person_list(self):
             return [x for x in all_people_in_the_game() if x.identifier in self.message_history]
 
         def has_number(self, person):
-            if person.identifier in self.message_history:
-                return True
-            else:
-                return False
+            return person.identifier in self.message_history
 
-    #     def add_new_message(self, person, the_action):
-    #         if person not in self.pending_messages:
-    #             self.register_number(person)
+        def get_message_list(self, person):
+            if self.has_number(person):
+                return self.message_history[person.identifier]
+            else:
+                return []
+
+
+    #     def add_new_message(self, the_person, the_action):
+    #         if the_person not in self.pending_messages:
+    #             self.register_number(the_person)
     #
     #         self.pending_messages[person].append(the_action)
     #
@@ -4929,6 +5013,9 @@ init -5 python:
         def has_person(self,the_person):
             return the_person in self.people
 
+        def get_person_list(self):
+            return self.people
+
         def get_person_count(self):
             return len(self.people)
 
@@ -4975,7 +5062,7 @@ init -5 python:
             self.effect = effect #effect is a string for a renpy label that is called when the action is taken.
             if not args:
                 self.args = [] #stores any arguments that we want passed to the action or requirement when the action is created. Should be a list of variables.
-            elif type(args) is not list:
+            elif not isinstance(args, list):
                 self.args = [args] #Make sure our list of arguments is a list.
             else:
                 self.args = args
@@ -5048,8 +5135,8 @@ init -5 python:
             elif not isinstance(extra_args, list):
                 extra_args = [extra_args]
 
-            renpy.call(self.effect,*(self.args+extra_args))
-            renpy.return_statement()
+            return_value = renpy.call(self.effect,*(self.args+extra_args))
+            renpy.return_statement(return_value) #NOTE: _return may _already_ hold the value of the most recent return, so this might be redundent, or even cause bugs. Need to test. TODO
 
     class Limited_Time_Action(Action): #A wrapper class that holds an action and the amount of time it will be valid. This acts like an action everywhere
         #except it also has a turns_valid value to decide when to get rid of this reference to the underlying action
@@ -5106,6 +5193,7 @@ init -5 python:
         def __init__(self, role_name, actions, hidden = False, on_turn = None, on_move = None, on_day = None):
             self.role_name = role_name
             self.actions = actions # A list of actions that can be taken. These actions are shown when you talk to a person with this role if their requirement is met.
+            # At some point we may want a seperate list of role actions that are available when you text someone.
             self.hidden = hidden #A hidden role is not shown on the "Roles" list
             self.on_turn = on_turn #A function that is run each turn on every person with this Role.
             self.on_move = on_move #A function that is run each move phase on every person with this Role.
@@ -5572,8 +5660,9 @@ init -5 python:
                     and self.layer == other.layer
                     and self.is_extension == other.is_extension
                     and self.colour == other.colour
-                    and self.pattern == other.pattern
-                    and self.colour_pattern == other.colour_pattern):
+                    and hasattr(self, "pattern") and hasattr(other, "pattern") and self.pattern == other.pattern
+                    and hasattr(self, "colour_pattern") and hasattr(other, "colour_pattern") and self.colour_pattern == other.colour_pattern):
+
                     return 0
 
             if other is None:
@@ -6059,7 +6148,7 @@ init -5 python:
 
             for item in all_items:
                 currently_constrained_regions = []
-                if type(item) is Facial_Accessory:
+                if isinstance(item, Facial_Accessory):
                     item_check = item.generate_item_displayable(position, face_style, emotion, special_modifiers, lighting = lighting)
                 else:
                     if not item.is_extension:
@@ -6227,6 +6316,13 @@ init -5 python:
 
         def half_off_clothing(self, the_clothing):
             the_clothing.half_off = True
+
+        def remove_clothing_list(self, the_list, half_off_instead = False):
+            for item in the_list:
+                if half_off_instead:
+                    self.half_off_clothing(item)
+                else:
+                    self.remove_clothing(item)
 
         def restore_all_clothing(self):
             for cloth in self.upper_body + self.lower_body + self.feet + self.accessories:
@@ -10990,6 +11086,13 @@ init -2 python:
     def greyout_transform(d):
         return AlphaBlend(Solid("#fff"), d, Solid("#000"), True)
 
+init -2 style digital_text is text:
+    font "Autobusbold-1ynL.ttf"
+    color "#19e9f7"
+    outlines [(2,"#222222",0,0)]
+    yanchor 0.5
+    yalign 0.5
+
 init -2 style text_message_style is say_dialogue:
     font "Autobusbold-1ynL.ttf"
     color "#19e9f7"
@@ -11170,7 +11273,7 @@ label tutorial_start:
     $ kitchen.show_background()
     "Three days later..."
     $ mom.draw_person(position = "sitting")
-    "Mom looks over the paperwork you've laid out. Property cost, equipment value, and potential earnings are all listed."
+    "[mom.title] looks over the paperwork you've laid out. Property cost, equipment value, and potential earnings are all listed."
     mom "And you've checked all the numbers?"
     mc.name "Three times."
     mom "It's just... this is a lot of money [mom.mc_title]. I would need to take a second mortgage out on the house."
@@ -11435,7 +11538,7 @@ init -2 python:
             log_outfit(outfit, outfit_class = "OverwearSets", wardrobe_name = file_name)
 
 
-label outfit_master_manager(*args, **kwargs): #WIP new outfit manager that centralizes exporting, modifying, duplicating, and deleting.
+label outfit_master_manager(*args, **kwargs): #New outfit manager that centralizes exporting, modifying, duplicating, and deleting.
     call screen outfit_select_manager(*args, **kwargs)
 
     if _return == "No Return":
@@ -11662,7 +11765,6 @@ label game_loop: ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS Y
 
     elif isinstance(picked_option, Action):
         $ picked_option.call_action()
-        $ renpy.restart_interaction()
 
     elif picked_option == "Travel":
         call screen map_manager

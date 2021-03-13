@@ -31,7 +31,7 @@ init -1 python:
         return True
 
     def sister_walk_in_requirement(the_person):
-        if the_person is not lily:
+        if not the_person.has_role(sister_role):
             return False
         elif the_person not in the_person.home.people:
             return False
@@ -40,7 +40,7 @@ init -1 python:
         return True
 
     def nude_walk_in_requirement(the_person):
-        if not (the_person is lily or the_person is mom):
+        if not (the_person.has_role(sister_role) or the_person.has_role(mother_role)):
             return False
         elif the_person not in the_person.home.people:
             return False
@@ -49,7 +49,7 @@ init -1 python:
         return True
 
     def mom_house_work_nude_requirement(the_person):
-        if the_person is not mom:
+        if not the_person.has_role(mother_role):
             return False
         elif the_person not in kitchen.people:
             return False
@@ -58,7 +58,7 @@ init -1 python:
         return True
 
     def mom_breeding_requirement(the_person):
-        if the_person is not mom:
+        if not the_person.has_role(mother_role):
             return False
         elif persistent.pregnancy_pref == 0:
             return False
@@ -77,7 +77,7 @@ init -1 python:
         return True
 
     def work_walk_in_requirement(the_person): #AKA she has to work for you, be at work, and be turned on
-        if employee_role not in the_person.special_role:
+        if not the_person.has_role(employee_role):
             return False
         elif not person_at_work(the_person):
             return False
@@ -89,7 +89,7 @@ init -1 python:
 
     #TODO: We really need to be able to assign LTE's to roles instead of being general events
     def sleeping_walk_in_requirement(the_person):
-        if not (the_person is mom or the_person is lily): #If it was LTE based we could avoid this. Basically any global reference should be by role.
+        if not (the_person.has_role(sister_role) or the_person.has_role(mother_role)): #If it was LTE based we could avoid this. Basically any global reference should be by role.
             return False
         elif not (time_of_day == 0 or time_of_day == 4): #ie. early morning (sleeping in) or late at night (early bed time)
             return False
@@ -102,7 +102,7 @@ init -1 python:
         return True
 
     def mom_work_slutty_requirement(the_person):
-        if the_person is not mom:
+        if not the_person.has_role(mother_role):
             return False
         elif mc.business.is_weekend():
             return False
@@ -113,12 +113,51 @@ init -1 python:
         else:
             return True
 
+    def new_insta_account_requirement(the_person):
+        if the_person.has_role(mother_role) or the_person.has_role(sister_role):
+            return False #We want explicit control of when these characters generate their Insta accounts
+        elif the_person.has_role(instapic_role):
+            return False
+        elif renpy.random.randint(0,100) >= the_person.personality.insta_chance + 5*(the_person.get_opinion_score("showing her tits") + the_person.get_opinion_score("showing her ass")):
+            return False #Personality type and Opinions has a large impact on chance to generate a new profile.
+        elif the_person.love < 10: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
+            return False
+        else:
+            return True
+
     def add_mom_outfit_coloured_apron(person):
         coloured_apron = apron.get_copy()
         coloured_apron.colour = [0.74,0.33,0.32,1.0]
         coloured_apron.pattern = "Pattern_1"
         coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
         person.outfit.add_dress(coloured_apron)
+        return
+
+    def new_dikdok_account_requirement(the_person):
+        if the_person.has_role(mother_role) or the_person.has_role(sister_role):
+            return False #We want explicit control of when these characters generate their Insta accounts
+        elif the_person.has_role(dikdok_role):
+            return False
+        elif renpy.random.randint(0,100) >= the_person.personality.dikdok_chance + 5*(the_person.get_opinion_score("showing her tits") + the_person.get_opinion_score("showing her ass")):
+            return False #Personality type and Opinions has a large impact on chance to generate a new profile.
+        elif the_person.love < 10: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
+            return False
+        else:
+            return True
+
+    def new_onlyfans_account_requirement(the_person):
+        if the_person.has_role(mother_role) or the_person.has_role(sister_role):
+            return False #We want explicit control of when these characters generate their Insta accounts
+        elif the_person.has_role(onlyfans_role):
+            return False
+        elif renpy.random.randint(0,100) >= -5 + 10*(the_person.get_opinion_score("showing her tits") + the_person.get_opinion_score("showing her ass") + the_person.get_opinion_score("public sex")):
+            return False #Personality type and Opinions has a large impact on chance to generate a new profile.
+        elif the_person.effective_sluttiness() < 50 + 10*(the_person.get_opinion_score("showing her tits") + the_person.get_opinion_score("showing her ass") + the_person.get_opinion_score("public sex")):
+            return False
+        elif the_person.love < 10: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
+            return False
+        else:
+            return True
         return
 
 
@@ -2108,4 +2147,32 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                     the_person "I'll have to deal with this later. What did you want to talk about [the_person.mc_title]?"
         call talk_person(the_person) from _call_talk_person_17
     $ clear_scene()
+    return
+
+label new_insta_account(the_person): #TODO: decide if we want to have some sort of dialogue accompanying these.
+    $ the_person.special_role.append(instapic_role)
+    if the_person.love >= 15:
+        the_person "Hey [the_person.mc_title]! Oh, you'll probably be interested in this."
+        the_person "I've started an InstaPic account, you should follow me! I'm just starting out, but I think I'm figuring it all out!"
+        $ the_person.event_triggers_dict["insta_known"] = True
+    call talk_person(the_person) from _call_talk_person_27
+    return
+
+label new_dikdok_account(the_person):
+    if the_person.love >= 15:
+        the_person "Hey [the_person.mc_title]! Oh, you'll probably be interested in this. I've started a DikDok channel."
+        the_person "You should follow me! I'm just starting out but I think my videos are pretty great."
+        $ the_person.event_triggers_dict["dikdok_known"] = True
+    $ the_person.special_role.append(dikdok_role)
+    call talk_person(the_person) from _call_talk_person_28
+    return
+
+label new_onlyfans_account(the_person):
+    if the_person.love >= 30 and the_person.effective_sluttiness() >= 40 and not the_person.has_role(girlfriend_role):
+        the_person "Hey [the_person.mc_title], I thought you might want to know..."
+        the_person "I'm starting up an OnlyFanatics account. I think it might be a fun way for me to make a little extra money."
+        the_person "You should check me out some time, if you don't think that would be too weird."
+        $ the_person.event_triggers_dict["onlyfans_known"] = True
+    $ the_person.special_role.append(onlyfans_role)
+    call talk_person(the_person) from _call_talk_person_29
     return

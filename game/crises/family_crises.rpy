@@ -407,6 +407,7 @@ label mom_selfie_label():
     #TODO: have a way of saving and reviewing selfies in the future.
     #TODO: Have a proper weekday/weekend schedule for people and use that to determine when Mom is at home, at work, or out on the town.
     $ the_person = mom
+    $ mc.start_text_convo(the_person)
     $ lowest_stat = mom.sluttiness
     if the_person.love < lowest_stat:
         $ lowest_stat = mom.love
@@ -420,10 +421,8 @@ label mom_selfie_label():
                 $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit(), update_taboo = True)
                 $ the_person.draw_person(position = "missionary", emotion = "happy")
                 "Her first message is a selfie of herself lying down on your bed in lingerie."
-                $ mc.having_text_conversation = the_person
                 the_person "I can't wait until you come home and make love to me. I wish I could spend every minute of every day worshiping your cock like a good mother should."
             else:
-                $ mc.having_text_conversation = the_person
                 the_person "It's so hard not to talk about you at work. The other women are gossiping and I just want to tell them how good it feels when you try and breed me..."
                 the_person "My pussy full of your warm cum, knowing that I can take care of you the way only a mother could."
                 the_person "I think I'm going to go touch myself in the bathroom. I hope you are having a great day too [the_person.mc_title]!"
@@ -434,20 +433,16 @@ label mom_selfie_label():
                     the_person.outfit.remove_random_upper(top_layer_first = True)
                     the_person.outfit.remove_random_lower(top_layer_first = True)
 
-            $ mc.having_text_conversation = the_person
             the_person "Hi [the_person.mc_title], I hope I'm not interrupting your busy work day. This is just a quick reminder..."
             $ the_person.draw_person(emotion = "happy")
             $ the_person.update_outfit_taboos()
-            $ mc.having_text_conversation = None
             "You get a selfie from [the_person.possessive_title!l] naked in front of her bedroom mirror."
-            $ mc.having_text_conversation = the_person
             the_person "...that your Mom wants to feel you inside her tonight. Don't stay out too late!"
 
         elif ran_num == 2:
             #Blowjob pose, she tells you to face fuck her, as is her duty
             $ the_person.draw_person(position = "blowjob", emotion = "happy", special_modifier = "blowjob")
             "You get a selfie from [the_person.possessive_title!l]. She's on her knees, mouth open wide."
-            $ mc.having_text_conversation = the_person
             the_person "My mouth is yours to use however you want [the_person.mc_title]."
             the_person "It's my duty to take care of you, so grab and use it whenever you want."
 
@@ -455,7 +450,6 @@ label mom_selfie_label():
         #Both are high. Sends you slutty selfies and talks about how she wants to fuck you. Sends them from work, etc.
         $ ran_num = renpy.random.randint(0,1) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
         if ran_num == 0:
-            $ mc.having_text_conversation = the_person
             if mc.business.is_weekend():
                 the_person "I'm here at home and wishing it was you could help me take these pictures..."
                 python:
@@ -463,7 +457,6 @@ label mom_selfie_label():
                         the_person.outfit.remove_random_upper(top_layer_first = True)
                         the_person.outfit.remove_random_lower(top_layer_first = True)
                 $ the_person.draw_person(position = "standing_doggy")
-                $ mc.having_text_conversation = None
                 "[the_person.possessive_title] sends you a selfie her bedroom naked and bent over her bed."
             else:
                 the_person "I'm stuck here at work and all I can think about is you. Wish you were here..."
@@ -472,12 +465,10 @@ label mom_selfie_label():
                         the_person.outfit.remove_random_upper(top_layer_first = True)
                         the_person.outfit.remove_random_lower(top_layer_first = True)
                 $ the_person.draw_person(position = "standing_doggy")
-                $ mc.having_text_conversation = None
                 "[the_person.possessive_title] sends you a selfie of herself in the office bathroom, naked and bending over the sink."
             $ the_person.update_outfit_taboos()
 
         elif ran_num == 1:
-            $ mc.having_text_conversation = the_person
             if mc.business.is_weekend():
                 the_person "I know it shouldn't, but thinking about you gets me so wet. You've made me a new woman [the_person.mc_title]."
             else:
@@ -487,7 +478,6 @@ label mom_selfie_label():
         #Sends you nudes and talks about how she'll help you blow off steam later.
         $ ran_num = renpy.random.randint(0,3) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
         if ran_num == 0:
-            $ mc.having_text_conversation = the_person
             if mc.business.is_weekend():
                 the_person "I was just about to get in the shower and I thought you might like a peek. Love you [the_person.mc_title]!"
                 python:
@@ -496,7 +486,6 @@ label mom_selfie_label():
                         if the_person.outfit.panties_covered(): #If we get down to her panties keep them on, because that's sexier.
                             the_person.outfit.remove_random_lower(top_layer_first = True)
                 $ the_person.draw_person(emotion = "happy")
-                $ mc.having_text_conversation = None
                 "[the_person.possessive_title] sends you a picture of herself stripped down in front of her bedroom mirror."
 
             else:
@@ -507,17 +496,13 @@ label mom_selfie_label():
                         if the_person.outfit.panties_covered():
                             the_person.outfit.remove_random_lower(top_layer_first = True)
                 $ the_person.draw_person(emotion = "happy")
-                $ mc.having_text_conversation = None
                 "[the_person.possessive_title] sends you a picture of herself stripped down in the office bathroom."
-                $ mc.having_text_conversation = the_person
                 the_person "I've got to get back to work. I hope nobody noticed me gone!"
 
             $ the_person.update_outfit_taboos()
 
         elif ran_num == 1:
-            $ mc.having_text_conversation = the_person
             the_person "I thought you might enjoy this ;)"
-            $ mc.having_text_conversation = None
             python:
                 for i in range(3):
                     the_person.outfit.remove_random_upper(top_layer_first = True)
@@ -526,16 +511,13 @@ label mom_selfie_label():
             "Mom sends you a picture of herself stripped naked in front of her bathroom mirror."
             $ the_person.update_outfit_taboos()
         elif ran_num == 2:
-            $ mc.having_text_conversation = the_person
             the_person "I've been trying on underwear all day. Would you like a peek?"
-            $ mc.having_text_conversation = None
             "[the_person.possessive_title] doesn't wait for a reply and starts sending selfies."
             python:
                 for i in range(3):
                     the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True), update_taboo = True)
                     the_person.draw_person(emotion = "happy")
                     renpy.say("","")
-            $ mc.having_text_conversation = the_person
             the_person "I hope you think your mommy looks sexy in her underwear ;)"
 
         elif ran_num == 3:
@@ -543,33 +525,26 @@ label mom_selfie_label():
                 while not the_person.outfit.tits_visible():
                     the_person.outfit.remove_random_upper(top_layer_first = True)
 
-            $ mc.having_text_conversation = the_person
             if mc.business.is_weekend():
                 the_person "I'm so glad it's the weekend, I can finally let these girls out..."
                 $ the_person.draw_person(emotion = "happy")
-                $ mc.having_text_conversation = None
                 "She sends you a selfie from the kitchen with her top off."
-                $ mc.having_text_conversation = the_person
                 the_person "I hope your day is going well, love you!"
 
             else:
                 the_person "I think I'd be much more popular here at work if I was allowed to dress like this..."
                 $ the_person.draw_person(emotion = "happy")
-                $ mc.having_text_conversation = None
                 "She sends you a selfie from her office bathroom with her top off."
-                $ mc.having_text_conversation = the_person
                 the_person "Oh well, at least I know you appreciate it. I need to get back to work, see you at dinner!"
             $ the_person.update_outfit_taboos()
 
     elif lowest_stat >= 40:
         #Sends you teasing pictures (ie. no shirt or something) and talks about how much she loves you.
         $ ran_num = renpy.random.randint(0,2) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
-        $ mc.having_text_conversation = the_person
         if ran_num == 0:
             the_person "You're such a hard worker [the_person.mc_title]. Here's a little gift from the woman who loves you most in the world!"
             $ the_person.outfit.remove_random_upper(top_layer_first = True)
             $ the_person.draw_person(emotion = "happy")
-            $ mc.having_text_conversation = None
             if mc.business.is_weekend():
                 "[the_person.possessive_title] sends you a selfie without her shirt on. The background looks like her bedroom."
             else:
@@ -581,14 +556,12 @@ label mom_selfie_label():
                 the_person "I wish you were here spending time with me. Maybe this will convince you your mom is a cool person to hang out with!"
                 $ the_person.outfit.remove_random_upper(top_layer_first = True)
                 $ the_person.draw_person(emotion = "happy")
-                $ mc.having_text_conversation = None
                 "Mom sends you a selfie from her bedroom without her shirt on."
 
             else:
                 the_person "I'm busy here at work but I really wish I could be spending time with you instead. Do you think I'm pretty enough to spend time with ;)"
                 $ the_person.outfit.remove_random_upper(top_layer_first = True)
                 $ the_person.draw_person(emotion = "happy")
-                $ mc.having_text_conversation = None
                 "Mom sends you a selfie without her shirt on. It looks like she's taken in the bathroom of her office."
             $ the_person.update_outfit_taboos()
 
@@ -599,24 +572,18 @@ label mom_selfie_label():
                 the_person "It looks like my [the_clothing.name] didn't like being in the wash, it's gone all see-through."
                 $ the_person.draw_person(emotion = "happy")
                 if the_clothing.underwear:
-                    $ mc.having_text_conversation = None
                     "You get a selfie from [the_person.possessive_title!l] wearing a slightly transparent bra."
                     if the_person.has_taboo("underwear_nudity"):
-                        $ mc.having_text_conversation = the_person
                         the_person "Oops, I probably shouldn't be sending pictures like this to my son!"
                         the_person "Oh well, it's not like I'm naked. You better not show it to your friends!"
                         $ the_person.break_taboo("underwear_nudity")
                 else:
-                    $ mc.having_text_conversation = None
                     "You get a selfie from [the_person.possessive_title!l] wearing a slightly transparent top."
-                $ mc.having_text_conversation = the_person
                 the_person "Oh well, I can still wear it when I'm doing chores around the house. Hope your day is going better, love you!"
             else:
                 the_person "I've looked everywhere, but I just can't find my favorite bra!"
                 $ the_person.draw_person(emotion = "default", the_animation = blowjob_bob, animation_effect_strength = 0.8)
-                $ mc.having_text_conversation = None
                 "[the_person.possessive_title] sends you a short video of herself walking around your home. Her bare tits bounce with each step."
-                $ mc.having_text_conversation = the_person
                 the_person "You don't happen to know where it is, do you? I'm wandering around looking for it and it's getting chilly!"
                 if the_person.has_taboo("bare_tits"):
                     the_person "Oops! I hope nobody saw you looking at that, I wasn't thinking about my breasts being out."
@@ -626,7 +593,6 @@ label mom_selfie_label():
     elif lowest_stat >= 20:
         #Sends you normal texts but talks about wanting to get away to talk to you instead
         $ ran_num = renpy.random.randint(0,4) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
-        $ mc.having_text_conversation = the_person
         if ran_num == 0:
             the_person "I hope I'm not interrupting, I just wanted to say hi and check in. I'm stuck here at work but wish I could spend more time with you."
             the_person "Have a great day, see you later tonight. Love, Mom."
@@ -638,7 +604,6 @@ label mom_selfie_label():
         elif ran_num == 2:
             the_person "I hope you aren't busy, I was thinking about you and just wanted to say hi!"
             $ the_person.draw_person(emotion = "happy")
-            $ mc.having_text_conversation = None
             if mc.business.is_weekend():
                 "[the_person.possessive_title] sends you a selfie she took in the living room of your house."
             else:
@@ -646,7 +611,6 @@ label mom_selfie_label():
         elif ran_num == 3:
             the_person "Kids these days are always sending selfies to each other, right? I hope I'm doing this right!"
             $ the_person.draw_person(emotion = "happy")
-            $ mc.having_text_conversation = None
             if mc.business.is_weekend():
                 "[the_person.possessive_title] sends you a selfie she took in the living room of your house."
             else:
@@ -654,7 +618,6 @@ label mom_selfie_label():
         elif ran_num == 4:
             the_person "All your hard work has inspired me [the_person.mc_title], I'm going out for a walk to stay in shape!"
             $ the_person.draw_person(emotion = "happy", the_animation = blowjob_bob, animation_effect_strength = 0.8)
-            $ mc.having_text_conversation = None
             "[the_person.possessive_title] sends you a short video she took of herself outside. She's keeping up a brisk walk and seems slightly out of breath."
             if not the_person.outfit.wearing_bra():
                 "She doesn't seem to realise, but it's very obvious [the_person.possessive_title!l] isn't wearing a bra under her top."
@@ -664,7 +627,6 @@ label mom_selfie_label():
     else:
         #Sends you normal motherly texts.
         $ ran_num = renpy.random.randint(0,2) #Used to determine which varient we use to avoid spamming the player with the exact same texts.
-        $ mc.having_text_conversation = the_person
         if ran_num == 0:
             the_person "I hope I'm not interrupting your busy day [the_person.mc_title]. I just wanted to let you know that I'm proud of you and you're doing great work."
             the_person "Keep it up! Dinner will be at the normal time."
@@ -675,9 +637,8 @@ label mom_selfie_label():
         elif ran_num == 2:
             the_person "Hi [the_person.mc_title], I'm just checking in to make sure you're doing okay. I hope you don't mind your mother being concerned about you."
 
-    $ mc.having_text_conversation = None
-
     "It's so sweet of her to think of you."
+    $ mc.end_text_convo()
     $ the_person.apply_outfit(the_person.planned_outfit)
     $ clear_scene()
     return
@@ -1677,7 +1638,7 @@ init 1 python:
 
 label cousin_tease_crisis_label():
     $ the_person = cousin
-    $ mc.having_text_conversation = the_person
+    $ mc.start_text_convo(the_person)
     if the_person.effective_sluttiness("underwear_nudity") < 35: #She'll want money
         "You get a curt text from [the_person.title]."
 
@@ -1911,7 +1872,7 @@ label cousin_tease_crisis_label():
                         "You ignore her and she doesn't message you again."
 
 
-    $ mc.having_text_conversation = None
+    $ mc.end_text_convo()
     $ the_person.apply_outfit() #Return to her planned outfit.
     $ clear_scene()
     return
