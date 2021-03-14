@@ -7,7 +7,6 @@ init -2 python:
     def onlyfans_on_day(the_person):
         content_types = [["underwear", 25], ["nudes", 25], ["dildo", 25]] #Decide on what new content she has on her site for the day.
         the_person.event_triggers_dict["onlyfans_content_type"] = get_random_from_weighted_list(content_types)
-
         return
 
     def build_onlyfans_menu():
@@ -62,7 +61,7 @@ label view_onlyfans(the_person):
             "Back":
                 pass
 
-    if the_person.event_triggers_dict.get("onlyfans_subscription_valid_until", 0) < day:
+    if the_person.event_triggers_dict.get("onlyfans_subscription_valid_until", 0) >= day:
         #NOTE: These should all be deterministic events (ie. no random chance) because the MC can return here whenever they want and should be given the same content.
         if the_person.event_triggers_dict.get("onlyfans_content_type", "underwear") == "underwear": # Tries on different underwear types
             $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
