@@ -500,6 +500,7 @@ label dm_option_nude(the_person):
 
 label dm_option_nude_response(the_person):
     $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level")
+    $ the_choice = False
     if the_person.effective_sluttiness() < 20:
         the_person "I would never do that, for any amount of money!" (what_style = "text_message_style")
     #TODO: If she has an Onlyfans it can be plugged here instead of giving you anything.
