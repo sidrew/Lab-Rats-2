@@ -528,7 +528,7 @@ label lily_flirt_response_mid(the_person):
         $ the_person.draw_person(position = "back_peek")
         "[the_person.possessive_title] smiles and turns around, peeking over her shoulder to talk to you."
         the_person "How do I look from behind? It's hard to get a good look in the mirror and [mom.title] is always judging what I'm wearing."
-        "You take a moment to check out [the_person.possessive_title!l]'s ass before responding."
+        "You take a moment to check out [the_person.possessive_title]'s ass before responding."
         mc.name "You look fantastic. I could watch you all day long."
         $ the_person.draw_person()
         "She turns back and sticks her tongue out at you."
@@ -544,7 +544,7 @@ label lily_flirt_response_high(the_person):
             the_person "Thank you. I think you look good too."
             menu:
                 "Kiss her":
-                    "You step closer to [the_person.possessive_title!l] and put your hand around her waist. She looks into your eyes."
+                    "You step closer to [the_person.possessive_title] and put your hand around her waist. She looks into your eyes."
                     if the_person.has_taboo("kissing"):
                         $ the_person.call_dialogue("kissing_taboo_break")
                         $ the_person.break_taboo("kissing")
@@ -584,7 +584,7 @@ label lily_flirt_response_high(the_person):
                     "You take [the_person.title]'s hand and start to lead her away."
                     the_person "Where are we going?"
                     mc.name "We're going somewhere nobody will overhear us, so that you don't have to worry about that any more."
-                    "When you find a private spot you turn to [the_person.possessive_title!l] and pull her close to you."
+                    "When you find a private spot you turn to [the_person.possessive_title] and pull her close to you."
                     the_person "Ah! We... Nobody is going to find out, right?"
                     mc.name "Nobody is going to find out."
 
@@ -691,7 +691,7 @@ label lily_cum_pullout(the_person):
                     "You don't have much time to spare. You pull out, barely clearing her pussy, and pull the condom off as quickly as you can manage."
                     $ mc.condom = False
                 "Leave it on.":
-                    "You ignore [the_person.possessive_title!l]'s cum-drunk offer and keep the condom in place."
+                    "You ignore [the_person.possessive_title]'s cum-drunk offer and keep the condom in place."
 
         else:
             the_person "Oh my god, do it! Cum [the_person.mc_title]!"

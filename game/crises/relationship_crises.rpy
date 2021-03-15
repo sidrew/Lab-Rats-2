@@ -201,13 +201,13 @@ label girlfriend_nudes_label():
 
     $ mc.start_text_convo(the_person)
     if the_person.effective_sluttiness() < 20:
-        "You get a text from [the_person.possessive_title!l]."
+        "You get a text from [the_person.possessive_title]."
         the_person "Hey [the_person.mc_title]. I was just thinking about you and wanted to say hi."
         the_person "Hope we can spend some time together soon."
         mc.name "Me too, we'll talk when I have some time."
 
     elif the_person.effective_sluttiness() < 40:
-        "You get a text from [the_person.possessive_title!l], followed shortly after by a video."
+        "You get a text from [the_person.possessive_title], followed shortly after by a video."
         the_person "Hey [the_person.mc_title]. I was playing around a little and hope this brightens your day."
         $ the_person.draw_person(position = "doggy", the_animation = missionary_bob)
         "You open up the video and see [the_person.title] on her bed, ass towards the camera. She's working her hips and shaking her ass for you."
@@ -219,7 +219,7 @@ label girlfriend_nudes_label():
 
     elif the_person.effective_sluttiness() < 60:
         $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
-        "You get a text from [the_person.possessive_title!l], followed shortly by a video."
+        "You get a text from [the_person.possessive_title], followed shortly by a video."
         the_person "Here's a little gift for you, hope you like it!"
         "You open the video."
         $ the_person.draw_person(position = "stand5", the_animation = blowjob_bob, animation_effect_strength = 0.8)
@@ -247,7 +247,7 @@ label girlfriend_nudes_label():
         $ the_person.apply_outfit(the_person.planned_outfit)
     else:
         $ the_person.apply_outfit(Outfit("Nude"))
-        "You get a text from [the_person.possessive_title!l], followed shortly by a video."
+        "You get a text from [the_person.possessive_title], followed shortly by a video."
         the_person "Thinking of you, wish you were here!"
         "You open up the video."
         $ the_person.draw_person(position = "missionary", the_animation = missionary_bob, animation_effect_strength = 0.5)

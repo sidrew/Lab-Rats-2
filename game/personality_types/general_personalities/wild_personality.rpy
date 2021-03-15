@@ -506,7 +506,7 @@ label wild_flirt_response_high(the_person):
             "Find someplace quiet":
                 mc.name "Then let's find somewhere that isn't here."
                 the_person "Eager, huh? Alright, let's go find somewhere."
-                "You and [the_person.possessive_title!l] leave and find a quiet spot where you won't be interrupted."
+                "You and [the_person.possessive_title] leave and find a quiet spot where you won't be interrupted."
                 the_person "So... Now what's your plan?"
 
                 if the_person.has_taboo("kissing"):
@@ -545,12 +545,12 @@ label wild_flirt_response_high(the_person):
 
                 $ the_person.draw_person()
                 if the_person.has_taboo("kissing"):
-                    "You put your arm around [the_person.possessive_title!l] and lean in close."
+                    "You put your arm around [the_person.possessive_title] and lean in close."
                     $ the_person.call_dialogue("kissing_taboo_break")
                     $ the_person.break_taboo("kissing")
                     "You kiss her. She returns the kiss and presses her body against you."
                 else:
-                    "You put your arm around [the_person.possessive_title!l] and pull her close, leaning in to kiss her."
+                    "You put your arm around [the_person.possessive_title] and pull her close, leaning in to kiss her."
                     "She responds immediately, pressing her body against yours and kissing you back."
                 call fuck_person(the_person, start_position = kissing, private = mc.location.get_person_count() < 2, skip_intro = True) from _call_fuck_person_50
                 $ the_person.call_dialogue("sex_review", the_report = _return)
@@ -579,14 +579,14 @@ label wild_flirt_response_girlfriend(the_person):
                 "Find someplace quiet":
                     mc.name "Why wait? Come on, I'm sure we can find somewhere quiet."
                     the_person "That eager, huh? Alright, let's go!"
-                    "You and [the_person.possessive_title!l] hurry off, searching for a private spot."
+                    "You and [the_person.possessive_title] hurry off, searching for a private spot."
                     "After a few minutes of searching you find one. She doesn't waste any time, wrapping her arms around you and kissing you sensually."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_76
                     $ the_person.call_dialogue("sex_review", the_report = _return)
                     $ the_person.review_outfit()
 
                 "Just flirt":
-                    "You reach behind [the_person.possessive_title!l] and grab her ass, giving it a firm squeeze."
+                    "You reach behind [the_person.possessive_title] and grab her ass, giving it a firm squeeze."
                     mc.name "Alright, I'll be patient. This ass is worth waiting for."
                     "She wiggles her hips back against your hand."
                     the_person "Damn right it is."
@@ -594,7 +594,7 @@ label wild_flirt_response_girlfriend(the_person):
         else:
             the_person "Well if I'm so beautiful then hurry up and kiss me, hot stuff."
             "You put your arm around her waist and lean close, kissing her on her lips."
-            "When you break the kiss [the_person.possessive_title!l] sighs happily and leans her head against your shoulder."
+            "When you break the kiss [the_person.possessive_title] sighs happily and leans her head against your shoulder."
             the_person "Why did you stop? I was having such a good time..."
             menu:
                 "Make out":
@@ -617,7 +617,7 @@ label wild_flirt_response_girlfriend(the_person):
             "Kiss her":
                 # "You place a gentle hand on her chin and raise her lips back to yours."
                 # "This time when you kiss her it's slow and sensual. You hear her sigh happily, and she presses her body against yours."
-                "You put your arms around [the_person.possessive_title!l]'s waist and rest your hands on her ass. You pull her close and kiss her sensually."
+                "You put your arms around [the_person.possessive_title]'s waist and rest your hands on her ass. You pull her close and kiss her sensually."
                 "She responds by pressing her body against you and grinding her hips against your thigh."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_78
                 $ the_person.call_dialogue("sex_review", the_report = _return)
@@ -671,7 +671,7 @@ label wild_flirt_response_affair(the_person):
         the_person "Oh yeah? Well then, do you want to share what all of these naughty things are? You have my attention."
         menu:
             "Feel her up":
-                "You put your arms around [the_person.possessive_title!l]'s waist and rest your hands on her ass."
+                "You put your arms around [the_person.possessive_title]'s waist and rest your hands on her ass."
                 mc.name "Well, first I want to get my hands all over your beautiful body."
                 "You massage her butt. She sighs happily and leans against your body."
                 the_person "What next? What do you want to do to me?"
@@ -682,7 +682,7 @@ label wild_flirt_response_affair(the_person):
                 $ the_person.review_outfit()
 
             "Just flirt":
-                "You put your arms around [the_person.possessive_title!l]'s waist and rest your hands on her ass."
+                "You put your arms around [the_person.possessive_title]'s waist and rest your hands on her ass."
                 mc.name "I wish I had the time. You'll have to wait until later."
                 "You massage her butt. She sighs happily and leans her weight against you."
                 the_person "Aww, are you sure?"
@@ -771,7 +771,7 @@ label wild_cum_pullout(the_person):
                     "You don't have much time to spare. You pull out, barely clearing her pussy, and pull the condom off as quickly as you can manage."
                     $ mc.condom = False
                 "Leave it on.":
-                    "You ignore [the_person.possessive_title!l]'s cum-drunk offer and keep the condom in place."
+                    "You ignore [the_person.possessive_title]'s cum-drunk offer and keep the condom in place."
         else:
             the_person "Fuck yeah, I'm going to make you cum!"
 

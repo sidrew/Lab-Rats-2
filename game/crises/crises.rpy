@@ -280,13 +280,13 @@ label broken_AC_crisis_label():
 
             if removed_something:
                 if the_person.outfit.tits_visible() and the_person.outfit.vagina_visible():
-                    "Once she's done stripping [the_person.possessive_title!l] is practically naked."
+                    "Once she's done stripping [the_person.possessive_title] is practically naked."
                     if the_person.has_taboo(["bare_pussy", "bare_tits"]):
                         "She makes a vain attempt to keep herself covered with her hands, but soon enough seems to be comfortable being nude in front of you."
                         $ the_person.break_taboo("bare_pussy")
                         $ the_person.break_taboo("bare_tits")
                 elif the_person.outfit.tits_visible():
-                    "Once she's done stripping [the_person.possessive_title!l] has her nice [the_person.tits] tits out on display."
+                    "Once she's done stripping [the_person.possessive_title] has her nice [the_person.tits] tits out on display."
                     if the_person.has_taboo("bare_tits"):
                         if the_person.has_large_tits():
                             "She makes a hopeless attempt to cover her large tits with her hands, but comes to the realization it's pointless."
@@ -296,7 +296,7 @@ label broken_AC_crisis_label():
                         $ the_person.break_taboo("bare_tits")
 
                 elif the_person.outfit.vagina_visible():
-                    "Once she's done stripping [the_person.possessive_title!l] has her pretty little pussy out on display for everyone."
+                    "Once she's done stripping [the_person.possessive_title] has her pretty little pussy out on display for everyone."
                     if the_person.has_taboo("bare_pussy"):
                         "She tries to hide herself from you with her hand, but quickly realizes how impractical that would be."
                         "Soon enough she doesn't seem to mind."
@@ -323,7 +323,7 @@ label broken_AC_crisis_label():
                         call screen main_choice_display([broken_AC_crisis_get_watch_list_menu(the_person)])
                     $ girl_choice = _return
 
-                    "You pay special attention to [girl_choice.title] as she follows the lead of [the_person.possessive_title!l]."
+                    "You pay special attention to [girl_choice.title] as she follows the lead of [the_person.possessive_title]."
                     $ the_group.set_primary(girl_choice)
 
                     $ removed_something = True
@@ -565,11 +565,11 @@ label office_flirt_label():
 
     menu:
         "Get back to work":
-            "You take one last glance, then get back to your work. A moment later [the_person.possessive_title!l] walks past you again as she heads back to her work station."
+            "You take one last glance, then get back to your work. A moment later [the_person.possessive_title] walks past you again as she heads back to her work station."
 
         "Take a moment and enjoy the view":
             #We should have a random chance of her noticing you.
-            "You sit back in your chair and take a moment to enjoy [the_person.possessive_title!l]'s ass wiggling at you."
+            "You sit back in your chair and take a moment to enjoy [the_person.possessive_title]'s ass wiggling at you."
             if renpy.random.randint(0,100) < 50: #50/50 chance
                 the_person "[the_person.mc_title], can you help me find something?"
                 "[the_person.title] looks over her shoulder at you before you can look away."
@@ -843,7 +843,7 @@ label lab_accident_crisis_label():
                 mc.name "I'll hang around, but I'm sure you'll be fine."
     else:
         mc.name "I'll hang around, but I'm sure you'll be fine."
-    "It doesn't seem like [the_person.possessive_title!l] is having any unexpected affects from the dose of serum, so you return to your work."
+    "It doesn't seem like [the_person.possessive_title] is having any unexpected affects from the dose of serum, so you return to your work."
 
     $ del techno
     $ del the_serum
@@ -902,7 +902,7 @@ label production_accident_crisis_label():
                 mc.name "I'll hang around, but I'm sure you'll be fine."
     else:
         mc.name "I'll hang around, but I'm sure you'll be fine."
-    "It doesn't seem like [the_person.possessive_title!l] is having any unexpected affects from the dose of serum, so you return to your work."
+    "It doesn't seem like [the_person.possessive_title] is having any unexpected affects from the dose of serum, so you return to your work."
 
     $ del techno
     $ del the_serum
@@ -1030,7 +1030,7 @@ label trait_for_side_effect_label():
         "You head to your R&D lab and meet [the_person.title]. She leads you over to her lab bench."
 
     the_person "I've been working on the design you set out for [the_design.name] and one of the test batches developed some very interesting side effects."
-    "You look over the notes [the_person.possessive_title!l] has taken. The variant she has created includes an extra serum trait as well as a negative side effect."
+    "You look over the notes [the_person.possessive_title] has taken. The variant she has created includes an extra serum trait as well as a negative side effect."
     "It doesn't seem like there will be any way to untangle the effects."
     #TODO: Make sure these actually display the traits properly.
     show screen trait_list_tooltip([the_trait, the_side_effect], y_height = 0.6)
@@ -1073,7 +1073,7 @@ label water_spill_crisis_label():
     $ the_person.call_dialogue("greetings")
     mc.name "Hey [the_person.title], how can I help you?"
     the_person "I had a few questions about how my taxes were going to be calculated this year, and I was hoping you could answer some of them."
-    "You listen as [the_person.possessive_title!l] dives into her tax situation."
+    "You listen as [the_person.possessive_title] dives into her tax situation."
     "You aren't paying a terrible amount of attention until she goes to take a drink from her water bottle and dumps it down her front!"
     $ the_clothing.colour[3] *= .8
     $ the_person.draw_person(emotion="angry")
@@ -1092,7 +1092,7 @@ label water_spill_crisis_label():
         $ the_person.change_slut_temp(1)
         the_person "Ugh, that was so embarrassing. Lets just forget about that, okay?"
         mc.name "Of course, back to your taxes then, right?"
-        "You help [the_person.possessive_title!l] sort out her tax issues, then get back to work."
+        "You help [the_person.possessive_title] sort out her tax issues, then get back to work."
     else:
         $ thinks_appropriate = the_person.judge_outfit(test_outfit) #Does she think it's appropriate to just strip it off all of the time?
         if thinks_appropriate:
@@ -1107,7 +1107,7 @@ label water_spill_crisis_label():
                     the_person "I hope I'm not distracting you. I can dry my shirt off if you'd prefer."
                     mc.name "No, that's fine. Just remind me again what we were talking about."
                     $ the_person.change_slut_temp(1)
-                    "You help [the_person.possessive_title!l] with her tax questions while she stands topless beside your desk."
+                    "You help [the_person.possessive_title] with her tax questions while she stands topless beside your desk."
 
                 "Keep going..." if minimal_coverage_uniform_policy.is_active():
                     mc.name "You might as well keep going. All this tax talk is boring and I'd appreciate something pleasant to look at while I help you."
@@ -1142,9 +1142,9 @@ label water_spill_crisis_label():
                     $ the_person.change_slut_temp(5)
                     $ the_person.change_obedience(5)
                     if the_person.outfit.tits_visible() and the_person.outfit.vagina_visible():
-                        "You help [the_person.possessive_title!l] with her tax questions while she stands next to your desk, her body completely on display."
+                        "You help [the_person.possessive_title] with her tax questions while she stands next to your desk, her body completely on display."
                     else:
-                        "You help [the_person.possessive_title!l] with her tax questions while she stands next to your desk, still partially undressed."
+                        "You help [the_person.possessive_title] with her tax questions while she stands next to your desk, still partially undressed."
 
 
                 "Keep going... \n{color=#ff0000}{size=18}Requires: Minimal Coverage Corporate Uniforms{/size}{/color} (disabled)" if not minimal_coverage_uniform_policy.is_active():
@@ -1167,7 +1167,7 @@ label water_spill_crisis_label():
                     $ the_person.change_slut_temp(1)
                     the_person "Ugh, that was so embarrassing. Lets just forget about that, okay?"
                     mc.name "Of course, back to your taxes then, right?"
-                    "You help [the_person.possessive_title!l] sort out her tax issues, then get back to work."
+                    "You help [the_person.possessive_title] sort out her tax issues, then get back to work."
 
                 "Leave it alone":
                     mc.name "I'd like to get back to work as quickly as possible, just leave it for now and you can dry it off later."
@@ -1177,7 +1177,7 @@ label water_spill_crisis_label():
                         "[the_person.title] looks down at her top, then nods and continues. At least the transparent clothing helps make the boring topic more interesting."
                     $ the_person.change_obedience(1)
                     $ the_person.change_slut_temp(1)
-                    "After a few minutes you've answered all of [the_person.possessive_title!l]'s questions, and she heads off to dry her [the_clothing.name] off."
+                    "After a few minutes you've answered all of [the_person.possessive_title]'s questions, and she heads off to dry her [the_clothing.name] off."
                     $ the_clothing.colour[3] *= 1.25
 
                 "Take it off":
@@ -1741,7 +1741,7 @@ label work_chat_crisis_label:
                         the_person "I... think you're right, there's nothing wrong with it. I guess that means I can tell you that you're a pretty good looking guy."
                         mc.name "Well I'm not going to turn down the compliment."
                         "[the_person.title] looks your body up and down. Her eyes linger at your crotch, so you take a moment to reposition your cock in your pants."
-                        "After a few seconds [the_person.possessive_title!l] shakes her head clear and turns her attention back to her work."
+                        "After a few seconds [the_person.possessive_title] shakes her head clear and turns her attention back to her work."
                         $ the_person.change_slut_temp(5)
                         the_person "Sorry, I'm getting us both distracted when we've got work to do."
 
@@ -1860,7 +1860,7 @@ label work_chat_crisis_label:
                             the_person "[the_person.mc_title]... I'm going to cum soon. I want you to... I want you to watch me cum."
                             $ the_person.discover_opinion("public sex")
                             $ the_person.change_obedience(the_person.get_opinion_score("public sex"))
-                            "You turn your chair and watch [the_person.possessive_title!l]. Being watched seems to turn her on even more."
+                            "You turn your chair and watch [the_person.possessive_title]. Being watched seems to turn her on even more."
                             "It doesn't take long before she's moaning and panting. You watch as she drives herself to climax."
                         else:
                             the_person "Oh god... there it is..."
@@ -2566,7 +2566,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
 
         "[the_person.title] drinks down the contents of the vial and places it to the side."
         the_person "Okay, I guess we just wait to see if there are any effects..."
-        "You spend time a few minutes with [the_person.possessive_title!l] to make sure there are no acute effects. The time passes uneventfully."
+        "You spend time a few minutes with [the_person.possessive_title] to make sure there are no acute effects. The time passes uneventfully."
         the_person "From a safety perspective everything seems fine. I don't see any problem sending this design to production."
         mc.name "Thank you for the help [the_person.title]."
         "You leave her to get back to her work and return to what you were doing."
@@ -2612,7 +2612,7 @@ label daughter_work_crisis_label():
     $ the_person.draw_person()
     the_person "[the_person.mc_title], could I talk to you for a moment in your office?"
     mc.name "Of course. What's up?"
-    "You and [the_person.possessive_title!l] step into your office. You sit down at your desk while she closes the door."
+    "You and [the_person.possessive_title] step into your office. You sit down at your desk while she closes the door."
     $ ran_num = renpy.random.randint(0,2)
     if ran_num == 0: #TODO: Make this based on her stats?
         the_person "I wanted to ask you... My daughter is living at home and I think it's time she got a job."
@@ -3196,7 +3196,7 @@ label horny_at_work_crisis_label():
                             "You smile and turn your chair to face her. You unzip your pants and grab onto your hard cock, stroking it slowly."
 
                         $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list(strip_feet = False), group_display = the_group)
-                        "When [the_person.possessive_title!l] is finished stripping down she puts her hands on her hips and watches you jerk off."
+                        "When [the_person.possessive_title] is finished stripping down she puts her hands on her hips and watches you jerk off."
 
                         $ the_person.discover_opinion("not wearing anything")
                         $ the_person.change_slut_temp(the_person.get_opinion_score("not wearing anything")+1)
@@ -3259,7 +3259,7 @@ label horny_at_work_crisis_label():
                                 mc.name "Come on, I don't have all day. I need to get back to work."
                                 "She hesitates, but after a second of thought she sighs and gets onto her hands and knees, crawling under your desk and nestling herself between your legs."
                             $ the_group.draw_person(the_person, position = "blowjob")
-                            "You unzip your pants and pull them down, letting your hard cock fall out onto [the_person.possessive_title!l]'s face."
+                            "You unzip your pants and pull them down, letting your hard cock fall out onto [the_person.possessive_title]'s face."
                             "She places her hands on your thighs and slides your cock into her mouth, licking the tip to get it wet before slipping it further back."
                             $ clear_scene()
                             call fuck_person(the_person, private = False, start_position = blowjob, skip_intro = True, position_locked = True) from _call_fuck_person_31
@@ -3286,10 +3286,10 @@ label horny_at_work_crisis_label():
                         if willingness_value >= missionary.slut_requirement:
                             $ desk = mc.location.get_object_with_name("desk") #May be None if there's no desk where you are.
                             if desk is not None:
-                                "You grab [the_person.possessive_title!l] by her hips and lift her up, putting her down on your desk and positioning yourself between her legs."
+                                "You grab [the_person.possessive_title] by her hips and lift her up, putting her down on your desk and positioning yourself between her legs."
 
                             else:
-                                "You grab [the_person.possessive_title!l] by her hips and lay her down in front of you, spreading her legs around you."
+                                "You grab [the_person.possessive_title] by her hips and lay her down in front of you, spreading her legs around you."
 
                             if others and the_person.effective_sluttiness() < (80 - 10*the_person.get_opinion_score("public sex")):
                                 the_person "Ah! Wait, what will the other girls think?"

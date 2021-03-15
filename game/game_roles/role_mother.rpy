@@ -188,7 +188,7 @@
 label mom_weekly_pay_label(the_person):
     #todo: at some point demand to take over the house, adds extra "house rules" options
     $ bedroom.show_background()
-    "You're just getting out of bed when [the_person.possessive_title!l] calls from downstairs."
+    "You're just getting out of bed when [the_person.possessive_title] calls from downstairs."
     the_person "[the_person.mc_title], could we talk for a moment?"
     mc.name "Sure, down in a second."
     $ mc.change_location(kitchen)
@@ -321,14 +321,14 @@ label mom_high_sluttiness_weekly_pay(the_person): #TODO: Change all of these ove
                 mc.name "I want you to show off yourself off to me, how does that sound?"
                 the_person "Fair is fair, but I'll need a little extra if you want to see anything... inappropriate."
                 $ mc.business.funds += -100
-                "You hand over the cash and sit back while [the_person.possessive_title!l] entertains you."
+                "You hand over the cash and sit back while [the_person.possessive_title] entertains you."
             else:
                 $ mc.business.event_triggers_dict["Mom_Strip"] = 1
                 mc.name "I'd like to see a little more of you Mom, how about I pay you to give me a little strip tease."
                 the_person "Oh my god, I've raised such a dirty boy. How about I pose for you a bit, and if you want to see more you can contribute a little extra."
                 mc.name "Sounds like a good deal Mom."
                 $ mc.business.funds += -100
-                "You hand over the cash and sit back while [the_person.possessive_title!l] entertains you."
+                "You hand over the cash and sit back while [the_person.possessive_title] entertains you."
 
             call pay_strip_scene(the_person) from _call_pay_strip_scene_2
 
@@ -341,7 +341,7 @@ label mom_high_sluttiness_weekly_pay(the_person): #TODO: Change all of these ove
                 call give_serum(the_person) from _call_give_serum_10
                 if _return:
                     $ mc.business.funds += -100
-                    "You hand the serum to [the_person.possessive_title!l], followed by the cash."
+                    "You hand the serum to [the_person.possessive_title], followed by the cash."
                     the_person "Okay, so that's all for now?"
                     mc.name "That's all. I'll just be keeping an eye on you in the future, but you don't need to worry about that."
                     the_person "Well thank you [the_person.mc_title], this money will really make a difference. I'm so proud of you!"
@@ -358,7 +358,7 @@ label mom_high_sluttiness_weekly_pay(the_person): #TODO: Change all of these ove
                 call give_serum(the_person) from _call_give_serum_11
                 if _return:
                     $ mc.business.funds += -100
-                    "You hand the serum to [the_person.possessive_title!l], followed by the cash."
+                    "You hand the serum to [the_person.possessive_title], followed by the cash."
                     the_person "Okay, so that's all for now?"
                     mc.name "That's all. I'll just be keeping an eye on you in the future, but you don't need to worry about that."
                     the_person "Well thank you [the_person.mc_title], this money will really make a difference. I'm so proud of you!"
@@ -382,7 +382,7 @@ label mom_high_sluttiness_weekly_pay(the_person): #TODO: Change all of these ove
             mc.name "Alright, I'll pay you to give me a blowjob."
             if (not the_person.has_taboo("sucking_cock")) or the_person.effective_sluttiness("sucking_cock") >= 60:
                 the_person "If that's what you need."
-                "You pull out your wallet and count out her cash while [the_person.possessive_title!l] gets onto her knees in front of you."
+                "You pull out your wallet and count out her cash while [the_person.possessive_title] gets onto her knees in front of you."
                 $ mc.business.funds += -300
                 $ the_person.draw_person(position = "blowjob")
                 the_person "Remember, not a word to anyone else though. Okay?"
@@ -411,12 +411,12 @@ label mom_high_sluttiness_weekly_pay(the_person): #TODO: Change all of these ove
             $ the_report = _return
             $ the_person.apply_outfit()
             if the_report.get("girl orgasms", 0) > 0:
-                "You pull up your pants while [the_person.possessive_title!l] is on her knees panting, trying to get her breath back."
+                "You pull up your pants while [the_person.possessive_title] is on her knees panting, trying to get her breath back."
                 mc.name "I didn't know you were going to enjoy that so much. Maybe you should be paying me next time."
                 the_person "Ah... I hope we can come to some sort of deal... Ah... In the future..."
             else:
                 $ the_person.draw_person()
-                "You pull your pants up while [the_person.possessive_title!l] gets off of her knees and cleans herself up."
+                "You pull your pants up while [the_person.possessive_title] gets off of her knees and cleans herself up."
             $ the_person.change_obedience(4)
 
         "Suck me off\n{color=#ff0000}{size=18}Requires: $300{/size}{/color} (disabled)" if mc.business.funds < 300 and the_person.effective_sluttiness("sucking_cock") >= 30:
@@ -694,7 +694,7 @@ label mom_work_promotion_outfit_create(the_person):
     $ interview_outfit = _return
     if interview_outfit:
         $ acceptable = False
-        "You lay the outfit out on [the_person.possessive_title!l]'s bed."
+        "You lay the outfit out on [the_person.possessive_title]'s bed."
         mc.name "Let's see how you look in this."
         the_person "Okay, just give me one moment..."
         "[the_person.title] starts to strip down."
@@ -729,7 +729,7 @@ label mom_work_promotion_outfit_create(the_person):
             the_person "Ooh, this is nice [the_person.mc_title]."
             $ the_person.draw_person(position = "back_peek")
             the_person "Does it look good from the back?"
-            mc.name "It looks great [the_person.possessive_title!l]."
+            mc.name "It looks great [the_person.possessive_title]."
             $ the_person.draw_person()
             the_person "Do you think it's going far enough though? I mean, if the point is to catch some attention."
             the_person "It's nice, it just feels a little... boring? Do you think this is what I should wear?"
@@ -976,7 +976,7 @@ label mom_work_promotion_two_prep(the_person):
             "She gets off the bed and onto her knees, reaching slowly for the pen."
             menu:
                 "Slap her ass":
-                    "You sit forward and slap your hand across [the_person.possessive_title!l]'s butt. She gasps and turns around on the floor."
+                    "You sit forward and slap your hand across [the_person.possessive_title]'s butt. She gasps and turns around on the floor."
                     $ the_person.draw_person(position = "kneeling1")
                     the_person "[the_person.mc_title], try and take this seriously."
                     mc.name "I am being serious. If something like this happens you need to be ready."
@@ -1105,7 +1105,7 @@ label mom_work_promotion_two_report(the_person): #TODO: Hook this up as an on_ro
         the_person "I had my second round interview today, and I was told I'm not getting the position."
         mc.name "Oh, I'm sorry."
         $ the_person.draw_person(position = "kissing")
-        "You give [the_person.possessive_title!l] a gentle hug."
+        "You give [the_person.possessive_title] a gentle hug."
         the_person "Thank you. I'll be okay."
         mc.name "I know you will [the_person.title]. They're idiots for not believing in you."
         $ the_person.draw_person()

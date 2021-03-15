@@ -584,13 +584,13 @@ label bimbo_flirt_response_girlfriend(the_person):
         menu:
             "Make out":
                 "You put your arms around her and pull her tight against you as you return her kisses."
-                "Bit by bit they transition from energetic to sensual, and soon you have [the_person.possessive_title!l]'s body grinding against yours as you make out."
+                "Bit by bit they transition from energetic to sensual, and soon you have [the_person.possessive_title]'s body grinding against yours as you make out."
                 call fuck_person(the_person, start_position = kissing, skip_intro = True) from _call_fuck_person_63
                 $ the_person.call_dialogue("sex_review", the_report = _return)
                 $ the_person.review_outfit()
 
             "Just flirt":
-                "You give [the_person.possessive_title!l] a few quick kisses, then lean your head back to get some air."
+                "You give [the_person.possessive_title] a few quick kisses, then lean your head back to get some air."
                 mc.name "Easy there, down girl."
                 "She lets go of you and giggles."
                 the_person "Sorry, I just get so excited when I'm around you. You make me feel like a whole new person!"
@@ -736,7 +736,7 @@ label bimbo_cum_pullout(the_person):
                     "You don't have much time to spare. You pull out, barely clearing her pussy, and pull the condom off as quickly as you can manage."
                     $ mc.condom = False
                 "Leave it on.":
-                    "You ignore [the_person.possessive_title!l]'s cum-drunk offer and keep the condom in place."
+                    "You ignore [the_person.possessive_title]'s cum-drunk offer and keep the condom in place."
 
         else:
             "[the_person.possessive_title] giggles happily."

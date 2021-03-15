@@ -558,7 +558,7 @@ label compliment_person(the_person): #Tier 1. Raises the character's love. #TODO
     $ mc.change_energy(-15)
     mc.name "Hey [the_person.title]. How are you doing today? You're looking good, that's for sure."
     the_person "Aww, thank you. You're too kind. I'm doing well."
-    "You chat with [the_person.possessive_title!l] for a while and slip in a compliment when you can. She seems flattered by all the attention."
+    "You chat with [the_person.possessive_title] for a while and slip in a compliment when you can. She seems flattered by all the attention."
     $ the_person.change_love(5, max_modified_to = 20)
     $ the_person.change_happiness(2)
     the_person "It's been fun talking [the_person.mc_title], we should do this again sometime!"
@@ -995,7 +995,7 @@ label grope_person(the_person):
                                     "You take [the_person.title] by her wrist and lead her away."
                                     #TODO: have each location have a unique "find someplace quiet" descriptor with a default fallback option
                                     "After a couple of minutes searching you find a quiet space with just the two of you."
-                                    "You don't waste any time getting back to what you were doing, fondling [the_person.possessive_title!l]'s tits and ass."
+                                    "You don't waste any time getting back to what you were doing, fondling [the_person.possessive_title]'s tits and ass."
 
                                 "Stay where you are\n{color=#ff0000}{size=18}[extra_people_count] watching{/size}{/color}":
                                     $ should_be_private = False
@@ -1320,7 +1320,7 @@ label bc_talk_label(the_person):
                 the_person "I'm not taking any birth control right now."
 
             $ the_person.update_birth_control_knowledge()
-            "It's clear from her tone that [the_person.possessive_title!l] wouldn't be swayed by you telling her what to do."
+            "It's clear from her tone that [the_person.possessive_title] wouldn't be swayed by you telling her what to do."
 
         elif the_person.effective_sluttiness() > 20:
             the_person "Oh, I guess I can tell you if you're really curious."
@@ -1330,7 +1330,7 @@ label bc_talk_label(the_person):
                 the_person "I'm not taking birth control right now."
 
             $ the_person.update_birth_control_knowledge()
-            "It's clear from her tone that [the_person.possessive_title!l] wouldn't be swayed by you telling her what to do."
+            "It's clear from her tone that [the_person.possessive_title] wouldn't be swayed by you telling her what to do."
 
         else:
             the_person "That's a pretty personal question. Let's get to know each other a little more before we talk about that, okay?"

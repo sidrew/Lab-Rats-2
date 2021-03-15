@@ -66,7 +66,7 @@ label plan_fuck_date_label(the_person):
     # If he comes home, chance to assert dominance and just keep fucking her (if she would normally leave her SO, or if you can make her cum when he comes in).
 
     $ so_title = SO_relationship_to_title(the_person.relationship)
-    "You place a hand on [the_person.possessive_title!l]'s hips and caress her leg. She smiles and leans into your hand."
+    "You place a hand on [the_person.possessive_title]'s hips and caress her leg. She smiles and leans into your hand."
     mc.name "I want to be alone with you. When will your [so_title] be out of the way so I can have you all to myself?"
     if the_person.kids > 0:
         the_person "He normally stays late at work on Thursdays. I can make sure the house is empty and we can get down to business the moment you're in the door."
@@ -116,9 +116,9 @@ label fuck_date_label(the_person):
 
     if the_person.home not in mc.known_home_locations:
         $ mc.known_home_locations.append(the_person.home)
-        "You make your way to [the_person.possessive_title!l]'s house for the first time. You text her first, in case her [so_title] is unexpectedly home."
+        "You make your way to [the_person.possessive_title]'s house for the first time. You text her first, in case her [so_title] is unexpectedly home."
     else:
-        "You make your way to [the_person.possessive_title!l]'s house. You text her first, in case her [so_title] is unexpectedly home."
+        "You make your way to [the_person.possessive_title]'s house. You text her first, in case her [so_title] is unexpectedly home."
     mc.name "I'm here. Are you ready?"
     the_person "Come on in, the door is unlocked. I'm in the bedroom"
     $ aunt_bedroom.show_background()
@@ -197,7 +197,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
             $ done = True
             "You get dressed, triple check you haven't forgotten anything, and leave. [the_person.title] kisses you goodbye at the door."
         else:
-            "After a short rest you've recovered some of your energy and [the_person.possessive_title!l]'s eager to get back to work."
+            "After a short rest you've recovered some of your energy and [the_person.possessive_title]'s eager to get back to work."
             $ mc.change_energy(energy_gain_amount)
             $ the_person.change_energy(energy_gain_amount) #She gains some back too
             if energy_gain_amount >= 10:
@@ -219,7 +219,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                         menu:
                             "Hide!":
                                 $ done = True
-                                "You jump up from [the_person.possessive_title!l]'s bed and look around the room. You hear her [so_title] close the car door."
+                                "You jump up from [the_person.possessive_title]'s bed and look around the room. You hear her [so_title] close the car door."
                                 $ hiding_under_bed = True
                                 if renpy.random.randint(0,100) < 50:
                                     "Without many options you drop to the ground and shimmy yourself under her bed, trying to make sure you can't be seen from the bedroom door."
@@ -380,7 +380,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                                 else:
                                     "You run your hands over her tits, stomach, and then down toward her waist."
                                 the_person "Ah... Oh, it's nothing sweetheart. I'm just lying down in bed and it feels nice to be off my feet."
-                                "You kneel on the bed behind [the_person.possessive_title!l] and move your hands lower. You stroke her inner thighs and she opens her legs for you."
+                                "You kneel on the bed behind [the_person.possessive_title] and move your hands lower. You stroke her inner thighs and she opens her legs for you."
                                 "Your hand finally slides over her pussy, gently brushing her clit, and she moves the phone away from her face to moan softly."
                                 the_person "Hmm? Yes, I'm still here. Just yawning. I think it's time for bed."
                                 "You slide a finger into her pussy and she holds her breath for a second."
@@ -426,7 +426,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
                                 #This is basically an extended intro
                                 "You shuffle behind [the_person.title] and wrap your arms around her, grabbing a tit with one hand while the other slides down to her waist and caresses her pussy."
                                 the_person "Yeah? You don't say... Uh huh?"
-                                "With a little bit of pressure on her shoulders you guide [the_person.possessive_title!l] down onto her back."
+                                "With a little bit of pressure on her shoulders you guide [the_person.possessive_title] down onto her back."
                                 $ the_person.draw_person(position = "missionary")
                                 if not the_person.outfit.vagina_available():
                                     "You strip her down as quickly as you can, not a minute to spare."

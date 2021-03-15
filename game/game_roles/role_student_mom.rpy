@@ -361,7 +361,7 @@ label student_mom_appologise_label(the_person): #TODO Provide a way to not activ
         "She shakes her head in disbelief."
         the_person "I'm sorry, I shouldn't be telling you that."
     mc.name "You're a woman, and you have needs. [emily.title] is out of the house most of the day, your husband is working..."
-    "You step close to [the_person.possessive_title!l] and put your arm around her waist."
+    "You step close to [the_person.possessive_title] and put your arm around her waist."
     mc.name "It's natural for you to need some sort of physical contact. Isn't that what you want?"
     "She stutters out a few half answers."
     the_person "I don't... I mean, it would be nice, but I can't... I..."

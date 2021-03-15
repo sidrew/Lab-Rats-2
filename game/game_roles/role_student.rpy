@@ -158,7 +158,7 @@ label student_reintro(the_person): #Called when you turned down the student in t
 # label student_study_meetup(the_person): #The university action, in case she's not around but should be.
 #     "You text [the_person.title] and let her know you're on campus and have some spare time."
 #     the_person "I'll go get a study room right now. See you in the library!"
-#     "You make your way to the library and find [the_person.possessive_title!l] in a private study room. She already has her textbooks out and ready to go."
+#     "You make your way to the library and find [the_person.possessive_title] in a private study room. She already has her textbooks out and ready to go."
 #     the_person.draw_person(position = "sitting")
 #     the_person "Hey!"
 #     "You take a seat on the same side of the table as her."
@@ -177,7 +177,7 @@ label student_study_propose(the_person):
         "You and [the_person.title] head to the university. She talks to the librarian at the front and books one of the private study rooms for the two of you."
         the_person "Good thing there was one left!"
         $ the_person.draw_person(position = "sitting")
-        "You find the study room and sit down next to [the_person.possessive_title!l] as she opens up her backpack and pulls out her textbook."
+        "You find the study room and sit down next to [the_person.possessive_title] as she opens up her backpack and pulls out her textbook."
         call student_study_university(the_person) from _call_student_study_university
 
     $ the_person.event_triggers_dict["last_tutor"] = day
@@ -609,7 +609,7 @@ label study_normally(the_person, public = True):
                         "You step behind her, put your hands on her shoulders, and rub them gently."
 
 
-                    "You spend some time massaging [the_person.possessive_title!l]'s shoulders. She relaxes and leans back in her chair, eyes closed."
+                    "You spend some time massaging [the_person.possessive_title]'s shoulders. She relaxes and leans back in her chair, eyes closed."
 
                     $ the_person.change_slut_temp(1,15)
 
@@ -671,7 +671,7 @@ label study_normally(the_person, public = True):
             "She sighs and nods."
             the_person "Fine, I'll try and focus a little longer."
             mc.name "Good. Let's keep at it and we'll be finished with this assignment before you know it."
-            "You get back to work, stopping any time [the_person.possessive_title!l]'s attention begins to wander and getting her back on task."
+            "You get back to work, stopping any time [the_person.possessive_title]'s attention begins to wander and getting her back on task."
             $ the_person.event_triggers_dict["current_marks"] += 3
             $ mc.log_event(the_person.title + " isn't happy, but she learns more without a break.", "float_text_grey")
 
@@ -703,7 +703,7 @@ label student_masturbate_label(the_person):
         $ the_person.change_slut_temp(2)
         the_person "Thanks! I'll let you know when I'm... finished."
         $ clear_scene()
-        "You stand up and leave [the_person.possessive_title!l]'s room. You close her door and lean on the frame."
+        "You stand up and leave [the_person.possessive_title]'s room. You close her door and lean on the frame."
         #TODO: Chance her mom walks by and asks what's going on.
         "You listen at the door, and hear [the_person.title]'s chair creaking as she moves. After a few minutes you hear a faint gasp."
         $ the_person.draw_person()
@@ -771,7 +771,7 @@ label student_masturbate_label(the_person):
 
             "Masturbate with her" if the_person.effective_sluttiness() >= 30: #TODO: Add a mutual masturbation position?
                 mc.name "Let me help out with that."
-                "You unzip your pants and pull out your hard cock. You give it a few gentle strokes as [the_person.possessive_title!l] watches."
+                "You unzip your pants and pull out your hard cock. You give it a few gentle strokes as [the_person.possessive_title] watches."
                 the_person "What... Do you want to do?"
                 "You slide one hand onto [the_person.title]'s thigh and caress it, while jerking yourself off with the other."
                 mc.name "I thought I would join in, that way you don't have to feel self-conscious. If we're both trying to get off we could always..."
@@ -792,7 +792,7 @@ label student_masturbate_label(the_person):
                 "Your hand on her wet pussy tells you the answer, but she murmurs out a response anyways."
                 the_person "Yes, it does... Mmm."
                 $ the_person.draw_person(position = "walking_away")
-                "You step behind [the_person.possessive_title!l] and wrap your other arm around her torso to hold her close, your hard cock rubbing against her thigh."
+                "You step behind [the_person.possessive_title] and wrap your other arm around her torso to hold her close, your hard cock rubbing against her thigh."
                 "She gasps and leans against you when you slide a couple of fingers into her cunt."
                 call fuck_person(the_person, private = True, start_position = standing_finger, skip_intro = True) from _call_fuck_person_86
                 $ the_report = _return
@@ -1071,7 +1071,7 @@ label student_punish_hub_label(the_person):
     return
 
 label student_punish_question(the_person, wants_to_fail = False):
-    "You take a moment to decide on what question to give [the_person.possessive_title!l]."
+    "You take a moment to decide on what question to give [the_person.possessive_title]."
     $ question_is_hard = False
     menu:
         "Give her a hard question (tooltip)She is more likely to get a hard question wrong, but it's less likely to teach her something useful.":
@@ -1330,10 +1330,10 @@ label student_punish_suck(the_person, was_failure, wants_to_fail, successes = 0,
         $ the_person.draw_person(position = "sitting")
         if was_failure:
             "[the_person.title] sits back down right away, eager to move onto the next question."
-            "As you move on you stroke your dick slowly, keeping yourself hard and ready for [the_person.possessive_title!l]'s next mistake."
+            "As you move on you stroke your dick slowly, keeping yourself hard and ready for [the_person.possessive_title]'s next mistake."
         else:
             "[the_person.title] gives your cock one last kiss, then sits down in her seat again."
-            "As you move on you stroke your dick slowly, keeping yourself hard and ready for [the_person.possessive_title!l]'s next reward."
+            "As you move on you stroke your dick slowly, keeping yourself hard and ready for [the_person.possessive_title]'s next reward."
 
     elif round_count == 2:
         "You nod down to your cock, the tip still hard and wet."
@@ -1350,7 +1350,7 @@ label student_punish_suck(the_person, was_failure, wants_to_fail, successes = 0,
         $ the_person.draw_person(position = "blowjob", special_modifier = "blowjob", the_animation = blowjob_bob, animation_effect_strength = 0.65)
         "This time she doesn't stop there. She slides you deeper in her mouth, running her lips along the length of your shaft."
         "After a moment to adjust she starts to bob her head up and down your length."
-        "You rest a hand on the back of [the_person.possessive_title!l]'s head and lean back, content to just enjoy your blowjob."
+        "You rest a hand on the back of [the_person.possessive_title]'s head and lean back, content to just enjoy your blowjob."
         "You're interrupted by your phone beeping the end of her two minutes."
         if was_failure:
             "[the_person.title] pops off your cock and wipes the last lines of spit from her lips."
@@ -1405,7 +1405,7 @@ label student_punish_suck(the_person, was_failure, wants_to_fail, successes = 0,
         "You place your hands on either side of her head and lean her towards you. She wraps her lips around your cock as you bring it close."
         $ the_person.draw_person(position = "blowjob", special_modifier = "blowjob", the_animation = blowjob_bob, animation_effect_strength = 1.0)
         "You don't waste any time. As soon as your cock is in her mouth you slam it down to the base. [the_person.title] gags, throwing her arms out to her side."
-        "You slam [the_person.possessive_title!l]'s head up and down, forcing her to face-fuck you."
+        "You slam [the_person.possessive_title]'s head up and down, forcing her to face-fuck you."
         "She struggles to keep up, gagging a little bit with each thrust and trailing spit down her chin and onto her chest."
         "You're already so worked up that it doesn't take long before you feel your climax approaching."
         menu:
@@ -1423,7 +1423,7 @@ label student_punish_suck(the_person, was_failure, wants_to_fail, successes = 0,
                 "Your cock spasms, firing it's first pulse of cum over her eye and forehead. She gasps desperately for her first breath of fresh air"
                 $ the_person.cum_on_face()
                 $ the_person.draw_person(position = "blowjob", special_modifier = "blowjob", the_animation = blowjob_bob, animation_effect_strength = 0.2)
-                "You grunt as you fire your second and third strings of cum onto [the_person.possessive_title!l]'s face, coating it thoroughly."
+                "You grunt as you fire your second and third strings of cum onto [the_person.possessive_title]'s face, coating it thoroughly."
                 "When you're finished [the_person.title] is a mess. Cheeks red, eyes watering, and face plastered with a thick load of semen."
 
         if was_failure:

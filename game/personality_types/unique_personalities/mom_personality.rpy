@@ -254,7 +254,7 @@ label mom_grope_body_reject(the_person):
         the_person "I know you're just being affectionate, but it's a little... personal."
         mc.name "Oh, I'm sorry [the_person.title], I didn't mean..."
         the_person "It's fine, it really is. Let's just forget about it, okay?"
-        "You nod, and [the_person.possessive_title!l] seems to relax a little bit."
+        "You nod, and [the_person.possessive_title] seems to relax a little bit."
     return
 
 label mom_sex_accept(the_person):
@@ -410,7 +410,7 @@ label mom_flirt_response_high(the_person):
                 "Kiss her":
                     if the_person.has_taboo("kissing"):
                         $ the_person.call_dialogue("kissing_taboo_break")
-                        "You lean in and kiss [the_person.possessive_title!l]. She does her best to kiss you back, but it's clear she's still adjusting."
+                        "You lean in and kiss [the_person.possessive_title]. She does her best to kiss you back, but it's clear she's still adjusting."
                         $ the_person.break_taboo("kissing")
                     else:
                         "You lean in and kiss her. She seems startled for a second, then wraps her arms around you and returns the kiss."
@@ -422,7 +422,7 @@ label mom_flirt_response_high(the_person):
                     mc.name "And you'll always be my beautiful, loving mom."
                     "[the_person.possessive_title] smiles warmly and hugs you again. This time you let your hands slide down her back and rest them on her ass."
                     the_person "You shouldn't... Oh what's the harm. Go ahead, give it a squeeze."
-                    "You grab [the_person.possessive_title!l]'s ass and massage it gently. She sighs softly into your ear as you play with her."
+                    "You grab [the_person.possessive_title]'s ass and massage it gently. She sighs softly into your ear as you play with her."
                     the_person "Okay... That's enough for now. I don't want you getting too excited."
                     mc.name "Okay [the_person.title]."
                     "You give her ass one last slap and leave it jiggling as you step back. She rolls her eyes."
@@ -453,13 +453,13 @@ label mom_flirt_response_high(the_person):
                     "She pulls you into a hug and kisses you on the cheek. You put your hands around her and move them down her back."
                     if the_person.has_taboo("kissing"):
                         $ the_person.call_dialogue("kissing_taboo_break")
-                        "You lean in and kiss [the_person.possessive_title!l]. She does her best to kiss you back, but it's clear she's still adjusting."
+                        "You lean in and kiss [the_person.possessive_title]. She does her best to kiss you back, but it's clear she's still adjusting."
                         $ the_person.break_taboo("kissing")
                     else:
                         the_person "Hey... What are you doing? We shouldn't..."
                         "You slide your hands onto her ass and rub it gently."
                         mc.name "Come on, just for a few minutes. I'm so horny right now..."
-                        "You rub [the_person.possessive_title!l]'s butt while she thinks. Finally she sighs reluctantly and nods."
+                        "You rub [the_person.possessive_title]'s butt while she thinks. Finally she sighs reluctantly and nods."
                         the_person "Only because you really need it."
                         "You lean forward and kiss her passionately. It takes her a few seconds to warm up, but soon she is kissing you back with just as much enthusiasm."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_21
@@ -561,7 +561,7 @@ label mom_cum_pullout(the_person):
                     "You don't have much time to spare. You pull out, barely clearing her pussy, and pull the condom off as quickly as you can manage."
                     $ mc.condom = False
                 "Leave it on.":
-                    "You ignore [the_person.possessive_title!l]'s cum-drunk offer and keep the condom in place."
+                    "You ignore [the_person.possessive_title]'s cum-drunk offer and keep the condom in place."
         else:
             the_person "Go ahead [the_person.mc_title]!"
 

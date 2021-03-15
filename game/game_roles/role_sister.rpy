@@ -203,7 +203,7 @@ label sister_serum_test_label(the_person):
     call give_serum(the_person) from _call_give_serum_7
     if _return:
         $ mc.business.funds += -50
-        "You give [the_person.possessive_title!l] the cash and the serum. She puts the money away then drinks the serum, handing back the empty vial."
+        "You give [the_person.possessive_title] the cash and the serum. She puts the money away then drinks the serum, handing back the empty vial."
         $ the_person.change_obedience(1)
         the_person "Easiest fifty bucks I've ever earned. I guess you can hang around and keep an eye on me if it's important for your research."
         if mc.business.event_triggers_dict.get("sister_serum_test_count"):
@@ -279,7 +279,7 @@ label strip_explanation(the_person):
         "Ask her to strip for you" if mc.business.funds >= 100:
             mc.name "I don't see why not."
             $ mc.business.funds += -100
-            "You pull a hundred dollars out of your wallet and hand it over to [the_person.possessive_title!l]. She tucks it away and gets ready."
+            "You pull a hundred dollars out of your wallet and hand it over to [the_person.possessive_title]. She tucks it away and gets ready."
             call pay_strip_scene(the_person) from _call_pay_strip_scene
 
             $ the_person.review_outfit()    # make sure she puts on outfit after stripping
@@ -302,7 +302,7 @@ label sister_strip_label(the_person):
     else:
         the_person "You want me to strip down for you?"
     $ mc.business.funds += -100
-    "You nod and sit down on [the_person.possessive_title!l]'s bed. She holds her hand out and you hand over her money."
+    "You nod and sit down on [the_person.possessive_title]'s bed. She holds her hand out and you hand over her money."
     "She tucks the money away and gets ready in front of you."
     call pay_strip_scene(the_person) from _call_pay_strip_scene_1
 

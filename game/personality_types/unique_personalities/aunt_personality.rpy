@@ -217,7 +217,7 @@ label aunt_flirt_response_high(the_person):
             menu:
                 "Kiss her":
                     mc.name "Alright, is this going to convince you?"
-                    "You put an arm around [the_person.possessive_title!l]'s waist and pull her close."
+                    "You put an arm around [the_person.possessive_title]'s waist and pull her close."
 
                     if the_person.has_taboo("kissing"):
                         $ the_person.call_dialogue("kissing_taboo_break")
@@ -258,7 +258,7 @@ label aunt_flirt_response_high(the_person):
                     "You take her hand and start to lead her away. She takes a step to follow, then hesitates."
                     the_person "Wait, I... I shouldn't."
                     mc.name "Relax, we'll be alone and nobody will know."
-                    "After a pause she nods and follows after you. When you find a quiet spot you pull [the_person.possessive_title!l] close to you."
+                    "After a pause she nods and follows after you. When you find a quiet spot you pull [the_person.possessive_title] close to you."
                     if the_person.has_taboo("kissing"):
                         $ the_person.call_dialogue("kissing_taboo_break")
                         $ the_person.break_taboo("kissing")
@@ -314,7 +314,7 @@ label aunt_cum_pullout(the_person):
                     "You don't have much time to spare. You pull out, barely clearing her pussy, and pull the condom off as quickly as you can manage."
                     $ mc.condom = False
                 "Leave it on.":
-                    "You ignore [the_person.possessive_title!l]'s cum-drunk offer and keep the condom in place."
+                    "You ignore [the_person.possessive_title]'s cum-drunk offer and keep the condom in place."
 
         else:
             the_person "Cum for me [the_person.mc_title], I want you to cum for me!"
@@ -510,7 +510,7 @@ label aunt_sucking_cock_taboo_break(the_person):
         the_person "Is it really that bad? I could... Give you a handjob, maybe?"
         mc.name "Come on [the_person.title], we both want more than that. Right?"
         the_person "I do, but... We shouldn't. I know it's fun but I worry we're taking this too far."
-        "You take [the_person.possessive_title!l]'s hand and press it against your dick. Her fingers stroke it instinctively."
+        "You take [the_person.possessive_title]'s hand and press it against your dick. Her fingers stroke it instinctively."
         the_person "Ah... Just once couldn't hurt, right? You won't think less of me for doing this?"
         mc.name "Of course not."
         the_person "Alright. I'll..."
@@ -641,7 +641,7 @@ label aunt_bare_pussy_taboo_break(the_person, the_clothing):
     if the_person.has_taboo("touching_vagina"):
         mc.name "Please [the_person.title], I just want to take a look at your pussy."
         the_person "I shouldn't... You just want to look though?"
-        "You nod, and [the_person.possessive_title!l] thinks for a moment."
+        "You nod, and [the_person.possessive_title] thinks for a moment."
         the_person "Alright, but just so you can look. And don't tell anyone I let you take off my [the_clothing.display_name], understood?"
         mc.name "Okay, I promise I won't tell anyone."
 

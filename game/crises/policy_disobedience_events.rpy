@@ -100,7 +100,7 @@ label uniform_disobedience_event(planned_uniform, the_person):
             "She hurries out of the room. You wait by her desk until she comes back."
             $ the_person.set_uniform(planned_uniform, wear_now = True)
             $ the_person.draw_person()
-            "A few moments later [the_person.possessive_title!l] comes back, now properly in uniform."
+            "A few moments later [the_person.possessive_title] comes back, now properly in uniform."
 
 
         "Have her change right here" if reduced_coverage_uniform_policy.is_active():
@@ -121,7 +121,7 @@ label uniform_disobedience_event(planned_uniform, the_person):
 
             $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list(strip_feet = True, strip_accessories = True))
 
-            "Once stripped down [the_person.possessive_title!l] puts on her uniform."
+            "Once stripped down [the_person.possessive_title] puts on her uniform."
             $ the_person.set_uniform(planned_uniform, wear_now = True)
             $ the_person.draw_person()
 

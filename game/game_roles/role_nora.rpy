@@ -263,7 +263,7 @@ label nora_research_cash_first_time(the_person):
     $ the_person.draw_person()
     the_person "[the_person.mc_title], I'm glad you were able to come by. Let's walk and talk."
     $ university.show_background()
-    "You walk upstairs together to make sure none of [the_person.possessive_title!l]'s co-workers are around."
+    "You walk upstairs together to make sure none of [the_person.possessive_title]'s co-workers are around."
     if mc.business.event_triggers_dict.get("nora_trait_researched", None) is None: #You don't have her first trait hanging around, so you've finished that quest line
         mc.name "So you have a serum trait for me to test?"
         the_person "I do. I have the details prepared for you to manufacture, and a section of the grant money set aside to pay for your work."
@@ -309,7 +309,7 @@ label nora_research_cash(the_person):
         $ the_person.draw_person()
         the_person "[the_person.mc_title], I'm glad you were able to come by. Let's walk and talk."
         $ university.show_background()
-        "You walk upstairs together to make sure none of [the_person.possessive_title!l]'s co-workers are around."
+        "You walk upstairs together to make sure none of [the_person.possessive_title]'s co-workers are around."
 
     # TODO: The first intro bit returns here
     $ the_trait = mc.business.event_triggers_dict.get("nora_cash_research_trait") #We know won't be None from our initial event check.
@@ -332,7 +332,7 @@ label nora_research_cash(the_person):
         $ list_of_traits.append(the_trait)
         $ del the_trait
         mc.name "Okay, I'll see what I can do. Thank you for your business, [the_person.title]."
-        "You say goodbye to [the_person.possessive_title!l] and split up. Your payment is sent soon after."
+        "You say goodbye to [the_person.possessive_title] and split up. Your payment is sent soon after."
 
     else:
         #Unlock the boss trait phase
@@ -347,7 +347,7 @@ label nora_research_cash(the_person):
         the_person "If I find any hints pointing towards a trait I will share the research with you. I improve my research, and you may discover useful applications for your business."
         mc.name "That sounds like a good deal for both of us."
         the_person "My thoughts exactly, I'm glad you agree."
-        "You say goodbye to [the_person.possessive_title!l] and split up. She sends your final payment and her research questionnaire soon after."
+        "You say goodbye to [the_person.possessive_title] and split up. She sends your final payment and her research questionnaire soon after."
 
         $ add_study_person_for_nora_actions(the_person)
     $ mc.business.funds += 2000
@@ -359,7 +359,7 @@ label nora_special_research(the_person):
     $ the_subject = get_nora_research_subject() #This is guaranteed to exist thanks to the pre action checks.
 
     mc.name "I have a research profile for you to take a look at [the_person.title]. Let me know if you can find anything interesting out."
-    "You give [the_person.possessive_title!l] the report you have prepared on [the_subject.title]."
+    "You give [the_person.possessive_title] the report you have prepared on [the_subject.title]."
     the_person "Excellent. This shouldn't take too long to process, I just need to head to the lab and input the data."
     $ clear_scene()
     "[the_person.title] leaves for her lab. True to her word, she's back in less than half an hour with her findings in hand."
@@ -476,7 +476,7 @@ label nora_profile_person(the_person):
 
     else:
         mc.name "Do you have a few minutes, [the_person.title]? I have a few questions I was hoping you could answer for me."
-        "You fill in all the information you already know about [the_person.possessive_title!l], then have her answer a few questions you were unsure about."
+        "You fill in all the information you already know about [the_person.possessive_title], then have her answer a few questions you were unsure about."
         "It takes some time, but soon you have completed [nora.title]'s research survey."
         "All that is left now is to take it back to her and see if she finds anything interesting."
 

@@ -638,7 +638,7 @@ label employee_performance_review(the_person):
                                                 mc.name "Of course, I need to put a condom on first."
                                                 mc.name "I wouldn't want any accidents showing up nine months from now."
                                                 "You step back and pull a condom out of your wallet. After a moment of fumbling you have it spread over your dick."
-                                                "You hold your shaft with one hand and step close to [the_person.possessive_title!l] again, teasing the lips of her pussy with your tip."
+                                                "You hold your shaft with one hand and step close to [the_person.possessive_title] again, teasing the lips of her pussy with your tip."
                                                 $ mc.condom = True
 
                                             "Fuck her raw":

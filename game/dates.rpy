@@ -55,7 +55,7 @@ label lunch_date_label(the_person): #Could technically be included in the planni
     "A bell on the door jingles as you walk in."
     mc.name "You grab a seat and I'll order for us."
     $ clear_scene()
-    "You order food for yourself and [the_person.possessive_title!l] and wait until it's ready."
+    "You order food for yourself and [the_person.possessive_title] and wait until it's ready."
     $ mc.business.funds += -30
     $ the_person.draw_person(position = "sitting")
     "When it's ready you bring it over to [the_person.title] and sit down at the table across from her."
@@ -184,7 +184,7 @@ label movie_date_label(the_person):
         $ likes_movie = True # Bimbos like anything other than weird art pieces.
 
     #TODO: Generate a girl and assign them a uniform.
-    "You walk up to the ticket booth and get tickets for yourself and [the_person.possessive_title!l]."
+    "You walk up to the ticket booth and get tickets for yourself and [the_person.possessive_title]."
     $ mc.business.funds += -50
 
     "Tickets in hand, you rejoin [the_person.title] and set off to find your theater."
@@ -194,7 +194,7 @@ label movie_date_label(the_person):
             mc.name "Sure, you run ahead and I'll go get us some snacks."
             $ clear_scene()
             $ mc.business.funds += -20
-            "You give [the_person.possessive_title!l] her ticket and split up. At the concession stand you get a pair of drinks and some popcorn to share."
+            "You give [the_person.possessive_title] her ticket and split up. At the concession stand you get a pair of drinks and some popcorn to share."
             menu:
                 "Put a dose of serum in her drink" if mc.inventory.get_any_serum_count() > 0:
                     call give_serum(the_person) from _call_give_serum_14
@@ -242,7 +242,7 @@ label movie_date_label(the_person):
                     "Her hand slides up to your waist and undoes the button to your pants. You get a jolt of pleasure as her fingers slide onto your hardening cock."
                     "[the_person.title] stays sitting in her seat, eyes fixed on the movie screen as she begins to fondle your dick."
                     "As you get hard she starts to stroke you off. Her hand is warm and soft, and the risk of being caught only enhances the experience."
-                    "After a few minutes [the_person.possessive_title!l] brings her hand to her mouth, licks it, and then goes back go jerking you off with her slick hand."
+                    "After a few minutes [the_person.possessive_title] brings her hand to her mouth, licks it, and then goes back go jerking you off with her slick hand."
 
                     if (the_person.sluttiness - the_person.get_opinion_score("public sex") * 5) > 65 and (the_person.relationship == "Single" or the_person.get_opinion_score("cheating on men") > 0) and not the_person.has_family_taboo():
                         "You're enjoying the feeling of her wet hand sliding up and down your cock when she stops. You're about to say something when she slides off of her movie seat and kneels down in the isle."
@@ -319,7 +319,7 @@ label movie_date_label(the_person):
                     if not the_person.has_role(aunt_role) and not the_person.has_role(cousin_role):
                         if not the_person.home in mc.known_home_locations:
                             $ mc.known_home_locations.append(the_person.home) #You know where she lives and can visit her.
-                    "You flag a taxi and get in with [the_person.possessive_title!l]."
+                    "You flag a taxi and get in with [the_person.possessive_title]."
                     "After a short ride you pull up in front her house. She leads you to the front door and invites you inside."
                     $ the_person.add_situational_slut("Romanced",15,"What a wonderful date!")
                     call date_take_home_her_place(the_person, date_type = "movie") from _call_date_take_home_her_place
@@ -397,13 +397,13 @@ label dinner_date_label(the_person):
     $ the_person.draw_person(emotion = "happy", position = "sitting")
     if sister_role in the_person.special_role or mother_role in the_person.special_role:
         if the_person.sluttiness >= 20:
-            "You and [the_person.possessive_title!l] get to the restaurant and order your meals. She chats and flirts with you freely, as if forgetting you were related."
+            "You and [the_person.possessive_title] get to the restaurant and order your meals. She chats and flirts with you freely, as if forgetting you were related."
         else:
-            "You and [the_person.possessive_title!l] get to the restaurant and order your meals."
+            "You and [the_person.possessive_title] get to the restaurant and order your meals."
             "She chats and laughs with you the whole night, but never seems to consider this more than a friendly family dinner."
 
     else:
-        "You and [the_person.possessive_title!l] get to the restaurant and order your meals. You chat, flirt, and have a wonderful evening."
+        "You and [the_person.possessive_title] get to the restaurant and order your meals. You chat, flirt, and have a wonderful evening."
 
     if renpy.random.randint(0,100) < 40: #Chance to give her some serum.
         "After dinner you decide to order dessert. [the_person.title] asks for a piece of cheese cake, then stands up from the table."
@@ -448,7 +448,7 @@ label dinner_date_label(the_person):
                     $ the_person.call_dialogue("sex_review", the_report = _return)
                     $ the_person.clear_situational_slut("Romanced")
                     #TODO: add support for spending the night somewhere other than home.
-                    "When you and [the_person.possessive_title!l] are finished you slip back to your own bedroom just down the hall."
+                    "When you and [the_person.possessive_title] are finished you slip back to your own bedroom just down the hall."
 
                 "Call it a night":
                     mc.name "I think we should just call it a night now. I've got to get up early tomorrow."
@@ -470,7 +470,7 @@ label dinner_date_label(the_person):
                     if not aunt_role in the_person.special_role and not cousin_role in the_person.special_role:
                         if not the_person.home in mc.known_home_locations:
                             $ mc.known_home_locations.append(the_person.home) #You know where she lives and can visit her.
-                    "You join [the_person.possessive_title!l] when her taxi arrives."
+                    "You join [the_person.possessive_title] when her taxi arrives."
                     "After a short ride you pull up in front her house. She leads you to the front door and invites you inside."
                     $ the_person.add_situational_slut("Romanced",25,"What a wonderful date!")
                     call date_take_home_her_place(the_person, date_type = "dinner") from _call_date_take_home_her_place_1
@@ -503,7 +503,7 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
 
         call fuck_date_event(the_person) from _call_fuck_date_event_1 #You're having an affair, leads to all of the normal affair stuff like being caught. #TODO: Make sure the date seduction dialogue leads into this properly.
         $ the_person.draw_person(position = "missionary") # drop on the bed to rest
-        "When you and [the_person.possessive_title!l] are finished you give her a goodbye kiss and head home yourself.."
+        "When you and [the_person.possessive_title] are finished you give her a goodbye kiss and head home yourself.."
 
         #TODO: Refactor this huge conditional. It's hard to read
     elif (the_person.effective_sluttiness(["vaginal_sex", "sucking_cock"]) >= 70 and the_person.relationship == "Single") or (the_person.effective_sluttiness(["vaginal_sex", "sucking_cock"]) >= 70-(10*the_person.get_opinion_score("cheating on men")) and the_person.relationship != "Single"): #TODO: Figure out what triggers we want for this
@@ -517,7 +517,7 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
         the_person "I can't wait! I want you right here, right now!"
         menu:
             "Fuck her in the front hall":
-                "You return the kiss. A moment later [the_person.possessive_title!l] has her hand down your pants, fondling your cock."
+                "You return the kiss. A moment later [the_person.possessive_title] has her hand down your pants, fondling your cock."
                 the_person "It's already hard! Oh my god... Come on, how do you want me?"
                 call fuck_person(the_person, private = True) from _call_fuck_person_103
                 $ the_person.call_dialogue("sex_review", the_report = _return)
@@ -562,14 +562,14 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
 
         else: #She doesn't like being nude or wearing lingerie, so just strip her to her underwear
             $ the_person.outfit.strip_to_underwear()
-        "You sit down on the couch and relax while you wait for [the_person.possessive_title!l]. A few minutes later she calls out for you."
+        "You sit down on the couch and relax while you wait for [the_person.possessive_title]. A few minutes later she calls out for you."
         the_person "[the_person.mc_title], could you come here?"
         "You down the rest of your drink and leave the empty glass behind, following the sound of her voice."
         mc.name "On my way. Is everything okay?"
         the_person "Everything's fine, just get in here!"
         "Her voice is coming from the other side of a partially opened door. You nudge it open and step inside."
         $ the_person.draw_person(position = "sitting")
-        "It's a bedroom, and [the_person.possessive_title!l] is sitting at the foot of the bed."
+        "It's a bedroom, and [the_person.possessive_title] is sitting at the foot of the bed."
         the_person "I thought we might be more comfortable in here. I got changed for you, too."
         $ the_person.draw_person()
         "She stands up and steps closer to you, leaning in for a kiss."
@@ -605,7 +605,7 @@ label date_take_home_her_place(the_person, date_type = None): #Your date went we
         "[the_person.possessive_title] leans closer to you and puts her hand on your thigh. It's obvious what she wants, but she's waiting for you to make the first move."
         menu:
             "Kiss her":
-                "You put your drink aside, then put one hand on the back of [the_person.possessive_title!l]'s neck and pull her into a kiss."
+                "You put your drink aside, then put one hand on the back of [the_person.possessive_title]'s neck and pull her into a kiss."
                 if the_person.relationship == "Single" or the_person.get_opinion_score("cheating on men") > 0:
                     "She returns the kiss eagerly."
                 else:

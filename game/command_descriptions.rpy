@@ -95,7 +95,7 @@ label change_titles_person(the_person):
         "Change how you refer to her (tooltip)Change your possessive title for this girl. A possessive title takes the form \"your employee\", \"your sister\", etc. It can also just be their name repeated. Different combinations of stats, roles, and personalities unlock different titles.":
             $ title_choice = new_possessive_title_menu(the_person)
             if not (title_choice == "Back" or the_person.possessive_title == the_person.create_formatted_title(title_choice)):
-                "You decide to start referring [the_person.name] [the_person.last_name] as [title_choice] instead of [the_person.possessive_title!l] when you're talking about her."
+                "You decide to start referring [the_person.name] [the_person.last_name] as [title_choice] instead of [the_person.possessive_title] when you're talking about her."
                 $ the_person.set_possessive_title(title_choice)
     return
 
@@ -147,7 +147,7 @@ label demand_touch_label(the_person):
                     "You take [the_person.title] by her wrist and lead her away."
                     #TODO: have each location have a unique "find someplace quiet" descriptor with a default fallback option
                     "After a couple of minutes searching you find a quiet space with just the two of you."
-                    "You don't waste any time getting back to what you were doing, grabbing [the_person.possessive_title!l]'s tits and groping her ass."
+                    "You don't waste any time getting back to what you were doing, grabbing [the_person.possessive_title]'s tits and groping her ass."
 
                 "Stay where you are\n{color=#ff0000}{size=18}[extra_people_count] watching{/size}{/color}":
                     mc.name "We're going to stay right here."
@@ -170,7 +170,7 @@ label demand_touch_label(the_person):
                     "You take [the_person.title] by her wrist and lead her away."
                     #TODO: have each location have a unique "find someplace quiet" descriptor with a default fallback option
                     "After searching for a couple of minutes you find a quiet space with just the two of you."
-                    "You don't waste any time getting back to what you were doing, grabbing [the_person.possessive_title!l]'s tits and groping her ass."
+                    "You don't waste any time getting back to what you were doing, grabbing [the_person.possessive_title]'s tits and groping her ass."
 
                 "Stay where you are\n{color=#ff0000}{size=18}[extra_people_count] watching{/size}{/color}":
                     mc.name "We're going to stay right here."
@@ -183,13 +183,13 @@ label demand_touch_label(the_person):
 
         else:
             #She's fine with it, but we'll give you the option anyways.
-            "There are other people around, but [the_person.possessive_title!l] either doesn't care or is too determined to follow your instructions exactly."
+            "There are other people around, but [the_person.possessive_title] either doesn't care or is too determined to follow your instructions exactly."
             menu:
                 "Find somewhere quiet\n{color=#ff0000}{size=18}No interruptions{/size}{/color}":
                     mc.name "Come with me, I don't want to be interrupted."
                     "You take [the_person.title] by the wrist and lead her away. She follows without question."
                     "After searching for a couple of minutes you find a quiet space with just the two of you."
-                    "You don't waste any time getting back to what you were doing, grabbing [the_person.possessive_title!l]'s tits and groping her ass."
+                    "You don't waste any time getting back to what you were doing, grabbing [the_person.possessive_title]'s tits and groping her ass."
 
                 "Stay where you are\n{color=#ff0000}{size=18}[extra_people_count] watching{/size}{/color}":
                     $ should_be_private = False
@@ -388,7 +388,7 @@ label demand_strip_tits_label(the_person):
     else: # She's into it
         $ the_person.draw_person(the_animation = blowjob_bob) #TODO Make sure this effect looks right
         "[the_person.title] places her hands behind her and bounces on her feet, jiggling her tits for your amusement."
-        "When you've seen enough you nod approvingly. [the_person.possessive_title!l] smiles happily."
+        "When you've seen enough you nod approvingly. [the_person.possessive_title] smiles happily."
         the_person "So you want me to get dressed again?"
 
     menu:
@@ -581,7 +581,7 @@ label demand_strip_underwear_label(the_person):
         mc.name "It does, you look cute."
         "She smiles and gives you a spin, letting you take a look at her from behind."
         $ the_person.draw_person(position = "back_peek")
-        "You enjoy the view for a little while longer, then nod approvingly to [the_person.possessive_title!l]."
+        "You enjoy the view for a little while longer, then nod approvingly to [the_person.possessive_title]."
         $ the_person.draw_person()
         the_person "Would you like me to get dressed again?"
 
@@ -741,7 +741,7 @@ label suck_demand_label(the_person):
 
 
         "Grab her head and fuck her mouth":
-            "You place your hands on either side of [the_person.possessive_title!l]'s head. She cocks her head and looks up at you."
+            "You place your hands on either side of [the_person.possessive_title]'s head. She cocks her head and looks up at you."
             mc.name "That's a good girl, now let's put you to good use."
             "You hold her head in place as you shove your hips forward."
             if the_person.sex_skills["Oral"] >= 4: #She throats you like a pro

@@ -333,7 +333,7 @@ label punishment_spank(the_person, the_infraction):
     $ the_person.draw_person(position = "standing_doggy")
 
 
-    "You stand to the side of [the_person.possessive_title!l] and place one hand on her hip, ready to spank her with the other."
+    "You stand to the side of [the_person.possessive_title] and place one hand on her hip, ready to spank her with the other."
     #If she has a skirt on, option to pull it up.
     $ top_clothing = the_person.outfit.get_lower_top_layer()
     if top_clothing and top_clothing.can_be_half_off and top_clothing.half_off_gives_access and top_clothing.hide_below and not top_clothing.anchor_below and not top_clothing.underwear:
@@ -446,7 +446,7 @@ label spank_description(the_person, the_infraction):
             else: #Doesn't particularly mind."
                 "[the_person.title] jerks forward with each strike, but her [top_clothing.display_name] seems to be saving her from the worst of it."
                 the_person "Ah... Ow..."
-                "After a few more strikes it's clear you aren't having the effect on [the_person.possessive_title!l] that you were hoping for."
+                "After a few more strikes it's clear you aren't having the effect on [the_person.possessive_title] that you were hoping for."
                 "You give her one last slap on the ass and step back."
                 mc.name "Stand up, we're done here."
                 $ the_person.outfit.restore_all_clothing()
@@ -856,7 +856,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
         "She frowns, but follows your instructions. She lowers her hands to her sides, letting you get a good view of her body."
 
     mc.name "Good, now we can get started."
-    "You step close to [the_person.possessive_title!l] and cup one of her breasts, squeezing it softly."
+    "You step close to [the_person.possessive_title] and cup one of her breasts, squeezing it softly."
     mc.name "You've really disappointed me [the_person.title], so in return..."
     "You place your other hand on her hip."
     mc.name "...I'm going to disappoint you. I'm going to bring you right to the edge of cumming and leave you there."
@@ -881,7 +881,7 @@ label punishment_orgasm_denial(the_person, the_infraction):
         "[the_person.possessive_title] pouts while you slide your hand from her hip down to her inner thigh."
         mc.name "So be a good girl and take your punishment."
 
-    "You move behind [the_person.possessive_title!l], keeping one hand between her legs and the other massaging a tit."
+    "You move behind [the_person.possessive_title], keeping one hand between her legs and the other massaging a tit."
     $ the_person.break_taboo("touching_body")
     $ the_person.add_situational_obedience("punishment", 20, "I'm being punished, I don't have any right to refuse.")
     call fuck_person(the_person, private = False, start_position = standing_grope, start_object = mc.location.objects_with_trait("Stand")[0], skip_intro = True, affair_ask_after = False) from _call_fuck_person_92
@@ -1009,7 +1009,7 @@ label punishment_forced_punishment_outfit(the_person, the_infraction):
     call outfit_master_manager() from _call_outfit_master_manager_9
     $ the_outfit = _return
     if the_outfit is None:
-        "You consider what to dress [the_person.possessive_title!l] for a moment, then shrug."
+        "You consider what to dress [the_person.possessive_title] for a moment, then shrug."
         mc.name "On second thought, I think wearing nothing at all suits a disobedient slut like you."
         mc.name "Consider this your uniform for the rest of the week. Do you understand?"
         $ the_person.set_uniform(the_person.outfit, wear_now = True)
@@ -1020,7 +1020,7 @@ label punishment_forced_punishment_outfit(the_person, the_infraction):
         "She nods obediently."
         $ the_person.set_uniform(the_outfit, wear_now = True)
         $ the_person.draw_person()
-        "You watch as she gets changed. When [the_person.possessive_title!l] is finished she stands in front of you."
+        "You watch as she gets changed. When [the_person.possessive_title] is finished she stands in front of you."
 
         if the_person.effective_sluttiness() < the_person.outfit.slut_requirement:
             the_person "Is this it? This is so embarrassing..."

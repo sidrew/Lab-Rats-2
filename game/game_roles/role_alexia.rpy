@@ -177,7 +177,7 @@ label alexia_intro_phase_one_label(the_person):
     "[the_person.title] gives you the address of her coffee shop."
     $ the_person.draw_person(position = "walking_away")
     the_person "I've got to run, but I hope I'll see you around!"
-    "You wave goodbye to [the_person.possessive_title!l] as she walks away."
+    "You wave goodbye to [the_person.possessive_title] as she walks away."
 
     $ add_alexia_phase_two_action(the_person)
     $ clear_scene()
@@ -190,7 +190,7 @@ label alexia_intro_phase_two_label(the_person):
     "You find the coffee shop [the_person.title] works at. It's a small corner unit, with a patio outside full of patrons."
     #TODO: Add a waitress outfit for her
     $ the_person.draw_person()
-    "You step inside and see [the_person.possessive_title!l] behind the front counter. She smiles when she sees you and waves you over."
+    "You step inside and see [the_person.possessive_title] behind the front counter. She smiles when she sees you and waves you over."
     the_person "Hey, I'm glad you were able to make it! I'm just finishing up my shift. Grab a seat and I'll be over in a minute."
     $ clear_scene()
     "She heads into the back room of the shop. You sit down at a small table for two by a window and wait."
@@ -201,7 +201,7 @@ label alexia_intro_phase_two_label(the_person):
     "She looks out the window and swirls her coffee cup with one hand."
     the_person "Something about that summer was just confusing. I didn't know what I wanted to do, but biology wasn't it anymore."
     the_person "So I didn't come back for my last year. I did some traveling, a lot of thinking, and now I'm back here."
-    "You sip at your coffee and listen to [the_person.possessive_title!l] talk."
+    "You sip at your coffee and listen to [the_person.possessive_title] talk."
     the_person "I'm sorry we never talked again. You must have thought I fell off the face of the Earth."
     menu:
         "I forgive you":
@@ -238,7 +238,7 @@ label alexia_intro_phase_two_label(the_person):
     $ the_person.draw_person()
     "[the_person.title] laughs and stands up."
     the_person "It's time for me to head home. My ride should be here soon. Oh, do you want to come out and meet him?"
-    "You stand up and walk out with [the_person.possessive_title!l]."
+    "You stand up and walk out with [the_person.possessive_title]."
     mc.name "Uh, sure. Who is he?"
     "When you get outside [the_person.title] looks around for a moment, then waves to a car as it pulls over."
     the_person "Right on time! [the_person.SO_name], we met while I was traveling and we've been dating ever since."
@@ -377,7 +377,7 @@ label alexia_photography_intro_label(the_person):
     the_person "As ready as I'll ever be, I suppose. I found a good spot in the storage room. It has plenty of light and a blank wall."
     mc.name "Excellent. Let's go."
     # TODO: Change location? Just change background art?
-    "You and [the_person.possessive_title!l] go to the storage room. Once you get there she hands you the new camera."
+    "You and [the_person.possessive_title] go to the storage room. Once you get there she hands you the new camera."
 
     the_person "Here you go [the_person.mc_title]. How do you want to do this?"
     mc.name "Let's start with some basic shots of you. Just act natural and look into the camera."

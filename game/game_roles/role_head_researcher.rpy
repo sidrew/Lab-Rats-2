@@ -140,7 +140,7 @@ label improved_serum_unlock_label(the_person):
                 the_person "Hmm, a little sweet, then bitter towards the end."
                 mc.name "Was it an overpowering taste?"
                 the_person "Not particularly, no."
-                "You scribble down [the_person.possessive_title!l]'s name at the top of your notes page then add some bullet points listing her responses."
+                "You scribble down [the_person.possessive_title]'s name at the top of your notes page then add some bullet points listing her responses."
                 mc.name "My old research suggested that these serums could make people more suggestible. Do you feel like you are more suggestible than normal?"
                 "[the_person.title] thinks for a moment before responding."
                 the_person "Maybe? No? God, that's hard question to answer objectively, isn't it?"

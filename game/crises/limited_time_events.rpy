@@ -205,7 +205,7 @@ label sister_walk_in_label(the_person):
         "You try to open the door to [the_person.title]'s room, but find it locked."
         $ the_person.change_arousal(30, add_to_log = False)
         the_person "Ah! One... One second!"
-        "You hear scrambling on the other side of the door, then the lock clicks and [the_person.possessive_title!l] pokes her head out."
+        "You hear scrambling on the other side of the door, then the lock clicks and [the_person.possessive_title] pokes her head out."
         $ the_person.draw_person()
         the_person "Oh... [the_person.mc_title], it's only you. Come on in, what's up?"
         "Her face is flush and her breathing rapid. You wonder for a moment what you almost caught her doing as she leans nonchalantly against the door frame."
@@ -216,7 +216,7 @@ label sister_walk_in_label(the_person):
         "You try to open the door to [the_person.title]'s room, but find it locked."
         $ the_person.change_arousal(40, add_to_log = False)
         the_person "Ah! One... One second!"
-        "You hear scrambling on the other side of the door, then the lock clicks and [the_person.possessive_title!l] pokes her head out."
+        "You hear scrambling on the other side of the door, then the lock clicks and [the_person.possessive_title] pokes her head out."
         $ the_person.draw_person()
         the_person "[the_person.mc_title], it's you. What's up?"
         "Her face is flush and her breathing rapid. Her attempt at being nonchalant is ruined when a loud moan comes from her laptop, sitting on her bed."
@@ -389,7 +389,7 @@ label nude_walk_in_label(the_person):
         $ the_person.apply_outfit(Outfit("Nude"))
         #$ the_person.outfit = Outfit("Nude") changed v0.24.1
         $ the_person.draw_person()
-        "You open the door to [the_person.possessive_title!l]'s room and see her standing in front of her mirror, completely nude."
+        "You open the door to [the_person.possessive_title]'s room and see her standing in front of her mirror, completely nude."
         if the_person.effective_sluttiness(["bare_tits", "bare_pussy"]) < (50 - (the_person.get_opinion_score("not wearing anything")*10)):
             # She asks you to step out for a moment.
             if the_person.has_large_tits():
@@ -422,7 +422,7 @@ label nude_walk_in_label(the_person):
         # She's in her underwear
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True))
         $ the_person.draw_person(position = "sitting")
-        "You open the door to [the_person.possessive_title!l]'s room and find her sitting on her bed, wearing nothing but her underwear."
+        "You open the door to [the_person.possessive_title]'s room and find her sitting on her bed, wearing nothing but her underwear."
         if the_person.effective_sluttiness("underwear_nudity") < (30 - (the_person.get_opinion_score("not wearing anything")*10)):
             the_person "Oh! One second, I'm not dressed!"
             $ clear_scene()
@@ -455,7 +455,7 @@ label mom_house_work_nude_label(the_person):
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True))
         $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
-        "You find [the_person.possessive_title!l] in the kitchen working on dinner. She glances over her shoulder when you enter, seeming meek."
+        "You find [the_person.possessive_title] in the kitchen working on dinner. She glances over her shoulder when you enter, seeming meek."
         the_person "Hi [the_person.mc_title]. I hope you don't mind the way I'm dressed, it's just a little more comfortable like this after work."
         mc.name "It's fine, I don't mind."
         "She turns her attention back to preparing dinner."
@@ -464,7 +464,7 @@ label mom_house_work_nude_label(the_person):
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True))
         $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
-        "You find [the_person.possessive_title!l] in the kitchen working on dinner in her underwear. She glances over her shoulder when you enter."
+        "You find [the_person.possessive_title] in the kitchen working on dinner in her underwear. She glances over her shoulder when you enter."
         the_person "Hi [the_person.mc_title], I hope you've had a good day."
         "She turns back to her work and hums happily."
 
@@ -472,7 +472,7 @@ label mom_house_work_nude_label(the_person):
         $ the_person.apply_outfit(Outfit("Nude"))
         $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
-        "You find [the_person.possessive_title!l] in the kitchen, completely nude except for her apron. She glances over her shoulder when you enter."
+        "You find [the_person.possessive_title] in the kitchen, completely nude except for her apron. She glances over her shoulder when you enter."
         the_person "Hi [the_person.mc_title]. If me being... naked makes you uncomfortable just let me know. It's just a nice to relax a little after work."
         mc.name "I don't mind at all Mom."
         "She turns her attention back to preparing dinner."
@@ -481,7 +481,7 @@ label mom_house_work_nude_label(the_person):
         $ the_person.apply_outfit(Outfit("Nude"))
         $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
-        "You find [the_person.possessive_title!l] in the kitchen, completely nude except for her apron. She glances over her shoulder when you enter."
+        "You find [the_person.possessive_title] in the kitchen, completely nude except for her apron. She glances over her shoulder when you enter."
         the_person "Hi [the_person.mc_title], I hope you've had a great day. Dinner should be ready soon!"
         "She turns back to her work and sings happily to herself, wiggling her butt as she works."
 
@@ -496,7 +496,7 @@ label breeding_mom_label(the_person):
     $ the_person.update_outfit_taboos()
     "You walk into [the_person.title]'s room and find her sitting on the edge of her bed, completely naked."
     the_person "[the_person.mc_title], close the door, please. I have something I need to ask you."
-    "You close the door to [the_person.possessive_title!l]'s bedroom and walk over to her bed."
+    "You close the door to [the_person.possessive_title]'s bedroom and walk over to her bed."
     "She pats the bed beside her and you sit down."
     the_person "I've been thinking a lot about this. You're all grown up and [lily.title] isn't far behind."
     the_person "Soon you'll both be leaving home, but I don't think I'm done being a mother yet."
@@ -522,7 +522,7 @@ label breeding_mom_label(the_person):
             call fuck_person(the_person, start_position = missionary, start_object = mc.location.get_object_with_name("bed"), skip_intro = True, position_locked = True) from _call_fuck_person_19
             $ the_report = _return #TODO: The creampie check should now be possible with the report system instead of checking her total record.
             if the_person.sex_record.get("Vaginal Creampies", 0) > starting_creampies: #We've creampied her at least once this encounter.
-                "You roll off of [the_person.possessive_title!l] and onto the bed beside her, feeling thoroughly spent."
+                "You roll off of [the_person.possessive_title] and onto the bed beside her, feeling thoroughly spent."
                 "She brings her knees up against her chest and tilts her hips up, holding all of your cum deep inside of her."
                 mc.name "Do you think that did it?"
                 the_person "I don't know. It's the right time of the month."
@@ -532,7 +532,7 @@ label breeding_mom_label(the_person):
                 #TODO: Add an action where you can try and breed her some more.
 
             else:
-                "You roll off of [the_person.possessive_title!l] and onto the bed beside her."
+                "You roll off of [the_person.possessive_title] and onto the bed beside her."
                 $ the_person.change_happiness(-20)
                 the_person "I'm sorry... I'm sorry I'm not good enough to make you cum. I'm not good enough to earn your child..."
                 "She sounds as if she is almost on the verge of tears."
@@ -540,7 +540,7 @@ label breeding_mom_label(the_person):
                 mc.name "Shh... You were fantastic. It's me, I'm just not feeling it today. Maybe we can try some other day."
                 the_person "I don't know, this might have all been a mistake. Let's just... be quiet for a while, okay?"
                 $ the_person.draw_person(position = "sitting")
-                "You hold [the_person.possessive_title!l] until she's feeling better, then sit up in bed with her."
+                "You hold [the_person.possessive_title] until she's feeling better, then sit up in bed with her."
 
         "Say no":
             $ the_person.draw_person(position = "sitting", emotion = "sad")
@@ -560,7 +560,7 @@ label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom
     $ old_lighting = old_location.lighting_conditions
     $ mc.location.lighting_conditions = dark_lighting #ie. she's got hte lights off and the blinds drawn.
 
-    "You open the door to [the_person.possessive_title!l]'s room."
+    "You open the door to [the_person.possessive_title]'s room."
     if time_of_day == 0: #Morning.
         "For a moment you think it's empty, until you see [the_person.title] lying in bed, still sound asleep."
     else: #Evening
@@ -570,7 +570,7 @@ label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom
     $ the_person.draw_person(position = "missionary")
     menu:
         "Go inside":
-            "You close the door behind you slowly, careful not to wake [the_person.possessive_title!l] up."
+            "You close the door behind you slowly, careful not to wake [the_person.possessive_title] up."
 
             menu:
                 "Wake her up": #Wakes her up, starts a conversation. If she thinks her outfit is too slutty she'll get changed first.
@@ -591,7 +591,7 @@ label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom
                             "She pulls the bed sheets up to cover her chest."
                             the_person "I'm not decent. Could you just look away for a moment while I get dressed?"
                             mc.name "Okay [the_person.title]."
-                            "You avert your eyes. You can hear moving around [the_person.possessive_title!l] as she gets dressed."
+                            "You avert your eyes. You can hear moving around [the_person.possessive_title] as she gets dressed."
                             $ clear_scene()
                             menu:
                                 "Peek":
@@ -650,7 +650,7 @@ label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom
                     call talk_person(the_person) from _call_talk_person_20
 
                 "Sleep in her bed {image=gui/heart/Time_Advance.png}{image=gui/heart/Time_Advance.png}" if time_of_day == 4: #Only at night #TODO: Break the "sleep with" events out for more detail
-                    "You move quietly to the side of [the_person.possessive_title!l]'s bed, lift the covers, and lie down next to her."
+                    "You move quietly to the side of [the_person.possessive_title]'s bed, lift the covers, and lie down next to her."
                     if the_person == mom:
                         "She stirs, rolling over to face you."
                         the_person "[the_person.mc_title]? Is everything alright?"
@@ -726,7 +726,7 @@ label sleeping_walk_in_label(the_person): #TODO: This event is currently for Mom
                         bra_item = None
 
         "Let her sleep":
-            "You back out of the room and close door slowly, careful not to wake [the_person.possessive_title!l]."
+            "You back out of the room and close door slowly, careful not to wake [the_person.possessive_title]."
             $ the_person.on_room_enter_event_list.append(Limited_Time_Action(sleeping_walk_in, sleeping_walk_in.event_duration)) # Re-add this LTE so it keeps triggering when you go back.
             $ mc.change_location(hall) #Make sure to change our location so we aren't immediately inside again.
 
@@ -783,14 +783,14 @@ label nightime_grope(the_person, masturbating = False):
 
 
     if masturbating: #TODO: Add a few variations of this since we might loop through here a few times
-        "You stroke your cock, thinking about what you want to do with [the_person.possessive_title!l]."
+        "You stroke your cock, thinking about what you want to do with [the_person.possessive_title]."
 
     #TODO: We may want to replace this with an Action based menu at some point to more conveniently format all of the options
     menu:
         "Grope her tits -5{image=gui/extra_images/energy_token.png}" if mc.energy >= 5 and the_person.effective_sluttiness() >= grope_tits_slut_requirement:
             $ mc.change_energy(-5)
             if the_person.outfit.tits_available():
-                "You reach out and gently place your hand on one of [the_person.possessive_title!l]'s tits."
+                "You reach out and gently place your hand on one of [the_person.possessive_title]'s tits."
                 $ the_person.draw_person(position = "missionary", the_animation = tit_bob, animation_effect_strength = 0.5)
                 if the_person.has_large_tits():
                     "Her breast is large, warm, and soft under your hand. [the_person.title] sighs softly when you squeeze it."
@@ -801,7 +801,7 @@ label nightime_grope(the_person, masturbating = False):
                 $ the_person.change_arousal(4 + mc.sex_skills.get("Foreplay", 0))
 
             else:
-                "You reach out and gently place your hand on one of [the_person.possessive_title!l]'s tits, separated only by her [bra_item.display_name]."
+                "You reach out and gently place your hand on one of [the_person.possessive_title]'s tits, separated only by her [bra_item.display_name]."
                 if the_person.has_large_tits():
                     "Her tits are large, barely contained by her [bra_item.display_name] and begging to be set free."
                     "You grab her other boob and massage both at once. She sighs softly in her sleep."
@@ -864,7 +864,7 @@ label nightime_grope(the_person, masturbating = False):
 
 
                             mc.name "That makes sense, sorry again!"
-                            "You beat a hasty retreat from [the_person.possessive_title!l]'s bedroom."
+                            "You beat a hasty retreat from [the_person.possessive_title]'s bedroom."
                             return True
                         else:
                             the_person "Mmm..."
@@ -910,7 +910,7 @@ label nightime_grope(the_person, masturbating = False):
                 $ the_person.change_slut_temp(1 + the_person.get_opinion_score("being submissive"))
                 the_person "Oh... I must have been talking in my sleep. I was having a dream, that's all."
                 mc.name "Right, that makes sense. Sorry for waking you up."
-                "You beat a hastily retreat, leaving [the_person.possessive_title!l] slightly confused."
+                "You beat a hastily retreat, leaving [the_person.possessive_title] slightly confused."
                 return True
             else:
                 "She sighs and spreads her legs for you, instinct driving her even when asleep."
@@ -963,13 +963,13 @@ label nightime_grope(the_person, masturbating = False):
 
         "Jerk off" if not masturbating and the_person.effective_sluttiness() >= jerk_off_slut_requirement:
             if the_person.outfit.tits_visible():
-                "Seeing [the_person.possessive_title!l] exposed in front of you, tits out, is enough to make you rock hard."
+                "Seeing [the_person.possessive_title] exposed in front of you, tits out, is enough to make you rock hard."
 
             elif the_person.outfit.vagina_visible():
-                "Seeing [the_person.possessive_title!l] exposed in front of you, pussy out and waiting, is enough to make you rock hard."
+                "Seeing [the_person.possessive_title] exposed in front of you, pussy out and waiting, is enough to make you rock hard."
 
             else:
-                "Looking at [the_person.possessive_title!l] laid out in front of you half naked is enough to make you rock hard."
+                "Looking at [the_person.possessive_title] laid out in front of you half naked is enough to make you rock hard."
 
             "You pull your pants down and grab your cock, stroking it to the sight."
 
@@ -982,7 +982,7 @@ label nightime_grope(the_person, masturbating = False):
                     $ the_person.update_outfit_taboos()
                     the_person "Uh huh? Then why is your cock hard?"
                     mc.name "I... Was... Uh..."
-                    "You try and invent a quick excuse, but [the_person.possessive_title!l] just giggles and waves her hand."
+                    "You try and invent a quick excuse, but [the_person.possessive_title] just giggles and waves her hand."
                     the_person "Do you want some help with that? It seems like it's really distracting you..."
                     menu:
                         "Let her \"help\"":
@@ -1026,7 +1026,7 @@ label nightime_grope(the_person, masturbating = False):
             pass
 
         "Get ready to cum" if masturbating:
-            "You speed up your strokes, aware of the limited amount of time you might have before [the_person.possessive_title!l] wakes up."
+            "You speed up your strokes, aware of the limited amount of time you might have before [the_person.possessive_title] wakes up."
             "With her exposed body as motivation it doesn't take long to push yourself to the edge."
             "You take a deep breath and pass the point of no return."
             menu:
@@ -1048,7 +1048,7 @@ label nightime_grope(the_person, masturbating = False):
                     pass
 
         "Tit fuck her" if the_person.has_large_tits() and the_person.outfit.tits_available() and masturbating and the_person.effective_sluttiness() >= titfuck_slut_requirement:
-            "You climb onto [the_person.possessive_title!l]'s bed and swing one leg over her, straddling her chest."
+            "You climb onto [the_person.possessive_title]'s bed and swing one leg over her, straddling her chest."
             "You lower yourself down and settle your cock between her tits. You grab one with each hand and squeeze them gently around your shaft."
             $ the_person.draw_person(position = "missionary", the_animation = tit_bob, animation_effect_strength = 0.7)
             "You start to fuck her tits, moving as slowly as you can bear while wrapped in her warm soft mammaries."
@@ -1080,7 +1080,7 @@ label nightime_grope(the_person, masturbating = False):
                             mc.name "That sounds like a good time, but maybe some other time..."
                             "You pull your cock out from between her breasts and stand up. [the_person.title] seems disappointed."
                             the_person "Feeling shy now that I'm awake? I'm sorry [the_person.mc_title], I didn't mean to scare you off..."
-                            "You stuff your cock back in your pants and hurry out of the room, leaving [the_person.possessive_title!l] awake and confused."
+                            "You stuff your cock back in your pants and hurry out of the room, leaving [the_person.possessive_title] awake and confused."
 
                 else:
                     "She seems momentarily stunned seeing you straddling her, cock held between her tits."
@@ -1099,9 +1099,9 @@ label nightime_grope(the_person, masturbating = False):
 
                 return True
             else:
-                "Despite the unavoidable bouncing of the mattress and your cock jammed between her breasts, [the_person.possessive_title!l] continues to sleep soundly."
+                "Despite the unavoidable bouncing of the mattress and your cock jammed between her breasts, [the_person.possessive_title] continues to sleep soundly."
                 "You squeeze down on her tits as much as you dare, and soon your precum has turned her cleavage into a warm, slippery, fuck channel."
-                "You enjoy [the_person.possessive_title!l]'s body for a few minutes, each stroke between her breasts pulling you closer to your orgasm."
+                "You enjoy [the_person.possessive_title]'s body for a few minutes, each stroke between her breasts pulling you closer to your orgasm."
                 "Soon you're right at the edge, with nothing left to do but decide where to finish."
                 menu:
                     "Cum in your hand":
@@ -1128,7 +1128,7 @@ label nightime_grope(the_person, masturbating = False):
             pass
 
         "Face fuck her" if masturbating and the_person.effective_sluttiness() >= facefuck_slut_requirement:
-            "You step closer to [the_person.possessive_title!l]'s bed, putting your cock right next to her face."
+            "You step closer to [the_person.possessive_title]'s bed, putting your cock right next to her face."
             "You put a finger on her chin and encourage her to turn her head to the side."
             "After a moment of resistance she sleepily rolls her head towards you, and you can feel her warm breath on the tip of your dick."
             "You take a deep breath, then move your hips and press the tip of your cock against her lips."
@@ -1139,7 +1139,7 @@ label nightime_grope(the_person, masturbating = False):
             "You place a hand on the back of her head and hold it steady as you move even deeper into her warm, wet, mouth."
             the_person "Mmph... Umph..."
             if renpy.random.randint(0,100) < 70 - 5*the_person.get_opinion_score("giving blowjobs"):
-                "You're starting to think you actually get away with this when [the_person.possessive_title!l]'s eyes start to flutter."
+                "You're starting to think you actually get away with this when [the_person.possessive_title]'s eyes start to flutter."
                 if the_person.effective_sluttiness("sucking_cock") + 5*(the_person.get_opinion_score("being submissive") + the_person.get_opinion_score("giving blowjobs")) >= 50 and not the_person.has_taboo("sucking_cock"):
                     "Before you can react her eyes drift open."
                     "[the_person.title] blinks twice, as if surprised to find your cock in her mouth, and then starts to bob her head and suck you off."
@@ -1185,7 +1185,7 @@ label nightime_grope(the_person, masturbating = False):
                 return True
             else:
                 "You're half-expecting her to snap awake at any time, but [the_person.title] seems to adjust well to having a cock down her throat."
-                "Emboldened by your success, you start to thrust in and out. Soon you're happily fucking [the_person.possessive_title!l]'s mouth."
+                "Emboldened by your success, you start to thrust in and out. Soon you're happily fucking [the_person.possessive_title]'s mouth."
                 "Each stroke of your cock in and out of [the_person.title]'s mouth feels better than the last, and the added thrill of being caught only hightens the experience."
                 "It doesn't take long before you're at the edge and ready to cum."
                 menu:
@@ -1219,7 +1219,7 @@ label nightime_grope(the_person, masturbating = False):
             pass
 
         "Fuck her" if the_person.outfit.vagina_available() and masturbating and the_person.effective_sluttiness() >= fuck_slut_requirement: #TODO: Sluttiness requirements
-            "You climb onto [the_person.possessive_title!l]'s bed and position yourself on top of her."
+            "You climb onto [the_person.possessive_title]'s bed and position yourself on top of her."
             "After a moment of resistance she unconsciously spreads her legs to make room for you."
             "You grab your cock and tap the tip of it against her slit. She mumbles something in her sleep in response."
             menu:
@@ -1227,7 +1227,7 @@ label nightime_grope(the_person, masturbating = False):
                     "You pause before pushing yourself into [the_person.title]'s pussy."
                     "You pull a condom out of your pocket, rip open the package, and roll it over your cock."
                     $ mc.condom = True
-                    "When you're protected you lie back down on top of [the_person.possessive_title!l] and tease her cunt with the tip of your cock."
+                    "When you're protected you lie back down on top of [the_person.possessive_title] and tease her cunt with the tip of your cock."
 
                 "Fuck her raw":
                     "There's no way you're about to stop now and fumble with a condom. She probably won't care, right?"
@@ -1243,7 +1243,7 @@ label nightime_grope(the_person, masturbating = False):
             $ the_person.draw_person(position = "missionary", the_animation = missionary_bob, animation_effect_strength = 0.7)
             "You can't hold still for long. You start to move your hips, fucking [the_person.title] while trying to avoid any other movements that might wake her up."
             if renpy.random.randint(0,100) < 50 - 5*the_person.get_opinion_score("vaginal sex"):
-                "You're so lost in the feeling of fucking [the_person.possessive_title!l] that you almost don't notice when her eyes flutter open."
+                "You're so lost in the feeling of fucking [the_person.possessive_title] that you almost don't notice when her eyes flutter open."
                 the_person "... Hmm... Ah... [the_person.mc_title]?"
                 if the_person.effective_sluttiness("vaginal_sex") + 5*(the_person.get_opinion_score("being submissive") + the_person.get_opinion_score("vaginal sex")) >= 60 and not the_person.has_taboo("vaginal_sex"):
                     "She takes a moment to comprehend what's happening, then rests her head back on her pillow and moans."
@@ -1290,13 +1290,13 @@ label nightime_grope(the_person, masturbating = False):
                     "[the_person.title] pushes on your hips. You pull out of her warm pussy reluctantly."
                     mc.name "Hey, I was just... Checking in on you."
                     the_person "And you ended up fucking me? Oh my god [the_person.mc_title]..."
-                    "You roll off of [the_person.possessive_title!l] and stand up. She pulls the covers up around herself and looks away."
+                    "You roll off of [the_person.possessive_title] and stand up. She pulls the covers up around herself and looks away."
                     the_person "You should go, okay? We don't... need to talk about this."
                     "You think about responding, but decide it's better to get out while you can. You stuff your hard cock back into your pants and back out of the room."
                 return True
 
             else:
-                "You expect [the_person.possessive_title!l] to open her eyes at any moment, but she seems to be sleeping soundly despite being filled up by your cock."
+                "You expect [the_person.possessive_title] to open her eyes at any moment, but she seems to be sleeping soundly despite being filled up by your cock."
                 "You're feeling more confident and speed up, thrusting in and out of her tight pussy. Soon she's dripping wet and moaning in her sleep."
                 if the_person.get_opinion_score("vaginal sex"):
                     the_person "... Yes... Cock... More..."
@@ -1330,12 +1330,12 @@ label nightime_grope(the_person, masturbating = False):
         "Leave":
             if masturbating:
                 if the_person.outfit.tits_visible() and mc.focus <= 2:
-                    "You move to put your cock back in your pants, but the sight of [the_person.possessive_title!l]'s naked tits are too much for you to say no to."
+                    "You move to put your cock back in your pants, but the sight of [the_person.possessive_title]'s naked tits are too much for you to say no to."
                     "You keep stroking off, unable to leave until you've finished what you've started."
                     call nightime_grope(the_person, masturbating) from _call_nightime_grope_4
                     $ awake = _return
                 elif the_person.outfit.vagina_visible() and mc.focus <= 2:
-                    "You move to put your cock back in your pants, but the sight of [the_person.possessive_title!l]'s naked pussy distracts you."
+                    "You move to put your cock back in your pants, but the sight of [the_person.possessive_title]'s naked pussy distracts you."
                     "You keep stroking off, unable to leave until you've finished what you've started."
                     call nightime_grope(the_person, masturbating) from _call_nightime_grope_5
                     $ awake = _return
@@ -1343,10 +1343,10 @@ label nightime_grope(the_person, masturbating = False):
                 else:
                     if the_person.outfit.tits_visible() or the_person.outfit.vagina_visible():
                         "You give your cock a few more strokes, then force yourself to put your hard cock back into your pants."
-                        "It takes a significant amount of willpower to tear yourself away from [the_person.possessive_title!l]'s hot body."
+                        "It takes a significant amount of willpower to tear yourself away from [the_person.possessive_title]'s hot body."
                     else:
                         "You give your cock a few more strokes, then reluctantly stuff it back into your underwear and zip up your pants."
-                    "You back slowly out of the room, leaving [the_person.possessive_title!l] asleep and unaware of your visit."
+                    "You back slowly out of the room, leaving [the_person.possessive_title] asleep and unaware of your visit."
 
 
     return awake
@@ -1363,7 +1363,7 @@ label sex_report_helper(the_person, the_report): #TODO: We use this in enough pl
         the_person "There, all taken care of. Hope that helps [the_person.mc_title]."
         mc.name "I'm feeling much better. Thanks [the_person.title]."
         the_person "For you, any time."
-        "You stuff your cock back in your pants and leave [the_person.possessive_title!l]'s bedroom."
+        "You stuff your cock back in your pants and leave [the_person.possessive_title]'s bedroom."
     elif the_report.get("girl orgasms", 0) > 0:
         the_person "Wow, I guess I needed that even more than you did."
         $ the_person.change_obedience(-(2 + the_person.get_opinion_score("taking control")))
@@ -1373,7 +1373,7 @@ label sex_report_helper(the_person, the_report): #TODO: We use this in enough pl
         the_person "I'm sorry [the_person.mc_title]. I guess I need a little more practice."
         the_person "Maybe we can do this again later and I can make it up to you, okay?"
         mc.name "Sure, I'm not going to say no to that."
-    "You stuff your cock back in your pants and leave [the_person.possessive_title!l]'s bedroom."
+    "You stuff your cock back in your pants and leave [the_person.possessive_title]'s bedroom."
     return
 
 label sleep_cum_hand(the_person):
@@ -1385,7 +1385,7 @@ label sleep_cum_face(the_person, straddle = False):
     $ awake = False
     $ the_person.cum_on_face()
     $ the_person.draw_person(position = "missionary") #Redraw whatever position we were in previously
-    "You grunt softly as you climax, spraying your hot load in an arc onto [the_person.possessive_title!l]'s unsuspecting face."
+    "You grunt softly as you climax, spraying your hot load in an arc onto [the_person.possessive_title]'s unsuspecting face."
     if the_person.get_opinion_score("drinking cum") > 0:
         "When the first splash of cum hits her face [the_person.title] opens her mouth."
         "You watch as she begins to unconsciously lick up your sperm, even as you pulse more out onto her"
@@ -1444,7 +1444,7 @@ label sleep_cum_throat(the_person): #Always assumes you're standing up
     $ awake = False
     $ the_person.cum_in_mouth()
     $ the_person.draw_person(position = "missionary", special_modifier = "blowjob") #Position specific stuff
-    "You thrust forward, pushing yourself as deep down [the_person.possessive_title!l]'s throat as you dare."
+    "You thrust forward, pushing yourself as deep down [the_person.possessive_title]'s throat as you dare."
     "With one last grunt you climax, sending a blast of hot cum to the back of her mouth."
 
     if the_person.get_opinion_score("drinking cum") > 0:
@@ -1608,7 +1608,7 @@ label sleep_cum_stomach(the_person): #Note: always assumes you're straddling her
             else:
                 the_person "Do you need anything else, or can I get cleaned up?"
             mc.name "You can get cleaned up, I'll leave you to it. Talk to you later."
-            "You stuff your cock back into your pants and back out of the room as [the_person.possessive_title!l] sits up in bed."
+            "You stuff your cock back into your pants and back out of the room as [the_person.possessive_title] sits up in bed."
 
         else:
             "[the_person.possessive_title] looks over at you. Her eyes go wide when she sees your throbbing cock, still in your hands."
@@ -1623,7 +1623,7 @@ label sleep_cum_stomach(the_person): #Note: always assumes you're straddling her
             "She covers her face with her hands and sighs. You stuff your cock back into your pants and take a few steps towards the exit."
             the_person "You should go, okay? This never happened, understood?"
             mc.name "Yes [the_person.title]."
-            "You take your chance and exit in a hurry, leaving [the_person.possessive_title!l] to figure out how to clean up your cum."
+            "You take your chance and exit in a hurry, leaving [the_person.possessive_title] to figure out how to clean up your cum."
     else:
         if the_person.get_opinion_score("being covered in cum") > 0:
             "She reaches down and brushes her fingers over the puddles of cum, spreading it around in her sleep."
@@ -1642,10 +1642,10 @@ label sleep_cum_vagina(the_person):
 
     $ wake_chance = 40
     if mc.condom:
-        "You blow your load into [the_person.possessive_title!l]'s pussy, constrained only by a thin layer of latex."
+        "You blow your load into [the_person.possessive_title]'s pussy, constrained only by a thin layer of latex."
         $ wake_chance += -10 #Less likely to wake up if you cum in a condom, although the same as if she loves creampies (the perfect dream!)
     else:
-        "You grunt softly as you climax, blowing your load into [the_person.possessive_title!l]'s raw pussy."
+        "You grunt softly as you climax, blowing your load into [the_person.possessive_title]'s raw pussy."
         $ wake_chance += -5*the_person.get_opinion_score("creampies")
 
     if renpy.random.randint(0,100) < wake_chance - 5*the_person.get_opinion_score("creampies"):
@@ -1694,9 +1694,9 @@ label sleep_cum_vagina(the_person):
                         the_person "Yeah, I guess it is."
 
             if mc.condom:
-                "You pull out of [the_person.possessive_title!l]'s pussy, all of your cum trapped inside of the ballooned tip of your condom."
+                "You pull out of [the_person.possessive_title]'s pussy, all of your cum trapped inside of the ballooned tip of your condom."
             else:
-                "You pull out of [the_person.possessive_title!l]'s pussy. A small stream of cum follows, dripping down her inner thigh."
+                "You pull out of [the_person.possessive_title]'s pussy. A small stream of cum follows, dripping down her inner thigh."
 
             the_person "So, are you feeling satisfied?"
             mc.name "Yeah, I think that was just what I needed."
@@ -1738,9 +1738,9 @@ label sleep_cum_vagina(the_person):
                 $ the_person.break_taboo("condomless_sex")
 
             if mc.condom:
-                "You pull out of [the_person.possessive_title!l]'s pussy, all of your cum trapped inside of the ballooned tip of your condom."
+                "You pull out of [the_person.possessive_title]'s pussy, all of your cum trapped inside of the ballooned tip of your condom."
             else:
-                "You pull out of [the_person.possessive_title!l]'s pussy. A small stream of cum follows, dripping down her inner thigh."
+                "You pull out of [the_person.possessive_title]'s pussy. A small stream of cum follows, dripping down her inner thigh."
             the_person "You... should go. You're finished, right?"
             mc.name "Yeah, I'm feeling pretty satisfied."
             "You stuff your cock back in your pants and retreat out of the room."
@@ -1776,9 +1776,9 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
         the_person "Of course! I was just... Doing work. I was very focused on my work, and you startled me, that's all..."
         $ the_item = the_person.outfit.get_lower_top_layer()
         if the_item is None:
-            "You notice [the_person.possessive_title!l] trying to inconspicuously wipe her hand off on her thigh as you talk."
+            "You notice [the_person.possessive_title] trying to inconspicuously wipe her hand off on her thigh as you talk."
         else:
-            "You notice [the_person.possessive_title!l] trying to inconspicuously wipe her hand off on her [the_item.display_name] as you talk."
+            "You notice [the_person.possessive_title] trying to inconspicuously wipe her hand off on her [the_item.display_name] as you talk."
         "She crosses her legs, face turning beet red."
         the_person "Is there... something you wanted to talk to me about, [the_person.mc_title]?"
         menu:
@@ -1793,7 +1793,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                 mc.name "No you weren't. I already know what you were doing, I just don't like you lying to me."
                 #TODO: Have other girls in the room chime in.
                 the_person "I... was... touching myself. I'm sorry, I know I should have waited until I was at home."
-                "Once [the_person.possessive_title!l] has started talking she begins to speed up, babbling out excuses."
+                "Once [the_person.possessive_title] has started talking she begins to speed up, babbling out excuses."
                 the_person "And I absolutely shouldn't have been doing it at my desk. I'm sorry, it won't happen again."
                 menu:
                     "Praise her":

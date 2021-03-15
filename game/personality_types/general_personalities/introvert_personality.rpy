@@ -620,14 +620,14 @@ label introvert_flirt_response_affair(the_person):
             menu:
                 "Find someplace quiet":
                     mc.name "I can't turn that offer down. Come on."
-                    "You lead [the_person.possessive_title!l] away. After a few minutes of searching you find a quiet spot."
+                    "You lead [the_person.possessive_title] away. After a few minutes of searching you find a quiet spot."
                     "You put your arm around her waist and pull her into a deep, sensual kiss."
                     "She presses her body against you, grinding her hips against your leg."
                     call fuck_person(the_person, private = True, start_position = kissing, skip_intro = True) from _call_fuck_person_84
                     $ the_person.call_dialogue("sex_review", the_report = _return)
                     $ the_person.review_outfit()
                 "Just flirt":
-                    "You put your arm around [the_person.possessive_title!l] and rest your hand on her ass."
+                    "You put your arm around [the_person.possessive_title] and rest your hand on her ass."
                     mc.name "I wish I could, but I don't have the time right now."
                     "She bites her lip and nods."
                     the_person "Okay, don't make me wait too long. I need you so badly..."
@@ -642,7 +642,7 @@ label introvert_flirt_response_affair(the_person):
         the_person "Yeah? Well there's nobody around, and I'm not going to stop you."
         menu:
             "Feel her up":
-                "You put your hands on [the_person.possessive_title!l]'s ass and pull her close to you, massaging her cheeks gently."
+                "You put your hands on [the_person.possessive_title]'s ass and pull her close to you, massaging her cheeks gently."
                 the_person "Oh! Oh... That feels nice..."
                 mc.name "Good. Just relax and leave everything to me."
                 "You circle around her and grab her tits, bouncing them a couple times. [the_person.title] leans back against you."
@@ -738,7 +738,7 @@ label introvert_cum_pullout(the_person):
                     "You don't have much time to spare. You pull out, barely clearing her pussy, and pull the condom off as quickly as you can manage."
                     $ mc.condom = False
                 "Leave it on.":
-                    "You ignore [the_person.possessive_title!l]'s cum-drunk offer and keep the condom in place."
+                    "You ignore [the_person.possessive_title]'s cum-drunk offer and keep the condom in place."
 
 
         else:

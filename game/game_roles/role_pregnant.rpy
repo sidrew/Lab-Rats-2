@@ -228,7 +228,7 @@ label pregnant_announce(the_person):
                 $ the_person.change_happiness(10)
                 the_person "I'm sorry, I guess the hormones are already getting to me. I'd like that."
                 $ the_person.add_role(girlfriend_role)
-                "You hug [the_person.possessive_title!l], and she hugs you back."
+                "You hug [the_person.possessive_title], and she hugs you back."
                 the_person "That's all for now, I'll keep you informed as things progress."
 
             "Thanks for telling me":
@@ -345,7 +345,7 @@ init 2 python:
 
 label pregnant_finish_announce(the_person): #TODO: have more variants for girlfriend_role, affair_role, etc.
     # The girl tells you she'll need a few days to have the kid and recover, and she'll be back in a few days.
-    "You get a call from [the_person.possessive_title!l]. You answer it."
+    "You get a call from [the_person.possessive_title]. You answer it."
     mc.name "Hey [the_person.title], what's up?"
 
     if employee_role in the_person.special_role:
@@ -404,7 +404,7 @@ label pregnant_finish(the_person):
     if not done:
         return
 
-    "You get a call from [the_person.possessive_title!l] early in the morning. You answer it."
+    "You get a call from [the_person.possessive_title] early in the morning. You answer it."
     if the_person in [aunt, mom]:
         the_person "Hey [the_person.mc_title], good news! Two days ago I had a beautiful, healthy baby girl!"
         mc.name "That's amazing, where is she now?"

@@ -236,7 +236,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
                     $ mc_softened = False
                     $ girl_considers_hard = True
                 if position_choice.requires_hard and mc.recently_orgasmed:
-                    "Your post orgasm cock softens, stopping you from [position_choice.verbing] [the_person.possessive_title!l] for now."
+                    "Your post orgasm cock softens, stopping you from [position_choice.verbing] [the_person.possessive_title] for now."
                     $ position_choice = None
                 elif girl_in_charge and not position_choice.requires_hard and girl_considers_hard and not position_locked:
                     "[the_person.possessive_title] considers your stiffened cock."
@@ -244,9 +244,9 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
                     $ position_choice = None
                 elif position_choice.guy_energy > mc.energy:
                     if girl_in_charge:
-                        "You're too exhausted to let [the_person.possessive_title!l] keep [position_choice.verbing] you."
+                        "You're too exhausted to let [the_person.possessive_title] keep [position_choice.verbing] you."
                     else:
-                        "You're too exhausted to continue [position_choice.verbing] [the_person.possessive_title!l]."
+                        "You're too exhausted to continue [position_choice.verbing] [the_person.possessive_title]."
                     $ position_choice = None
                 elif position_choice.girl_energy > the_person.energy:
                     #TODO: Add some differentiated dialgoue depending on the position.
@@ -806,14 +806,14 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
                 $ the_person.call_dialogue("strip_obedience_accept", the_clothing = strip_choice, strip_type = strip_type)
                 menu:
                     "Do it anyways":
-                        "You proceed despite [the_person.possessive_title!l]'s objections, trusting her to remain obedient and docile."
+                        "You proceed despite [the_person.possessive_title]'s objections, trusting her to remain obedient and docile."
                         $ willing_to_strip = True
                         $ ordered_to_strip = True
                         $ the_person.discover_opinion("being submissive")
                         $ the_person.change_happiness(-5 + (5*the_person.get_opinion_score("being submissive")))
 
                     "Let it be":
-                        "You leave [the_person.possessive_title!l]'s [strip_choice.display_name] in place, and she relaxes."
+                        "You leave [the_person.possessive_title]'s [strip_choice.display_name] in place, and she relaxes."
 
         if willing_to_strip:
             if ass_revealed and the_person.has_taboo("bare_pussy"):

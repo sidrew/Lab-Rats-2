@@ -425,9 +425,9 @@ label cousin_blackmail_list(the_person):
                         the_person "Deal with it. Go cry to mommy if it matters that much to you."
 
                     if the_person.outfit.wearing_panties() and the_person.outfit.wearing_bra():
-                        "Once [the_person.possessive_title!l] has stripped down to her underwear, she turns around to let you look at her ass."
+                        "Once [the_person.possessive_title] has stripped down to her underwear, she turns around to let you look at her ass."
                     else:
-                        "Once [the_person.possessive_title!l] has stripped down as far as she's willing, she turns around to let you look at her ass."
+                        "Once [the_person.possessive_title] has stripped down as far as she's willing, she turns around to let you look at her ass."
                     $ the_person.draw_person(position = "back_peek")
                     $ the_person.update_outfit_taboos()
                     the_person "Finished yet? I bet you're about to cream your fucking pants looking at this."
@@ -472,7 +472,7 @@ label cousin_blackmail_list(the_person):
                         the_person "Sad you don't get to see my tight, wet pussy [the_person.mc_title]?"
                         the_person "Deal with it. Go cry to mommy if it matters that much to you."
 
-                    "Once [the_person.possessive_title!l] has stripped down, she turns around to let you get a look at her ass."
+                    "Once [the_person.possessive_title] has stripped down, she turns around to let you get a look at her ass."
                     $ the_person.draw_person(position  = "back_peek")
                     the_person "Look all you want... I bet you're creaming your pants thinking about touching me."
                     "She wiggles her butt in your direction. Her tits swing back and forth with the same movement."
@@ -1056,7 +1056,7 @@ label cousin_new_boobs_brag_label(the_person):
                 mc.name "Alright, I want to see my investment."
                 $ the_person.change_slut_temp(1)
                 if mc.location.get_person_count() > 1:
-                    "You and [the_person.possessive_title!l] find a quiet spot away from anyone else, and she strips down in front of you."
+                    "You and [the_person.possessive_title] find a quiet spot away from anyone else, and she strips down in front of you."
                 else:
                     "[the_person.possessive_title] starts to strip down in front of you."
 

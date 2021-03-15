@@ -651,7 +651,7 @@ label aunt_share_drinks_label(the_person):
     mc.name "Do you feel like having a glass of wine and chatting? I'm sure we have a lot to catch up on."
     "[the_person.title] claps her hands together excitedly!"
     the_person "Yes! You go sit on the couch and I'll pour us both a glass."
-    "You sit down in [the_person.possessive_title!l]'s tiny living room and wait. She shuffles around in the kitchen, then comes out with two glasses of red wine."
+    "You sit down in [the_person.possessive_title]'s tiny living room and wait. She shuffles around in the kitchen, then comes out with two glasses of red wine."
     the_person "There you go. Now you have to make sure that I just have one glass of this. I love it, but wine goes straight to my head."
     $ the_person.draw_person(position = "sitting")
     "She hands you a glass, sits down, and tilts her glass toward you. You clink them together."
@@ -662,19 +662,19 @@ label aunt_share_drinks_label(the_person):
     menu:
         "Talk about work":
             mc.name "Well, work's been keeping me busy lately..."
-            "You talk to [the_person.possessive_title!l] about your work. She nods politely but doesn't understand most of it."
+            "You talk to [the_person.possessive_title] about your work. She nods politely but doesn't understand most of it."
             $ the_person.change_obedience(1)
             the_person "It sounds like you're a very important person, doing some very important work. I'm proud of you [the_person.mc_title]"
 
         "Talk about girls":
             mc.name "Well, I've been trying to meet someone lately..."
-            "You talk to [the_person.possessive_title!l] about your love life. She listens intently."
+            "You talk to [the_person.possessive_title] about your love life. She listens intently."
             $ the_person.change_slut_temp(1)
             the_person "I've always thought it's important to be adventurous. You might connect with someone you wouldn't expect."
 
         "Talk about her":
             mc.name "Oh, it's been pretty quiet lately. What about you? I know you've been through a lot."
-            "You get [the_person.possessive_title!l] talking about herself. She tells you about her failed marriage."
+            "You get [the_person.possessive_title] talking about herself. She tells you about her failed marriage."
             $ the_person.change_love(1)
             the_person "... and when I told him I knew he was plowing his secretary everyday, he kicked us out."
             "She takes another sip from her wine."
@@ -701,7 +701,7 @@ label aunt_share_drinks_label(the_person):
                         pass
                 "You top up your own drink while you're in the kitchen and head back to [the_person.title]. You hand over her new drink and sit down."
                 the_person "Now, where were we..."
-                "You and [the_person.possessive_title!l] keep talking. After her first glass she seems more relaxed, and the second one is already having its effect."
+                "You and [the_person.possessive_title] keep talking. After her first glass she seems more relaxed, and the second one is already having its effect."
                 $ the_person.add_situational_slut("Drunk", 10, "More than a little tipsy.")
                 if the_person.sluttiness <= 35:
                     # She talks about her ex and then falls asleep.
@@ -716,12 +716,12 @@ label aunt_share_drinks_label(the_person):
                     menu:
                         "Get her a blanket":
                             "You go to [the_person.title]'s room and take the blanket off her bed."
-                            "You lay the blanket over [the_person.possessive_title!l]. She grabs onto it and rolls over, mumbling something you can't understand."
+                            "You lay the blanket over [the_person.possessive_title]. She grabs onto it and rolls over, mumbling something you can't understand."
                             $ the_person.change_love(2)
                             "You take your wine glasses to the kitchen and leave them in the sink, then see yourself out."
 
                         "Grope her tits":
-                            "Seizing the opportunity, you kneel down in front of [the_person.possessive_title!l]."
+                            "Seizing the opportunity, you kneel down in front of [the_person.possessive_title]."
                             if the_person.outfit.tits_available():
                                 "Her nicely shaped breasts are already there for the taking. You move slowly and cup them in your hands."
                             else:
@@ -737,7 +737,7 @@ label aunt_share_drinks_label(the_person):
                             "She rolls over on the couch and is asleep again before you're out the door."
 
                         "Grope her pussy":
-                            "Seizing the opportunity, you kneel down in front of [the_person.possessive_title!l]."
+                            "Seizing the opportunity, you kneel down in front of [the_person.possessive_title]."
                             if the_person.outfit.vagina_available():
                                 "Her pussy is out on display for you, there for the taking. You move slowly and slide your hand along her inner thigh, working upward."
                             else:
@@ -772,7 +772,7 @@ label aunt_share_drinks_label(the_person):
                         "Through her surprisingly erotic ramblings you discover that she [opinion_string] [her_opinion]."
                     else:
                         #We know everything.
-                        "You don't learn anything new, but hearing [the_person.possessive_title!l] talk this way is certainly eye opening."
+                        "You don't learn anything new, but hearing [the_person.possessive_title] talk this way is certainly eye opening."
 
                     "She finally blushes and looks away from you."
                     $ the_person.change_slut_temp(2)
@@ -796,7 +796,7 @@ label aunt_share_drinks_label(the_person):
                     call outfit_master_manager() from _call_outfit_master_manager_10
                     if _return != "Not_New":
                         $ created_outfit = _return
-                        "You pull out a few pieces of clothing and lay them out on [the_person.possessive_title!l]'s bed."
+                        "You pull out a few pieces of clothing and lay them out on [the_person.possessive_title]'s bed."
                         "She looks at the outfit you've laid out for her and seems to think for a second."
                         if created_outfit.slut_requirement <= the_person.sluttiness: #She likes it enough to try it on.
                             if created_outfit.vagina_visible():
@@ -824,7 +824,7 @@ label aunt_share_drinks_label(the_person):
                             $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list())
 
                             $ strip_choice = None
-                            "Once she's stripped out of her clothing, [the_person.possessive_title!l] puts on the outfit you've made for her."
+                            "Once she's stripped out of her clothing, [the_person.possessive_title] puts on the outfit you've made for her."
                             $ the_person.apply_outfit(created_outfit, update_taboo = True)
                             #$ the_person.outfit = created_outfit.get_copy() changed v0.24.1
                             $ the_person.draw_person()
@@ -1118,7 +1118,7 @@ label aunt_share_drinks_label(the_person):
                             $ the_person.change_obedience(1)
                             the_person "Maybe you should go, I'm clearly not thinking straight with all this wine."
                             mc.name "That may be for the best. Maybe we can do this again some other time though."
-                            "You take the glasses of wine to the kitchen for [the_person.possessive_title!l] and say goodbye."
+                            "You take the glasses of wine to the kitchen for [the_person.possessive_title] and say goodbye."
 
                 $ the_person.apply_outfit()
                 $ the_person.clear_situational_slut("Drunk")
@@ -1141,7 +1141,7 @@ label family_games_night_intro(the_person): # Triggered as an on-talk event in h
     #Aunt introduces the family games night. she's already talked to your mother and it's planned for [some evening].
     # you're not required to go, but you're always welcome!
     $ the_person.draw_person()
-    "You knock on the door of [the_person.possessive_title!l]'s apartment. After a brief pause she opens the door while talking to someone on her cell phone."
+    "You knock on the door of [the_person.possessive_title]'s apartment. After a brief pause she opens the door while talking to someone on her cell phone."
     the_person "... Well speak of the devil, he's just come by for a visit."
     "She gives you a smile and waves you into the living room, closing the door behind you."
     the_person "Oh no, he's no trouble... No, I don't mind at all... Don't worry, he's a wonderful kid."

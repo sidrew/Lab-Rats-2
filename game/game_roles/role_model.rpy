@@ -81,7 +81,7 @@ label model_photography_list_label(the_person):
             else:
                 mc.name "On second thought, I think you look perfect in that."
 
-    "You lead [the_person.possessive_title!l] to a supply room. She stands against a blank wall while you get the camera ready."
+    "You lead [the_person.possessive_title] to a supply room. She stands against a blank wall while you get the camera ready."
     mc.name "Okay, strike a pose for me."
     $ the_person.draw_person(position = "stand4", emotion = "happy")
     "She smiles at the camera and poses for you."
@@ -517,7 +517,7 @@ label photo_blowjob(the_person):
             the_person "I can justify doing some nude shots. I can understand wanting some sensual shots with me touching myself."
             the_person "But how could I ever tell my [SO_title] about giving someone else a blowjob?"
             "She crosses her arms and looks away."
-            "You lower the camera and take a step closer to [the_person.possessive_title!l]. You reach out and touch her shoulder. She looks up at you."
+            "You lower the camera and take a step closer to [the_person.possessive_title]. You reach out and touch her shoulder. She looks up at you."
             mc.name "Don't think about your [SO_title] right now. Think about me, and the business, and what you want to do."
             mc.name "We can make sure he never sees these ads. I need you, [the_person.title]."
             "Her expression softens. Finally she sighs and uncrosses her arms."
@@ -532,7 +532,7 @@ label photo_blowjob(the_person):
 
 
     $ the_person.draw_person(position = "blowjob")
-    "You hold the camera in one hand, positioning it to the side as [the_person.possessive_title!l] pulls your pants down."
+    "You hold the camera in one hand, positioning it to the side as [the_person.possessive_title] pulls your pants down."
     the_person "Let's see what I'm working with down here."
     "Your hard cock springs free of your underwear as she yanks it down."
     if the_person.effective_sluttiness("sucking_cock") >= 65 or the_person.get_opinion_score("giving blowjobs") > 0:
@@ -559,7 +559,7 @@ label photo_blowjob(the_person):
         "Take photos as you cum":
             mc.name "I'm going to cum, get ready!"
             $ the_person.draw_person(position = "blowjob")
-            "You pull your cock out of [the_person.possessive_title!l]'s mouth and stroke it off with your left hand, working the camera with your right."
+            "You pull your cock out of [the_person.possessive_title]'s mouth and stroke it off with your left hand, working the camera with your right."
             "She looks up at you as you cum, blowing your hot load over her face. You struggle to keep the camera pointed in the right direction."
             $ the_person.cum_on_face()
             $ the_person.draw_person(position = "blowjob")
@@ -619,7 +619,7 @@ label photo_sex(the_person):
     "You pull on [the_person.title]'s hips and thrust forward. Her pussy is warm and wet, inviting you in."
     $ the_person.call_dialogue("sex_responses_vaginal")
     "You thrust as best you can from a kneeling position, your hands busy with the camera."
-    "You take pictures of [the_person.possessive_title!l]'s face as you fuck her and her cunt as you slide in and out."
+    "You take pictures of [the_person.possessive_title]'s face as you fuck her and her cunt as you slide in and out."
     if the_person.relationship != "Single" and the_person.effective_sluttiness() > 65:
         "You hear [the_person.title] mumble to herself."
         the_person "I'm sorry sweetheart, but this feels so good..."

@@ -264,7 +264,7 @@ label cousin_flirt_response_high(the_person):
                 "Find someplace quiet":
                     mc.name "I don't feel like waiting. Come on, let's sneak away."
                     the_person "Like, right now? Ugh, fine."
-                    "You lead [the_person.possessive_title!l] away and find a quiet spot where you can be alone."
+                    "You lead [the_person.possessive_title] away and find a quiet spot where you can be alone."
                     if the_person.has_taboo("kissing"):
                         "You put your arm around her and pull her close, moving to kiss her."
                         $ the_person.call_dialogue("kissing_taboo_break")
@@ -320,7 +320,7 @@ label cousin_cum_pullout(the_person):
                     "You don't have much time to spare. You pull out, barely clearing her pussy, and pull the condom off as quickly as you can manage."
                     $ mc.condom = False
                 "Leave it on.":
-                    "You ignore [the_person.possessive_title!l]'s cum-drunk offer and keep the condom in place."
+                    "You ignore [the_person.possessive_title]'s cum-drunk offer and keep the condom in place."
 
         else:
             the_person "Yeah? My tight, wet, pussy is going to make you cum? Then fucking do it!"
