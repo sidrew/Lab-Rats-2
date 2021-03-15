@@ -2449,6 +2449,7 @@ label mom_promotion_boss_phase_one(the_secretary):
             the_daughter "I won't say a word. Just promise you'll call, okay?"
             mc.name "Deal."
             "You hand her your phone, and she keys in her number. She hands it back with a smile."
+            $ mc.phone.register_number(the_daughter)
             the_daughter "See you around [the_daughter.mc_title]."
             mc.name "See you soon [the_daughter.title]."
             $ clear_scene()
