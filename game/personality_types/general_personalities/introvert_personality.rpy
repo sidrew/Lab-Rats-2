@@ -131,7 +131,7 @@ label introvert_sex_responses_vaginal(the_person):
             "[the_person.title] closes her eyes and bites her lower lip. The only sound she makes is a low, sensual growl."
     else:
         if the_person.sluttiness > 50:
-            the_person "Your dick is going to make cum if you keep going..."
+            the_person "Your dick is going to make me cum if you keep going..."
         else:
             "[the_person.title] pants and moans, her body barely under her control."
 
