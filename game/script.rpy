@@ -11693,7 +11693,7 @@ init -2 python:
 
     common_variable_list = ["talk_action", "new_location", "picked_option", "picked_event", "outfit", "insta_outfit", \
         "the_outfit", "new_outfit", "old_outfit", "the_uniform", "the_underwear", "person_one", "person_two", "the_person_one", \
-        "the_person_two", "the_item", "the_clothing", "the_group", "the_report", "the_trait", "the_mom", \
+        "the_person_two", "the_item", "the_clothing", "the_group", "the_report", "the_trait", "the_mom", "the_action", \
         "the_aunt", "the_sister", "the_student", "the_place", "the_girl", "test_outfit", "the_object", \
         "the_location", "next_item", "file_path", "title_choice", "title_one", "title_two", "placeholder", \
         "formatted_title_one", "formatted_title_two", "new_title", "the_type", "the_person", "player_choice", \

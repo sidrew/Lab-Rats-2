@@ -174,7 +174,6 @@ label browse_internet(is_phone = True): #TODO: Maybe make this a generic functio
             return
         else:
             call browse_internet() from _call_browse_internet_1
-        $ del the_action
 
     elif isinstance(_return, Person):
         #TODO: We need way more search focused stuff.
@@ -190,7 +189,6 @@ label browse_internet(is_phone = True): #TODO: Maybe make this a generic functio
             $ the_action = _return
             $ the_action.call_action(the_person)
             $ return_to_phone = _return
-            $ del the_action
 
         if return_to_phone:
             $ mc.end_text_convo()
