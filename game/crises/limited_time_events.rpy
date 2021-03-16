@@ -106,12 +106,11 @@ init -1 python:
             return False
         elif mc.business.is_weekend():
             return False
-        elif time_of_day == 1 or time_of_day >= 4:
+        elif time_of_day <= 1 or time_of_day >= 4:
             return False
         elif the_person.event_triggers_dict.get("mom_office_slutty_level",0) < 1:
             return False
-        else:
-            return True
+        return True
 
     def new_insta_account_requirement(the_person):
         if the_person.has_role(mother_role) or the_person.has_role(sister_role):
@@ -122,8 +121,7 @@ init -1 python:
             return False #Personality type and Opinions has a large impact on chance to generate a new profile.
         elif the_person.love < 10: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
             return False
-        else:
-            return True
+        return True
 
     def add_mom_outfit_coloured_apron(person):
         coloured_apron = apron.get_copy()
@@ -140,7 +138,7 @@ init -1 python:
             return False
         elif renpy.random.randint(0,100) >= the_person.personality.dikdok_chance + 5*(the_person.get_opinion_score("showing her tits") + the_person.get_opinion_score("showing her ass")):
             return False #Personality type and Opinions has a large impact on chance to generate a new profile.
-        elif the_person.love < 10: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
+        elif the_person.love < 20: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
             return False
         else:
             return True
@@ -154,7 +152,7 @@ init -1 python:
             return False #Personality type and Opinions has a large impact on chance to generate a new profile.
         elif the_person.effective_sluttiness() < 50 + 10*(the_person.get_opinion_score("showing her tits") + the_person.get_opinion_score("showing her ass") + the_person.get_opinion_score("public sex")):
             return False
-        elif the_person.love < 10: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
+        elif the_person.love < 20: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
             return False
         else:
             return True
@@ -169,9 +167,16 @@ init -1 python:
 
     mom_work_slutty_event = Action("Mom work slutty", mom_work_slutty_requirement, "mom_work_slutty_report", event_duration = 2)
 
+    new_insta_account_event = Action("New Instapic Account Creation", new_insta_account_requirement, "new_insta_account", event_duration = 2)
+    new_dikdok_account_event = Action("New DikDok Account Creation", new_dikdok_account_requirement, "new_dikdok_account", event_duration = 2)
+    new_onlyfans_account_event = Action("New OnlyFanatics Account Creation", new_onlyfans_account_requirement, "new_onlyfans_account", event_duration = 2)
+
     limited_time_event_pool.append([ask_new_title_action,8,"on_talk"])
     limited_time_event_pool.append([work_walk_in,4,"on_talk"])
     limited_time_event_pool.append([mom_work_slutty_event,8,"on_talk"])
+    limited_time_event_pool.append([new_insta_account_event,2,"on_talk"])
+    limited_time_event_pool.append([new_dikdok_account_event,2,"on_talk"])
+    limited_time_event_pool.append([new_onlyfans_account_event,2,"on_talk"])
     #TODO: Add some girlfriend/paramour events where they ask right away if you want to fuck
 
     ### ON ENTER EVENTS ###
