@@ -148,7 +148,7 @@ label view_insta(the_person):
             elif rand_num == 2:
                 $ the_person.draw_person(position = "back_peek", the_animation = None)
             the_person "Wearing something special today: a design sent in by a fan!" (what_style = "text_message_style")
-
+            $ the_person.event_triggers_dict["insta_special_request_outfit"] = None
 
         elif the_person.effective_sluttiness() + the_person.get_opinion_score("showing her ass")*5 + the_person.get_opinion_score("showing her tits")*5 > 20: #TODO: Decide what slut_requirement should be.
             $ skimpy_outfit = insta_wardrobe.pick_random_outfit()
