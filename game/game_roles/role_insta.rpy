@@ -416,7 +416,7 @@ label dm_option_topless_response(the_person):
         if previous_request_level < 3: #First time
             the_person "I've never really done something like this, but I suppose I can give it a try!" (what_style = "text_message_style")
         else:
-            the_person "I'm always happy to make a fan happy, so here are soem shots I took just for you!" (what_style = "text_message_style")
+            the_person "I'm always happy to make a fan happy, so here are some shots I took just for you!" (what_style = "text_message_style")
 
         $ the_person.apply_outfit(insta_wardrobe.pick_random_outfit()) #She starts from an Insta-specific design.
         if the_person.outfit.can_half_off_to_tits():
