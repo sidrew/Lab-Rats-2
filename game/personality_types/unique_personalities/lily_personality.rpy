@@ -1287,7 +1287,11 @@ label lily_creampie_taboo_break(the_person):
         the_person "Oh my god [the_person.mc_title], you just came inside of me!"
         "She seems shocked, but not entirely unhappy."
         mc.name "Yeah, isn't that what you wanted?"
-        if the_person.on_birth_control:
+        if the_person.event_triggers_dict.get("preg_knows", False):
+            the_person "It does feel really good..."
+            mc.name "It feels good for me too. Don't worry [the_person.title], there's nothing to worry about."
+            the_person "Yeah, you're right. I'm already pregnant, but I never thought you would cum inside me."
+        elif the_person.on_birth_control:
             the_person "It does feel really good..."
             mc.name "It feels good for me too. Don't worry [the_person.title], there's nothing to worry about."
             the_person "Yeah, you're right. It's just such a new feeling, I needed a second to get use to it."
