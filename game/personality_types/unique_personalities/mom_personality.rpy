@@ -1345,7 +1345,13 @@ label mom_creampie_taboo_break(the_person):
         mc.name "What do you mean [the_person.title]?"
         the_person "I don't know what came over me, I wasn't thinking straight. I should have told you to pull out."
         mc.name "I don't think it's that big of a deal."
-        if the_person.on_birth_control:
+        if the_person.event_triggers_dict.get("preg_knows", False):
+            the_person "You shouldn't be cumming inside of your mother, even if she gets a little too excited and starts to ask for it."
+            mc.name "We obviously both liked it, so why is it a problem?"
+            the_person "Well, it's not really a problem, since I'm already pregnant."
+            mc.name "Then there's no risk, it's just a little bit of extra fun. It felt so good I don't know if I'll be able to stop now."
+            the_person "Really? I... I suppose if you're having a good time it's okay then."
+        elif the_person.on_birth_control:
             the_person "You shouldn't be cumming inside of your mother, even if she gets a little too excited and starts to ask for it."
             mc.name "We obviously both liked it, so why is it a problem? You're on the pill, right?"
             the_person "I am."
