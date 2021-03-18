@@ -116,9 +116,9 @@ init -2 python:
         for clothing in person.outfit.get_tit_strip_list(): #TODO: Have a way of figuring out if pieces of clothing can be moved half off to get to her tits
             person.draw_animated_removal(clothing)
             if person.outfit.tits_visible():
-                renpy.say("","Her perky breasts are set free as she pulls her " + clothing.display_name + " off and drops it beside her bed.")
+                renpy.say(None,"Her perky breasts are set free as she pulls her " + clothing.display_name + " off and drops it beside her bed.")
             else:
-                renpy.say("","")
+                renpy.say(None,"")
         return
 
 #SISTER ACTION LABELS#

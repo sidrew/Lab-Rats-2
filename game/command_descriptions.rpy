@@ -262,9 +262,9 @@ init -3 python:
             person.draw_animated_removal(item_to_strip)
             if item_to_strip == strip_list[-1]: #Special line for the last item.
                 if person.has_large_tits():
-                    renpy.say("","She pulls off her " + item_to_strip.display_name + ", letting her tits spill out.")
+                    renpy.say(None,"She pulls off her " + item_to_strip.display_name + ", letting her tits spill out.")
                 else:
-                    renpy.say("","She pulls off her " + item_to_strip.display_name + ", revealing her cute tits.")
+                    renpy.say(None,"She pulls off her " + item_to_strip.display_name + ", revealing her cute tits.")
             else:
                 renpy.say ("","")
         return
@@ -279,7 +279,7 @@ init -3 python:
         while person.outfit.panties_covered() and the_item is not None:
             person.draw_animated_removal(the_item)
             if person.outfit.underwear_visible():
-                renpy.say("", person.possessive_title.capitalize() + " strips off her " + the_item.display_name + ", leaving her wearing only her underwear.") #TODO: Generalize these kinds of strip functions.
+                renpy.say(None, person.possessive_title.capitalize() + " strips off her " + the_item.display_name + ", leaving her wearing only her underwear.") #TODO: Generalize these kinds of strip functions.
             the_item = person.outfit.remove_random_lower(top_layer_first = True, do_not_remove = True)
         return
 
@@ -288,28 +288,28 @@ init -3 python:
         while the_item is not None and not person.outfit.tits_visible():
             person.draw_animated_removal(the_item)
             if person.outfit.tits_visible():
-                renpy.say("", person.possessive_title.capitalize() + " pulls her tits out from her " + the_item.display_name + ", putting them on display for you.")
+                renpy.say(None, person.possessive_title.capitalize() + " pulls her tits out from her " + the_item.display_name + ", putting them on display for you.")
             the_item = person.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
 
         if not person.outfit.tits_visible():
-            renpy.say("", person.possessive_title.capitalize() + " looks at you, you just nod, indicating she should continue.")
+            renpy.say(None, person.possessive_title.capitalize() + " looks at you, you just nod, indicating she should continue.")
 
         the_item = person.outfit.remove_random_lower(top_layer_first = True, do_not_remove = True)
         while the_item is not None and not person.outfit.vagina_visible():
             person.draw_animated_removal(the_item)
             if person.outfit.vagina_visible():
-                renpy.say("", person.possessive_title.capitalize() + " peels off her " + the_item.display_name + ", revealing her cute little pussy.")
+                renpy.say(None, person.possessive_title.capitalize() + " peels off her " + the_item.display_name + ", revealing her cute little pussy.")
             the_item = person.outfit.remove_random_lower(top_layer_first = True, do_not_remove = True)
 
         if not person.outfit.vagina_visible():
-            renpy.say("", person.possessive_title.capitalize() + " looks at you, you motion her to keep going.")
+            renpy.say(None, person.possessive_title.capitalize() + " looks at you, you motion her to keep going.")
 
         # special case where the item is a two part item and did not get removed from the first upper run
         the_item = person.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
         while the_item is not None and not person.outfit.tits_visible():
             person.draw_animated_removal(the_item)
             if person.outfit.tits_visible() and person.outfit.vagina_visible():
-                renpy.say("", person.possessive_title.capitalize() + " takes of her " + the_item.display_name + ", displaying her naked body to you.")
+                renpy.say(None, person.possessive_title.capitalize() + " takes of her " + the_item.display_name + ", displaying her naked body to you.")
             the_item = person.outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
         return
 
@@ -440,65 +440,65 @@ init -2 python:
             if the_person.outfit.tits_available() and not test_outfit.tits_available(): #Tits are fully out
                 if the_person.has_large_tits():
                     if half_off_instead:
-                        renpy.say("", the_person.title + " pulls her " + item.display_name + " out of the way, letting her tits spill out.")
+                        renpy.say(None, the_person.title + " pulls her " + item.display_name + " out of the way, letting her tits spill out.")
                     else:
-                        renpy.say("", the_person.title + " pulls off her " + item.display_name + ", letting her tits spill out.")
+                        renpy.say(None, the_person.title + " pulls off her " + item.display_name + ", letting her tits spill out.")
                 else:
                     if half_off_instead:
-                        renpy.say("", the_person.title + " pulls her " + item.display_name + " aside and sets her tits free.")
+                        renpy.say(None, the_person.title + " pulls her " + item.display_name + " aside and sets her tits free.")
                     else:
-                        renpy.say("", the_person.title + " takes off her " + item.display_name + " and sets her tits free.")
+                        renpy.say(None, the_person.title + " takes off her " + item.display_name + " and sets her tits free.")
             elif the_person.outfit.tits_visible() and not test_outfit.tits_visible(): #Tits aren't out for use, but her clothing let's you get a good look.
                 if the_person.has_large_tits():
                     if half_off_instead:
-                        renpy.say("", the_person.title + " pulls her " + item.display_name + " aside, letting you get an eye full of the big tits she had hidden away.")
+                        renpy.say(None, the_person.title + " pulls her " + item.display_name + " aside, letting you get an eye full of the big tits she had hidden away.")
                     else:
-                        renpy.say("", the_person.title + " pulls off her " + item.display_name + ", and now you're able to get a good look at the big tits she had hidden away.")
+                        renpy.say(None, the_person.title + " pulls off her " + item.display_name + ", and now you're able to get a good look at the big tits she had hidden away.")
                 else:
                     if half_off_instead:
-                        renpy.say("", the_person.title + " pulls her " + item.display_name + " to the side, giving you a look at her cute little tits.")
+                        renpy.say(None, the_person.title + " pulls her " + item.display_name + " to the side, giving you a look at her cute little tits.")
                     else:
-                        renpy.say("", the_person.title + " removes her " + item.display_name + ", and now you're able to see the cute tits she had hidden away.")
+                        renpy.say(None, the_person.title + " removes her " + item.display_name + ", and now you're able to see the cute tits she had hidden away.")
             elif the_person.outfit.vagina_available() and not test_outfit.vagina_available(): #Pussy is out in the open
                 if item.underwear:
                     if half_off_instead:
-                        renpy.say("", the_person.title + " slips her " + item.display_name + " to the side, so it doesn't cover her pussy.")
+                        renpy.say(None, the_person.title + " slips her " + item.display_name + " to the side, so it doesn't cover her pussy.")
                     else:
-                        renpy.say("", the_person.title + " slips off her " + item.display_name + ", peeling it away from her pussy.")
+                        renpy.say(None, the_person.title + " slips off her " + item.display_name + ", peeling it away from her pussy.")
                 else:
                     if half_off_instead:
-                        renpy.say("", the_person.title + " pulls her " + item.display_name + " to the side, getting it out of the way of her pussy.")
+                        renpy.say(None, the_person.title + " pulls her " + item.display_name + " to the side, getting it out of the way of her pussy.")
                     else:
-                        renpy.say("", the_person.title + " takes off her " + item.display_name + " and reveals her pussy underneath.")
+                        renpy.say(None, the_person.title + " takes off her " + item.display_name + " and reveals her pussy underneath.")
             elif the_person.outfit.vagina_visible() and not test_outfit.vagina_visible(): #Pussy can be seen, but not touched yet
                 if half_off_instead:
-                    renpy.say("", the_person.title + " moves her " + item.display_name + ", letting you see her pussy.")
+                    renpy.say(None, the_person.title + " moves her " + item.display_name + ", letting you see her pussy.")
                 else:
-                    renpy.say("", the_person.title + " takes off her " + item.display_name + ", letting you see her pussy.")
+                    renpy.say(None, the_person.title + " takes off her " + item.display_name + ", letting you see her pussy.")
 
             #TODO: Decide if we want to also comment on her stripping to her underwear.
             else:
                 rand = renpy.random.randint(0,3) #Add some random varients so it's not always the same.
                 if rand == 0:
                     if half_off_instead:
-                        renpy.say("", the_person.title + " slides her " + item.display_name + " away.")
+                        renpy.say(None, the_person.title + " slides her " + item.display_name + " away.")
                     else:
-                        renpy.say("", the_person.title + " strips out of her " + item.display_name + ".")
+                        renpy.say(None, the_person.title + " strips out of her " + item.display_name + ".")
                 elif rand == 1:
                     if half_off_instead:
-                        renpy.say("", the_person.title + " moves her " + item.display_name + ".")
+                        renpy.say(None, the_person.title + " moves her " + item.display_name + ".")
                     else:
-                        renpy.say("", the_person.title + " takes off her " + item.display_name + ".")
+                        renpy.say(None, the_person.title + " takes off her " + item.display_name + ".")
                 elif rand == 2:
                     if half_off_instead:
-                        renpy.say("", the_person.title + " shifts her " + item.display_name + " so it's not in the way.")
+                        renpy.say(None, the_person.title + " shifts her " + item.display_name + " so it's not in the way.")
                     else:
-                        renpy.say("", the_person.title + " slips her " + item.display_name + " off.")
+                        renpy.say(None, the_person.title + " slips her " + item.display_name + " off.")
                 else:
                     if half_off_instead:
-                        renpy.say("", the_person.title + " pulls her " + item.display_name + " out of the way.")
+                        renpy.say(None, the_person.title + " pulls her " + item.display_name + " out of the way.")
                     else:
-                        renpy.say("", the_person.title + " pulls off her " + item.display_name + ".")
+                        renpy.say(None, the_person.title + " pulls off her " + item.display_name + ".")
 
 
             if half_off_instead:

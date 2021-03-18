@@ -1115,14 +1115,14 @@ init -5 python:
             amount_researched = self.research_progress(mc.int,mc.focus,mc.research_skill)
             self.listener_system.fire_event("general_work")
             self.listener_system.fire_event("player_research", amount = amount_researched)
-            renpy.say("","You spend time in the lab, experimenting with different chemicals and techniques and producing " + str(amount_researched) + " research points.")
+            renpy.say(None,"You spend time in the lab, experimenting with different chemicals and techniques and producing " + str(amount_researched) + " research points.")
             return amount_researched
 
         def player_buy_supplies(self):
             amount_bought = self.supply_purchase(mc.focus,mc.charisma,mc.supply_skill)
             self.listener_system.fire_event("general_work")
             self.listener_system.fire_event("player_supply_purchase", amount = amount_bought)
-            renpy.say("","You spend time securing new supplies for the lab, purchasing " + str(amount_bought) + " units of serum supplies.")
+            renpy.say(None,"You spend time securing new supplies for the lab, purchasing " + str(amount_bought) + " units of serum supplies.")
             return amount_bought
 
         def supply_purchase(self,focus,cha,skill):
@@ -1142,7 +1142,7 @@ init -5 python:
             amount_sold = self.sale_progress(mc.charisma,mc.focus,mc.market_skill)
             self.listener_system.fire_event("player_serums_sold_count", amount = amount_sold)
             self.listener_system.fire_event("general_work")
-            renpy.say("","You spend time making phone calls to clients and shipping out orders. You sell " + str(amount_sold) + " doses of serum.")
+            renpy.say(None,"You spend time making phone calls to clients and shipping out orders. You sell " + str(amount_sold) + " doses of serum.")
             return amount_sold
 
         def sale_progress(self,cha,focus,skill, slut_modifier = 0):
@@ -1299,14 +1299,14 @@ init -5 python:
             production_amount = self.production_progress(mc.focus,mc.int,mc.production_skill)
             self.listener_system.fire_event("player_production", amount = production_amount)
             self.listener_system.fire_event("general_work")
-            renpy.say("","You spend time in the lab synthesizing serum from the it's raw chemical precursors. You generate " + str(production_amount) + " production points.")
+            renpy.say(None,"You spend time in the lab synthesizing serum from the it's raw chemical precursors. You generate " + str(production_amount) + " production points.")
             return production_amount
 
         def player_hr(self):
             eff_amount = self.hr_progress(mc.charisma,mc.int,mc.hr_skill)
             self.listener_system.fire_event("player_efficiency_restore", amount = eff_amount)
             self.listener_system.fire_event("general_work")
-            renpy.say("","You settle in and spend a few hours filling out paperwork, raising company efficiency by " + str(eff_amount )+ "%%.")
+            renpy.say(None,"You settle in and spend a few hours filling out paperwork, raising company efficiency by " + str(eff_amount )+ "%%.")
             return eff_amount
 
         def hr_progress(self,cha,int,skill): #Don't compute efficiency cap here so that player HR effort will be applied against any efficiency drop even though it's run before the rest of the end of the turn.
@@ -11889,7 +11889,7 @@ label .continue_talk:
 
 label examine_room(the_room):
     python:
-        renpy.say("","You are at [the_room.name].") #Where are we right now?
+        renpy.say(None,"You are at [the_room.name].") #Where are we right now?
 
         people_here = the_room.people #Format the names of people in the room with you so it looks nice.
         if len(people_here) == 0:
@@ -11916,7 +11916,7 @@ label examine_room(the_room):
         else:
             room_names = "The room is filled with people."
 
-        renpy.say("",room_names) ##This is the actual print statement!!
+        renpy.say(None,room_names) ##This is the actual print statement!!
 
 
         del people_here
@@ -11930,7 +11930,7 @@ label examine_person(the_person):
 
     python:
         string = "She has " + the_person.skin + " coloured skin, along with " + the_person.hair_colour[0] + " coloured hair and pretty " + the_person.eyes[0] + " coloured eyes. She stands " + height_to_string(the_person.height) + " tall."
-        renpy.say("",string)
+        renpy.say(None,string)
 
         outfit_top = the_person.outfit.get_upper_visible()
         outfit_bottom = the_person.outfit.get_lower_visible()
@@ -11944,7 +11944,7 @@ label examine_person(the_person):
             string += "She's wearing a " + outfit_top[1].name + " with a " + outfit_top[0].name + " underneath. Her tits look like they're " + the_person.tits + "'s."
         elif len(outfit_top) == 3:
             string += "She's wearing a " + outfit_top[2].name + " with a " + outfit_top[1].name + " and " + outfit_top[0].name + " underneath. Her tits look like they're " + the_person.tits + "'s."
-        renpy.say("",string)
+        renpy.say(None,string)
 
         string = ""
         if len(outfit_bottom) == 0: #naked
@@ -11957,20 +11957,20 @@ label examine_person(the_person):
             string += "She's also wearing " + outfit_bottom[0].name + " below, with " + outfit_bottom[1].name +  " visible below."
             if not outfit_bottom[1].hide_below:
                 string += " You can see her pussy underneath."
-        renpy.say("",string)
+        renpy.say(None,string)
         title = mc.business.get_employee_title(the_person)
         if title == "Researcher":
-            renpy.say("", the_person.title + " currently works in your research department.")
+            renpy.say(None, the_person.title + " currently works in your research department.")
         elif title == "Marketing":
-            renpy.say("", the_person.title + " currently works in your marketing department.")
+            renpy.say(None, the_person.title + " currently works in your marketing department.")
         elif title == "Supply":
-            renpy.say("", the_person.title + " currently works in your supply procurement department.")
+            renpy.say(None, the_person.title + " currently works in your supply procurement department.")
         elif title == "Production":
-            renpy.say("", the_person.title + " currently works in your production department.")
+            renpy.say(None, the_person.title + " currently works in your production department.")
         elif title == "Human Resources":
-            renpy.say("", the_person.title + " currently works in your human resources department.")
+            renpy.say(None, the_person.title + " currently works in your human resources department.")
         else:
-            renpy.say("", the_person.title + " does not currently work for you.")
+            renpy.say(None, the_person.title + " does not currently work for you.")
 
     return
 
@@ -12462,12 +12462,12 @@ label advance_time:
         if mc.business.funds < 0:
             $ mc.business.bankrupt_days += 1
             if mc.business.bankrupt_days == mc.business.max_bankrupt_days:
-                $ renpy.say("","With no funds to pay your creditors you are forced to close your business and auction off all of your materials at a fraction of their value. Your story ends here.")
+                $ renpy.say(None,"With no funds to pay your creditors you are forced to close your business and auction off all of your materials at a fraction of their value. Your story ends here.")
                 $ renpy.full_restart()
             else:
                 $ days_remaining = mc.business.max_bankrupt_days-mc.business.bankrupt_days
-                $ renpy.say("","Warning! Your company is losing money and unable to pay salaries or purchase necessary supplies!")
-                $ renpy.say("","You have [days_remaining] days to restore yourself to positive funds or the bank will reclaim the business!")
+                $ renpy.say(None,"Warning! Your company is losing money and unable to pay salaries or purchase necessary supplies!")
+                $ renpy.say(None,"You have [days_remaining] days to restore yourself to positive funds or the bank will reclaim the business!")
         else:
             $ mc.business.bankrupt_days = 0
 

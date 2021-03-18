@@ -342,15 +342,15 @@ label broken_AC_crisis_label():
                                         choice_removed_anything = True
                                         random_strip_descrip = renpy.random.randint(0,4)
                                         if random_strip_descrip == 0:
-                                            renpy.say("",girl_choice.title + " pulls off her " + the_clothing.display_name + " and puts it aside.")
+                                            renpy.say(None,girl_choice.title + " pulls off her " + the_clothing.display_name + " and puts it aside.")
                                         elif random_strip_descrip == 1:
-                                            renpy.say("",girl_choice.title + " takes off her " + the_clothing.display_name + " and adds it to the pile of clothing.")
+                                            renpy.say(None,girl_choice.title + " takes off her " + the_clothing.display_name + " and adds it to the pile of clothing.")
                                         elif random_strip_descrip == 2:
-                                            renpy.say("",girl_choice.title + " strips off her " + the_clothing.display_name + " and tosses it to the side.")
+                                            renpy.say(None,girl_choice.title + " strips off her " + the_clothing.display_name + " and tosses it to the side.")
                                         elif random_strip_descrip == 3:
-                                            renpy.say("",girl_choice.title + " removes her " + the_clothing.display_name + " and tosses it with the rest of her stuff.")
+                                            renpy.say(None,girl_choice.title + " removes her " + the_clothing.display_name + " and tosses it with the rest of her stuff.")
                                         else: # random_strip_descrip == 4:
-                                            renpy.say("",girl_choice.title + " quickly slides off her " + the_clothing.display_name + " and leaves it on the ground.")
+                                            renpy.say(None,girl_choice.title + " quickly slides off her " + the_clothing.display_name + " and leaves it on the ground.")
 
                         if removed_something:
                             "..."
@@ -1134,7 +1134,7 @@ label water_spill_crisis_label():
                         next_piece = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True)
                         while (next_piece and the_person.judge_outfit(the_person.outfit, the_person.obedience-100+10)):
                             the_person.draw_animated_removal(next_piece)
-                            renpy.say("",the_person.title + " takes off her " + next_piece.name + " and leave it on the ground.")
+                            renpy.say(None,the_person.title + " takes off her " + next_piece.name + " and leave it on the ground.")
                             next_piece = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True)
 
                     the_person "There, I hope that's good enough."
@@ -2902,7 +2902,7 @@ label horny_at_work_crisis_label():
                 else:
                     #There are two or more people. Let's construct a title string!
                     $ unhappy_string = format_group_of_people(unhappy_people) + " storm out of the room with her, shaking their heads as they leave."
-                    $ renpy.say("",unhappy_string)
+                    $ renpy.say(None,unhappy_string)
                 python:
                     for unhappy_person in unhappy_people: #Note that the main person was removed from the list so these penalties aren't being applied twice.
                         unhappy_person.change_happiness(-30)
@@ -2921,7 +2921,7 @@ label horny_at_work_crisis_label():
                         neutral_string = format_group_of_people(neutral_people) + " all see you jerking off at your desk, but none of them seem upset or surprised by it."
                     else:
                         neutral_string = format_group_of_people(neutral_people) + " notices you jerking off, but she doesn't seem upset or surprised by it."
-                    renpy.say("", neutral_string)
+                    renpy.say(None, neutral_string)
                     neutral_string = None
 
                 if masturbating_people:
@@ -2934,7 +2934,7 @@ label horny_at_work_crisis_label():
                                 masturbating_string = format_group_of_people(masturbating_people) + " even join in, both sliding their hands down to their pussies and rubbing them quietly."
                             else:
                                 masturbating_string = format_group_of_people(masturbating_people) + " all quietly join in as well, quietly sliding hands down to their pussies and joining the group masturbation session."
-                            renpy.say("",masturbating_string)
+                            renpy.say(None,masturbating_string)
                         masturbating_string = None
 
             if helpful_people:
@@ -2958,7 +2958,7 @@ label horny_at_work_crisis_label():
                     else:
                         $ others_string =  format_group_of_people(others) + " all get up and stand behind [helpful_person.possessive_title], obviously willing to do the same."
                     $ del others
-                    $ renpy.say("",others_string)
+                    $ renpy.say(None,others_string)
                     $ others_string = None
                 $ del helpful_person
                 if len(helpful_people) > 1:
@@ -3012,7 +3012,7 @@ label horny_at_work_crisis_label():
                         if len(helpful_people) > 1:
                             "The other girls are still standing next to your desk, and you haven't exhausted yourself quite yet..."
                         else:
-                            $ renpy.say("", helpful_people[0].title + " is still standing next to your desk, and you haven't exhausted yourself quite yet...")
+                            $ renpy.say(None, helpful_people[0].title + " is still standing next to your desk, and you haven't exhausted yourself quite yet...")
 
                         $ display_list = helpful_people[:]
                         $ exit_option = "Finish up."
@@ -3306,9 +3306,9 @@ label horny_at_work_crisis_label():
                                     for clothing in the_person.outfit.get_half_off_to_vagina_list():
                                         the_person.draw_animated_removal(clothing, half_off_instead = True)
                                         if the_person.outfit.vagina_available():
-                                            renpy.say("","You pull her " + clothing.display_name + " out of the way so you can get to her pussy.")
+                                            renpy.say(None,"You pull her " + clothing.display_name + " out of the way so you can get to her pussy.")
                                         else:
-                                            renpy.say("","You pull her " + clothing.display_name + " out of the way.")
+                                            renpy.say(None,"You pull her " + clothing.display_name + " out of the way.")
                                     clothing = None
 
                             else: #We need to strip her down completely. TODO: We need a way to determine if we can strip someone half down, then pull things aside (ie. pull off pants, pull panties to the side)

@@ -517,7 +517,7 @@ label mom_selfie_label():
                 for i in range(3):
                     the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.sluttiness, guarantee_output = True), update_taboo = True)
                     the_person.draw_person(emotion = "happy")
-                    renpy.say("","")
+                    renpy.say(None,"")
             the_person "I hope you think your mommy looks sexy in her underwear ;)"
 
         elif ran_num == 3:

@@ -1067,7 +1067,7 @@ label cousin_new_boobs_brag_label(the_person):
                         if the_item is None:
                             break
                         the_person.draw_animated_removal(the_item)
-                        renpy.say("","") #Hold the game until the player interacts
+                        renpy.say(None,"") #Hold the game until the player interacts
 
                 if the_person.has_taboo("bare_tits"):
                     mc.name "I can't believe I had to pay for you to get bigger tits before I even got to see them."

@@ -73,7 +73,7 @@ label draw_tests():
                     #renpy.say(the_stripper.title, "Removing: " + next_item.display_name) #TOOD: Remove this, it's just here for debugging purposes
 
             print (renpy.get_showing_tags("solo", True))
-            renpy.say("","...")
+            renpy.say(None,"...")
     return
 
 label draw_tests_2():

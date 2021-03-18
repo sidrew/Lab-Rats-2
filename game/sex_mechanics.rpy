@@ -624,7 +624,7 @@ label watcher_check(the_person, the_position, the_object, the_report): # Check t
 
                 if not_already_in:
                     a_person.on_room_enter_event_list.append(caught_cheating_action)
-                    renpy.say("",a_person.title + " gasps when she sees what you and " + the_person.title + " are doing.")
+                    renpy.say(None,a_person.title + " gasps when she sees what you and " + the_person.title + " are doing.")
 
 
             elif affair_role in a_person.special_role and the_position.slut_requirement > ((a_person.sluttiness*2)/3): #You can get away with stuff two thirds as slutty as what she would do.
@@ -636,7 +636,7 @@ label watcher_check(the_person, the_position, the_object, the_report): # Check t
 
                 if not_already_in:
                     a_person.on_room_enter_event_list.append(caught_affair_cheating_action)
-                    renpy.say("",a_person.title + " gasps when she sees what you and " + the_person.title + " are doing.")
+                    renpy.say(None,a_person.title + " gasps when she sees what you and " + the_person.title + " are doing.")
 
     $ watcher = get_random_from_list(other_people) #Get a random person from the people in the area, if there are any.
     $ del other_people
@@ -825,13 +825,13 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
 
             if strip_type == "Half":
                 $ the_person.draw_animated_removal(strip_choice, half_off_instead = True)
-                $ renpy.say("","You pull her " + strip_choice.display_name + " out of the way.")
+                $ renpy.say(None,"You pull her " + strip_choice.display_name + " out of the way.")
             else:
                 $ the_person.draw_animated_removal(strip_choice)
                 if strip_choice.half_off:
-                    $ renpy.say("", "You pull her " + strip_choice.display_name + " off entirely and drop it on the ground.")
+                    $ renpy.say(None, "You pull her " + strip_choice.display_name + " off entirely and drop it on the ground.")
                 else:
-                    $ renpy.say("", "You pull her " + strip_choice.display_name + " off, dropping it to the ground.")
+                    $ renpy.say(None, "You pull her " + strip_choice.display_name + " off, dropping it to the ground.")
 
             $ arousal_change = 0
             if strip_type == "Full":
@@ -875,10 +875,10 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
         else:
             if not willing_if_ordered: #If she was willing if ordered then the dialogue is called up top.
                 if strip_type == "Half":
-                    $ renpy.say("", "You start to pull " + the_person.title + "'s " + strip_choice.name + " out of the way.")
-                    $ renpy.say("", "She grabs your hand gently.")
+                    $ renpy.say(None, "You start to pull " + the_person.title + "'s " + strip_choice.name + " out of the way.")
+                    $ renpy.say(None, "She grabs your hand gently.")
                 else:
-                    $ renpy.say("", "You start to pull off " + the_person.title + "'s " + strip_choice.name + " when she grabs your hand and stops you.")
+                    $ renpy.say(None, "You start to pull off " + the_person.title + "'s " + strip_choice.name + " when she grabs your hand and stops you.")
                 $ the_person.call_dialogue("strip_reject", the_clothing = strip_choice , strip_type = strip_type) #TODO: pass the piece of clothing and base some dialogue off of that.
         $ renpy.call("strip_menu", the_person, the_verbing, is_private) #TODO: Girl sometimes interupts you to get you to keep going. Have to strip them down in segments.
 
