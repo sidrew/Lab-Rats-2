@@ -191,6 +191,14 @@ init 1 python:
                     possible_people.append(a_person)
         return get_random_from_list(possible_people)
 
+    def camera_strip_tits_description(person, strip_list):
+        for item in strip_list:
+            person.draw_animated_removal(item, position = "stand5", the_animation = blowjob_bob, animation_effect_strength = 0.8)
+            if person.outfit.tits_visible():
+                renpy.say(None, "She pulls her " + item.name + " off and lets her tits fall free.")
+                renpy.say(None, "She looks at the camera and shakes them for you.")
+        return
+
     girlfriend_nudes_crisis = Action("Girlfriend nudes", girlfriend_nudes_requirement, "girlfriend_nudes_label")
     crisis_list.append([girlfriend_nudes_crisis, 5])
 
@@ -227,15 +235,8 @@ label girlfriend_nudes_label():
         $ strip_list = the_person.outfit.get_tit_strip_list(visible_enough = True)
         if strip_list: #She has something to strip to show off her tits more
             "She dances for a moment, then starts to strip down even more."
-            python:
-                for the_item in strip_list:
-                    the_person.draw_animated_removal(the_item, position = "stand5", the_animation = blowjob_bob, animation_effect_strength = 0.8)
-                    if the_person.outfit.tits_visible():
-                        renpy.say("", "She pulls her " + the_item.name + " off and lets her tits fall free.")
-                        renpy.say("", "She at the camera and shakes them for you.")
-                    else:
-                        renpy.say("","")
-                strip_list = None
+            $ camera_strip_tits_description(the_person, strip_list)
+            $ strip_list = None
             if the_person.has_large_tits():
                 "Tits out, she dances a little more for you, then blows a kiss and waves goodbye. Her breasts dangle directly in front of the camera as she turns it off."
             else:
