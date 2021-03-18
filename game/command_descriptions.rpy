@@ -384,7 +384,7 @@ label demand_strip_tits_label(the_person):
         $ the_person.change_slut_temp(1+ the_person.get_opinion_score("showing her tits"))
         $ the_person.change_happiness(-2 + the_person.get_opinion_score("showing her tits"))
         "When you've seen enough you give her an approving nod. She sighs and moves towards her clothes."
-        the_person "Can get dressed now?"
+        the_person "Can I get dressed now?"
     else: # She's into it
         $ the_person.draw_person(the_animation = blowjob_bob) #TODO Make sure this effect looks right
         "[the_person.title] places her hands behind her and bounces on her feet, jiggling her tits for your amusement."

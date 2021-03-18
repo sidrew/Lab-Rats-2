@@ -1140,7 +1140,7 @@ label nightime_grope(the_person, masturbating = False):
             the_person "Hmmm? Mmph..."
             $ the_person.draw_person(position = "missionary", special_modifier = "blowjob", the_animation = blowjob_bob, animation_effect_strength = 0.7)
             "[the_person.title] mumbles something, and you seize the moment to slide yourself past her lips."
-            "Her tongue licks experimentally at your tip, exploring it's visitor."
+            "Her tongue licks experimentally at your tip, exploring its visitor."
             "You place a hand on the back of her head and hold it steady as you move even deeper into her warm, wet, mouth."
             the_person "Mmph... Umph..."
             if renpy.random.randint(0,100) < 70 - 5*the_person.get_opinion_score("giving blowjobs"):
