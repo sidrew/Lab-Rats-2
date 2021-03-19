@@ -49,7 +49,6 @@ label so_relationship_improve_label():
     elif the_person.relationship == "Girlfriend":
         $ the_person.change_happiness(20)
         if the_person.love > 30: #You're a good friend.
-            "You get a text from [the_person.title]."
             the_person "Hey [the_person.mc_title], I have some exciting news!"
             the_person "My boyfriend proposed, me and [the_person.SO_name] are getting married! I'm so excited, I just had to tell you!"
             menu:
@@ -131,7 +130,6 @@ label affair_dick_pick_label():
         return
 
     $ mc.start_text_convo(the_person)
-    "You get a text from [the_person.title]."
     the_person "I'm so horny right now. I'm touching myself and thinking about you, [the_person.mc_title]."
     "She sends you a picture, which you immediately open up."
     $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit(), update_taboo = True)
@@ -157,7 +155,6 @@ label affair_dick_pick_label():
 
 
         "Tell her you're busy":
-            "As much as you enjoy the picture, you've got important work to do. You text her back."
             mc.name "I've got work to get done [the_person.title]. Stop bothering me just because you're a bitch in heat."
             if the_person.get_opinion_score("being submissive") > 0:
                 $ the_person.change_slut_temp(2)
@@ -209,7 +206,6 @@ label girlfriend_nudes_label():
 
     $ mc.start_text_convo(the_person)
     if the_person.effective_sluttiness() < 20:
-        "You get a text from [the_person.possessive_title]."
         the_person "Hey [the_person.mc_title]. I was just thinking about you and wanted to say hi."
         the_person "Hope we can spend some time together soon."
         mc.name "Me too, we'll talk when I have some time."
@@ -227,9 +223,7 @@ label girlfriend_nudes_label():
 
     elif the_person.effective_sluttiness() < 60:
         $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
-        "You get a text from [the_person.possessive_title], followed shortly by a video."
         the_person "Here's a little gift for you, hope you like it!"
-        "You open the video."
         $ the_person.draw_person(position = "stand5", the_animation = blowjob_bob, animation_effect_strength = 0.8)
         "It's [the_person.title] in her room in front of a mirror. She smiles and waves at you, then bounces her tits up and down."
         $ strip_list = the_person.outfit.get_tit_strip_list(visible_enough = True)
@@ -244,13 +238,12 @@ label girlfriend_nudes_label():
 
         else:
             "She dances for a moment, then blows you a kiss and waves goodbye."
+        mc.name "Loved it!!"
         $ the_person.update_outfit_taboos()
         $ the_person.apply_outfit(the_person.planned_outfit)
     else:
         $ the_person.apply_outfit(Outfit("Nude"))
-        "You get a text from [the_person.possessive_title], followed shortly by a video."
         the_person "Thinking of you, wish you were here!"
-        "You open up the video."
         $ the_person.draw_person(position = "missionary", the_animation = missionary_bob, animation_effect_strength = 0.5)
         "[the_person.title] is lying naked in bed, one hand already between her legs."
         "She smiles at the camera and starts to finger herself, slowly at first but quickly picking up speed."
@@ -261,6 +254,7 @@ label girlfriend_nudes_label():
         "Before long her thighs are quivering. You watch as [the_person.title] drives herself to orgasm with her vibrator."
         "Her legs clamp down on her own hand as she cums. After a moment she relaxes, leaving the vibrator running on the bed."
         "She looks into the camera again and sighs happily, then reaches forward and ends the video."
+        mc.name "Very hot, [the_person.title]!"
         $ the_person.update_outfit_taboos()
         $ the_person.apply_outfit(the_person.planned_outfit)
     #TODO: A blojob/deepthroat training video, or an anal stretching video she sends you to show she's "getting ready."

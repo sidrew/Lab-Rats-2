@@ -124,7 +124,6 @@ label movie_date_label(the_person):
             pass
 
         "Cancel the date (tooltip)She won't be happy with you canceling last minute.":
-            "You get your phone out and text [the_person.title]."
             $ mc.start_text_convo(the_person)
             mc.name "I'm sorry, but something important came up at the last minute. We'll have to reschedule."
             $ the_person.change_love(-5)

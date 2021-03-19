@@ -1640,7 +1640,6 @@ label cousin_tease_crisis_label():
     $ the_person = cousin
     $ mc.start_text_convo(the_person)
     if the_person.effective_sluttiness("underwear_nudity") < 35: #She'll want money
-        "You get a curt text from [the_person.title]."
 
         the_person "I need some cash. Do you have a hundred bucks?"
         menu:
