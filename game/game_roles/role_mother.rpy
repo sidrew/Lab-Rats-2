@@ -729,7 +729,7 @@ label mom_work_promotion_outfit_create(the_person):
             the_person "Ooh, this is nice [the_person.mc_title]."
             $ the_person.draw_person(position = "back_peek")
             the_person "Does it look good from the back?"
-            mc.name "It looks great [the_person.possessive_title]."
+            mc.name "It looks great, [the_person.title]."
             $ the_person.draw_person()
             the_person "Do you think it's going far enough though? I mean, if the point is to catch some attention."
             the_person "It's nice, it just feels a little... boring? Do you think this is what I should wear?"
@@ -1590,7 +1590,7 @@ label mom_weekly_pay_lily_question(the_person):
         "Tell her about InstaPic":
             mc.name "Well, I think she's picked up a part time job."
             the_person "Oh, why haven't I heard about this?"
-            mc.name "It's not exactly a traditional job. She's been putting picture up on InstaPic."
+            mc.name "It's not exactly a traditional job. She's been putting pictures up on InstaPic."
             the_person "InstaPic? Isn't that an internet thing? I don't understand."
             mc.name "[lily.title] puts up pictures showing off clothing, and InstaPic pays her for the ad traffic she generates."
             the_person "So it's like modeling, but she can do it from home?"
@@ -1603,6 +1603,7 @@ label mom_weekly_pay_lily_question(the_person):
             the_person "Aww, you're too sweet."
             $ lily.event_triggers_dict["sister_instathot_mom_knows"] = True
             $ add_sister_instapic_discover_crisis()
+    the_person "Now then, was there anything you wanted me to do this week?"
     return
 
 label mom_stress_relief_offer(the_person): #TODO: Write and hook this up.
@@ -1789,7 +1790,7 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     $ the_mom.draw_person()
                     the_mom "Anything for my special man."
                 else:
-                    the_mom "I'm sorry [the_mom.mc_title], I just don't have the energy I use to have..."
+                    the_mom "I'm sorry [the_mom.mc_title], I just don't have the energy I used to have..."
                     mc.name "It's okay [the_mom.title], maybe later we can finish this up."
                     $ the_mom.draw_person()
                     $ the_mom.change_happiness(-5)
@@ -1826,7 +1827,7 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                                 mc.name "Of course [the_mom.title]."
                                 $ the_mom.change_happiness(5)
                             else:
-                                the_mom "I'm sorry [the_mom.mc_title], I just don't have the energy I use to have..."
+                                the_mom "I'm sorry [the_mom.mc_title], I just don't have the energy I used to have..."
                                 mc.name "It's okay [the_mom.title], maybe later we can finish this up."
                                 the_mom "Maybe you do need this other girl... You should find someone who can take care of you properly."
                                 $ the_mom.change_happiness(-5)
@@ -2009,7 +2010,7 @@ label mom_date_intercept(the_mom, the_date): #TODO: Add some relationship awaren
                     $ the_mom.change_happiness(10)
                     the_mom "Anything for my special man."
                 else:
-                    the_mom "I'm sorry [the_mom.mc_title], I just don't have the energy I use to have..."
+                    the_mom "I'm sorry [the_mom.mc_title], I just don't have the energy I used to have..."
                     mc.name "It's okay [the_mom.title], maybe later we can finish this up."
                     $ the_mom.change_happiness(-5)
                     the_mom "I'll do my best. For my special man I'll try anything at all."

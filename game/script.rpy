@@ -7249,13 +7249,13 @@ init -5 python:
         return the_stage
 
     def make_front_door():
-        return Object("Front Door", ["Lean"], sluttiness_modifier = 10, obedience_modifier = 5)
+        return Object("front door", ["Lean"], sluttiness_modifier = 10, obedience_modifier = 5)
 
     def make_hall_carpet():
-        return Object("Hall Carpet", ["Kneel", "Lay"], sluttiness_modifier = 5, obedience_modifier = 10)
+        return Object("hall carpet", ["Kneel", "Lay"], sluttiness_modifier = 5, obedience_modifier = 10)
 
     def make_stairs():
-        return Object("Stairs", ["Sit", "Low"], sluttiness_modifier = 5, obedience_modifier = 10)
+        return Object("stairs", ["Sit", "Low"], sluttiness_modifier = 5, obedience_modifier = 10)
 
     class Position():
         def __init__(self,name,slut_requirement,slut_cap,requires_hard, requires_large_tits,
@@ -12152,7 +12152,7 @@ label research_select_action_description:
         $mc.business.set_serum_research(_return)
         "You change your research to [_return.name]."
     else:
-        "You decide to leave your labs current research topic as it is."
+        "You decide to leave your lab's current research topic as it is."
     return
 
 label production_select_action_description: #TODO: Change this to allow you to select which line of serum you are changing!

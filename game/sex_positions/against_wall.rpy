@@ -196,7 +196,7 @@ label scene_against_wall_3(the_girl, the_location, the_object):
 
             else:
                 the_girl "Oh fuck, go easy on me... it feels like you're tearing me in half when you do that!"
-                "You slow down a little bit and let [the_girl.possessive_title] get use to having your cock so deep inside of her."
+                "You slow down a little bit and let [the_girl.possessive_title] get used to having your cock so deep inside of her."
 
             "You knead her ass cheeks while you fuck her. When she makes a happy yelp when you give them a slap."
 
@@ -213,7 +213,7 @@ label scene_against_wall_3(the_girl, the_location, the_object):
                 if the_girl.get_opinion_score("taking control") > 0:
                     $ the_girl.discover_opinion("taking control")
                     $ the_girl.change_arousal(the_girl.get_opinion_score("taking control"))
-                    the_girl "Oh, you want me to take care of this all by my self?"
+                    the_girl "Oh, you want me to take care of this all by myself?"
                     "She puts her hands on your waist and grinds herself deeper onto your dick."
                     the_girl "Mmm, it's nice to get you so deep inside of me..."
                     if the_girl.get_opinion_score("creampies") > 0:

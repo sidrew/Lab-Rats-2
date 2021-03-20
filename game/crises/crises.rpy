@@ -305,7 +305,7 @@ label broken_AC_crisis_label():
                     "[the_person.possessive_title] finishes stripping and looks back at you."
                     if (the_person.outfit.wearing_panties() and not the_person.outfit.panties_covered()) or (the_person.outfit.wearing_bra() and not the_person.outfit.bra_covered()):
                         if the_person.has_taboo("underwear_nudity"):
-                            "She seems nervous at first, but quickly gets use to being in her underwear in front of you."
+                            "She seems nervous at first, but quickly gets used to being in her underwear in front of you."
                             $ the_person.break_taboo("underwear_nudity")
                 the_person "Ahh, that's a lot better."
             else:
@@ -381,7 +381,7 @@ label broken_AC_crisis_label():
                             "[girl_choice.possessive_title] finishes stripping and looks at [the_person.title]."
                             if (girl_choice.outfit.wearing_panties() and not girl_choice.outfit.panties_covered()) or (girl_choice.outfit.wearing_bra() and not girl_choice.outfit.bra_covered()):
                                 if girl_choice.has_taboo("underwear_nudity"):
-                                    "She seems nervous at first, but quickly gets use to being in her underwear in front of you."
+                                    "She seems nervous at first, but quickly gets used to being in her underwear in front of you."
                                     $ girl_choice.break_taboo("underwear_nudity")
 
                         girl_choice "Ahh, that's a lot better."
@@ -1138,7 +1138,7 @@ label water_spill_crisis_label():
                         next_piece = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True)
                         while (next_piece and the_person.judge_outfit(the_person.outfit, the_person.obedience-100+10)):
                             the_person.draw_animated_removal(next_piece)
-                            renpy.say(None,the_person.title + " takes off her " + next_piece.name + " and leave it on the ground.")
+                            renpy.say(None,the_person.title + " takes off her " + next_piece.name + " and drops it on the floor.")
                             next_piece = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove = True)
 
                     the_person "There, I hope that's good enough."
@@ -1522,7 +1522,7 @@ label invest_rep_visit_label(rep_name):
             "You send [helper.title] a text to meet you. You and [rep_name] grab chairs and wait in the lobby until she arrives."
             $ helper.draw_person()
             if helper.outfit.slut_requirement > 60:
-                "[rep_name]'s goes slack-jawed when he sees [helper.title] wearing not much at all."
+                "[rep_name] goes slack-jawed when he sees [helper.title] wearing not much at all."
             elif helper.outfit.slut_requirement > 20:
                 "Your idle conversation with [rep_name] trails off when [helper.title] comes into the room. You see his eyes run up and down her before he regains his composure."
             else:
@@ -2254,7 +2254,7 @@ label cat_fight_crisis_label():
                         loser "You'll pay for that, slut!"
                     elif ran_num == 2:
                         "[winner.title] and [loser.title] collide, screaming profanities at each other."
-                        "You aren't sure exactly what happens, but when they separate [winner.title] is holding a piece of fabric that use to be [loser.title]'s [the_clothing.name]."
+                        "You aren't sure exactly what happens, but when they separate [winner.title] is holding a piece of fabric that used to be [loser.title]'s [the_clothing.name]."
                         $ the_group.draw_animated_removal(loser, the_clothing = the_clothing, emotion = "angry")
                         loser "Is that all you've got?"
                     else: #ran_num == 3
@@ -2296,7 +2296,7 @@ label cat_fight_crisis_label():
                     loser "Hey!"
                     $ the_group.draw_person(winner, emotion = "happy")
                     winner "You're not going anywhere, not yet!"
-                    "[winner.title] reaches a hand down between [loser.title]'s legs, running her finger over her coworkers pussy."
+                    "[winner.title] reaches a hand down between [loser.title]'s legs, running her finger over her coworker's pussy."
                     $ loser.change_arousal(5)
                     $ the_group.draw_person(winner, make_primary = False, emotion = "happy", the_animation = tit_bob, animation_effect_strength = 0.2)
                     $ the_group.draw_person(loser, position = "against_wall", the_animation = tit_bob, animation_effect_strength = 0.2) #TODO: Experiment with different settings here
@@ -2636,7 +2636,7 @@ label daughter_work_crisis_label():
         $ promised_sex = True
 
     else:
-        "[the_person.title] hands over a printed out resume waits nervously for you to look it over."
+        "[the_person.title] hands over a printed out resume and waits nervously for you to look it over."
 
     menu:
         "Look at the resume for [the_person.name]'s daughter":
