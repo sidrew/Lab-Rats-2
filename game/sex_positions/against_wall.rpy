@@ -198,7 +198,7 @@ label scene_against_wall_3(the_girl, the_location, the_object):
                 the_girl "Oh fuck, go easy on me... it feels like you're tearing me in half when you do that!"
                 "You slow down a little bit and let [the_girl.possessive_title] get used to having your cock so deep inside of her."
 
-            "You knead her ass cheeks while you fuck her. When she makes a happy yelp when you give them a slap."
+            "You knead her ass cheeks while you fuck her. She lets out a happy yelp when you give them a slap."
 
         "Let her take control":
             "You stop pumping your cock into [the_girl.title] and let her hips do all the work."
