@@ -458,7 +458,7 @@ label student_study_home(the_person):
         "Study normally":
             call study_normally(the_person, public = False) from _call_study_normally_1
 
-        "Try something different...":
+        "Try something different..." if the_person.effective_sluttiness() >= 15 or the_person.obedience >= 100:
             mc.name "I want to try something different today [the_person.title]. I think it will help your focus."
             the_person "Okay, what did you have in mind?"
             menu:
@@ -473,6 +473,9 @@ label student_study_home(the_person):
 
                 "Punish her for wrong answers\n{color=#ff0000}{size=18}Requires: 100 Obedience{/size}{/color} (disabled)" if the_person.obedience < 100:
                     pass
+
+        "Try something different... (disabled)" if the_person.effective_sluttiness() < 15 and the_person.obedience < 100:
+            pass
 
     if the_person.int > starting_int and took_serum: #If she has either her int or focus boosted by serum she's much happier to take it in the future.
         the_person "Wow, I actually found that really easy! I think this serum stuff you gave me actually helped."
