@@ -103,7 +103,7 @@ style frame:
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#say
 
-screen say(who, what, vren_test = None):
+screen say(who, what):
     $ show_phone = False #If True the phone is shown. If having a text conversation with "who" then that message is displayed on the phone. The say window has priority on displaying dialogue.
     $ show_say_window = True #If True the say window is shown. If also showing the phone this will be on top, and is for narration or dialogue with other characters.
 
@@ -148,10 +148,7 @@ screen say(who, what, vren_test = None):
         style_prefix "say"
         window:
             id "window"
-            if vren_test is not None:
-                text vren_test id "what"
-            else:
-                text what id "what"
+            text what id "what"
 
             if who is not None:
                 window:
