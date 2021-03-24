@@ -429,7 +429,7 @@ label wild_flirt_response_low(the_person):
 
             elif the_person.outfit.underwear_visible():
                 # Her underwear is visible.
-                the_person "Thanks! I probably would have picked something that kept me a little more covered, but at our uniform is comfortable."
+                the_person "Thanks! I probably would have picked something that kept me a little more covered, but at least our uniform is comfortable."
                 mc.name "It may be a little unconventional, but you look fantastic. You've got exactly the right kind of body for it."
                 the_person "Well that's good to know."
                 "She smiles and gives you a quick turn to either side, showing off her body."
