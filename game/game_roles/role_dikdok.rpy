@@ -158,7 +158,7 @@ label view_dikdok(the_person):
                 the_person "Hey everyone! Here to show off a new set of underwear for all of you today."
                 the_person "DikDok is super strict with their censoring, so I need to be really careful not to do this..."
                 if the_person.outfit.can_half_off_to_tits():
-                    $ generalised_strip_description(the_person, the_person.outfit.get_half_off_to_tits_list, half_off_instead = True)
+                    $ generalised_strip_description(the_person, the_person.outfit.get_half_off_to_tits_list(), half_off_instead = True)
                 else:
                     $ generalised_strip_description(the_person, the_person.outfit.get_tit_strip_list())
                 the_person "Ooops! I guess you'll just have to report me for being so naughty!"
