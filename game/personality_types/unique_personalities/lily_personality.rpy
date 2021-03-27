@@ -270,7 +270,7 @@ label lily_sex_responses_oral(the_person):
 label lily_sex_responses_vaginal(the_person):
     if the_person.arousal < 25:
         if the_person.sluttiness > 50:
-            the_person "Oh god, you're cock feel so good inside me..."
+            the_person "Oh god, your cock feels so good inside me..."
             "She moans happily to herself."
         else:
             the_person "You're so big, is it even all in yet? Ah..."
