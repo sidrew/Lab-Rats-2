@@ -1246,15 +1246,15 @@ label home_fuck_crisis_label():
     the_person "Oh [the_person.mc_title], I just had the worst night and I need you to help me!"
     "You can smell alcohol on her breath."
     if affair_role in the_person.special_role:
-        $ SO_title = SO_relationship_to_title(the_person.relationship)
+        $ so_title = SO_relationship_to_title(the_person.relationship)
         the_person "I was out for dinner my [so_title] and I started thinking about you."
         the_person "When we finished he wanted to go home and fuck, but all I could think about was your cock."
         the_person "I lied and told him I had plans with some of my other friends and came over here."
     else:
         the_person "I was out with some friends, and I got talking with this guy..."
         if the_person.relationship != "Single":
-            $ SO_title = SO_relationship_to_title(the_person.relationship)
-            mc.name "Wait, don't you have a [SO_title]?"
+            $ so_title = SO_relationship_to_title(the_person.relationship)
+            mc.name "Wait, don't you have a [so_title]?"
             the_person "So? He doesn't need to know about everything I do. So there I was with this guy..."
         the_person "We were getting along so well, so I went home with him. We get to his place and make out in his car for a while..."
         "You stay silent, listening to [the_person.title]'s rambling story."

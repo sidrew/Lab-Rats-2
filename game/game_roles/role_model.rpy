@@ -148,8 +148,8 @@ label model_photography_list_label(the_person):
     $ the_person.draw_person(position = "sitting")
     "You go through the pictures you got, discarding the poor ones and finally settling on best ones to use."
     if the_person.relationship != "Single" and sexy_score > 30 :
-        $ SO_title = SO_relationship_to_title(the_person.relationship)
-        "You wonder what her [SO_title] would think about [the_person.title] showing so much skin for this ad."
+        $ so_title = SO_relationship_to_title(the_person.relationship)
+        "You wonder what her [so_title] would think about [the_person.title] showing so much skin for this ad."
 
 
     $ ad_multiplier = 1
@@ -379,8 +379,8 @@ label photo_naked(the_person):
         $ mc.change_locked_clarity(10)
         $ the_person.draw_person(position = "back_peek")
         if the_person.relationship != "Single":
-            $ SO_title = SO_relationship_to_title(the_person.relationship)
-            the_person "Do.... do you think my [SO_title] would be okay with this?"
+            $ so_title = SO_relationship_to_title(the_person.relationship)
+            the_person "Do.... do you think my [so_title] would be okay with this?"
             $ the_person.draw_person()
             the_person "It's not like we're doing anything wrong, this is all just for work."
             menu:
@@ -448,8 +448,8 @@ label photo_touch(the_person):
         the_person "Yeah, I know but..."
         mc.name "And it's for the business. You want us to do well, right?"
         if the_person.relationship != "Single":
-            $ SO_title = SO_relationship_to_title(the_person.relationship)
-            the_person "But what do I tell my [SO_title]? What happens if he sees our ad and sees all of this?"
+            $ so_title = SO_relationship_to_title(the_person.relationship)
+            the_person "But what do I tell my [so_title]? What happens if he sees our ad and sees all of this?"
             mc.name "Tell him whatever you want, he doesn't control you. The only important question is if you want to do this."
             "She thinks about it for a long moment."
             the_person "Yeah, I do. For you. Uh, I mean, for your business."
@@ -527,14 +527,14 @@ label photo_blowjob(the_person):
 
     else:
         if the_person.relationship != "Single":
-            $ SO_title = SO_relationship_to_title(the_person.relationship)
+            $ so_title = SO_relationship_to_title(the_person.relationship)
             the_person "Wait, wait, wait. This really crosses a line, don't you think?"
             mc.name "What do you mean?"
             the_person "I can justify doing some nude shots. I can understand wanting some sensual shots with me touching myself."
-            the_person "But how could I ever tell my [SO_title] about giving someone else a blowjob?"
+            the_person "But how could I ever tell my [so_title] about giving someone else a blowjob?"
             "She crosses her arms and looks away."
             "You lower the camera and take a step closer to [the_person.possessive_title]. You reach out and touch her shoulder. She looks up at you."
-            mc.name "Don't think about your [SO_title] right now. Think about me, and the business, and what you want to do."
+            mc.name "Don't think about your [so_title] right now. Think about me, and the business, and what you want to do."
             mc.name "We can make sure he never sees these ads. I need you, [the_person.title]."
             "Her expression softens. Finally she sighs and uncrosses her arms."
             the_person "I... I can't believe I'm going to do this. Make sure to get plenty of good shots, make this worth it."
@@ -604,12 +604,12 @@ label photo_sex(the_person):
 
     if the_person.effective_sluttiness("vaginal_sex") < 65 or the_person.has_taboo("vaginal_sex"):
         if the_person.relationship != "Single":
-            $ SO_title = SO_relationship_to_title(the_person.relationship)
+            $ so_title = SO_relationship_to_title(the_person.relationship)
             if affair_role in the_person.special_role:
-                the_person "That would be nice [the_person.mc_title], just make sure my [SO_title] doesn't find out."
+                the_person "That would be nice [the_person.mc_title], just make sure my [so_title] doesn't find out."
                 mc.name "Don't worry, just do what feels natural."
             else:
-                the_person "I can't do that [the_person.mc_title], my [SO_title]..."
+                the_person "I can't do that [the_person.mc_title], my [so_title]..."
                 mc.name "We've gone so far already, what's the difference? Just relax and do what feels natural."
                 "Her resistance wavers, then melts away."
         else:

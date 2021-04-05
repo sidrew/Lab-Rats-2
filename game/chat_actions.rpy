@@ -805,8 +805,8 @@ label dinner_date_plan_label(the_person):
 
     elif not the_person.relationship == "Single":
         mc.name "[the_person.title], I'd love to spend some time together, just the two of us. Would you let me take you out for dinner?"
-        $ SO_title = SO_relationship_to_title(the_person.relationship)
-        the_person "[the_person.mc_title], you know I've got a [SO_title], right? Well..."
+        $ so_title = SO_relationship_to_title(the_person.relationship)
+        the_person "[the_person.mc_title], you know I've got a [so_title], right? Well..."
         if the_person.get_opinion_score("cheating on men") > 0:
             "She doesn't take very long to make up her mind."
             if is_friday:
@@ -816,9 +816,9 @@ label dinner_date_plan_label(the_person):
         else:
             "She thinks about it for a long moment."
             if is_friday:
-                the_person "Just this once, and we have to make sure my [SO_title] never finds out. Shall we go tonight?"
+                the_person "Just this once, and we have to make sure my [so_title] never finds out. Shall we go tonight?"
             else:
-                the_person "Just this once, and we have to make sure my [SO_title] never finds out. Are you free Friday?"
+                the_person "Just this once, and we have to make sure my [so_title] never finds out. Are you free Friday?"
 
     else:
         mc.name "[the_person.title], I'd love to get to know you better. Would you let me take you out for dinner?"
