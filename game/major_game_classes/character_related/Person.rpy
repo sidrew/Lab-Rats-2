@@ -1509,7 +1509,7 @@ init -2 python:
 
             if persistent.pregnancy_pref == 0:
                 no_condom_threshold += 10 #If pregnancy content is being ignored we return to the baseline of 60
-            elif the_person.on_birth_control: #If there is pregnancy content then a girl is less likely to want a condom when using BC, much more likely to want it when not using BC.
+            elif self.on_birth_control: #If there is pregnancy content then a girl is less likely to want a condom when using BC, much more likely to want it when not using BC.
                 no_condom_threshold -= 20
 
             return no_condom_threshold
@@ -1622,22 +1622,22 @@ init -2 python:
 
         def wants_creampie(self): #Returns True if the girl is going to use dialogue where she wants you to creampie her, False if she's going to be angry about it. Used to help keep dialogue similar throughout events
             creampie_threshold = 75
-            effective_slut = the_person.effective_sluttiness("creampie") + (10*the_person.get_opinion_score("creampies"))
-            if the_person.on_birth_control:
+            effective_slut = self.effective_sluttiness("creampie") + (10*self.get_opinion_score("creampies"))
+            if self.on_birth_control:
                 effective_slut += -20 #Much more willing to let you creampie her if she's on BC
 
-            if affair_role in the_person.special_role:
-                effective_slut += 5 - (10 * the_person.get_opinion_score("cheating on men"))
-            elif the_person.relationship != "Single": # Less likely to want to be creampied if she's in a relationship, but cares less if you're officially cheating.
-                effective_slut += 15 - (10 * the_person.get_opinion_score("cheating on men"))
+            if affair_role in self.special_role:
+                effective_slut += 5 - (10 * self.get_opinion_score("cheating on men"))
+            elif self.relationship != "Single": # Less likely to want to be creampied if she's in a relationship, but cares less if you're officially cheating.
+                effective_slut += 15 - (10 * self.get_opinion_score("cheating on men"))
 
-            if girlfriend_role in the_person.special_role:
-                effective_slut += -(10 + (5*the_person.get_opinion_score("being submissive"))) #Desire to be a "good wife"
+            if girlfriend_role in self.special_role:
+                effective_slut += -(10 + (5*self.get_opinion_score("being submissive"))) #Desire to be a "good wife"
 
-            if the_person.is_family():
-                effective_slut += 10 - (10 * the_person.get_opinion_score("incest"))
+            if self.is_family():
+                effective_slut += 10 - (10 * self.get_opinion_score("incest"))
 
-            if effective_slut >= creampie_threshold or the_person.event_triggers_dict.get("preg_knows", False):
+            if effective_slut >= creampie_threshold or self.event_triggers_dict.get("preg_knows", False):
                 return True
 
             return False
@@ -1713,7 +1713,7 @@ init -2 python:
 
             slut_change_amount = 5*self.get_opinion_score("creampies")
 
-            if the_person.wants_creampie():
+            if self.wants_creampie():
                 self.change_happiness(5*self.get_opinion_score("creampies"))
             else:
                 self.change_happiness(-5 + (5*self.get_opinion_score("creampies")))
