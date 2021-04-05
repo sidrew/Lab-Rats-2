@@ -308,6 +308,12 @@ init -2 python:
             else:
                 self._work = None
 
+        def has_limited_time_event(self, the_event):
+            if isinstance(the_event, Action):
+                return any(x for x in self.on_room_enter_event_list + self.on_talk_event_list if x == the_event)
+            if isinstance(the_event, basestring):
+                return any(x for x in self.on_room_enter_event_list + self.on_talk_event_list if x.effect == the_event)
+            return False
 
         def generate_home(self, set_home_time = True): #Creates a home location for this person and adds it to the master list of locations so their turns are processed.
             # generate new home location if we don't have one
