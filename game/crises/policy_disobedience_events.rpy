@@ -16,7 +16,7 @@ init -1 python:
         for person in [x for x in mc.business.get_employee_list() if x.should_wear_uniform() and x.is_wearing_uniform()]:
             disobedience_chance = 0
             if not person.judge_outfit(person.planned_uniform):
-                disobedience_chance = person.planned_uniform.slut_requirement - int( person.effective_sluttiness() * (person.obedience / 120.0) ) #Girls who find the outfit too slutty might disobey, scaled by their obedience
+                disobedience_chance = person.planned_uniform.slut_requirement - __builtin__.int( person.effective_sluttiness() * (person.obedience / 120.0) ) #Girls who find the outfit too slutty might disobey, scaled by their obedience
                 disobedience_chance += -5*(person.get_opinion_score("skimpy uniforms"))
             else:
                 disobedience_chance = (120 - person.obedience)/2 #Disobedient girls sometimes don't wear uniforms, just because they don't like following orders. Less likely than when outfits are too slutty.

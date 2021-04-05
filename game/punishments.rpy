@@ -612,9 +612,9 @@ label punishment_pay_cut(the_person, the_infraction): #There is a similar option
     mc.name "As punishment for your rules infraction I will be cutting your pay."
     the_person "By how much?"
     python:
-        minor_amount = int(0.05 * the_person.salary)
-        mod_amount = int(0.15 * the_person.salary)
-        maj_amount = int(0.25 * the_person.salary)
+        minor_amount = __builtin__.int(0.05 * the_person.salary)
+        mod_amount = __builtin__.int(0.15 * the_person.salary)
+        maj_amount = __builtin__.int(0.25 * the_person.salary)
         if minor_amount <= 1:
             minor_amount = 1
         if mod_amount <= 3:

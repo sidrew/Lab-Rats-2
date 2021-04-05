@@ -19,14 +19,14 @@ init -2 python:
             found = False
             for design in self.serums_held:
                 if design[0] == serum_design and not found:
-                    design[1] += int(change_amount)
+                    design[1] += __builtin__.int(change_amount)
                     found = True
                     if design[1] <= 0:
                         self.serums_held.remove(design)
 
             if not found:
                 if change_amount > 0:
-                    self.serums_held.append([serum_design,int(change_amount)])
+                    self.serums_held.append([serum_design, __builtin__.int(change_amount)])
 
 
         def get_serum_type_list(self): ## returns a list of all the serum types that are in the inventory, without their counts.

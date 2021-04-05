@@ -177,7 +177,7 @@ label employee_pay_cash_bonus(the_person):
     "You pull out your wallet and start to pull out a few bills."
     $weeks_wages = the_person.salary*5
     $months_wages = the_person.salary*20
-    $raise_amount = int(the_person.salary*0.1)
+    $raise_amount = __builtin__.int(the_person.salary*0.1)
     menu:
         "Give her a pat on the back":
             mc.name "And I'll absolutely do that once the next batch of sales go through."

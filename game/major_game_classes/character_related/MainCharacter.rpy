@@ -151,7 +151,7 @@ init -2 python:
             return
 
         def change_locked_clarity(self, amount, add_to_log = True): #TODO: Decide if we need a max locked clarity thing to gate progress in some way.
-            amount = int(__builtin__.round(amount))
+            amount = __builtin__.int(__builtin__.round(amount))
             self.locked_clarity += amount
             log_string = ""
             if amount > 0:
@@ -171,7 +171,7 @@ init -2 python:
             amount = self.locked_clarity * conversion_multiplier
             if with_novelty:
                 amount = amount * (with_novelty/100.0) #NOTE: Novelty is a score from 50 to 100, but is often treated as a percent.
-            amount = int(__builtin__.round(amount))
+            amount = __builtin__.int(__builtin__.round(amount))
             self.locked_clarity = 0
 
             self.free_clarity += amount
@@ -185,7 +185,7 @@ init -2 python:
             return
 
         def spend_clarity(self, amount, add_to_log = False):
-            amount = int(__builtin__.round(amount))
+            amount = __builtin__.int(__builtin__.round(amount))
             if amount < 0: #No spending negative clarity.
                 return
 
@@ -199,7 +199,7 @@ init -2 python:
             return
 
         def add_clarity(self, amount, add_to_log = True): #Adds a flat amount of Clarity, without interacting with Locked Clarity. Used when an outside influence generates Clarity.
-            amount = int(__builtin__.round(amount))
+            amount = __builtin__.int(__builtin__.round(amount))
             if amount < 0:
                 return
 

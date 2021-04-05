@@ -337,7 +337,7 @@ label pick_supply_goal_action_description:
     while not amount.isdigit():
         $ amount = renpy.input("Please put in an integer value.")
 
-    $ amount = int(amount)
+    $ amount = __builtin__.int(amount)
     $ mc.business.supply_goal = amount
     if amount <= 0:
         "You tell your team to keep [amount] units of serum supply stocked. They question your sanity, but otherwise continue with their work. Perhaps you should use a positive number."

@@ -228,7 +228,7 @@ init 1 python: #TODO: Prevent you from getting the game goal type twice in a row
         return False
 
     def makeout_count_difficulty_function(the_goal, the_difficulty):
-        the_goal.arg_dict["required"] += int(the_difficulty/(2*1.0))
+        the_goal.arg_dict["required"] +=  __builtin__.int(the_difficulty/(2*1.0))
         return
 
 

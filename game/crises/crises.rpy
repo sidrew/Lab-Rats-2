@@ -993,7 +993,7 @@ init 1 python:
 
         for trait in list_of_traits:
             if trait.researched and trait not in the_design.traits and not any([x for x in trait.exclude_tags if x in exclude_tags]):
-                list_of_valid_traits.append([trait, int(trait.mastery_level)])
+                list_of_valid_traits.append([trait, __builtin__.int(trait.mastery_level)])
 
         return (get_random_from_weighted_list(list_of_valid_traits), get_random_from_list(list_of_side_effects))
 
@@ -2585,7 +2585,7 @@ label serum_creation_crisis_label(the_serum): # Called every time a new serum is
                 elif the_person.obedience < 120:
                     "[the_person.title] pauses for a moment before responding."
                     the_person "That's a big risk you know. If I'm going to do something like that, I think I deserve a raise."
-                    $ raise_amount = int(the_person.salary*0.1)
+                    $ raise_amount = __builtin__.int(the_person.salary*0.1)
                     menu:
                         "Give [the_person.title] a 10%% raise\n{color=#ff0000}{size=18}Costs: $[raise_amount] / day{/size}{/color}":
                             $ mc.log_event(the_person.title + ": +$[raise_amount]/day Salary", "float_text_green")

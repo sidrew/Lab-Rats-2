@@ -1530,7 +1530,7 @@ init -2 python:
                 return True
 
         def change_arousal(self,amount, add_to_log = True):
-            self.arousal += int(__builtin__.round(amount)) #Round it to an integer if it isn't one already.
+            self.arousal += __builtin__.int(__builtin__.round(amount)) #Round it to an integer if it isn't one already.
             if self.arousal < 0:
                 self.arousal = 0
 
@@ -1548,7 +1548,7 @@ init -2 python:
                 mc.log_event(log_string, "float_text_red")
 
         def change_novelty(self, amount, add_to_log = True):
-            amount = int(__builtin__.round(amount))
+            amount = __builtin__.int(__builtin__.round(amount))
 
             log_string = ""
             display_name = self.create_formatted_title("???")
