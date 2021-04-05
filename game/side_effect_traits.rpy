@@ -47,6 +47,13 @@ init -1 python:
     def slow_release_sedative_on_turn(the_person, add_to_log):
         the_person.change_energy(-10)
 
+    ## Toxic functions ##
+    def toxic_on_apply(the_person, add_to_log):
+        the_person.serum_tolerance += -1
+
+    def toxic_on_remove(teh_person, add_to_log):
+        the_person.serum_tolerance += 1
+
     depressant_side_effect = SerumTrait(name = "Depressant",
         desc = "An unintended interaction produces a sudden and noticeable drop in the recipient's mood without any corresponding improvement when the serum expires.",
         positive_slug = "None",
@@ -135,6 +142,15 @@ init -1 python:
         on_turn = slow_release_sedative_on_turn,
         is_side_effect = True)
 
+    toxic_side_effect = SerumTrait(name = "Toxic",
+        desc = "Mildly toxic interactions make this serum dangerous to mix with other medications at any dose. Reduces serum tolerance for the duration.",
+        positive_slug = "None",
+        negative_slug = "-1 Serum Tolerance, -$5 value",
+        value_added = -5,
+        on_apply = toxic_on_apply,
+        on_remove = toxic_on_remove,
+        is_side_effect = True)
+
     list_of_side_effects = []
     list_of_side_effects.append(depressant_side_effect)
     list_of_side_effects.append(bad_reputation)
@@ -147,3 +163,5 @@ init -1 python:
     list_of_side_effects.append(mood_swings)
     list_of_side_effects.append(sedative)
     list_of_side_effects.append(slow_release_sedative)
+    list_of_side_effects.append(toxic_side_effect)
+

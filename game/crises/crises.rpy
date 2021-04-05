@@ -196,8 +196,16 @@ init 2 python:
         return
 
     def broken_AC_crisis_update_sluttiness():
+        clarity_change = 0
         for person in mc.business.production_team:
             person.change_slut_temp(10, add_to_log = False)
+            if person.outfit.vagina_visible():
+                clarity_change += 10
+            elif person.outfit.tits_visible():
+                clarity_change += 5
+            elif person.outfit.underwear_visible():
+                clarity_change += 3
+        mc.change_locked_clarity(clarity_change)
         mc.log_event("All Production Staff: +10 Sluttiness","float_text_pink")
         return
 
@@ -468,42 +476,6 @@ label get_drink_crisis_label():
 
     return
 
-# init 1 python:
-#     def no_uniform_punishment_requirement():
-#         if mc.business.get_employee_count() > 0:
-#             if mc.business.is_open_for_business() and mc.is_at_work():
-#                 for person in mc.business.get_employee_list():
-#                     if person.obedience < 110: #Only triggers on disobedient characters, so make sure we have some.
-#                         if mc.business.get_uniform_wardrobe(mc.business.get_employee_title(person)).get_count()>0: #Make sure that person has a uniform assigned for their department
-#                             return True
-#         return False
-#
-#     no_uniform_punishment_crisis = Action("Not In Uniform Crisis", no_uniform_punishment_requirement, "no_uniform_punishment_label")
-#     crisis_list.append([no_uniform_punishment_crisis,5])
-
-# label no_uniform_punishment_label():
-#     if mc.business.get_employee_count() <= 0:
-#         return #We must have fired someone in another crisis, so don't run this because there might not be anyone.
-#
-#     python:
-#         disobedient_people = []
-#         for person in mc.business.get_employee_list():
-#             if person.obedience < 110:
-#                 if mc.business.get_uniform_wardrobe(mc.business.get_employee_title(person)).get_count()>0: #Make sure we're getting only people who should be wearing a uniform.
-#                     disobedient_people.append(person)
-#         the_person = get_random_from_list(disobedient_people)
-#
-#
-#     if the_person is None:
-#         return #We must have fixed up any obedience problems, they'll all be in uniform.
-#     else:
-#         $ the_person.apply_outfit(the_person.planned_outfit) #Put them in their non-work outfit.
-#         # $ the_person.outfit = the_person.planned_outfit.get_copy() Changed v0.24.1
-#
-#
-#     return
-
-
 init 1 python:
     def office_flirt_requirement():
         if anyone_else_in_office():
@@ -562,6 +534,7 @@ label office_flirt_label():
 
     "She stops at a shelf and runs her finger along a row of binders, obviously looking for something. After a moment she moves down a shelf and checks there."
     "You watch as [the_person.title] searches row after row, going lower and lower each time. Soon she's bent over with her ass high in the air."
+    $ mc.change_locked_clarity(5)
 
     menu:
         "Get back to work":
@@ -570,6 +543,7 @@ label office_flirt_label():
         "Take a moment and enjoy the view":
             #We should have a random chance of her noticing you.
             "You sit back in your chair and take a moment to enjoy [the_person.possessive_title]'s ass wiggling at you."
+            $ mc.change_locked_clarity(10)
             if renpy.random.randint(0,100) < 50: #50/50 chance
                 the_person "[the_person.mc_title], can you help me find something?"
                 "[the_person.title] looks over her shoulder at you before you can look away."
@@ -583,6 +557,8 @@ label office_flirt_label():
                     "You get up and help [the_person.title] find the right binder."
                     the_person "Thank you [the_person.mc_title], don't be scared of watching me leave either."
                     "She winks at you and walks away, putting in extra effort to make her butt swing side to side as she goes."
+                    $ mc.change_locked_clarity(5)
+
                 else:
                     $ the_person.draw_person(emotion="angry")
                     the_person "Were staring at my ass this whole time?"
@@ -632,6 +608,8 @@ label office_flirt_label():
                 the_person "Do you like what you see? I didn't mean to put on a show, but if I'm already here..."
                 $ the_person.draw_person(position="walking_away")
                 "[the_person.possessive_title] spreads her legs and bends her knees, waving her ass side to side and up and down for you."
+                $ mc.change_locked_clarity(10)
+
                 #if she's wearing something on the bottom and the outfit isn't too slutty, take off her bottom bit.
                 if len(the_person.outfit.get_lower_ordered()) > 0: #ie. she's wearing something to take off
                     $ test_outfit = the_person.outfit.get_copy()
@@ -639,11 +617,13 @@ label office_flirt_label():
                     $ test_outfit.remove_clothing(the_item)
                     if the_person.judge_outfit(test_outfit):
                         the_person "I'm sure you'd like a better look, lets get this out of the way first."
+                        $ mc.change_locked_clarity(10)
                         "[the_person.title] stands up and pulls off her [the_item.name], dropping to the floor."
                         $ the_person.draw_animated_removal(the_item, position = "back_peek", emotion = "happy")
                         mc.name "Mmm, looking good [the_person.title]."
                         $ the_person.draw_person(position="walking_away")
                         "She smiles and turns back to the shelf, planting two hands on one of the beams and bending over again. She works her ass back and forth, up and down, while you watch from your desk."
+
                         $ the_person.draw_person(emotion = "happy")
                         "After a minute of teasing you she stops, stands up, and turns towards you."
                         $ the_person.change_happiness(5)
@@ -666,6 +646,7 @@ label office_flirt_label():
                         $ the_person.draw_person(position="walking_away")
                         "[the_person.title] winks at you, then turns back to the shelf and resumes her search. When she finds it she walks back past you, making sure to shake her ass as you watch."
 
+                    $ mc.change_locked_clarity(10)
                     $ test_outfit = None
                     $ the_item = None
 
@@ -680,6 +661,7 @@ label office_flirt_label():
                     $ the_person.change_slut_temp(5)
                     $ the_person.draw_person(position="walking_away")
                     "She winks and walks past your desk, making sure to shake her ass as you watch."
+                    $ mc.change_locked_clarity(5)
 
             else:
                 #She's very slutty already.
@@ -687,6 +669,7 @@ label office_flirt_label():
                 "[the_person.title] looks over her shoulder and winks at you."
                 the_person "I'm glad you're enjoying the show, I'd hate to bend over like this and not have anyone notice."
                 "She reaches back and runs a hand over her ass, then spanks it lightly."
+                $ mc.change_locked_clarity(20)
                 the_person "Could you come over and help me look for something, please? I promise I'll repay the favour."
                 menu:
                     "Help her find what she's looking for":
@@ -694,6 +677,7 @@ label office_flirt_label():
                         "You get up from your desk and join [the_person.title] at the shelf. As soon as you get there she slides one of the binders out and holds it up."
                         the_person "Oh, it looks like I found it. Oh well, I still promised to pay you back..."
                         "She runs a finger down the front of your chest, then down to your crotch. She bites her lip and looks at you."
+                        $ mc.change_locked_clarity(10)
                         the_person "Come on, lets slip into the supply closet for a moment. Being watched like that gets me so worked up, I'll let you do whatever dirty things you want to me."
                         menu:
                             "Have sex with [the_person.title]":
@@ -720,6 +704,7 @@ label office_flirt_label():
                         the_person "Mmm, looking for a show instead?"
                         $ the_person.draw_person(position = "walking_away")
                         "She smiles and turns back to the shelf, planting two hands on one of the beams and bending over again. She works her ass back and forth, up and down, while you watch from your desk."
+                        $ mc.change_locked_clarity(10)
                         the_person "Oh, here it is..."
                         "[the_person.title] slides a binder out from the shelf and stands back up."
                         $ the_person.draw_person(emotion = "happy")
@@ -728,6 +713,7 @@ label office_flirt_label():
                         $ the_person.change_obedience(2)
                         $ the_person.change_slut_temp(5)
                         "She winks and walks past your desk, making sure to shake her ass as you watch."
+                        $ mc.change_locked_clarity(10)
     $ clear_scene()
     return
 
@@ -817,7 +803,7 @@ label lab_accident_crisis_label():
     if mc.location == mc.business.r_div:
         $ mc.business.r_div.show_background()
         "There's a sudden crash and sharp yell of surprise as you're working in the lab."
-        $the_person.call_dialogue("suprised_exclaim")
+        $the_person.call_dialogue("surprised_exclaim")
         the_person "[the_person.mc_title], I think I need you for a moment."
 
     else:
@@ -874,7 +860,7 @@ label production_accident_crisis_label():
     if mc.location == mc.business.p_div:
         $ mc.business.p_div.show_background()
         "There's a sudden crash and sharp yell of surprise as you're working in the lab."
-        $the_person.call_dialogue("suprised_exclaim")
+        $the_person.call_dialogue("surprised_exclaim")
         the_person "[the_person.mc_title], I think I need you for a moment."
 
 
@@ -1037,7 +1023,7 @@ label trait_for_side_effect_label():
     "You look over the notes [the_person.possessive_title] has taken. The variant she has created includes an extra serum trait as well as a negative side effect."
     "It doesn't seem like there will be any way to untangle the effects."
     #TODO: Make sure these actually display the traits properly.
-    show screen trait_list_tooltip([the_trait, the_side_effect], y_height = 0.6)
+    show screen trait_list_tooltip([the_trait, the_side_effect], given_align = (0.1,0.6))
     menu:
         "Add [the_trait.name] and [the_side_effect.name] to [the_design.name]":
             hide screen trait_list_tooltip
@@ -1081,15 +1067,19 @@ label water_spill_crisis_label():
     "You aren't paying a terrible amount of attention until she goes to take a drink from her water bottle and dumps it down her front!"
     $ the_clothing.colour[3] *= .8
     $ the_person.draw_person(emotion="angry")
-    $ the_person.call_dialogue("suprised_exclaim")
+    $ the_person.call_dialogue("surprised_exclaim")
     "She tries to wipe the water off, but not before it's soaked through the front of her [the_clothing.name]."
+    $ mc.change_locked_clarity(10)
     $ test_outfit = the_person.outfit.get_copy() #Make a copy, we'll try removing the wet item and reevaluating.
     $ test_outfit.remove_clothing(the_clothing)
     $ thinks_appropriate = the_person.judge_outfit(test_outfit,10) #Does she think it's appropriate to strip off her top when it's wet?
     if not thinks_appropriate:
         the_person "I'm so sorry about this [the_person.mc_title], I just... I just need to go and dry this off!"
+        if the_person.has_large_tits():
+            "[the_person.title] runs off towards the bathroom. You get a nice glimpse at the way her tits jiggle under her wet shirt."
+        else:
+            "[the_person.title] runs off towards the bathroom."
         $ clear_scene()
-        "[the_person.title] runs off towards the bathroom."
         $ the_clothing.colour[3] *= 1.25
         "After a few minutes she's back, with her [the_clothing.name] dried off and no longer transparent."
         $ the_person.draw_person()
@@ -1104,8 +1094,10 @@ label water_spill_crisis_label():
             $ the_person.draw_animated_removal(the_clothing)
             if the_person.outfit.tits_visible():
                 "[the_person.title] strips off her [the_clothing.name], letting you get a nice good look at her [the_person.tits] sized tits."
+                $ mc.change_locked_clarity(30)
             else:
                 "[the_person.title] strips off her [the_clothing.name] and puts it to the side, then turns her attention back to you."
+                $ mc.change_locked_clarity(10)
             menu:
                 "Right, your taxes...":
                     the_person "I hope I'm not distracting you. I can dry my shirt off if you'd prefer."
@@ -1147,8 +1139,10 @@ label water_spill_crisis_label():
                     $ the_person.change_obedience(5)
                     if the_person.outfit.tits_visible() and the_person.outfit.vagina_visible():
                         "You help [the_person.possessive_title] with her tax questions while she stands next to your desk, her body completely on display."
+                        $ mc.change_locked_clarity(50)
                     else:
                         "You help [the_person.possessive_title] with her tax questions while she stands next to your desk, still partially undressed."
+                        $ mc.change_locked_clarity(30)
 
 
                 "Keep going... \n{color=#ff0000}{size=18}Requires: Minimal Coverage Corporate Uniforms{/size}{/color} (disabled)" if not minimal_coverage_uniform_policy.is_active():
@@ -1179,9 +1173,10 @@ label water_spill_crisis_label():
                         "[the_person.title] looks down at her transparent top, then nods and continues on about her taxes. Getting a good look at her tits makes the boring topic much more interesting."
                     else:
                         "[the_person.title] looks down at her top, then nods and continues. At least the transparent clothing helps make the boring topic more interesting."
+                    $ mc.change_locked_clarity(5)
                     $ the_person.change_obedience(1)
                     $ the_person.change_slut_temp(1)
-                    "After a few minutes you've answered all of [the_person.possessive_title]'s questions, and she heads off to dry her [the_clothing.name] off."
+                    "After a few minutes you've answered all of [the_person.possessive_title]'s questions, and she heads off to dry her [the_clothing.name]."
                     $ the_clothing.colour[3] *= 1.25
 
                 "Take it off":
@@ -1196,6 +1191,7 @@ label water_spill_crisis_label():
                         "Getting a good look at her tits makes the boring topic much more interesting. After a few minutes you've sorted out her problems. She goes to dry her top while you get back to work."
                     else:
                         "You spend a few minutes and sort out all of her problems. When you're done she goes off to dry her top while you get back to work."
+                    $ mc.change_locked_clarity(20)
                     $ the_clothing.colour[3] *= 1.25
                     $ the_person.outfit.add_upper(the_clothing)
 
@@ -1522,9 +1518,11 @@ label invest_rep_visit_label(rep_name):
             "You send [helper.title] a text to meet you. You and [rep_name] grab chairs and wait in the lobby until she arrives."
             $ helper.draw_person()
             if helper.outfit.slut_requirement > 60:
-                "[rep_name] goes slack-jawed when he sees [helper.title] wearing not much at all."
+                "[rep_name]'s goes slack-jawed when he sees [helper.title] wearing not much at all."
+                $ mc.change_locked_clarity(15)
             elif helper.outfit.slut_requirement > 20:
                 "Your idle conversation with [rep_name] trails off when [helper.title] comes into the room. You see his eyes run up and down her before he regains his composure."
+                $ mc.change_locked_clarity(5)
             else:
                 "[rep_name] smiles and nods at [helper.title] as she comes into the room."
 
@@ -1591,12 +1589,24 @@ label invest_rep_visit_label(rep_name):
             if renpy.random.randint(0,100) < success_chance:
                 rep_name "I won't waste any more of your time [mc.name], I can say with certainty that my investors are going to be interested in investing in your business."
                 mc.name "I'm glad to hear it."
-                rep_name "I would like to offer you $5000 to help you expand your business. In exchange we would like to be kept informed of your scientific progress."
+                rep_name "I would like to offer you $5000 to help you expand your business. In exchange we'll expect a small part of your ongoing revenue."
+                rep_name "Say... 1% of every sale. How does that sound?"
                 menu:
-                    "Accept\n{color=#00ff00}{size=18}Income: $5000{/size}{/color}":
+                    "Accept $5000\n{color=#ff0000}{size=18}Cost: 1% of all future sales{/size}{/color}":
                         "You reach your hand across the table to shake [rep_name]'s hand."
                         mc.name "I think we have a deal. Lets sort out the paperwork."
                         $ mc.business.funds += 5000
+                        python:
+                            already_invested = False
+                            investment_cost = 0.99
+                            for modifier_tuple in mc.business.sales_multipliers:
+                                if modifier_tuple[0] == "Investor Payment":
+                                    already_invested = True
+                                    investment_cost = modifier_tuple - 0.01
+                                    modifier_tuple[1] = investment_cost #Update the investment cost to be 1% worse than it was before. Note that this does not expire
+
+                            if not already_invested:
+                                mc.business.add_sales_multiplier("Investor Payment", 0.99)
                         "Within an hour $5000 has been moved into your companies bank account. [rep_name] leaves with a report detailing your current research progress."
 
 
@@ -1715,6 +1725,7 @@ label work_chat_crisis_label:
                                 "[the_person.possessive_title] stops trying to hide her cute little tits and lets you get a good look. She looks off to the side and blushes."
                             mc.name "I think they're one of your best features."
                             the_person "Thank you. We should... we should probably be focusing on our work."
+                        $ mc.change_locked_clarity(10)
                         $ the_person.change_slut_temp(6*the_person.get_opinion_score("showing her tits"))
                         "You and [the_person.title] finish talking and get back to work."
 
@@ -1735,6 +1746,7 @@ label work_chat_crisis_label:
                             $the_person.draw_person()
                             "[the_person.name] stands up suddenly and turns back towards you."
                             the_person "I'm sorry, I don't know what came over me [the_person.mc_title]. I'll just... I'll just sit down again."
+                        $ mc.change_locked_clarity(10)
                         $ top_clothing = None
                         $the_person.draw_person(position="sitting")
                         "[the_person.possessive_title] sits down and takes a deep breath. She's blushing and avoiding making eye contact with you."
@@ -1743,7 +1755,7 @@ label work_chat_crisis_label:
 
                     else:
                         the_person "I... think you're right, there's nothing wrong with it. I guess that means I can tell you that you're a pretty good looking guy."
-                        mc.name "Well I'm not going to turn down the compliment."
+                        mc.name "I'm not going to turn down the compliment."
                         "[the_person.title] looks your body up and down. Her eyes linger at your crotch, so you take a moment to reposition your cock in your pants."
                         "After a few seconds [the_person.possessive_title] shakes her head clear and turns her attention back to her work."
                         $ the_person.change_slut_temp(5)
@@ -1771,6 +1783,7 @@ label work_chat_crisis_label:
                 "[the_person.possessive_title] bends over and stretches against the desk you're working at. Her large tits strain against her clothing."
         else:
             "[the_person.possessive_title] bends over and stretches against the wall beside you. She glances over her shoulder and wiggles her butt."
+        $ mc.change_locked_clarity(10)
         the_person "It's nice having you here as a distraction [the_person.mc_title]. Sitting at a desk all day drives me a little stir crazy."
         $ the_person.draw_person(position="sitting")
 
@@ -1793,6 +1806,7 @@ label work_chat_crisis_label:
 
                 the_person "Ah... I really needed this. If you need to do the same I understand."
                 "She sighs and leans back in her office chair, legs spread while she touches herself."
+                $ mc.change_locked_clarity(10)
                 menu:
                     "Masturbate with [the_person.title]":
                         mc.name "You know, I think that's a good idea."
@@ -1813,6 +1827,7 @@ label work_chat_crisis_label:
                         the_person "Oh god... here I come!"
                         "She gasps and grabs at the office chair arm with her free hand. Her body stiffens for a second, then relaxes all at once."
                         "The sight of [the_person.title] making herself cum drives you even closer to your own orgasm."
+                        $ mc.change_locked_clarity(25)
                         $ the_person.draw_person(position = "sitting")
                         the_person "Are you almost there?"
                         "You moan and nod."
@@ -1821,12 +1836,15 @@ label work_chat_crisis_label:
                             $ the_person.draw_person(position="blowjob")
                             the_person "Do you you want to cum in my mouth?"
                             $ the_person.draw_person(position="blowjob", special_modifier="blowjob")
+                            $ climax_controller = ClimaxController(["Cum in her mouth.","mouth"])
+                            $ climax_controller.show_climax_menu()
                             "You're right on the edge. You nod and she opens her mouth and sticks out her tongue."
                             $ the_person.cum_in_mouth()
                             $ the_person.draw_person(position="blowjob", special_modifier="blowjob")
                             "You stroke your cock faster and push yourself over the edge, pumping your cum into [the_person.title]'s waiting mouth. She closes her eyes and sighs happily with each spurt."
                             $ the_person.change_slut_temp(the_person.get_opinion_score("drinking cum"))
                             $ the_person.discover_opinion("drinking cum")
+                            $ climax_controller.do_clarity_release(the_person)
                             "You slump back when you're done, feeling tired and content. [the_person.title] closes her mouth and swallows, wiping the last few drops from her lips with her hand."
                             $ the_person.draw_person(position = "sitting")
                             "She stands up and goes back to her chair."
@@ -1835,7 +1853,8 @@ label work_chat_crisis_label:
                             "[the_person.possessive_title] gets up from her chair and kneels down between your legs."
                             $ the_person.draw_person(position="blowjob")
                             the_person "Do you you want to cum on my face?"
-                            $ the_person.draw_person(position="blowjob", special_modifier="blowjob")
+                            $ climax_controller = ClimaxController(["Cum on her face.","face"])
+                            $ climax_controller.show_climax_menu()
                             "You're right on the edge. You nod and she closes her eyes and tilts her head back."
                             $ the_person.cum_on_face()
                             $ the_person.draw_person(position="blowjob", special_modifier="blowjob")
@@ -1843,6 +1862,7 @@ label work_chat_crisis_label:
                             $ the_person.change_slut_temp(the_person.get_opinion_score("cum facials")+the_person.get_opinion_score("being covered in cum"))
                             $ the_person.discover_opinion("being covered in cum")
                             $ the_person.discover_opinion("cum facials")
+                            $ climax_controller.do_clarity_release(the_person)
                             the_person "Mmm, that feels nice..."
                             "She sits on her knees for a few seconds, then and goes back to her chair."
                             $ the_person.draw_person(position = "sitting")
@@ -1850,9 +1870,13 @@ label work_chat_crisis_label:
 
                         else:
                             the_person "Do it, I want to watch you cum!"
+                            $ climax_controller = ClimaxController(["Cum!","air"])
+                            $ climax_controller.show_climax_menu()
                             "You grunt and push yourself over the edge. You pump your cum out in spurts onto the floor."
+                            $ climax_controller.do_clarity_release(the_person)
                             the_person "Well done, I'll make sure to clean that up in a little bit for you."
                             "You slump back in your chair and take a deep breath."
+
                         the_person "That was really nice [the_person.mc_title], I feel like I can finally focus."
                         "She spins her chair back to her desk and gets back to work, as if nothing out of the ordinary happened."
                         "You zip your pants up and do the same."
@@ -1872,6 +1896,7 @@ label work_chat_crisis_label:
                         $ the_person.draw_person(position = "sitting", emotion = "orgasm")
                         "[the_person.possessive_title]'s breath catches in her throat as she cums. Her free hand grasps at the arm of her office chair. She holds still for a few seconds, then lets out a long sigh."
                         $ the_person.change_slut_temp(5+the_person.get_opinion_score("masturbating"))
+                        $ mc.change_locked_clarity(20)
                         the_person "Oh that's so much better... Whew."
                         "[the_person.title] pulls her chair back to her desk and gets back to work, as if nothing out of the ordinary happened."
 
@@ -1905,6 +1930,7 @@ label work_chat_crisis_label:
                 mc.name "Having fun?"
                 the_person "Oh! I'm sorry I just..."
                 "She keeps moving her hand, fingering herself below the desk."
+                $ mc.change_locked_clarity(10)
                 if mc.location.get_person_count() > 2:
                     the_person "I can't focus and need to do relax. Keep your voice down, I don't want everyone to know."
                 else:
@@ -1926,6 +1952,7 @@ label work_chat_crisis_label:
                             $ the_person.change_obedience(the_person.get_opinion_score("giving handjobs"))
                             the_person "Oh god, it's so nice and big..."
                             "She rubs your dick with her hand, feeling its outline through your pants."
+                            $ mc.change_locked_clarity(50)
                             "You're thinking about pulling your cock out for [the_person.title] when she takes her hand off of you and sits back in her office chair."
 
                         "Say no":
@@ -1940,10 +1967,12 @@ label work_chat_crisis_label:
                         "[the_person.title] grabs one of her exposed tits and squeezes it hard. She takes a deep breath in and holds it."
                     else:
                         "[the_person.title] slides a hand under her clothing and grabs one of her big tits. She squeezes it hard and gasps."
+                    $ mc.change_locked_clarity(10)
                 else:
                     "[the_person.title] grabs at the arm of her chair and squeezes it hard. She takes a deep breath in and holds it for a second."
                 "You watch as [the_person.title]'s whole body shivers from her orgasm. She holds still for a second, then breathes out and relaxes completely."
                 $ the_person.change_slut_temp(5+the_person.get_opinion_score("public sex") + the_person.get_opinion_score("masturbating"))
+                $ mc.change_locked_clarity(10)
                 the_person "Oh... Oh that's so much better..."
                 if office_punishment.is_active():
                     menu:
@@ -1954,6 +1983,7 @@ label work_chat_crisis_label:
                             $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
                             "She sits up and her chair and sighs."
                             the_person "Fine, those are the rules..."
+
                         "Let it go":
                             mc.name "Well thanks for letting me be part of the show."
                             "She sits up in her chair and smiles."
@@ -1976,6 +2006,7 @@ label work_chat_crisis_label:
             "You're getting some good work done when [the_person.title] reaches over and plants her hand on your crotch."
             the_person "Fuck, I'm feeling so horny right now [the_person.mc_title], I don't think I can concentrate right now..."
             "She finds your zipper and slides it down, letting her get at your already hardening cock."
+            $ mc.change_locked_clarity(20)
             the_person "Think you can help me?"
             menu:
                 "Fuck [the_person.title]\n{color=#ff0000}{size=18}Modifiers: +10 Sluttiness, -5 Obedience{/size}{/color}":
@@ -2015,6 +2046,7 @@ label work_chat_crisis_label:
             "You're getting some good work done when [the_person.title] slides her chair next to yours and runs her hands along your thighs."
             the_person "You know if you need anything I'm here for you to use, sir. I know how stressful your job can be..."
             "Her hands move higher, rubbing at your crotch."
+            $ mc.change_locked_clarity(20)
             menu:
                 "Fuck [the_person.title]\n{color=#ff0000}{size=18}Modifiers: +15 Obedience{/size}{/color}":
                     the_person "I think I can."
@@ -2129,6 +2161,7 @@ label cat_fight_crisis_label():
                 mc.name "Good to hear. Now kiss and make up, then you can get back to work."
                 "The girls glance at you, then at each other. After a moment of hesitation [person_two.title] leans forward and kisses [person_one.title] on the lips."
                 "You watch for a moment as your two employees kiss next to your desk. What starts out as a gentle peck turns into a deep, heavy kiss."
+                $ mc.change_locked_clarity(10)
                 $ the_group.draw_person(person_one)
                 "[person_one.title] breaks the kiss and steps back, blushing and panting softly."
                 $ person_one.change_obedience(5)
@@ -2186,6 +2219,7 @@ label cat_fight_crisis_label():
                 if the_clothing:
                     "While they fight [winner.title] gets a hold of [loser.title]'s [the_clothing.name]. She tugs on it hard while she swings [loser.title] around and there's a loud rip."
                     $ the_group.draw_animated_removal(loser, the_clothing = the_clothing, emotion = "angry")
+                    $ mc.change_locked_clarity(10)
                     loser "Ugh, look what you've done! Give that back!"
                     "[winner.title] throws the torn garment to [loser.title] and smiles in victory."
                     $ the_group.draw_person(winner, emotion = "happy")
@@ -2262,6 +2296,7 @@ label cat_fight_crisis_label():
                         $ the_group.draw_animated_removal(loser, the_clothing = the_clothing, emotion = "angry")
                         loser "Fuck, you're going to pay for that!"
 
+                    $ mc.change_locked_clarity(10)
                     $ ran_num = renpy.random.randint(0,2)
                     if ran_num == 0: #Doesn't actually return the favour, because she's the loser she only does it %66 of the time.
                         $ the_group.draw_person(winner, emotion = "angry")
@@ -2274,6 +2309,7 @@ label cat_fight_crisis_label():
                         if other_clothing:
                             "[winner.title] rushes forward and grabs at [loser.title]. [loser.title] manages to get the upper hand, grabbing onto [winner.title]'s [other_clothing.name] and whipping her around. With a sharp rip it comes free."
                             $ the_group.draw_animated_removal(winner, the_clothing = other_clothing, emotion = "angry")
+                            $ mc.change_locked_clarity(10)
                             winner "Get over here!"
 
                     elif ran_num == 2:
@@ -2282,6 +2318,7 @@ label cat_fight_crisis_label():
                         if other_clothing:
                             "[winner.title] screams loudly and tries to grab [loser.title] by the waist. [loser.title] is fast enough to get to the side. She grabs [loser.title]'s [other_clothing.name] and yanks on it hard."
                             "[winner.title] struggles for a moment, then manages to slip free of the garment and steps back. [loser.title] drops it to the ground and they square off again."
+                            $ mc.change_locked_clarity(10)
                         else:
                             "[winner.title] screams loudly and tries to grab [loser.title] by the waist. [loser.title] is fast enough to get out of the way, and they square off again as the fight continues."
 
@@ -2291,7 +2328,7 @@ label cat_fight_crisis_label():
                 $ the_group.draw_person(loser, emotion = "sad")
                 "[loser.title] looks down at herself. She seems to realise for the first time how little she's wearing now."
                 loser "Look what you've done! Oh god, I need to... I need to go!"
-                if loser.sluttiness > 80 and winner.sluttiness > 80:
+                if loser.effective_sluttiness() > 80 and winner.effective_sluttiness() > 80:
                     "[loser.title] turns to hurry away, but [winner.title] swoops in and grabs her from behind."
                     loser "Hey!"
                     $ the_group.draw_person(winner, emotion = "happy")
@@ -2302,6 +2339,7 @@ label cat_fight_crisis_label():
                     $ the_group.draw_person(loser, position = "against_wall", the_animation = tit_bob, animation_effect_strength = 0.2) #TODO: Experiment with different settings here
                     loser "Hey... that's not fair! I... ah..."
                     "[loser.title] stops fighting almost immediately, leaning against [winner.title] and breathing heavily. You've got a front row seat as [winner.title] starts to finger [loser.title]."
+                    $ mc.change_locked_clarity(20)
                     $ loser.change_arousal(15)
                     $ the_group.draw_person(loser, position = "against_wall", the_animation = tit_bob, animation_effect_strength = 0.4)
                     loser "Oh god... [winner.title], just... Ah!"
@@ -2315,7 +2353,8 @@ label cat_fight_crisis_label():
                     $ loser.change_arousal(25)
                     $ the_group.draw_person(loser, position = "against_wall", the_animation = tit_bob, animation_effect_strength = 0.8)
                     "[loser.title] looks right into your eyes. She doesn't look embarrassed - in fact it looks like she's turned on by you watching her get finger banged right in the middle of the office."
-                    loser "I'm going to... I'm going to... AH!"
+                    $ mc.change_locked_clarity(20)
+                    loser "I'm goint to... I'm going to... AH!"
                     $ loser.change_arousal(25)
                     $ the_group.draw_person(loser, position = "against_wall", emotion = "orgasm", the_animation = tit_bob, animation_effect_strength = 1.0)
                     winner "That's it, cum for me slut!"
@@ -2326,6 +2365,7 @@ label cat_fight_crisis_label():
                     $ loser.change_obedience(-5)
                     $ the_group.draw_person(loser, position = "blowjob", emotion = "orgasm", the_animation = tit_bob, animation_effect_strength = 0.2)
                     "[winner.title] holds [loser.title] up a little longer, then lets her go. [loser.title] stumbles forward on wobbly legs, before falling to her knees and panting."
+                    $ mc.change_locked_clarity(20)
                     $ the_group.draw_person(winner, emotion = "happy")
                     $ winner.change_slut_core(5)
                     $ winner.change_slut_temp(10)
@@ -2649,6 +2689,7 @@ label daughter_work_crisis_label():
                 the_person "Wait, please [the_person.mc_title], at least take a look. Maybe I could... convince you to consider her?"
                 the_person "She means the world to me, and I would do anything to give her a better chance. Anything at all."
                 "She puts her arms behind her back and puffs out her chest in a clear attempt to show off her tits."
+                $ mc.change_locked_clarity(5)
                 menu:
                     "Look at the resume for [the_person.name]'s daughter":
                         "Convinced, you start to read through the resume."
@@ -2789,6 +2830,7 @@ init 1 python:
         return licker
 
     def horny_at_work_get_people_sets():
+        clarity_change = 0
         unhappy_people = [] #They're surprised/shocked/disgusted that you're doing this.
         neutral_people = [] #They're neither surprised that you're doing this, nor willing to come help out.
         masturbating_people = []
@@ -2800,6 +2842,7 @@ init 1 python:
 
             elif person.obedience > (130 - (person.get_opinion_score("being submissive")*10)):
                 helpful_people.append(person)
+                clarity_change += 10
 
             else:
                 neutral_people.append(person)
@@ -2807,7 +2850,11 @@ init 1 python:
         for person in neutral_people:
             if person.get_opinion_score("masturbating") > 0 and person.sluttiness >= 40:
                 masturbating_people.append(person)
+                clarity_change += 10
+            else:
+                clarity_change += 5
 
+        mc.change_locked_clarity(clarity_change)
         renpy.random.shuffle(unhappy_people)
         renpy.random.shuffle(neutral_people)
         renpy.random.shuffle(masturbating_people)
@@ -2824,25 +2871,30 @@ label horny_at_work_crisis_label():
     if the_cause == "slutty_outfit":
         $ the_person.draw_person(position = "walking_away")
         "You're at your desk, trying hard to focus. Unfortunately, [the_person.title]'s outfit keeps grabbing your attention."
+        $ mc.change_locked_clarity(5)
         "The more you try and ignore her the hornier you get, and it's starting to get in the way of your work."
 
     elif the_cause == "large_tits":
         $ the_person.draw_person(position = "sitting")
         "You're at your desk, trying hard to focus. Unfortunately, [the_person.title]'s nice, large tits keep grabbing your attention."
+        $ mc.change_locked_clarity(10)
         "The more you try and ignore them the hornier you get, and it's starting to get in the way of work."
 
     elif the_cause == "vagina_visible":
         $ the_person.draw_person(position = "back_peek")
         "You're at your desk, trying hard to focus. Unfortunately, [the_person.title]'s outfit leaves her sweet little pussy on display and it keeps grabbing your attention."
+        $ mc.change_locked_clarity(20)
         "The more you try and ignore it the hornier you get, and it's starting to get in the way of your work."
 
     elif the_cause == "tits_visible":
         $ the_person.draw_person()
         if the_person.has_large_tits():
-            "You're at your desk, trying hard to focus. Unfortunately, [the_person.title]'s tits are on prominent display, bouncing pleasantly every time she takes a step."
+            "You're at your desk, trying hard to focus. Unfortunately, [the_person.title]'s tits are on prominent display, bouncing pleasently every time she takes a step."
+            $ mc.change_locked_clarity(20)
             "The more you try and ignore them the hornier you get, and it's starting to get in the way of your work."
         else:
             "You're at your desk, trying hard to focus. Unfortunately, [the_person.title]'s tits are on display and pleasantly perky."
+            $ mc.change_locked_clarity(20)
             "The more you try and ignore them the hornier you get, and it's starting to get in the way of your work."
 
     else:
@@ -2859,9 +2911,8 @@ label horny_at_work_crisis_label():
 
         "Jerk off at your desk (tooltip)With nobody around, what's stopping you?" if not mc.location.people:
             "There's no reason to be self conscious when you're all by yourself inside your own business. You lean back in your chair and unzip your pants."
-            #TODO: if Lily is doing porn at this point you may stumble onto her pictures.
-            "You pull up some porn and, with skill trained over many years, jerk yourself off to completion."
-            "When you're finished you clean up and get back to work with your mind clear and able to focus."
+            call bedroom_masturbation(location_description = "work", edging_available = False, should_advance_time = False)
+            "You tidy up and get back to work, feeling much more focused."
 
 
         "Jerk off at your desk, loud and proud (tooltip)Your company, your rules, right?" if mc.location.people:
@@ -2985,6 +3036,7 @@ label horny_at_work_crisis_label():
                         "She stands by and watches as you masturbate, shifting her weight from side to side in an obvious display of arousal."
                     $ licker = horny_at_work_get_licker(helpful_people)
                     "When you reach the point of no return you lean back in your chair and grunt, firing your load in a long arc until it splatters over the floor."
+                    $ climax_controller.do_clarity_release()
                     "You catch your breath and sit up."
                     mc.name "Whew. Now you can be helpful by getting that cleaned up for me."
                     if licker is not None:
@@ -2993,6 +3045,7 @@ label horny_at_work_crisis_label():
                         licker "Right away!"
                         $ licker.change_obedience(2)
                         "She licks your still-warm cum directly off of the floor, drinking it down eagerly. When she's finished she stands up and wipes her lips with the back of her hand."
+                        $ mc.change_locked_clarity(30)
                         $ del licker
                     else:
                         "You pull your pants up and get back to work, basking in your post orgasm clarity."
@@ -3040,7 +3093,12 @@ label horny_at_work_crisis_label():
                             $ helpful_people.remove(the_choice)
 
                     if the_report.get("guy orgasms",0) == 0:
-                        "You've worn yourself out, but you still haven't gotten off. You relax in your office chair and stroke yourself off until you cum."
+                        "You've worn yourself out, but you still haven't gotten off."
+                        "You relax in your office chair and stroke yourself off until you're at the edge."
+                        $ climax_controller = ClimaxController(["Cum!","masturbation"])
+                        $ climax_controller.show_climax_menu()
+                        "It doesn't take much more for you to cum, blasting your load efficently into some tissue."
+                        $ climax_controller.do_clarity_release()
                         "With that finally taken care of, you get yourself cleaned up and get back to work."
                         "Thanks to your post orgasm clarity you're able to focus perfectly."
                     else:
@@ -3050,15 +3108,15 @@ label horny_at_work_crisis_label():
 
 
             else: #You get yourself off.
-                "You pull up some porn and, with skill trained over many years, jerk yourself off to completion in a few minutes."
-                "When you're finished you clean up and get back to work with your mind clear and able to focus."
+                call bedroom_masturbation(location_description = "work", edging_available = False, should_advance_time = False)
                 if masturbating_people:
                     if len(masturbating_people) > 1:
                         "Not long after you're finished you hear girls around the office climax, each one punctuated by a little gasp and moan."
                     else:
-                        $ the_masturbator = masturbating_people[0]
-                        "Not long after you hear a gasp and a moan as [the_masturbator.title] brings herself to climax as well."
+                        $ the_masturbater = masturbating_people[0]
+                        "Not long after you hear a gasp and a moan as [the_masturbater.title] brings herself to climax as well."
                         $ del the_masturbator
+                    $ mc.change_locked_clarity(5*len(masturbating_people))
 
             python:
                 del unhappy_people
@@ -3081,7 +3139,7 @@ label horny_at_work_crisis_label():
                 $ your_follower.draw_person()
                 mc.name "[your_follower.title], I..."
                 your_follower "It's okay. I saw you sneaking away and thought I'd join you. In case you wanted some company..."
-
+                $ mc.change_locked_clarity(5)
                 menu:
                     "Let her join you":
                         mc.name "Alright then, get over here."
@@ -3095,6 +3153,10 @@ label horny_at_work_crisis_label():
                             $ your_follower.draw_person(position = "walking_away")
                             "She leaves you alone in the bathroom, and you jerk yourself off to completion."
                             $ clear_scene()
+                            $ climax_controller = ClimaxController(["Cum!","masturbation"])
+                            $ climax_controller.show_climax_menu()
+                            $ climax_controller.do_clarity_release()
+
                         else:
                             "You and [your_follower.possessive_title] leave the bathroom together."
                         "When you get back to your desk you find you're finally able to focus again."
@@ -3106,19 +3168,17 @@ label horny_at_work_crisis_label():
                         $ your_follower.draw_person(emotion = "sad")
                         your_follower "I... Oh, I'm sorry [your_follower.mc_title], I don't know what I was thinking..."
                         $ your_follower.draw_person(position = "walking_away")
-                        "She blushes and turns around, leaving quickly."
                         $ clear_scene()
-                        "You pull up some porn on your phone and get comfortable, jerking yourself off until you cum."
+                        "She blushes and turns around, leaving quickly. You pull up some porn on your phone and get comfortable, jerking yourself off until you cum."
+                        call bedroom_masturbation(location_description = "bathroom", edging_available = False, should_advance_time = False)
                         "When you're finished you clean up and get back to work, your mind now crystal clear."
 
                     "Punish her for inappropriate behaviour" if office_punishment.is_active():
                         mc.name "[the_person.title], this isn't appropriate. I'm going to have to write you up."
                         your_follower "I... Oh, I'm sorry [your_follower.mc_title], I don't know what I was thinking..."
                         $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
-                        $ your_follower.draw_person(position = "walking_away")
-                        "She blushes and turns around, leaving quickly."
-                        $ clear_scene()
-                        "You pull up some porn on your phone and get comfortable, jerking yourself off until you cum."
+                        "She blushes and turns around, leaving quickly. You pull up some porn on your phone and get comfortable."
+                        call bedroom_masturbation(location_description = "bathroom", edging_available = False, should_advance_time = False)
                         "When you're finished you clean up and get back to work, your mind now crystal clear."
 
                 $ mc.change_location(old_location)
@@ -3128,6 +3188,7 @@ label horny_at_work_crisis_label():
 
             else:
                 "Once you have some privacy you pull some porn up on your phone, pull out your dick, and take matters into your own hand."
+                call bedroom_masturbation(location_description = "bathroom", edging_available = False, should_advance_time = False)
                 "When you're finished you clean up and get back to work, your mind now crystal clear."
 
 
@@ -3149,6 +3210,7 @@ label horny_at_work_crisis_label():
                 the_person "I really need to go..."
                 "You sigh and give up on your hopes of a quick release."
                 $ clear_scene()
+                $ mc.business.change_team_effectiveness(-10)
 
 
             else:
@@ -3156,6 +3218,7 @@ label horny_at_work_crisis_label():
                     the_person "Oh, I'm so sorry. What can I do to help?"
                 else:
                     the_person "Oh... What do you want me to do about it?"
+                $ mc.change_locked_clarity(5)
 
                 #TODO: Make sure all of this is context aware in some way for other people in the room.
                 $ willingness_value = the_person.sluttiness + (the_person.obedience - 100) + the_person.get_opinion_score("being submissive") * 10
@@ -3175,6 +3238,7 @@ label horny_at_work_crisis_label():
                             "[the_person.title] looks around the room, then back to you and whispers."
                             the_person "What about the other people?"
                             mc.name "I'm sure they won't mind, and if they do they can take it up with me. Come on, I need to get back to work."
+                            $ mc.change_locked_clarity(5)
                         else:
                             "[the_person.title] looks around the empty room, then back to you and shrugs."
 
@@ -3189,11 +3253,13 @@ label horny_at_work_crisis_label():
                                 $ the_group.draw_person(the_person)
                                 the_person "It's okay [lead_other.title], this is my fault. I've gotten [the_person.mc_title] too horny to work."
                                 the_person "So I'm going to help him cum."
+                                $ mc.change_locked_clarity(10)
 
                             else:
                                 lead_other "[the_person.title], what are you doing?"
                                 $ the_group.draw_person(the_person)
                                 the_person "I've gotten [the_person.mc_title] too excited, so I'm going to help him jerk off."
+                                $ mc.change_locked_clarity(10)
 
                             the_person "Don't mind us, I'll try and make this quick."
                         else:
@@ -3201,7 +3267,7 @@ label horny_at_work_crisis_label():
 
                         $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list(strip_feet = False), group_display = the_group)
                         "When [the_person.possessive_title] is finished stripping down she puts her hands on her hips and watches you jerk off."
-
+                        $ mc.change_locked_clarity(10)
                         $ the_person.discover_opinion("not wearing anything")
                         $ the_person.change_slut_temp(the_person.get_opinion_score("not wearing anything")+1)
                         $ the_person.change_obedience(the_person.get_opinion_score("not wearing anything")+1)
@@ -3212,6 +3278,7 @@ label horny_at_work_crisis_label():
                             the_person "Do you have a good view?"
                             $  the_person.draw_person(position = "back_peek")
                             "She gives you a quick spin."
+                            $ mc.change_locked_clarity(10)
                             $ the_person.draw_person()
                         elif the_person.get_opinion_score("showing her tits") > 0:
                             if the_person.has_large_tits():
@@ -3222,18 +3289,24 @@ label horny_at_work_crisis_label():
                                 "She rubs her small tits, thumbing the nipples until they grow hard."
                                 the_person "Do you like my tits? I know some women have bigger ones, but I think these are still pretty cute."
                                 the_person "They're just the right size to suck on, don't you think?"
+                            $ mc.change_locked_clarity(10)
 
                         elif the_person.get_opinion_score("showing her ass") > 0:
                             "[the_person.title] turns around unprompted and plants her hands on a desk opposite you."
                             $ the_person.draw_person(position = "standing_doggy")
                             the_person "Do you like my ass, [the_person.mc_title]? Do you want to give it a nice hard smack and make it jiggle?"
                             "She works her hips up and down, making her ass cheeks bounce and clap together."
+                            $ mc.change_locked_clarity(10)
 
                         else:
                             the_person "Come on, I want you to cum so we can get back to work."
 
                         "You stroke yourself faster, enjoying [the_person.title]'s body on display right in front of you. Finally you feel your orgasm approaching."
+                        $ climax_controller = ClimaxController(["Cum!","air"])
+                        $ climax_controller.show_climax_menu()
                         "You lean back in your chair and grunt as you climax, blowing a hot load of cum in an arc onto the floor in front of you."
+
+                        $ climax_controller.do_clarity_release(the_person)
                         $ the_person.draw_person()
                         the_person "Wow..."
                         "It takes a few moments of deep breathing to recover from the experience."
@@ -3252,10 +3325,12 @@ label horny_at_work_crisis_label():
                             if (the_person.get_opinion_score("public sex") > 0 and mc.location.get_person_count() > 1) or the_person.get_opinion_score("giving blowjobs") > 0:
                                 the_person "Okay, if that's what you need."
                                 "She gets onto her hands and knees, crawling under your desk and nestling herself between your legs."
+                                $ mc.change_locked_clarity(10)
                             else:
                                 if mc.location.get_person_count() > 1:
                                     the_person "But... What if someone notices?"
                                     mc.name "I'm sure they will be impressed by what a good job you're doing sucking my cock."
+                                    $ mc.change_locked_clarity(5 + 5*mc.location.get_person_count())
 
                                 else:
                                     the_person "Really? I..."
@@ -3271,6 +3346,10 @@ label horny_at_work_crisis_label():
                             $ the_person.review_outfit()
                             if the_report.get("guy orgasms", 0) == 0:
                                 "Frustrated with her service, you let [the_person.title] out from under your desk and finish yourself off with your hand."
+                                $ climax_controller = ClimaxController(["Cum!","masturbation"])
+                                $ climax_controller.show_climax_menu()
+                                "You grunt as you shoot your load efficently into some tissue."
+                                $ climax_controller.do_clarity_release()
                             else:
                                 "Fully spent, you let [the_person.title] out from under your desk and get back to work, mind now crystal clear."
                         else:
@@ -3282,11 +3361,15 @@ label horny_at_work_crisis_label():
                             "She stammers for something more to say before settling on storming out of the room instead."
                             $ clear_scene()
                             "Frustrated, her rejection has at least taken your mind off of your erection and you're able to get back to work eventually."
+                            $ mc.business.change_team_effectiveness(-10)
 
 
                     "Make her fuck you":
                         mc.name "I want you to take some responsibility for this. Come over here so I can fuck you."
                         $ willingness_value += the_person.get_opinion_score("missionary style sex") * 10
+                        if mc.location.get_person_count() > 1:
+                            $ willingness_value += the_person.get_opinion_score("public sex")*10
+
                         if willingness_value >= missionary.slut_requirement:
                             $ desk = mc.location.get_object_with_name("desk") #May be None if there's no desk where you are.
                             if desk is not None:
@@ -3294,53 +3377,34 @@ label horny_at_work_crisis_label():
 
                             else:
                                 "You grab [the_person.possessive_title] by her hips and lay her down in front of you, spreading her legs around you."
+                            $ mc.change_locked_clarity(10)
+                            $ the_person.draw_person(position = "missionary")
 
                             if others and the_person.effective_sluttiness() < (80 - 10*the_person.get_opinion_score("public sex")):
                                 the_person "Ah! Wait, what will the other girls think?"
                                 mc.name "I'm sure they'll let us know."
+                                $ mc.change_locked_clarity(10)
                             elif the_person.relationship != "Single" and affair_role not in the_person.special_role:
                                 $ so_title = SO_relationship_to_title(the_person.relationship)
                                 the_person "Wait, I have a [so_title]! I shouldn't let you do this!"
                                 "Despite her protest she doesn't try to stand back up or get you out from between her thighs."
+                                $ mc.change_locked_clarity(10)
                             else:
                                 the_person "Ah!"
 
                             if the_person.outfit.can_half_off_to_vagina():
-                                python:
-                                    for clothing in the_person.outfit.get_half_off_to_vagina_list():
-                                        the_person.draw_animated_removal(clothing, half_off_instead = True)
-                                        if the_person.outfit.vagina_available():
-                                            renpy.say(None,"You pull her " + clothing.display_name + " out of the way so you can get to her pussy.")
-                                        else:
-                                            renpy.say(None,"You pull her " + clothing.display_name + " out of the way.")
-                                    clothing = None
+                                $ generalised_strip_description(the_person, the_person.outfit.get_half_off_to_vagina_list(), half_off_instead = True, position = "missionary")
+                            else:
+                                $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list(), position = "missionary")
 
-                            else: #We need to strip her down completely. TODO: We need a way to determine if we can strip someone half down, then pull things aside (ie. pull off pants, pull panties to the side)
-                                $ the_item = the_person.outfit.remove_random_lower(top_layer_first = True, do_not_remove = True) #Start by stripping off her bottom.
-                                while (the_item is not None and not the_person.outfit.vagina_available()):
-                                    $ the_person.draw_animated_removal(the_item)
-                                    if the_person.outfit.vagina_available():
-                                        "You pull off her [the_item.name] and reveal her pussy, ready for you to use."
-                                    else:
-                                        "You pull off her [the_item.name], getting closer to revealing her pussy for you to use."
-                                    $ the_item = the_person.outfit.remove_random_lower(top_layer_first = True, do_not_remove = True)
-
-                                $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove= True) #If that fails we need to strip off her top, because she might have a dress style thing on blocking it.
-                                while (the_item is not None and not the_person.outfit.vagina_available()):
-                                    $ the_person.draw_animated_removal(the_item)
-                                    if the_person.outfit.vagina_available():
-                                        "You pull off her [the_item.name] and reveal her pussy, ready for you to use."
-                                    else:
-                                        "You pull off her [the_item.name], getting closer to revealing her pussy for you to use."
-                                    $ the_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_feet = True, do_not_remove= True)
-
-                            $ the_item = None
                             if the_person.outfit.vagina_available():
+                                $ mc.change_locked_clarity(20)
                                 "You unzip your pants and pull out your hard cock, laying it onto [the_person.title]'s crotch. You rub the shaft against her pussy lips, teasing her with the tip each time."
                                 call condom_ask(the_person) from _call_condom_ask_3
                                 if not _return:
                                     "[the_person.title]'s refusal has sucked the wind from your sails. You zip your pants up and let her leave."
-                                    "At least you're no longer feeling as horny as you were, and you're able to get back to work."
+                                    "You're still horny, but your heart just isn't in it any more. You sit back down, disappointed and distracted."
+                                    $ mc.business.change_team_effectiveness(-10)
                                 else:
                                     "You pull back a little and line the tip of your dick up with [the_person.title]'s cunt."
                                     "With one smooth thrust you push yourself inside of her. She arches her head back and moans as you bottom out inside of her."
@@ -3349,14 +3413,19 @@ label horny_at_work_crisis_label():
                                     $ the_person.review_outfit()
 
                                     if the_report.get("guy orgasms", 0) == 0:
-                                        "You still haven't gotten off, so you stroke your cock until you cum. With that finally taken care of, you get yourself cleaned up and get back to work."
+                                        "You still haven't gotten off, so you stroke your cock until you cum."
+                                        $ climax_controller = ClimaxController(["Cum!","masturbation"])
+                                        $ climax_controller.show_climax_menu()
+                                        "You grunt and blow your load efficently into some tissue."
+                                        $ climax_controller.do_clarity_release()
+                                        "With that finally taken care of, you get yourself cleaned up and get back to work."
                                         "Thanks to your post orgasm clarity you're able to focus perfectly."
                                     else:
                                         "You get yourself cleaned up and get back to work. You're able to focus perfectly now thanks to your post orgasm clarity."
 
                             else: #We've been thwarted somehow and can't get to her pussy.
-                                "Thwarted by her clothing and unable to dress her down any further, you give up and let her go. The shame of your defeat has, thankfully, killed your erection and you're able to get back to work."
-                            $ del desk
+                                "Thwarted by her clothing and unable to dress her down any further, you give up and let her go. The shame of your defeat has killed any chance you have of orgasming or focusing."
+                                $ mc.business.change_team_effectiveness(-10)
 
                         else:
                             $ the_person.draw_person(emotion = "angry")
@@ -3366,8 +3435,9 @@ label horny_at_work_crisis_label():
                             $ the_person.change_obedience(-3)
                             "She stammers for something more to say before settling on storming out of the room instead."
                             $ clear_scene()
-                            "Frustrated, her rejection has at least taken your mind off of your erection and you're able to get back to work eventually."
-                $ del others
+                            "Her rejection has killed your erection. You return to work frustrated and distracted."
+                            $ mc.business.change_team_effectiveness(-10)
+
     $ clear_scene()
     $ the_group = None
     return

@@ -288,14 +288,17 @@ label advanced_serum_stage_2_label(the_person):
     the_person "I don't know why I was so worried about this, I feel silly getting you so involved. This feels fine."
     $ the_person.change_slut_core(5)
     $ the_person.change_slut_temp(7)
+    $ mc.change_locked_clarity(5)
     the_person "I mean, not that I mind the help of such a good looking man."
     "She giggles and looks you up and down."
     mc.name "Try and focus [the_person.title], do you notice any unusual with yourself right now?"
+    $ mc.change_locked_clarity(5)
     the_person "With me? Why would... Oh right, because of the test! Sorry, you're just so... distracting."
     $ the_person.change_int(-1)
     $ the_person.change_slut_core(5)
     $ the_person.change_slut_temp(7)
     "She bites her lip and takes a step closer. You notice her cheeks are flush and her breathing is getting a little heavier."
+    $ mc.change_locked_clarity(5)
     the_person "Ugh, [the_person.mc_title] do we really have to do this right now? Couldn't we be doing something more fun? I can think of a ton of fun things we could do together."
     $ the_person.change_int(-1)
     $ the_person.change_slut_core(5)
@@ -303,9 +306,10 @@ label advanced_serum_stage_2_label(the_person):
     $ old_personality = the_person.personality
     $ the_person.personality = bimbo_personality
     $ mc.log_event(the_person.title + ": Personality changed. Now: Bimbo", "float_text_pink")
+    $ mc.change_locked_clarity(10)
     "[the_person.title] reaches her hand down to your waist and runs her fingers along your cock through your pants."
     menu:
-        "Have sex with [the_person.title]":
+        "Fuck [the_person.title]":
             "You smile back at [the_person.title]. She lets out a happy giggle when you wrap your arms around her waist."
             $ the_person.change_int(-1)
             call fuck_person(the_person) from _call_fuck_person_8
@@ -338,7 +342,7 @@ label advanced_serum_stage_2_label(the_person):
                     $ the_person.draw_person(position = "walking_away")
                     "[the_person.possessive_title] gives you a wink and leaves the room. "
                     $ clear_scene()
-                    "You take [the_person.title]'s phone off of it's tripod and make a copy of the footage it took. Maybe your next head researcher can make use of this to figure out how to press forward."
+                    "You take [the_person.title]'s phone off of its tripod and make a copy of the footage it took. Maybe your next head researcher can make use of this to figure out how to press forward."
                     $ mc.business.event_triggers_dict["advanced_serum_stage_3"] = True #Flag the next event to be enabled.
                     $ mc.business.event_triggers_dict["research_bimbo"] = the_person
                     return
@@ -358,11 +362,7 @@ label advanced_serum_stage_2_label(the_person):
     $ the_person.change_slut_core(-25)
     $ the_person.change_slut_temp(-50)
     $ the_person.change_happiness(-15)
-    # $ the_person.remove_status_effects([bliss,ditzy])
     $ the_person.personality = old_personality
-    $ mc.log_event(the_person.title + ": Suggestibility removed.", "float_text_blue")
-    $ mc.log_event(the_person.title + ": - Ditzy", "float_text_blue")
-    $ mc.log_event(the_person.title + ": - Blissful", "float_text_blue")
     $ mc.log_event(the_person.title + ": Personality Restored", "float_text_blue")
     "After another moment [the_person.title] shakes her head and looks at you. She seems suddenly more alert, more aware."
     the_person "Ugh, that's given me a serious headache. I'm not sure if I should blame their stuff or mine."
