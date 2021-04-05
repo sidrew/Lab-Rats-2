@@ -184,6 +184,15 @@ init -2 python:
                 renpy.show_screen("cum_screen", _transient = True)
             return
 
+        def change_novelty(self, amount):
+            amount = __builtin__.int(__builtin__.round(amount))
+            self.masturbation_novelty += amount
+            if self.masturbation_novelty < 50:
+                self.masturbation_novelty = 50
+            if self.masturbation_novelty > 100:
+                self.masturbation_novelty = 100
+            return
+
         def spend_clarity(self, amount, add_to_log = False):
             amount = __builtin__.int(__builtin__.round(amount))
             if amount < 0: #No spending negative clarity.
@@ -234,10 +243,7 @@ init -2 python:
         def run_day(self):
             self.listener_system.fire_event("end_of_day")
             self.change_energy(self.max_energy * .6, add_to_log = False)
-            self.masturbation_novelty += 1
-            if self.masturbation_novelty > 100:
-                self.masturbation_novelty = 100
-
+            self.change_novelty(1)
             self.reset_arousal()
             self.scrap_goal_available = True
 

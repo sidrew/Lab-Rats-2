@@ -17,10 +17,10 @@ init -2 python:
             self.selected_climax_type = None #Set when the player selects a return value, let's us call run_climax() at the correct moment later.
             self.climax_options = args
 
-        def get_climax_multiplier(self, type, with_novelty = False):
-            multiplier = ClimaxController.climax_type_dict[type]
-            if type == "pussy" and mc.condom:
-                multiplier += -0.5
+        def get_climax_multiplier(self, climax_type, with_novelty = False):
+            multiplier = self.climax_type_dict.get(climax_type, 1.0)
+            if mc.condom and climax_type in ["pussy", "anal"]:
+                multiplier -= 0.5
 
             return multiplier
 
@@ -39,13 +39,11 @@ init -2 python:
             return self.selected_climax_type[0]
 
         def do_clarity_release(self, the_person = None):
+            multiplier = self.get_climax_multiplier(self.selected_climax_type[1])
             if the_person:
-                multiplier = self.get_climax_multiplier(self.selected_climax_type[1])
                 mc.convert_locked_clarity(multiplier, with_novelty = the_person.novelty)
                 the_person.change_novelty(-2)
             else:
-                multiplier = self.get_climax_multiplier(self.selected_climax_type[1])
                 mc.convert_locked_clarity(multiplier, with_novelty = mc.masturbation_novelty)
-                mc.masturbation_novelty += -2
-                if mc.masturbation_novelty < 50:
-                    mc.masturbation_novelty = 50
+                mc.change_novelty(-2)
+            return
