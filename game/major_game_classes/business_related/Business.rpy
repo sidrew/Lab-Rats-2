@@ -274,7 +274,7 @@ init -2 python:
 
         def run_day(self): #Run at the end of the day.
             #Pay everyone for the day
-            if mc.business.is_work_day():
+            if self.is_work_day():
                 cost = self.calculate_salary_cost()
                 self.funds += -cost
 
@@ -437,8 +437,8 @@ init -2 python:
                     clarity_produced += research_amount * 0.05
 
                 if independent_experimentation.is_active():
-                    if mc.business.supply_count >= 5:
-                        mc.business.supply_count += -5
+                    if self.supply_count >= 5:
+                        self.supply_count += -5
                         clarity_produced += research_amount * 0.05
 
                 self.partial_clarity += clarity_produced
