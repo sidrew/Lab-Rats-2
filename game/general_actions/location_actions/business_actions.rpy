@@ -231,20 +231,20 @@ label hire_select_process(candidates):
 label hire_someone(new_person, add_to_location = False): # Breaks out some of the functionality of hiring someone into an independent lable.
     "You complete the necessary paperwork and hire [_return.name]. What division do you assign them to?"
     menu:
-        "Research and Development.":
-            $ mc.business.add_employee_research(new_person)
+        "Research and Development":
+            $ mc.business.add_employee_research(new_person, add_to_location)
 
-        "Production.":
-            $ mc.business.add_employee_production(new_person)
+        "Production":
+            $ mc.business.add_employee_production(new_person, add_to_location)
 
-        "Supply Procurement.":
-            $ mc.business.add_employee_supply(new_person)
+        "Supply Procurement":
+            $ mc.business.add_employee_supply(new_person, add_to_location)
 
-        "Marketing.":
-            $ mc.business.add_employee_marketing(new_person)
+        "Marketing":
+            $ mc.business.add_employee_marketing(new_person, add_to_location)
 
-        "Human Resources.":
-            $ mc.business.add_employee_hr(new_person)
+        "Human Resources":
+            $ mc.business.add_employee_hr(new_person, add_to_location)
 
     return
 
