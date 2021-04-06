@@ -63,19 +63,26 @@ init 0 python:
     config.history_callbacks.append(text_message_history_callback) #Ensures conversations had via text are recorded properly
     # config.say_arguments_callback = text_message_say_callback #Recolours and re-fonts say statements made while having a text conversation #NOTE: NOt needed now that we properly store messages into the phone and display them from a custom screen.
 
-    config.predict_screen_statements = True
-    config.predict_statements = 50
-    config.predict_screens = True
+    config.automatic_images = None
+    config.optimize_texture_bounds = True
+    config.predict_statements = 32
+    config.cache_surfaces = False   # prevent render surfaces from being cached
 
-    config.cache_surfaces = True
-    config_image_cache_size = 8
+    # Don't predict screens, it eats resources since every screen reloaded on a screen action (like hover)
+    config.predict_screen_statements = False
+    config.predict_screens = False
+
+    config.image_cache_size = None  # when None the image_cache_size_mb value is used
+    if renpy.variant("pc"):
+        config.image_cache_size_mb = 768
+    else:
+        config.image_cache_size_mb = 384
 
     config.has_autosave = False
     config.autosave_frequency = None
     config.has_quicksave = True
 
-
-    config.rollback_enabled = True #Disabled for the moment because there might be unexpected side effects of such a small rollback length.
+    config.rollback_enabled = True  # allows for smoother dialogs while skipping
     config.rollback_length = 32
 
     if persistent.colour_palette is None:
@@ -85,7 +92,6 @@ init 0 python:
 
     #config.debug_text_overflow = True
     config.debug_text_overflow = False #If enabled finds locations with text overflow. Turns out I have a lot, kind of blows up when enabled and generates a large text file. A problem for another day.
-
     config.debug_image_cache = False
     config.debug = True
 
