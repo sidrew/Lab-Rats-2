@@ -531,12 +531,12 @@ label advance_time:
         if mc.business.funds < 0:
             $ mc.business.bankrupt_days += 1
             if mc.business.bankrupt_days == mc.business.max_bankrupt_days:
-                $ renpy.say("","With no funds to pay your creditors you are forced to close your business and auction off all of your materials at a fraction of their value. Your story ends here.")
+                $ renpy.say(None, "With no funds to pay your creditors you are forced to close your business and auction off all of your materials at a fraction of their value. Your story ends here.")
                 $ renpy.full_restart()
             else:
                 $ days_remaining = mc.business.max_bankrupt_days-mc.business.bankrupt_days
-                $ renpy.say("","Warning! Your company is losing money and unable to pay salaries or purchase necessary supplies!")
-                $ renpy.say("","You have [days_remaining] days to restore yourself to positive funds or the bank will reclaim the business!")
+                $ renpy.say(None, "Warning! Your company is losing money and unable to pay salaries or purchase necessary supplies!")
+                $ renpy.say(None, "You have [days_remaining] days to restore yourself to positive funds or the bank will reclaim the business!")
         else:
             $ mc.business.bankrupt_days = 0
 

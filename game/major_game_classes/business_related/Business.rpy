@@ -483,7 +483,7 @@ init -2 python:
             amount_sold = self.sale_progress(mc.charisma,mc.focus,mc.market_skill)
             self.listener_system.fire_event("player_serums_sold_count", amount = amount_sold)
             self.listener_system.fire_event("general_work")
-            renpy.say("","You spend time making phone calls to clients and shipping out orders. You sell " + str(amount_sold) + " doses of serum.")
+            renpy.say(None, "You spend time making phone calls to clients and shipping out orders. You sell " + str(amount_sold) + " doses of serum.")
             return amount_sold
 
         def sale_progress(self,cha,focus,skill, slut_modifier = 0):
