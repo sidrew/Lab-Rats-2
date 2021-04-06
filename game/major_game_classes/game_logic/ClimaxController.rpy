@@ -10,15 +10,17 @@ init -2 python:
             "mouth":1.5, #Cum into her mouth explicitly. Bonus for her swallowing?
             "pussy":2.0, #Creampie. Knocked down to 1.5x if you're wearing a condom.
             "anal":2.0, #Butt-pie? Does this have some sexy name I don't know about?
-            "throat":2.0 #Throatpie. Down the hatch!
+            "throat":2.0, #Throatpie. Down the hatch!
+            "threesome":3.0 #Threesomes rule
             }
 
         def __init__(self, *args): #Each argument provided should be a list of "display_name" and the climax type that should be associated with that climax
             self.selected_climax_type = None #Set when the player selects a return value, let's us call run_climax() at the correct moment later.
             self.climax_options = args
 
-        def get_climax_multiplier(self, climax_type, with_novelty = False):
-            multiplier = self.climax_type_dict.get(climax_type, 1.0)
+        @staticmethod
+        def get_climax_multiplier(climax_type, with_novelty = False):
+            multiplier = ClimaxController.climax_type_dict.get(climax_type, 1.0)
             if mc.condom and climax_type in ["pussy", "anal"]:
                 multiplier -= 0.5
 
@@ -30,7 +32,7 @@ init -2 python:
                 display_name = climax_option[0]
                 climax_type = climax_option[1]
                 display_name += "{size=20}{color=#29B6F6}\n"
-                display_name += "x{multiplier:.2f} Clarity Produced".format(multiplier = self.get_climax_multiplier(climax_type))
+                display_name += "x{multiplier:.2f} Clarity Produced".format(multiplier = ClimaxController.get_climax_multiplier(climax_type))
                 display_name += "{/color}{/size}"
                 display_name += " (tooltip)All Locked Clarity is released when you climax. How much Clarity is produced varies depending on how you cum, and it's possible to have a multiplier greater than 1!"
                 display_list.append([display_name,climax_option])
@@ -39,7 +41,22 @@ init -2 python:
             return self.selected_climax_type[0]
 
         def do_clarity_release(self, the_person = None):
-            multiplier = self.get_climax_multiplier(self.selected_climax_type[1])
+            multiplier = ClimaxController.get_climax_multiplier(self.selected_climax_type[1])
+            if the_person:
+                mc.convert_locked_clarity(multiplier, with_novelty = the_person.novelty)
+                the_person.change_novelty(-2)
+            else:
+                mc.convert_locked_clarity(multiplier, with_novelty = mc.masturbation_novelty)
+                mc.change_novelty(-2)
+            return
+
+        @staticmethod
+        def manual_clarity_release(climax_type = "masturbation", the_person = None):
+            multiplier = ClimaxController.get_climax_multiplier(climax_type)
+
+            if climax_type != "masturbation" and the_person is None:
+                renpy.say(None, "Error: called manual clarity release with " + climax_type + " without passing a person parameter.")
+
             if the_person:
                 mc.convert_locked_clarity(multiplier, with_novelty = the_person.novelty)
                 the_person.change_novelty(-2)
