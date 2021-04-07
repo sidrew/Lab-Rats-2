@@ -28,15 +28,15 @@ init -2 python:
             self.anchor_below = anchor_below #If true, you must take this off before you can take off anything of a lower layer.f
             self.layer = layer #A list of the slots above that this should take up or otherwise prevent from being filled. Slots are a list of the slot and the layer.
 
-            self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
-        #    self.supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
+            # self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
+            # self.supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
 
             self.half_off = False # Avoids any problems with the half-off system using facial accessories
             self.half_off_reveals = False
             self.half_off_clothing = False
 
-            self.half_off_regions = []
-            self.half_off_ignore_regions = []
+            # self.half_off_regions = []
+            # self.half_off_ignore_regions = []
 
             for set in supported_positions:
                 self.position_sets[set] = Facial_Accessory_Images(proper_name,set)

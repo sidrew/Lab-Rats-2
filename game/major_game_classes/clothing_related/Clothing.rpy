@@ -92,8 +92,8 @@ init -2 python:
             self.anchor_below = anchor_below #If true, you must take this off before you can take off anything of a lower layer.
             self.layer = layer #A list of the slots above that this should take up or otherwise prevent ffrom being filled. Slots are a list of the slot and the layer.
 
-            self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
-            self.pattern_sets = {} #A list of patterns for this piece of clothing that are valid. Keys are in the form "position_patternName"
+            # self.position_sets = {} #A list of position set names. When the clothing is created it will make a dict containing these names and image sets for them.
+            # self.pattern_sets = {} #A list of patterns for this piece of clothing that are valid. Keys are in the form "position_patternName"
             #self.supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
             self.supported_patterns = supported_patterns
             if not supported_patterns:
