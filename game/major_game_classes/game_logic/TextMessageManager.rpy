@@ -8,7 +8,7 @@ init -2 python:
         def register_number(self, person): #Now just used to keep track of who's number we know
             if not self.has_number(person):
                 self.message_history[person.identifier] = []
-                self.add_system_message(person, "Added [person.title] to contacts.")
+                self.add_system_message(person, "Added " + person.name + " " + person.last_name + " to contacts.")
 
         def add_message(self, person, history_entry):
             self.register_number(person)
