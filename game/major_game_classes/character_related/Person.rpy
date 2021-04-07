@@ -1698,7 +1698,7 @@ init -2 python:
 
             self.change_slut_temp(5*self.get_opinion_score("drinking cum"))
             self.change_happiness(5*self.get_opinion_score("drinking_cum"))
-            self.discover_opinion("drinking cum")
+            self.discover_opinion("drinking cum", add_to_log = add_to_record)
 
             if add_to_record:
                 self.sex_record["Cum in Mouth"] += 1
@@ -1721,7 +1721,7 @@ init -2 python:
                 slut_change_amount += 1 + self.get_opinion_score("being_submissive")
 
             self.change_slut_temp(slut_change_amount)
-            self.discover_opinion("creampies")
+            self.discover_opinion("creampies", add_to_log = add_to_record)
 
             if add_to_record:
                 self.sex_record["Vaginal Creampies"] += 1
@@ -1759,7 +1759,7 @@ init -2 python:
                 self.outfit.add_accessory(the_cumshot)
             self.change_slut_temp(5*self.get_opinion_score("creampies"))
             self.change_happiness(5*self.get_opinion_score("creampies"))
-            self.discover_opinion("creampies")
+            self.discover_opinion("creampies", add_to_log = add_to_record)
 
             if add_to_record:
                 self.sex_record["Anal Creampies"] += 1
@@ -1776,11 +1776,11 @@ init -2 python:
 
             self.change_slut_temp(5*self.get_opinion_score("cum facials"))
             self.change_happiness(5*self.get_opinion_score("cum facials"))
-            self.discover_opinion("cum facials")
+            self.discover_opinion("cum facials", add_to_log = add_to_record)
 
             self.change_slut_temp(5*self.get_opinion_score("being covered in cum"))
             self.change_happiness(5*self.get_opinion_score("being covered in cum"))
-            self.discover_opinion("being covered in cum")
+            self.discover_opinion("being covered in cum", add_to_log = add_to_record)
 
             if add_to_record:
                 self.sex_record["Cum Facials"] += 1
@@ -1797,7 +1797,7 @@ init -2 python:
 
             self.change_slut_temp(5*self.get_opinion_score("being covered in cum"))
             self.change_happiness(5*self.get_opinion_score("being covered in cum"))
-            self.discover_opinion("being covered in cum")
+            self.discover_opinion("being covered in cum", add_to_log = add_to_record)
 
             if add_to_record:
                 self.sex_record["Cum Covered"] += 1
@@ -1814,7 +1814,7 @@ init -2 python:
 
             self.change_slut_temp(5*self.get_opinion_score("being covered in cum"))
             self.change_happiness(5*self.get_opinion_score("being covered in cum"))
-            self.discover_opinion("being covered in cum")
+            self.discover_opinion("being covered in cum", add_to_log = add_to_record)
 
             if add_to_record:
                 self.sex_record["Cum Covered"] += 1
@@ -1831,7 +1831,7 @@ init -2 python:
 
             self.change_slut_temp(5*self.get_opinion_score("being covered in cum"))
             self.change_happiness(5*self.get_opinion_score("being covered in cum"))
-            self.discover_opinion("being covered in cum")
+            self.discover_opinion("being covered in cum", add_to_log = add_to_record)
 
             if add_to_record:
                 self.sex_record["Cum Covered"] += 1
