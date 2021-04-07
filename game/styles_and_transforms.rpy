@@ -121,4 +121,4 @@ init 0:
         color "D2691E"
 
     style float_text_blue is float_text:
-        color "483D8B"
+        color "6394ED"
