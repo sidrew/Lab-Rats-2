@@ -864,7 +864,7 @@ label mom_work_promotion_one_before(the_person): # She tells you in the morning 
     $ the_person.draw_person(position = "walking_away")
     "She steps out of your room, blowing you a kiss as she closes the door behind her."
     $ clear_scene()
-    $ mom_bedroom.move_person(the_person, downtown)
+    $ mom_bedroom.move_person(the_person, mom_offices)
     $ add_mom_work_promotion_one_report_crisis(the_person)
     return
 

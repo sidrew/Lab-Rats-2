@@ -436,6 +436,7 @@ label nude_walk_in_label(the_person):
         # She's in her underwear
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True))
         $ the_person.draw_person(position = "sitting")
+        $ mc.change_locked_clarity(10)
         "You open the door to [the_person.possessive_title]'s room and find her sitting on her bed, wearing nothing but her underwear."
         if the_person.effective_sluttiness("underwear_nudity") < (30 - (the_person.get_opinion_score("not wearing anything")*10)):
             the_person "Oh! One second, I'm not dressed!"
@@ -447,7 +448,6 @@ label nude_walk_in_label(the_person):
             $ the_person.change_slut_temp(1+the_person.get_opinion_score("not wearing anything"))
             $ the_person.discover_opinion("not wearing anything")
             the_person "Sorry about that, I was just relaxing and forgot the door wasn't locked."
-            $ mc.change_locked_clarity(5)
         else:
             if the_person.update_outfit_taboos():
                 "She turns around and waves you in, then seems to realise how little she is wearing."
@@ -457,7 +457,7 @@ label nude_walk_in_label(the_person):
             else:
                 "She turns to you and smiles, waving a hand to invite you in."
                 the_person "Come on in, do you need something?"
-            $ mc.change_locked_clarity(10)
+
 
     call talk_person(the_person) from _call_talk_person_19
     return
@@ -1063,30 +1063,33 @@ label nightime_grope(the_person, masturbating = False):
         "Get ready to cum" if masturbating:
             "You speed up your strokes, aware of the limited amount of time you might have before [the_person.possessive_title] wakes up."
             "With her exposed body as motivation it doesn't take long to push yourself to the edge."
-            $ climax_options = []
-            $ climax_options.append(["Cum in your hand","air"])
-            if the_person.effective_sluttiness() >= cum_face_slut_requirement:
-                $ climax_options.append(["Cum on her face","face"])
-            else:
-                $ climax_options.append(["Cum on her face\n{color=#ff0000}Requires:[cum_face_slut_token]{/color} (disabled)","face"])
 
-            if the_person.effective_sluttiness() >= cum_tits_slut_requirement:
-                $ climax_options.append(["Cum on her tits","tits"])
-            else:
-                $ climax_options.append(["Cum on her tit.\n{color=#ff0000}Requires:[cum_tits_slut_token]{/color} (disabled)","tits"])
-            $ climax_controller = ClimaxController(*climax_options)
-            $ the_choice = climax_controller.show_climax_menu()
-            "You take a deep breath and pass the point of no return."
-            if the_choice == "Cum in your hand":
-                call sleep_cum_hand(the_person)
-
-            elif the_choice == "Cum on her face":
-                call sleep_cum_face(the_person)
-                $ awake = _return
-
-            elif the_choice == "Cum on her tits":
-                call sleep_cum_tits(the_person)
-                $ awake = _return
+            call sleep_climax_manager(the_person, face_allowed = True, tits_allowed = True)
+            $ awake = _return
+            # $ climax_options = []
+            # $ climax_options.append(["Cum in your hand.","air"])
+            # if the_person.effective_sluttiness() >= cum_face_slut_requirement:
+            #     $ climax_options.append(["Cum on her face.","face"])
+            # else:
+            #     $ climax_options.append(["Cum on her face.\n{color=#ff0000}Requires:[cum_face_slut_token]{/color} (disabled)","face"])
+            #
+            # if the_person.effective_sluttiness() >= cum_tits_slut_requirement:
+            #     $ climax_options.append(["Cum on her tits.","tits"])
+            # else:
+            #     $ climax_options.append(["Cum on her tits.\n{color=#ff0000}Requires:[cum_tits_slut_token]{/color} (disabled)","tits"])
+            # $ climax_controller = ClimaxController(*climax_options)
+            # $ the_choice = climax_controller.show_climax_menu()
+            # "You take a deep breath and pass the point of no return."
+            # if the_choice == "Cum in your hand.":
+            #     call sleep_cum_hand(the_person)
+            #
+            # elif the_choice == "Cum on her face.":
+            #     call sleep_cum_face(the_person)
+            #     $ awake = _return
+            #
+            # elif the_choice == "Cum on her tits.":
+            #     call sleep_cum_tits(the_person)
+            #     $ awake = _return
 
         "Tit fuck her" if the_person.has_large_tits() and the_person.outfit.tits_available() and masturbating and the_person.effective_sluttiness() >= titfuck_slut_requirement:
             "You climb onto [the_person.possessive_title]'s bed and swing one leg over her, straddling her chest."
@@ -1452,8 +1455,8 @@ label sleep_climax_manager(the_person, straddle = False, stomach_allowed = False
     return False
 
 label sleep_cum_hand(the_person, climax_controller):
-    "You grunt softly as you climax, doing your best to cum into your hand instead of all over [the_person.title]."
     $ climax_controller.do_clarity_release(the_person)
+    "You grunt softly as you climax, doing your best to cum into your hand instead of all over [the_person.title]."
     "When your orgasm has passed you take a moment to catch your breath, then back carefully out of her room."
     return False
 
@@ -1462,6 +1465,7 @@ label sleep_cum_face(the_person, climax_controller, straddle = False):
     $ the_person.cum_on_face()
     $ the_person.draw_person(position = "missionary") #Redraw whatever position we were in previously
     "You grunt softly as you climax, spraying your hot load in an arc onto [the_person.possessive_title]'s unsuspecting face."
+    $ climax_controller.do_clarity_release(the_person)
     if the_person.get_opinion_score("drinking cum") > 0:
         "When the first splash of cum hits her face [the_person.title] opens her mouth."
         $ mc.change_locked_clarity(10)
@@ -1470,7 +1474,7 @@ label sleep_cum_face(the_person, climax_controller, straddle = False):
     else:
         "[the_person.title] twitches in her sleep as pulse after pulse of cum splashes across her face."
 
-    $ climax_controller.do_clarity_release(the_person)
+
     if renpy.random.randint(0,100) < 60 - 5*the_person.get_opinion_score("being covered in cum"): #TODO: Adjust chance based on opinion
         "A moment later she opens one eye - the one not welded shut by your cum - and locks eyes with you."
         if the_person.effective_sluttiness() + 5*(the_person.get_opinion_score("being submissive") + the_person.get_opinion_score("being covered in cum")) >= 60: #TODO: Cum based taboo stuff
@@ -1525,6 +1529,7 @@ label sleep_cum_throat(the_person, climax_controller): #Always assumes you're st
     $ the_person.cum_in_mouth()
     $ the_person.draw_person(position = "missionary", special_modifier = "blowjob") #Position specific stuff
     "You thrust forward, pushing yourself as deep down [the_person.possessive_title]'s throat as you dare."
+    $ climax_controller.do_clarity_release(the_person)
     "With one last grunt you climax, sending a blast of hot cum to the back of her mouth."
 
     if the_person.get_opinion_score("drinking cum") > 0:
@@ -1533,8 +1538,6 @@ label sleep_cum_throat(the_person, climax_controller): #Always assumes you're st
         "[the_person.title] reacts instinctively, drinking down your sperm as fast as she can manage even as she sleeps."
     else:
         "[the_person.title] coughs and sputters as you pump a few more pulses down her throat."
-
-    $ climax_controller.do_clarity_release(the_person)
 
     if renpy.random.randint(0,100) < 50 - 5*the_person.get_opinion_score("drinking cum"): #TODO: Adjust chance based on opinion
         $ awake = True
@@ -1601,6 +1604,7 @@ label sleep_cum_tits(the_person, climax_controller, straddle = False):
     $ awake = False
     $ the_person.cum_on_tits()
     $ the_person.draw_person(position = "missionary")
+    $ climax_controller.do_clarity_release(the_person)
     if the_person.outfit.tits_available():
         "You grunt softly as you climax, spraying your load all over her chest."
     else:
@@ -1613,8 +1617,6 @@ label sleep_cum_tits(the_person, climax_controller, straddle = False):
         $ the_person.discover_opinion("being covered in cum")
     else:
         pass #No extra dialogue needed
-
-    $ climax_controller.do_clarity_release(the_person)
 
     if renpy.random.randint(0,100) < 40 - 5*the_person.get_opinion_score("being covered in cum"):
         $ awake = True
@@ -1673,6 +1675,7 @@ label sleep_cum_stomach(the_person, climax_controller): #Note: always assumes yo
     $ the_person.cum_on_stomach()
     $ the_person.draw_person(position = "missionary")
 
+    $ climax_controller.do_clarity_release(the_person)
     "You grunt softly as you climax, splattering your load over [the_person.title]'s stomach."
 
     if the_person.get_opinion_score("being covered in cum") > 0:
@@ -1683,7 +1686,7 @@ label sleep_cum_stomach(the_person, climax_controller): #Note: always assumes yo
     else:
         pass #No extra dialogue needed
 
-    $ climax_controller.do_clarity_release(the_person)
+
 
     if renpy.random.randint(0,100) < 30 - 5*the_person.get_opinion_score("being covered in cum"):
         $ awake = True
@@ -1732,6 +1735,8 @@ label sleep_cum_vagina(the_person, climax_controller):
         $ the_person.cum_in_vagina()
         $ the_person.draw_person(position = "missionary")
 
+    $ climax_controller.do_clarity_release(the_person)
+
     $ wake_chance = 40
     if mc.condom:
         "You blow your load into [the_person.possessive_title]'s pussy, constrained only by a thin layer of latex."
@@ -1741,7 +1746,7 @@ label sleep_cum_vagina(the_person, climax_controller):
         "You grunt softly as you climax, blowing your load into [the_person.possessive_title]'s raw pussy."
         $ wake_chance += -5*the_person.get_opinion_score("creampies")
 
-    $ climax_controller.do_clarity_release(the_person)
+
 
     if renpy.random.randint(0,100) < wake_chance - 5*the_person.get_opinion_score("creampies"):
         $ awake = True

@@ -841,7 +841,7 @@ init -2 python:
                 if should_give_serum:
                     if self.inventory.get_serum_count(the_serum) > 0:
                         self.inventory.change_serum(the_serum,-1)
-                        person.give_serum(copy.copy(the_serum), add_to_log = False)
+                        the_person.give_serum(copy.copy(the_serum), add_to_log = False)
                     else:
                         the_message = "Stockpile out of " + the_serum.name + " to give to staff."
                         self.add_counted_message(the_message)

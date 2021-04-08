@@ -44,10 +44,10 @@ init -2 python:
             multiplier = ClimaxController.get_climax_multiplier(self.selected_climax_type[1])
             if the_person:
                 mc.convert_locked_clarity(multiplier, with_novelty = the_person.novelty)
-                the_person.change_novelty(-2)
+                the_person.change_novelty(-5)
             else:
                 mc.convert_locked_clarity(multiplier, with_novelty = mc.masturbation_novelty)
-                mc.change_novelty(-2)
+                mc.change_novelty(-5)
             return
 
         @staticmethod
@@ -59,8 +59,8 @@ init -2 python:
 
             if the_person:
                 mc.convert_locked_clarity(multiplier, with_novelty = the_person.novelty)
-                the_person.change_novelty(-2)
+                the_person.change_novelty(-5)
             else:
                 mc.convert_locked_clarity(multiplier, with_novelty = mc.masturbation_novelty)
-                mc.change_novelty(-2)
+                mc.change_novelty(-5)
             return

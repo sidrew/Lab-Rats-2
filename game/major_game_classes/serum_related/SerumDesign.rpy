@@ -21,6 +21,8 @@ init -2 python:
 
             self.expires = True #If set to false the serum does not tick up the duration_counter, meaning it will never expire.
 
+            self.effects_dict = {} # A dict that can be used to store information about this serum when appied to people. For example, tracking how much Sluttiness was added so the same amount can be removed at the end of the duration.
+
         def is_same_design(self, other): #Checks if two serums are the same design (but not necessarily the same _dose_ of that design).
             same = False
             if self.name == other.name:
@@ -93,24 +95,24 @@ init -2 python:
             else:
                 return False #Returns false when there is more time to go
 
-        def run_on_turn(self,the_person): #Increases the counter, applies serum effect if there is still some duration left
+        def run_on_turn(self,the_person, the_serum): #Increases the counter, applies serum effect if there is still some duration left
             if self.duration_counter < self.duration:
                 for trait in self.traits + self.side_effects:
-                    trait.run_on_turn(the_person)
+                    trait.run_on_turn(the_person, the_serum)
             if self.expires:
                 self.duration_counter += 1
 
-        def run_on_apply(self, the_person, add_to_log = True):
+        def run_on_apply(self, the_person, the_serum, add_to_log = True):
             for trait in self.traits + self.side_effects:
-                trait.run_on_apply(the_person, add_to_log)
+                trait.run_on_apply(the_person, the_serum, add_to_log)
 
-        def run_on_remove(self, the_person):
+        def run_on_remove(self, the_person, the_serum):
             for trait in self.traits + self.side_effects:
-                trait.run_on_remove(the_person)
+                trait.run_on_remove(the_person, the_serum)
 
-        def run_on_day(self, the_person):
+        def run_on_day(self, the_person, the_serum):
             for trait in self.traits + self.side_effects:
-                trait.run_on_day(the_person)
+                trait.run_on_day(the_person, the_serum)
 
         def add_research(self, amount): #Returns true if "amount" research completes the research
             self.current_research += amount
