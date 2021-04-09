@@ -106,13 +106,13 @@ init -2 python:
             for trait in self.traits + self.side_effects:
                 trait.run_on_apply(the_person, the_serum, add_to_log)
 
-        def run_on_remove(self, the_person, the_serum):
+        def run_on_remove(self, the_person, the_serum, add_to_log = False):
             for trait in self.traits + self.side_effects:
-                trait.run_on_remove(the_person, the_serum)
+                trait.run_on_remove(the_person, the_serum, add_to_log)
 
-        def run_on_day(self, the_person, the_serum):
+        def run_on_day(self, the_person, the_serum, add_to_log = False):
             for trait in self.traits + self.side_effects:
-                trait.run_on_day(the_person, the_serum)
+                trait.run_on_day(the_person, the_serum, add_to_log)
 
         def add_research(self, amount): #Returns true if "amount" research completes the research
             self.current_research += amount
