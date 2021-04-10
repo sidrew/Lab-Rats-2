@@ -727,7 +727,7 @@ init -2 python:
                 else:
                     items_to_strip.append(the_item)
 
-            return strip_list
+            return items_to_strip
 
         def strip_to_vagina(self, visible_enough = False):
             self.remove_clothing_list(self.get_vagina_strip_list(visible_enough = visible_enough))
