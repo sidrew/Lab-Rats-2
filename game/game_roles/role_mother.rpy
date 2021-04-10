@@ -574,13 +574,13 @@ label mom_offer_make_dinner_label(the_person): #you offer to make dinner. It tak
         the_person "It's so nice having a man around the house again..."
         "She leans her head happily on your shoulder for a moment."
         menu:
-            "Hold her gently.":
+            "Hold her gently":
                 "You just hold [the_person.title] in your arms for a few moments."
                 $ the_person.change_love(1)
                 "After a little while she sighs and steps back."
                 the_person "I should get out of your way."
 
-            "Slap her ass.":
+            "Slap her ass":
                 "You reach around [the_person.possessive_title] and give her ass a quick slap."
                 if the_person.outfit.vagina_visible():
                     "The strike makes a satisfying smack and sets her butt jiggling for a few moments."
@@ -2468,7 +2468,7 @@ label mom_promotion_boss_phase_one(the_secretary):
             mom_boss_quick_name "Jesus kid, it sounds like you actually want me to fuck your mom. Why the hell would you want that?"
             mc.name "You don't need to know why, but I think we could work together."
             "He thinks for a moment, one arm planted on his desk. After a moment he chuckles and shakes his head."
-            mom_boss_quick_name "This is too wierd for me. I don't know what your game is, and I don't like not knowing."
+            mom_boss_quick_name "This is too weird for me. I don't know what your game is, and I don't like not knowing."
             $ mc.change_locked_clarity(20)
             mom_boss_quick_name "Maybe I'll take your old lady for a ride - I'd like to see those tits jiggling, that's for sure."
             mom_boss_quick_name "But I don't want to be part of whatever weird sex thing you're setting me up for. No way."
@@ -2572,7 +2572,6 @@ label mom_promotion_boss_phase_one(the_secretary):
             mc.name "Deal."
             $ mc.phone.register_number(the_daughter)
             "You hand her your phone, and she keys in her number. She hands it back with a smile."
-            $ mc.phone.register_number(the_daughter)
             the_daughter "See you around [the_daughter.mc_title]."
             mc.name "See you soon [the_daughter.title]."
             $ clear_scene()
@@ -2638,7 +2637,7 @@ label breeding_mom_label(the_person):
             $ mc.change_locked_clarity(30)
             the_person "It's the right time of the month too, so keep me filled up and I'll be pregnant in no time!"
 
-        else: #Not likely to work, but she'll give it a try anyways because it's fun. I mean, because it's nessesary...
+        else: #Not likely to work, but she'll give it a try anyways because it's fun. I mean, because it's necessary...
             the_person "She pauses to think for a moment, then shrugs and nods."
             the_person "It's not the right time of the month, but there's no harm in trying!"
             $ mc.change_locked_clarity(10)
@@ -2654,7 +2653,7 @@ label breeding_mom_label(the_person):
             the_person "It's not the right time of the month for me. We need to wait until it's likely to work, okay?"
             $ wants_breeding = False
             menu:
-                "Fuck her anyways." if the_person.obedience >=140:
+                "Fuck her anyways" if the_person.obedience >=140:
                     mc.name "You want to get you knocked up [the_person.title], and every load I put inside of you is one more chance for that to happen."
                     $ mc.change_locked_clarity(10)
                     "You reach around her and grab her ass, squeezing it hard. She moans, but doesn't try to pull away"
@@ -2662,10 +2661,10 @@ label breeding_mom_label(the_person):
                     the_person "I suppose that makes sense... Okay, you're right, as usual."
                     $ wants_breeding = True
 
-                "Fuck her anyways.\nRequires: 140 Obedience" if the_person.obedience < 140:
+                "Fuck her anyways\n{color=#ff0000}{size=18}Requires: 140 Obedience{/size}{/color}" if the_person.obedience < 140:
                     pass
 
-                "Try some other time.":
+                "Try some other time":
                     mc.name "We'll have to try some other time then."
                     "She nods happily."
                     the_person "There's nothing I want more, [the_person.mc_title], than to get pregnant and be a mother all over again."
@@ -2674,7 +2673,7 @@ label breeding_mom_label(the_person):
         # Option to give her some serum (ie. ability to give her some fertility stuff right away)."
         if mc.inventory.get_any_serum_count():
             menu:
-                "Give her some serum.":
+                "Give her some serum":
                     mc.name "Before we get started, I have something for you."
                     the_person "You do? What does it do?"
                     mc.name "It'll help you get pregnant. You want the best chance possible, right?"
@@ -2686,7 +2685,7 @@ label breeding_mom_label(the_person):
                         mc.name "I must have left it at the office."
                         the_person "Bring it for me next time. Until then..."
 
-                "Don't give her anything.":
+                "Don't give her anything":
                     pass
 
         $ strip_list = the_person.get_full_strip_list()
@@ -2694,7 +2693,7 @@ label breeding_mom_label(the_person):
         $ the_person.draw_person(position = "missionary")
         "[the_person.possessive_title] lies down her bed and spreads her legs, waiting for you."
         menu:
-            "Fuck her.":
+            "Fuck her":
                 "You pull down your pants and get your hard cock out. You climb onto [the_person.title]'s bed and fit your hips between her legs."
                 the_person "Get inside me [the_person.mc_title], come fuck your mother."
                 "She reaches down and holds onto your shaft, rubbing the tip of your cock against her pussy lips. She strokes your cheek lovingly with her other hand."
@@ -2703,7 +2702,7 @@ label breeding_mom_label(the_person):
                 call fuck_person(the_person, start_position = missionary, start_object = mc.location.get_object_with_name("bed"), skip_intro = True, skip_condom = True)
                 $ sex_record = _return
 
-            "Have her suck you off first.":
+            "Have her suck you off first":
                 mc.name "Not so fast [the_person.title], I need you to get me ready first."
                 "You pull your cock out and present it to her."
                 mc.name "Get me hard and wet, I'll be sure to slide into you before I cum."
