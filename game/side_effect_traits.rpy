@@ -44,6 +44,7 @@ init -1 python:
         the_person.change_max_energy(20, add_to_log) #They don't get the normal energy back instantly, it has to come back on it's own
 
     ## Slow release sedative functions ##
+    def slow_release_sedative_on_turn(the_person, the_serum, add_to_log):
         the_person.change_energy(-10)
 
     ## Toxic functions ##
