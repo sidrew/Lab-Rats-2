@@ -50,7 +50,7 @@ init -1 python:
     def toxic_on_apply(the_person, the_serum, add_to_log):
         the_person.serum_tolerance += -1
 
-    def toxic_on_remove(teh_person, the_serum, add_to_log):
+    def toxic_on_remove(the_person, the_serum, add_to_log):
         the_person.serum_tolerance += 1
 
     depressant_side_effect = SerumTrait(name = "Depressant",
