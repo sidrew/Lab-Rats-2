@@ -382,7 +382,7 @@ label demand_strip_tits_label(the_person):
     if the_person.effective_sluttiness() < (40 - (5*the_person.get_opinion_score("showing her tits"))): # She's shy
         "[the_person.title] brings her hands up to cover her breasts."
         the_person "Are we done?"
-        mc.name "I want to get a look first, and I can't see anything if you're hiding everything like this."
+        mc.name "I want to get a look first, and I can't see anything if you're hiding like this."
         $ mc.change_locked_clarity(10)
         "She nods and moves her hands to her side again. She blushes and looks away as you ogle her tits."
         $ the_person.change_slut_temp(1+ the_person.get_opinion_score("showing her tits"))
