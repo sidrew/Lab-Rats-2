@@ -42,21 +42,24 @@ screen cum_screen():
 transform flash_effect(strength = 1.0):
     on show:
         alpha 0.0
-        linear 0.1 alpha strength*0.7
+        linear 0.1 alpha strength*0.4
 
     on hide:
         linear 0.6 alpha 0
 
 transform zoom_effect(strength = 1.0):
     on show:
+        alpha .4
         zoom 1.0
         linear 0.1 zoom 1.0-(0.1*strength)
 
     on hide:
+        alpha .4
         linear 2.0 zoom 1.0
 
 transform cum_effect():
     on show:
+        alpha .4
         zoom 1.0
         linear 0.1 zoom 0.97
         linear 0.2 zoom 0.995
@@ -65,4 +68,5 @@ transform cum_effect():
         linear 0.1 zoom 0.9
 
     on hide:
+        alpha .4
         linear 2.0 zoom 1.0
