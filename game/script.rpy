@@ -758,8 +758,6 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
         ##PC starts in his bedroom##
         mc = MainCharacter(bedroom,character_name,last_name, Business(business_name, m_division, p_division, rd_division, office, office),stat_array,skill_array,_sex_array)
 
-        mc.change_locked_clarity(50, add_to_log = False) #PC starts with 50 locked clarity, which can be masturbated into the 25 Clarity needed to unlock the med trait.
-
         town_relationships = RelationshipArray() #Singleton class used to track relationships. Remvoes need for recursive character references (which messes with Ren'py's saving methods)
         mc.generate_goals()
 
