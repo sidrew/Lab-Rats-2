@@ -677,7 +677,7 @@ label employee_performance_review(the_person):
                                     else:
                                         $ the_person.add_situational_slut("seduction_approach", -5 + (-5*the_person.get_opinion_score("being submissive")), "I'm just a toy to him.")
                                     $ the_person.add_situational_obedience("seduction_approach", 25, "I'll do what I need to keep my job!")
-                                    call fuck_person(the_person, private = True, start_position = doggy, start_object = make_floor(), skip_intro = True, asked_for_condom = True) from _call_fuck_person_106
+                                    call fuck_person(the_person, private = True, start_position = doggy, start_object = make_floor(), skip_intro = True, skip_condom = True) from _call_fuck_person_106
                                     $ the_person.clear_situational_slut("seduction_approach")
                                     $ the_person.clear_situational_obedience("seduction_approach")
 
