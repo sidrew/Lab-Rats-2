@@ -644,7 +644,7 @@ label photo_sex(the_person):
         the_person "I... I..."
         if the_person.wants_creampie():
             "All resistance drains from her and she starts to rub her hips against you eagerly."
-            the_person "Fine, okay, you can fuck me raw. These pictues need to be perfect though, so..."
+            the_person "Fine, okay, you can fuck me raw. These pictures need to be perfect though, so..."
             the_person "You can even cum inside me, if you think you need to."
         else:
             "All resistance drains from her and she starts to rub her hips against you eagerly."
@@ -666,7 +666,7 @@ label photo_sex(the_person):
     "You lay into her, fucking her until you feel your orgasm approaching."
     $ the_person.change_slut_temp(5)
     mc.name "Fuck, here I cum!"
-    $ the_girl.call_dialogue("cum_pullout")
+    $ the_person.call_dialogue("cum_pullout")
 
     $ came_inside_mod = 0
     $ climax_controller = ClimaxController(["Pull out and cum", "body"],["Cum inside her", "pussy"])
