@@ -358,7 +358,7 @@ label dm_option_underwear_response(the_person):
         $ the_person.draw_person(the_animation = None)
         "There's a short pause, then she sends an image."
         $ mc.change_locked_clarity(10)
-        $ the_person.draw_person(postiion = "back_peek", the_animation = None)
+        $ the_person.draw_person(position = "back_peek", the_animation = None)
         "...Then another."
         $ mc.change_locked_clarity(10)
         $ the_person.draw_person(position = "kneeling1", the_animation = None)
