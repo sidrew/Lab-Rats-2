@@ -3,6 +3,10 @@ label outfit_master_manager(*args, **kwargs): #New outfit manager that centraliz
     call screen outfit_select_manager(*args, **kwargs)
 
     if _return == "No Return":
+        if "the_person" in globals():   # restore character on screen
+            $ the_person.draw_person()
+        else:
+            $ clear_scene()
         return None #We're done and want to leave.
 
     $ outfit_type = None
@@ -44,16 +48,19 @@ label outfit_master_manager(*args, **kwargs): #New outfit manager that centraliz
         else:
             "We couldn't find it anywhere! PANIC!"
 
-        $ mc.designed_wardrobe.remove_outfit(outfit) # Remove it so we can re-add it later. Note that "dupicate" has already copied an outfit and added it so we can re-use this code.
-
         call screen outfit_creator(outfit, outfit_type = outfit_type, slut_limit = slut_limit)
         $ outfit = _return
 
-    if not outfit == "Not_New":
+        if outfit != "Not_New":
+            if command == "duplicate":
+                $ outfit.name = ""
+            if command == "modify":
+                $ mc.designed_wardrobe.remove_outfit(outfit)
+
+    if outfit != "Not_New":
         $ new_outfit_name = renpy.input("Please name this outfit.", default = outfit.name)
         while new_outfit_name == "":
             $ new_outfit_name = renpy.input("Please enter a non-empty name.", default = outfit.name)
-
 
         $ mc.save_design(outfit, new_outfit_name, outfit_type)
 
