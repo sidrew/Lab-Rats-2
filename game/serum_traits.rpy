@@ -295,7 +295,7 @@ init -1:
                 else:
                     mc.log_event(display_name + ": Lactation increases", "float_text_blue")
 
-        def lactation_hormones_on_remove(the_person,add_to_log):
+        def lactation_hormones_on_remove(the_person, the_serum, add_to_log):
             the_person.lactation_sources -= 1
 
         def massive_pregnancy_accelerator_on_turn(the_person, the_serum, add_to_log):
