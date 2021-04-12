@@ -1415,15 +1415,15 @@ label sleep_climax_manager(the_person, straddle = False, stomach_allowed = False
 
     if throat_allowed:
         if the_person.effective_sluttiness() >= cum_throat_slut_requirement:
-            $ climax_option.append(["Cum down her throat","throat"])
+            $ climax_options.append(["Cum down her throat","throat"])
         else:
-            $ climax_option.append(["Cum down her throat\n{color=#ff0000}Requires:[cum_throat_slut_token]{/color} (disabled)"])
+            $ climax_options.append(["Cum down her throat\n{color=#ff0000}Requires:[cum_throat_slut_token]{/color} (disabled)"])
 
     if inside_allowed:
         if the_person.effective_sluttiness() >= cum_inside_slut_requirement or mc.condom:
-            $ climax_option.append(["Cum inside her","pussy"])
+            $ climax_options.append(["Cum inside her","pussy"])
         else:
-            $ climax_option.append(["Cum inside her\n{color=#ff0000}Requires:[fuck_slut_token]{/color} (disabled)","pussy"])
+            $ climax_options.append(["Cum inside her\n{color=#ff0000}Requires:[fuck_slut_token]{/color} (disabled)","pussy"])
 
     $ climax_controller = ClimaxController(*climax_options)
     $ the_choice = climax_controller.show_climax_menu()
