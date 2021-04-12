@@ -1023,7 +1023,7 @@ label trait_for_side_effect_label():
     "You look over the notes [the_person.possessive_title] has taken. The variant she has created includes an extra serum trait as well as a negative side effect."
     "It doesn't seem like there will be any way to untangle the effects."
     #TODO: Make sure these actually display the traits properly.
-    show screen trait_list_tooltip([the_trait, the_side_effect], given_align = (0.1,0.6))
+    show screen trait_list_tooltip([the_trait, the_side_effect], given_align = (0.375,0.5))
     menu:
         "Add [the_trait.name] and [the_side_effect.name] to [the_design.name]":
             hide screen trait_list_tooltip
