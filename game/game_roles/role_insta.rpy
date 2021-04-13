@@ -283,6 +283,7 @@ label dm_option_specific_outfit_response(the_person, the_outfit):
         the_person "Thanks for the interest, but I couldn't wear that without getting banned!" (what_style = "text_message_style")
         if the_person.has_role(onlyfans_role):
             the_person "If you're interested in that sort of content you should check out my OnlyFanatics!" (what_style = "text_message_style")
+            $ the_person.event_triggers_dict["onlyfans_known"] = True
             "She gives you her OnlyFanatics name."
     elif the_person.judge_outfit(the_outfit, temp_sluttiness_boost = -20) and the_outfit.slut_requirement < 40:
         the_person "It's nice, but I don't think it's the sort of thing my audience is interested in seeing." (what_style = "text_message_style")
@@ -379,9 +380,10 @@ label dm_option_underwear_response(the_person):
         $ the_person.apply_outfit() #Get redressed
 
     if the_choice:
-        the_person "Oh, and if you liked that, check out my OnlyFanatics page. I'm sure you'll love it!" (what_style = "text_message_style")
-        "She sends you a link."
-        $ the_person.event_triggers_dict["onlyfans_known"] = True
+        if the_person.has_role(onlyfans_role):
+            the_person "Oh, and if you liked that, check out my OnlyFanatics page. I'm sure you'll love it!" (what_style = "text_message_style")
+            "She sends you a link."
+            $ the_person.event_triggers_dict["onlyfans_known"] = True
 
         $ mc.business.funds += -50
         if the_person.event_triggers_dict.get("insta_special_request_level",0) < 2:
