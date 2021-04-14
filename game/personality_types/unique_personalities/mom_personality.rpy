@@ -543,7 +543,7 @@ label mom_condom_ask(the_person):
         the_person "Do you have a condom to put on? I don't want you to have to pull out when you finish."
         $ the_person.discover_opinion("creampies")
     else:
-        the_person "You should really put on a condom [the_person.mc_name]."
+        the_person "You should really put on a condom [the_person.mc_title]."
         the_person "I trust you, but it's so easy for accidents to happen when we're... distracted."
     return
 
