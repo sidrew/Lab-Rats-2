@@ -1417,7 +1417,7 @@ label sleep_climax_manager(the_person, straddle = False, stomach_allowed = False
         if the_person.effective_sluttiness() >= cum_throat_slut_requirement:
             $ climax_options.append(["Cum down her throat","throat"])
         else:
-            $ climax_options.append(["Cum down her throat\n{color=#ff0000}{size=18}Requires:[cum_throat_slut_token]{/size}{/color} (disabled)"], "throat")
+            $ climax_options.append(["Cum down her throat\n{color=#ff0000}{size=18}Requires:[cum_throat_slut_token]{/size}{/color} (disabled)", "throat"])
 
     if inside_allowed:
         if the_person.effective_sluttiness() >= cum_inside_slut_requirement or mc.condom:
