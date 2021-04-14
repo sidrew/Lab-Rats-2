@@ -56,7 +56,7 @@ init -2 python:
 
     def insta_dm_cleanup(the_person): #Resets all the appropriate flags that should be reset after a response has been given.
         the_person.event_triggers_dict["insta_special_request_pending"] = False
-        if the_person.event_triggers_dict.get("insta_special_request_sis", None) is not None:
+        if the_person.event_triggers_dict.get("insta_special_request_sis", None):
             the_person.event_triggers_dict["insta_special_request_sis"] = None
         return
 
@@ -138,8 +138,8 @@ label view_insta(the_person):
     if the_person.event_triggers_dict.get("insta_generate_pic", False):
         "It looks like [the_person.title] has posted a new picture today, along with a comment overlaid at the bottom."
         $ posted_today = True
-        if the_person.event_triggers_dict.get("insta_special_request_outfit", None) is not None:
-            $ the_person.apply_outfit(the_person.event_triggers_dict.get("insta_special_request_outfit"))
+        if the_person.event_triggers_dict.get("insta_special_request_outfit", None):
+            $ the_person.apply_outfit(the_person.event_triggers_dict.get("insta_special_request_outfit", insta_wardrobe.pick_random_outfit()))
             $ rand_num = renpy.random.randint(0,3)
             if rand_num == 0:
                 $ the_person.draw_person(the_animation = None)
@@ -256,7 +256,7 @@ label dm_description(the_person):
     return
 
 label dm_option_specific_outfit(the_person):
-    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level")
+    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level", 0)
     if previous_request_level == 0:
         mc.name "I found your profile and thought that you look amazing! I was wondering if you took special requests." (what_style = "text_message_style")
         mc.name "I think you would look amazing wearing this outfit, and I'd pay you $20 if you made an InstaPic for it." (what_style = "text_message_style")
@@ -267,7 +267,7 @@ label dm_option_specific_outfit(the_person):
 
         call outfit_master_manager(show_overwear = False, show_underwear = False) from _call_outfit_master_manager_11
         $ the_outfit = _return
-        if the_outfit is None:
+        if not isinstance(the_outfit, Outfit):
             return False
         else:
             "You put together a list of links to stores she could buy everything from."
@@ -277,9 +277,7 @@ label dm_option_specific_outfit(the_person):
 label dm_option_specific_outfit_response(the_person, the_outfit):
     "Your phone buzzes: it's a response from [the_person.title] on InstaPic."
     $ the_choice = False
-    if the_person.effective_sluttiness() < 10:
-        the_person "I don't take requests, I'm just doing this for fun. Sorry!" (what_style = "text_message_style")
-    elif insta_would_ban(the_outfit):
+    if insta_would_ban(the_outfit):
         the_person "Thanks for the interest, but I couldn't wear that without getting banned!" (what_style = "text_message_style")
         if the_person.has_role(onlyfans_role):
             the_person "If you're interested in that sort of content you should check out my OnlyFanatics!" (what_style = "text_message_style")
@@ -296,6 +294,8 @@ label dm_option_specific_outfit_response(the_person, the_outfit):
         the_person "Thanks for the interest! That's not the kind of thing I would normally wear in one of my posts, but I'm willing to give it a try!" (what_style = "text_message_style")
         the_person "Send me the money and check my Insta page in a day or two! If the reactions are good maybe I'll wear more stuff like that!" (what_style = "text_message_style")
         $ the_choice = True
+    else:
+        the_person "I don't take requests, I'm just doing this for fun. Sorry!" (what_style = "text_message_style")
 
     if the_choice:
         $ the_person.event_triggers_dict["insta_special_request_outfit"] = the_outfit
@@ -308,7 +308,7 @@ label dm_option_specific_outfit_response(the_person, the_outfit):
     return
 
 label dm_option_underwear(the_person):
-    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level")
+    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level", 0)
     if previous_request_level == 0:
         mc.name "I just found your profile, you look so amazing! I wish you could show more, but I know InstaPic would ban you if you did." (what_style = "text_message_style")
         mc.name "Do you take private pictures? I'd be glad to pay just for some shots of you in your underwear. How does $50 sound?" (what_style = "text_message_style")
@@ -328,7 +328,7 @@ label dm_option_underwear(the_person):
 
 label dm_option_underwear_response(the_person):
     "Your phone buzzes: it's a response from [the_person.title] on InstaPic."
-    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level")
+    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level", 0)
     $ the_choice = False
 
     if the_person.effective_sluttiness() < 10:
@@ -396,7 +396,7 @@ label dm_option_underwear_response(the_person):
 
 
 label dm_option_topless(the_person):
-    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level")
+    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level", 0)
     if previous_request_level == 0:
         mc.name "I just found your profile and it blew me away! You're gorgeous!" (what_style = "text_message_style")
         mc.name "Do you do topless shots? Your tits are driving me crazy, I'd pay to see them!" (what_style = "text_message_style")
@@ -418,7 +418,7 @@ label dm_option_topless(the_person):
     return True
 
 label dm_option_topless_response(the_person):
-    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level")
+    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level", 0)
     $ the_choice = False
     "Your phone buzzes: it's a response from [the_person.title] on InstaPic."
     if the_person.effective_sluttiness() < 20:
@@ -490,15 +490,12 @@ label dm_option_topless_response(the_person):
             $ the_person.event_triggers_dict["insta_special_request_level"] = 3
         "You wire her the cash you promised."
 
-
-
-
     $ insta_dm_cleanup(the_person)
     $ clear_scene()
     return
 
 label dm_option_nude(the_person):
-    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level")
+    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level", 0)
     if previous_request_level == 0:
         mc.name "I just found your profile and it blew me away! You're gorgeous!" (what_style = "text_message_style")
         mc.name "Do you do nude shots? I'd pay so much to see you naked!" (what_style = "text_message_style")
@@ -520,7 +517,7 @@ label dm_option_nude(the_person):
     return True
 
 label dm_option_nude_response(the_person):
-    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level")
+    $ previous_request_level = the_person.event_triggers_dict.get("insta_special_request_level", 0)
     $ the_choice = False
     if the_person.effective_sluttiness() < 20:
         the_person "I would never do that, for any amount of money!" (what_style = "text_message_style")
@@ -613,6 +610,6 @@ label insta_interupt_check(the_person): # Returns Something???  a callback label
             $ clear_scene()
             "She hurries away, leaving you to wonder what, exactly, she needs to take care of."
 
-    #TODO: Check if the_person is in the same location as you, or if she would come find you (Lily specfically).
+    #TODO: Check if the_person is in the same location as you, or if she would come find you (Lily specifically).
     #TODO: If at work you notice her slipping away,
     return
