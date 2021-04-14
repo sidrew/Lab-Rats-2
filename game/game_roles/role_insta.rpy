@@ -380,7 +380,7 @@ label dm_option_underwear_response(the_person):
         $ the_person.apply_outfit() #Get redressed
 
     if the_choice:
-        if the_person.has_role(onlyfans_role):
+        if the_person.has_role(onlyfans_role) and not the_person.event_triggers_dict.get("onlyfans_known", False):
             the_person "Oh, and if you liked that, check out my OnlyFanatics page. I'm sure you'll love it!" (what_style = "text_message_style")
             "She sends you a link."
             $ the_person.event_triggers_dict["onlyfans_known"] = True
@@ -577,9 +577,10 @@ label dm_option_nude_response(the_person):
         $ the_person.apply_outfit()
 
     if the_choice:
-        the_person "Oh, and if you liked that, check out my OnlyFanatics page. I'm sure you'll love it!" (what_style = "text_message_style")
-        "She sends you a link."
-        $ the_person.event_triggers_dict["onlyfans_known"] = True
+        if the_person.has_role(onlyfans_role) and not the_person.event_triggers_dict.get("onlyfans_known", False):
+            the_person "Oh, and if you liked that, check out my OnlyFanatics page. I'm sure you'll love it!" (what_style = "text_message_style")
+            "She sends you a link."
+            $ the_person.event_triggers_dict["onlyfans_known"] = True
 
         $ mc.business.funds += -200
         if the_person.event_triggers_dict.get("insta_special_request_level",0) < 4:
