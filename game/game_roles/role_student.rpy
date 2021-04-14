@@ -1460,9 +1460,9 @@ label student_punish_suck(the_person, was_failure, wants_to_fail, successes = 0,
         $ mc.change_locked_clarity(25)
         "She struggles to keep up, gagging a little bit with each thrust and trailing spit down her chin and onto her chest."
         "You're already so worked up that it doesn't take long before you feel your climax approaching."
-        $ climax_controller = ClimaxController(["Cum down her throat.","throat"],["Cum on her face.","face"])
+        $ climax_controller = ClimaxController(["Cum down her throat","throat"],["Cum on her face","face"])
         $ the_choice = climax_controller.show_climax_menu()
-        if the_choice == "Cum down her throat.":
+        if the_choice == "Cum down her throat":
             mc.name "Fuck, here I cum!"
             "You wrap one arm around [the_person.title]'s head, holding it in the crook of your elbow."
             $ climax_controller.do_clarity_release(the_person)
@@ -1472,7 +1472,7 @@ label student_punish_suck(the_person, was_failure, wants_to_fail, successes = 0,
             "When you are finished you let go and lean back in your chair. [the_person.title] rockets back, gasping for fresh air."
             "She's a mess after your face fuck. Her eyes are watering, her cheeks are red, and she's still trying to swallow down the last of your cum between panting breaths."
 
-        elif the_choice == "Cum on her face.":
+        elif the_choice == "Cum on her face":
             "You thrust yourself down her throat one last time, then pull [the_person.title]s head back with both hands."
             $ climax_controller.do_clarity_release(the_person)
             "Your cock spasms, firing its first pulse of cum over her eye and forehead. She gasps desperately for her first breath of fresh air"

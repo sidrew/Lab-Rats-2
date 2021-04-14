@@ -579,7 +579,7 @@ label photo_blowjob(the_person):
             mc.name "I'm going to cum, get ready!"
             $ the_person.draw_person(position = "blowjob")
             "You pull your cock out of [the_person.possessive_title]'s mouth and stroke it off with your left hand, working the camera with your right."
-            $ climax_controller = ClimaxController(["Cum on her face.","face"])
+            $ climax_controller = ClimaxController(["Cum on her face","face"])
             $ climax_controller.show_climax_menu()
             $ mc.change_locked_clarity(10)
             "She looks up at you as you cum, blowing your hot load over her face. You struggle to keep the camera pointed in the right direction."

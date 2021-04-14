@@ -1836,7 +1836,7 @@ label work_chat_crisis_label:
                             $ the_person.draw_person(position="blowjob")
                             the_person "Do you you want to cum in my mouth?"
                             $ the_person.draw_person(position="blowjob", special_modifier="blowjob")
-                            $ climax_controller = ClimaxController(["Cum in her mouth.","mouth"])
+                            $ climax_controller = ClimaxController(["Cum in her mouth","mouth"])
                             $ climax_controller.show_climax_menu()
                             "You're right on the edge. You nod and she opens her mouth and sticks out her tongue."
                             $ the_person.cum_in_mouth()
@@ -1853,7 +1853,7 @@ label work_chat_crisis_label:
                             "[the_person.possessive_title] gets up from her chair and kneels down between your legs."
                             $ the_person.draw_person(position="blowjob")
                             the_person "Do you you want to cum on my face?"
-                            $ climax_controller = ClimaxController(["Cum on her face.","face"])
+                            $ climax_controller = ClimaxController(["Cum on her face","face"])
                             $ climax_controller.show_climax_menu()
                             "You're right on the edge. You nod and she closes her eyes and tilts her head back."
                             $ the_person.cum_on_face()
