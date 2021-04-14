@@ -1405,25 +1405,25 @@ label sleep_climax_manager(the_person, straddle = False, stomach_allowed = False
         if the_person.effective_sluttiness() >= cum_face_slut_requirement:
             $ climax_options.append(["Cum on her face","face"])
         else:
-            $ climax_options.append(["Cum on her face\n{color=#ff0000}Requires:[cum_face_slut_token]{/color} (disabled)","face"])
+            $ climax_options.append(["Cum on her face\n{color=#ff0000}{size=18}Requires:[cum_face_slut_token]{/size}{/color} (disabled)", "face"])
 
     if tits_allowed:
         if the_person.effective_sluttiness() >= cum_tits_slut_requirement:
             $ climax_options.append(["Cum on her tits","tits"])
         else:
-            $ climax_options.append(["Cum on her tits\n{color=#ff0000}Requires:[cum_tits_slut_token]{/color} (disabled)","tits"])
+            $ climax_options.append(["Cum on her tits\n{color=#ff0000}{size=18}Requires:[cum_tits_slut_token]{/size}{/color} (disabled)", "tits"])
 
     if throat_allowed:
         if the_person.effective_sluttiness() >= cum_throat_slut_requirement:
             $ climax_options.append(["Cum down her throat","throat"])
         else:
-            $ climax_options.append(["Cum down her throat\n{color=#ff0000}Requires:[cum_throat_slut_token]{/color} (disabled)"])
+            $ climax_options.append(["Cum down her throat\n{color=#ff0000}{size=18}Requires:[cum_throat_slut_token]{/size}{/color} (disabled)"], "throat")
 
     if inside_allowed:
         if the_person.effective_sluttiness() >= cum_inside_slut_requirement or mc.condom:
             $ climax_options.append(["Cum inside her","pussy"])
         else:
-            $ climax_options.append(["Cum inside her\n{color=#ff0000}Requires:[fuck_slut_token]{/color} (disabled)","pussy"])
+            $ climax_options.append(["Cum inside her\n{color=#ff0000}{size=18}Requires:[fuck_slut_token]{/size}{/color} (disabled)", "pussy"])
 
     $ climax_controller = ClimaxController(*climax_options)
     $ the_choice = climax_controller.show_climax_menu()
