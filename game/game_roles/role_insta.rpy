@@ -140,12 +140,12 @@ label view_insta(the_person):
         $ posted_today = True
         if the_person.event_triggers_dict.get("insta_special_request_outfit", None):
             $ the_person.apply_outfit(the_person.event_triggers_dict.get("insta_special_request_outfit", insta_wardrobe.pick_random_outfit()))
-            $ rand_num = renpy.random.randint(0,3)
-            if rand_num == 0:
+            $ ran_num = renpy.random.randint(0,3)
+            if ran_num == 0:
                 $ the_person.draw_person(the_animation = None)
-            elif rand_num == 1:
+            elif ran_num == 1:
                 $ the_person.draw_person(position = "kneeling1", the_animation = None)
-            elif rand_num == 2:
+            elif ran_num == 2:
                 $ the_person.draw_person(position = "back_peek", the_animation = None)
             $ mc.change_locked_clarity(10)
             the_person "Wearing something special today: a design sent in by a fan!" (what_style = "text_message_style")
@@ -154,20 +154,20 @@ label view_insta(the_person):
         elif the_person.effective_sluttiness() + the_person.get_opinion_score("showing her ass")*5 + the_person.get_opinion_score("showing her tits")*5 > 20: #TODO: Decide what slut_requirement should be.
             $ skimpy_outfit = insta_wardrobe.pick_random_outfit()
             $ the_person.apply_outfit(skimpy_outfit)
-            $ rand_num = renpy.random.randint(0,3)
-            if rand_num == 0:
+            $ ran_num = renpy.random.randint(0,3)
+            if ran_num == 0:
                 $ the_person.draw_person(position = "stand3", the_animation = None)
                 $ mc.change_locked_clarity(5)
                 the_person "Thought this outfit looked sexy. What do you think?" (what_style = "text_message_style")
-            elif rand_num == 1:
+            elif ran_num == 1:
                 $ the_person.draw_person(position = "kneeling1", the_animation = None)
                 $ mc.change_locked_clarity(10)
                 the_person "Hey everyone, what do you think of this pose? I think it makes my tits look great!" (what_style = "text_message_style")
-            elif rand_num == 2:
+            elif ran_num == 2:
                 $ the_person.draw_person(position = "back_peek", the_animation = None)
                 $ mc.change_locked_clarity(5)
                 the_person "Ass was looking great, just had to take a pic!" (what_style = "text_message_style")
-            elif rand_num == 3:
+            elif ran_num == 3:
                 $ the_person.draw_person(position = "kneeling1", the_animation = None)
                 $ mc.change_locked_clarity(10)
                 the_person "Do I look good down on my knees?" (what_style = "text_message_style")
@@ -182,24 +182,24 @@ label view_insta(the_person):
 
             $ the_person.apply_outfit() # Reset them to their normal daily wear.
         elif the_person.is_wearing_uniform() and not (the_person.outfit.vagina_visible() or the_person.outfit.tits_visible()):
-            $ rand_num = renpy.random.randint(0,1)
-            if rand_num == 0:
+            $ ran_num = renpy.random.randint(0,1)
+            if ran_num == 0:
                 $ mc.change_locked_clarity(5)
                 $ the_person.draw_person(the_animation = None)
                 the_person "Getting dressed for work. I make this uniform work!" (what_style = "text_message_style")
 
-            elif rand_num == 1:
+            elif ran_num == 1:
                 $ mc.change_locked_clarity(10)
                 $ the_person.draw_person(position = "back_peek", the_animation = None)
                 the_person "I think my boss makes me wear this just because it makes my butt look good. At least he's right!" (what_style = "text_message_style")
 
         else:
-            $ rand_num = renpy.random.randint(0,1)
-            if rand_num == 0:
+            $ ran_num = renpy.random.randint(0,1)
+            if ran_num == 0:
                 $ the_person.draw_person(the_animation = None)
                 the_person "Good morning everyone!"
 
-            elif rand_num == 1:
+            elif ran_num == 1:
                 $ the_person.draw_person(position = "back_peek", the_animation = None)
                 the_person "About to head out the door. I've got a full day ahead of me!"
 

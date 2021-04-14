@@ -664,13 +664,13 @@ label watcher_check(the_person, the_position, the_object, the_report): # Check t
                     a_person.on_room_enter_event_list.append(caught_affair_cheating_action)
                     renpy.say(None,a_person.title + " gasps when she sees what you and " + the_person.title + " are doing.")
 
-    $ watcher = get_random_from_list(other_people) #Get a random person from the people in the area, if there are any.
+    $ the_watcher = get_random_from_list(other_people) #Get a random person from the people in the area, if there are any.
     $ del other_people
-    if watcher:
+    if the_watcher:
         # NOTE: the dialogue here often draws the person talking with various emotions or positions, so we redraw the scene after we call them.
-        $ watcher.call_dialogue("sex_watch", the_sex_person = the_person, the_position = the_position) #Get the watcher's reaction to the people having sex. This might include dialogue calls from other personalities as well!
+        $ the_watcher.call_dialogue("sex_watch", the_sex_person = the_person, the_position = the_position) #Get the watcher's reaction to the people having sex. This might include dialogue calls from other personalities as well!
         $ the_position.redraw_scene(the_person)
-        $ the_person.call_dialogue("being_watched", the_watcher = watcher, the_position = the_position) #Call her response to the person watching her.
+        $ the_person.call_dialogue("being_watched", the_watcher = the_watcher, the_position = the_position) #Call her response to the person watching her.
         $ the_person.change_arousal(the_person.get_opinion_score("public sex"))
         $ the_person.discover_opinion("public sex")
     return

@@ -41,33 +41,33 @@ label check_dikdok():
 label view_dikdok(the_person):
     if the_person.event_triggers_dict.get("dikdok_generate_vid", False):
         "It looks like [the_person.title] has posted a new video."
-        $ rand_num = renpy.random.randint(0,3)
+        $ ran_num = renpy.random.randint(0,3)
         if the_person.effective_sluttiness() < 10: # Barely does anything of note with her account
-            if rand_num == 0:
+            if ran_num == 0:
                 "[the_person.possessive_title] just filmed her food. She isn't even in the shot."
-            elif rand_num == 1:
+            elif ran_num == 1:
                 "It's just the view of the sunrise from her front door. Pretty."
-            elif rand_num == 2:
+            elif ran_num == 2:
                 "It's a video of a dog she met today. Cute."
             else:
                 "She's a video of a street performer she saw today. Interesting, but [the_person.possessive_title]'s not even in the shot."
 
 
         elif the_person.effective_sluttiness() < 20: # Does a few videos with herself in it, generally not looking to be slutty, just "cute"
-            if rand_num == 0:
+            if ran_num == 0:
                 $ the_person.apply_outfit()
                 $ the_person.draw_person()
                 the_person "Going out for my morning run, keep that body strong everyone!"
                 "The camera swivels around, and the video continues for a few more seconds as she starts to jog."
                 $ clear_scene()
 
-            elif rand_num == 1:
+            elif ran_num == 1:
                 $ the_person.apply_outfit()
                 $ the_person.draw_person()
                 the_person "This is one of my favorite outfits, maybe this style will work for you too!"
                 "She smiles for the camera, and then the video ends."
                 $ clear_scene()
-            elif rand_num == 2:
+            elif ran_num == 2:
                 $ the_person.apply_outfit()
                 $ the_person.draw_person(position = "sitting")
                 "[the_person.possessive_title] is curled up on the couch with a steaming drink and a book on her lap."
@@ -83,7 +83,7 @@ label view_dikdok(the_person):
                 pass
 
         elif the_person.effective_sluttiness() < 40: # Starts to get sluttier, starts wearing specific outfits to show off.
-            if rand_num == 0:
+            if ran_num == 0:
                 $ the_person.apply_outfit()
                 $ the_person.outfit.strip_to_underwear(avoid_nudity = True)
                 $ the_person.draw_person()
@@ -95,7 +95,7 @@ label view_dikdok(the_person):
                 the_person "It's cute, right? Hope you liked it!"
                 $ the_person.apply_outfit()
                 $ clear_scene()
-            elif rand_num == 1:
+            elif ran_num == 1:
                 $ the_person.apply_outfit(insta_wardrobe.pick_random_outfit()) #TODO: We might want a dedicated athletics wardrobe at some point.
                 $ the_person.draw_person(the_animation = tit_bob, animation_effect_strength = 0.5)
                 "[the_person.possessive_title] is holding her phone out and filming herself as she jogs down a residential street."
@@ -108,7 +108,7 @@ label view_dikdok(the_person):
                     "She keeps the camera focused on herself as she runs."
                 $ the_person.apply_outfit()
                 $ clear_scene()
-            elif rand_num == 2:
+            elif ran_num == 2:
                 $ the_person.apply_outfit()
                 $ the_person.outfit.strip_to_underwear(avoid_nudity = True)
                 $ the_person.draw_person(position = "kneeling1")
@@ -141,7 +141,7 @@ label view_dikdok(the_person):
                 $ clear_scene()
 
         else: #Very slutty, videos of her pretending to ride someone, suck cock, ect.
-            if rand_num == 0: # Short JOI in some lingerie.
+            if ran_num == 0: # Short JOI in some lingerie.
                 $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
                 $ the_person.draw_person(position = "kneeling1", the_animation = tit_bob, animation_effect_strength = 0.3)
                 "[the_person.title] is kneeling in front of her phone, looking directly into the camera."
@@ -158,7 +158,7 @@ label view_dikdok(the_person):
                 $ the_person.apply_outfit()
                 $ clear_scene()
 
-            elif rand_num == 1: # Underwear show w/ some nudity ("Ooops!)
+            elif ran_num == 1: # Underwear show w/ some nudity ("Ooops!)
                 $ the_person.apply_outfit()
                 $ the_person.outfit.strip_to_underwear(avoid_nudity = True)
                 $ the_person.draw_person()
@@ -174,7 +174,7 @@ label view_dikdok(the_person):
                 the_person "See you all next time!"
                 $ the_person.apply_outfit()
                 $ clear_scene()
-            elif rand_num == 2: # Blowjob practice
+            elif ran_num == 2: # Blowjob practice
                 $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
                 $ the_person.draw_person(position = "kneeling1", the_animation = tit_bob, animation_effect_strength = 0.3)
                 "[the_person.title] is on her knees, smiling at the camera as music plays in the background."

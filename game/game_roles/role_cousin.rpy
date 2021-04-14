@@ -1273,18 +1273,18 @@ label stripshow_strip(the_person):
             $ mc.business.funds += -20
             "You reach into your wallet and pull out a $20 bill. You wait until the dancer is looking in your direction, then throw it onto the stage."
 
-            $ random_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_lower = True,  exclude_feet = True, do_not_remove = True) #Try and get a bra/top first if you can
-            if random_item is None:
-                $ random_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_lower = False,  exclude_feet = True, do_not_remove = True) #When that fails get her bottom/panties.
+            $ the_clothing = the_person.outfit.remove_random_any(top_layer_first = True, exclude_lower = True,  exclude_feet = True, do_not_remove = True) #Try and get a bra/top first if you can
+            if the_clothing is None:
+                $ the_clothing = the_person.outfit.remove_random_any(top_layer_first = True, exclude_lower = False,  exclude_feet = True, do_not_remove = True) #When that fails get her bottom/panties.
 
-            if random_item:
-                $ the_person.draw_animated_removal(random_item)
+            if the_clothing:
+                $ the_person.draw_animated_removal(the_clothing)
                 $ mc.change_locked_clarity(10)
-                "She smiles at you and starts to peel off her [random_item.display_name]."
+                "She smiles at you and starts to peel off her [the_clothing.display_name]."
             else:
                 $ mc.change_locked_clarity(5)
                 "She smiles and wiggles her hips for you."
-            $ del random_item
+            $ del the_clothing
 
         "Throw some cash\n{color=#ff0000}{size=18}Requires: $20{/size}{/color} (disabled)" if mc.business.funds < 20:
             pass
@@ -1294,15 +1294,15 @@ label stripshow_strip(the_person):
             if renpy.random.randint(0,100) < 30:
                 #Someone else throws cash onto the stage.
                 "On the other side of the stage, someone waves a bill at the dancer."
-                $ random_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_lower = True,  exclude_feet = True, do_not_remove = True) #Try and get a bra/top first if you can
-                if random_item is None:
-                    $ random_item = the_person.outfit.remove_random_any(top_layer_first = True, exclude_lower = False,  exclude_feet = True, do_not_remove = True) #When that fails get her bottom/panties.
+                $ the_clothing = the_person.outfit.remove_random_any(top_layer_first = True, exclude_lower = True,  exclude_feet = True, do_not_remove = True) #Try and get a bra/top first if you can
+                if the_clothing is None:
+                    $ the_clothing = the_person.outfit.remove_random_any(top_layer_first = True, exclude_lower = False,  exclude_feet = True, do_not_remove = True) #When that fails get her bottom/panties.
 
-                if random_item:
-                    "She takes the money and starts to slowly strip off her [random_item.display_name]."
+                if the_clothing:
+                    "She takes the money and starts to slowly strip off her [the_clothing.display_name]."
                     $ mc.change_locked_clarity(5)
-                    $ the_person.draw_animated_removal(random_item)
+                    $ the_person.draw_animated_removal(the_clothing)
                 else:
                     "She takes the money and holds onto it while she continues to move her body to the music."
-                $ del random_item
+                $ del the_clothing
     return

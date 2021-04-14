@@ -274,7 +274,9 @@ init 0 python:
         "not_stripper", "the_student", "strip_choice", "new_pose", "picked_pose", "pose_choice", "new_person" \
         "clothing", "formatted_name", "formatted_title", "hair_style_check", "pubic_style_check", "the_cause", \
         "text_one", "text_two", "the_goal", "the_serum", "title", "opinion_tag", "overhear_topic", "the_choice", \
-        "opinion_string", "mc_opinion_string", "talk_opinion_text", "opinion_learned", "place", "the_place", "the_taboo"]
+        "opinion_string", "mc_opinion_string", "talk_opinion_text", "opinion_learned", "place", "the_place", "the_taboo",
+        "climax_controller", "the_watcher"]
+
     def main_loop_cleanup():
         clear_scene()
         # generic cleanup routine for common variable names
@@ -896,10 +898,10 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
         for place in list_of_places:
             if place.public:
                 if not max_num_of_random == 0:
-                    random_count = renpy.random.randint(1,max_num_of_random)
+                    ran_num = renpy.random.randint(1,max_num_of_random)
                 else:
-                    random_count = 0;
-                for x in range(0,random_count):
+                    ran_num = 0;
+                for x in range(0,ran_num):
                     the_person = create_random_person()
                     the_person.generate_home()
                     the_person.home.add_person(the_person) #We are using create_random_person instead of make_person because we want premade character bodies to be hirable instead of being eaten up by towns-folk.
