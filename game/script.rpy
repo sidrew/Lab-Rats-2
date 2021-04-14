@@ -26,7 +26,7 @@ init -10 python: #Init -10 is used for all project wide imports of external reso
         mobile_zip_dict[position] = zipfile.ZipFile(renpy_file, "r") #Cache all of the zip files so we have a single static pointer to them.
 
 
-#Init -5 establishes all game clases
+#Init -5 establishes all game classes
 #Init -2 is then used by all game content that will use those game classes (ie. instantiates different Crises that could be generated)
 #Init 0 establishes Renpy settings, including callbacks for display code.
 
@@ -43,7 +43,7 @@ init -2: # Establish some platform specific stuff.
 
 init -2 python:
     list_of_positions = [] # These are sex positions that the PC can make happen while having sex.
-    list_of_girl_positions = [] # These are sex positiosn that the girl can make happen while having sex.
+    list_of_girl_positions = [] # These are sex positions that the girl can make happen while having sex.
 
     day_names = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] #Arrays that hold the names of the days of the week and times of day. Arrays start at 0.
     time_names = ["Early Morning","Morning","Afternoon","Evening","Night"]
@@ -316,9 +316,9 @@ label game_loop(): ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS
                 "You approach [picked_option.title] and chat for a little bit."
                 $ picked_option.call_dialogue("greetings")
 
-            if picked_option.has_taboo(["underwear_nudity","bare_tits", "bare_pussy"]) and picked_option.judge_outfit(picked_option.outfit, -30): #If she's in anything close to slutty she's self-concious enough to coment on it.
+            if picked_option.has_taboo(["underwear_nudity","bare_tits", "bare_pussy"]) and picked_option.judge_outfit(picked_option.outfit, -30): #If she's in anything close to slutty she's self-conscious enough to comment on it.
                 if picked_option.outfit.vagina_visible() and picked_option.has_taboo("bare_pussy") and picked_option.outfit.tits_visible() and picked_option.has_taboo("bare_tits"):
-                    "[picked_option.title] doesn't say anything about it, but seems unconfortable being naked in front of you."
+                    "[picked_option.title] doesn't say anything about it, but seems uncomfortable being naked in front of you."
                     "As you talk she seems to become more comfortable with her own nudity, even if she isn't thrilled by it."
 
                 if picked_option.outfit.vagina_visible() and picked_option.has_taboo("bare_pussy"):
@@ -328,9 +328,9 @@ label game_loop(): ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS
                 elif picked_option.outfit.tits_visible() and picked_option.has_taboo("bare_tits"):
                     "[picked_option.title] doesn't say anything about it, but brings her arms up to try and conceal her tits."
                     if picked_option.has_large_tits():
-                        "Her large chest isn't easy to hide, and she quickly realises it's hopeless."
+                        "Her large chest isn't easy to hide, and she quickly realizes it's hopeless."
                     else:
-                        "As you talk she seems to become more comfortable, and eventaully lets her arms drop again."
+                        "As you talk she seems to become more comfortable, and eventually lets her arms drop again."
 
                 elif ((picked_option.outfit.wearing_panties() and not picked_option.outfit.panties_covered()) or (picked_option.outfit.wearing_bra() and not picked_option.outfit.bra_covered())) and picked_option.has_taboo("underwear_nudity"):
                     "[picked_option.title] doesn't say anything about it, but she tries to cover up her underwear with her hands."
@@ -704,7 +704,7 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
     $ list_of_nora_traits = []
     $ list_of_places = [] #By having this in an init block it may be set to null each time the game is reloaded, because the initialization stuff below is only called once.
 
-    #NOTE: These need to be established in a seperate label to ensure they are loaded/saved correctly
+    #NOTE: These need to be established in a separate label to ensure they are loaded/saved correctly
     call instantiate_serum_traits() from _call_instantiate_serum_traits #Creates all of the default LR2 serum traits. TODO: Create a mod loading list that has labels that can be externally added and called here.
     call instantiate_roles() from _call_instantiate_roles
     call instantiate_business_policies()
@@ -760,7 +760,7 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
         ##PC starts in his bedroom##
         mc = MainCharacter(bedroom,character_name,last_name, Business(business_name, m_division, p_division, rd_division, office, office),stat_array,skill_array,_sex_array)
 
-        town_relationships = RelationshipArray() #Singleton class used to track relationships. Remvoes need for recursive character references (which messes with Ren'py's saving methods)
+        town_relationships = RelationshipArray() #Singleton class used to track relationships. Removes need for recursive character references (which messes with Ren'py's saving methods)
         mc.generate_goals()
 
         ##Keep a list of all the places##
@@ -906,7 +906,7 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
                     the_person.generate_home()
                     the_person.home.add_person(the_person) #We are using create_random_person instead of make_person because we want premade character bodies to be hirable instead of being eaten up by towns-folk.
 
-        generate_premade_list() # Creates the list with all the premade characters for the game in it. Without this we both break the policies call in create_random_person, and regenerate the premade list on each restart.
+        generate_premade_list() # Creates the list with all the pre-made characters for the game in it. Without this we both break the policies call in create_random_person, and regenerate the premade list on each restart.
 
         stripclub_strippers = MappedList(Person, all_people_in_the_game)
         add_stripclub_strippers()
