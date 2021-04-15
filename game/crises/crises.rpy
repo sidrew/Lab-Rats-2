@@ -1478,6 +1478,17 @@ label invest_opportunity_crisis_label():
 
     return
 
+init 1 python:
+    def update_investor_payment():
+        already_invested = False
+        for modifier_tuple in [x for x in mc.business.sales_multipliers if x[0] == "Investor Payment"]:
+            already_invested = True
+            modifier_tuple[1] -= 0.01 #Update the investment cost to be 1% worse than it was before. Note that this does not expire
+
+        if not already_invested:
+            mc.business.add_sales_multiplier("Investor Payment", 0.99)
+        return
+
 label invest_rep_visit_label(rep_name):
     #There are two possible ways this event is triggered. First we will handle if the player is late to the meeting (aka not at work on the day in question). They get an angry phonecall and the event ends.
     if time_of_day == 3:
@@ -1596,19 +1607,8 @@ label invest_rep_visit_label(rep_name):
                         "You reach your hand across the table to shake [rep_name]'s hand."
                         mc.name "I think we have a deal. Lets sort out the paperwork."
                         $ mc.business.funds += 5000
-                        python:
-                            already_invested = False
-                            investment_cost = 0.99
-                            for modifier_tuple in mc.business.sales_multipliers:
-                                if modifier_tuple[0] == "Investor Payment":
-                                    already_invested = True
-                                    investment_cost = modifier_tuple - 0.01
-                                    modifier_tuple[1] = investment_cost #Update the investment cost to be 1% worse than it was before. Note that this does not expire
-
-                            if not already_invested:
-                                mc.business.add_sales_multiplier("Investor Payment", 0.99)
+                        $ update_investor_payment()
                         "Within an hour $5000 has been moved into your companies bank account. [rep_name] leaves with a report detailing your current research progress."
-
 
                     "Reject the offer":
                         mc.name "That's a very tempting offer, but we keep a tight grip on all of our research material."
