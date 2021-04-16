@@ -307,7 +307,7 @@ label student_study_university(the_person):
     if the_person.focus > starting_focus or the_person.int > starting_int:
         $ total_improvement = (the_person.focus - starting_focus) + (the_person.int - starting_int)
         $ the_person.event_triggers_dict["current_marks"] = the_person.event_triggers_dict.get("current_marks",0) + total_improvement
-        $ mc.log_event(the_person.title or "She" + " stayed focused while studying and learned more than usual.", "float_text_grey")
+        $ mc.log_event((the_person.title or "She") + " stayed focused while studying and learned more than usual.", "float_text_grey")
 
     "[the_person.possessive_title] packs up her books and hands over your pay for the study session."
     $ mc.business.funds += 200
@@ -487,7 +487,7 @@ label student_study_home(the_person):
     if the_person.focus > starting_focus or the_person.int > starting_int:
         $ total_improvement = (the_person.focus - starting_focus) + (the_person.int - starting_int)
         $ the_person.event_triggers_dict["current_marks"] = the_person.event_triggers_dict.get("current_marks",0) + total_improvement
-        $ mc.log_event(the_person.title or "She" + " stayed focused while studying and learned more than usual.", "float_text_grey")
+        $ mc.log_event((the_person.title or "She") + " stayed focused while studying and learned more than usual.", "float_text_grey")
 
     # make sure she dresses up, before we go down (and maybe meet the mom)
     $ the_person.apply_outfit()
@@ -663,7 +663,7 @@ label study_normally(the_person, public = True):
 
 
             $ the_person.event_triggers_dict["current_marks"] = the_person.event_triggers_dict.get("current_marks",0) + 2
-            $ mc.log_event(the_person.title or "She" + " learns a little bit from your tutoring.", "float_text_grey")
+            $ mc.log_event((the_person.title or "She") + " learns a little bit from your tutoring.", "float_text_grey")
 
 
         "Keep working":
@@ -678,7 +678,7 @@ label study_normally(the_person, public = True):
             mc.name "Good. Let's keep at it and we'll be finished with this assignment before you know it."
             "You get back to work, stopping any time [the_person.possessive_title]'s attention begins to wander and getting her back on task."
             $ the_person.event_triggers_dict["current_marks"] = the_person.event_triggers_dict.get("current_marks",0) + 3
-            $ mc.log_event(the_person.title or "She" + " isn't happy, but she learns more without a break.", "float_text_grey")
+            $ mc.log_event((the_person.title or "She") + " isn't happy, but she learns more without a break.", "float_text_grey")
 
     mc.name "...And that's the last question. We're done."
     return
@@ -719,7 +719,7 @@ label student_masturbate_label(the_person):
         $ the_person.arousal = 25 # Her arousal goes up because she was touching herself.
         $ the_person.event_triggers_dict["current_marks"] = the_person.event_triggers_dict.get("current_marks",0) + 1 + the_person.get_opinion_score("masturbating")
         $ the_person.discover_opinion("masturbating")
-        $ mc.log_event(the_person.title or "She" + " seems much more focused.", "float_text_grey")
+        $ mc.log_event((the_person.title or "She") + " seems much more focused.", "float_text_grey")
         $ the_person.draw_person(position = "sitting")
 
     else:
@@ -771,7 +771,7 @@ label student_masturbate_label(the_person):
                 $ the_person.event_triggers_dict["current_marks"] = the_person.event_triggers_dict.get("current_marks",0) + 1 + the_person.get_opinion_score("masturbating") + the_person.get_opinion_score("public sex")
                 $ the_person.discover_opinion("masturbating")
                 $ the_person.discover_opinion("public sex")
-                $ mc.log_event(the_person.title or "She" + " seems much more focused.", "float_text_grey")
+                $ mc.log_event((the_person.title or "She") + " seems much more focused.", "float_text_grey")
 
             "Masturbate with her" if the_person.effective_sluttiness() >= 30: #TODO: Add a mutual masturbation position?
                 mc.name "Let me help out with that."
@@ -812,7 +812,7 @@ label student_masturbate_label(the_person):
                     $ the_person.change_obedience(2)
                     $ the_person.change_love(2)
                     $ the_person.event_triggers_dict["current_marks"] = the_person.event_triggers_dict.get("current_marks",0) + 4
-                    $ mc.log_event(the_person.title or "She" + " is much more focused after getting off.", "float_text_grey")
+                    $ mc.log_event((the_person.title or "She") + " is much more focused after getting off.", "float_text_grey")
 
                 else:
                     "[the_person.title] collapses into her chair and groans."
@@ -820,7 +820,7 @@ label student_masturbate_label(the_person):
                     mc.name "I'm sure you can hold it together for an hour or two."
                     $ the_person.change_obedience(-2)
                     $ the_person.event_triggers_dict["current_marks"] = the_person.event_triggers_dict.get("current_marks",0) - 2
-                    $ mc.log_event(the_person.title or "She" + " is completely distracted while studying.", "float_text_grey")
+                    $ mc.log_event((the_person.title or "She") + " is completely distracted while studying.", "float_text_grey")
 
                 if the_person.judge_outfit(the_person.outfit):
                     pass #She's fine with what she's now "wearing"
@@ -1065,7 +1065,7 @@ label student_punish_hub_label(the_person):
         mc.name "I think it's clear that you've been taking your studies very seriously. Well done [the_person.title]."
         $ the_person.change_love(2)
         the_person "Thank you [the_person.mc_title]! It feels so good to be doing well at this for once!"
-        $ mc.log_event(the_person.title or "She" + " feels encouraged by her success, and learned a lot!", "float_text_grey")
+        $ mc.log_event((the_person.title or "She") + " feels encouraged by her success, and learned a lot!", "float_text_grey")
         # Great success
 
     elif total_failures == 4:
@@ -1078,13 +1078,13 @@ label student_punish_hub_label(the_person):
             the_person "I'm sorry, I promise I'm going to spend all night studying so I can impress you next time."
             $ the_person.change_obedience(2)
 
-        $ mc.log_event(the_person.title or "She" + " didn't learn very much at all.", "float_text_grey")
+        $ mc.log_event((the_person.title or "She") + " didn't learn very much at all.", "float_text_grey")
 
     else:
         # Normal
         mc.name "I think it's clear there is room for improvement, but you're making progress. Good job [the_person.title]."
         the_person "Thanks [the_person.mc_title]. I'm trying my best!"
-        $ mc.log_event(the_person.title or "She" + " feels encouraged by her success, but there's still more she needs to learn.", "float_text_grey")
+        $ mc.log_event((the_person.title or "She") + " feels encouraged by her success, but there's still more she needs to learn.", "float_text_grey")
 
     $ the_person.event_triggers_dict["current_marks"] = the_person.event_triggers_dict.get("current_marks",0) + total_successes
     return
