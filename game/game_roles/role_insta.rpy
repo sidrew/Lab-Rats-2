@@ -271,8 +271,9 @@ label dm_option_specific_outfit(the_person):
             return False
         else:
             "You put together a list of links to stores she could buy everything from."
-            $ add_dm_outfit_response(the_person, outfit)
+            $ add_dm_outfit_response(the_person, the_outfit)
             return True
+    return False
 
 label dm_option_specific_outfit_response(the_person, the_outfit):
     "Your phone buzzes: it's a response from [the_person.title] on InstaPic."
