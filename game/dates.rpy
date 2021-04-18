@@ -45,6 +45,9 @@ label date_conversation(the_person):
     return kiss_after
 
 label lunch_date_label(the_person): #Could technically be included in the planning phase, but broken out to fit the structure of the other events.
+    # change out of uniform (or punishment uniform when going to lunch)
+    $ the_person.apply_outfit(the_person.planned_outfit)
+
     the_person "So, where do you want to go?"
     $ the_type = get_random_from_list(["Chinese food","Thai food","Italian food","sushi","Korean barbecue","pizza","sandwiches"])
     mc.name "I know a nice place nearby. How do you like [the_type]?"
@@ -106,6 +109,7 @@ label lunch_date_label(the_person): #Could technically be included in the planni
         mc.name "Yeah, we should. I'll see you around."
 
     $ clear_scene()
+    $ the_person.apply_outfit() # change back to uniform if needed
     $ mc.location.show_background() # leave restaurant and move back to original location
     call advance_time() from _call_advance_time_29
     return
