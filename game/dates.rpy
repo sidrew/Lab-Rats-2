@@ -45,14 +45,14 @@ label date_conversation(the_person):
     return kiss_after
 
 label lunch_date_label(the_person): #Could technically be included in the planning phase, but broken out to fit the structure of the other events.
-    # change out of uniform (or punishment uniform when going to lunch)
-    $ the_person.apply_outfit(the_person.planned_outfit)
-
     the_person "So, where do you want to go?"
     $ the_type = get_random_from_list(["Chinese food","Thai food","Italian food","sushi","Korean barbecue","pizza","sandwiches"])
     mc.name "I know a nice place nearby. How do you like [the_type]?"
     the_person "No complaints, as long as it's good!"
     mc.name "Alright, let's go then!"
+    # change out of uniform (or punishment uniform when going to lunch)
+    $ the_person.apply_outfit(the_person.planned_outfit)
+    $ the_person.draw_person()
     "You and [the_person.title] walk together to a little lunch place nearby. You chat comfortably with each other as you walk."
     $ renpy.show("restaurant", what = restaraunt_background)
     "A bell on the door jingles as you walk in."
