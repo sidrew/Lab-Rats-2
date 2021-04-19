@@ -105,6 +105,8 @@
             return False
         elif the_person.event_triggers_dict.get("mom_replacement_approach", "seduce") != "tits":
             return False
+        elif rank_tits(the_person.tits) >= 8:  # they are already big enough
+            return False
         elif mc.location.get_person_count() > 1:
             return "Not while other people are around."
         else:
@@ -1421,7 +1423,7 @@ label mom_work_secretary_replacement_intro(the_person): #TODO: Set up as an on_t
 
 
                             menu:
-                                "Get bigger tits":
+                                "Get bigger tits" if rank_tits(the_person.tits) < 8:
                                     mc.name "Well, there's one more thing you could do..."
                                     the_person "What is it? What do you think I should do?"
                                     call mom_work_secretary_replacement_intro_bigger_tits(the_person) from _call_mom_work_secretary_replacement_intro_bigger_tits
@@ -1442,7 +1444,7 @@ label mom_work_secretary_replacement_intro(the_person): #TODO: Set up as an on_t
             $ add_mom_work_seduce_action(the_person)
 
 
-        "Get bigger tits" if the_person.tits != "FF" and not the_person.event_triggers_dict.get("getting boobjob", False):
+        "Get bigger tits" if rank_tits(the_person.tits) < 8 and not the_person.event_triggers_dict.get("getting boobjob", False):
             mc.name "Well, I have an idea..."
             the_person "I knew you would! Tell me, what do you think I should do?"
             mc.name "Your boss hired you for this job because he likes how you look, so you should give him some more to look at."
