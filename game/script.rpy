@@ -231,6 +231,11 @@ init 0 python:
         return people_list
 
     def main_loop_pick_talk_event(person):
+        out_of_uniform = next((x for x in person.on_talk_event_list if x.name == "Uniform Disobedience LTE" and x.is_action_enabled(person)), None)
+        if out_of_uniform: # out of uniform takes precedence of other LTE events
+            person.on_talk_event_list.remove(out_of_uniform)
+            return out_of_uniform
+
         enabled_talk_events = []
         for possible_talk_event in person.on_talk_event_list:
             if possible_talk_event.is_action_enabled(person):
