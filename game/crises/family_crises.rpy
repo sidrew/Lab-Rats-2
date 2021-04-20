@@ -1868,11 +1868,11 @@ label cousin_tease_crisis_label():
                             $ the_person.change_obedience(3)
                             $ the_person.change_slut_temp(2)
 
-                        "Blackmail her for some nudes.\nBlackmailed too recently. (disabled)" if the_person.event_triggers_dict.get("blackmail_level",-1) > 0 and the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 > day:
+                        "Blackmail her for some nudes\nBlackmailed too recently. (disabled)" if the_person.event_triggers_dict.get("blackmail_level",-1) > 0 and the_person.event_triggers_dict.get("last_blackmailed", -5) + 5 > day:
                             pass
 
 
-                        "Tell her no.":
+                        "Tell her no":
                             mc.name "You think I'd want to pay to see your tits? You should be paying me."
                             $ the_person.change_love(-1)
                             the_person "Whatever, I can make the cash somewhere else."
