@@ -1,6 +1,6 @@
 # This file holds the initialization information and general storyline info for all of the roles in the game. Individual roles and individual files.
 init -1 python:
-    pay_strip_pose_list = [["Turn around","walking_away"],["Turn around and look back","back_peek"],["Hands down, ass up.","standing_doggy"],["Be flirty","stand2"],["Be casual","stand3"],["Strike a pose","stand4"],["Move your hands out of the way","stand5"]]
+    pay_strip_pose_list = [["Turn around","walking_away"],["Turn around and look back","back_peek"],["Hands down, ass up","standing_doggy"],["Be flirty","stand2"],["Be casual","stand3"],["Strike a pose","stand4"],["Move your hands out of the way","stand5"]]
 
     def prostitute_requirement(the_person):
         if mc.business.funds < 200:
@@ -333,7 +333,7 @@ label pay_strip_scene(the_person):
     #Optional: Some way to ask the person to change into a different outfit.
     #Optional: Way to progress from strip tease to sex and/or masturbation.
 
-    $ pose_list = [["Turn around","walking_away"],["Turn around and look back","back_peek"],["Be flirty","stand2"],["Be casual","stand3"],["Strike a pose","stand4"],["Move your hands out of the way","stand5"],["Hands down, ass up.","standing_doggy"]]
+    $ pose_list = [["Turn around","walking_away"],["Turn around and look back","back_peek"],["Be flirty","stand2"],["Be casual","stand3"],["Strike a pose","stand4"],["Move your hands out of the way","stand5"],["Hands down, ass up","standing_doggy"]]
     $ pose_dances = {} #Dict that maps poses to animations that look good for them.
 
 
