@@ -1660,21 +1660,21 @@ init -2 python:
 
         def wants_creampie(self): #Returns True if the girl is going to use dialogue where she wants you to creampie her, False if she's going to be angry about it. Used to help keep dialogue similar throughout events
             creampie_threshold = 75
-            effective_slut = self.effective_sluttiness("creampie") + (10*self.get_opinion_score("creampies"))
             if self.on_birth_control:
-                effective_slut += -20 #Much more willing to let you creampie her if she's on BC
+                creampie_threshold -= 20 #Much more willing to let you creampie her if she's on BC
 
             if affair_role in self.special_role:
-                effective_slut += 5 - (10 * self.get_opinion_score("cheating on men"))
+                creampie_threshold += 5 - (10 * self.get_opinion_score("cheating on men"))
             elif self.relationship != "Single": # Less likely to want to be creampied if she's in a relationship, but cares less if you're officially cheating.
-                effective_slut += 15 - (10 * self.get_opinion_score("cheating on men"))
+                creampie_threshold += 15 - (10 * self.get_opinion_score("cheating on men"))
 
             if girlfriend_role in self.special_role:
-                effective_slut += -(10 + (5*self.get_opinion_score("being submissive"))) #Desire to be a "good wife"
+                creampie_threshold -= 10 + (5 * self.get_opinion_score("being submissive")) #Desire to be a "good wife"
 
-            if self.is_family():
-                effective_slut += 10 - (10 * self.get_opinion_score("incest"))
+            if self.is_family(): # If she hates incest, it increases the treshhold
+                creampie_threshold += 10 - (10 * self.get_opinion_score("incest"))
 
+            effective_slut = self.effective_sluttiness("creampie") + (10*self.get_opinion_score("creampies"))
             if effective_slut >= creampie_threshold or self.event_triggers_dict.get("preg_knows", False):
                 return True
 
