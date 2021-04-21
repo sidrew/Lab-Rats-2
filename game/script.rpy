@@ -502,12 +502,12 @@ label advance_time:
             $ clear_scene()
             $ clear_list.append(crisis)
         $ count += 1
-    $ del crisis
+        $ del crisis
     $ mc.location.show_background()
     python: #Needs to be a different python block, otherwise the rest of the block is not called when the action returns.
         for crisis in clear_list:
             mc.business.mandatory_crises_list.remove(crisis) #Clean up the list.
-
+        del clear_list
 
     #Once mandatory crises are managed we may or may not run a random crisis to keep things interesting.
     if renpy.random.randint(0,100) < 10: #ie. run a crisis 10% of the time.
@@ -569,11 +569,12 @@ label advance_time:
                 $ clear_scene()
                 $ clear_list.append(crisis)
             $ count += 1
+            $ del crisis
         $ mc.location.show_background()
         python: #Needs to be a different python block, otherwise the rest of the block is not called when the action returns.
             for crisis in clear_list:
                 mc.business.mandatory_morning_crises_list.remove(crisis) #Clean up the list.
-
+            del clear_list
 
         if renpy.random.randint(0,100) < 15: # We run morning crises 5% of all mornings
             python:
