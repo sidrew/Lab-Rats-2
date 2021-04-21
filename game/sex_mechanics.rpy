@@ -582,10 +582,10 @@ label sex_description(the_person, the_position, the_object, private = True, repo
         $ the_position.call_orgasm(the_person, mc.location, the_object)
         $ mc.listener_system.fire_event("girl_climax", the_person = the_person, the_position = the_position, the_object = the_object)
         if the_person.effective_sluttiness(the_position.associated_taboo) < the_position.slut_requirement: #She was ordered to do this. Bonus sluttiness if she had to be ordered to do this position("I must actually be a slut deep down...")
-            $ the_person.change_slut_temp(8 + the_person.get_opinion_score("being submissive"))
-            $ the_person.change_happiness(8 + the_person.get_opinion_score("being submissive"))
+            $ the_person.change_slut_temp(3 + the_person.get_opinion_score("being submissive"))
+            $ the_person.change_happiness(5 + the_person.get_opinion_score("being submissive"))
         else:
-            $ the_person.change_slut_temp(5)
+            $ the_person.change_slut_temp(3)
             $ the_person.change_happiness(5)
 
         $ the_person.change_arousal(-the_person.arousal/2) #Halve their arousal, making future orgasms easier (Note that if they cum their arousal drops to 0 after the encounter, otherwise it's halved and left there).
