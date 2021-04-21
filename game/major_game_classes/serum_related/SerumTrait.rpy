@@ -55,6 +55,28 @@ init -2 python:
 
             self.is_side_effect = is_side_effect #If true this trait is a side effect and not counted towards serum max traits and such. It also cannot be added to a serum on purpose.
 
+        def __cmp__(self, other):
+            if isinstance(other, other.__class__):
+                if self.name == other.name:
+                    return 0
+
+            if self.__hash__() < other.__hash__():
+                return -1
+            else:
+                return 1
+
+        def __hash__(self):
+            return hash(self.name)
+
+        def __eq__(self, other):
+            if isinstance(self, other.__class__):
+                return self.name == other.name
+            return False
+
+        def __ne__(self, other):
+            if isinstance(self, other.__class__):
+                return self.name != other.name
+            return True
 
         def run_on_apply(self, the_person, the_serum, add_to_log = True):
             if self.on_apply is not None:
