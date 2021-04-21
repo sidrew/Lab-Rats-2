@@ -16,7 +16,7 @@ screen employee_overview(white_list = None, black_list = None, person_select = F
 
     python:
         if division_select == "none":
-            showing_team = [] + mc.business.research_team + mc.business.production_team + mc.business.supply_team + mc.business.market_team + mc.business.hr_team
+            showing_team = mc.business.research_team + mc.business.production_team + mc.business.supply_team + mc.business.market_team + mc.business.hr_team
             division_name = "Everyone"
         elif division_select == "r":
             showing_team = mc.business.research_team #ie. take a shallow copy, so we can modify the team without everything exploding.
