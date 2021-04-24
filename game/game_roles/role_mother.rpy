@@ -135,6 +135,26 @@
         mc.business.mandatory_morning_crises_list.append(mom_weekly_pay_action)
         return
 
+    def pick_interview_outfit(person):
+        interview_outfit = person.event_triggers_dict.get("mom_work_promotion_outfit", None)
+        if interview_outfit is None:
+            if person.event_triggers_dict.get("mom_work_promotion_outfit_slutty", False):
+                interview_outfit = business_wardrobe.get_outfit_with_name("business_slutty")
+                person.event_triggers_dict["mom_work_promotion_outfit"] = interview_outfit.get_copy()
+
+            else:
+                interview_outfit = business_wardrobe.get_outfit_with_name("business_conservative")
+                person.event_triggers_dict["mom_work_promotion_outfit"] = interview_outfit.get_copy()
+        return
+
+    def wear_promotion_outfit(person, is_planned = False):
+        interview_outfit = person.event_triggers_dict.get("mom_work_promotion_outfit", None)
+        if interview_outfit:
+            if is_planned:
+                person.planned_outfit = interview_outfit.get_copy()
+            person.apply_outfit(interview_outfit)
+        return
+
     def add_mom_work_promotion_one_before_crisis():
         mom_work_promotion_one_before_crisis = Action("mom work promotion one before", mom_work_promotion_one_before_requirement, "mom_work_promotion_one_before", args = the_person, requirement_args = renpy.random.randint(day+3, day+8))
         mc.business.mandatory_morning_crises_list.append(mom_work_promotion_one_before_crisis)
@@ -830,20 +850,9 @@ label mom_work_promotion_one_before(the_person): # She tells you in the morning 
     "There's a knock on your door shortly after you wake up."
     the_person "[the_person.mc_title], it's me. Do you mind if I come in?"
     mc.name "Come in [the_person.title]."
-    $ interview_outfit = the_person.event_triggers_dict.get("mom_work_promotion_outfit", None)
-    if interview_outfit is None:
-        if the_person.event_triggers_dict.get("mom_work_promotion_outfit_slutty", False):
-            $ interview_outfit = business_wardrobe.get_outfit_with_name("business_slutty")
-            $ the_person.event_triggers_dict["mom_work_promotion_outfit"] = interview_outfit.get_copy()
-
-        else:
-            $ interview_outfit = business_wardrobe.get_outfit_with_name("business_conservative")
-            $ the_person.event_triggers_dict["mom_work_promotion_outfit"] = interview_outfit.get_copy()
-
-    $ the_person.planned_outfit = interview_outfit
-    $ the_person.apply_outfit(interview_outfit)
+    $ pick_interview_outfit(the_person)
+    $ wear_promotion_outfit(the_person, is_planned = True)
     $ the_person.draw_person()
-    $ interview_outfit = None
     the_person "I've got my first interview for my promotion today, so I'm heading to the office early."
     the_person "How do I look? Is it okay?"
     $ the_person.draw_person(position = "back_peek")
@@ -952,16 +961,14 @@ label mom_work_promotion_two_prep(the_person):
     $ generalised_strip_description(the_person, the_person.outfit.get_full_strip_list(), position = "walking_away")
     $ mc.change_locked_clarity(10)
 
-    $ interview_uniform = the_person.event_triggers_dict.get("mom_work_promotion_outfit", None)
     "Once she's naked she starts to dig around in her wardrobe."
     the_person "Now let's see, where did I hang it up..."
 
     if the_person.event_triggers_dict.get("mom_work_promotion_outfit_slutty", False):
         "She pulls a hanger out of the wardrobe."
         the_person "Ah, here it is."
-        $ interview_uniform = the_person.event_triggers_dict.get("mom_work_promotion_outfit")
+        $ wear_promotion_outfit(the_person)
         $ mc.change_locked_clarity(10)
-        $ the_person.apply_outfit(interview_uniform)
         $ the_person.draw_person(emotion = "happy")
         "[the_person.title] slides the outfit on, then turns around to you and smiles."
 
@@ -980,9 +987,8 @@ label mom_work_promotion_two_prep(the_person):
                 the_person "Okay, let me try putting on something more... revealing. One moment."
                 "She turns back to her wardrobe and digs around. She pulls out a few pieces of clothing and put them on the bed."
                 the_person "Let's try this..."
-                $ interview_uniform = business_wardrobe.get_outfit_with_name("business_slutty")
                 $ the_person.event_triggers_dict["mom_work_promotion_outfit_slutty"] = True
-                $ the_person.apply_outfit(interview_uniform)
+                $ the_person.apply_outfit(business_wardrobe.get_outfit_with_name("business_slutty"))
                 $ mc.change_locked_clarity(10)
                 "[the_person.title] slides on her new outfit in front of you."
                 $ the_person.draw_person(emotion = "happy")
@@ -992,14 +998,11 @@ label mom_work_promotion_two_prep(the_person):
             "That outfit is fine":
                 mc.name "No reason, I was just curious."
                 "She smiles and turns back to the wardrobe. After a moment she pulls out a hanger with the outfit on it."
-                $ interview_uniform = the_person.event_triggers_dict.get("mom_work_promotion_outfit") # This is guaranteed to exist by the step 1 before event.
-                $ the_person.apply_outfit(interview_uniform)
                 $ mc.change_locked_clarity(10)
                 "She slides the outfit on in front of you."
+                $ wear_promotion_outfit(the_person)
                 $ the_person.draw_person(emotion = "happy")
                 the_person "There, now I'm feeling professional."
-
-    $ interview_uniform = None
 
     $ the_person.draw_person(position = "sitting")
     "[the_person.possessive_title] sits back down on the bed and crosses her legs."
@@ -1128,6 +1131,7 @@ label mom_work_promotion_two(the_person): # Based on what you tell her to do the
     else:
         $ the_person.event_triggers_dict["mom_work_secretary_promotion"] = False
 
+    $ wear_promotion_outfit(the_person, is_planned = True)
     $ add_mom_work_promotion_two_report_crisis(the_person)
     return
 
