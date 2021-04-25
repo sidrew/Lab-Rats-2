@@ -280,17 +280,17 @@ init -2 python:
             return sorted(self.lower_body, key=lambda clothing: clothing.layer)
 
         def get_upper_top_layer(self):
-            if self.get_upper_ordered():
+            if self.upper_body:
                 return self.get_upper_ordered()[-1]
             return None
 
         def get_lower_top_layer(self):
-            if self.get_lower_ordered():
+            if self.lower_body:
                 return self.get_lower_ordered()[-1]
             return None
 
         def get_feet_top_layer(self):
-            if self.get_feet_ordered():
+            if self.feet:
                 return self.get_feet_ordered()[-1]
             return None
 
@@ -394,33 +394,19 @@ init -2 python:
 
         def is_item_unanchored(self, the_clothing, half_off_instead = False): #Returns true if the clothing item passed is unanchored, ie. could be logically taken off.
             if the_clothing in self.upper_body:
-                if the_clothing in self.get_upper_unanchored(half_off_instead):
-                    return True
-                else:
-                    return False
-
+                return the_clothing in self.get_upper_unanchored(half_off_instead)
             elif the_clothing in self.lower_body:
-                if the_clothing in self.get_lower_unanchored(half_off_instead):
-                    return True
-                else:
-                    return False
-
+                return the_clothing in self.get_lower_unanchored(half_off_instead)
             elif the_clothing in self.feet:
-                if the_clothing in self.get_foot_unanchored(half_off_instead):
-                    return True
-                else:
-                    return False
-
-            else:
-                return True
+                return the_clothing in self.get_foot_unanchored(half_off_instead)
+            return True
 
         def get_upper_unanchored(self, half_off_instead = False):
             return_list = []
-            for top in reversed(sorted(self.upper_body, key=lambda clothing: clothing.layer)):
+            for top in reversed(self.get_upper_ordered()):
                 if top.has_extension is None or self.is_item_unanchored(top.has_extension, half_off_instead): #Clothing items that cover two slots (dresses) are unanchored if both halves are unanchored.
                     if not half_off_instead or (half_off_instead and top.can_be_half_off):
                         return_list.append(top) #Always add the first item because the top is, by definition, unanchored
-
 
                 if top.anchor_below and not (half_off_instead and top.half_off and top.half_off_gives_access):
                     break #Search the list, starting at the outermost item, until you find something that anchors the stuff below it.
@@ -428,7 +414,7 @@ init -2 python:
 
         def get_lower_unanchored(self, half_off_instead = False):
             return_list = []
-            for bottom in reversed(sorted(self.lower_body, key=lambda clothing: clothing.layer)):
+            for bottom in reversed(self.get_lower_ordered()):
                 if bottom.has_extension is None or self.is_item_unanchored(bottom.has_extension, half_off_instead):
                     if not half_off_instead or (half_off_instead and bottom.can_be_half_off):
                         return_list.append(bottom)
@@ -439,7 +425,7 @@ init -2 python:
 
         def get_foot_unanchored(self, half_off_instead = False):
             return_list = []
-            for foot in reversed(sorted(self.feet, key=lambda clothing: clothing.layer)):
+            for foot in reversed(self.get_feet_ordered()):
                 if foot.has_extension is None or self.is_item_unanchored(foot.has_extension, half_off_instead):
                     if not half_off_instead or (half_off_instead and foot.can_be_half_off):
                         return_list.append(foot)
@@ -450,59 +436,53 @@ init -2 python:
 
 
         def vagina_available(self): ## Doubles for asshole for anal.
-            reachable = True
-            for cloth in self.lower_body:
-                if cloth.anchor_below and not (cloth.half_off and cloth.half_off_gives_access):
-                    reachable = False
-            return reachable
+            for cloth in [x for x in self.lower_body if x.anchor_below]:
+                if not (cloth.half_off and cloth.half_off_gives_access):
+                    return False
+            return True
 
         def vagina_visible(self):
-            visible = True
-            for cloth in self.lower_body:
-                if cloth.hide_below and not (cloth.half_off and cloth.half_off_reveals):
-                    visible = False
-            return visible
+            for cloth in [x for x in self.lower_body if x.hide_below]:
+                if not (cloth.half_off and cloth.half_off_reveals):
+                    return False
+            return True
 
         def tits_available(self):
-            reachable = True
-            for cloth in self.upper_body:
-                if cloth.anchor_below and not (cloth.half_off and cloth.half_off_gives_access):
-                    reachable = False
-            return reachable
+            for cloth in [x for x in self.upper_body if x.anchor_below]:
+                if not (cloth.half_off and cloth.half_off_gives_access):
+                    return False
+            return True
 
         def tits_visible(self):
-            visible = True
-            for cloth in self.upper_body:
-                if cloth.hide_below and not (cloth.half_off and cloth.half_off_reveals):
-                    visible = False
-            return visible
+            for cloth in [x for x in self.upper_body if x.hide_below]:
+                if not (cloth.half_off and cloth.half_off_reveals):
+                    return False
+            return True
 
         def underwear_visible(self):
-            if (self.wearing_bra and not self.bra_covered()) or (self.wearing_panties() and not self.panties_covered()):
-                return True
-            else:
-                return False
+            return (self.wearing_bra and not self.bra_covered()) or \
+                    (self.wearing_panties() and not self.panties_covered())
 
         def wearing_bra(self):
-            if self.get_upper_ordered():
+            if self.upper_body:
                 if self.get_upper_ordered()[0].underwear:
                     return True
             return False
 
         def get_bra(self): #returns our bra object if one exists, None otherwise
-            if self.get_upper_ordered():
+            if self.upper_body:
                 if self.get_upper_ordered()[0].underwear:
                     return self.get_upper_ordered()[0]
             return None
 
         def wearing_panties(self):
-            if self.get_lower_ordered():
+            if self.lower_body:
                 if self.get_lower_ordered()[0].underwear:
                     return True
             return False
 
         def get_panties(self):
-            if self.get_lower_ordered():
+            if self.lower_body:
                 if self.get_lower_ordered()[0].underwear:
                     return self.get_lower_ordered()[0]
             return None
@@ -514,10 +494,7 @@ init -2 python:
                         return False
                     elif cloth.hide_below and not (cloth.half_off and cloth.half_off_reveals):
                         return True
-                    else:
-                        pass # Check the next layer
-            else:
-                return False
+            return False
 
         def panties_covered(self):
             if self.wearing_panties():
@@ -526,28 +503,16 @@ init -2 python:
                         return False
                     elif cloth.hide_below and not (cloth.half_off and cloth.half_off_reveals):
                         return True
-                    else:
-                        pass # Check the next layer
-            else:
-                return False
+            return False
 
         def is_suitable_underwear_set(self): #Returns true if the outfit could qualify as an underwear set ie. Only layer 1 clothing.
-            for cloth in self.accessories + self.upper_body + self.lower_body + self.feet:
-                if cloth.layer > 1:
-                    return False
-            return True
+            return not any(x for x in self.accessories + self.upper_body + self.lower_body + self.feet if x.layer > 1)
 
         def is_suitable_overwear_set(self): #Returns true if the outfit could qualify as an overwear set ie. contains no layer 1 clothing.
-            for cloth in self.accessories + self.upper_body + self.lower_body + self.feet:
-                if cloth.layer < 2:
-                    return False
-            return True
+            return not any(x for x in self.accessories + self.upper_body + self.lower_body + self.feet if x.layer < 2)
 
         def get_total_slut_modifiers(self): #Calculates the sluttiness boost purely do to the different pieces of clothing and not what is hidden/revealed.
-            new_score = 0
-            for cloth in self.accessories + self.upper_body + self.lower_body + self.feet: #Add the extra sluttiness values of any of the pieces of clothign we're wearing.
-                new_score += cloth.slut_value
-            return new_score
+            return sum(x.slut_value for x in self.accessories + self.upper_body + self.lower_body + self.feet)
 
         def get_underwear_slut_score(self): #Calculates the sluttiness of this outfit assuming it's an underwear set. We assume a modest overwear set is used (ie. one that covers visibility).
             new_score = 0
@@ -590,9 +555,9 @@ init -2 python:
                 else: #We aren't wearing a bra but it would have helped.
                     new_score += 10
 
-            if self.vagina_available(): # You can reach your tits easily for a titfuck.
+            if self.vagina_available(): # You can reach your vagina easily.
                 new_score += 20
-            if self.vagina_visible(): # Everyone can see your tits clearly.
+            if self.vagina_visible(): # Everyone can see your vagina clearly.
                 new_score += 20
             else:
                 if self.wearing_panties():
@@ -640,38 +605,31 @@ init -2 python:
             while keep_stripping:
                 keep_stripping = False
                 item = test_outfit.remove_random_upper(top_layer_first = True, do_not_remove = True)
-                if item is not None:
-                    if item.underwear:
+                if item is not None and not item.underwear:
+                    test_outfit.remove_clothing(item)
+                    if avoid_nudity and ((visible_enough and self.tits_visible()) or self.tits_available()):
+                        test_outfit.add_upper(item) #Stripping this would result in nudity, which we need to avoid.
                         pass
+                    elif visible_enough and (self.wearing_bra() and not self.bra_covered()) or self.tits_visible():
+                        items_to_strip.append(item)
                     else:
-                        test_outfit.remove_clothing(item)
-                        if avoid_nudity and ((visible_enough and self.tits_visible()) or self.tits_available()):
-                            test_outfit.add_upper(item) #Stripping this would result in nudity, which we need to avoid.
-                            pass
-                        elif visible_enough and (self.wearing_bra() and not self.bra_covered()) or self.tits_visible():
-                            items_to_strip.append(item)
-                        else:
-                            items_to_strip.append(item)
-                            keep_stripping = True
-
+                        items_to_strip.append(item)
+                        keep_stripping = True
 
             keep_stripping = not ((self.wearing_panties() and not self.panties_covered()) or self.vagina_visible())
             while keep_stripping:
                 keep_stripping = False
                 item = test_outfit.remove_random_lower(top_layer_first = True, do_not_remove = True)
-                if item is not None:
-                    if item.underwear:
+                if item is not None and not item.underwear:
+                    test_outfit.remove_clothing(item)
+                    if avoid_nudity and ((visible_enough and self.vagina_visible()) or self.vagina_available()):
+                        test_outfit.add_lower(item) #Stripping this would result in nudity, which we need to avoid.
                         pass
+                    elif visible_enough and (self.wearing_panties() and not self.panties_covered()) or self.vagina_visible():
+                        items_to_strip.append(item)
                     else:
-                        test_outfit.remove_clothing(item)
-                        if avoid_nudity and ((visible_enough and self.vagina_visible()) or self.vagina_available()):
-                            test_outfit.add_lower(item) #Stripping this would result in nudity, which we need to avoid.
-                            pass
-                        elif visible_enough and (self.wearing_panties() and not self.panties_covered()) or self.vagina_visible():
-                            items_to_strip.append(item)
-                        else:
-                            items_to_strip.append(item)
-                            keep_stripping = True
+                        items_to_strip.append(item)
+                        keep_stripping = True
             return items_to_strip
 
         def strip_to_underwear(self, visible_enough = True, avoid_nudity = False): #Used to off screen strip a girl down to her underwear, or completely if she isn't wearing any.
@@ -755,7 +713,7 @@ init -2 python:
                             if item.can_be_half_off and item.half_off_gives_access:
                                 if anchored not in return_list:
                                     return_list.append(anchored)
-                                anchord = None #Something would anchor the clothing, but it can be removed easily enough.
+                                anchored = None #Something would anchor the clothing, but it can be removed easily enough.
                             else:
                                 possible = False #Something is in the way and we can't get it off because of something else
                                 break
@@ -782,9 +740,9 @@ init -2 python:
 
         def can_half_off_to_vagina(self, visible_enough = True):
             # Returns true if all of the clothing blocking her vagina can be moved half-off to gain access
-            if (visible_enough and self.vagina_visible()) or (not visible_enough and self.vagina_available()) or self.get_half_off_to_vagina_list(visible_enough = visible_enough):
-                    return True
-            return False
+            return (visible_enough and self.vagina_visible()) or \
+                (not visible_enough and self.vagina_available()) or  \
+                self.get_half_off_to_vagina_list(visible_enough = visible_enough)
 
         def get_half_off_to_vagina_list(self, visible_enough = True):
             # If possible returns the list of clothing items, from outer to inner, that must be half-offed to gain view/access to her vagina
@@ -802,7 +760,7 @@ init -2 python:
                             if item.can_be_half_off and item.half_off_gives_access:
                                 if anchored not in return_list:
                                     return_list.append(anchored)
-                                anchord = None #Something would anchor the clothing, but it can be removed easily enough.
+                                anchored = None #Something would anchor the clothing, but it can be removed easily enough.
                             else:
                                 possible = False #Something is in the way and we can't get it off because of something else
                                 break
@@ -829,8 +787,5 @@ init -2 python:
                 return return_list
 
         def cum_covered(self): #Returns True if the person has some cum clothing item as part of their outfit. #TODO: Also have this check layer/visibility, so girls can be creampied but just put panties back on and have nobody notice.
-            if self.has_clothing(ass_cum) or self.has_clothing(tits_cum) or self.has_clothing(stomach_cum) or self.has_clothing(face_cum):
-                #NOTE: Does not include "internal" cum:  creampie_cum and mouth_cum
-                return True
-
-            return False
+            return self.has_clothing(ass_cum) or self.has_clothing(tits_cum) or \
+                self.has_clothing(stomach_cum) or self.has_clothing(face_cum)
