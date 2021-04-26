@@ -949,7 +949,7 @@ label nightime_grope(the_person, masturbating = False):
 
             if not awake and panties_item is not None and the_person.outfit.is_item_unanchored(panties_item, half_off_instead = True) and not panties_item.half_off:
                 menu:
-                    "Move her [panties_item.display_name].":
+                    "Move her [panties_item.display_name]":
                         "You hook a finger under her [panties_item.display_name] and slowly slide them away."
                         $ the_person.draw_animated_removal(panties_item, position = "missionary", half_off_instead = True) #TODO: Decide if we need position info here
                         $ mc.change_locked_clarity(10)
@@ -981,7 +981,7 @@ label nightime_grope(the_person, masturbating = False):
                             "[the_person.title] murmurs something, but sleeps on peacefully."
 
 
-                    "Leave it alone.":
+                    "Leave it alone":
                         "Your head wins out over your dick, and you decide not to risk it."
                         "You continue to stroke her pussy through her [panties_item.display_name] instead."
 
