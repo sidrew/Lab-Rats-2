@@ -26,8 +26,7 @@
             return False #No interview on the weekend
         elif mom.has_limited_time_event("sleeping_walk_in_label"):
             return False #she is sleeping in
-        else:
-            return True
+        return True
 
     def mom_work_promotion_one_report_requirement(the_person, start_day):
         if not the_person in kitchen.people + mom_bedroom.people: # only talk at home
@@ -41,16 +40,14 @@
             return False
         elif time_of_day != 4:
             return False
-        else:
-            return True
+        return True
 
     def mom_work_promotion_two_prep_requirement(the_person):
         if not the_person.event_triggers_dict.get("mom_work_promotion_two_prep_enabled", False):
             return False #Not visible if not enabled
         elif time_of_day < 3:
             return "Too early to prepare."
-        else:
-            return True
+        return True
 
     def mom_work_promotion_two_requirement(start_day):
         if day < start_day:
@@ -59,8 +56,7 @@
             return False
         elif mom.has_limited_time_event("sleeping_walk_in_label"):
             return False #she is sleeping in
-        else:
-            return True
+        return True
 
     def mom_work_promotion_two_report_requirement(the_person):
         if the_person in kitchen.people or the_person in mom_bedroom.people: #Only talk about this at home
@@ -78,8 +74,7 @@
             return False
         elif the_person.love < 10:
             return False
-        else:
-            return True
+        return True
 
     def mom_office_person_request_requirement():
         if time_of_day >= 4 or time_of_day == 0:
@@ -95,8 +90,7 @@
             return False
         elif the_person.effective_sluttiness() < 30 or the_person.obedience < 100 or the_person.love < 10:
             return False
-        else:
-            return True
+        return True
 
     def mom_work_secretary_replacement_bigger_tits_reintro_requirement(the_person):
         if not the_person.event_triggers_dict.get("mom_work_tit_options_reintro", False):
@@ -109,8 +103,7 @@
             return False
         elif mc.location.get_person_count() > 1:
             return "Not while other people are around."
-        else:
-            return True
+        return True
 
     def mom_work_secretary_replacement_report_requirement(the_person, the_day):
         if day < the_day:
@@ -121,8 +114,9 @@
             return False # She doesn't want to talk about it
         elif (the_person.event_triggers_dict.get("mom_replacement_approach_waiting_for_tits", False) and rank_tits(the_person.tits) <= rank_tits(the_person.event_triggers_dict.get("mom_replacement_approach_waiting_for_tits", False))):
             return False
-        else:
-            return True
+        elif not mc.business.is_open_for_business():
+            return False
+        return True
 
     def mom_got_boobjob_requirement(start_day):
         if day < start_day:
