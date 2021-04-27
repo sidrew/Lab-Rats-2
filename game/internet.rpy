@@ -76,6 +76,7 @@ label browse_internet(is_phone = True): #TODO: Maybe make this a generic functio
     # We may want some static options that can be brought up at any time.
     # TODO: We absolutely want the player to be able to save pictures to their phone and set them as a background. That sounds great.
     #TODO: Provide a bunch of internet browsing options. Later on this leads to "OnlyFanatics" and "InstaPic", but it might start out with just some porn (or a comment about how "normal porn just seems boring now")
+label .continue_browsing:
     if "action_mod_list" in globals():
         call screen enhanced_main_choice_display(build_menu_items(build_phone_menu(), draw_hearts_for_people = False))
     else:
@@ -90,7 +91,7 @@ label browse_internet(is_phone = True): #TODO: Maybe make this a generic functio
         if _return == "Skip Phone":
             return
         else:
-            call browse_internet() from _call_browse_internet_1
+            jump browse_internet.continue_browsing
 
     elif isinstance(_return, Person):
         #TODO: We need way more search focused stuff.
@@ -109,7 +110,7 @@ label browse_internet(is_phone = True): #TODO: Maybe make this a generic functio
 
         if return_to_phone:
             $ mc.end_text_convo()
-            call browse_internet() from _call_browse_internet_2
+            jump browse_internet.continue_browsing
     else:
         pass #It was an action, we've taken care of it already.
     return
@@ -209,7 +210,6 @@ label text_flirt_label(the_person):
                     $ the_person.draw_person(position = "back_peek", the_animation = None)
                     "She sends you another pic."
                     the_person "Don't make me wait too long!"
-
                 elif the_person.has_role(girlfriend_role):
                     if the_person.effective_sluttiness() >= 30:
                         the_person "You're so bad for me! One second..."
@@ -257,6 +257,7 @@ label text_flirt_label(the_person):
                         mc.name "You know, a picture of yourself. Show me something fun."
                         "There's a long pause."
                         the_person "Come on [the_person.mc_title], don't be silly. Talk to you later!"
+
                 else:
                     if the_person.effective_sluttiness() >= 50:
                         the_person "I really shouldn't do this, but..."
@@ -281,6 +282,8 @@ label text_flirt_label(the_person):
                     else:
                         "There's a long pause before [the_person.possessive_title] responds."
                         the_person "I'm not sure what you mean [the_person.mc_title]. I need to go, we can talk later okay?"
+
+                $ the_person.apply_outfit()    # restore her outfit
                 # $ the_person.call_dialogue("text_flirt_nudes") #TODO: Personality specific responses
                 $ clear_scene()
 
