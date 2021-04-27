@@ -166,7 +166,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
     $ so_called = False
     $ count = 0
     $ energy_gain_amount = mc.max_energy // 3 #Drops each round, representing your flagging endurance.
-    while not done:
+    while not done:   # maximum of 8 loops
         if the_report.get("girl orgasms", 0) > 0: #TODO: Have some variation to this based on how many times we've looped around.
             $ the_person.change_love(2 + the_person.get_opinion_score("cheating on men"))
             $ the_person.change_slut_temp(1)
@@ -184,7 +184,7 @@ label fuck_date_event(the_person): #A breakout function so we can call the fuck_
 
 
 
-        if mc.energy < 40 and energy_gain_amount <= 20: #Forced to end the fuck date, so we set done to True.
+        if (mc.energy < 40 and energy_gain_amount <= 20) or count > 7: #Forced to end the fuck date, so we set done to True.
             "The spirit is willing, but the flesh is spent. Try as she might [the_person.title] can't coax your erection back to life."
             if girl_came:
                 the_person "Well, I guess that's all I'm going to be drawing out of you for tonight. That was fun."
