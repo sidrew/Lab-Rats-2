@@ -2419,8 +2419,8 @@ label mom_promotion_boss_phase_one(the_secretary):
 
     $ the_daughter = the_wife.generate_daughter(force_live_at_home = True)
 
-    $ the_daughter.set_schedule(mom_office_lobby, [3])
-    $ the_daughter.set_schedule(university, [1,2])
+    $ the_daughter.set_schedule(mom_office_lobby, days = [0, 1, 2, 3, 4], times = [3])
+    $ the_daughter.set_schedule(university, days = [0, 1, 2, 3, 4], times = [1,2])
 
     $ mom.event_triggers_dict["mom_boss_wife"] = the_wife.identifier
     $ mom.event_triggers_dict["mom_boss_daughter"] = the_daughter.identifier
