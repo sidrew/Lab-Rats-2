@@ -1,5 +1,10 @@
 #Not technically a screen, but critical for managing proper access to all of the other screens.
 label outfit_master_manager(*args, **kwargs): #New outfit manager that centralizes exporting, modifying, duplicating, and deleting. Call this and pass any args/kwargs that would normally be passed to outfit_creator.
+
+label .continue_manage_outfit:  # internal loop label
+    # hide existing scene
+    $ clear_scene()
+
     call screen outfit_select_manager(*args, **kwargs)
 
     if _return == "No Return":
@@ -64,5 +69,5 @@ label outfit_master_manager(*args, **kwargs): #New outfit manager that centraliz
 
         $ mc.save_design(outfit, new_outfit_name, outfit_type)
 
-    call outfit_master_manager(*args, **kwargs) from _call_outfit_master_manager #Loop around until the player decides they want to leave.
-    return _return
+    # keep managing outfits until the user is done
+    jump outfit_master_manager.continue_manage_outfit
