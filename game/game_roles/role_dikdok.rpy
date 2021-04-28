@@ -80,7 +80,6 @@ label view_dikdok(the_person):
                 the_person "Here are my 3 quick tricks to blowout lips!"
                 "She proceeds to detail parts of her morning makeup routine."
                 $ clear_scene()
-                pass
 
         elif the_person.effective_sluttiness() < 40: # Starts to get sluttier, starts wearing specific outfits to show off.
             if ran_num == 0:
@@ -121,7 +120,7 @@ label view_dikdok(the_person):
                 $ the_person.draw_person(position = "doggy", the_animation = ass_bob, animation_effect_strength = 0.6)
                 "She keep shaking her butt for her digital audience until the song and the video end."
                 $ the_person.apply_outfit()
-                $ the_person.clear_scene()
+                $ clear_scene()
             else:
                 $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
                 $ the_person.draw_person(position = "kneeling1")
