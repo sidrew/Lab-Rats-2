@@ -34,10 +34,7 @@ init 0 python:
     organisation_policies_list.append(business_size_2_policy)
 
     def business_size_3_requirement():
-        if business_size_2_policy.is_owned():
-            return True
-        else:
-            return False
+        return business_size_2_policy.is_owned()
 
     business_size_3_policy = Policy(name = "Employee Count Improvement Three",
         desc = "Distributed management roles lets you nearly double the employee count of your business. Increases max employee count by 8.",
@@ -49,10 +46,7 @@ init 0 python:
     organisation_policies_list.append(business_size_3_policy)
 
     def business_size_4_requirement():
-        if business_size_3_policy.is_owned():
-            return True
-        else:
-            return False
+        return business_size_3_policy.is_owned()
 
     business_size_4_policy = Policy(name = "Employee Count Improvement Four",
         desc = "Fully automated payroll calculations, benefit management, and productivity tracking allows for a final, massive jump in maximum business size. Increases max employee count by 20.",
@@ -85,10 +79,7 @@ init 0 python:
     organisation_policies_list.append(office_punishment)
 
     def corporal_punishment_policy_requirement():
-        if office_punishment.is_owned():
-            return True
-        else:
-            return False
+        return office_punishment.is_owned()
 
     corporal_punishment = Policy(name = "Corporal Punishment",
         desc = "Updates to the company punishment guidelines allow for punishments involving physical contact. Research into the topic has shown sexual punishment to be extremely effective in cases of severe disobedience.",
@@ -98,10 +89,7 @@ init 0 python:
     organisation_policies_list.append(corporal_punishment)
 
     def strict_enforcement_policy_requirment():
-        if office_punishment.is_owned():
-            return True
-        else:
-            return False
+        return office_punishment.is_owned()
 
     def strict_enforcement_on_day():
         mc.business.change_team_effectiveness(-1*mc.business.get_employee_count())
@@ -115,14 +103,12 @@ init 0 python:
     organisation_policies_list.append(strict_enforcement)
 
     def draconian_enforcement_policy_requirement():
-        if strict_enforcement.is_owned():
-            return True
-        else:
-            return False
+        return strict_enforcement.is_owned()
 
     def draconian_enforcement_on_day():
         for employee in mc.business.get_employee_list():
             employee.change_happiness(-5)
+        return
 
     draconian_enforcement = Policy(name = "Draconian Enforcement",
         desc = "Each policy infraction is to be punished to the utmost tolerable. All infraction severities are increased by one, but the restrictive office environment affects company morale, lowering all empolyee happiness by -5 per day.",
@@ -134,13 +120,11 @@ init 0 python:
     organisation_policies_list.append(draconian_enforcement)
 
     def bureaucratic_nightmare_policy_requirement():
-        if office_punishment.is_owned():
-            return True
-        else:
-            return False
+        return office_punishment.is_owned()
 
     def bureaucratic_nightmare_on_day():
         mc.business.change_team_effectiveness(-1*mc.business.get_employee_count())
+        return
 
     bureaucratic_nightmare = Policy(name = "Bureaucratic Nightmare",
         desc = "Rewriting all company policies to be intentionally vague and misleading creates a work environment where mistakes are practically unavoidable. Allows you to generate minor infractions at will, but the new labyrinthian rules result in business efficency dropping by an additional one per employee each day.",
@@ -161,14 +145,12 @@ init 0 python:
     organisation_policies_list.append(theoretical_research)
 
     def research_journal_subscription_requirement():
-        if theoretical_research.is_owned():
-            return True
-        else:
-            return False
+        return theoretical_research.is_owned()
 
     def research_journal_subscription_on_day():
         if mc.business.is_work_day():
             mc.business.funds -= 30
+        return
 
     research_journal_subscription = Policy(name = "Research Journal Subscription",
         desc = "Ensuring your research team has access to all of the latest research isn't cheap, but it is important if you want to push your own progress further and faster. Converts an additional 5% of idle Research Points into Clarity when your R&D team is idle. Costs $30 a day to maintain your subscription.",
@@ -179,10 +161,7 @@ init 0 python:
     organisation_policies_list.append(research_journal_subscription)
 
     def independent_experimentation_requirement():
-        if theoretical_research.is_owned():
-            return True
-        else:
-            return False
+        return theoretical_research.is_owned()
 
     independent_experimentation = Policy(name = "Independent Experimentation",
         desc = "Make the lab available to your research staff and encourage them to pursue their own experiments when it would otherwise be idle. Requires 5 serum supply per researcher and converts an additional 5% of idle research production into Clarity.",
@@ -195,11 +174,13 @@ init 0 python:
         return True
 
     def office_conduct_guidelines_on_day():
-        if mc.business.is_work_day():
-            for an_employee in mc.business.get_employee_list():
-                if an_employee.sluttiness < 20:
-                    an_employee.change_slut_temp(1, add_to_log = False)
-                    mc.business.change_team_effectiveness(-1)
+        if not mc.business.is_work_day():
+            return
+
+        for an_employee in [x for x in mc.business.get_employee_list() if x.sluttiness < 20]:
+            an_employee.change_slut_temp(1, add_to_log = False)
+            mc.business.change_team_effectiveness(-1)
+        return
 
     office_conduct_guidelines = Policy(name = "Office Conduct Guidelines",
         desc = "Set and distribute guidelines for staff behaviour. Daily emails will remind them to be \"pleasant, open, and receptive to all things.\". Increases all staff Sluttiness by 1 per day, to a maximum of 20. Reduces business effiency by 1 per employee affected.",
@@ -210,20 +191,19 @@ init 0 python:
     organisation_policies_list.append(office_conduct_guidelines)
 
     def mandatory_staff_reading_requirement():
-        if office_conduct_guidelines.is_active():
-            return True
-        else:
-            return False
+        return office_conduct_guidelines.is_active()
 
     def mandatory_staff_reading_on_day():
-        if mc.business.is_work_day():
-            for an_employee in mc.business.get_employee_list():
-                if an_employee.sluttiness <= 20:
-                    an_employee.change_happiness(-5, add_to_log = False)
+        if not mc.business.is_work_day():
+            return
 
-                if an_employee.sluttiness < 40:
-                    an_employee.change_slut_temp(1, add_to_log = False)
-                    mc.business.change_team_effectiveness(-1)
+        for an_employee in [x for x in mc.business.get_employee_list() if x.sluttiness < 40]:
+            if an_employee.sluttiness <= 20:
+                an_employee.change_happiness(-5, add_to_log = False)
+
+            an_employee.change_slut_temp(1, add_to_log = False)
+            mc.business.change_team_effectiveness(-1)
+        return
 
     mandatory_staff_reading = Policy(name = "Mandatory Staff Reading",
         desc = "Distribute copies of \"Your Place in the Work Place\" - a guidebook for women, written in the 60's by a womanizing executive. Increases all staff Sluttiness by an additional 1 per day, to a maximum of 40. Reduces business efficiency by 1 per employee affected, and reduces happiness of women with Sluttiness 20 or lower by 5 per day.",
@@ -235,21 +215,20 @@ init 0 python:
     organisation_policies_list.append(mandatory_staff_reading)
 
     def superliminal_office_messaging_requirement():
-        if mandatory_staff_reading.is_active():
-            return True
-        else:
-            return False
+        return mandatory_staff_reading.is_active()
 
     def superliminal_office_messaging_on_day():
-        if mc.business.is_work_day():
-            for an_employee in mc.business.get_employee_list():
-                if an_employee.sluttiness < 60:
-                    if an_employee.sluttiness <= 20:
-                        an_employee.change_happiness(-10)
-                        mc.business.change_team_effectiveness(-3)
-                    else:
-                        mc.business.change_team_effectiveness(-1)
-                    an_employee.change_slut_temp(1, add_to_log = False)
+        if not mc.business.is_work_day():
+            return
+
+        for an_employee in [x for x in mc.business.get_employee_list() if x.sluttiness < 60]:
+            if an_employee.sluttiness <= 20:
+                an_employee.change_happiness(-10)
+                mc.business.change_team_effectiveness(-3)
+            else:
+                mc.business.change_team_effectiveness(-1)
+            an_employee.change_slut_temp(1, add_to_log = False)
+        return
 
     superliminal_office_messaging = Policy(name = "Supraliminal Messaging",
         desc = "Fill the office with overtly sexual content. Distribute pinup girl calendars, provide access to a company porn account, hang nude posters. Increases staff Sluttiness by 1 per day, to a maximum of 60. Reduces business efficiency by 1 per employee affected, or by 3 if her Sluttiness is 20 or lower. Reduces happiness of women with Sluttiness 20 or lower by 10 per day.",
