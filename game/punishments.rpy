@@ -1019,7 +1019,7 @@ label punishment_forced_punishment_outfit(the_person, the_infraction):
     mc.name "I've put together a special outfit for you. It will be your outfit for the rest of the week."
     call outfit_master_manager() from _call_outfit_master_manager_9
     $ the_outfit = _return
-    if the_outfit is None:
+    if not isinstance(the_outfit, Outfit):
         "You consider what to dress [the_person.possessive_title] for a moment, then shrug."
         mc.name "On second thought, I think wearing nothing at all suits a disobedient slut like you."
         mc.name "Consider this your uniform for the rest of the week. Do you understand?"
