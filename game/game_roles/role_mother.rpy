@@ -279,7 +279,6 @@ label mom_low_sluttiness_weekly_pay(the_person):
             $ the_person.change_happiness(-5)
             $ the_person.change_love(-1)
             $ the_person.draw_person(position = "sitting", emotion = "sad")
-            the_person "Okay swetheart, I understand. I'll talk with Lily and let her know that we have to cut back on non essentials."
             the_person "Okay [the_person.mc_title], I understand. I'll talk with Lily and let her know that we have to cut back on non essentials."
 
         "Help out\n{color=#ff0000}{size=18}Costs: $100{/size}{/color}" if mc.business.funds >= 100:
@@ -721,7 +720,7 @@ label mom_work_promotion_one(the_person): #Mom is up for a promotion and asks yo
             menu:
                 "Help her pick out an outfit":
                     mc.name "Sure thing [the_person.title]. Come on, let's go see what we can find in your closet."
-                    the_person "Thank you sweetheart. You're such a good boy, helping me out like this."
+                    the_person "Thank you [the_person.mc_title]. You're such a good boy, helping me out like this."
                     $ mom_bedroom.show_background()
                     "You follow her to her bedroom and start digging around in her wardrobe."
                     call mom_work_promotion_outfit_create(the_person) from _call_mom_work_promotion_outfit_create
@@ -935,11 +934,11 @@ label mom_work_promotion_two_prep(the_person):
     mc.name "I've got some spare time, do you want some help getting ready for your interview?"
     $ the_person.draw_person(emotion = "happy")
     if the_person in the_person.home.people: # in her bedroom already
-        the_person "That would be so helpful, thank you sweetheart."
+        the_person "That would be so helpful, thank you [the_person.mc_title]."
         $ the_person.draw_person(position = "sitting")
         "She sits down on the side of her bed and motions for you to do the same."
     else:
-        the_person "That would be so helpful, thank you sweetheart. Let's go to my bedroom so we don't bother your sister."
+        the_person "That would be so helpful, thank you [the_person.mc_title]. Let's go to my bedroom so we don't bother your sister."
         $ mom_bedroom.show_background()
         $ the_person.draw_person(position = "sitting")
         "You follow her to her room. She sits down on the side of her bed and motions for you to do the same."
@@ -1087,7 +1086,7 @@ label mom_work_promotion_two_prep(the_person):
             "She follows it up with a quick peck on the cheek, then motions to the bed."
             the_person "Shall we sit down and talk?"
             mc.name "That's perfect [the_person.title]. Keep that up for the whole interview and I think you'll do well."
-            the_person "Thank you sweetheart, I'm going to do my best."
+            the_person "Thank you [the_person.mc_title], I'm going to do my best."
             $ mc.change_locked_clarity(5)
             $ the_person.draw_person(position = "kissing")
             "She pulls you into a real hug for a few seconds."
