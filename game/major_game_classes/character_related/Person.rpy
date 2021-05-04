@@ -379,6 +379,9 @@ init -2 python:
 
             if start_home is None:
                 the_daughter.generate_home()
+            else:
+                the_daughter.set_schedule(the_location = start_home, times = [0,4])
+
             the_daughter.home.add_person(the_daughter)
 
             for sister in town_relationships.get_existing_children(self): #First find all of the other kids this person has
