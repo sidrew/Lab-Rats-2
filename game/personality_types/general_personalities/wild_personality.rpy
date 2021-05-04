@@ -1015,7 +1015,7 @@ label wild_sex_watch(the_person, the_sex_person, the_position):
         $ the_person.draw_person()
         the_person "You're certainly feeling bold today [the_sex_person.name]. At least it looks like you're having a good time..."
         $ change_report = the_person.change_slut_temp(1)
-        "[title] watches for a moment, then turns away while you and [the_sex_person.name] keep [the_position.verb]."
+        "[title] watches for a moment, then turns away while you and [the_sex_person.name] keep [the_position.verbing]."
 
     elif the_person.sluttiness >= the_position.slut_requirement and the_person.sluttiness < the_position.slut_cap:
         $ the_person.draw_person()
@@ -1038,7 +1038,7 @@ label wild_being_watched(the_person, the_watcher, the_position):
 
     elif the_person.sluttiness >= the_position.slut_cap and the_watcher.sluttiness < the_position.slut_requirement:
         #She's super slutty and doesn't care what people think.
-        the_person "I bet she just wishes she was the one being [the_position.verb]ed you."
+        the_person "I bet she just wishes she was the one being [the_position.verb]ed by you."
 
     elif the_person.sluttiness >= the_position.slut_cap and the_watcher.sluttiness < the_position.slut_cap:
         #She's super slutty and encourages the watcher to be slutty.
