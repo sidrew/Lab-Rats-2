@@ -143,9 +143,9 @@ label view_onlyfans(the_person):
             if give_clarity:
                 $ mc.change_locked_clarity(20)
             "She doesn't waste any time, licking at the tip of the plastic tip enthusiastically."
-            $ the_person.draw_person(position = "kneeling1", special_modifier = "blowjob")
+            $ the_person.draw_person(position = "kneeling1", emotion = "angry", special_modifier = "blowjob")
             "After wetting the tip she slips it into her mouth and start to work it deeper into her throat."
-            $ the_person.draw_person(position = "kneeling1", special_modifier = "blowjob", the_animation = blowjob_bob, animation_effect_strength = 0.5)
+            $ the_person.draw_person(position = "kneeling1", emotion = "angry", special_modifier = "blowjob", the_animation = blowjob_bob, animation_effect_strength = 0.5)
             "[the_person.title] looks directly into the camera as she gives a blowjob to her toy."
             if give_clarity:
                 $ mc.change_locked_clarity(20)
