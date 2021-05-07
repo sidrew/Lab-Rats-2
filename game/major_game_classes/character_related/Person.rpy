@@ -1677,7 +1677,7 @@ init -2 python:
             if self.is_family(): # If she hates incest, it increases the treshhold
                 creampie_threshold += 10 - (10 * self.get_opinion_score("incest"))
 
-            effective_slut = self.effective_sluttiness("creampie") + (10*self.get_opinion_score("creampies"))
+            effective_slut = self.effective_sluttiness("creampie") + (10 * self.get_opinion_score("creampies")) + (10 * self.get_opinion_score("anal creampies"))
             if effective_slut >= creampie_threshold or self.event_triggers_dict.get("preg_knows", False):
                 return True
 
@@ -1798,9 +1798,18 @@ init -2 python:
                 the_cumshot = creampie_cum.get_copy()
                 the_cumshot.layer = 0
                 self.outfit.add_accessory(the_cumshot)
-            self.change_slut_temp(5*self.get_opinion_score("creampies"))
-            self.change_happiness(5*self.get_opinion_score("creampies"))
-            self.discover_opinion("creampies", add_to_log = add_to_record)
+
+            slut_change_amount = 5 * self.get_opinion_score("anal creampies")
+
+            if self.wants_creampie():
+                self.change_happiness(5 * self.get_opinion_score("anal creampies"))
+            else:
+                self.change_happiness(-5 + (5 * self.get_opinion_score("anal creampies")))
+                self.change_love(-2 + self.get_opinion_score("anal creampies"))
+                slut_change_amount += 1 + self.get_opinion_score("being_submissive")
+
+            self.change_slut_temp(slut_change_amount)
+            self.discover_opinion("anal creampies", add_to_log = add_to_record)
 
             if add_to_record:
                 self.sex_record["Anal Creampies"] += 1
