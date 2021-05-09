@@ -514,6 +514,7 @@ label new_insta_account(the_person): #TODO: decide if we want to have some sort 
         the_person "I've started an InstaPic account, you should follow me! I'm just starting out, but I think I'm figuring it all out!"
         $ the_person.event_triggers_dict["insta_known"] = True
         $ the_person.add_role(instapic_role)
+        $ mc.phone.register_number(the_person)
     call talk_person(the_person) from _call_talk_person_27
     return
 
@@ -523,6 +524,7 @@ label new_dikdok_account(the_person):
         the_person "You should follow me! I'm just starting out but I think my videos are pretty great."
         $ the_person.event_triggers_dict["dikdok_known"] = True
         $ the_person.add_role(dikdok_role)
+        $ mc.phone.register_number(the_person)
     call talk_person(the_person) from _call_talk_person_28
     return
 
@@ -533,5 +535,6 @@ label new_onlyfans_account(the_person):
         the_person "You should check me out some time, if you don't think that would be too weird."
         $ the_person.event_triggers_dict["onlyfans_known"] = True
         $ the_person.add_role(onlyfans_role)
+        $ mc.phone.register_number(the_person)
     call talk_person(the_person) from _call_talk_person_29
     return
