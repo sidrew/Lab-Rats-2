@@ -856,7 +856,7 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
         room = None
 
         home_bathroom.add_object(make_wall())
-        home_bathroom.add_object(Object("shower door", ["Lean"], sluttiness_modifier = 5, obedience_modifier = 5))
+        home_bathroom.add_object(Object("shower door", ["Lean"], sluttiness_modifier = 0, obedience_modifier = 0))
         home_bathroom.add_object(make_floor())
 
         kitchen.add_object(make_wall())
