@@ -509,11 +509,11 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
     return
 
 label new_insta_account(the_person): #TODO: decide if we want to have some sort of dialogue accompanying these.
-    $ the_person.special_role.append(instapic_role)
     if the_person.love >= 15:
         the_person "Hey [the_person.mc_title]! Oh, you'll probably be interested in this."
         the_person "I've started an InstaPic account, you should follow me! I'm just starting out, but I think I'm figuring it all out!"
         $ the_person.event_triggers_dict["insta_known"] = True
+        $ the_person.add_role(instapic_role)
     call talk_person(the_person) from _call_talk_person_27
     return
 
@@ -522,7 +522,7 @@ label new_dikdok_account(the_person):
         the_person "Hey [the_person.mc_title]! Oh, you'll probably be interested in this. I've started a DikDok channel."
         the_person "You should follow me! I'm just starting out but I think my videos are pretty great."
         $ the_person.event_triggers_dict["dikdok_known"] = True
-    $ the_person.special_role.append(dikdok_role)
+        $ the_person.add_role(dikdok_role)
     call talk_person(the_person) from _call_talk_person_28
     return
 
@@ -532,6 +532,6 @@ label new_onlyfans_account(the_person):
         the_person "I'm starting up an OnlyFanatics account. I think it might be a fun way for me to make a little extra money."
         the_person "You should check me out some time, if you don't think that would be too weird."
         $ the_person.event_triggers_dict["onlyfans_known"] = True
-    $ the_person.special_role.append(onlyfans_role)
+        $ the_person.add_role(onlyfans_role)
     call talk_person(the_person) from _call_talk_person_29
     return

@@ -680,8 +680,7 @@ init -2 python:
         def add_employee_research(self, person):
             if not person in self.research_team:
                 self.research_team.append(person)
-            if not employee_role in person.special_role:
-                person.special_role.append(employee_role)
+            person.add_role(employee_role)
             person.job = self.get_employee_title(person)
             person.set_work(self.r_div)
             self.update_employee_status(person)
@@ -689,8 +688,7 @@ init -2 python:
         def add_employee_production(self, person):
             if not person in self.production_team:
                 self.production_team.append(person)
-            if not employee_role in person.special_role:
-                person.special_role.append(employee_role)
+            person.add_role(employee_role)
             person.job = self.get_employee_title(person)
             person.set_work(self.p_div)
             self.update_employee_status(person)
@@ -698,8 +696,7 @@ init -2 python:
         def add_employee_supply(self, person):
             if not person in self.supply_team:
                 self.supply_team.append(person)
-            if not employee_role in person.special_role:
-                person.special_role.append(employee_role)
+            person.add_role(employee_role)
             person.job = self.get_employee_title(person)
             person.set_work(self.s_div)
             self.update_employee_status(person)
@@ -707,8 +704,7 @@ init -2 python:
         def add_employee_marketing(self, person):
             if not person in self.market_team:
                 self.market_team.append(person)
-            if not employee_role in person.special_role:
-                person.special_role.append(employee_role)
+            person.add_role(employee_role)
             person.job = self.get_employee_title(person)
             person.set_work(self.m_div)
             self.update_employee_status(person)
@@ -716,8 +712,7 @@ init -2 python:
         def add_employee_hr(self, person):
             if not person in self.hr_team:
                 self.hr_team.append(person)
-            if not employee_role in person.special_role:
-                person.special_role.append(employee_role)
+            person.add_role(employee_role)
             person.job = self.get_employee_title(person)
             person.set_work(self.h_div)
             self.update_employee_status(person)
@@ -855,7 +850,7 @@ init -2 python:
             if self.company_model:
                 self.fire_company_model()
             self.company_model = person
-            person.special_role.append(company_model_role)
+            person.add_role(company_model_role)
 
         def fire_company_model(self):
             if self.company_model:
@@ -866,7 +861,7 @@ init -2 python:
             if self.head_researcher:
                 self.fire_head_researcher()
             self.head_researcher = person
-            person.special_role.append(head_researcher)
+            person.add_role(head_researcher)
 
         def fire_head_researcher(self):
             if self.head_researcher:

@@ -319,7 +319,7 @@ label sister_instathot_intro_label(the_person):
 
     # Actually, let's have her start with a relatively tame outfit and grow into really sexy ones.
     if not the_person.has_role(instapic_role):
-        $ the_person.special_role.append(instapic_role)
+        $ the_person.add_role(instapic_role)
     $ the_person.event_triggers_dict["insta_known"] = True
 
 

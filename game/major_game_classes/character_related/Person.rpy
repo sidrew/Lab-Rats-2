@@ -257,11 +257,11 @@ init -2 python:
 
             ## Internet things ##
             if generate_insta: #NOTE: By default all of these are not visible to the player.
-                self.special_role.append(instapic_role)
+                self.add_role(instapic_role)
             if generate_dikdok:
-                self.special_role.append(dikdok_role)
+                self.add_role(dikdok_role)
             if generate_onlyfans:
-                self.special_role.append(onlyfans_role)
+                self.add_role(onlyfans_role)
 
             ## Conversation things##
             self.sexed_count = 0
@@ -1983,7 +1983,8 @@ init -2 python:
             return what
 
         def add_role(self, the_role):
-            self.special_role.append(the_role)
+            if not the_role in self.special_role:
+                self.special_role.append(the_role)
 
         def remove_role(self, the_role, remove_all = False, remove_linked = True):
             if the_role in self.special_role:
