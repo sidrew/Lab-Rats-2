@@ -189,7 +189,7 @@ screen research_select_ui: #How you select serum and trait research
                         $ button_actions.append(Function(selected_research.unlock_design))
                         $ button_actions.append(Function(mc.business.set_serum_research,selected_research))
                 elif not selected_research.researched:
-                    $ button_name = "Continue Unlock Research"
+                    $ button_name = "Continue Unlocked Research"
                     $ button_actions.append(Function(mc.business.set_serum_research,selected_research))
                 else:
                     pass #Serum designs that are unlocked and researched shouldn't get here anyways.
