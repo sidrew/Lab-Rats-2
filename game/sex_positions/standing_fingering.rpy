@@ -157,7 +157,7 @@ label strip_ask_standing_finger(the_girl, the_clothing, the_location, the_object
             mc.name "Take it off. Strip for me."
             $ the_girl.draw_animated_removal(the_clothing, position = standing_finger.position_tag)
             "[the_girl.possessive_title] takes off her [the_clothing.name] and drops it to the side while you pump your fingers in and out of her cunt."
-            Return True
+            return True
 
         "Leave it on":
             mc.name "No, I like how you look with it on."

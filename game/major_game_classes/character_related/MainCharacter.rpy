@@ -381,7 +381,7 @@ init -2 python:
         def get_underwear_list(self): #Returns a list of tuples. First item is the common display name "PERSON's ITEM", the second is the item reference itself #TODO: Add unit tests
             return_list = []
             for person_identifier in self.stolen_underwear:
-                person = next((x for x in all_people_in_the_game() if x.identifier == person_identifier)
+                person = next((x for x in all_people_in_the_game() if x.identifier == person_identifier), None)
                 for item in self.stolen_underwear[person_identifier]:
                     return_list.append([person.title + "'s " + item.display_name, item]) #TODO: Write the display code for this so it can show the little set of panties or bra with the correct colour/pattern. #TODO: might need an "empty" body type.
 

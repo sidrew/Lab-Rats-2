@@ -7,7 +7,7 @@ init -2 python:
                 self.name = "Unnamed Room"
             else:
                 self.name = name
-                
+
             if formal_name is None:
                 self.formal_name = name
             else:
@@ -63,7 +63,7 @@ init -2 python:
         @property
         def identifier(self):
             if not hasattr(self, "_identifier"):
-                self._identifier = hashlib.md5(self.name + self.formalName).hexdigest()
+                self._identifier = hashlib.md5(self.name + self.formal_name).hexdigest()
             return self._identifier
 
         def show_background(self):
