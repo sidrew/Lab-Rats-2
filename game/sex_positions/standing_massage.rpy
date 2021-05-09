@@ -141,6 +141,7 @@ label strip_ask_standing_grope(the_girl, the_clothing, the_location, the_object)
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = standing_grope.position_tag)
             "You watch while [the_girl.possessive_title] takes off her [the_clothing.name] and drops it to the side."
+            Return True
 
         "Leave it on":
             mc.name "No, I like how you look with it on."
@@ -148,8 +149,7 @@ label strip_ask_standing_grope(the_girl, the_clothing, the_location, the_object)
                 the_girl "Do you think I look sexy in it?"
             else:
                 the_girl "Don't you think I would look better wearing your cum? That would be so fitting for your dirty little slut, wouldn't it?"
-    $ standing_grope.redraw_scene(the_girl)
-    return
+            return False
 
 label orgasm_standing_grope(the_girl, the_location, the_object):
     "You feel [the_girl.possessive_title] tense up in your arms as you explore her body."

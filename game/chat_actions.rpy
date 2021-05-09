@@ -1070,105 +1070,6 @@ label command_person(the_person):
         $ _return.call_action()
     return
 
-# label seduce_label(the_person): No longer needed since "seduce" was split up to be multiple different approaches
-#     mc.name "[the_person.title], I've been thinking about you all day. I just can't get you out of my head."
-#
-#     if prostitute_role in the_person.special_role and the_person.love < 20:
-#         the_person "I've been thinking about you too, but I've got bills to pay and I can't do this for free."
-#         return
-#     elif prostitute_role in the_person.special_role and the_person.love >= 20:
-#         the_person "I should really make you pay for this... but you're one of my favourites and I'm curious what you had in mind."
-#     else:
-#         $ the_person.call_dialogue("seduction_response")
-#
-#     $ random_chance = renpy.random.randint(0,100)
-#     $ chance_service_her = the_person.sluttiness - 20 - (the_person.obedience - 100) + (mc.charisma * 4) + (the_person.get_opinion_score("taking control") * 4)
-#     $ chance_both_good = the_person.sluttiness - 10 + mc.charisma * 4
-#     $ chance_service_him = the_person.sluttiness - 20 + (the_person.obedience - 100) + (mc.charisma * 4) + (the_person.get_opinion_score("being submissive") * 4)
-#
-#     if chance_service_her > 100:
-#         $ chance_service_her = 100
-#     elif chance_service_her < 0:
-#         $ chance_service_her = 0
-#
-#     if chance_both_good > 100:
-#         $ chance_both_good = 100
-#     elif chance_both_good < 0:
-#         $ chance_both_good = 0
-#
-#     if chance_service_him > 100:
-#         $ chance_service_him = 100
-#     elif chance_service_him < 0:
-#         $ chance_service_him = 0
-#
-#     $ seduced = False #Flip to true if the approach works
-#     menu:
-#         "I want to make you feel good.\n{size=22}Success Chance: [chance_service_her]%%\nModifiers: +10 Sluttiness, -5 Obedience{/size} (tooltip)Suggest you will focus on her. She will be sluttier for the encounter, but more likely to make demands and take control. More likely to succeed with less obedient girls.": #Bonus to her sluttiness, penalty to obedience
-#             "You lean in close whisper what you want to do to her."
-#             if random_chance < chance_service_her: #Success
-#                 $ seduced = True
-#                 $ the_person.add_situational_slut("seduction_approach",10, "You promised to focus on me.")
-#                 $ the_person.add_situational_obedience("seduction_approach",-5, "You promised to focus on me.")
-#                 $ the_person.change_arousal(-5*the_person.get_opinion_score("taking control"))
-#                 $ the_person.discover_opinion("taking control")
-#             else: #Failure
-#                 pass
-#
-#         "Let's have a good time.\n{size=22}Success Chance: [chance_both_good]%%\nModifiers: None{/size} (tooltip)Suggest you'll both end up satisfied. Has no extra effect on her sluttiness or obedience, but is not affected by her obedience in return.": #Standard
-#             "You lean in close and whisper what you want to do together."
-#             if random_chance < chance_both_good:
-#                 $ seduced = True
-#             else:
-#                 pass
-#
-#         "I need you to get me off.\n{size=22}Success Chance: [chance_service_him]%%\nModifiers: +10 Obedience, -5 Sluttiness{/size} (tooltip)Demand that she focuses on making you cum. She will be more obedient but less slutty for the encounter. More likely to succeed with highly obedient girls.": #Bonus to obedience, penalty to sluttiness
-#             "You lean in close and whisper what you want her to do to you."
-#             if random_chance < chance_service_him:
-#                 $ seduced = True
-#                 $ the_person.add_situational_slut("seduction_approach",-5, "You want me to serve you.")
-#                 $ the_person.add_situational_obedience("seduction_approach",10, "You want me to serve you.")
-#                 $ the_person.change_arousal(5*the_person.get_opinion_score("being submissive"))
-#                 $ the_person.discover_opinion("being submissive")
-#             else:
-#                 pass
-#
-#
-#
-#     if seduced and the_person.sexed_count < 1:
-#
-#         $ extra_people_count = mc.location.get_person_count() - 1
-#         $ in_private = True
-#         if extra_people_count > 0: #We have more than one person here
-#             $ the_person.call_dialogue("seduction_accept_crowded")
-#             menu:
-#                 "Find somewhere quiet.\n{size=22}No interuptions{/size}":
-#                     "You take [the_person.title] by the hand and find a quiet spot where you're unlikely to be interrupted."
-#
-#                 "Stay right here.\n{size=22}[extra_people_count] watching{/size}":
-#                     if the_person.sluttiness < 50:
-#                         mc.name "I think we'll be fine right here."
-#                         the_person "I... Okay, if you say so."
-#
-#                     $ in_private = False
-#         else:
-#             $ the_person.call_dialogue("seduction_accept_alone")
-#
-#         call fuck_person(the_person,private = in_private) from _call_fuck_person
-#
-#         $ the_person.review_outfit()
-#
-#         #Tidy up our situational modifiers, if any.
-#         $ the_person.clear_situational_slut("public_sex")
-#         $ the_person.clear_situational_slut("seduction_approach")
-#         $ the_person.clear_situational_obedience("seduction_approach")
-#     else:
-#         $ the_person.call_dialogue("seduction_refuse")
-#         $ the_person.clear_situational_slut("seduction_approach")
-#         $ the_person.clear_situational_obedience("seduction_approach")
-#
-#     $ the_person.sexed_count += 1
-#     return
-
 label bc_talk_label(the_person):
     # Contains the Love and Sluttiness based approaches to asking someone to stop taking birth control.
     mc.name "Can we talk about something?"
@@ -1397,12 +1298,14 @@ init 5 python:
         mc.business.mandatory_morning_crises_list.append(bc_start_action) # She starts or stops the next morning.
         return
 
-label bc_start_event(the_person):
+label bc_start_event(the_person, update_knowledge = True):
     $ the_person.on_birth_control = True
-    $ the_person.update_birth_control_knowledge()
+    if update_knowledge:
+        $ the_person.update_birth_control_knowledge()
     return
 
-label bc_stop_event(the_person):
+label bc_stop_event(the_person, update_knowledge = True):
     $ the_person.on_birth_control = False
-    $ the_person.update_birth_control_knowledge()
+    if update_knowledge:
+        $ the_person.update_birth_control_knowledge()
     return

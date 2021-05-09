@@ -122,6 +122,7 @@ init -2 python:
         remove_item_from_list(lambda x: x.effect == "alexia_hire_label", the_person.get_role_reference_by_name("Alexia").actions)
 
         mc.business.add_employee_marketing(the_person)
+        the_person.get_role_reference(alexia_role).actions.remove(alexia_hire_action) #Remove the hire action because this story event has played itself out.
 
         ad_suggest_event = Action("Ad Suggestion", alexia_ad_suggest_requirement, "alexia_ad_suggest_label", args = the_person, requirement_args = [the_person, day + renpy.random.randint(7,12)])
         mc.business.mandatory_crises_list.append(ad_suggest_event)
@@ -420,6 +421,6 @@ label alexia_photography_intro_label(the_person):
     the_person "Yeah, I can do that! I don't know why, but I thought it was really exciting to be in front of that camera."
     mc.name "I'll let you get back to work then. See you around [the_person.title]."
     $ mc.business.hire_company_model(the_person)
-    $ public_advertising_license_policy.buy_policy(ignore_cost = True) # This special storyline "buys" the policy for free.
+    $ purchase_policy(public_advertising_license_policy,ignore_cost = True)
     call advance_time from _call_advance_time_19
     return

@@ -65,7 +65,7 @@ label mom_outfit_help_crisis_label():
         $ clear_scene()
         "You nod and turn your back to [the_person.possessive_title]. You hear her moving behind you as she starts to get undressed."
         menu:
-            "Try and peek.":
+            "Try and peek":
                 # Chance to get spotted. Otherwise you get to watch as she strips clothing off one item at a time until she is naked.
                 $ the_person.draw_person()
                 "You shuffle to the side and manage to get a view of [the_person.possessive_title] using a mirror in the room."
@@ -103,7 +103,7 @@ label mom_outfit_help_crisis_label():
                     "[the_person.possessive_title] finishes stripping down and starts to get dressed in her new outfit. After a few moments she's all put together again."
                     the_person "Okay [the_person.mc_title], you can turn around now."
 
-            "Wait until she's done.":
+            "Wait until she's done":
                 "You twiddle your thumbs until [the_person.possessive_title] is finished changing."
                 the_person "Okay, all done. You can turn around now."
 

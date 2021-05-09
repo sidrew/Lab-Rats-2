@@ -297,6 +297,7 @@ label strip_ask_against_wall(the_girl, the_clothing, the_location, the_object):
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = against_wall.position_tag)
             "You slow the pace of your thrusts down while [the_girl.possessive_title] strips out of her [the_clothing.name]. When she drops it beside her you settle back into your rhythm."
+            return True
 
         "Leave it on":
             mc.name "No, I like how you look with it on."
@@ -306,7 +307,7 @@ label strip_ask_against_wall(the_girl, the_clothing, the_location, the_object):
             else:
                 the_girl "Yeah? Do I look like a good little slut in it? Because that's what I feel like right now!"
                 "You fuck her a little faster and she moans loudly."
-    return
+            return False
 
 label orgasm_against_wall(the_girl, the_location, the_object):
     "[the_girl.possessive_title] closes her eyes and gasps suddenly. Her hands wrap around you and claw at pull hard against your back."

@@ -143,7 +143,6 @@ label supplies_work_action_description:
 label market_work_action_description:
     $ mc.business.player_market()
     call advance_time from _call_advance_time_4
-
     return
 
 label production_work_action_description:
@@ -232,19 +231,29 @@ label hire_someone(new_person, add_to_location = False): # Breaks out some of th
     "You complete the necessary paperwork and hire [_return.name]. What division do you assign them to?"
     menu:
         "Research and Development":
-            $ mc.business.add_employee_research(new_person, add_to_location)
+            $ mc.business.add_employee_research(new_person)
+            if add_to_location:
+                $ mc.business.r_div.add_person(new_person)
 
         "Production":
-            $ mc.business.add_employee_production(new_person, add_to_location)
+            $ mc.business.add_employee_production(new_person)
+            if add_to_location:
+                $ mc.business.p_div.add_person(new_person)
 
         "Supply Procurement":
-            $ mc.business.add_employee_supply(new_person, add_to_location)
+            $ mc.business.add_employee_supply(new_person)
+            if add_to_location:
+                $ mc.business.s_div.add_person(new_person)
 
         "Marketing":
-            $ mc.business.add_employee_marketing(new_person, add_to_location)
+            $ mc.business.add_employee_marketing(new_person)
+            if add_to_location:
+                $ mc.business.m_div.add_person(new_person)
 
         "Human Resources":
-            $ mc.business.add_employee_hr(new_person, add_to_location)
+            $ mc.business.add_employee_hr(new_person)
+            if add_to_location:
+                $ mc.business.h_div.add_person(new_person)
 
     return
 
@@ -359,7 +368,7 @@ label head_researcher_select_description:
     return
 
 label pick_company_model_description:
-    call screen employee_overview(person_select = True)
+    call screen employee_overview(white_list = mc.business.market_team,person_select = True)
     $ new_model = _return
     if new_model is not None:
         $ mc.business.hire_company_model(_return)

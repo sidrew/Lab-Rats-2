@@ -65,8 +65,8 @@ init -2 python:
             self.serum_production_array = {} #This dict will hold tuples of int(line number):[SerumDesign, int(weight), int(production points), int(autosell)]
 
 
-            self.inventory = SerumInventory([])
-            self.sale_inventory = SerumInventory([])
+            self.inventory = SerumInventory()
+            self.sale_inventory = SerumInventory()
 
             # self.policy_list = [] #This is a list of Policy objects.
             # self.active_policy_list = [] #This is a list of currently active policies (vs just owned ones)
@@ -580,6 +580,13 @@ init -2 python:
 
             return production_amount
 
+        def clear_production(self): #Clears all current produciton lines.
+            for production_line in self.serum_production_array:
+                self.serum_production_array[production_line][0] = None
+                self.serum_production_array[production_line][1] = 0
+                self.serum_production_array[production_line][2] = 0 #Set production points stored to 0 for the new serum
+                self.serum_production_array[production_line][3] = -1 #Set autosell to -1, ie. don't auto sell.
+
         def change_production(self,new_serum,production_line):
             if production_line in self.serum_production_array: #If it already exists, change the serum type and production points stored, but keep the weight for that line (it can be changed later)
                 self.serum_production_array[production_line][0] = new_serum
@@ -670,16 +677,7 @@ init -2 python:
             for other_employee in self.get_employee_list():
                 town_relationships.begin_relationship(person, other_employee) #They are introduced to everyone at work, with a starting value of "Acquaintance"
 
-        def move_person_to_division(self, person, division):
-            if not person in division.people:
-                if person in person.location.people:
-                    person.location.move_person(person, division)
-                else:
-                    division.add_person(person)
-
-        def add_employee_research(self, person, add_to_location = False):
-            if add_to_location:
-                self.move_person_to_division(person, self.r_div)
+        def add_employee_research(self, person):
             if not person in self.research_team:
                 self.research_team.append(person)
             if not employee_role in person.special_role:
@@ -688,9 +686,7 @@ init -2 python:
             person.set_work(self.r_div)
             self.update_employee_status(person)
 
-        def add_employee_production(self, person, add_to_location = False):
-            if add_to_location:
-                self.move_person_to_division(person, self.p_div)
+        def add_employee_production(self, person):
             if not person in self.production_team:
                 self.production_team.append(person)
             if not employee_role in person.special_role:
@@ -699,9 +695,7 @@ init -2 python:
             person.set_work(self.p_div)
             self.update_employee_status(person)
 
-        def add_employee_supply(self, person, add_to_location = False):
-            if add_to_location:
-                self.move_person_to_division(person, self.s_div)
+        def add_employee_supply(self, person):
             if not person in self.supply_team:
                 self.supply_team.append(person)
             if not employee_role in person.special_role:
@@ -710,9 +704,7 @@ init -2 python:
             person.set_work(self.s_div)
             self.update_employee_status(person)
 
-        def add_employee_marketing(self, person, add_to_location = False):
-            if add_to_location:
-                self.move_person_to_division(person, self.m_div)
+        def add_employee_marketing(self, person):
             if not person in self.market_team:
                 self.market_team.append(person)
             if not employee_role in person.special_role:
@@ -721,9 +713,7 @@ init -2 python:
             person.set_work(self.m_div)
             self.update_employee_status(person)
 
-        def add_employee_hr(self, person, add_to_location = False):
-            if add_to_location:
-                self.move_person_to_division(person, self.h_div)
+        def add_employee_hr(self, person):
             if not person in self.hr_team:
                 self.hr_team.append(person)
             if not employee_role in person.special_role:

@@ -793,19 +793,23 @@ label move_employee_label(the_person):
 
     menu:
         "Research and Development":
-            $ mc.business.add_employee_research(the_person, add_to_location = True)
-
+            $ mc.business.add_employee_research(the_person)
+            $ mc.business.r_div.add_person(the_person)
         "Production":
-            $ mc.business.add_employee_production(the_person, add_to_location = True)
+            $ mc.business.add_employee_production(the_person)
+            $ mc.business.p_div.add_person(the_person)
 
         "Supply Procurement":
-            $ mc.business.add_employee_supply(the_person, add_to_location = True)
+            $ mc.business.add_employee_supply(the_person)
+            $ mc.business.s_div.add_person(the_person)
 
         "Marketing":
-            $ mc.business.add_employee_marketing(the_person, add_to_location = True)
+            $ mc.business.add_employee_marketing(the_person)
+            $ mc.business.m_div.add_person(the_person)
 
         "Human Resources":
-            $ mc.business.add_employee_hr(the_person, add_to_location = True)
+            $ mc.business.add_employee_hr(the_person)
+            $ mc.business.h_div.add_person(the_person)
 
     the_person "I'll move over there right away!"
     return

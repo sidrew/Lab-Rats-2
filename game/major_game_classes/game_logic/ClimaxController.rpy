@@ -26,6 +26,9 @@ init -2 python:
 
             return multiplier
 
+        def set_climax_type(self, type):
+            self.selected_climax_type = type
+
         def show_climax_menu(self): #NOTE: We show the menu even when we don't intend to give more than one option. More player interaction + more information display.
             display_list = []
             for climax_option in self.climax_options:
@@ -37,11 +40,12 @@ init -2 python:
                 display_name += " (tooltip)All Locked Clarity is released when you climax. How much Clarity is produced varies depending on how you cum, and it's possible to have a multiplier greater than 1!"
                 display_list.append([display_name,climax_option])
 
-            self.selected_climax_type = renpy.display_menu(display_list, screen = "choice")
-            return self.selected_climax_type[0]
+            the_choice = renpy.display_menu(display_list, screen = "choice")
+            self.set_climax_type(the_choice[1])
+            return the_choice[0] #Returns the display string so an event can fllow the appropriate branch
 
         def do_clarity_release(self, the_person = None):
-            multiplier = ClimaxController.get_climax_multiplier(self.selected_climax_type[1])
+            multiplier = ClimaxController.get_climax_multiplier(self.selected_climax_type)
             if the_person:
                 mc.convert_locked_clarity(multiplier, with_novelty = the_person.novelty)
                 the_person.change_novelty(-5)
@@ -62,5 +66,5 @@ init -2 python:
                 the_person.change_novelty(-5)
             else:
                 mc.convert_locked_clarity(multiplier, with_novelty = mc.masturbation_novelty)
-                mc.change_novelty(-5)
+                mc.change_masturbation_novelty(-5, add_to_log = False)
             return

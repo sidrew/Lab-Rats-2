@@ -149,6 +149,10 @@ init -2:
         list_of_names.append("Kathryn")
         list_of_names.append("Bronwyn")
         list_of_names.append("Tilly")
+        list_of_names.append("Katsuni")
+        list_of_names.append("Samantha")
+        list_of_names.append("Mara")
+        list_of_names.append("Zimu")
 
         def get_random_name():
             return get_random_from_list(list_of_names)
@@ -266,6 +270,11 @@ init -2:
         list_of_last_names.append("Llandry")
         list_of_last_names.append("Selkirk")
         list_of_last_names.append("James")
+        list_of_last_names.append("Laura")
+        list_of_last_names.append("Belgazoo")
+        list_of_last_names.append("Linden")
+        list_of_last_names.append("Sov")
+        list_of_last_names.append("Fang")
 
         def get_random_last_name():
             return get_random_from_list(list_of_last_names)
@@ -814,10 +823,63 @@ init -2:
                         return_string += an_item.display_name + ", "
             return return_string
 
+        def get_appropriate_mag_name(the_person, discover_opinion = False): # Returns the name of a porn magazine this person might be interested in reading, based on her opinions.
+            if the_person.get_opinion_score("drinking cum") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("drinking cum")
+                return "Cum Guzzlers Monthly"
+            elif the_person.get_opinion_score("creampies") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("creampies")
+                if the_person.get_opinion_score("bareback sex") > 0:
+                    if discover_opinion:
+                        the_person.discover_opinion("bareback sex")
+                    return "Storked - Sluts Fucked Pregnant!"
+                else:
+                    return "Close Up Cum Shots - Filled to the Brim!"
+            elif the_person.get_opinion_score("being covered in cum") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("being covered in cum")
+                return "Glazed: Busty Sluts get Covered in Cum!"
+            elif the_person.get_opinion_score("giving blowjobs") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("giving blowjobs")
+                return "Throated: Girls get Messy!"
+            elif the_person.get_opinion_score("incest") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("incest")
+                return "A Mother's Duty - Fuck Your Son!"
+            elif the_person.get_opinion_score("anal sex") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("anal sex")
+                return "Anal Domination"
+            elif the_person.get_opinion_score("public sex") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("public sex")
+                return "Public Sluts"
+            elif the_person.get_opinion_score("lingerie") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("lingerie")
+                return "Lingerie Monthly: What to Wear"
+            elif the_person.get_opinion_score("giving handjobs") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("giving handjobs")
+                return "Getting Handy with Handjobs."
+            elif the_person.get_opinion_score("giving tit fucks") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("giving tit fucks")
+                return "Bimbo Quarterly - Titfuck Edition"
+            elif the_person.get_opinion_score("being submissive") > 0:
+                if discover_opinion:
+                    the_person.discover_opinion("being submissive")
+                return "The Good Wife's Guide to Getting Fucked"
+            else:
+                return "Playgirl - Sluts on Display!"
+
+
         def add_alexia_introduction_actions():
             alexia_intro_phase_zero_action = Action("Alexia Set Schedule", alexia_intro_phase_zero_requirement, "alexia_phase_zero_label", requirement_args = renpy.random.randint(14, 21))
             mc.business.mandatory_crises_list.append(alexia_intro_phase_zero_action)
-
             alexia_intro_phase_one_action = Action("Alexia Intro Phase One", alexia_intro_phase_one_requirement, "alexia_intro_phase_one_label")
             alexia.on_room_enter_event_list.append(alexia_intro_phase_one_action)
             return

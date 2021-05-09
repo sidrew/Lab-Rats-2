@@ -383,8 +383,8 @@ label dm_option_underwear_response(the_person):
     if the_choice:
         if the_person.has_role(onlyfans_role) and not the_person.event_triggers_dict.get("onlyfans_known", False):
             the_person "Oh, and if you liked that, check out my OnlyFanatics page. I'm sure you'll love it!" (what_style = "text_message_style")
-            "She sends you a link."
             $ the_person.event_triggers_dict["onlyfans_known"] = True
+            "She sends you a link."
 
         $ mc.business.funds += -50
         if the_person.event_triggers_dict.get("insta_special_request_level",0) < 2:

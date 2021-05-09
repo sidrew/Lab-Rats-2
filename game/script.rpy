@@ -9,6 +9,7 @@ init -10 python: #Init -10 is used for all project wide imports of external reso
     import hashlib
     import io
     from collections import defaultdict
+    import unittest
 
     if not renpy.mobile: #Mobile platforms do not support animation, so we only want to try to import it if we're going to use it.
         import shader
@@ -184,7 +185,9 @@ label start:
 
 init 0 python:
     def initialize_stephanie_in_our_business():
-        mc.business.add_employee_research(stephanie, add_to_location = True)
+        mc.business.add_employee_research(stephanie)
+        mc.business.r_div.add_person(stephanie)
+        mc.business.r_div.move_person(stephanie, lobby)
         mc.business.hire_head_researcher(stephanie)
         mc.business.r_div.move_person(stephanie, lobby)
         stephanie.special_role.append(steph_role)
@@ -640,6 +643,7 @@ init 0 python:
     production_work_action = Action("Produce serum {image=gui/heart/Time_Advance.png}",production_work_action_requirement,"production_work_action_description",
         menu_tooltip = "Produce serum from raw materials. Each production point of serum requires one unit if supply, which can be purchased from your office.\n+3*Focus + 2*Skill + 1*Intelligence + 10 Production Points.")
 
+    ##Complex Work Actions##
     interview_action = Action("Hire someone new {image=gui/heart/Time_Advance.png}", interview_action_requirement,"interview_action_description",
         menu_tooltip = "Look through the resumes of several candidates. More information about a candidate can be revealed by purchasing new business policies.")
     design_serum_action = Action("Design new serum {image=gui/heart/Time_Advance.png}", serum_design_action_requirement,"serum_design_action_description",
@@ -665,10 +669,15 @@ init 0 python:
     set_company_model_action = Action("Pick a company model", pick_company_model_requirement, "pick_company_model_description",
         menu_tooltip = "Pick one your employees to be your company model. You can run ad campaigns with your model, increasing the value of every dose of serum sold.")
 
+    #PC Bedroom actions#
     sleep_action = Action("Sleep for the night {image=gui/heart/Time_Advance.png}{image=gui/heart/Time_Advance.png}",sleep_action_requirement,"sleep_action_description",
         menu_tooltip = "Go to sleep and advance time to the next day. Night time counts as three time chunks when calculating serum durations.", priority = 20)
     bedroom_masturbate_action = Action("Masturbate {image=gui/heart/Time_Advance.png}", bedroom_masturbate_requirement, "bedroom_masturbation",
         menu_tooltip = "Jerk off. A useful way to release Clarity, but you'll grow bored of this eventually.")
+
+    ##Mom Bedroom Actions##
+    mom_room_search_action = Action("Search [mom.title]'s room. -15{image=gui/extra_images/energy_token.png}", mom_room_search_requirement, "mom_room_search_description",
+        menu_tooltip = "Take a look around and see what you can find.")
 
     faq_action = Action("Check the FAQ",faq_action_requirement,"faq_action_description",
         menu_tooltip = "Answers to frequently asked questions about Lab Rats 2.")
@@ -678,19 +687,22 @@ init 0 python:
 
     strip_club_show_action = Action("Watch a show", stripclub_show_requirement, "stripclub_dance",
         menu_tooltip = "Take a seat and wait for the next girl to come out on stage.")
-
     mom_office_person_request_action = Action("Approach the receptionist", mom_office_person_request_requirement, "mom_office_person_request",
         menu_tooltip = "The receptionist might be able to help you, if you're looking for someone.")
-
     import_wardrobe_action = Action("Import a wardrobe file", faq_action_requirement, "wardrobe_import",
         menu_tooltip = "Select and import a wardrobe file, adding all outfits to your current wardrobe.")
 
-    test_action = Action("This is a test.", faq_action_requirement, "faq_action_description")
+    ## Temp and Test Actions
+    test_action = Action("This is a test.", faq_action_requirement, "debug_label")
+    integration_test_action = Action("Run Integration Tests.", integration_test_dev_requirement, "run_integration_tests")
+
+
     ##Actions unlocked by policies##
     set_uniform_action = Action("Manage Employee Uniforms",set_uniform_requirement,"set_uniform_description")
     set_serum_action = Action("Set Daily Serum Doses",set_serum_requirement,"set_serum_description")
 
     business_wardrobe = wardrobe_from_xml("Business_Wardrobe") #Used in some of Mom's events when we need a business-ish outfit
+
 
 init 0 python:
     def add_stripclub_strippers():
@@ -718,50 +730,86 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
 
     python:
         ##PC's Home##
-        hall = Room("main hall","Home",[],standard_house_backgrounds[:],[],[],[],False,[3,3], lighting_conditions = standard_indoor_lighting)
-        bedroom = Room("your bedroom", "Your Bedroom",[],standard_bedroom_backgrounds[:],[],[],[sleep_action, bedroom_masturbate_action, faq_action],False,[3,2], lighting_conditions = standard_indoor_lighting)
-        lily_bedroom = Room("Lily's bedroom", "Lily's Bedroom",[],standard_bedroom_backgrounds[:],[],[],[],False,[2,3], lighting_conditions = standard_indoor_lighting)
-        mom_bedroom = Room("your mom's bedroom", "Mom's Bedroom",[], standard_bedroom_backgrounds[:],[],[],[],False,[2,4], lighting_conditions = standard_indoor_lighting)
-        kitchen = Room("kitchen", "Kitchen",[],standard_kitchen_backgrounds[:],[],[],[],False,[3,4], lighting_conditions = standard_indoor_lighting)
-        home_bathroom = Room("bathroom", "Bathroom", [], home_bathroom_background, [], [], [], False, [0,0], visible = False) #Note: Only used by special events. Not connected to the main map
+        hall = Room("main hall","Home", background_image = standard_house_backgrounds[:],
+            map_pos = [3,3], lighting_conditions = standard_indoor_lighting)
+        bedroom = Room("your bedroom", "Your Bedroom", background_image = standard_bedroom_backgrounds[:],
+            actions = [sleep_action,bedroom_masturbate_action,faq_action,integration_test_action],
+            map_pos = [3,2], lighting_conditions = standard_indoor_lighting)
+        lily_bedroom = Room("Lily's bedroom", "Lily's Bedroom", background_image = standard_bedroom_backgrounds[:],
+            map_pos = [2,3], lighting_conditions = standard_indoor_lighting)
+        mom_bedroom = Room("your mom's bedroom", "Mom's Bedroom", background_image = standard_bedroom_backgrounds[:],
+            actions = [mom_room_search_action],
+            map_pos = [2,4], lighting_conditions = standard_indoor_lighting)
+        kitchen = Room("kitchen", "Kitchen", background_image = standard_kitchen_backgrounds[:],
+            map_pos = [3,4], lighting_conditions = standard_indoor_lighting)
+
+        home_bathroom = Room("bathroom", "Bathroom", background_image = home_bathroom_background,
+            map_pos = [0,0], visible = False) #Note: Only used by special events. Not connected to the main map
         her_hallway = Room("Front hall", "Front hall", [], standard_house_backgrounds[:],[],[],[],False,[3,3], visible = False, lighting_conditions = standard_indoor_lighting)
 
         ##PC's Work##
-        lobby = Room(business_name + " lobby",business_name + " Lobby",[],standard_office_backgrounds[:],[],[],[],False,[11,3], tutorial_label = "lobby_tutorial_intro", lighting_conditions = standard_indoor_lighting)
-        office = Room("main office","Main Office",[],standard_office_backgrounds[:],[],[],[policy_purhase_action,hr_work_action,supplies_work_action,interview_action,sell_serum_action,pick_supply_goal_action,set_uniform_action,set_serum_action],False,[11,2], tutorial_label = "office_tutorial_intro", lighting_conditions = standard_indoor_lighting)
-        m_division = Room("marketing division","Marketing Division",[],standard_office_backgrounds[:],[],[],[market_work_action,set_company_model_action],False,[12,3], tutorial_label = "marketing_tutorial_intro", lighting_conditions = standard_indoor_lighting)
-        rd_division = Room("R&D division","R&D Division",[],lab_background,[],[],[research_work_action,design_serum_action,pick_research_action,review_designs_action,set_head_researcher_action],False,[12,4], tutorial_label = "research_tutorial_intro", lighting_conditions = standard_indoor_lighting)
-        p_division = Room("Production division", "Production Division",[],standard_office_backgrounds[:],[],[],[production_work_action,pick_production_action,trade_serum_action],False,[11,4], tutorial_label = "production_tutorial_intro", lighting_conditions = standard_indoor_lighting)
+        lobby = Room(business_name + " lobby",business_name + " Lobby", background_image = standard_office_backgrounds[:],
+            map_pos = [11,3], tutorial_label = "lobby_tutorial_intro", lighting_conditions = standard_indoor_lighting)
+        office = Room("main office","Main Office", background_image = standard_office_backgrounds[:],
+            actions = [policy_purhase_action,hr_work_action,supplies_work_action,interview_action,sell_serum_action,pick_supply_goal_action,set_uniform_action,set_serum_action],
+            map_pos = [11,2], tutorial_label = "office_tutorial_intro", lighting_conditions = standard_indoor_lighting)
+        m_division = Room("marketing division","Marketing Division", background_image = standard_office_backgrounds[:],
+            actions = [market_work_action,set_company_model_action],
+            map_pos = [12,3], tutorial_label = "marketing_tutorial_intro", lighting_conditions = standard_indoor_lighting)
+        rd_division = Room("R&D division","R&D Division", background_image = lab_background,
+            actions = [research_work_action,design_serum_action,pick_research_action,review_designs_action,set_head_researcher_action],
+            map_pos = [12,4], tutorial_label = "research_tutorial_intro", lighting_conditions = standard_indoor_lighting)
+        p_division = Room("Production division", "Production Division",background_image = standard_office_backgrounds[:],
+            actions = [production_work_action,pick_production_action,trade_serum_action],
+            map_pos = [11,4], tutorial_label = "production_tutorial_intro", lighting_conditions = standard_indoor_lighting)
         work_bathroom = Room("work bathroom", "Work Bathroom", [], bathroom_background, [make_wall(), make_floor()], [], [], False, [0,0], visible = False)
 
         ##Connects all Locations##
-        downtown = Room("downtown","Downtown",[],standard_downtown_backgrounds[:],[],[],[downtown_search_action],True,[6,4], lighting_conditions = standard_outdoor_lighting)
+        downtown = Room("downtown","Downtown", background_image = standard_downtown_backgrounds[:],
+            actions = [downtown_search_action],public = True,
+            map_pos = [6,4], lighting_conditions = standard_outdoor_lighting)
 
         ##A mall, for buying things##
-        mall = Room("mall","Mall",[],standard_mall_backgrounds[:],[],[],[],True,[8,2], lighting_conditions = standard_indoor_lighting)
-        gym = Room("gym","Gym",[],standard_mall_backgrounds[:],[],[],[],True,[7,1], lighting_conditions = standard_indoor_lighting)
-        home_store = Room("home improvement store","Home Improvement Store",[],standard_mall_backgrounds[:],[],[],[],True,[8,1], lighting_conditions = standard_indoor_lighting)
-        sex_store = Room("sex store","Sex Store",[],standard_mall_backgrounds[:],[],[],[],True,[9,2], lighting_conditions = standard_indoor_lighting)
-        clothing_store = Room("clothing store","Clothing Store",[],standard_mall_backgrounds[:],[],[],[import_wardrobe_action],True,[8,3], lighting_conditions = standard_indoor_lighting)
-        office_store = Room("office supply store","Office Supply Store",[],standard_mall_backgrounds[:],[],[],[],True,[9,1], lighting_conditions = standard_indoor_lighting)
+        mall = Room("mall","Mall", background_image = standard_mall_backgrounds[:], public = True,
+            map_pos = [8,2], lighting_conditions = standard_indoor_lighting)
+        gym = Room("gym","Gym", background_image = standard_mall_backgrounds[:], public = True,
+            map_pos = [7,1], lighting_conditions = standard_indoor_lighting)
+        home_store = Room("home improvement store","Home Improvement Store", background_image = standard_mall_backgrounds[:], public = True,
+            map_pos = [8,1], lighting_conditions = standard_indoor_lighting)
+        sex_store = Room("sex store","Sex Store", background_image = standard_mall_backgrounds[:], public = True,
+            map_pos = [9,2], lighting_conditions = standard_indoor_lighting)
+        clothing_store = Room("clothing store","Clothing Store", background_image = standard_mall_backgrounds[:],
+            actions = [import_wardrobe_action], public = True,
+            map_pos = [8,3], lighting_conditions = standard_indoor_lighting)
+        office_store = Room("office supply store","Office Supply Store", background_image = standard_mall_backgrounds[:], public = True,
+            map_pos = [9,1], lighting_conditions = standard_indoor_lighting)
 
         ##Other Locations##
-        aunt_apartment = Room("Rebecca's Apartment", "Rebecca's Apartment", [], standard_house_backgrounds[:], [], [], [], False, [4, 2], None, False, lighting_conditions = standard_indoor_lighting)
-        aunt_bedroom = Room("Rebecca's bedroom", "Rebecca's Bedroom", [], standard_bedroom_backgrounds[:], [], [], [], False, [3, 1], None, False, lighting_conditions = standard_indoor_lighting)
-        cousin_bedroom = Room("Gabrielle's bedroom", "Gabrielle's Bedroom", [], standard_bedroom_backgrounds[:], [], [], [], False, [4,1], None, False, lighting_conditions = standard_indoor_lighting)
+        aunt_apartment = Room("Rebecca's Apartment", "Rebecca's Apartment", background_image = standard_house_backgrounds[:],
+            map_pos = [4,2], visible = False, lighting_conditions = standard_indoor_lighting)
+        aunt_bedroom = Room("Rebecca's bedroom", "Rebecca's Bedroom", background_image = standard_bedroom_backgrounds[:],
+            map_pos = [3,1],visible = False, lighting_conditions = standard_indoor_lighting)
+        cousin_bedroom = Room("Gabrielle's bedroom", "Gabrielle's Bedroom", background_image = standard_bedroom_backgrounds[:],
+            map_pos = [4,1], visible = False, lighting_conditions = standard_indoor_lighting)
 
-        university = Room("university Campus", "University Campus", [], standard_campus_backgrounds[:], [], [], [], False, [9,5], None, False, standard_outdoor_lighting)
+        university = Room("university Campus", "University Campus", background_image = standard_campus_backgrounds[:],
+            map_pos = [9,5], visible = False, lighting_conditions = standard_outdoor_lighting)
 
         strip_club_owner = get_random_male_name()
-        strip_club = Room(strip_club_owner + "'s Gentlemen's Club", strip_club_owner + "'s Gentlemen's Club", [], stripclub_background, [], [], [strip_club_show_action], False, [6,5], None, False, lighting_conditions = standard_club_lighting)
+        strip_club = Room(strip_club_owner + "'s Gentlemen's Club", strip_club_owner + "'s Gentlemen's Club", background_image = stripclub_background,
+            actions = [strip_club_show_action],
+            map_pos = [6,5], visible = False, lighting_conditions = standard_club_lighting)
 
         mom_office_name = get_random_male_name() + " and " + get_random_male_name() + " Ltd."
+        mom_office_lobby = Room(mom_office_name + " Lobby", mom_office_name + " Lobby", background_image = standard_office_backgrounds[:],
+            actions = [mom_office_person_request_action],
+            map_pos = [6,3], lighting_conditions = standard_indoor_lighting)
+        mom_offices = Room(mom_office_name + " Offices", mom_office_name + " Offices", background_image = standard_office_backgrounds[:],
+            map_pos = [5,5], visible = False, lighting_conditions = standard_indoor_lighting)
 
-        mom_office_lobby = Room(mom_office_name + " Lobby", mom_office_name + " Lobby", [], standard_office_backgrounds[:], [], [], [mom_office_person_request_action], False, [6,3], lighting_conditions = standard_indoor_lighting)
-        mom_offices = Room(mom_office_name + " Offices", mom_office_name + " Offices", [], standard_office_backgrounds[:], [], [], [], False, [5,5], visible = False, lighting_conditions = standard_indoor_lighting)
 
-
-        bar_location = Room("Bar", "Bar", [], standard_bar_backgrounds[:], [], [], [], False, [10,10], visible = False, lighting_conditions = standard_indoor_lighting)
+        bar_location = Room("Bar", "Bar", background_image = standard_bar_backgrounds[:],
+            map_pos = [10,10], visible = False, lighting_conditions = standard_indoor_lighting)
 
         ##PC starts in his bedroom##
         mc = MainCharacter(bedroom,character_name,last_name, Business(business_name, m_division, p_division, rd_division, office, office),stat_array,skill_array,_sex_array)
