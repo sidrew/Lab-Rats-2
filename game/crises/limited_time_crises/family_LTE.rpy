@@ -41,6 +41,10 @@ init -1 python:
             return False
         elif the_person.event_triggers_dict.get("breeding_mom_enabled", False):
             return False
+        elif the_person.on_birth_control:   # when she's taking BC she won't ask for breeding her
+            return False
+        elif pregnant_role in the_person.special_role and the_person.event_triggers_dict.get("preg_knows", False):
+            return False
         return True
 
     def work_walk_in_requirement(the_person): #AKA she has to work for you, be at work, and be turned on
@@ -50,7 +54,7 @@ init -1 python:
             return False
         elif the_person not in mc.business.get_employee_list():
             return False
-        elif the_person.effective_sluttiness() < 20 - (5*the_person.get_opinion_score("masturbating")):
+        elif the_person.effective_sluttiness() < 40 - (5*the_person.get_opinion_score("masturbating")):
             return False
         return True
 
@@ -61,12 +65,11 @@ init -1 python:
             return False
         elif mc.business.is_weekend():
             return False
-        elif time_of_day == 1 or time_of_day >= 4:
+        elif time_of_day <= 1 or time_of_day >= 4:
             return False
         elif the_person.event_triggers_dict.get("mom_office_slutty_level",0) < 1:
             return False
-        else:
-            return True
+        return True
 
     def aunt_home_lingerie_requirement(the_person):
         if not the_person.has_role(aunt_role):
@@ -75,20 +78,17 @@ init -1 python:
             return False
         elif cousin_bedroom.has_person(cousin):
             return False
-        else:
-            return True
+        return True
 
     def cousin_home_panties_requirement(the_person):
         if not the_person.has_role(cousin_role):
             return False
         elif not cousin_bedroom.has_person(the_person):
             return False
-        else:
-            return False
+        return True
 
     ### ON TALK EVENTS ###
     mom_work_slutty_event = Action("Mom work slutty", mom_work_slutty_requirement, "mom_work_slutty_report", event_duration = 2)
-
 
     limited_time_event_pool.append([mom_work_slutty_event,8,"on_talk"])
 
@@ -133,13 +133,13 @@ label sister_walk_in_label(the_person):
         the_person "Oh my god, no!"
         "She sprints to her bed, opening up her laptop and turning it off as quickly as possible."
         $ mc.change_locked_clarity(10)
-        mc.name "Am I interupting?"
+        mc.name "Am I interrupting?"
         "[the_person.possessive_title] spins around, beet red, and stammers for a moment."
         the_person "I... I don't... Umm... I think my laptop has a virus, all these crazy popups!"
         mc.name "Mmmhm? Do you want me to take a look?"
         the_person "No, no that's okay. It's probably fine."
         menu:
-            "Encourage her.":
+            "Encourage her":
                 mc.name "You know there's nothing wrong with watching porn, right?"
                 the_person "I wasn't! I..."
                 mc.name "Of course not, but even if you were there's nothing wrong with that. It's a natural thing, everyone does it. I certainly do."
@@ -148,7 +148,7 @@ label sister_walk_in_label(the_person):
                 the_person "Really? Ew, I don't need to know about that."
                 "She still seems more interested than her words would suggest."
 
-            "Threaten to tell [mom.possessive_title].":
+            "Threaten to tell [mom.possessive_title]":
                 mc.name "I can let [mom.title] know, maybe she can take it somewhere to get it fixed."
                 the_person "No! I mean, you can't tell Mom. Nothing's wrong with it, okay?"
                 mc.name "So you were..."
@@ -162,7 +162,6 @@ label sister_walk_in_label(the_person):
 
     else:
         $ the_person.outfit.strip_to_vagina()
-
         $ the_person.draw_person(position = "missionary")
         $ the_person.change_arousal(40, add_to_log = False)
         "You open the door to [the_person.title]'s room and find her sitting up in bed with her laptop beside her, legs splayed open and fingers deep in her own pussy."
@@ -170,7 +169,7 @@ label sister_walk_in_label(the_person):
         $ mc.change_locked_clarity(20)
         the_person "Mmmph..."
         menu:
-            "Offer to help.":
+            "Offer to help":
                 "You step into the room and close the door."
                 mc.name "Having a good time?"
                 if the_person.effective_sluttiness("touching_vagina") < 35:
@@ -182,7 +181,6 @@ label sister_walk_in_label(the_person):
                     "She grabs a pillow and throws it at you."
                     the_person "Get out! Get out!"
                     "You retreat from the room before [mom.title] hears what's happening and comes to investigate."
-                    $ the_person.apply_outfit(the_person.planned_outfit)
 
                 else:
                     the_person "Hmm?"
@@ -212,33 +210,36 @@ label sister_walk_in_label(the_person):
                     "She slides her body against you, and when you pull her off the bed she doesn't argue."
                     "You stand behind her, one hand grasping a breast and the other gently pumping a finger in and out of her."
                     call fuck_person(the_person, start_position = standing_finger, private = True) from _call_fuck_person_2
-                    $ the_record = _return
-                    if the_record.get("girl orgasms", 0) > 0:
+                    $ the_report = _return
+                    if the_report.get("girl orgasms", 0) > 0:
                         "[the_person.possessive_title] falls back on her bed and sighs happily."
+                        $ the_person.draw_person(position = "missionary", emotion = "happy")
                         $ the_person.change_love(2)
                         $ the_person.change_obedience(1)
                         the_person "Thank you [the_person.mc_title], that's exactly what I wanted. Ahh..."
                         "She rolls over and gathers up a collection of pink blankets on top of herself, quickly falling asleep."
                         "You step out of the room to give her some time to recover."
-                        $ mc.change_location(hall)
 
-                    elif the_record.get("guy orgasms", 0) > 0:
+                    elif the_report.get("guy orgasms", 0) > 0:
+                        $ the_person.draw_person(position = "stand4", emotion = "angry")
                         the_person "So... Is that it?"
                         mc.name "What do you mean?"
                         $ the_person.change_love(-2)
                         $ the_person.change_obedience(-2)
+                        $ the_person.draw_person(position = "missionary", emotion = "angry")
                         "She scoffs and falls back onto her bed, pulling her blankets over herself."
                         the_person "Nothing, I'm glad you enjoyed yourself at least. Get out of here so I can get off."
-                        $ mc.change_location(hall)
 
                     else:
+                        $ the_person.draw_person(position = "stand4", emotion = "angry")
                         the_person "So... are you finished?"
-                        mc.name "Heh, yeah. Sorry [the_person.mc_title], I'm just not feeling it."
-                        "She frowns, but nods. She gathers her blankets over herself."
+                        mc.name "Heh, yeah. Sorry [the_person.title], I'm just not feeling it."
+                        $ the_person.draw_person(position = "missionary", emotion = "angry")
+                        "She frowns, but nods. She gathers her blankets over herself as you are walking out of her room."
                         $ the_person.change_obedience(-2)
 
 
-            "Just watch.":
+            "Just watch":
                 "You step into the room and close the door to [the_person.title]'s room."
                 "You lean on the doorframe and watch her fingering herself."
                 $ mc.change_arousal(5)
@@ -251,7 +252,6 @@ label sister_walk_in_label(the_person):
                     "She grabs a pillow and throws it at you."
                     the_person "Get out! Get out!"
                     "You retreat from the room before [mom.title] hears what's happening and comes to investigate."
-                    $ the_person.apply_outfit(the_person.planned_outfit)
 
                 else: #Otherwise she lets you stay long enough for you to tell her to keep going.
                     the_person "Oh my god, [the_person.mc_title]! What are you doing, I'm..."
@@ -260,7 +260,7 @@ label sister_walk_in_label(the_person):
                     mc.name "Don't worry about me, just keep going."
                     if the_person.effective_sluttiness("bare_pussy") < 60: #She's a little unsure about it, but goes for it
                         the_person "Really? I... I mean, do you really want to see me like this?"
-                        "[the_person.possessive_title] relaxes a little, her hand unconciously drifting back between her legs."
+                        "[the_person.possessive_title] relaxes a little, her hand unconsciously drifting back between her legs."
                         mc.name "I think it's hot, keep touching yourself for me."
                         "She shrugs and nods, spreading her legs and sliding a finger along her wet slit."
                         $ the_person.change_obedience(2)
@@ -279,18 +279,20 @@ label sister_walk_in_label(the_person):
                     "Finally she relaxes and pulls her fingers out, trailing her own juices behind them. She glances up at you and smiles weakly."
                     $ mc.change_locked_clarity(20)
                     the_person "Ah... That was good."
+                    "You smile at her and walk out of the room."
                     $ the_person.change_slut_temp(2+the_person.get_opinion_score("masturbating"))
                     $ the_person.discover_opinion("masturbating")
+                    $ the_person.reset_arousal()
 
-            "Leave her alone.":
+            "Leave her alone":
                 $ clear_scene()
-                "You take a quick step back and, as quietly as you can manage, close her door."
-                $ mc.change_location(hall)
-                $ the_person.apply_outfit(the_person.planned_outfit)
-                #$ the_person.outfit = the_person.planned_outfit.get_copy() changed v0.24.1
+                "You take a quick step back and, as quietly as you can manage and close her door."
 
 
 
+    $ mc.change_location(hall)
+    $ mc.location.show_background()
+    $ the_person.apply_outfit()
     $ clear_scene()
     return
 
@@ -309,7 +311,7 @@ label nude_walk_in_label(the_person):
             the_person "Just... Just a minute, I was getting changed!"
             $ clear_scene()
             "[the_person.title] shoos you out of the room. You can hear her getting dressed on the other side."
-            $ the_person.apply_outfit(the_person.planned_outfit)
+            $ the_person.apply_outfit()
             $ the_person.draw_person()
             "Soon enough she opens the door and invites you in."
             $ the_person.change_slut_temp(1+the_person.get_opinion_score("not wearing anything"))
@@ -333,14 +335,14 @@ label nude_walk_in_label(the_person):
     else:
         # She's in her underwear
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True))
-        $ the_person.draw_person()
+        $ the_person.draw_person(position = "sitting")
         $ mc.change_locked_clarity(10)
         "You open the door to [the_person.possessive_title]'s room and find her sitting on her bed, wearing nothing but her underwear."
         if the_person.effective_sluttiness("underwear_nudity") < (30 - (the_person.get_opinion_score("not wearing anything")*10)):
             the_person "Oh! One second, I'm not dressed!"
             $ clear_scene()
             "She hurries to the door and closes it in your face, locking it quickly. You can hear her quickly getting dressed on the other side."
-            $ the_person.apply_outfit(the_person.planned_outfit)
+            $ the_person.apply_outfit()
             $ the_person.draw_person()
             "When she opens the door she's fully dressed and invites you in."
             $ the_person.change_slut_temp(1+the_person.get_opinion_score("not wearing anything"))
@@ -360,32 +362,23 @@ label nude_walk_in_label(the_person):
     call talk_person(the_person) from _call_talk_person_19
     return
 
-
 label mom_house_work_nude_label(the_person):
     # When she's in the kitchen (or any other part of the house, for later events) she'll work in her underwear or (later) nude.
     $ effective_slut = the_person.effective_sluttiness("underwear_nudity") + (the_person.get_opinion_score("not wearing anything")*10)
     if effective_slut < 20: #TODO: This method of adding clothing with specific colours is dumb. (I suppose we could do the apron as being an overwear and then add it to underwear, but we should still have a system for it).
-        # She's in her underwear but self concious about it
+        # She's in her underwear but self conscious about it
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True))
-        $ coloured_apron = apron.get_copy()
-        $ coloured_apron.colour = [0.74,0.33,0.32,1.0]
-        $ coloured_apron.pattern = "Pattern_1"
-        $ coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
-        $ the_person.outfit.add_dress(coloured_apron)
+        $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
         "You find [the_person.possessive_title] in the kitchen working on dinner. She glances over her shoulder when you enter, seeming meek."
         the_person "Hi [the_person.mc_title]. I hope you don't mind the way I'm dressed, it's nice to weark something more comfortable after I come home from work."
         $ mc.change_locked_clarity(5)
         mc.name "It's fine, I don't mind."
-        "She turns her attention back to prepping dinner."
+        "She turns her attention back to preparing dinner."
 
     elif the_person.effective_sluttiness("underwear_nudity") < 40:
         $ the_person.apply_outfit(the_person.wardrobe.get_random_appropriate_underwear(the_person.effective_sluttiness(), guarantee_output = True))
-        $ coloured_apron = apron.get_copy()
-        $ coloured_apron.colour = [0.74,0.33,0.32,1.0]
-        $ coloured_apron.pattern = "Pattern_1"
-        $ coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
-        $ the_person.outfit.add_dress(coloured_apron)
+        $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
         "You find [the_person.possessive_title] in the kitchen working on dinner in her underwear. She glances over her shoulder when you enter."
         $ mc.change_locked_clarity(5)
@@ -394,25 +387,17 @@ label mom_house_work_nude_label(the_person):
 
     elif the_person.effective_sluttiness(["bare_pussy","bare_tits"]) < 60:
         $ the_person.apply_outfit(Outfit("Nude"))
-        $ coloured_apron = apron.get_copy()
-        $ coloured_apron.colour = [0.74,0.33,0.32,1.0]
-        $ coloured_apron.pattern = "Pattern_1"
-        $ coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
-        $ the_person.outfit.add_dress(coloured_apron)
+        $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
         "You find [the_person.possessive_title] in the kitchen, completely nude except for her apron. She glances over her shoulder when you enter."
         the_person "Hi [the_person.mc_title]. If me being... naked makes you uncomfortable just let me know. It's just a nice to relax a little after work."
         $ mc.change_locked_clarity(10)
         mc.name "I don't mind at all Mom."
-        "She turns her attention back to prepping dinner."
+        "She turns her attention back to preparing dinner."
 
     else:
         $ the_person.apply_outfit(Outfit("Nude"))
-        $ coloured_apron = apron.get_copy()
-        $ coloured_apron.colour = [0.74,0.33,0.32,1.0]
-        $ coloured_apron.pattern = "Pattern_1"
-        $ coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
-        $ the_person.outfit.add_dress(coloured_apron)
+        $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
         "You find [the_person.possessive_title] in the kitchen, completely nude except for her apron. She glances over her shoulder when you enter."
         $ mc.change_locked_clarity(15)
@@ -445,10 +430,10 @@ label breeding_mom_intro_label(the_person):
     $ mc.change_locked_clarity(50)
 
     menu:
-        "Fuck her and try to breed her.":
-            "You nod, and the mere the confirmation makes her gasp. She lies down on the bed and holds out her hands for you."
+        "Fuck her and try to breed her":
+            "You nod, and the mere confirmation makes her shiver. She lies down on the bed and holds out her hands for you."
             $ the_person.draw_person(position = "missionary")
-            "You strip down and climb on top of her. The tip of your hard cock runs along the enterance of her cunt and finds it dripping wet."
+            "You strip down and climb on top of her. The tip of your hard cock runs along the entrance of her cunt and finds it dripping wet."
             the_person "Go in raw [the_person.mc_title], enjoy my pussy and give me your cum!"
             $ mc.change_locked_clarity(20)
             $ the_person.break_taboo("vaginal_sex")
@@ -464,6 +449,7 @@ label breeding_mom_intro_label(the_person):
                 mc.name "Do you think that did it?"
                 the_person "I don't know. It's the right time of the month."
                 "You lie together in silence. [the_person.possessive_title] rocks herself side to side. You imagine your cum sloshing around her womb."
+                $ the_person.draw_person(position = "sitting")
                 "Eventually she puts her legs down and the two of you sit up in bed."
                 $ the_person.event_triggers_dict["breeding_mom_enabled"] = True
 
@@ -475,9 +461,10 @@ label breeding_mom_intro_label(the_person):
                 "You wrap your arms around her and hold her close."
                 mc.name "Shh... You were fantastic. It's me, I'm just not feeling it today. Maybe we can try some other day."
                 the_person "I don't know, this might have all been a mistake. Let's just... be quiet for a while, okay?"
+                $ the_person.draw_person(position = "sitting")
                 "You hold [the_person.possessive_title] until she's feeling better, then sit up in bed with her."
 
-        "Refuse.":
+        "Refuse":
             $ the_person.draw_person(position = "sitting", emotion = "sad")
             "You shake your head. [the_person.title] looks immediately crestfallen."
             $ the_person.change_happiness(-20)
@@ -487,6 +474,8 @@ label breeding_mom_intro_label(the_person):
             $ the_person.change_slut_temp(-2)
             $ the_person.change_love(-2)
             the_person "Of course... I was just being silly. I should know better."
+
+    $ clear_scene()
     return
 
 label aunt_home_lingerie_label(the_person):
@@ -508,7 +497,7 @@ label aunt_home_lingerie_label(the_person):
         the_person "I'm sure you don't want to see me prancing around like this. Just wait there, I'll be back in a moment!"
         $ get_dressed = True
         menu:
-            "Tell her to stay.":
+            "Tell her to stay":
                 mc.name "Don't worry about it [the_person.title], I really don't mind."
                 $ the_person.draw_person(position = "back_peek")
                 "[the_person.possessive_title] stops and peeks over her shoulder again."
@@ -526,7 +515,7 @@ label aunt_home_lingerie_label(the_person):
                     the_person "You're sweet, but you really shouldn't see me like this. We're family, it's a little... strange."
                     the_person "I'll be back before you know it!"
 
-            "Let her get dressed.":
+            "Let her get dressed":
                 pass
 
 
@@ -536,7 +525,7 @@ label aunt_home_lingerie_label(the_person):
             $ the_person.apply_outfit()
             "After a brief wait she steps back out."
             $ the_person.draw_person()
-            the_person "So sorry about that. [cousin.title] is out, so I was just lounging around."
+            the_person "So sorry about that. [cousin.name] is out, so I was just lounging around."
             the_person "Anyways, I'm glad you stopped by!"
 
     elif the_person.effective_sluttiness() < 40:
@@ -546,16 +535,16 @@ label aunt_home_lingerie_label(the_person):
         $ the_person.draw_person()
         "She laughs and relaxes, turning back to face you."
         mc.name "Sorry [the_person.title], I didn't mean to scare you."
-        the_person "It's not your fault, I was scared I had left the door unlocked is all. [cousin.title] is out, so I'm not dressed for company."
+        the_person "It's not your fault, I was scared I had left the door unlocked is all. [cousin.name] is out, so I'm not dressed for company."
         the_person "You don't mind, do you? I can go throw something on."
         menu:
-            "Tell her to stay.":
+            "Tell her to stay":
                 mc.name "Not at all, you're looking good."
                 "[the_person.possessive_title] smiles and pats you playfully on the shoulder."
                 the_person "Oh, stop. I'm just so glad you stopped by!"
 
-            "Tell her to get dressed.":
-                mc.name "Might be a good idea, in case [cousin.title] comes home."
+            "Tell her to get dressed":
+                mc.name "Might be a good idea, in case [cousin.name] comes home."
                 the_person "Good point, that would be hard to explain..."
                 the_person "I'll be back in a second!"
                 $ clear_scene()

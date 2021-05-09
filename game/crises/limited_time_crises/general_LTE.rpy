@@ -38,10 +38,9 @@ init -1 python:
             return False
         elif renpy.random.randint(0,100) >= the_person.personality.insta_chance + 5*(the_person.get_opinion_score("showing her tits") + the_person.get_opinion_score("showing her ass")):
             return False #Personality type and Opinions has a large impact on chance to generate a new profile.
-        elif the_person.love < 10: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
+        elif the_person.love < 15: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
             return False
-        else:
-            return True
+        return True
 
     def new_dikdok_account_requirement(the_person):
         if the_person.has_role(mother_role) or the_person.has_role(sister_role):
@@ -50,10 +49,9 @@ init -1 python:
             return False
         elif renpy.random.randint(0,100) >= the_person.personality.dikdok_chance + 5*(the_person.get_opinion_score("showing her tits") + the_person.get_opinion_score("showing her ass")):
             return False #Personality type and Opinions has a large impact on chance to generate a new profile.
-        elif the_person.love < 10: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
+        elif the_person.love < 15: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
             return False
-        else:
-            return True
+        return True
 
     def new_onlyfans_account_requirement(the_person):
         if the_person.has_role(mother_role) or the_person.has_role(sister_role):
@@ -64,20 +62,27 @@ init -1 python:
             return False #Personality type and Opinions has a large impact on chance to generate a new profile.
         elif the_person.effective_sluttiness() < 50 + 10*(the_person.get_opinion_score("showing her tits") + the_person.get_opinion_score("showing her ass") + the_person.get_opinion_score("public sex")):
             return False
-        elif the_person.love < 10: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
+        elif the_person.love < 30: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
             return False
-        else:
-            return True
-        return
-
+        return True
 
 
     ### ON TALK EVENTS ###
     ask_new_title_action = Action("Ask new title", ask_new_title_requirement, "ask_new_title_label", event_duration = 2)
     work_walk_in = Action("Employee walk in", work_walk_in_requirement, "work_walk_in_label", event_duration = 4)
 
+    ### ACCOUNT CREATION EVENTS ###
+    new_insta_account_event = Action("New Instapic Account Creation", new_insta_account_requirement, "new_insta_account", event_duration = 2)
+    new_dikdok_account_event = Action("New DikDok Account Creation", new_dikdok_account_requirement, "new_dikdok_account", event_duration = 2)
+    new_onlyfans_account_event = Action("New OnlyFanatics Account Creation", new_onlyfans_account_requirement, "new_onlyfans_account", event_duration = 2)
+
+
     limited_time_event_pool.append([ask_new_title_action,8,"on_talk"])
     limited_time_event_pool.append([work_walk_in,4,"on_talk"])
+
+    limited_time_event_pool.append([new_insta_account_event,4,"on_talk"])
+    limited_time_event_pool.append([new_dikdok_account_event,4,"on_talk"])
+    limited_time_event_pool.append([new_onlyfans_account_event,4,"on_talk"])
 
     #TODO: Add some girlfriend/paramour events where they ask right away if you want to fuck
 
@@ -115,11 +120,11 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
         "She crosses her legs, face turning beet red."
         the_person "Is there... something you wanted to talk to me about, [the_person.mc_title]?"
         menu:
-            "Let it go.":
+            "Let it go":
                 "You shrug and ignore whatever [the_person.title] is trying to hide."
 
 
-            "Demand to know what she was doing." if the_person.obedience >= 120:
+            "Demand to know what she was doing" if the_person.obedience >= 120:
                 mc.name "There is, now. What were you just doing [the_person.title]?"
                 the_person "I... I told you, I was working."
                 "She shuffles nervously in her chair."
@@ -130,7 +135,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                 "Once [the_person.possessive_title] has started talking she begins to speed up, babbling out excuses."
                 the_person "And I absolutely shouldn't have been doing it at my desk. I'm sorry, it won't happen again."
                 menu:
-                    "Praise her.":
+                    "Praise her":
                         "You wave your hand and smile."
                         mc.name "Calm down, you haven't done anything wrong."
                         the_person "I haven't? I mean, I was just..."
@@ -146,7 +151,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                         $ the_person.change_slut_temp(3)
                         the_person "Okay [the_person.mc_title], I will. Is there anything else you wanted to talk about?"
 
-                    "Scold her.":
+                    "Scold her":
                         mc.name "Frankly, this just isn't acceptable [the_person.title]."
                         the_person "I know, I'm so sorry. I promise my... urges will never get in the way of work again."
                         mc.name "You're a grown woman, and I expect you to act like it. Not like a horny teenager, fingering herself at her own desk."
@@ -170,22 +175,21 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                         $ the_person.change_slut_temp(1)
                         if office_punishment.is_active():
                             menu:
-                                "Punish her for her inappropriate behaviour.":
+                                "Punish her for her inappropriate behaviour":
                                     mc.name "Of course, this will also be going on your record. There may be furthur punishment for this inappropriate behaviour"
                                     $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
 
-                                "Let it go.":
+                                "Let it go":
                                     pass
 
                         else:
                             "[the_person.possessive_title] nods silently."
                         the_person "Did... you want to talk about anything else?"
 
-            "Demand to know what she was doing.\nRequires: 120 Obedience (disabled)" if the_person.obedience < 120:
+            "Demand to know what she was doing\n{color=#ff0000}{size=18}Requires: 120 Obedience{/size}{/color} (disabled)" if the_person.obedience < 120:
                 pass
 
         call talk_person(the_person) from _call_talk_person_15
-
 
 
     elif the_person.effective_sluttiness() < 60: #She was masturbating and admits it
@@ -194,19 +198,19 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
         $ top_item = the_person.outfit.get_lower_top_layer()
         $ mc.change_locked_clarity(10)
         if top_item:
-            "You take a quiet step closer. She has one hand between her legs and underneath her [top_item.display_name], subtley rubbing her crotch."
+            "You take a quiet step closer. She has one hand between her legs and underneath her [top_item.display_name], subtly rubbing her crotch."
         else:
-            "You take a quiet step closer. She has one hand between her legs, subtley rubbing her crotch."
+            "You take a quiet step closer. She has one hand between her legs, subtly rubbing her crotch."
 
         menu:
-            "Interrupt her.":
+            "Interrupt her":
                 mc.name "Having a good time [the_person.title]?"
                 "[the_person.possessive_title] yelps and nearly falls out of her chair."
                 the_person "Ah! Oh my god, [the_person.mc_title], I nearly had a heart attack!"
                 mc.name "Sorry about that. I hope I wasn't interrupting anything."
                 $ the_item = the_person.outfit.get_lower_top_layer()
                 $ mc.change_locked_clarity(10)
-                if the_item is None:
+                if the_item:
                     "[the_person.possessive_title] swivels her chair around to face you, wiping her hand off onto her [the_item.display_name]."
                 else:
                     "[the_person.possessive_title] swivels her chair around to face you, wiping her hand off onto her thigh."
@@ -218,7 +222,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                 the_person "Did you need to talk to me about something?"
 
 
-            "Just watch.":
+            "Just watch":
                 "You stop a few steps behind [the_person.title]'s chair, watching and listening as she touches herself."
                 the_person "Mmm... Ah..."
                 $ mc.change_locked_clarity(10)
@@ -287,7 +291,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
         "You hear her panting softly under her breath."
         $ the_item = the_person.outfit.get_lower_top_layer()
         $ mc.change_locked_clarity(10)
-        if the_item is None:
+        if the_item:
             "You take another step closer and you can see that she has her legs spread wide, one hand underneath her [the_item.display_name] fingering her cunt."
         else:
             "You take another step closer and you can see that she has her legs spread wide, one hand between them fingering her cunt."
@@ -298,7 +302,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
         $ mc.change_locked_clarity(10)
         "She doesn't stop playing with herself."
         menu:
-            "Let her finish.":
+            "Let her finish":
                 mc.name "Well, hurry up then."
                 if the_person.get_opinion_score("public sex") < 0:
                     the_person "I... With you right here?"
@@ -308,12 +312,12 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                     the_person "I... I'll do my best..."
                     if office_punishment.is_active():
                         menu:
-                            "Punish her for her inappropriate behaviour.":
+                            "Punish her for her inappropriate behaviour":
                                 mc.name "This will go on your record, obviously. I may have to punish you for your inappropriate behaviour."
                                 the_person "I... Ah, understand [the_person.mc_title], but I really need this! I'll accept whatever punishment you give me!"
                                 $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
 
-                            "Let it go.":
+                            "Let it go":
                                 pass
 
                     else:
@@ -323,7 +327,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                     "After a few minutes of her moaning quietly to herself she looks back at you and shakes her head."
                     the_person "I don't... I don't know if I can finish with you watching like this..."
                     menu:
-                        "Make her cum.":
+                        "Make her cum":
                             mc.name "If you can't make yourself cum, I'll have to do it for you."
                             the_person "No, I can... I'll feel fine in a little bit, I..."
                             mc.name "I can't have you distracted all day just because you never learned how to get yourself off."
@@ -346,7 +350,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                                 the_person "I told you, it just wasn't going to work..."
                                 the_person "I'll be fine. What did you want to talk about?"
 
-                        "Make her stop.":
+                        "Make her stop":
                             mc.name "Then wait until later. I'm here to talk to you, not watch you practice masturbating."
                             "She pulls her hand out of her pussy and sits up, blushing."
                             $ the_person.change_obedience(1)
@@ -356,12 +360,12 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                     "She moans and pants as she masturbates, legs still wide for you to watch."
                     if office_punishment.is_active():
                         menu:
-                            "Punish her for her inappropriate behaviour.":
+                            "Punish her for her inappropriate behaviour":
                                 mc.name "This will go on your record, obviously. I may have to punish you for your inappropriate behaviour."
                                 the_person "I... Ah, understand [the_person.mc_title], but I really need this! I'll accept whatever punishment you give me!"
                                 $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
 
-                            "Let it go.":
+                            "Let it go":
                                 pass
 
                     else:
@@ -369,7 +373,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                     the_person "Do you like... watching me, [the_person.mc_title]?"
                     the_person "Is watching me finger myself making your dick hard? Thinking about is making me so wet!"
                     $ mc.change_locked_clarity(10)
-                    "She moans again, arching her back and lifting her hips away from her office chair. There's a large wet spot left where she use to be sitting."
+                    "She moans again, arching her back and lifting her hips away from her office chair. There's a large wet spot left where she used to be sitting."
                     $ the_person.draw_person(position = "sitting", emotion = "orgasm")
                     the_person "Fuck... Watch me cum [the_person.mc_title]! I'm cumming!"
                     $ mc.change_locked_clarity(10)
@@ -392,12 +396,12 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                     "[the_person.possessive_title] cups a breast with one hand while she fingers herself with the other."
                     if office_punishment.is_active():
                         menu:
-                            "Punish her for her inappropriate behaviour.":
+                            "Punish her for her inappropriate behaviour":
                                 mc.name "This will go on your record, obviously. I may have to punish you for your inappropriate behaviour."
                                 the_person "I... Ah, understand [the_person.mc_title], but I really need this! I'll accept whatever punishment you give me!"
                                 $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
 
-                            "Let it go.":
+                            "Let it go":
                                 pass
 
                     else:
@@ -420,7 +424,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                 $ the_person.discover_opinion("public sex")
 
 
-            "Demand she stops.":
+            "Demand she stops":
                 mc.name "I don't have a moment. Cut it out, I need to talk to you."
                 if the_person.obedience - 100 > ((the_person.arousal/2) + 10*the_person.get_opinion_score("public sex") + 10*the_person.get_opinion_score("masturbating")):
                     "[the_person.possessive_title] seems disappointed, but she puts her legs together and sits up straight in her chair."
@@ -428,7 +432,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                     "She continues to rub her thighs together in an attempt to stimulate herself while you talk."
                     if office_punishment.is_active():
                         menu:
-                            "Punish her for her inappropriate behaviour.":
+                            "Punish her for her inappropriate behaviour":
                                 mc.name "This will still be going on your record, of course."
                                 the_person "It was just for a moment though [the_person.mc_title]... Can't I get away with it this one time?"
                                 "You shake your head."
@@ -436,9 +440,8 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                                 "[the_person.title] sighs, but nods her understanding."
                                 $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
 
-                            "Let it go.":
+                            "Let it go":
                                 pass
-
                     else:
                         pass
                 else: #She ignores you
@@ -467,13 +470,13 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                     "Her body quivers for a moment, then she slumps back into her chair and pants."
                     if office_punishment.is_active():
                         menu:
-                            "Punish her for disobedience.":
+                            "Punish her for disobedience":
                                 mc.name "I hope that was worth it, because I'm going to have to write you up for disobedience now."
                                 "She sighs and shrugs."
                                 the_person "It was worth it, that felt so good..."
                                 $ the_person.add_infraction(Infraction.disobedience_factory())
 
-                            "Let it go.":
+                            "Let it go":
                                 pass
 
                     $ the_person.reset_arousal()
@@ -481,7 +484,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
                     $ the_person.change_obedience(-2)
                     the_person "Now, what did you need to talk about?"
 
-            "Offer to help.":
+            "Offer to help":
                 mc.name "Let's speed things up. I'll give you a hand."
                 "She eyes you up and down as she considers, before nodding her approval."
                 $ the_person.add_situational_obedience("event", 10, "He promised to make me cum, I'll do what he tells me to do.")
