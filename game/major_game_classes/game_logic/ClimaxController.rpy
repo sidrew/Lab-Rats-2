@@ -51,7 +51,7 @@ init -2 python:
                 the_person.change_novelty(-5)
             else:
                 mc.convert_locked_clarity(multiplier, with_novelty = mc.masturbation_novelty)
-                mc.change_novelty(-5)
+                mc.change_masturbation_novelty(-5)
             return
 
         @staticmethod
