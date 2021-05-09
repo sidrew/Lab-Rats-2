@@ -1008,9 +1008,11 @@ init 1 python:
             eyes = "brown", personality = stephanie_personality, name_color = "#cf3232", dial_color = "#cf3232" , starting_wardrobe = stephanie_wardrobe, \
             stat_array = [3,4,3], skill_array = [1,1,4,2,1], sex_array = [3,4,2,1], start_sluttiness = 24, start_obedience = 12, start_happiness = 119, start_love = 7, \
             title = "Stephanie", possessive_title = "Your friend", mc_title = mc.name, relationship = "Single", kids = 0)
-        stephanie.generate_home()
-        stephanie.home.add_person(stephanie)
+
         stephanie.opinions["research work"] = [2, True] #Steph always loves research work, which you know
+        stephanie.generate_home()
+        stephanie.add_role(steph_role)
+        stephanie.home.add_person(stephanie)
 
         ### NORA ##
         global nora

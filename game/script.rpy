@@ -186,11 +186,8 @@ label start:
 init 0 python:
     def initialize_stephanie_in_our_business():
         mc.business.add_employee_research(stephanie)
-        mc.business.r_div.add_person(stephanie)
-        mc.business.r_div.move_person(stephanie, lobby)
         mc.business.hire_head_researcher(stephanie)
-        mc.business.r_div.move_person(stephanie, lobby)
-        stephanie.special_role.append(steph_role)
+        stephanie.location.move_person(stephanie, lobby)
         return
 
 label normal_start:
