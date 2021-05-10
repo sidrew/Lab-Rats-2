@@ -372,7 +372,7 @@ label mom_high_sluttiness_weekly_pay(the_person): #TODO: Change all of these ove
                     mc.name "That's all. I'll just be keeping an eye on you in the future, but you don't need to worry about that."
                     the_person "Well thank you [the_person.mc_title], this money will really make a difference. I'm so proud of you!"
                 else:
-                    mc.name "Actually, I don't have anything right now. Maybe next wek though, okay?"
+                    mc.name "Actually, I don't have anything right now. Maybe next week though, okay?"
                     the_person "Okay [the_person.mc_title], thanks for at least thinking about it."
             else:
                 $ mc.business.event_triggers_dict["Mom_Serum_Test"] = 1
@@ -389,7 +389,7 @@ label mom_high_sluttiness_weekly_pay(the_person): #TODO: Change all of these ove
                     mc.name "That's all. I'll just be keeping an eye on you in the future, but you don't need to worry about that."
                     the_person "Well thank you [the_person.mc_title], this money will really make a difference. I'm so proud of you!"
                 else:
-                    mc.name "Actually, I don't have anything right now. Maybe next wek though, okay?"
+                    mc.name "Actually, I don't have anything right now. Maybe next week though, okay?"
                     the_person "Okay [the_person.mc_title], thanks for at least thinking about it."
 
         # "I want to make some changes around here." if the_person.obedience >= 120:
