@@ -590,7 +590,7 @@ label cousin_home_panties_label(the_person):
             $ the_person.apply_outfit()
             "You hear [the_person.possessive_title]'s bed creak, then her shuffle around her room for a moment."
             the_person "Alright dweeb, come in and say what you have to say."
-            $ draw_person()
+            $ the_person.draw_person()
 
     elif the_person.effective_sluttiness() < 40:
         "She looks up and glares at you."
