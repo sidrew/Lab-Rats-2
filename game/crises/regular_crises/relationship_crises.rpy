@@ -362,7 +362,7 @@ label friends_help_friends_be_sluts_label():
                     $ the_group.draw_person(person_two)
                     person_two "You're sure?"
                     mc.name "Of course I'm sure, but if I'm making you self conscious I'll give you some privacy."
-                    mc.name "Once you're done your break I expect to see you both back at work."
+                    mc.name "When you're done with your break I expect to see you both back at work."
                     $ person_two.change_slut_temp(3)
                     $ person_two.change_obedience(2)
                     $ mc.change_locked_clarity(5)
