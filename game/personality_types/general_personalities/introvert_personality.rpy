@@ -246,7 +246,7 @@ label introvert_strip_reject(the_person, the_clothing, strip_type = "Full"):
 
 label introvert_strip_obedience_accept(the_person, the_clothing, strip_type = "Full"):
     if the_person.obedience > 130:
-        "[the_person.title] seems uncomfortably as you grab onto her [the_clothing.display_name], but doesn't say anything."
+        "[the_person.title] seems uncomfortable as you grab onto her [the_clothing.display_name], but doesn't say anything."
     else:
         the_person "I... I don't know if you should do that."
     return

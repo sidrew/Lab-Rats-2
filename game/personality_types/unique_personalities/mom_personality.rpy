@@ -536,7 +536,7 @@ label mom_condom_demand(the_person):
 
 label mom_condom_ask(the_person):
     if the_person.on_birth_control:
-        the_person "Now [the_person.mc_title], I'm birth control. We really should still use protection though."
+        the_person "Now [the_person.mc_title], I'm birth control, but we really should use protection though."
         the_person "Do you have a condom with you? I hope you're always prepared."
         $ the_person.update_birth_control_knowledge()
     elif the_person.get_opinion_score("creampies") > 0:
@@ -956,7 +956,7 @@ label mom_sex_review(the_person, the_report):
 
         else: # She's surprised she even tried that.
             the_person "Oh, that's all? I mean, you're right... we should stop. We've taken this too far already."
-            the_person "It felt nice wonderful, but I should have stopped you earlier."
+            the_person "It felt wonderful, but I should have stopped you earlier."
             the_person "I think I need to catch my breath after that. Ah..."
 
     elif the_report.get("guy orgasms", 0) > 0: #Only you came
@@ -1444,7 +1444,7 @@ label mom_creampie_taboo_break(the_person):
             "She's silent for a moment before responding."
             the_person "You did? You don't think I'm a terrible mother for letting you... cum inside me?"
             mc.name "Of course not! I think it actually brings us closer together. I don't know anyone who is as close to their mom as I am."
-            the_person "I guess that's true... Next time you really should still pull out though, we don't want any accidents."
+            the_person "I guess that's true... Next time you really should pull out though, we don't want any accidents."
 
         else:
             "[the_person.possessive_title] is silent for a few long moments."

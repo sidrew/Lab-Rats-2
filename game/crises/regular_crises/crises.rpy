@@ -561,7 +561,7 @@ label office_flirt_label():
 
                 else:
                     $ the_person.draw_person(emotion="angry")
-                    the_person "Were staring at my ass this whole time?"
+                    the_person "Were you staring at my ass this whole time?"
                     $ the_person.draw_person()
                     mc.name "No, I was... waiting to see if you needed any help. What were you looking for?"
                     if mc.charisma > 4:

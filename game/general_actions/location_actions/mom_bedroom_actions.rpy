@@ -12,7 +12,7 @@ label mom_room_search_description():
     $ the_person = mom
     "You take a look around [the_person.possessive_title]'s bedroom."
     menu:
-        "Investigate her bedstand.":
+        "Investigate her bedstand":
             #TODO: First thing you find are her BC pills if she's taking them.
             "[the_person.title] keeps her bedstand neat and tidy, just a lamp, an old clock radio, and a charging cable for her phone."
             if the_person.on_birth_control and persistent.pregnancy_pref != 0:
@@ -35,17 +35,17 @@ label mom_room_search_description():
             "You slide open the single drawer to have a peek inside."
             if the_person.core_sluttiness < 10: # V. low sluttiness
                 "The inside is as neat as the top, with a murder mystery novel sitting at the front of the otherwise empty drawer."
-                "Disappointed, you slide hthe drawer closed again."
+                "Disappointed, you slide the drawer closed again."
             elif the_person.core_sluttiness < 30: # Low sluttiness.
                 "The inside is as neat as the top. The only thing inside is a well read, probably second hand novel."
                 "The cover features a shirtless cowboy looking out over wide open plains and a herd of cattle."
-                "The title reads \"A Fist Full of Bodices\", and [the_person.possessive_title] has dog-earred a bunch of pages."
+                "The title reads \"A Fist Full of Bodices\", and [the_person.possessive_title] has dog-eared a bunch of pages."
                 "You aren't terribly interested in reading through her cheap romance novel, so you slide the drawer closed again."
                 pass
             elif the_person.core_sluttiness < 50: # Mid sluttiness.
                 "The inside is as neat as the top, except for a cheap looking paper back novel."
                 "The cover features a shirtless cowboy looking out over wide open plains and a herd of cattle."
-                "The title reads \"A Fist Full of Bodices\", and [the_person.possessive_title] has dog-earred a bunch of pages."
+                "The title reads \"A Fist Full of Bodices\", and [the_person.possessive_title] has dog-eared a bunch of pages."
                 "You notice something tucked behind the romance novel. You push it to the side, revealing a small black piece of plastic about the size of tube of lipstick."
                 "It's tapered at one end, flat on the other. It takes a moment for you to realise it must be a small vibrator."
                 $ mc.change_locked_clarity(10)
@@ -69,7 +69,7 @@ label mom_room_search_description():
                 "When you're finished imagining you double check nothing is out of position and slide the drawer shut again."
 
 
-        "Check her computer.":
+        "Check her computer":
             "[the_person.title] doesn't use her computer very often, but keeps it around in case she has to do some office work from home."
             "You turn the computer on and wait for it to boot up."
             if the_person.event_triggers_dict.get("known_computer_password", False): #If you don't know the password yet, try and guess it.
@@ -87,7 +87,7 @@ label mom_room_search_description():
 
                 while not success:
                     menu:
-                        "Try again.":
+                        "Try again":
                             "COMPUTER" "INPUT PASSWORD" (what_style = "text_message_style")
                             $ password_attempt = renpy.input("HINT: The oldest")
                             if password_attempt.lower() == mc.name.lower():
@@ -96,7 +96,7 @@ label mom_room_search_description():
                             else:
                                 "COMPUTER" "INCORRECT PASSWORD" (what_style = "text_message_style")
 
-                        "Give up.":
+                        "Give up":
                             "You give up and power down [the_person.possessive_title]'s computer."
 
             if the_person.event_triggers_dict.get("known_computer_password", False): #If you know the password at this point, no problem logging in."
@@ -147,7 +147,7 @@ label mom_room_search_description():
                     "Each one has a video loaded, and each video features an older busty woman getting fucked in a variety of interesting ways."
                     "You flick through the tabs, noting which videos are starting half way through."
                     if the_person.discover_opinion(the_person.get_random_opinion(only_positive = True, include_known = False, include_sexy = True, include_normal = False)):
-                        "Seeing [the_person.title]'s prefernece in porn has given you some insight into her."
+                        "Seeing [the_person.title]'s preference in porn has given you some insight into her."
                     else:
                         "Even you're surprised at how hard core some of the videos are. You have a hard time imagining [the_person.possessive_title] sitting down and watching them."
                         $ mc.change_locked_clarity(10)
@@ -161,7 +161,7 @@ label mom_room_search_description():
 
             #TODO:Different levels based on sluttiness.
 
-        "Look in her dresser.":
+        "Look in her dresser":
             "You slide open the drawers of [the_person.possessive_title]'s dresser."
             "You find her collection of socks, carefully folded shirts, and stash of makeup in the top drawer."
             $ mc.change_locked_clarity(5)
@@ -172,7 +172,7 @@ label mom_room_search_description():
             "There are so many pieces of underwear in here, [the_person.title] probably wouldn't notice if one of them went missing."
             "It would certainly give you something more interesting to jerk off into than some tissue."
             menu:
-                "Steal a bra.":
+                "Steal a bra":
                     "You grab one of [the_person.possessive_title]'s softer, fancier bras from the back of her underwear drawer."
                     "They don't look like one she would be brave enough to wear, so she won't miss them. You tuck it behind your back and hurry to your room to stash it away."
                     $ mc.steal_underwear(the_person, bra.get_copy()) #TODO: Draw this from an actual outfit
@@ -188,7 +188,7 @@ label mom_room_search_description():
 
 
 
-                "Steal a pair of panties.":
+                "Steal a pair of panties":
                     "You grab one of [the_person.possessive_title]'s sexier set of panties from the back of her underwear drawer."
                     "They don't like a pair she would be brave enough to wear, so you doubt she'll miss them. You tuck them behind your back and hurry to your room to stash them away."
                     $ mc.steal_underwear(the_person, panties.get_copy()) #TODO: Draw this from an actual outfit
