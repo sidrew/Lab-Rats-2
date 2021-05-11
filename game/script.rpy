@@ -673,7 +673,7 @@ init 0 python:
         menu_tooltip = "Jerk off. A useful way to release Clarity, but you'll grow bored of this eventually.")
 
     ##Mom Bedroom Actions##
-    mom_room_search_action = Action("Search [mom.title]'s room. -15{image=gui/extra_images/energy_token.png}", mom_room_search_requirement, "mom_room_search_description",
+    mom_room_search_action = Action("Search [mom.title]'s room -15{image=gui/extra_images/energy_token.png}", mom_room_search_requirement, "mom_room_search_description",
         menu_tooltip = "Take a look around and see what you can find.")
 
     faq_action = Action("Check the FAQ",faq_action_requirement,"faq_action_description",
