@@ -519,6 +519,7 @@ label small_talk_person(the_person, apply_energy_cost = True, is_phone = False):
             if is_phone:
                 "She text you her InstaPic profile name. You'll be able to look up her profile now."
             else:
+                $ mc.phone.register_number(the_person)
                 "She gives you her InstaPic profile name. You'll be able to look up her profile now."
 
         $ the_person.change_happiness(the_person.get_opinion_score("small talk") + 1)
