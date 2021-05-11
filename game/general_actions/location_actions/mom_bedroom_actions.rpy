@@ -20,7 +20,7 @@ label mom_room_search_description():
                 $ the_person.update_birth_control_knowledge()
                 if the_person.event_triggers_dict.get("BC_nightstand_hide_day",-7) < day:
                     menu:
-                        "Hide her birth control.":
+                        "Hide her birth control":
                             $ the_person.event_triggers_dict["BC_nightstand_hide_day"] = day #Can't rehide it today, because she never stops until tomorrow anyways.
                             "You take the small pack and drop it down the crack between [the_person.possessive_title]'s bed and the bedstand."
                             "She'll probably find it if she takes the time to look, and even if she doesn't she doesn't she could pick some more up at the pharmacy any time."
@@ -28,7 +28,7 @@ label mom_room_search_description():
                             if renpy.random.randint(0,100) < 5 + 5*the_person.get_opinion_score("bareback sex"): #She doesn't bother getting more. Just asking for trouble!
                                 call manage_bc(start = True, update_knowledge = False) #Don't get BC info, because you don't know if she found it or not.
 
-                        "Leave them alone.":
+                        "Leave them alone":
                             pass
                 #TODO: Way to fuck with her BC, because evil is fun.
 
@@ -203,7 +203,7 @@ label mom_room_search_description():
                     $ mc.change_location(bedroom)
                     $ mc.location.show_background()
 
-                "Leave everything alone.":
+                "Leave everything alone":
                     "You decide to leave all of [the_person.possessive_title]'s underwear where it is. It wouldn't be good if she noticed any of it missing."
                     "You make sure nothing has been moved around, then slide the drawer shut."
 
