@@ -371,7 +371,7 @@ label mom_house_work_nude_label(the_person):
         $ add_mom_outfit_coloured_apron(the_person)
         $ the_person.draw_person(position = "back_peek")
         "You find [the_person.possessive_title] in the kitchen working on dinner. She glances over her shoulder when you enter, seeming meek."
-        the_person "Hi [the_person.mc_title]. I hope you don't mind the way I'm dressed, it's nice to weark something more comfortable after I come home from work."
+        the_person "Hi [the_person.mc_title]. I hope you don't mind the way I'm dressed, it's nice to wear something more comfortable after I come home from work."
         $ mc.change_locked_clarity(5)
         mc.name "It's fine, I don't mind."
         "She turns her attention back to preparing dinner."
