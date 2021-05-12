@@ -109,7 +109,7 @@ init -1 python:
         is_side_effect = True)
 
     performance_inhibitor = SerumTrait(name = "Performance Inhibitor",
-        desc = "For reasons not understood by your R&D team this serum causes a general decrease in the recipient's to do work for the duration of the serum.",
+        desc = "For reasons not understood by your R&D team this serum causes a general decrease in the recipient's ability to do work for the duration of the serum.",
         positive_slug = "None",
         negative_slug = "-1 Intelligence, Focus, and Charisma, -$5 Value",
         value_added = -5,
