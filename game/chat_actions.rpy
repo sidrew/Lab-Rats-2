@@ -1289,13 +1289,13 @@ label bc_demand_label(the_person):
     return
 
 init 5 python:
-    def manage_bc(person, start):
+    def manage_bc(person, start, update_knowledge = True):
         if start:
             event_label = "bc_start_event"
         else:
             event_label = "bc_stop_event"
 
-        bc_start_action = Action("Change birth control", always_true_requirement, event_label, args = person)
+        bc_start_action = Action("Change birth control", always_true_requirement, event_label, args = [person, update_knowledge])
         mc.business.mandatory_morning_crises_list.append(bc_start_action) # She starts or stops the next morning.
         return
 
