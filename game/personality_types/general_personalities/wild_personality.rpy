@@ -1000,7 +1000,7 @@ label wild_sex_watch(the_person, the_sex_person, the_position):
     $ title = the_person.title if the_person.title else "The stranger"
     if the_person.sluttiness < the_position.slut_requirement - 20:
         $ the_person.draw_person(emotion = "angry")
-        the_person "Ugh, jesus you two. Get a room or something, nobody wants to see this."
+        the_person "Ugh, why don't you two get a room or something, nobody wants to see this."
         $ the_person.change_obedience(-2)
         $ the_person.change_happiness(-1)
         "[title] looks away while you and [the_sex_person.name] [the_position.verb]."
@@ -1315,7 +1315,7 @@ label wild_sex_review(the_person, the_report):
         elif the_person.effective_sluttiness() > comment_position.slut_requirement: #She thought it was fun/exciting
             the_person "Tired out already? Well someone's being a little selfish today..."
             mc.name "Sorry, I'll make it up to you next time."
-            the_person "You better, or you won't get many more \"next time\"'s!"
+            the_person "You better, or you won't get many more \"next times\"!"
 
         elif used_obedience: #She only did it because she was commanded
             the_person "I expect you're tired after all of that. We're done then?"

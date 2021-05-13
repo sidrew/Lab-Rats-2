@@ -969,7 +969,7 @@ label student_pick_punishment(the_person):
                 else:
                     the_person "You mean I have to give you a blowjob each time?"
                     mc.name "We'll start gentle, but if that doesn't help you focus I'll need to bump up the intensity."
-                    the_person "Oh, wow... I mean, it's not even going to mater. I'm totally prepared, I'm going to crush this."
+                    the_person "Oh, wow... I mean, it's not even going to matter. I'm totally prepared, I'm going to crush this."
                     $ mc.change_locked_clarity(15)
                     the_person "So sure, bring it on."
 
