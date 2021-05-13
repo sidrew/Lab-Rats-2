@@ -277,7 +277,7 @@ init -2 python:
             return len(self.outfits + self.underwear_sets + self.overwear_sets)
 
         def get_outfit_list(self):
-            return self.outfits
+            return sorted(self.outfits, key = lambda x: x.slut_requirement)
 
         def get_valid_outfit_list(self):
             return_list = []
@@ -290,7 +290,7 @@ init -2 python:
             return return_list
 
         def get_underwear_sets_list(self):
-            return self.underwear_sets
+            return sorted(self.underwear_sets, key = lambda x: x.get_underwear_slut_score())
 
         def get_valid_underwear_sets_list(self): #List of underwear items that may possibly be valid
             return_list = []
@@ -303,7 +303,7 @@ init -2 python:
             return return_list
 
         def get_overwear_sets_list(self):
-            return self.overwear_sets
+            return sorted(self.overwear_sets, key = lambda x: x.get_overwear_slut_score())
 
         def get_valid_overwear_sets_list(self): #List of overwear items that may possibly be valid.
             return_list = []
