@@ -598,7 +598,7 @@ label sex_description(the_person, the_position, the_object, private = True, repo
         if mc.arousal < mc.max_arousal: #TODO: Different dialogue based on your focus might make sense here.
             menu:
                 "Try and cum early":
-                    if renpy.random.randint(0,100) < 10*mc.focus + (mc.max_arousal - mc.arousal):
+                    if renpy.random.randint(0,100) < 10*mc.focus - (mc.max_arousal - mc.arousal):
                         $ is_cumming = True
                         "You focus as hard as you can and feel yourself grow closer and closer to climax."
                     else:
