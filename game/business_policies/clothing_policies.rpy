@@ -85,7 +85,7 @@ init 0 python:
             return False
 
     minimal_coverage_uniform_policy = Policy(name = "Minimal Coverage Corporate Uniforms",
-        desc = "Corporate dress code is broadened further. Uniforms must now only meet a \"minumum coverage\" requirement, generally nothing more than a set of bra and panties. Full uniforms can have a sluttiness score of 60, underwear sets can go up to 15.",
+        desc = "Corporate dress code is broadened further. Uniforms must now only meet a \"minimum coverage\" requirement, generally nothing more than a set of bra and panties. Full uniforms can have a sluttiness score of 60, underwear sets can go up to 15.",
         cost = 10000,
         toggleable = True,
         requirement = minimal_coverage_uniform_policy_requirement,
