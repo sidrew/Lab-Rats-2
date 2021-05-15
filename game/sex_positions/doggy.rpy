@@ -366,5 +366,5 @@ label orgasm_doggy(the_girl, the_location, the_object):
     $ the_girl.call_dialogue("climax_responses_vaginal")
     "You keep up your pace while [the_girl.possessive_title] cums. You think you can feel her pussy twitch around your cock."
     "After a couple of seconds [the_girl.title] sighs and the tension drains from her body."
-    the_girl "Keep... keep going and see if you can make me to cum again!"
+    the_girl "Keep... keep going and see if you can make me cum again!"
     return

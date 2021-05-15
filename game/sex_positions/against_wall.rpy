@@ -314,5 +314,5 @@ label orgasm_against_wall(the_girl, the_location, the_object):
     $ the_girl.call_dialogue("climax_responses_vaginal")
     "You push her up against the [the_object.name] and keep fucking her through her orgasm."
     "After a couple of seconds [the_girl.title] opens her eyes again and takes a couple of deep breaths. You slow down your pace and give her a chance to recover."
-    the_girl "Keep... keep going and see if you can make me to cum again!"
+    the_girl "Keep... keep going and see if you can make me cum again!"
     return
