@@ -75,7 +75,7 @@ label reserved_sex_responses_foreplay(the_person):
 
     elif the_person.arousal < 75:
         if the_person.sluttiness > 50:
-            the_person "Oh gods above taht feels amazing!"
+            the_person "Oh gods above that feels amazing!"
         else:
             the_person "Oh lord... I could get used to you touching me like this!"
     else:
@@ -760,7 +760,7 @@ label reserved_flirt_response_text(the_person):
     else:
         if the_person.effective_sluttiness() > the_person.love:
             the_person "Mhmm, what to tell me what sort of dirty things you were thinking about me?"
-            the_person "That would be somthing fun to talk about."
+            the_person "That would be something fun to talk about."
 
         else:
             the_person "It's sweet of you to be thinking of me."
@@ -866,7 +866,7 @@ label reserved_cum_pullout(the_person):
 
                 # the_person "Oh fuck... Do you want to knock me up?"
 
-            menu: #TODO: Add a varient of this normally so you can stealth a girl (don't do that in real life, it's super fucked up).
+            menu: #TODO: Add a variant of this normally so you can stealth a girl (don't do that in real life, it's super fucked up).
                 "Take off the condom.":
                     "You don't have much time to spare. You pull out, barely clearing her pussy, and pull the condom off as quickly as you can manage."
                     $ mc.condom = False
@@ -964,7 +964,7 @@ label reserved_cum_vagina(the_person):
         elif the_person.relationship != "Single":
             $ so_title = SO_relationship_to_title(the_person.relationship)
             the_person "[the_person.mc_title], I told you to pull out!"
-            the_person "I know you're having a good time, but I still have an [so_title]. There are boundries."
+            the_person "I know you're having a good time, but I still have an [so_title]. There are boundaries."
 
         elif the_person.get_opinion_score("creampies") < 0:
             the_person "[the_person.mc_title], I told you to pull out. Now look at what a mess you've made... It's everywhere."
@@ -990,7 +990,7 @@ label reserved_talk_busy(the_person):
     if the_person.obedience > 120:
         the_person "I'd love to chat some more, but I've already spent far to much time getting distracted. Maybe we can catch up some other day, okay?"
     else:
-        the_person "Sorry to interupt, but I've got some work I really need to see to. I'd love to catch up some other time though."
+        the_person "Sorry to interrupt, but I've got some work I really need to see to. I'd love to catch up some other time though."
     return
 
 label reserved_sex_strip(the_person):
@@ -1124,7 +1124,7 @@ label reserved_date_seduction(the_person):
             the_person "Come home with me. I want to repay you for this wonderful night by throating your cock."
             the_person "Doesn't that sound like fun?"
         elif the_person.effective_sluttiness() > 40 and the_person.get_opinion_score("being covered in cum") > 0:
-            the_person "Come home with me. I want to end tonight in my favourite way: covered in cum."
+            the_person "Come home with me. I want to end tonight in my favourite way; covered in cum."
             the_person "Do you think you could help me out with that?"
         elif the_person.effective_sluttiness(["touching_body"]) > 40 and the_person.get_opinion_score("giving tit fucks") > 0 and the_person.has_large_tits():
             the_person "Come home with me [the_person.mc_title]. I want to repay you for this wonderful night by working your cock with my tits."
@@ -1616,7 +1616,7 @@ label reserved_underwear_nudity_taboo_break(the_person, the_clothing):
             mc.name "I'm sure I will. You have good taste."
             the_person "Well then, what are you waiting for then?"
         else:
-            mc.name "I've already seen you out of your underwear, but I'm sure it complaments your form."
+            mc.name "I've already seen you out of your underwear, but I'm sure it complements your form."
             the_person "Time to find out. What are you waiting for?"
 
     elif the_person.love > 15:
