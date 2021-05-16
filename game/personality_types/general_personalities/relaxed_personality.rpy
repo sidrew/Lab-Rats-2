@@ -230,7 +230,7 @@ label relaxed_clothing_accept(the_person):
     if the_person.obedience > 130:
         the_person "It's for me? Thank you [the_person.mc_title], I'll add it to my wardrobe."
     else:
-        the_person "Oh, it's cute! Thank's [the_person.mc_title]!"
+        the_person "Oh, it's cute! Thanks [the_person.mc_title]!"
     return
 
 label relaxed_clothing_reject(the_person):
