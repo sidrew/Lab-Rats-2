@@ -73,7 +73,7 @@ label scene_missionary_1(the_girl, the_location, the_object):
             if the_girl.core_sluttiness > 60 or the_girl.get_opinion_score("being submissive" > 0):
                 the_girl "Then do it. Pin me against the [the_object.name] and fuck me all you want."
                 "She wraps her legs around your waist and pulls you deep inside of her. The tight, warm feeling of her cunt makes your cock twitch."
-                if the_girl.get_opinion_score("creampies") > 0:
+                if the_girl.wants_creampie():
                     the_girl "You can cum anywhere you want. You can pump your load right into me if that's what you want. If that's what would make you happy..."
                 else:
                     the_girl "You can use me however you want [the_girl.mc_title], I'll be your obedient fuck toy, if that's what you want me to be..."
@@ -177,7 +177,7 @@ label scene_missionary_2(the_girl, the_location, the_object):
                     the_girl "I'm just a fuck toy to you right now... Just a soft wet hole for you to fuck with that big cock... Ah!"
                     if the_girl.get_opinion_score("bareback sex") > 0:
                         the_girl "You could fuck me until you cum inside. You might get me pregnant and all I can do is sit here and get fucked like a slut... Oh my god..."
-                    elif the_girl.get_opinion_score("creampies") > 0:
+                    elif the_girl.wants_creampie():
                         the_girl "You could cum right inside me and there's nothing I could do to stop you... You would just fuck me full of your cum!"
                     "[the_girl.title]'s pussy feels great to fuck, but you can't keep this pace up forever. You let go of her hands and slow down."
                     "You're both silent for a few seconds, panting for breath."

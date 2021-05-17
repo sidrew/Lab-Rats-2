@@ -106,7 +106,7 @@ label scene_doggy_1(the_girl, the_location, the_object):
                 mc.name "You feel amazing."
                 $ the_girl.discover_opinion("taking control")
                 $ the_girl.change_arousal(the_girl.get_opinion_score("taking control"))
-                if the_girl.get_opinion_score("creampies") > 0:
+                if the_girl.wants_creampie():
                     $ the_girl.discover_opinion("creampies")
                     the_girl "I want you to cum inside me. I want you to fill me up with every last drop of hot sperm those balls are holding!"
                 else:
@@ -120,7 +120,7 @@ label scene_doggy_1(the_girl, the_location, the_object):
                 if the_girl.arousal < 50:
                     mc.name "You're nice and tight, I love fucking your hot little pussy!"
                 else:
-                    mc.name "You're nice and wet, I love fucking your hot dripping pussy!"
+                    mc.name "You're nice and wet, I love fucking your fluid dripping pussy!"
                 "You fuck her a little faster for a while then settle back down to a slower, more sustainable rhythm."
 
         "Slap her ass":

@@ -146,7 +146,7 @@ label scene_against_wall_2(the_girl, the_location, the_object):
                 else:
                     if the_girl.sex_skills["Vaginal"] > 2:
                         "[the_girl.title] rocks her hips in time with yours to let you get as deep as possible."
-                        if the_girl.get_opinion_score("creampies") > 0 or the_girl.get_opinion_score("bareback sex") > 0:
+                        if the_girl.wants_creampie():
                             the_girl "That's it, fuck me hard you stud. Fuck me and pump then that hot load inside of me!"
 
                     else:
@@ -172,7 +172,7 @@ label scene_against_wall_2(the_girl, the_location, the_object):
                     if the_girl.get_opinion_score("bareback sex") > 0:
                         the_girl "Uh huh! Fuck me until you cum in me! Fuck me like you want to get me pregnant!"
 
-                    elif the_girl.get_opinion_score("creampies") > 0:
+                    elif the_girl.wants_creampie():
                         the_girl "Uh huh! I want you to fuck me until you cum. Pin me against the [the_object.name] and pump your load into me! I want so badly!"
                     else:
                         the_girl "Uh huh! Please keep fucking me! I want you to fuck me and use me until you cum!"
@@ -216,7 +216,7 @@ label scene_against_wall_3(the_girl, the_location, the_object):
                     the_girl "Oh, you want me to take care of this all by myself?"
                     "She puts her hands on your waist and grinds herself deeper onto your dick."
                     the_girl "Mmm, it's nice to get you so deep inside of me..."
-                    if the_girl.get_opinion_score("creampies") > 0:
+                    if the_girl.wants_creampie():
                         the_girl "Do you think I'll be able to make you cum? I'd love to make you cum inside me."
                         "She pauses for a moment and trembles, then starts fucking you again."
                         the_girl "Oh yeah, I want your hot load deep inside of me! I want to feel your dick twitch when I make you climax!"
