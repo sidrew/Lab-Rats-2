@@ -614,7 +614,7 @@ style quick_button_text:
 
 screen navigation():
     if main_menu: # This is used if we are on the main menu at the start of the game.
-        add "images/LR2_Title.png"
+        add gui.main_menu_background
         frame: #Central main menu button
             background None
             xsize 600
@@ -882,7 +882,7 @@ style game_menu_outer_frame:
     bottom_padding 45
     top_padding 180
 
-    background "images/LR2_Title.png"
+    background gui.main_menu_background
 
 style game_menu_navigation_frame:
     xsize 420
