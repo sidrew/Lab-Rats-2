@@ -591,6 +591,7 @@ screen quick_menu():
 ## the player has not explicitly hidden the interface.
 init python:
     config.overlay_screens.append("quick_menu")
+    gui.main_menu_background = "images/LR2_Title.png"
 
 
 style quick_button is default
