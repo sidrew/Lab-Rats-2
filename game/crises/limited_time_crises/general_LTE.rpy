@@ -283,6 +283,7 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
         else:
             pass
         the_person "Did... you want to talk about anything else?"
+        $ top_item = None
 
         call talk_person(the_person) from _call_talk_person_16
 
