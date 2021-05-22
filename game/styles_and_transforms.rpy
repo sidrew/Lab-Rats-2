@@ -109,16 +109,16 @@ init 0:
         color "#FFB6C1"
 
     style float_text_red is float_text:
-        color "B22222"
+        color "#cf3232"
 
     style float_text_grey is float_text:
-        color "696969"
+        color "#696969"
 
     style float_text_green is float_text:
-        color "228B22"
+        color "#228B22"
 
     style float_text_yellow is float_text:
-        color "D2691E"
+        color "#D2691E"
 
     style float_text_blue is float_text:
-        color "6394ED"
+        color "#6394ED"
