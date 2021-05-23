@@ -789,27 +789,26 @@ label move_employee_label(the_person):
         return
 
     $ mc.business.remove_employee(the_person, remove_linked = False)
-    $ mc.location.remove_person(the_person)
 
     menu:
         "Research and Development":
             $ mc.business.add_employee_research(the_person)
-            $ mc.business.r_div.add_person(the_person)
+            $ mc.location.move_person(the_person, mc.business.r_div)
         "Production":
             $ mc.business.add_employee_production(the_person)
-            $ mc.business.p_div.add_person(the_person)
+            $ mc.location.move_person(the_person, mc.business.p_div)
 
         "Supply Procurement":
             $ mc.business.add_employee_supply(the_person)
-            $ mc.business.s_div.add_person(the_person)
+            $ mc.location.move_person(the_person, mc.business.s_div)
 
         "Marketing":
             $ mc.business.add_employee_marketing(the_person)
-            $ mc.business.m_div.add_person(the_person)
+            $ mc.location.move_person(the_person, mc.business.m_div)
 
         "Human Resources":
             $ mc.business.add_employee_hr(the_person)
-            $ mc.business.h_div.add_person(the_person)
+            $ mc.location.move_person(the_person, mc.business.h_div)
 
     the_person "I'll move over there right away!"
     return
