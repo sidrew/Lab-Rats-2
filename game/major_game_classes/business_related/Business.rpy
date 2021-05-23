@@ -398,17 +398,17 @@ init -2 python:
             self.active_research_design = new_research
 
         def research_progress(self,int,focus,skill):
-            research_amount = __builtin__.round(((3*int) + (focus) + (2*skill) + 10) * (self.team_effectiveness))/100
+            research_amount = ((3*int) + focus + (2*skill) + 10) * (self.team_effectiveness / 100)
 
             if self.head_researcher:
-                bonus_percent = (self.head_researcher.int - 2)*0.05
+                bonus_percent = __builtin__.round((self.head_researcher.int - 2)*0.05,1)
                 research_amount = research_amount * (1.0 + bonus_percent) #Every point above int 2 gives a 5% bonus.
                 if bonus_percent > 0:
                     self.add_normal_message("Head researcher " + self.head_researcher.title + "'s intelligence resulted in a " + str(bonus_percent*100) + "% increase in research produced!")
                 else:
                     self.add_normal_message("Head researcher " + self.head_researcher.title + "'s intelligence resulted in a " + str(bonus_percent*100) + "% change in research produced.")
             else:
-                research_amount = research_amount * 0.9 #No head researcher is treated like int 0.
+                research_amount = __builtin__.round(research_amount * 0.9, 1) #No head researcher is treated like int 0.
                 self.add_normal_message("No head researcher resulted in a 10% reduction in research produced! Assign a head researcher at R&D!")
 
             if self.active_research_design is not None:
@@ -467,8 +467,7 @@ init -2 python:
             return amount_bought
 
         def supply_purchase(self,focus,cha,skill):
-            max_supply = __builtin__.round(((3*focus) + (cha) + (2*skill) + 10) * (self.team_effectiveness))/100
-            max_supply = __builtin__.int(max_supply)
+            max_supply = __builtin__.int(((3*focus) + cha + (2*skill) + 15) * (self.team_effectiveness / 100))
             if max_supply + self.supply_count > self.supply_goal:
                 max_supply = self.supply_goal - self.supply_count
                 if max_supply <= 0:
@@ -508,8 +507,7 @@ init -2 python:
                 elif value_change < 1: #No message shown for exactly 1.
                     self.add_normal_message(str((value_change-1)*100) + "% serum value due to " + maxed_multiplier + ".") #Duplicate normal messages are not shown twice, so this should only exist once per turn, per multiplier.
 
-            serum_sale_count = __builtin__.round(((3*cha) + (focus) + (2*skill) + 5) * (self.team_effectiveness))/100 #Total number of doses of serum that can be sold by this person.
-            serum_sale_count = __builtin__.int(serum_sale_count)
+            serum_sale_count = __builtin__.int(((3*cha) + focus + (2*skill) + 5) * (self.team_effectiveness / 100)) #Total number of doses of serum that can be sold by this person.
             sorted_by_value = sorted(self.sale_inventory.serums_held, key = lambda serum: serum[0].value) #List of tuples [SerumDesign, count], sorted by the value of each design. Used so most valuable serums are sold first.
             if self.sale_inventory.get_any_serum_count() < serum_sale_count:
                 serum_sale_count = self.sale_inventory.get_any_serum_count()
@@ -549,7 +547,7 @@ init -2 python:
 
         def production_progress(self,focus,int,skill):
             #First, figure out how many production points we can produce total. Subtract that much supply and mark that much production down for the end of day report.
-            production_amount = __builtin__.round(((3*focus) + (int) + (2*skill) + 10) * (self.team_effectiveness))/100
+            production_amount = __builtin__.int(((3*focus) + int + (2*skill) + 10) * (self.team_effectiveness / 100))
             self.production_potential += production_amount
 
             if self.serum_production_array is None:
@@ -658,7 +656,7 @@ init -2 python:
             return eff_amount
 
         def hr_progress(self,cha,int,skill): #Don't compute efficiency cap here so that player HR effort will be applied against any efficency drop even though it's run before the rest of the end of the turn.
-            restore_amount = (3*cha) + (int) + (2*skill) + 5
+            restore_amount = (3*cha) + int + (2*skill) + 5
             self.team_effectiveness += restore_amount
             return restore_amount
 
