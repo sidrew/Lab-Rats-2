@@ -630,15 +630,15 @@ label advance_time:
 init 0 python:
     ##Actions## moved to python to prevent them from being stored in save game
     hr_work_action = Action("Organize your business {image=gui/heart/Time_Advance.png}",hr_work_action_requirement,"hr_work_action_description",
-        menu_tooltip = "Raise business efficiency, which drops over time based on how many employees the business has.\n+3*Charisma + 2*Skill + 1*Intelligence + 5 Efficiency.")
+        menu_tooltip = "Raise business efficiency, which drops over time based on how many employees the business has.")
     research_work_action = Action("Research in the lab {image=gui/heart/Time_Advance.png}",research_work_action_requirement,"research_work_action_description",
-        menu_tooltip = "Contribute research points towards the currently selected project.\n+3*Intelligence + 2*Skill + 1*Focus + 10 Research Points.")
+        menu_tooltip = "Contribute research points towards the currently selected project.")
     supplies_work_action = Action("Order Supplies {image=gui/heart/Time_Advance.png}",supplies_work_action_requirement,"supplies_work_action_description",
-        menu_tooltip = "Purchase serum supply at the cost of $1 per unit of supplies. When producing serum every production point requires one unit of serum.\n+3*Focus + 2*Skill + 1*Charisma + 10 Serum Supply.")
+        menu_tooltip = "Purchase serum supply at the cost of $1 per unit of supplies. When producing serum every production point requires one unit of serum.")
     market_work_action = Action("Sell Prepared Serums {image=gui/heart/Time_Advance.png}",market_work_action_requirement,"market_work_action_description",
-        menu_tooltip = "Sell serums that have been marked for sale. Mark serum manually from your office or set an automatic sell threshold in production.\n3*Charisma + 2*Skill + 1*Focus + 5 Serum Doses Sold.")
+        menu_tooltip = "Sell serums that have been marked for sale. Mark serum manually from your office or set an automatic sell threshold in production.")
     production_work_action = Action("Produce serum {image=gui/heart/Time_Advance.png}",production_work_action_requirement,"production_work_action_description",
-        menu_tooltip = "Produce serum from raw materials. Each production point of serum requires one unit if supply, which can be purchased from your office.\n+3*Focus + 2*Skill + 1*Intelligence + 10 Production Points.")
+        menu_tooltip = "Produce serum from raw materials. Each production point of serum requires one unit of supply, which can be purchased from your office.")
 
     ##Complex Work Actions##
     interview_action = Action("Hire someone new {image=gui/heart/Time_Advance.png}", interview_action_requirement,"interview_action_description",
