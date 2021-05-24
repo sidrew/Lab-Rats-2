@@ -831,6 +831,7 @@ label mom_work_promotion_outfit_create(the_person):
                 mc.name "Sorry [the_person.title], but I'm all out of ideas."
                 the_person "That's okay, you've given me something to think about. I'm sure I can put something together now."
 
+        $ interview_outfit = None
     else:
         mc.name "Sorry [the_person.title], but I don't really know what you should wear."
         the_person "That's fine [the_person.mc_title], I'm sure I can figure out something to wear by myself."
