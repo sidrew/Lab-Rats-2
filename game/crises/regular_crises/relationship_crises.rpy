@@ -674,7 +674,7 @@ label friends_help_friends_be_sluts_label():
                         $ the_group.draw_person(person_two)
                         person_two "I... I mean, we... Uh..."
                         $ the_group.draw_person(person_one)
-                        person_one "She's very nervous, let me her out help out."
+                        person_one "She's very nervous, let me help her out."
                         if person_two.sex_record.get("Blowjobs", 0) == 0:
                             person_one "[person_two.title] has always wanted to suck your cock, but was too scared to ask."
                         else:
