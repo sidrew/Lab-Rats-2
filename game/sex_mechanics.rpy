@@ -291,7 +291,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
                 pass
 
         elif round_choice == "Strip":
-            call strip_menu(the_person, position_choice.verbing, private) from _call_strip_menu
+            call strip_menu(the_person, position_choice, private) from _call_strip_menu
 
         elif round_choice == "Leave":
             $ finished = True # Unless something stops us the encounter is over and we can end
@@ -761,8 +761,8 @@ label condom_ask(the_person):
 
     return True #If we make it to the end of the scene everything is fine and sex can continue. If we returned false we should go back to the position select, as if we asked for something to extreme.
 
-label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO: Add an arousal cost to stripping a girl down, but give an arousal boost if she likes getting naked.
-    python:
+init 2 python:
+    def build_sex_mechanic_strip_menu(person):
         full_off_list = ["Take off"]
         for clothing in the_person.outfit.get_unanchored():
             if not clothing.is_extension:
@@ -775,8 +775,19 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
                 half_off_list.append([clothing.display_name.capitalize(), [clothing,"Half"]])
 
         other_list = ["Other","Finish"]
+        return [full_off_list, half_off_list, other_list]
 
-    call screen main_choice_display([full_off_list, half_off_list, other_list])
+
+label strip_menu(the_person, the_position, is_private = True): #TODO: Add an arousal cost to stripping a girl down, but give an arousal boost if she likes getting naked.
+    python:
+        the_verbing = the_position.verbing if isinstance(the_position, Position) else "wooing"
+        the_position_tag = the_position.position_tag if isinstance(the_position, Position) else the_person.idle_pose
+
+
+    if "action_mod_list" in globals():
+        call screen enhanced_main_choice_display(build_menu_items(build_sex_mechanic_strip_menu(the_person)))
+    else:
+        call screen main_choice_display(build_sex_mechanic_strip_menu(the_person))
     $ choice_return = _return
 
     if not choice_return == "Finish":
@@ -784,7 +795,6 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
         $ strip_type = choice_return[1] #Gets if this was a half-off or a full strip
 
         $ test_outfit = the_person.outfit.get_copy()
-
         if strip_type == "Half":
             $ test_outfit.half_off_clothing(strip_choice)
         else:
@@ -858,10 +868,10 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
                 $ the_person.call_dialogue("underwear_nudity_taboo_break", the_clothing = strip_choice)
 
             if strip_type == "Half":
-                $ the_person.draw_animated_removal(strip_choice, half_off_instead = True)
+                $ the_person.draw_animated_removal(strip_choice, position = the_position_tag, half_off_instead = True)
                 $ renpy.say(None,"You pull her " + strip_choice.display_name + " out of the way.")
             else:
-                $ the_person.draw_animated_removal(strip_choice)
+                $ the_person.draw_animated_removal(strip_choice, position = the_position_tag)
                 if strip_choice.half_off:
                     $ renpy.say(None, "You pull her " + strip_choice.display_name + " off entirely and drop it on the ground.")
                 else:
@@ -915,15 +925,14 @@ label strip_menu(the_person, the_verbing = "fucking", is_private = True): #TODO:
                 else:
                     $ renpy.say(None, "You start to pull off " + the_person.title + "'s " + strip_choice.name + " when she grabs your hand and stops you.")
                 $ the_person.call_dialogue("strip_reject", the_clothing = strip_choice , strip_type = strip_type) #TODO: pass the piece of clothing and base some dialogue off of that.
-        $ renpy.call("strip_menu", the_person, the_verbing, is_private) #TODO: Girl sometimes interupts you to get you to keep going. Have to strip them down in segments.
+        $ renpy.call("strip_menu", the_person, the_position, is_private) #TODO: Girl sometimes interupts you to get you to keep going. Have to strip them down in segments.
 
     python:
         choice_return = None
         test_outfit = None
-        full_off_list = None
-        half_off_list = None
-        other_list = None
         strip_choice = None
+        the_verbing = None
+        the_position_tag = None
     return
 
 label girl_strip_event(the_person, the_position, the_object):
