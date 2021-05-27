@@ -536,7 +536,7 @@ label mom_condom_demand(the_person):
 
 label mom_condom_ask(the_person):
     if the_person.on_birth_control:
-        the_person "Now [the_person.mc_title], I'm birth control, but we really should use protection though."
+        the_person "Now [the_person.mc_title], I'm on birth control, but we really should use protection though."
         the_person "Do you have a condom with you? I hope you're always prepared."
         $ the_person.update_birth_control_knowledge()
     elif the_person.get_opinion_score("creampies") > 0:
