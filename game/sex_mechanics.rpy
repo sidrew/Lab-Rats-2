@@ -608,15 +608,15 @@ label sex_description(the_person, the_position, the_object, private = True, repo
                     pass
         else:
             menu:
+                "Cum!":
+                    $ is_cumming = True
+
                 "Try to hold back":
                     if renpy.random.randint(0,100) < 10*mc.focus + (mc.max_arousal - mc.arousal): #Note: arousal is > max_arousal, so that's focus - some number, ie it's harder and harder as your arousal increases.
                         "You focus yourself and stave off your climax for a little longer."
                     else:
                         "You focus as hard as you can, but there's nothing you can do at this point!"
                         $ is_cumming = True
-
-                "Cum!":
-                    $ is_cumming = True
 
         if is_cumming:
             $ the_position.call_outro(the_person, mc.location, the_object)
