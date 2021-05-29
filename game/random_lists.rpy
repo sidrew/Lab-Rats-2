@@ -98,7 +98,7 @@ init -2:
         list_of_names.append("Misa")
         list_of_names.append("Kerri")
         list_of_names.append("Marianne")
-        list_of_names.append("Marry-Ann")
+        list_of_names.append("Mary-Ann")
         list_of_names.append("Angela")
         list_of_names.append("June")
         list_of_names.append("Angie")
