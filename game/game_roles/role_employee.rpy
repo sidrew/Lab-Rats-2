@@ -142,7 +142,7 @@ init -2 python:
 
 label employee_complement_work(the_person):
     $ the_person.event_triggers_dict["day_last_employee_interaction"] = day
-    if mc.business.get_employee_count == 1:
+    if mc.business.get_employee_count() == 1:
         mc.name "[the_person.title], I wanted to tell you that you've been doing a great job lately. Me and you make a great team, and I couldn't do all of this without you."
     else:
         mc.name "[the_person.title], I wanted to tell you that you've been doing a great job lately. Keep it up, you're one of the most important players in this whole operation."
@@ -154,7 +154,7 @@ label employee_complement_work(the_person):
 
 label insult_recent_work(the_person):
     $ the_person.event_triggers_dict["day_last_employee_interaction"] = day
-    if mc.business.get_employee_count == 1:
+    if mc.business.get_employee_count() == 1:
         mc.name "I'm not sure what's going on with you lately, but I'm going to need you to try a little harder. It's only me and you here and you're really letting me down."
     else:
         mc.name "Honestly [the_person.title], I've been disappointed with your work lately and I really need you to try a little harder. You're letting the whole team down."
