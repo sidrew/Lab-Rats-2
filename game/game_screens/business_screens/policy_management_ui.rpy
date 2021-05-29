@@ -30,7 +30,7 @@ screen policy_selection_screen():
             xsize 1320
             ysize 140
             background "#aaaaaa"
-            text "Funds: $[mc.business.funds]":
+            text "Funds:" + str(__builtin__.int(mc.business.funds)):
                 xalign 1.0
                 xanchor 1.0
                 yanchor 0.0
