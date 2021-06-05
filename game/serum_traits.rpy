@@ -572,7 +572,7 @@ init -1:
             clarity_cost = 30)
 
         simple_aphrodesiac = SerumTrait(name = "Inhibition Suppression",
-            desc = "Direct delivery of alchoholic molecules to the subjects brain produces notabely reduced inhibitions. Side effects are common, but always include drowsiness.",
+            desc = "Direct delivery of alcoholic molecules to the subjects brain produces notably reduced inhibitions. Side effects are common, but always include drowsiness.",
             positive_slug = "+$15 Value, +10 Sluttiness (Max 30)",
             negative_slug = "-20 Energy, +50 Serum Research",
             value_added = 15,
@@ -1001,7 +1001,7 @@ init -1:
             research_needed = 700,
             clarity_cost = 1000)
 
-        anal_enhancer = SerumTrait(name = "Sphinctor Elasticity Promotor",
+        anal_enhancer = SerumTrait(name = "Sphincter Elasticity Promoter",
             desc = "Triggers a release of chemicals in the subject that increase muscle elasticity dramatically.",
             positive_slug = "+20 Value, +2 Anal Skill",
             negative_slug = "+300 Serum Research",
