@@ -1100,7 +1100,7 @@ init -1:
     ### SPECIAL TRAITS ###
 
         ### Nora research traits ###
-        nora_suggest_up = SerumTrait(name = "Nora's Research Trait",
+        nora_suggest_up = SerumTrait(name = "Nora's Research Trait XRC",
             desc = "The manufacturing details for a serum trait developed by Nora. Raises suggestibility significantly, but is guaranteed to generate a side effect and negatively effects value.",
             positive_slug = "+40 Suggestibility",
             negative_slug = "+75 Serum Research, -$150 Value",
@@ -1114,7 +1114,7 @@ init -1:
             research_needed = 1000000,
             exclude_tags = "Suggest")
 
-        nora_nightmares = SerumTrait(name = "Nora's Research Trait",
+        nora_nightmares = SerumTrait(name = "Nora's Research Trait CBX",
             desc = "The manufacturing details for a serum trait developed by Nora. Negatively affects the recipient's sleep, as well as generating a side effect and negatively effecting value.",
             negative_slug = "+75 Serum Research, -15 Happiness/Night, -$150 Value",
             value_added = -150,
@@ -1125,7 +1125,7 @@ init -1:
             start_researched = False,
             research_needed = 1000000)
 
-        nora_obedience_swing = SerumTrait(name = "Nora's Research Trait",
+        nora_obedience_swing = SerumTrait(name = "Nora's Research Trait XBR",
             desc = "The manufacturing details for a serum trait developed by Nora. Causes wild fluctuations in the recipient's willingness to follow orders, as well as generating a side effect and negatively effecting value.",
             negative_slug = "+75 Serum Research, Random Obedience Changes, -$150 Value",
             value_added = -150,
@@ -1136,7 +1136,7 @@ init -1:
             start_researched = False,
             research_needed = 1000000)
 
-        nora_sluttiness_boost = SerumTrait(name = "Nora's Research Trait",
+        nora_sluttiness_boost = SerumTrait(name = "Nora's Research Trait RXC",
             desc = "The manufacturing details for a serum trait developed by Nora. Causes a sudden spike in the recipient's sluttiness, as well as generating a side effect and negatively effecting value.",
             positive_slug = "+20 Sluttiness",
             negative_slug = "+75 Serum Research, -$150 Value",
