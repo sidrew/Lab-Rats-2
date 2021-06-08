@@ -87,6 +87,14 @@ init -1 python:
             return False
         return True
 
+    def add_mom_outfit_coloured_apron(person):
+        coloured_apron = apron.get_copy()
+        coloured_apron.colour = [0.74,0.33,0.32,1.0]
+        coloured_apron.pattern = "Pattern_1"
+        coloured_apron.colour_pattern = [1.0,0.83,0.90,1.0]
+        person.outfit.add_dress(coloured_apron)
+        return
+
     ### ON TALK EVENTS ###
     mom_work_slutty_event = Action("Mom work slutty", mom_work_slutty_requirement, "mom_work_slutty_report", event_duration = 2)
 
