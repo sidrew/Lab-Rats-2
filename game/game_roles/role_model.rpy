@@ -145,6 +145,7 @@ label model_photography_list_label(the_person):
 
     $ sexy_score = _return # Each scene returns the sexiness it produced (mainly based on her outfit).
     "You hand the camera over to [the_person.title] and go back to her desk. She pulls out the memory card and puts into the computer."
+    $ the_person.review_outfit()
     $ the_person.draw_person(position = "sitting")
     "You go through the pictures you got, discarding the poor ones and finally settling on best ones to use."
     if the_person.relationship != "Single" and sexy_score > 30 :
@@ -348,7 +349,6 @@ label photo_flash(the_person):
             the_person "Yay, glad to help!"
             $ the_person.change_slut_temp(1)
             $ the_person.change_obedience(2)
-            $ the_person.review_outfit()
             return the_person.outfit.slut_requirement
 
     return _return
@@ -429,7 +429,6 @@ label photo_naked(the_person):
             mc.name "I think that's everything we need."
             $ the_person.change_obedience(2)
             $ the_person.change_slut_temp(2)
-            $ the_person.review_outfit()
             "[the_person.title] collects her things and you finish up the photo shoot."
             return the_person.outfit.slut_requirement
     return _return
@@ -511,7 +510,6 @@ label photo_touch(the_person):
             mc.name "Yeah, I got it."
             the_person "Good, I don't think I could manage that again. Whew..."
             "[the_person.title] goes to get cleaned up and you finish up the shoot."
-            $ the_person.review_outfit()
             return the_person.outfit.slut_requirement + (the_person.sex_skills["Foreplay"] * 5)
     return _return
 
@@ -594,7 +592,6 @@ label photo_blowjob(the_person):
             the_person "How do I look?"
             mc.name "Beautiful. Smile for the camera!"
             "Once you've taken all the pictures you think you'll need you get cleaned up."
-            $ the_person.review_outfit()
             return the_person.outfit.slut_requirement + 10 + (5* the_person.sex_skills["Oral"])
     return _return
 
@@ -733,7 +730,6 @@ label photo_sex(the_person):
     mc.name "I think I got all the pictures I'll need."
     the_person "I would hope so. This would be a hell of a time to realise the lens cap was on."
     $ mc.condom = False
-    $ the_person.review_outfit()
     return the_person.outfit.slut_requirement + 15 + (5* the_person.sex_skills["Vaginal"]) + came_inside_mod
 
 label photo_strip_naked(the_person): #A helper label that strips a girl until her top and bottom are available for whatever you want to use them fore
