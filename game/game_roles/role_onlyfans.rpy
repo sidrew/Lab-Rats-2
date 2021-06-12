@@ -6,7 +6,11 @@ init -2 python:
 
     def onlyfans_on_day(the_person):
         content_types = [["underwear", 25], ["nudes", 25], ["dildo", 25]] #Decide on what new content she has on her site for the day.
-        the_person.event_triggers_dict["onlyfans_content_type"] = get_random_from_weighted_list(content_types)
+        if the_person.event_triggers_dict.get("onlyfans_new_boobs_brag", False):
+            the_person.event_triggers_dict["onlyfans_content_type"] = "new_boobs"
+            the_person.event_triggers_dict["onlyfans_new_boobs_brag"] = False
+        else:
+            the_person.event_triggers_dict["onlyfans_content_type"] = get_random_from_weighted_list(content_types)
         the_person.event_triggers_dict["onlyfans_visited_today"] = False
 
         return
@@ -21,7 +25,7 @@ init -2 python:
         return [onlyfans_list, other_options_list]
 
 label check_onlyfans():
-    call screen main_choice_display(build_onlyfans_menu(), draw_hearts_for_people = False)
+    call screen main_choice_display(build_onlyfans_menu(), draw_hearts_for_people = False, draw_person_previews = False)
     $ picked_option = _return
     if isinstance(picked_option, Person):
         call view_onlyfans(picked_option) from _call_view_onlyfans
@@ -65,13 +69,50 @@ label view_onlyfans(the_person):
 
 
     if the_person.event_triggers_dict.get("onlyfans_subscription_valid_until", 0) >= day:
-        #NOTE: These should all be deterministic events (ie. no random chance) because the MC can return here whenver they want and should be given the same content.
+        #NOTE: These should all be deterministic events (ie. no random chance) because the MC can return here whenever they want and should be given the same content.
         $ give_clarity = True # Only get Clarity from one post a day.
         if the_person.event_triggers_dict.get("onlyfans_visited_today",False):
             $ give_clarity = False
         $ the_person.event_triggers_dict["onlyfans_visited_today"] = True
+        if the_person.event_triggers_dict.get("onlyfans_content_type", "underwear") == "new_boobs":
+            $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
+            $ the_person.draw_person()
+            $ mc.change_locked_clarity(15)
+            "[the_person.title] is standing in front of her bed in her underwear."
+            the_person "Hello everyone, glad to have you stop by. You might notice something different today..."
+            $ the_person.draw_person(position = "sitting")
+            "[the_person.possessive_title] sits down on the edge of her bed and crosses her legs."
+            the_person "That's because I got something special, just for you. Have you noticed what it is yet?"
+            "She leans towards the camera, emphasizing her tits."
+            the_person "How about now? See anything different? Maybe a little... bigger?"
+            "She uncrosses her legs and plants her hands between her thighs. Her arms pinch her breasts together, squeezing them and making them look even bigger."
+            the_person "That's right, I decided to go and get some bigger tits just for you. Do you like them?"
+            "She wiggles her shoulders and jiggles her boobs."
+            the_person "I knew you would. I knew you'd like me getting big, fake tits just for you to look at."
+            if the_person.outfit.tits_visible():
+                $ the_person.draw_person()
+                $ mc.change_locked_clarity(10)
+                "She stands up and walks towards the camera, swaying her shoulders to bounce her breasts even more than normal."
+            else:
+                the_person "But you want a closer look, right? Want a better look at my fake bimbo tits? Here..."
+                $ the_person.draw_person()
+                $ top_item = the_person.outfit.get_upper_top_layer()
+                "She stands up and walks towards the camera, sliding her [top_item.display_name] around playfully."
+                if the_person.outfit.can_half_off_to_tits():
+                    $ generalised_strip_description(the_person, the_person.outfit.get_half_off_to_tits_list())
+                else:
+                    $ generalised_strip_description(the_person, the_person.outfit.get_tit_strip_list())
+                $ mc.change_locked_clarity(20)
+                the_person "Isn't that better? Take a close look at them"
+            the_person "Don't these make me look like a complete slut?"
+            "She cups them in her hands and pushes them together. She closes her eyes and moans dramatically."
+            the_person "Mmm, I think I like that. I like looking like a brain dead bimbo for you."
+            "[the_person.title] fingers her nipples gently, making sure to get a closeup for the camera."
+            the_person "Make sure to come back tomorrow, and every day after that, for more videos of me having fun."
+            $ clear_scene()
+            "She kisses her hand, then slides it towards the camera until everything goes black."
 
-        if the_person.event_triggers_dict.get("onlyfans_content_type", "underwear") == "underwear": # Tries on different underwear types
+        elif the_person.event_triggers_dict.get("onlyfans_content_type", "underwear") == "underwear": # Tries on different underwear types
             $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
             $ the_person.draw_person()
             "[the_person.title] is standing in front of her bed, which has a few shopping bags spread out on it."

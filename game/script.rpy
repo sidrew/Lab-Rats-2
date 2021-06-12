@@ -11,9 +11,6 @@ init -10 python: #Init -10 is used for all project wide imports of external reso
     from collections import defaultdict
     import unittest
 
-    if not renpy.mobile: #Mobile platforms do not support animation, so we only want to try to import it if we're going to use it.
-        import shader
-
     # all image sets available
     global supported_positions
     supported_positions = ["stand2","stand3","stand4","stand5","walking_away","kissing","doggy","missionary","blowjob","against_wall","back_peek","sitting","kneeling1","standing_doggy","cowgirl"]
@@ -32,15 +29,17 @@ init -10 python: #Init -10 is used for all project wide imports of external reso
 #Init 0 establishes Renpy settings, including callbacks for display code.
 
 init -2: # Establish some platform specific stuff.
-    if renpy.macintosh:
-        default persistent.vren_animation = True
-        $ persistent.vren_mac_scale = 1.0 #2.0 # Changes to the way the surface size is calculated has made a mac specific setting like this oboslete. This section is only here until I can confirm everything is working properly.
+    # if renpy.macintosh:
+    #     #default persistent.vren_animation = True
+    #     $ persistent.vren_mac_scale = 1.0 #2.0 # Changes to the way the surface size is calculated has made a mac specific setting like this oboslete. This section is only here until I can confirm everything is working properly.
+    #
+    # else:
+    #     default persistent.vren_animation = True
+    #     $ persistent.vren_mac_scale = 1.0
 
-    else:
-        default persistent.vren_animation = True
-        $ persistent.vren_mac_scale = 1.0
-
+    default persistent.vren_animation = True #By default animation is enabled if possible. If it's not possible because it's on mobile toggling it just does nothing for now.
     default persistent.pregnancy_pref = 0 # 0 = no content, 1 = predictable, 2 = realistic
+    default persistent.vren_display_pref = "Float" # "Float" = no BG, "Frame" = Frame with coloured BG for most interactions.
 
 init -2 python:
     list_of_positions = [] # These are sex positions that the PC can make happen while having sex.
@@ -60,9 +59,11 @@ init -2 python:
 init 0 python:
     #config.use_cpickle = False #Set to True for more useful save failure info
 
-    config.interact_callbacks.append(take_animation_screenshot)
+    #config.interact_callbacks.append(take_animation_screenshot)
     config.history_callbacks.append(text_message_history_callback) #Ensures conversations had via text are recorded properly
     # config.say_arguments_callback = text_message_say_callback #Recolours and re-fonts say statements made while having a text conversation #NOTE: NOt needed now that we properly store messages into the phone and display them from a custom screen.
+
+    config.gl2 = True  #Required to enable the model based renderer and use shaders.
 
     config.automatic_images = None
     config.optimize_texture_bounds = True
@@ -86,8 +87,10 @@ init 0 python:
     config.rollback_enabled = True  # allows for smoother dialogs while skipping
     config.rollback_length = 32
 
-    if persistent.colour_palette is None:
-        persistent.colour_palette = [[1,1,1,1], [1,1,1,1], [1,1,1,1], [1,1,1,1], [1,1,1,1], [1,1,1,1], [1,1,1,1], [1,1,1,1], [1,1,1,1], [1,1,1,1]]
+    if persistent.colour_palette is None or len(persistent.colour_palette) < 20:
+        persistent.colour_palette = []
+        for x in range(0,20):
+            persistent.colour_palette.append([1,1,1,1])
 
     config.autoreload = False
 
@@ -99,29 +102,15 @@ init 0 python:
     # THIS IS WHAT PREVENTS IT FROM INDEXING IMAGES
     # SEE 00images.rpy for where this is created
     config.images_directory = None
-    preferences.gl_tearing = True ## Prevents juttery animation with text while using advanced shaders to display images
+    preferences.gl_tearing = True ## Prevents juttery animation with text while using advanced shaders to display images #TODO: Double check if this actually does anything anymore.
 
     _preferences.show_empty_window = False #Prevents Ren'py from incorrectly showing the text window in complex menu sitations (which was a new bug/behaviour in Ren'py v7.2)
-
-    global animation_draw_requested #Note that this is broken down by draw layer so that multiple threads can return safely in a single interaction.
-    animation_draw_requested = {} #This dict holds each draw layer request. Inside of each draw layer request are lists, which hold the character and their personal reference draw number, so that we can cull out of date draws
-
-    global global_draw_number # Holds the draw numbers for all possible scenes ("solo" is the main one). This value is increased by one every time a scene is cleared, and is used to prevent animations from being drawn after moving on from a scene.
-    global_draw_number = {}
-
-    global prepared_animation_render #The render that has been prepared by a separate thread should be placed here.
-    prepared_animation_render = {}
-
-    global prepared_animation_arguments #Holds all of the extra arguments that should be passed onto the display code.
-    prepared_animation_arguments = {}
 
     global draw_layers
     draw_layers = []
 
-    add_draw_layer("front_1") # Layers used for extra characters. In theory this can be expanded infinitely, but it reacts poorly to being adjusted mid-game.
+    add_draw_layer("front_1") # Layer used for extra characters. For example, drawing a preview while still showing a group in the back
     add_draw_layer("solo") # Add the main default draw layer, used for all single character displays
-    add_draw_layer("back_1")
-    add_draw_layer("back_2")
 
     build.classify("game/images/character_images/**stand2**.png", None) # unarchived images for the different positiosn are not needed, they are all included in .zip files.
     build.classify("game/images/character_images/**stand3**.png", None)
@@ -781,6 +770,10 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
         office_store = Room("office supply store","Office Supply Store", background_image = standard_mall_backgrounds[:], public = True,
             map_pos = [9,1], lighting_conditions = standard_indoor_lighting)
 
+        ## Mall supporting locations
+        changing_room = Room("Changing Room", objects = [Object("Changing Room Wall", "Lean"), Object("Floor", ["Lay", "Kneel"]), Object("Changing Room Chair", ["Sit", "Low"])], public = False)
+
+
         ##Other Locations##
         aunt_apartment = Room("Rebecca's Apartment", "Rebecca's Apartment", background_image = standard_house_backgrounds[:],
             map_pos = [4,2], visible = False, lighting_conditions = standard_indoor_lighting)
@@ -837,6 +830,7 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
         list_of_places.append(home_store)
         list_of_places.append(gym)
         list_of_places.append(mall)
+        list_of_places.append(changing_room)
 
         list_of_places.append(aunt_apartment)
         list_of_places.append(aunt_bedroom)

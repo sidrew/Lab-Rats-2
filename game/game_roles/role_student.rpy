@@ -1543,3 +1543,16 @@ label student_mom_intro(the_person):
 
     $ clear_scene()
     return
+
+label student_hire_intro(the_person):
+    #TODO: Option to hire the student when her marks are high enough.
+    #TODO: You need to talk to her mom and get her permission.
+    #TODO: If you're not having an affair with her Mom, or if her Obedience isn't low, she gives you permission.
+    #TODO: If you are having an affair and her Obedience is high, she doesn't want you to hire her daughter so you have a reason to keep coming around.
+    #TODO: This becomes a "bad mom" storyline, where you need to purposefully sabotage her daughter, and she gets excited by you using her daughter.
+    # Starts off with something like "Wait, you mean you're done tutoring her? But then you won't have any reason to come around and visit me", along with cupping your balls
+    # "What if her grades start dropping again? If you started teaching her the wrong things, you could spend more time here. More time with me..."
+    # Answers to call her evil or crazy, or be all in.
+    # Once Emily's grades drop enough she "came home crying to me. I should feel guilty, but it just made me want to get fucked!"
+    # Options from there to tell her about how badly you're treating her daughter, eventually getting her blessing to fuck her up (mentally, ie. sex slave).
+    return

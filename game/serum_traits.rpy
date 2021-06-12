@@ -572,7 +572,7 @@ init -1:
             clarity_cost = 30)
 
         simple_aphrodesiac = SerumTrait(name = "Inhibition Suppression",
-            desc = "Direct delivery of alcoholic molecules to the subjects brain produces notably reduced inhibitions. Side effects are common, but always include drowsiness.",
+            desc = "Direct delivery of alchoholic molecules to the subject's brain produces notably reduced inhibitions. Side effects are common, but always include drowsiness.",
             positive_slug = "+$15 Value, +10 Sluttiness (Max 30)",
             negative_slug = "-20 Energy, +50 Serum Research",
             value_added = 15,
@@ -1016,7 +1016,7 @@ init -1:
             clarity_cost = 1000)
 
         climax_enhancer = SerumTrait(name = "Pleasure Center Stimulator",
-            desc = "Changes the baseline of pleasure chemicals in the subjects brain. This has the effect of making it much easier for physical stimulation to trigger an orgasm in the subject. Comes with a large risk of side effects, and disturbs the subjects natural sense of enjoyment.",
+            desc = "Changes the baseline of pleasure chemicals in the subject's brain. This has the effect of making it much easier for physical stimulation to trigger an orgasm in the subject. Comes with a large risk of side effects, and disturbs the subjects natural sense of enjoyment.",
             positive_slug = "+25 Value, -20 Max Arousal (Min 20)",
             negative_slug = "-5 Happiness/Turn, +350 Serum Research",
             value_added = 25,

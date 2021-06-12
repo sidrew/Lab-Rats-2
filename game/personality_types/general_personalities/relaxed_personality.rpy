@@ -1218,7 +1218,7 @@ label relaxed_sex_end_early(the_person):
     else:
         if the_person.love > 40:
             if the_person.arousal > 60:
-                the_person "You don't want to take this any further? I thought we had a real connction."
+                the_person "You don't want to take this any further? I thought we had a real connection."
             else:
                 the_person "That's all? Well, maybe we can try again some other time."
         else:

@@ -1155,7 +1155,7 @@ label cousin_serum_boobjob_label(the_person, starting_tits):
         the_person "I still want to get my tits done properly. Come see me when I'm not doing anything important."
 
     else:
-        # At least two levels, which is hat she was aiming for.
+        # At least two levels, which is what she was aiming for.
         "You get a text from [the_person.title]."
         $ the_person.change_obedience(3)
         $ the_person.change_love(1)

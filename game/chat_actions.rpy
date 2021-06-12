@@ -194,13 +194,19 @@ init -2 python:
         return title_tuple
 
     def get_date_plan_actions(the_person):
-        lunch_date_action = Action("Ask her out to lunch {image=gui/heart/Time_Advance.png}", lunch_date_requirement, "lunch_date_plan_label", args=the_person, requirement_args=the_person,
+        lunch_date_action = Action("Ask her out to lunch {image=gui/heart/Time_Advance.png}", lunch_date_requirement, "lunch_date_plan_label",
             menu_tooltip = "Take her out on casual date out to lunch. Gives you the opportunity to impress her and further improve your relationship.")
-        movie_date_action = Action("Ask her out to the movies", movie_date_requirement, "movie_date_plan_label", args=the_person, requirement_args=the_person,
+        movie_date_action = Action("Ask her out to the movies", movie_date_requirement, "movie_date_plan_label", 
             menu_tooltip = "Plan a more serious date to the movies. Another step to improving your relationship, and who knows what you might get up to in the dark!")
-        dinner_date_action = Action("Ask her out to a romantic dinner", dinner_date_requirement, "dinner_date_plan_label", args=the_person, requirement_args=the_person,
+        dinner_date_action = Action("Ask her out to a romantic dinner", dinner_date_requirement, "dinner_date_plan_label", 
             menu_tooltip = "Plan a romantic, expensive dinner with her. Impress her and you might find yourself in a more intimate setting.")
-        return ["Select Date", lunch_date_action, movie_date_action, dinner_date_action, ["Never mind", "Return"]]
+
+        date_list = [[lunch_date_action, the_person], [movie_date_action, the_person], [dinner_date_action, the_person]]
+        for a_role in the_person.special_role:
+            for a_date in a_role.role_dates:
+                date_list.append([a_date, the_person])
+
+        return ["Select Date", date_list, ["Never mind", "Return"]]
 
     def create_movie_date_action(the_person):
         movie_action = Action("Movie date", evening_date_trigger, "movie_date_label", args=the_person, requirement_args=1) #it happens on a tuesday.
@@ -612,8 +618,8 @@ label date_person(the_person): #You invite them out on a proper date
         call screen enhanced_main_choice_display(build_menu_items([get_date_plan_actions(the_person)]))
     else:
         call screen main_choice_display([get_date_plan_actions(the_person)])
-    if _return != "Return":
-        $ _return.call_action() #This is where you're asked to plan out the date, or whatever.
+    if isinstance(_return, Action):
+        $ _return.call_action(the_person) #This is where you're asked to plan out the date, or whatever.
     return
 
 label lunch_date_plan_label(the_person):

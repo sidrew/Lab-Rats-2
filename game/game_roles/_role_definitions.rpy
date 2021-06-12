@@ -154,7 +154,14 @@ init -1 python:
         sister_strip_action = Action("Ask her to strip for you", sister_strip_requirement, "sister_strip_label",
             menu_tooltip = "Have your sister strip for you, in exchange for some money.", priority = 5)
 
-        return [sister_reintro_action, sister_serum_test_action, sister_strip_reintro_action, sister_strip_action]
+        sister_boobjob_give_serum_action = Action("Give her some breast enhancement serum", sister_boobjob_give_serum_requirement, "sister_give_boobjob_serum_label",
+            menu_tooltip = "Give your sister some serum, which she thinks will grow her boobs.", priority = 10)
+
+        sister_boobjob_ask_action = Action("Talk to her about getting implants", sister_get_boobjob_talk_requirment, "sister_get_boobjob",
+            menu_tooltip = "Talk to your sister about the implants she wants to get.", priority = 10)
+
+        return [sister_reintro_action, sister_serum_test_action, sister_strip_reintro_action, sister_strip_action, sister_boobjob_give_serum_action, sister_boobjob_ask_action]
+
 
     def get_mother_role_actions():
         #MOTHER ACTIONS#
@@ -167,7 +174,6 @@ init -1 python:
         mom_work_bigger_tits_reintro = Action("Talk to her about getting bigger tits.", mom_work_secretary_replacement_bigger_tits_reintro_requirement, "mom_work_secretary_replacement_bigger_tits_reintro",
             menu_tooltip = "Talk to her about improving her natural assets, either with implants or by using some of your serum.", priority = 10)
 
-        mother_role = Role("Mother", [mother_offer_make_dinner, mom_work_promotion_two_prep_action, mom_work_bigger_tits_reintro])
         return [mother_offer_make_dinner, mom_work_promotion_two_prep_action, mom_work_bigger_tits_reintro]
 
 
@@ -190,19 +196,21 @@ init -1 python:
         return [cousin_blackmail_action]
 
     def get_girlfriend_role_actions():
+        girlfriend_shopping_date = Action("Go shopping together {image=gui/heart/Time_Advance.png}", shopping_date_requirement, "shopping_date_intro", menu_tooltip = "Take her to the mall and do some shopping together.")
         ask_break_up_action = Action("Break up with her", ask_break_up_requirement, "ask_break_up_label", menu_tooltip = "Breaking up may break her heart, but it'll be easier on her than catching you with another woman.")
         ask_get_boobjob_action = Action("Ask her to get a boob job\n{color=#ff0000}{size=18}Costs: $7000{/size}{/color}", ask_get_boobjob_requirement, "ask_get_boobjob_label", menu_tooltip = "A little silicone goes a long way. Ask her to get breast enhancement surgery for you.")
         girlfriend_ask_trim_pubes_action = Action("Ask her to trim her pubes", girlfriend_ask_trim_pubes_requirement, "girlfriend_ask_trim_pubes_label", menu_tooltip = "Ask her to do a little personal landscaping. Tell her to wax it off, grow it out, or shape it into anything in between.")
 
-        return [ask_break_up_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action]
+        return [ask_break_up_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action, girlfriend_shopping_date]
 
     def get_paramour_role_actions():
         plan_fuck_date_action = Action("Plan a fuck date at her place", fuck_date_requirement, "plan_fuck_date_label", menu_tooltip = "Pick a night to go over there and spend nothing but \"quality time\" with each other.")
         ask_get_boobjob_action = Action("Ask her to get a boob job\n{color=#ff0000}{size=18}Costs: $7000{/size}{/color}", ask_get_boobjob_requirement, "ask_get_boobjob_label", menu_tooltip = "A little silicone goes a long way. Ask her to get breast enhancement surgery for you.")
         girlfriend_ask_trim_pubes_action = Action("Ask her to trim her pubes", girlfriend_ask_trim_pubes_requirement, "girlfriend_ask_trim_pubes_label", menu_tooltip = "Ask her to do a little personal landscaping. Tell her to wax it off, grow it out, or shape it into anything in between.")
+        girlfriend_shopping_date = Action("Go shopping together {image=gui/heart/Time_Advance.png}", shopping_date_requirement, "shopping_date_intro", menu_tooltip = "Take her to the mall and do some shopping together.")
         ask_leave_SO_action = Action("Ask her to leave her significant other for you", ask_leave_SO_requirement, "ask_leave_SO_label", menu_tooltip = "This affair has been secret long enough! Ask her to leave her significant other and make your relationship official.")
 
-        return [plan_fuck_date_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action, ask_leave_SO_action]
+        return [plan_fuck_date_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action, girlfriend_shopping_date, ask_leave_SO_action]
 
     def get_prostitute_role_actions():
         prostitute_action = Action("Pay her for sex\n{color=#ff0000}{size=18}Costs: $200{/size}{/color}", prostitute_requirement, "prostitute_label",

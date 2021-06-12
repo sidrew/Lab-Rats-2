@@ -123,7 +123,7 @@ init -2 python:
 label check_insta():
     # TODO: Check if anyone you know has posted pictures on InstaPic
     # TODO: Ability to find new Insta girls who are posting revealing pics.
-    call screen main_choice_display(build_insta_menu(), draw_hearts_for_people = False)
+    call screen main_choice_display(build_insta_menu(), draw_hearts_for_people = False, draw_person_previews = False)
     $ picked_option = _return
     if isinstance(picked_option, Person):
         call view_insta(picked_option) from _call_view_insta
@@ -138,7 +138,19 @@ label view_insta(the_person):
     if the_person.event_triggers_dict.get("insta_generate_pic", False):
         "It looks like [the_person.title] has posted a new picture today, along with a comment overlaid at the bottom."
         $ posted_today = True
-        if the_person.event_triggers_dict.get("insta_special_request_outfit", None):
+        if the_person.event_triggers_dict.get("insta_new_boobs_brag", None) is not None:
+            $ the_person.event_triggers_dict["insta_new_boobs_brag"] = None
+            $ skimpy_outfit = insta_wardrobe.pick_random_outfit()
+            $ the_person.apply_outfit(skimpy_outfit)
+            $ rand_num = renpy.random.randint(0,2)
+            if rand_num == 0:
+                $ the_person.draw_person(the_animation = None)
+            else:
+                $ the_person.draw_person(position = "kneeling1", the_animation = None)
+            $ mc.change_locked_clarity(15)
+            the_person "Went to the doc and got some upgrades! Don't they look great?!" (what_style = "text_message_style")
+
+        elif the_person.event_triggers_dict.get("insta_special_request_outfit", None):
             $ the_person.apply_outfit(the_person.event_triggers_dict.get("insta_special_request_outfit", insta_wardrobe.pick_random_outfit()))
             $ ran_num = renpy.random.randint(0,3)
             if ran_num == 0:
@@ -590,7 +602,7 @@ label dm_option_nude_response(the_person):
     return
 
 #TODO: Implement this at some point. For now it's more complexity than we need.
-label insta_interupt_check(the_person): # Returns Something???  a callback label or None. The callback should be called after the event.
+label insta_interrupt_check(the_person): # Returns Something???  a callback label or None. The callback should be called after the event.
     if the_person.has_role(sister_role):
         if mc.location.has_person(the_person) and mc.location == the_person.home:
             $ the_person.draw_person()

@@ -3,7 +3,7 @@
 init -2 python:
     def dikdok_on_turn(the_person):
         if renpy.random.randint(0,100) < 20 + 5*the_person.get_opinion_score("skimpy outfits") + 5*the_person.get_opinion_score("showing her tits") + 5*the_person.get_opinion_score("showing her ass"):
-            the_person.event_triggers_dict["dikdok_generate_vid"] = True
+            the_person.event_triggers_dict["dikdok_generate_video"] = True
 
         return
 
@@ -30,7 +30,7 @@ init -2 python:
 
 label check_dikdok():
     # TODO: Check if anyone you know has posted pictures on InstaPic
-    call screen main_choice_display(build_dikdok_menu(), draw_hearts_for_people = False)
+    call screen main_choice_display(build_dikdok_menu(), draw_hearts_for_people = False, draw_person_previews = False)
     $ picked_option = _return
     if isinstance(picked_option, Person):
         call view_dikdok(picked_option) from _call_view_dikdok
@@ -39,10 +39,27 @@ label check_dikdok():
     return
 
 label view_dikdok(the_person):
-    if the_person.event_triggers_dict.get("dikdok_generate_vid", False):
+    if the_person.event_triggers_dict.get("dikdok_generate_video", False) or the_person.event_triggers_dict.get("dikdok_force_video", False):
         "It looks like [the_person.title] has posted a new video."
+        $ the_person.event_triggers_dict["dikdok_force_video"] = False
         $ ran_num = renpy.random.randint(0,3)
-        if the_person.effective_sluttiness() < 10: # Barely does anything of note with her account
+        if the_person.event_triggers_dict.get("dikdok_new_boobs_brag", False):
+            $ the_person.event_triggers_dict["dikdok_new_boobs_brag"] = False
+            $ the_person.draw_person()
+            "[the_person.title] is standing in a bedroom, filming herself in the mirror."
+            the_person "I've got some exciting news! I visited my doc and got myself a couple of improvements..."
+            the_person "Want to take a look?"
+            "She winks and puffs out her chest."
+            the_person "Alright, ready?"
+            $ clear_scene()
+            "[the_person.possessive_title] slides her hand in front of the camera."
+            $ the_person.apply_outfit(lingerie_wardrobe.pick_random_outfit())
+            $ the_person.draw_person(the_animation = tit_bob, animation_effect_strength = 0.3)
+            $ mc.change_locked_clarity(20)
+            "When she reveals herself she's changed into her underwear and is happily bouncing her tits."
+            the_person "I got some fancy new tits! Leave a like if you want to see some more of 'em!"
+
+        elif the_person.effective_sluttiness() < 10: # Barely does anything of note with her account
             if ran_num == 0:
                 "[the_person.possessive_title] just filmed her food. She isn't even in the shot."
             elif ran_num == 1:
@@ -51,7 +68,6 @@ label view_dikdok(the_person):
                 "It's a video of a dog she met today. Cute."
             else:
                 "She's a video of a street performer she saw today. Interesting, but [the_person.possessive_title]'s not even in the shot."
-
 
         elif the_person.effective_sluttiness() < 20: # Does a few videos with herself in it, generally not looking to be slutty, just "cute"
             if ran_num == 0:

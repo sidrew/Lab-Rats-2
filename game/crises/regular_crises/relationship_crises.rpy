@@ -237,6 +237,7 @@ label girlfriend_nudes_label():
             "She dances for a moment, then starts to strip down even more."
             $ camera_strip_tits_description(the_person, strip_list)
             $ strip_list = None
+            $ mc.change_locked_clarity(20)
             if the_person.has_large_tits():
                 "Tits out, she dances a little more for you, then blows a kiss and waves goodbye. Her breasts dangle directly in front of the camera as she turns it off."
             else:

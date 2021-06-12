@@ -307,7 +307,7 @@ init -1 python:
     list_of_punishments.append(punishment_underwear_only_action)
 
 label punishment_office_busywork(the_person, the_infraction):
-    # The employee gains +1 Obedience every work day, but the company loses an extra company efficency.
+    # The employee gains +1 Obedience every work day, but the company loses an extra company efficiency.
 
     mc.name "As punishment, for the next week you are expected to carry out all of the basic busywork of the office."
     mc.name "If the printer needs paper, you fill it. If someone needs coffee, you get it for them."

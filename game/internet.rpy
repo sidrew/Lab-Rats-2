@@ -57,13 +57,13 @@ init -1 python:
 
         return [text_actions, internet_actions, other_actions]
 
-    def build_text_menu():
+    def build_text_menu(person):
         text_actions = []
         for act in texting_actions:
-            text_actions.append([act, the_person])
+            text_actions.append([act, person])
 
         text_actions.sort(key = sort_display_list, reverse = True)
-        text_actions.insert(0,"Text Her")
+        text_actions.insert(0,"Text " + person.title)
 
         other_actions = ["Other Actions"]
         other_actions.append("Back")
@@ -78,9 +78,9 @@ label browse_internet(is_phone = True): #TODO: Maybe make this a generic functio
     #TODO: Provide a bunch of internet browsing options. Later on this leads to "OnlyFanatics" and "InstaPic", but it might start out with just some porn (or a comment about how "normal porn just seems boring now")
 label .continue_browsing:
     if "action_mod_list" in globals():
-        call screen enhanced_main_choice_display(build_menu_items(build_phone_menu(), draw_hearts_for_people = False))
+        call screen enhanced_main_choice_display(build_menu_items(build_phone_menu(), draw_hearts_for_people = False, draw_person_previews = False))
     else:
-        call screen main_choice_display(build_phone_menu(), draw_hearts_for_people = False)
+        call screen main_choice_display(build_phone_menu(), draw_hearts_for_people = False, draw_person_previews = False)
 
     $ clear_scene()
     if _return == "Back":
@@ -99,7 +99,7 @@ label .continue_browsing:
         $ return_to_phone = True
         $ mc.start_text_convo(the_person)
 
-        call screen main_choice_display(build_text_menu())
+        call screen main_choice_display(build_text_menu(the_person))
         if _return == "Back":
             pass
 

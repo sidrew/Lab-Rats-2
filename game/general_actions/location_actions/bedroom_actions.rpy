@@ -51,7 +51,7 @@ label faq_loop:
                     "Vren" "As a girls Sluttiness increases she will be more willing to wear revealing clothing or have sex with you."
                     "Vren" "As her Obedience increases she will be more deferential. She may be willing to have sex simply because you ask, even if she is not normally slutty enough."
 
-                "Levelling Up":
+                "Leveling Up":
                     "Vren" "There are three main categories of experience: Stats, Work Skills, and Sex Skills."
                     "Vren" "For each of these categories you will have a goal assigned. When that goal is completed you will receive one point to spend on any of the scores in that category."
                     "Vren" "Once per day you may also scrap a goal that is overly difficult or not possible to complete yet."
@@ -76,7 +76,7 @@ label faq_loop:
     jump faq_loop
     return
 
-label bedroom_masturbation(location_description = "home", edging_available = True, should_advance_time = True): #Baseline efficency for masturbating. Advances time, consumes energy, and releases Clarity inefficently.
+label bedroom_masturbation(location_description = "home", edging_available = True, should_advance_time = True): #Baseline efficiency for masturbating. Advances time, consumes energy, and releases Clarity inefficently.
     if location_description == "home":
         "You sit down in front of your computer and start to look around for some porn to jerk off to."
 
@@ -124,4 +124,3 @@ label bedroom_masturbation(location_description = "home", edging_available = Tru
     if should_advance_time:
         call advance_time()
     return
-    

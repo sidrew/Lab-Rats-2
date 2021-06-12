@@ -95,7 +95,7 @@ init 0 python:
         mc.business.change_team_effectiveness(-1*mc.business.get_employee_count())
 
     strict_enforcement = Policy(name = "Strict Enforcement",
-        desc = "By strictly applying the letter, rather than spirit, of the company punishment guidelines you are able to treat infractions as more severe than they initially seem. All infraction severities are increased by one while this policy is active, but the increased administrative work lowers business efficency by one per employee every day.",
+        desc = "By strictly applying the letter, rather than spirit, of the company punishment guidelines you are able to treat infractions as more severe than they initially seem. All infraction severities are increased by one while this policy is active, but the increased administrative work lowers business efficiency by one per employee every day.",
         cost = 2500,
         toggleable = True,
         requirement = strict_enforcement_policy_requirment,
@@ -127,7 +127,7 @@ init 0 python:
         return
 
     bureaucratic_nightmare = Policy(name = "Bureaucratic Nightmare",
-        desc = "Rewriting all company policies to be intentionally vague and misleading creates a work environment where mistakes are practically unavoidable. Allows you to generate minor infractions at will, but the new labyrinthian rules result in business efficency dropping by an additional one per employee each day.",
+        desc = "Rewriting all company policies to be intentionally vague and misleading creates a work environment where mistakes are practically unavoidable. Allows you to generate minor infractions at will, but the new labyrinthian rules result in business efficiency dropping by an additional one per employee each day.",
         cost = 2500,
         toggleable = True,
         requirement = bureaucratic_nightmare_policy_requirement,

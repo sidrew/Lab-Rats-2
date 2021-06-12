@@ -1,60 +1,8 @@
-##########################################
-# This file holds all of the role requirements and labels for the sister role.
-##########################################
+# Contains all of the role events and actions related to Lily's InstaPic storyline.
 
 #TODO: add a punish line for Lilys instathot storyline
-#TODO: Purposeful teasing ebents
 
 init -2 python:
-    #SISTER ACTION REQUIREMENTS#
-    def sister_intro_crisis_requirements(the_person, day_trigger):
-        if time_of_day == 4 and mc.location == bedroom and day >= day_trigger: #We use time == 4 because we want it to trigger during our night/day transition (ie. when you're guaranteed to be at home)
-            return True
-        return False
-
-    def sister_reintro_action_requirement(the_person):
-        if mc.business.event_triggers_dict.get("sister_needs_reintro"):
-            return True
-        return False
-
-    def sister_serum_test_requirement(the_person):
-        if not mc.business.event_triggers_dict.get("sister_serum_test", False):
-            return False
-        elif mc.business.funds < 50:
-            return "Requires: $50"
-        else:
-            return True
-
-    def sister_strip_intro_requirement(the_person): #Note that this only ever triggers once, so we don't need to worry if it will retrigger at any point.
-        if time_of_day == 4 and mc.location == bedroom:
-            if the_person.sluttiness >= 30 and mc.business.event_triggers_dict.get("sister_serum_test_count",0) >= 4:
-                return True
-        return False
-
-    def sister_strip_reintro_requirement(the_person):
-        if not mc.business.event_triggers_dict.get("sister_strip_reintro",False):
-            return False
-        elif mc.location != lily_bedroom:
-            return False
-        elif len(lily_bedroom.people) > 1:
-            return False
-        elif the_person.sluttiness < 30:
-            return "Requires: " + get_red_heart(30)
-        else:
-            return True
-
-    def sister_strip_requirement(the_person): #She'll only strip if you're in her bedroom and alone.
-        if not mc.business.event_triggers_dict.get("sister_strip",False):
-            return False
-        elif mc.location != lily_bedroom:
-            return False
-        elif len(lily_bedroom.people) > 1:
-            return False
-        elif the_person.sluttiness < 30 or mc.business.funds < 100:
-            return "Requires: $100, " + get_red_heart(30)
-        else:
-            return True
-
     def instathot_intro_requirement(the_person): #This action sits in her room
         if the_person.sluttiness < 20:
             return False
@@ -64,7 +12,6 @@ init -2 python:
             return False
         else:
             return True
-
 
     def instathot_requirement(the_person):
         if lily not in lily_bedroom.people:
@@ -92,20 +39,54 @@ init -2 python:
         else:
             return True
 
-    def add_sister_instahot_action():
-        sister_instahot_action = Action("Help her take Insta-pics {image=gui/heart/Time_Advance.png}",instathot_requirement, "sister_instathot_label", menu_tooltip = "Help your sister grow her Insta-pic account by taking some pictures of her.")
-        sister_role.actions.append(sister_instahot_action)
-        return
-
     def sister_instathot_mom_report_requirement(the_person, start_day):
         if day <= start_day:
             return False #Wait at least a day
-        if mom in mc.location.people:
+        elif mom in mc.location.people:
             return False #Don't talk to her in front of her face.
         elif not mc_at_home():
             return False #Don't talk about it outside of the house.
         else:
             return True
+
+    def sister_boobjob_give_serum_requirement(the_person):
+        if not the_person.event_triggers_dict.get("sister_boobjob_serum_enabled", False):
+            return False
+        elif the_person.event_triggers_dict.get("sister_boobjob_serum_count", 0) >= 3:
+            return False
+        elif the_person.event_triggers_dict.get("sister_boobjob_serum_last_day", -1) >= day:
+            return "Already taken a dose today."
+        else:
+            return True
+
+    def sister_serum_new_boobs_check_requirement(the_person, start_size, end_day):
+        if rank_tits(the_person.tits) - rank_tits(start_size) >= 2:
+            return True #Her boobs grew, she'll trigger her brag event
+        elif day >= end_day:
+            return True #It's been too long, she'll trigger the fail/timeout event.
+        else:
+            return False #Don't trigger until one of those conditions is met.
+
+    def sister_got_boobjob_requirement(start_day):
+        if day < start_day:
+            return False
+        return True
+
+    def sister_get_boobjob_talk_requirment(the_person):
+        if the_person.event_triggers_dict.get("sister_boobjob_ask_enabled", False):
+            return True
+        return False
+
+    def sister_boobjob_brag_requirement(the_person):
+        return True
+
+    def sister_serum_boobjob_fail_requirement(the_person):
+        return True
+
+    def add_sister_instahot_action():
+        sister_instahot_action = Action("Help her take Insta-pics {image=gui/heart/Time_Advance.png}",instathot_requirement, "sister_instathot_label", menu_tooltip = "Help your sister grow her Insta-pic account by taking some pictures of her.")
+        sister_role.actions.append(sister_instahot_action)
+        return
 
     def add_sister_instathot_mom_report_action(person):
         sister_instathot_mom_report_crisis = Action("Sister instathot mom report crisis", sister_instathot_mom_report_requirement, "sister_instathot_mom_report", requirement_args = day)
@@ -121,194 +102,24 @@ init -2 python:
                 renpy.say(None,"")
         return
 
-#SISTER ACTION LABELS#
+    def add_sister_boobjob_serum_check_action(person):
+        sister_boobjob_serum_check_action = Action("sister_serum_boobjob_check", sister_serum_new_boobs_check_requirement, "sister_serum_new_boobs_check", args = [person, person.tits], requirement_args = [person, person.tits, day + 10])
+        mc.business.mandatory_crises_list.append(sister_boobjob_serum_check_action)
+        return
 
-label sister_intro_crisis_label(the_person):
-    #This is a mandatory crisis, so we assume that our requirements are tight enough to always trigger correctly. If you want to do crisis requirement checks here you need to re-add the crisis to the mandatory list!
-    $ bedroom.show_background()
-    "There's a knock at your bedroom door."
-    mc.name "Come in."
-    $ the_person.draw_person()
-    the_person "Hey [the_person.mc_title], do you have a moment?"
-    mc.name "Sure, what's up?"
-    "[the_person.possessive_title] steps into your room and closes the door behind her."
-    the_person "I wanted to say I'm really impressed with how your business is going. It must be really exciting to be your own boss now."
-    mc.name "It's certainly been challenging, that's for sure."
-    the_person "And... Well, I've been so busy with school that I haven't had a chance to get a job like Mom's been wanting..."
-    mc.name "Oh no, I can see where this is going."
-    the_person "If you could just give me a {i}tiny{/i} bit of cash I could show Mom I can take care of myself."
-    mc.name "But you can't, apparently."
-    the_person "Please? Please please please, [the_person.mc_title]? Maybe there's some extra work I could do? I could..."
-    "She gives up and shrugs."
-    the_person "Help you science all that science stuff?"
-    mc.name "I don't think that's really where I need help. But..."
-    menu:
-        "Ask [the_person.title] to test serum for you":
-            the_person "But...? Come on [the_person.mc_title], I really need your help."
-            mc.name "Well, at the lab we've been running some experiments, but we need some test subjects."
-            mc.name "I can bring home some of the stuff we're working on and if you let me test it on you I can pay you for it."
-            the_person "It's not going to turn me into a lizard or something, right?"
-            mc.name "Obviously not. It's just a liquid that you'd need to drink, then I'll watch to see how it affects you over the next few hours."
-            the_person "What is it going to do?"
-            mc.name "That's what we're trying to find out."
-            $ the_person.draw_person(emotion = "happy")
-            "[the_person.possessive_title] thinks about it for a moment, then nods."
-            the_person "Okay, but I want $50 each time."
-            mc.name "You drive a hard bargain sis. You've got a deal."
-            "You shake on it."
-            $ the_person.change_obedience(5)
-            the_person "Thank you so much [the_person.mc_title]. Uh, if Mom asks just say I got a part time job."
-            mc.name "Sure thing. I'll come see you when I have something for you to test."
-            "[the_person.title] gives you one last smile then leaves your room, shutting the door behind her."
-            $ mc.business.event_triggers_dict["sister_serum_test"] = True
+    def add_sister_boobjob_serum_result_action(person, start_size):
+        if rank_tits(person.tits) - rank_tits(start_size) >= 2:
+            add_sister_boobjob_result_brag_action(person)
+        else: #Handles all the possible ways the serum checks could fail.
+            sister_serum_fail_action = Action("Sister_serum_boobjob_fail", sister_serum_boobjob_fail_requirement, "sister_serum_partial_boobjob_label", args = start_size)
+            person.on_room_enter_event_list.append(sister_serum_fail_action)
+        return
 
-        "Ask [the_person.title] to leave you alone":
-            the_person "But...?"
-            mc.name "But I was just about to head to bed, so if you could let me get some sleep that would be a huge help."
-            $ the_person.draw_person(emotion = "sad")
-            $ the_person.change_happiness(-5)
-            "[the_person.title] pouts and crosses her arms. She leaves your room in a huff."
-            $ mc.business.event_triggers_dict["sister_needs_reintro"] = True
+    def add_sister_boobjob_result_brag_action(person):
+        sister_brag_action = Action("Sister_new_boobs_brag", sister_boobjob_brag_requirement, "sister_new_boobs_brag_label")
+        the_person.on_room_enter_event_list.append(sister_brag_action)
+        return
 
-    $ clear_scene()
-    return
-
-label sister_reintro_label(the_person):
-    #If you turn your sister away the first time you can approach her and ask to have her test serums anyways.
-    mc.name "So [the_person.title], are you still looking for some work to do?"
-    $ the_person.draw_person(emotion = "happy")
-    the_person "Oh my god yes! Do you have something for me to do?"
-    mc.name "Well, at the lab we've been running some experiments, but we need some test subjects."
-    mc.name "I can bring home some of the stuff we're working on and if you let me test it on you I can pay you for it."
-    the_person "It's not going to turn me into a lizard or something, right?"
-    mc.name "Obviously not. It's just a liquid that you'd need to drink, then I'll watch to see how it affects you over the next few hours."
-    the_person "What is it going to do?"
-    mc.name "That's what we're trying to find out."
-    $ the_person.draw_person(emotion = "happy")
-    "[the_person.possessive_title] thinks about it for a moment, then nods."
-    the_person "Okay, but I want $50 each time."
-    mc.name "You drive a hard bargain sis. You've got a deal."
-    "You shake on it."
-    $ the_person.change_obedience(5)
-    the_person "Thank you so much [the_person.mc_title]. Uh, if Mom asks just say I got a part time job."
-    mc.name "Sure thing. I'll let you know when I have something for you to test."
-    $ mc.business.event_triggers_dict["sister_needs_reintro"] = False
-    $ mc.business.event_triggers_dict["sister_serum_test"] = True
-    return
-
-label sister_serum_test_label(the_person):
-    #Give your sister some serum to test for cash.
-    mc.name "Hey [the_person.title], I have something for you to test out for me."
-    the_person "Alright, $50 and I'll try it."
-    call give_serum(the_person) from _call_give_serum_7
-    if _return:
-        $ mc.business.funds += -50
-        "You give [the_person.possessive_title] the cash and the serum. She puts the money away then drinks the serum, handing back the empty vial."
-        $ the_person.change_obedience(1)
-        the_person "Easiest fifty bucks I've ever earned. I guess you can hang around and keep an eye on me if it's important for your research."
-        if mc.business.event_triggers_dict.get("sister_serum_test_count"):
-            $ mc.business.event_triggers_dict["sister_serum_test_count"] += 1
-        else:
-            $ mc.business.event_triggers_dict["sister_serum_test_count"] = 1
-
-    else:
-        mc.name "Sorry [the_person.title], I guess I don't actually have anything for you to test."
-        the_person "Ugh, come on [the_person.mc_title], you know I need the money!"
-        mc.name "I'll find something for you to test, promise."
-    return
-
-label sister_strip_intro_label(the_person):
-    #Give your sister some cash in exchange for her stripping. Higher sluttiness means she'll strip more (for less).
-    $ bedroom.show_background()
-    "There's a knock at your bedroom door."
-    mc.name "Come in."
-    $ the_person.draw_person()
-    the_person "Hey [the_person.mc_title], can I talk to you about something?"
-    "[the_person.possessive_title] comes into your room and shuts the door behind her. She seems nervous, avoiding eye contact as she comes closer."
-    mc.name "Any time, what's up?"
-    the_person "You know how I've been testing some of that lab stuff you make? For money?"
-    mc.name "Yeah."
-    the_person "Well I've been out shopping, and Mom would {i}kill{/i} me if she knew how much I was spending, so I was hoping you could pay me some more."
-    mc.name "Sorry [the_person.title], I don't have anything for you to test right now."
-    $ the_person.draw_person(emotion = "sad")
-    the_person "Oh come on [the_person.mc_title], don't you have anything I could do? I really need the money now."
-    "[the_person.possessive_title] puts her arms behind her back and pouts at you."
-    menu:
-        "Pay her to strip for you":
-            call strip_explanation(the_person) from _call_strip_explanation
-
-
-        "Tell her to leave":
-            mc.name "I just don't have anything to give you [the_person.title]. I promise if I think of anything I'll come to you right away."
-            the_person "Ugh... fine."
-            "She turns and leaves your room, disappointed."
-            $ the_person.change_happiness(-5)
-            $ mc.business.event_triggers_dict["sister_strip_reintro"] = True
-
-    $ clear_scene()
-    return
-
-label sister_strip_reintro_label(the_person):
-    mc.name "I've been thinking about some stuff you could do for me [the_person.title]. Are you still interested in earning some more money?"
-    $ the_person.draw_person(emotion = "happy")
-    the_person "Yes! What do you want me to do?"
-
-    call strip_explanation(the_person) from _call_strip_explanation_1
-
-    $ mc.business.event_triggers_dict["sister_strip_reintro"] = False
-    return
-
-label strip_explanation(the_person):
-    #Pulls out the explanation part of the strip intro so it's not duplicated
-    mc.name "I've been busy getting my business running and earning all of this money I'm going to be paying you, so I haven't had a chance to meet many people."
-    mc.name "It's been a while since I was able to just appreciate the looks of a hot woman."
-    the_person "What are... what are you suggesting?"
-    mc.name "I'll pay you if you just stand around and let me look at you. Maybe take some of your clothing off, if you're comfortable with it."
-    the_person "So you want me to give you a strip show?"
-    "You nod."
-    "[the_person.possessive_title] seems surprised, but not particularly offended by the idea. She takes a long moment to consider it."
-    $ mc.change_locked_clarity(20)
-    the_person "Okay, I'll do it. I want $100 up front, plus a little extra if you want me to take anything off."
-    mc.name "I think that's reasonable."
-    $ the_person.change_obedience(5)
-    $ mc.business.event_triggers_dict["sister_strip"] = True
-    the_person "And obviously you can't touch me. Or yourself. And you can {i}never{/i} tell Mom about it."
-    mc.name "Don't worry [the_person.title], I promise I won't make it weird."
-    "[the_person.title] nods. There's a long silence before she speaks again."
-    the_person "So... do you want me to do it for you now?"
-    menu:
-        "Ask her to strip for you" if mc.business.funds >= 100:
-            mc.name "I don't see why not."
-            $ mc.business.funds += -100
-            "You pull a hundred dollars out of your wallet and hand it over to [the_person.possessive_title]. She tucks it away and gets ready."
-            call pay_strip_scene(the_person) from _call_pay_strip_scene
-
-            $ the_person.review_outfit()    # make sure she puts on outfit after stripping
-
-        "Ask her to strip for you\n{color=#ff0000}{size=18}Requires: $100{/size}{/color} (disabled)" if mc.business.funds < 100:
-            pass
-
-        "Not right now":
-            mc.name "Not right now. I'll come find you if I'm interested, okay?"
-            the_person "Okay. Thanks for helping me out [the_person.mc_title], you're a life saver."
-            "[the_person.title] leaves your room and closes the door behind her."
-    return
-
-
-label sister_strip_label(the_person):
-    #A short intro so that we can reuse the pay_strip_scene with other characters if we want.
-    mc.name "So [the_person.title], are you interested in earning a hundred dollars?"
-    if the_person.effective_sluttiness("underwear_nudity") < 50:
-        the_person "Oh, do you want me to... show off for you?"
-    else:
-        the_person "You want me to strip down for you?"
-    $ mc.business.funds += -100
-    "You nod and sit down on [the_person.possessive_title]'s bed. She holds her hand out and you hand over her money."
-    "She tucks the money away and gets ready in front of you."
-    call pay_strip_scene(the_person) from _call_pay_strip_scene_1
-
-    $ the_person.review_outfit()    # make sure she puts on outfit after stripping
-    return
 
 label sister_instathot_intro_label(the_person):
     # Your sister needs you to take pictures for her.
@@ -1094,23 +905,365 @@ label sister_instathot_mom_report(the_person): #Lily tells you that her shots wi
     call talk_person(the_person) from _call_talk_person_14
     return #TODO: Have this event unlock one for Mom asking her to take nudes with Lily. (Maybe as a morning favour?)
 
-label sister_cam_girl_intro_label(the_person):
-    # Your sister comes to you asking for _more_ money, this time to buy a better computer.
-    # "I have an idea to make money, right here at home. I just need to buy some equipment."
-    # "I need a new computer. And a microphone. And a webcam."
-    # "It's none of your business!"
-    # Threaten to tell your Mom, she tells you that she's going to make some videos for her "premium instapic followers".
-    # Offer to buy her the equipment in exchange for a cut.
+label sister_convince_mom_boobjob(the_mom, the_sister):
+    if the_sister.event_triggers_dict.get("mom_boobjob_convince_first_try", True):
+        $ the_sister.event_triggers_dict["mom_boobjob_convince_first_try"] = False
+        mc.name "That's a good start. [the_mom.title], try and puff your chest out a little more for me."
+        $ mc.change_locked_clarity(10)
+        "[the_mom.possessive_title] rolls her shoulders back, emphasizing her large breasts for the camera."
+        the_mom "Umm, like this? Sorry, I'm not very good at this."
+        mc.name "Don't worry about that, you've got such large boobs that it's easy to make them look good."
+        "You get a few pictures of [the_mom.title] with [the_sister.possessive_title] beside her."
+        mc.name "Good thing too, big tits are the number one thing that gets you views on InstaPic."
+        the_mom "Don't be so crude [the_mom.mc_title], I'm sure that's not true. Right [the_sister.title]?"
+        $ the_group.draw_person(the_sister, position = "kneeling1")
+        "[the_sister.possessive_title] shrugs."
+        the_sister "No, he's right about that. All of the top influencers have big boobs. Bigger than me, at least."
+        mc.name "It can be real hard for flat chested girls like [the_sister.title] to make an impact."
+        $ the_group.draw_person(the_mom, position = "kneeling1")
+        the_mom "[the_sister.title] isn't flat chested, they're just a bit little smaller than mine. I think they're the perfect size sweetheart."
+        mc.name "I like them too, but that little bit makes all the difference to the InstaPic algorithm."
+        mc.name "I've heard that a lot of girls have gone and gotten fake breasts to help get ahead."
+        "[the_mom.possessive_title] turns and looks at [the_sister.possessive_title], who nods in agreement."
+        $ the_group.draw_person(the_sister, position = "kneeling1")
+        the_sister "You're lucky [the_mom.title], I wish my boobs had grown in to be as big as yours."
+        the_sister "This would be so much easier, and I could make more money to help you with all of our bills..."
+        $ the_group.draw_person(the_mom, position = "kneeling1")
+        the_mom "Oh sweetheart, don't think about it like that. Go on [the_mom.mc_title], tell your sister that she's perfect just the way she is!"
+        menu:
+            "She would be perfect with bigger tits!":
+                $ mc.change_locked_clarity(10)
+                mc.name "[the_sister.title]'s beautiful, obviously, but I think she would be stunning with bigger boobs."
+                mc.name "Bigger is always better, right?"
+
+
+            "Of course! But if she could earn more money...":
+                mc.name "Of course she is, but there are practical things to think about [the_mom.title]."
+                $ mc.change_locked_clarity(10)
+                mc.name "[the_sister.title] would be just as perfect with slightly bigger boobs."
+                mc.name "And the extra money she could earn from InstaPic would be so helpful for the household."
+
+        $ the_group.draw_person(the_sister, position = "kneeling1", emotion = "happy")
+        "[the_sister.possessive_title] smiles at you and nods her head."
+        the_sister "I think [the_sister.mc_title] is right [the_mom.title]. Maybe I should do it..."
+
+    else:
+        mc.name "That's a good start. [the_mom.title], puff out your chest for the camera."
+        $ mc.change_locked_clarity(10)
+        "[the_mom.possessive_title] rolls her shoulders back, emphasizing her large breasts for the camera."
+        mc.name "That's great, just like that."
+        "You get a few pictures of [the_mom.title] with [the_sister.possessive_title] beside her."
+        mc.name "These shots would be even better if [the_sister.title] had tits as big as yours."
+        the_mom "[the_mom.mc_title], You know how I feel about her getting implants..."
+        mc.name "I just think you need to consider it a bit more. It's what she wants, right [the_sister.title]?"
+        $ the_group.draw_person(the_sister, position = "kneeling1", emotion = "happy")
+        "[the_sister.possessive_title] nods her head eagerly."
+        the_sister "I think it's a good idea [the_mom.title]. Please?"
+
+
+    $ the_group.draw_person(the_mom, position = "kneeling1")
+    the_mom "That's a very big change to make in your life just for your internet work [the_sister.title]."
+    the_mom "I don't think I'd be a very good mother if I let you do it."
+    "[the_mom.possessive_title] seems hesitant. You'll need some way to convince her."
+    $ boobjob_allowed = False
+    $ sluttiness_required = 40 - the_mom.get_opinion_score("showing her tits") * 5
+    $ sluttiness_token = get_red_heart(sluttiness_required)
+    menu:
+        "[the_sister.title] would look so hot!" if the_mom.effective_sluttiness() >= sluttiness_required:
+            mc.name "Think about how hot [the_sister.title] would be with bigger boobs though."
+            mc.name "On her slender frame they're going to look even bigger!"
+            $ the_group.draw_person(the_sister, position = "kneeling1")
+            $ mc.change_locked_clarity(20)
+            the_sister "Please [the_mom.title]? I just want to have big boobs like I've always wanted. Boobs like yours."
+            "[the_sister.possessive_title] pouts and flutters her eyes at [the_mom.possessive_title]."
+            "She thinks for a long moment, then sighs and nods."
+            $ the_group.draw_person(the_mom, position = "kneeling1", emotion = "happy")
+            the_mom "I can't say no to you. You can do it."
+            $ boobjob_allowed = True
+
+        "[the_sister.title] would look so hot!\n{color=#ff0000}{size=18}Requires: Mom, [sluttiness_token]{/size}{/color} (disabled)" if the_mom.effective_sluttiness() < sluttiness_required:
+            pass
+
+        "Order [the_sister.title] to do it anyways" if the_sister.obedience >= 140:
+            mc.name "I knew she wouldn't go for it. I don't think she likes this job you've found."
+            the_mom "I didn't say that! But surgery is a very serious thing to consider!"
+            mc.name "Well I think you should do it anyways [the_sister.title]. You're an adult, [the_mom.title] can't stop you."
+            $ the_group.draw_person(the_sister, position = "kneeling1")
+            "[the_sister.possessive_title] stutters for a moment, clearly unsure of what to say. She looks to you for direction."
+            the_sister "I... Are you sure I should [the_sister.mc_title]?"
+            mc.name "I am. I'll help you, I promise."
+            "[the_sister.title] finds her nerve and turns to face [the_mom.title]."
+            the_sister "Okay, then I'm going to do it! I'm sorry [the_mom.title], but it's important to me!"
+            $ the_group.draw_person(the_mom, position = "kneeling1")
+            the_mom "You're sure about this?"
+            "[the_sister.possessive_title] nods. [the_mom.possessive_title] sighs and shrugs."
+            the_mom "If I can't change your mind, then I want to make sure you're being safe."
+            $ boobjob_allowed = True
+
+        "Order [the_sister.title] to do it anyways\n{color=#ff0000}{size=18}Requires: 140 Obedience{/size}{/color} (disabled)" if the_sister.obedience < 140:
+            pass
+
+        "Order [the_mom.title] to allow it" if the_mom.obedience >= 140:
+            mc.name "[the_sister.title]'s an adult [the_mom.title], you can't tell her what to do for the rest of her life."
+            mc.name "She wants to do this. You need to be a good mother and support her."
+            $ the_group.draw_person(the_mom, position = "kneeling1")
+            the_mom "[the_sister.title], you're sure about this?"
+            "[the_sister.possessive_title] nods. [the_mom.possessive_title] sighs and shrugs."
+            the_mom "[the_mom.mc_title] is right, this is your decision to make."
+            the_mom "If you want to get implants, I'll support you."
+            $ boobjob_allowed = True
+
+        "Order [the_mom.title] to allow it\n{color=#ff0000}{size=18}Requires: 140 Obedience{/size}{/color} (disabled)" if the_mom.obedience < 140:
+            pass
+
+        "You got yourself implants already." if the_mom.event_triggers_dict.get("boobjob_count", 0) > 0:
+            mc.name "Don't be a hypocrite [the_mom.title]. You were fine with getting implants for yourself."
+            mc.name "If you can do it, why can't [the_sister.title]?"
+            $ the_group.draw_person(the_mom, position = "kneeling1")
+            the_mom "I suppose you have a point... Maybe I'm over reacting a little bit. My little girl is growing up."
+            the_mom "As long as you're sure [the_sister.title], you have my permission."
+            $ boobjob_allowed = True
+
+        "Try to convince her later":
+            "You can't think of anything to say that would convince [the_mom.title]."
+            mc.name "Give it some thought, maybe you'll change your mind."
+            "You take a few more pictures of [the_mom.possessive_title] and [the_sister.possessive_title] posing together."
+
+
+
+    if boobjob_allowed:
+        "[the_sister.title] squeals happily and hugs [the_mom.possessive_title]."
+        $ the_group.draw_person(the_sister, position = "kneeling1", emotion = "happy")
+        the_sister "Thank you, thank you! They're going to look great, I just know it!"
+        $ the_group.draw_person(the_mom, position = "kneeling1")
+        the_mom "I hope they do. Do you have a plan for how you're going to pay for this?"
+        the_mom "Surgery like that isn't cheap."
+        $ the_group.draw_person(the_sister, position = "kneeling1", emotion = "happy")
+        the_sister "I have some money saved up, and my InstaPic fans will probably send me some donations."
+        the_sister "I don't know if it will be enough, but it's a start!"
+        menu:
+            "[the_mom.title], you should help" if mom.love >= 40:
+                mc.name "[the_mom.title], we must have something saved we could help [the_sister.title] with."
+                $ the_group.draw_person(the_mom, position = "kneeling1")
+                the_mom "Hmm... I do have some money saved for her tuition next year. I could take a little bit out of that..."
+                $ the_group.draw_person(the_sister, position = "kneeling1", emotion = "happy")
+                the_sister "That's a great idea! I'll earn it all back and more on InstaPic, I promise!"
+                $ the_sister.event_triggers_dict["getting boobjob"] = True #Avoids potential problem where she gets another boobjob from a different source.
+                $ got_boobjob_action = Action("Sister got boobjob", sister_got_boobjob_requirement, "sister_got_boobjob_label", args = the_sister, requirement_args = day + renpy.random.randint(3,6))
+                $ mc.business.mandatory_crises_list.append(got_boobjob_action)
+
+            "[the_mom.title], you should help\n{color=#ff0000}{size=18}Requires: Mom, 40 Love{/size}{/color} (disabled)" if mom.love < 40:
+                pass
+
+            "I can help with the rest":
+                mc.name "I can help you with the rest of it [the_sister.title]."
+                $ the_sister.change_love(3)
+                the_sister "Oh my god, really? That's such a huge help!"
+                $ the_group.draw_person(the_mom, position = "kneeling1")
+                $ the_mom.change_love(2)
+                the_mom "You're lucky to have such a generous brother [the_sister.title]."
+                $ the_group.draw_person(the_sister, position = "kneeling1", emotion = "happy")
+                the_sister "I know [the_mom.title]. [the_sister.mc_title], talk to me later and we can sort out the details."
+                $ the_sister.event_triggers_dict["sister_boobjob_ask_enabled"] = True
+
+        mc.name "Glad to have that sorted out. Now smile for the camera."
+        $ the_group.draw_group(position = "kneeling1", emotion = "happy")
+        "The two of them smile and pose happily for you."
+
+    else:
+        pass
+
     return
 
-label sister_cam_girl_online_view_label(the_person):
-    # Tune into one of your sisters shows. Give her cash to do things as an anonymous doner.
+label sister_get_boobjob(the_person):
+    mc.name "So, about those implants you wanted to get..."
+    $ the_person.draw_person(emotion = "happy")
+    the_person "Right! I've got some money saved up, but it's still going to be pretty expensive..."
+    mc.name "How much does it cost total?"
+    $ the_person.draw_person()
+    the_person "... Seven thousand dollars."
+    mc.name "Okay. And how much do you have saved?"
+    the_person "Three thousand."
+    "You sigh."
+    mc.name "So I need to pay for over half of this, huh?"
+    "She shrugs innocently."
+    the_person "I'm putting in all I have!"
+    menu:
+        "Pay\n{color=#ff0000}{size=18}Costs: $4000{/size}{/color}" if mc.business.funds >= 4000:
+            mc.name "Fine, I'll pay for the rest. You have to get everything organized though."
+            $ the_person.draw_person(emotion = "happy")
+            "[the_person.possessive_title] nods eagerly."
+            the_person "I can do that! Thank you [the_person.mc_title]!"
+            $ mc.change_locked_clarity(5)
+            "She pulls you into a tight hug."
+            the_person "I'll let you know when it's done, I guess. I'm so excited!"
+            $ mc.business.funds -= 4000
+            "You send [the_person.title] the money she needs."
+            #BUG: If she's getting a second boobjob from some other event this could cause a rare collision. Probably not a problem worth worrying about.
+            $ the_person.event_triggers_dict["getting boobjob"] = True #Avoids potential problem where she gets another boobjob from a different source.
+            $ got_boobjob_action = Action("Sister got boobjob", sister_got_boobjob_requirement, "sister_got_boobjob_label", args = the_person, requirement_args = day + renpy.random.randint(3,6))
+            $ mc.business.mandatory_crises_list.append(got_boobjob_action)
+            $ the_person.event_triggers_dict["sister_boobjob_ask_enabled"] = False
+
+        "Pay\n{color=#ff0000}{size=18}Costs: $4000{/size}{/color} (disabled)" if mc.business.funds < 4000:
+            pass
+
+        "Talk about it later":
+            mc.name "I'm going to need to pull together some money."
+            mc.name "I'll let you know when I've got enough."
+            "[the_person.possessive_title] nods."
+            the_person "Okay. I hope it doesn't take you too long, I'm so excited!"
     return
 
-label sister_cam_girl_in_person_view_label(the_person):
-    # Crash your sister's room and watch/join in on the show. At very high sluttiness she has you pose as her "boyfriend" for various things.
+label sister_give_boobjob_serum_label(the_person):
+    #Should trigger max once/day.
+    if the_person.event_triggers_dict.get("sister_boobjob_serum_count",0) == 0:
+        mc.name "I've picked up what I needed from the lab."
+
+    elif the_person.event_triggers_dict.get("sister_boobjob_serum_count",0) == 1:
+        mc.name "I think it's time for another treatment."
+        the_person "And soon I should see some sort of effect, right?"
+        mc.name "Definitely. Any day now."
+
+    else: #ie. third dose. She's getting skeptical.
+        mc.name "It's time for another treatment."
+        the_person "Okay, but it really needs to work this time."
+        the_person "If it doesn't work we need to try something else."
+
+    call give_serum(the_person) from _call_give_serum_sister_give_boobjob_serum
+    if _return == False:
+        mc.name "My mistake, I must have forgotten to pick it up from the lab."
+
+    else:
+        "[the_person.possessive_title] takes the vial of serum and drinks it down."
+        the_person "I'll let you know if I notice my boobs growing."
+        $ the_person.event_triggers_dict["sister_boobjob_serum_count"] += 1
+        $ the_person.event_triggers_dict["sister_boobjob_serum_last_day"] = day
     return
 
-label sister_pregnant_report(the_person):
-    #TODO: Special event called when your sister realises she's pregnant.
+label sister_got_boobjob_label(the_person):
+    call got_boobjob(the_person) from _call_sister_got_boobjob #This does the actual breast increase
+    $ add_sister_boobjob_result_brag_action(the_person)
+    return
+
+label sister_serum_new_boobs_check(the_person, starting_tits):
+    $ add_sister_boobjob_serum_result_action(the_person, starting_tits)
+    return
+
+label sister_new_boobs_brag_label(from_serum = False, the_person):
+    $ the_person.draw_person(emotion = "happy")
+    "[the_person.possessive_title] hurries over to you, smiling from ear to ear."
+    the_person "Hey! So..."
+    $ mc.change_locked_clarity(10)
+    "She puffs out her chest, emphasizing her breasts. They're noticeably larger than the last time you saw them."
+    the_person "Notice anything different? Maybe something's a little bigger..."
+    if from_serum:
+        mc.name "Looks like your tits are filling out nicely."
+    else:
+        mc.name "Finally got your implants, huh?"
+    "[the_person.title] nods eagerly."
+    the_person "Uh huh! What do you think? Do they look good?"
+    menu:
+        "You look good":
+            mc.name "You look great with them [the_person.title]. This was a good idea."
+            $ the_person.change_happiness(10)
+            $ the_person.change_love(1)
+            $ the_person.change_slut_temp(1)
+            the_person "Thanks! I think they look great too!"
+
+        "You look like a slut":
+            mc.name "They look huge on you. They make you look pretty slutty."
+            if the_person.personality is bimbo_personality or the_person.effective_sluttiness() > 40:
+                $ the_person.change_happiness(10)
+                $ the_person.change_love(1)
+                the_person "Thanks! I think they look great too!"
+            else:
+                if from_serum:
+                    the_person "Really? You don't think it was too much, was it?"
+                    the_person "Maybe I should have taken less of that drug thing you gave me..."
+                else:
+                    the_person "Really? You don't think it was too much, was it? I could have gone smaller..."
+                mc.name "No, I think it suits you perfectly. It was a good idea."
+                $ the_person.change_love(-1)
+                $ the_person.change_slut_temp(3)
+
+    the_person "I'm excited to show them off on InstaPic, I think I'm going to earn way more money now!"
+    menu:
+        "Show them to me" if not the_person.outfit.tits_visible() and mc.location.get_person_count() == 1:
+            $ top_item = the_person.outfit.get_upper_top_layer()
+            mc.name "Take your [top_item.display_name] off. I think I deserve a good look after all I've done to help you."
+            if from_serum:
+                the_person "I guess it was your drug thing that made them grow... Alright, just a quick look!"
+            else:
+                the_person "I guess you have done a lot for me... Alright, just a quick look!"
+            if the_person.outfit.can_half_off_to_tits():
+                $ strip_list = the_person.outfit.get_half_off_to_tits_list()
+                $ generalised_strip_description(the_person, strip_list, half_off_instead = True)
+            else:
+                $ strip_list = the_person.outfit.get_tit_strip_list()
+                $ generalised_strip_description(the_person, strip_list)
+            $ mc.change_locked_clarity(20)
+            $ the_person.update_outfit_taboos()
+            the_person "They're great, right? I'm so happy with them!"
+            if from_serum:
+                "She jumps up and down in her excitement, jiggling her enlarged tits."
+            else:
+                "She jumps up and down in her excitement, jiggling her new fake tits."
+            the_person "I can't wait to take some pictures for InstaPic, I'm going to make so much more money!"
+            the_person "Can you come by and help me out later? I'd really appreciate it."
+            mc.name "Sure, I'll stop by if I have the time."
+            call talk_person(the_person) from _call_from_sister_new_boobs_brag_1
+
+        "Talk to her":
+            mc.name "I hope you do, because those weren't cheap."
+            "[the_person.possessive_title] shrugs."
+            the_person "They're worth it. Come help me take some pictures later, okay?"
+            mc.name "Sure, I'll stop by if I have the time."
+            call talk_person(the_person) from _call_from_sister_new_boobs_brag_2
+    #TODO: She brags to you about the new boobs she just got.
+    #TODO: Maybe set up a "brag to Mom" style event, or have it trigger next time you take Instapics together.
+    return
+
+label sister_serum_partial_boobjob_label(starting_tits, the_person):
+    $ the_person.draw_person()
+    the_person "Hey, glad you're here, I wanted to talk to you."
+    if the_person.event_triggers_dict.get("sister_boobjob_serum_count", 0) == 0:
+        the_person "You said you were going to give me some of your research stuff to grow my boobs."
+        the_person "Do you actually have any, or should we try convincing [mom.title] to let me get implants instead?"
+        menu:
+            "I'll get you some serum":
+                mc.name "Sorry [the_person.title], work at the lab got busy and I haven't had a chance to grab some."
+                mc.name "Give me a little more time, I'll get you some."
+                the_person "Okay, just don't take too long! I could be earning so much more on InstaPic already!"
+                $ add_sister_boobjob_serum_check_action(the_person)
+
+            "Let's convince [mom.title]":
+                mc.name "You're right, we should try and convince [mom.title]."
+                mc.name "I'll bring it up next time you're taking InstaPic's with her."
+                the_person "Okay, I hope you're convincing!"
+                $ the_person.event_triggers_dict["sister_boobjob_convince_mom_enabled"] = True
+
+    else: #You gave her some, but they weren't effective.
+        if rank_tits(the_person.tits) == rank_tits(starting_tits):
+            the_person "So it's been a while, and I don't think your boob drug stuff is really working."
+            "She gestures down at her chest and shrugs."
+            the_person "I guess the only thing left is to get implants. That means we need to convince [mom.title]."
+            mc.name "I'll bring it up next time you're taking InstaPic's with her."
+            the_person "Okay, I hope you're convincing!"
+        elif rank_tits(the_person.tits) < rank_tits(starting_tits):
+            the_person "So it's been a while, and I really don't think your boob drug stuff is working."
+            "She gestures down at her chest and shrugs."
+            the_person "I think they've actually gotten smaller!"
+
+        elif rank_tits(the_person.tits) - rank_tits(starting_tits) == 1:
+            the_person "So it's been a while, and I don't think your boob drug stuff is really working."
+            "She gestures down at her chest and shrugs."
+            the_person "They're a little bit bigger, I guess, but I imagining a more dramatic change."
+
+        the_person "The only thing left to do is to get implants. That means we need to convince [mom.title]."
+        mc.name "I'll bring it up next time you're taking InstaPic's with her."
+        the_person "Okay, I hope you're convincing!"
+        $ the_person.event_triggers_dict["sister_boobjob_convince_mom_enabled"] = True
+
+    call talk_person(the_person) from _call_from_sister_serum_partial_boobjob
     return

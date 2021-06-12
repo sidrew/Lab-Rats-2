@@ -294,7 +294,7 @@ label employee_performance_review(the_person):
                     $ the_person.clear_situational_slut("seduction_approach")
                     $ the_person.clear_situational_obedience("seduction_approach")
                     $ the_person.draw_person()
-                    if the_report.get("girl orgasms", 0) > 1: #We made her cum! Congratulations!
+                    if the_report.get("girl orgasms", 0) > 0: #We made her cum! Congratulations!
                         $ the_person.change_happiness(20)
                         $ the_person.change_slut_temp(5)
                         $ the_person.change_love(2)

@@ -655,8 +655,8 @@ init -2 python:
             renpy.say(None, "You settle in and spend a few hours filling out paperwork, raising company efficency by " + str(eff_amount )+ "%%.")
             return eff_amount
 
-        def hr_progress(self,cha,int,skill): #Don't compute efficiency cap here so that player HR effort will be applied against any efficency drop even though it's run before the rest of the end of the turn.
-            restore_amount = (3*cha) + int + (2*skill) + 5
+        def hr_progress(self,cha,int,skill): #Don't compute efficiency cap here so that player HR effort will be applied against any efficiency drop even though it's run before the rest of the end of the turn.
+            restore_amount = (3*cha) + (int) + (2*skill) + 5
             self.team_effectiveness += restore_amount
             return restore_amount
 

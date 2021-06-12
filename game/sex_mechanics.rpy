@@ -717,7 +717,7 @@ label condom_ask(the_person):
             menu:
                 "Put on a condom.":
                     mc.name "One sec, let me just get a condom on..."
-                    $ the_person.call_dialogue("condom_bareback_demand") #TODO: Write this. Girl demands you fuck her bareback, or she'll force you to do soemthing else. High Obedience will let you ignore her and wear one anyways.
+                    $ the_person.call_dialogue("condom_bareback_demand") #TODO: Write this. Girl demands you fuck her bareback, or she'll force you to do something else. High Obedience will let you ignore her and wear one anyways.
                     menu:
                         "Fuck her raw":
                             mc.name "Alright, as long as you know what you're getting into..."
