@@ -69,8 +69,13 @@ init -2 python:
                 elif not item.is_extension:
                     if item.layer not in hide_layers:
                         ordered_displayables.append(item.generate_item_displayable(body_type, tit_size, position, lighting = lighting, regions_constrained = currently_constrained_regions, nipple_wetness = nipple_wetness))
-                        for region in [x for x in item.constrain_regions if not (x.half_off and x in item.half_off_regions) or not (x.has_extension and x.has_extension.half_off and x in item.has_extension.half_off_regions)]:
-                            currently_constrained_regions.append(region)
+                        for region in item.constrain_regions:
+                            if item.half_off and region in item.half_off_regions:
+                                pass # If an item is half off the regions that are hidden while half off are also not constrained by the clothing.
+                            elif item.has_extension and item.has_extension.half_off and region in item.has_extension.half_off_regions:
+                                pass # If the extension for an item (a dress bottom, for example) is half off and hiding something that section is not contrained.
+                            else:
+                                currently_constrained_regions.append(region)
 
             return reversed(ordered_displayables) #We iterated over all_items backwards, so our return list needs to be inverted
 

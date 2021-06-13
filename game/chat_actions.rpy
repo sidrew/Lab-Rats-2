@@ -196,9 +196,9 @@ init -2 python:
     def get_date_plan_actions(the_person):
         lunch_date_action = Action("Ask her out to lunch {image=gui/heart/Time_Advance.png}", lunch_date_requirement, "lunch_date_plan_label",
             menu_tooltip = "Take her out on casual date out to lunch. Gives you the opportunity to impress her and further improve your relationship.")
-        movie_date_action = Action("Ask her out to the movies", movie_date_requirement, "movie_date_plan_label", 
+        movie_date_action = Action("Ask her out to the movies", movie_date_requirement, "movie_date_plan_label",
             menu_tooltip = "Plan a more serious date to the movies. Another step to improving your relationship, and who knows what you might get up to in the dark!")
-        dinner_date_action = Action("Ask her out to a romantic dinner", dinner_date_requirement, "dinner_date_plan_label", 
+        dinner_date_action = Action("Ask her out to a romantic dinner", dinner_date_requirement, "dinner_date_plan_label",
             menu_tooltip = "Plan a romantic, expensive dinner with her. Impress her and you might find yourself in a more intimate setting.")
 
         date_list = [[lunch_date_action, the_person], [movie_date_action, the_person], [dinner_date_action, the_person]]
@@ -206,7 +206,9 @@ init -2 python:
             for a_date in a_role.role_dates:
                 date_list.append([a_date, the_person])
 
-        return ["Select Date", date_list, ["Never mind", "Return"]]
+        date_list.insert(0, "Select Date")
+        date_list.append(["Never mind", None])
+        return date_list
 
     def create_movie_date_action(the_person):
         movie_action = Action("Movie date", evening_date_trigger, "movie_date_label", args=the_person, requirement_args=1) #it happens on a tuesday.
