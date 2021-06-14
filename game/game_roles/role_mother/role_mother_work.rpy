@@ -806,7 +806,7 @@ label mom_work_secretary_replacement_intro(the_person): #TODO: Set up as an on_t
 
                             call fuck_person(the_person, private = True, start_position = blowjob, skip_intro = True, position_locked = True) from _call_fuck_person_107
 
-                            if _return.get("guy orgasms") > 0:
+                            if _return.get("guy orgasms", 0) > 0:
                                 the_person "Well... I think that was a success."
                                 mc.name "That was great [the_person.title]. Do that for your boss and I don't think you'll have any problems."
 
@@ -881,7 +881,7 @@ label mom_work_secretary_replacement_intro(the_person): #TODO: Set up as an on_t
                                     mc.name "It feels great [the_person.title], keep doing that."
                                     call fuck_person(the_person, start_position = tit_fuck, private = True, skip_intro = True, position_locked = True) from _call_fuck_person_108
                                     $ the_person.draw_person()
-                                    if _return.get("guy orgasms") > 0:
+                                    if _return.get("guy orgasms", 0) > 0:
                                         the_person "Well... What do you think? Do you think this will work?"
 
                                     else:
@@ -1237,16 +1237,22 @@ label mom_promotion_boss_phase_one(the_secretary):
             mom_boss_quick_name "You obviously think it might happen, or you wouldn't be here."
             mc.name "Listen, I can..."
             mom_boss_quick_name "No, you can't. Scram kid, before I call security. I've got a board meeting to get to."
+    menu:
+        "Mention his daughter":
+            mc.name "Don't you have to meet your daughter?"
+            "He glares at you."
+            mom_boss_quick_name "What? What do you... Oh fuck, what day is it?"
+            "He groans and paces around the room. After a moment he looks at you again, looking more concerned now."
+            mom_boss_quick_name "Why do you know about that? You stay away from her, do you understand?"
+            mc.name "Hey, I'm just passing the message along. It sounds like she's been waiting in the lobby for a {i}long{/i} time."
+            mom_boss_quick_name "Get out. I don't have time for this!"
+            "You decide to cut your losses and back out of the room as [mom_boss_quick_name] grabs for the phone on his desk."
+            mom_boss_quick_name "... Yeah... Is she... For how long?..."
 
-    mc.name "Don't you have to meet your daughter?"
-    "He glares at you."
-    mom_boss_quick_name "What? What do you... Oh fuck, what day is it?"
-    "He groans and paces around the room. After a moment he looks at you again, looking more concerned now."
-    mom_boss_quick_name "Why do you know about that? You stay away from her, do you understand?"
-    mc.name "Hey, I'm just passing the message along. It sounds like she's been waiting in the lobby for a {i}long{/i} time."
-    mom_boss_quick_name "Get out. I don't have time for this!"
-    "You decide to cut your losses and back out of the room as [mom_boss_quick_name] grabs for the phone on his desk."
-    mom_boss_quick_name "... Yeah... Is she... For how long?..."
+        "Hurry out of the room":
+            mc.name "Good luck with that."
+            pass
+
     "You return to the elevators and take one back to the lobby, unsure of what to do next."
     "When they open the young woman from earlier is standing at the front desk, sobbing quietly while the secretary tries to calm her."
     $ the_group = GroupDisplayManager([the_secretary, the_daughter])

@@ -357,11 +357,14 @@ label sister_instathot_label_solo(the_person):
         the_person "Thanks so much [the_person.mc_title], these look amazing!"
         $ the_person.change_slut_temp(3)
     the_person "I guess I should pay you, huh? Since you're doing all this work for me."
+    $ money_amount = 100 + 50*(rank_tits(the_person.tits)-4)
+    if money_amount < 50:
+        $ money_amount = 50
     menu:
-        "Take the money\n{color=#00ff00}{size=18}Income: $100{/size}{/color}":
+        "Take the money\n{color=#00ff00}{size=18}Income: $[money_amount]{/size}{/color}":
             mc.name "I'm not going to say no."
             "She rolls her eyes and direct transfers you some cash."
-            $ mc.business.funds += 100
+            $ mc.business.funds += money_amount
             the_person "No, I didn't think you would mr.\"I own a business\"."
 
         "Let her keep it":
@@ -568,15 +571,60 @@ label sister_instathot_special_pictures(the_person, is_topless_shoot = True):
                     mc.name "Then you should do something about it. You know you can just get fake boobs, right?"
                     the_person "Obviously. I've looked into it and it's super expensive."
                     if the_person.event_triggers_dict.get("sister_instathot_mom_enabled", False): #Mom already knows about her "hobby"
-                        #TODO: Hook this up as an actual event that can start here (and maybe other places?)
                         the_person "And what would I tell [mom.title]?"
                         mc.name "You thought she would be angry about your InstaPic account, and she turned out to love it."
                         mc.name "Maybe she would be fine with this too."
                         the_person "Maybe... I don't know, I don't think it's a good idea."
-                        mc.name "What if I convince her for you?"
-                        "[the_person.possessive_title] laughs and shakes her head in disbelief."
-                        the_person "Sure, good luck with that. Just don't tell her I'm taking these special pictures, alright?"
-                        mc.name "Of course. I won't tell her anything."
+                        menu:
+                            "I'll convince her for you.":
+                                $ the_person.event_triggers_dict["sister_boobjob_in_progress"] = True
+                                $ the_person.event_triggers_dict["sister_boobjob_convince_mom_enabled"] = True #Enables a branch in the InstaPic event.
+                                mc.name "What if I convince her for you?"
+                                "[the_person.possessive_title] laughs and shakes her head in disbelief."
+                                the_person "Sure, good luck with that. Just don't tell her I'm taking these \"special\" pictures, alright?"
+                                mc.name "Of course, I won't tell her anything. I'll just mention it next time you're taking some InstaPic's together."
+                                the_person "That's going to be so embarrassing! But if you think it will actually work, I guess you can try it."
+
+                            "Use serum instead.":
+                                $ the_person.event_triggers_dict["sister_boobjob_in_progress"] = True
+                                $ the_person.event_triggers_dict["sister_boobjob_serum_enabled"] = True
+                                $ the_person.event_triggers_dict["sister_boobjob_serum_count"] = 0
+                                mc.name "I might have another way which wouldn't require any surgery, and nothing for [mom.title] to be upset about."
+                                the_person "Really? What would that be?"
+                                mc.name "My lab is developing a breast enhancement drug. It's experimental, but I think it has a good chance of working for you."
+                                mc.name "[mom.title] won't care if she thinks your boobs are just developing naturally."
+                                "[the_person.possessive_title] cocks her head, curious."
+                                the_person "That.. could work. Do you really have something that can do that?"
+                                mc.name "Of course I do, I wouldn't lie to you."
+                                $ sister_boobjob_serum_check_action = Action("sister_serum_boobjob_check", sister_serum_new_boobs_check_requirement, "sister_serum_new_boobs_check", args = [the_person, the_person.tits], requirement_args = [the_person, the_person.tits, day + 10])
+                                $ mc.business.mandatory_crises_list.append(sister_boobjob_serum_check_action) #Check every turn to see if her boobs have grown.
+                                menu:
+                                    "Give her some serum right now":
+                                        call give_serum(the_person) from _call_from_give_serum_sister_instathot_special_pictures
+                                        if _return == False:
+                                            mc.name "I'll need to pick some up from the lab first."
+                                            the_person "Okay, bring it to me when you have it then."
+                                            the_person "Oh, and thank you for helping me [the_person.mc_title]!"
+                                        else:
+                                            $ the_person.event_triggers_dict["sister_boobjob_serum_count"] += 1
+                                            $ the_person.event_triggers_dict["sister_boobjob_serum_last_day"] = day
+                                            mc.name "Here, drink this."
+                                            "[the_person.possessive_title] takes the vial and looks at it."
+                                            the_person "You just walk around with boob growing stuff in your pocket?"
+                                            mc.name "It was a prototype, I was working on it when I left the lab last."
+                                            "She shrugs and drinks the contents of the vial."
+                                            the_person "Ah... So, now what?"
+                                            mc.name "It might take some time, and it might take a few doses."
+                                            the_person "Alright, I guess I'll just let you know if I see any changes then."
+
+                                    "Bring her some serum later.":
+                                        mc.name "I'll need to pick up some from the lab first."
+                                        the_person "Okay, bring it to me when you have it then."
+                                        the_person "Oh, and thank you for helping me [the_person.mc_title]!"
+
+                                $ mc.change_locked_clarity(5)
+                                "[the_person.title] gives you a quick hug."
+
                         the_person "Well, thanks for the help with the pics. That was fun."
 
 
@@ -589,7 +637,6 @@ label sister_instathot_special_pictures(the_person, is_topless_shoot = True):
                     mc.name "You're worrying too much [the_person.title]. Your tits look great."
                     "She shrugs."
                     the_person "Yeah, you're probably right. Hey, thanks for the help!"
-            #TODO: Add an event chain to get Lily some bigger tits!
         else:
             $ the_person.change_happiness(5 + the_person.get_opinion_score("showing her tits"))
             the_person "Those look great! Look at my tits, don't they look fantastic? I'm so glad they're bigger now!"
@@ -815,6 +862,8 @@ label sister_instathot_label_mom(the_sister, the_mom):
             $ the_sister.change_happiness(5)
             "You get some great pictures of [the_mom.title] and [the_sister.title] playing around on the bed together."
 
+        "Bring up [the_sister.title]'s boobs" if the_person.event_triggers_dict.get("sister_boobjob_convince_mom_enabled", False):
+            call sister_convince_mom_boobjob(the_mom, the_sister) from _call_from_sister_convince_mom_boobjob
 
         # TODO: Add some extra variations for this as sluttiness and Obedience rises.
         "All done":
@@ -826,12 +875,14 @@ label sister_instathot_label_mom(the_sister, the_mom):
     the_mom "That was really fun, thanks for inviting me you two."
     $ the_group.draw_person(the_sister, emotion = "happy")
     the_sister "It was! Oh, I should give [the_sister.mc_title] his cut for being our photographer."
-
+    $ money_amount = 100 + 50*(rank_tits(the_sister.tits)-4) + 50*(rank_tits(the_mom.tits)-4)
+    if money_amount < 50:
+        $ money_amount = 50
     menu:
-        "Take the money\n{color=#00ff00}{size=18}Income: $100{/size}{/color}":
+        "Take the money\n{color=#00ff00}{size=18}Income: $[money_amount]{/size}{/color}":
             $ the_group.draw_person(the_mom)
             the_mom "It's so nice to see you two working well together."
-            $ mc.business.funds += 100
+            $ mc.business.funds += money_amount
 
         "Let her keep it":
             mc.name "Don't worry about it, I'm just happy to see you doing something cool."

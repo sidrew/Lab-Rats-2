@@ -139,10 +139,7 @@ label sister_serum_test_label(the_person):
         "You give [the_person.possessive_title] the cash and the serum. She puts the money away then drinks the serum, handing back the empty vial."
         $ the_person.change_obedience(1)
         the_person "Easiest fifty bucks I've ever earned. I guess you can hang around and keep an eye on me if it's important for your research."
-        if mc.business.event_triggers_dict.get("sister_serum_test_count"):
-            $ mc.business.event_triggers_dict["sister_serum_test_count"] += 1
-        else:
-            $ mc.business.event_triggers_dict["sister_serum_test_count"] = 1
+        $ mc.business.event_triggers_dict["sister_serum_test_count"] = mc.business.event_triggers_dict.get("sister_serum_test_count", 0) + 1
 
     else:
         mc.name "Sorry [the_person.title], I guess I don't actually have anything for you to test."
