@@ -293,9 +293,9 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
         $ the_item = the_person.outfit.get_lower_top_layer()
         $ mc.change_locked_clarity(10)
         if the_item:
-            "You take another step closer and you can see that she has her legs spread wide, one hand between them fingering her cunt."
-        else:
             "You take another step closer and you can see that she has her legs spread wide, one hand underneath her [the_item.display_name] fingering her cunt."
+        else:
+            "You take another step closer and you can see that she has her legs spread wide, one hand between them fingering her cunt."
 
         "She must have heard you approaching, because she spins her chair around to face you."
         $ the_person.change_arousal(40, add_to_log = False) #ie. she starts very horny
