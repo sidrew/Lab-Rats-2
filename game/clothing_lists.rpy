@@ -362,9 +362,9 @@ init -1:
         #TODO: Check if the extension or the main piece should have the whiteness adjustments etc.
         dress_list = []
 
-        pinafore_bottom = Clothing("Pinafore dress bottom", 2, True, True, "Pinafore_bot", False, False, 6, is_extension = True, display_name = "dress bottom",
+        pinafore_bottom = Clothing("Pinafore dress bottom", 2, True, True, "Pinafore_bot", False, False, 0, is_extension = True, display_name = "dress bottom",
             can_be_half_off = True, half_off_regions = [pelvis_region, upper_leg_region], half_off_ignore_regions = [stomach_region], half_off_gives_access = True, half_off_reveals = True)
-        pinafore = Clothing("Pinafore", 3, False, False, "Pinafore", True, False, 0, has_extension = pinafore_bottom, display_name = "pinafore",
+        pinafore = Clothing("Pinafore", 3, False, False, "Pinafore", True, False, 4, has_extension = pinafore_bottom, display_name = "pinafore",
             can_be_half_off = True, half_off_regions = [torso_region], half_off_ignore_regions = [stomach_region], half_off_gives_access = True, half_off_reveals = True,
             constrain_regions = [torso_region, stomach_region, skirt_region])
         dress_list.append(pinafore)
@@ -377,7 +377,7 @@ init -1:
 
         summer_dress_bottom = Clothing("Summer dress bottom", 2, True, False, "Summer_Dress_Bot", False, False, 0, is_extension = True, display_name = "dress bottom",
             can_be_half_off = True, half_off_regions = [pelvis_region, upper_leg_region, lower_leg_region], half_off_ignore_regions = [stomach_region], half_off_gives_access = True, half_off_reveals = True)
-        summer_dress = Clothing("Summer dress", 2, True, True, "Summer_Dress", True, False, 0, has_extension = summer_dress_bottom, whiteness_adjustment = 0.1, display_name = "dress",
+        summer_dress = Clothing("Summer dress", 2, True, True, "Summer_Dress", True, False, 2, has_extension = summer_dress_bottom, whiteness_adjustment = 0.1, display_name = "dress",
             can_be_half_off = True, half_off_regions = [torso_region], half_off_ignore_regions = [stomach_region], half_off_gives_access = True, half_off_reveals = True,
             constrain_regions = [torso_region, stomach_region, skirt_region])
         dress_list.append(summer_dress)
@@ -398,7 +398,7 @@ init -1:
 
         thin_dress_bottom = Clothing("Thin dress bottom", 2, True, False, "Thin_Dress_Bot", False, False, 0, is_extension = True, display_name = "dress bottom",
             can_be_half_off = True, half_off_regions = [pelvis_region, upper_leg_region, lower_leg_region], half_off_ignore_regions = [stomach_region, upper_arm_region, lower_arm_region], half_off_gives_access = True, half_off_reveals = True)
-        thin_dress = Clothing("Thin dress", 2, True, True, "Thin_Dress", True, False, 4, has_extension = thin_dress_bottom, whiteness_adjustment = 0.3, contrast_adjustment = 1.15, display_name = "dress",
+        thin_dress = Clothing("Thin dress", 2, True, True, "Thin_Dress", True, False, 5, has_extension = thin_dress_bottom, whiteness_adjustment = 0.3, contrast_adjustment = 1.15, display_name = "dress",
             can_be_half_off = True, half_off_regions = [breast_region], half_off_ignore_regions = [stomach_region, upper_arm_region, lower_arm_region], half_off_gives_access = True, half_off_reveals = True,
             constrain_regions = [torso_region, upper_arm_region, lower_arm_region, stomach_region, skirt_region])
         dress_list.append(thin_dress)
@@ -412,7 +412,7 @@ init -1:
 
         evening_dress_bottom = Clothing("Evening dress bottom", 2, True, False, "Evening_Dress_Bot", False, False, 0, is_extension = True, display_name = "dress bottom",
             can_be_half_off = True, half_off_regions = [pelvis_region, upper_leg_region, lower_leg_region], half_off_ignore_regions = [stomach_region], half_off_gives_access = True, half_off_reveals = True)
-        evening_dress = Clothing("Evening dress", 2, True, True, "Evening_Dress", True, False, 2, has_extension = evening_dress_bottom, whiteness_adjustment = 0.4, display_name = "dress",
+        evening_dress = Clothing("Evening dress", 2, True, True, "Evening_Dress", True, False, 3, has_extension = evening_dress_bottom, whiteness_adjustment = 0.4, display_name = "dress",
             can_be_half_off = True, half_off_regions = [torso_region], half_off_ignore_regions = [stomach_region], half_off_gives_access = True, half_off_reveals = True,
             constrain_regions = [torso_region, stomach_region, skirt_region])
         dress_list.append(evening_dress)
@@ -736,7 +736,7 @@ init -1:
         lace_choker = Clothing("Lace Choker", 2, False, False, "Lace_Choker", False, False, 3, whiteness_adjustment = 0.1, display_name = "choker")
         neckwear_list.append(lace_choker)
 
-        wide_choker = Clothing("Wide Choker", 2, False, False, "Wide_Choker", False, False, 3, display_name = "choker")
+        wide_choker = Clothing("Wide Choker", 2, False, False, "Wide_Choker", False, False, 3, whiteness_adjustment = -0.2, display_name = "choker")
         neckwear_list.append(wide_choker)
 
         breed_collar = Clothing("Breed Me Collar", 3, False, False, "Collar_Breed", False, False, 8, supported_patterns = {"Two Tone":"Pattern_1"}, display_name = "collar")
