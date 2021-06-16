@@ -389,7 +389,7 @@ init -2 python:
             delete_list = []
             for line in self.serum_production_array:
                 if the_serum is self.serum_production_array[line][0]:
-                    delete_list.append(line) #Store a list of all the keys we need to delete to avoid modifying while interating. Needed in case two lines are making the same serum.
+                    delete_list.append(line) #Store a list of all the keys we need to delete to avoid modifying while interacting. Needed in case two lines are making the same serum.
 
             for key in delete_list: #Now delete the production lines.
                 del self.serum_production_array[key]
@@ -422,7 +422,7 @@ init -2 python:
                         self.add_normal_message("New serum design researched: " + the_research.name)
                         self.active_research_design = None
                     elif isinstance(the_research, SerumTrait):
-                        if is_researched: #We've reseached it already, increase mastery level instead.
+                        if is_researched: #We've researched it already, increase mastery level instead.
                             self.add_normal_message("Serum trait mastery improved: " + the_research.name + ", Now " + str(the_research.mastery_level))
                         else:
                             self.add_normal_message("New serum trait researched: " + the_research.name)
@@ -562,8 +562,8 @@ init -2 python:
                 serum_weight = self.serum_production_array[production_line][1]
                 the_serum = self.serum_production_array[production_line][0]
 
-                proportional_production = (serum_weight/100.0) * production_amount #Get the closest integer value for the weighted production we put into the serum
-                self.production_used += proportional_production #Update our usage stats and subract supply needed.
+                proportional_production = __builtin__.int((serum_weight/100.0) * production_amount) #Get the closest integer value for the weighted production we put into the serum
+                self.production_used += proportional_production #Update our usage stats and subtract supply needed.
                 self.supply_count += -proportional_production
 
                 self.serum_production_array[production_line][2] += proportional_production
