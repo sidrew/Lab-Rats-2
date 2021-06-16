@@ -539,7 +539,7 @@ label aunt_home_lingerie_label(the_person):
                 "[the_person.possessive_title] stops and peeks over her shoulder again."
                 if the_person.effective_sluttiness("underwear_nudity") >= 10:
                     $ get_dressed = False
-                    the_person "You don't? Isn't it embarrassing to have to look at a half-naked an old woman?"
+                    the_person "You don't? Isn't it embarrassing to have to look at a half-naked old woman?"
                     mc.name "We're family, we're suppose to be comfortable with each other."
                     the_person "Well... I suppose if you don't mind then I won't bother."
                     $ the_person.draw_person()
