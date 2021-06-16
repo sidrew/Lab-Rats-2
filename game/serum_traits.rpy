@@ -405,6 +405,9 @@ init -1:
             the_person.fertility_percent += 70
             the_person.lactation_sources += 3
 
+            # store original tit-size
+            the_person.event_triggers_dict["hucow_previous_tits"] = the_person.tits
+
             the_person.tits = get_larger_tits(the_person.tits) #Her tits start to swell.
             the_person.tits = get_larger_tits(the_person.tits)
             the_person.personal_region_modifiers["breasts"] = the_person.personal_region_modifiers["breasts"] + 0.2 #As her tits get larger they also become softer, unlike large fake tits. (Although even huge fake tits get softer)
@@ -423,8 +426,9 @@ init -1:
             the_person.bc_penalty -= 75
             the_person.fertility_percent -= 70
             the_person.lactation_sources -= 3
-            the_person.tits = get_smaller_tits(the_person.tits) #Her tits start to swell.
-            the_person.tits = get_smaller_tits(the_person.tits)
+
+            # restores original tit-size
+            the_person.tits = the_person.event_triggers_dict.get("hucow_previous_tits", "C")
             the_person.personal_region_modifiers["breasts"] = the_person.personal_region_modifiers["breasts"] - 0.2 #As her tits get larger they also become softer, unlike large fake tits. (Although even huge fake tits get softer)
 
             display_name = the_person.create_formatted_title("???")
