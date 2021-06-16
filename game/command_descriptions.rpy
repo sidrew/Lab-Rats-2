@@ -357,7 +357,7 @@ label demand_strip_tits_label(the_person):
             #We're in private, so she's a little more brave. If she loves you she might even do it for fun
             if the_person.effective_sluttiness("bare_tits") + the_person.love < (40 - (5*the_person.get_opinion_score("showing her tits"))):
                 #Pure Obedience going on
-                "[the_person.possessive_title] seems uncomfortable, but she doesn't hesitation to follow instructions. She begins to take off her [first_item.display_name]."
+                "[the_person.possessive_title] seems uncomfortable, but she doesn't hesitate to follow instructions. She begins to take off her [first_item.display_name]."
 
             else:
                 #She loves you, this is just cutting to the chase.
