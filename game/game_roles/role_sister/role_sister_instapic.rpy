@@ -59,8 +59,8 @@ init -2 python:
         else:
             return True
 
-    def sister_serum_new_boobs_check_requirement(the_person, start_size, end_day):
-        if rank_tits(the_person.tits) - rank_tits(start_size) >= 2:
+    def sister_serum_new_boobs_check_requirement(the_person, starting_tits, end_day):
+        if rank_tits(the_person.tits) - rank_tits(starting_tits) >= 2:
             return True #Her boobs grew, she'll trigger her brag event
         elif day >= end_day:
             return True #It's been too long, she'll trigger the fail/timeout event.
@@ -107,17 +107,17 @@ init -2 python:
         mc.business.mandatory_crises_list.append(sister_boobjob_serum_check_action)
         return
 
-    def add_sister_boobjob_serum_result_action(person, start_size):
-        if rank_tits(person.tits) - rank_tits(start_size) >= 2:
-            add_sister_boobjob_result_brag_action(person)
+    def add_sister_boobjob_serum_result_action(person, starting_tits):
+        if rank_tits(person.tits) - rank_tits(starting_tits) >= 2:
+            add_sister_boobjob_result_brag_action(person, True)
         else: #Handles all the possible ways the serum checks could fail.
-            sister_serum_fail_action = Action("Sister_serum_boobjob_fail", sister_serum_boobjob_fail_requirement, "sister_serum_partial_boobjob_label", args = start_size)
+            sister_serum_fail_action = Action("Sister_serum_boobjob_fail", sister_serum_boobjob_fail_requirement, "sister_serum_partial_boobjob_label", args = starting_tits)
             person.on_room_enter_event_list.append(sister_serum_fail_action)
         return
 
-    def add_sister_boobjob_result_brag_action(person):
-        sister_brag_action = Action("Sister_new_boobs_brag", sister_boobjob_brag_requirement, "sister_new_boobs_brag_label")
-        the_person.on_room_enter_event_list.append(sister_brag_action)
+    def add_sister_boobjob_result_brag_action(person, from_serum = False):
+        sister_brag_action = Action("Sister_new_boobs_brag", sister_boobjob_brag_requirement, "sister_new_boobs_brag_label", args = from_serum)
+        person.on_room_enter_event_list.append(sister_brag_action)
         return
 
 
@@ -596,8 +596,7 @@ label sister_instathot_special_pictures(the_person, is_topless_shoot = True):
                                 "[the_person.possessive_title] cocks her head, curious."
                                 the_person "That.. could work. Do you really have something that can do that?"
                                 mc.name "Of course I do, I wouldn't lie to you."
-                                $ sister_boobjob_serum_check_action = Action("sister_serum_boobjob_check", sister_serum_new_boobs_check_requirement, "sister_serum_new_boobs_check", args = [the_person, the_person.tits], requirement_args = [the_person, the_person.tits, day + 10])
-                                $ mc.business.mandatory_crises_list.append(sister_boobjob_serum_check_action) #Check every turn to see if her boobs have grown.
+                                $ add_sister_boobjob_serum_check_action(the_person)
                                 menu:
                                     "Give her some serum right now":
                                         call give_serum(the_person) from _call_from_give_serum_sister_instathot_special_pictures
@@ -1201,7 +1200,7 @@ label sister_serum_new_boobs_check(the_person, starting_tits):
     $ add_sister_boobjob_serum_result_action(the_person, starting_tits)
     return
 
-label sister_new_boobs_brag_label(from_serum = False, the_person):
+label sister_new_boobs_brag_label(from_serum, the_person):
     $ the_person.draw_person(emotion = "happy")
     "[the_person.possessive_title] hurries over to you, smiling from ear to ear."
     the_person "Hey! So..."
