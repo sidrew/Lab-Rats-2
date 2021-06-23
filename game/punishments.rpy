@@ -826,7 +826,7 @@ label punishment_office_humiliating_work(the_person, the_infraction):
     mc.name "Contact the cleaning agency for the building and inform them they will not be needed."
     if the_person.int >= 3 and the_person.obedience + 10*the_person.get_opinion_score("being submissive") < 120: #She went to university, she doesn't want to scrub toilets!
         the_person "You... expect me to clean up after everyone in here?"
-        mc.name "I do. I expect you to be scrubbing scrubbing toilets, washing floors, and taking out the garbage."
+        mc.name "I do. I expect you to be scrubbing toilets, washing floors, and taking out the garbage."
         the_person "I have a degree! This is just a complete waste of my time!"
         mc.name "I hope you'll learn some humility during your punishment. Of course, I also expect you to keep up with your normal work."
         the_person "I don't know how you can expect that [the_person.mc_title], there aren't enough hours in the day!"
@@ -836,7 +836,7 @@ label punishment_office_humiliating_work(the_person, the_infraction):
         mc.name "There's nothing to discuss here, I've made my decision. Call the cleaning company and get back to work."
         the_person "I... Fine. Right away, [the_person.mc_title]."
     else:
-        mc.name "I expect you to be scrubbing scrubbing toilets, washing floors, and taking out the garbage."
+        mc.name "I expect you to be scrubbing toilets, washing floors, and taking out the garbage."
         the_person "Understood [the_person.mc_title]."
         mc.name "Of course, I expect you to keep up with your normal responsibilities as well."
         the_person "I'll do my best, [the_person.mc_title]."

@@ -274,7 +274,7 @@ label strip_ask_missionary(the_girl, the_clothing, the_location, the_object):
         "Let her strip":
             mc.name "Take it off for me."
             $ the_girl.draw_animated_removal(the_clothing, position = missionary.position_tag)
-            "You move back kneel for a moment while [the_girl.title] struggles out of her [the_clothing.name] and throws it to the side. Then she gets herself lined up in front of you again."
+            "You move back to your knees for a moment while [the_girl.title] struggles out of her [the_clothing.name] and throws it to the side. Then she gets herself lined up in front of you again."
             "She sighs happily when you get on top of her and slide your cock back inside."
             return True
 
