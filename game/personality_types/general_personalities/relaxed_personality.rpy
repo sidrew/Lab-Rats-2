@@ -1539,7 +1539,10 @@ label relaxed_anal_sex_taboo_break(the_person):
     return
 
 label relaxed_condomless_sex_taboo_break(the_person):
-    if the_person.get_opinion_score("bareback sex") > 0:
+    if the_person.has_role(pregnant_role) and the_person.event_triggers_dict.get("preg_knows", False):
+        the_person "I don't mind, it's not like I could get more pregnant."
+
+    elif the_person.get_opinion_score("bareback sex") > 0:
         the_person "You want to do me raw? That's so hot."
         if the_person.on_birth_control:
             the_person "I'm on the pill, so it should be fine, right? Maybe you should pull out, just in case."
