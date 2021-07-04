@@ -269,7 +269,7 @@ label serum_design_action_description:
     show screen main_ui
     if not the_serum == "None":
         $ name = renpy.input("Please give this serum design a name.")
-        $ the_serum.name = name
+        $ the_serum.name = name.replace("[", "[[")
         $ mc.business.add_serum_design(the_serum)
         $ mc.business.listener_system.fire_event("new_serum", the_serum = the_serum)
         $ the_serum = None
