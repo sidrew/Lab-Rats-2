@@ -103,8 +103,12 @@ screen policy_selection_screen():
                                     text_style "textbutton_text_style"
                                     text_size 16
                                     if policy.is_owned():
-                                        background "#59853f"
-                                        hover_background "#a9d59f"
+                                        if policy.is_active():
+                                            background "#59853f"
+                                            hover_background "#a9d59f"
+                                        else:
+                                            background "#85593f"
+                                            hover_background "#d5a99f"
                                         #insensitive_background "#305012"
                                         insensitive_background "#222222"
                                     else:
