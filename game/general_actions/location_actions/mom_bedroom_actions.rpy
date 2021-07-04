@@ -98,6 +98,7 @@ label mom_room_search_description():
 
                         "Give up":
                             "You give up and power down [the_person.possessive_title]'s computer."
+                            $ success = True
 
             if the_person.event_triggers_dict.get("known_computer_password", False): #If you know the password at this point, no problem logging in."
                 "COMPUTER" "WELCOME [the_person.title]!" (what_style = "text_message_style")
