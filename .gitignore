@@ -14,3 +14,6 @@
 *.rpyc
 !*.rpy
 !*.xml
+
+# include print module from unit tests
+!/game/unittest/pprint.*
