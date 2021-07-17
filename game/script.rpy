@@ -134,10 +134,10 @@ label start:
     scene bg paper_menu_background with fade
     "Lab Rats 2 contains adult content. If you are not over 18 or your country's equivalent age you should not view this content."
     menu:
-        "I am over 18.":
+        "I am over 18":
             "Excellent, let's continue then."
 
-        "I am not over 18.":
+        "I am not over 18":
             $renpy.full_restart()
 
     "Vren" "[config.version] represents an early iteration of Lab Rats 2. Expect to run into limited content, unexplained features, and unbalanced game mechanics."
@@ -150,13 +150,13 @@ label start:
 
     "Vren" "Lab Rats 2 contains content related to impregnation and pregnancy. These settings may be changed in the menu at any time."
     menu:
-        "No pregnancy content.\n{size=16}Girls never become pregnant. Most pregnancy content hidden.{/size}":
+        "No pregnancy content\n{size=16}Girls never become pregnant. Most pregnancy content hidden.{/size}":
             $ persistent.pregnancy_pref = 0
 
-        "Predictable pregnancy content.\n{size=16}Birth control is 100%% effective. Girls always default to taking birth control.{/size}":
+        "Predictable pregnancy content\n{size=16}Birth control is 100%% effective. Girls always default to taking birth control.{/size}":
             $ persistent.pregnancy_pref = 1
 
-        "Realistic pregnancy content.\n{size=16}Birth control is not 100%% effective. Girls may not be taking birth control.{/size}":
+        "Realistic pregnancy content\n{size=16}Birth control is not 100%% effective. Girls may not be taking birth control.{/size}":
             $ persistent.pregnancy_pref = 2
 
     $ renpy.block_rollback()
@@ -684,7 +684,7 @@ init 0 python:
 
 
     ##Actions unlocked by policies##
-    set_uniform_action = Action("Manage Employee Uniforms",set_uniform_requirement,"set_uniform_description")
+    set_uniform_action = Action("Manage Employee Uniforms",set_uniform_requirement,"uniform_manager_loop")
     set_serum_action = Action("Set Daily Serum Doses",set_serum_requirement,"set_serum_description")
 
     business_wardrobe = wardrobe_from_xml("Business_Wardrobe") #Used in some of Mom's events when we need a business-ish outfit

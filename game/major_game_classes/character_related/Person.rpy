@@ -819,6 +819,17 @@ init -2 python:
         def call_dialogue(self, type, **extra_args): #Passes the parameter along to the persons personality and gets the correct dialogue for the event if it exists in the dict.
             self.personality.get_dialogue(self, type, **extra_args)
 
+        def get_known_opinion_score(self, topic):
+            the_topic = self.get_opinion_topic(topic)
+            if the_topic is None:
+                return 0
+            else:
+                if the_topic[1]:
+                    return the_topic[0]
+                else:
+                    return 0
+
+
         def get_opinion_score(self, topic): #Like get_opinion_topic, but only returns the score and not a tuple. Use this when determining a persons reaction to a relavent event.
             if topic in self.opinions:
                 return self.opinions[topic][0]
@@ -1398,10 +1409,6 @@ init -2 python:
                 if dialogue:
                     self.call_dialogue("clothing_review")
 
-            #if dialogue:
-                #TODO: Have this call a dialogue branch
-                #self.call_uniform_review() #TODO: actually impliment this call, but only when her outfit significantly differs from the real uniform.
-
             elif not self.judge_outfit(self.outfit):
                 self.apply_outfit()
                 if draw_person:
@@ -1663,7 +1670,7 @@ init -2 python:
                 self.outfit.add_accessory(the_cumshot)
 
             self.change_slut_temp(5*self.get_opinion_score("drinking cum"))
-            self.change_happiness(5*self.get_opinion_score("drinking_cum"))
+            self.change_happiness(5*self.get_opinion_score("drinking cum"))
             self.discover_opinion("drinking cum", add_to_log = add_to_record)
 
             if add_to_record:
@@ -1916,6 +1923,16 @@ init -2 python:
                     self.remove_role(the_role, remove_all, remove_linked)
 
         def has_role(self, the_role):
+            if the_role in self.special_role:
+                return True
+            else:
+                for a_role in self.special_role:
+                    if the_role in a_role.looks_like:
+                        return True
+
+                return False
+
+        def has_exact_role(self, the_role): #As has_role, but checks against all roles and all of their looks_like roles.
             if the_role in self.special_role:
                 return True
             else:

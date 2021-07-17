@@ -2,6 +2,10 @@ init -1 python:
     def make_wall(): #Helper functions for creating instances of commonly used objects.
         return Object("wall",["Lean"], sluttiness_modifier = 0, obedience_modifier = 0) #0/5
 
+    def make_door():
+        the_door = Object("door", ["Lean"], sluttiness_modifier = 0, obedience_modifier = 0)
+        return the_door
+
     def make_window():
         return Object("window",["Lean"], sluttiness_modifier = 0, obedience_modifier = 0) #-5/5
 

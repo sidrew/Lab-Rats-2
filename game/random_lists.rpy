@@ -158,6 +158,9 @@ init -2:
         list_of_names.append("Kara")
         list_of_names.append("Dina")
         list_of_names.append("Priya")
+        list_of_names.append("Zaya")
+        list_of_names.append("Mitzy")
+        list_of_names.append("Abigail")
 
         def get_random_name():
             return get_random_from_list(list_of_names)
@@ -285,6 +288,9 @@ init -2:
         list_of_last_names.append("Troy")
         list_of_last_names.append("Landry")
         list_of_last_names.append("Rai")
+        list_of_last_names.append("Cassidy")
+        list_of_last_names.append("Irons")
+        list_of_last_names.append("Bard")
 
         def get_random_last_name():
             return get_random_from_list(list_of_last_names)
@@ -1065,7 +1071,7 @@ init 1 python:
 
         ### CHRISTINA (EMILY'S MOM) ###
         global christina
-        christina_base = Outfit("Christina's accessories") #TODO: Decide on what her wardrobe should look like. Add wedding ring.
+        christina_base = Outfit("Christina's accessories")
         christina_base.add_accessory(diamond_ring.get_copy())
 
         christina = create_random_person(name = "Christina", last_name = "Vandenberg", age = 47, body_type = "standard_body", face_style = "Face_8", tits = "DD", height = 0.94, hair_colour = "chestnut", hair_style = braided_bun, pubes_style = diamond_pubes, skin = "white", \

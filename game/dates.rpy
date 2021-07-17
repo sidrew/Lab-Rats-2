@@ -165,28 +165,28 @@ label movie_date_label(the_person):
         "Watch an action movie":
             $ the_choice = get_random_from_list(["The Revengers", "Raiders of the Found Ark", "Die Difficult", "Mission: Improbable", "Wonderful Woman", "John Wicked: Part 3", "The Destructonator", "Waterman"])
             $ movie_type = "action"
-            if the_person.personality is wild_personality or the_person.personality.default_prefix == wild_personality.personality_type_prefix: #If it's a wild or wild derived personality type
+            if the_person.personality.personality_type_prefix == wild_personality.personality_type_prefix or the_person.personality.default_prefix == wild_personality.personality_type_prefix: #If it's a wild or wild derived personality type
                 $ likes_movie = True
             mc.name "Yeah, I've wanted to see [the_choice] for a while. I'll go get us tickets."
 
         "Watch a comedic movie":
             $ the_choice = get_random_from_list(["Spooky Movie", "Aaron Powers", "Dumber and Dumberest-er", "Ghostblasters", "Shaun of the Undead"])
             $ movie_type = "comedy"
-            if the_person.personality is relaxed_personality or the_person.personality.default_prefix == relaxed_personality.personality_type_prefix:
+            if the_person.personality.personality_type_prefix == relaxed_personality.personality_type_prefix or the_person.personality.default_prefix == relaxed_personality.personality_type_prefix:
                 $ likes_movie = True
             mc.name "I thought we'd both enjoy [the_choice]. I'll go get us tickets."
 
         "Watch a romantic movie":
             $ the_choice = get_random_from_list(["Olympic", "Britannic","The Workbook", "East Side Tale", "Pottery Poltergeist"])
             $ movie_type = "romantic"
-            if the_person.personality is reserved_personality or the_person.personality.default_prefix == reserved_personality.personality_type_prefix:
+            if the_person.personality.personality_type_prefix == reserved_personality.personality_type_prefix or the_person.personality.default_prefix == reserved_personality.personality_type_prefix:
                 $ likes_movie = True
             mc.name "I thought [the_choice] would be a good fit for us. You just wait here, I'll go get us tickets."
 
         "Watch a foreign film":
             $ the_choice = get_random_from_list(["that one in French", "that one in Italian", "that one in Russian", "that one in Japanese", "that one in Mandarin", "that one that's silent"])
             $ movie_type = "foreign"
-            if the_person.personality is introvert_personality or the_person.personality.default_prefix == introvert_personality.personality_type_prefix:
+            if the_person.personality.personality_type_prefix == introvert_personality.personality_type_prefix or the_person.personality.default_prefix == introvert_personality.personality_type_prefix:
                 $ likes_movie = True
             mc.name "I haven't heard much about it, but I think we should watch [the_choice]. It should be a really unique one."
             mc.name "I'll go get us tickets; be back in a moment."
@@ -489,7 +489,7 @@ label dinner_date_label(the_person):
     $ the_person.change_love(mc.charisma)
     $ the_person.change_happiness(mc.charisma)
     $ the_person.draw_person()
-    if sister_role in the_person.special_role or mother_role in the_person.special_role:
+    if the_person.has_role(sister_role) or the_person.has_role(mother_role):
         "At the end of the night you pay the bill and leave with [the_person.title]. The two of you travel home together."
         if renpy.random.randint(0,100) < the_person.sluttiness + the_person.love + (mc.charisma * 10): #She invites you back to her place.
             $ the_person.call_dialogue("date_seduction")

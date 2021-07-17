@@ -98,6 +98,9 @@ label pregnant_announce(the_person):
         the_person "I have some big news."
         mc.name "Okay, what's up?"
 
+    if not the_person.event_triggers_dict.get("immaculate_conception", False):
+        $ the_person.event_triggers_dict["preg_your_kids_known"] = the_person.event_triggers_dict.get("preg_your_kids_known", 0) + 1
+
     if girlfriend_role in the_person.special_role:
         if the_person.event_triggers_dict.get("immaculate_conception", False):
             $ mc.change_locked_clarity(100)

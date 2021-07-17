@@ -1713,7 +1713,7 @@ label girl_shower_enter(the_person, surprised):
             $ mc.change_energy(20)
 
 
-        "Join her in the shower.\n{color=#ff0000}{size=18}Requires: 120 Obedience{/size}{/color} (disabled)" if the_person.obedience < 120:
+        "Join her in the shower\n{color=#ff0000}{size=18}Requires: 120 Obedience{/size}{/color} (disabled)" if the_person.obedience < 120:
             pass
 
 

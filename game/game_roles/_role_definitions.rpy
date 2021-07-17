@@ -159,8 +159,14 @@ init -1 python:
 
         sister_boobjob_ask_action = Action("Talk to her about getting implants", sister_get_boobjob_talk_requirment, "sister_get_boobjob",
             menu_tooltip = "Talk to your sister about the implants she wants to get.", priority = 10)
+            
+        sister_mom_girlfriend_blessing_action = Action("Talk to her about Mom", mom_girlfriend_ask_blessing_requirement, "mom_girlfriend_sister_blessing",
+            menu_tooltip = "Try and convince her to give you and Mom her blessing.", priority = 100)
 
-        return [sister_reintro_action, sister_serum_test_action, sister_strip_reintro_action, sister_strip_action, sister_boobjob_give_serum_action, sister_boobjob_ask_action]
+        sister_girlfriend_return_action = Action("Give her the news", sister_girlfriend_return_requirement, "sister_girlfriend_return",
+            menu_tooltip = "Tell her how your conversation with Mom went.", priority = 100)
+
+        return [sister_reintro_action, sister_serum_test_action, sister_strip_reintro_action, sister_strip_action, sister_boobjob_give_serum_action, sister_boobjob_ask_action, sister_mom_girlfriend_blessing_action, sister_girlfriend_return_action]
 
 
     def get_mother_role_actions():
@@ -171,10 +177,16 @@ init -1 python:
         mom_work_promotion_two_prep_action = Action("Prepare for her interview", mom_work_promotion_two_prep_requirement, "mom_work_promotion_two_prep",
             menu_tooltip = "Help your mom prepare for her one-on-one interview.", priority = 10)
 
-        mom_work_bigger_tits_reintro = Action("Talk to her about getting bigger tits.", mom_work_secretary_replacement_bigger_tits_reintro_requirement, "mom_work_secretary_replacement_bigger_tits_reintro",
+        mom_work_bigger_tits_reintro = Action("Talk to her about getting bigger tits", mom_work_secretary_replacement_bigger_tits_reintro_requirement, "mom_work_secretary_replacement_bigger_tits_reintro",
             menu_tooltip = "Talk to her about improving her natural assets, either with implants or by using some of your serum.", priority = 10)
 
-        return [mother_offer_make_dinner, mom_work_promotion_two_prep_action, mom_work_bigger_tits_reintro]
+        mom_sister_girlfriend_blessing_action = Action("Talk to her about Lily", sister_girlfriend_ask_blessing_requirement, "sister_girlfriend_mom_blessing",
+            menu_tooltip = "Try and convince her to give you and Lily her blessing.", priority = 100)
+
+        mom_girlfriend_return_action = Action("Give her the news", mom_girlfriend_return_requirement, "mom_girlfriend_return",
+            menu_tooltip = "Tell her how your conversation with Lily went.", priority = 100)
+
+        return [mother_offer_make_dinner, mom_work_promotion_two_prep_action, mom_work_bigger_tits_reintro, mom_sister_girlfriend_blessing_action, mom_girlfriend_return_action]
 
 
     def get_aunt_role_actions():
@@ -196,12 +208,15 @@ init -1 python:
         return [cousin_blackmail_action]
 
     def get_girlfriend_role_actions():
-        girlfriend_shopping_date = Action("Go shopping together {image=gui/heart/Time_Advance.png}", shopping_date_requirement, "shopping_date_intro", menu_tooltip = "Take her to the mall and do some shopping together.")
         ask_break_up_action = Action("Break up with her", ask_break_up_requirement, "ask_break_up_label", menu_tooltip = "Breaking up may break her heart, but it'll be easier on her than catching you with another woman.")
         ask_get_boobjob_action = Action("Ask her to get a boob job\n{color=#ff0000}{size=18}Costs: $7000{/size}{/color}", ask_get_boobjob_requirement, "ask_get_boobjob_label", menu_tooltip = "A little silicone goes a long way. Ask her to get breast enhancement surgery for you.")
         girlfriend_ask_trim_pubes_action = Action("Ask her to trim her pubes", girlfriend_ask_trim_pubes_requirement, "girlfriend_ask_trim_pubes_label", menu_tooltip = "Ask her to do a little personal landscaping. Tell her to wax it off, grow it out, or shape it into anything in between.")
 
-        return [ask_break_up_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action, girlfriend_shopping_date]
+        return [ask_break_up_action, ask_get_boobjob_action, girlfriend_ask_trim_pubes_action]
+        
+    def get_girlfriend_role_dates():
+        girlfriend_shopping_date = Action("Go shopping together {image=gui/heart/Time_Advance.png}", shopping_date_requirement, "shopping_date_intro", menu_tooltip = "Take her to the mall and do some shopping together.")
+        return [girlfriend_shopping_date]
 
     def get_paramour_role_actions():
         plan_fuck_date_action = Action("Plan a fuck date at her place", fuck_date_requirement, "plan_fuck_date_label", menu_tooltip = "Pick a night to go over there and spend nothing but \"quality time\" with each other.")
@@ -223,13 +238,19 @@ init -1 python:
         #student_study_meetup_action = Action("Tutor her. {image=gui/heart/Time_Advance.png}", student_study_meetup_requirement, "student_study_meetup")
         student_reintro_action = Action("Ask about tutoring her", student_reintro_requirement, "student_reintro")
         student_study_propose_action = Action("Tutor her {image=gui/heart/Time_Advance.png}", student_study_propose_requirement, "student_study_propose")
-
-        return [student_reintro_action, student_study_propose_action]
+        student_test_intro_action = Action("Tell her she can rewrite her exam.", student_test_intro_requirement, "student_test_intro")
+        student_test_action = Action("Time to rewrite her exam. {image=gui/heart/Time_Advance.png}", student_test_requirement, "student_test")
+        student_offer_job_reintro_action = Action("Offer her a job.", student_offer_job_requirement, "student_offer_job_reintro")
+        return [student_reintro_action, student_study_propose_action, student_test_intro_action, student_test_action, student_offer_job_reintro_action]
 
     def get_freeuse_actions():
         #EMPLOYEE FREEUSE ACTIONS#
         freeuse_fuck = Action("Fuck her", freeuse_fuck_requirement, "employee_freeuse_fuck", menu_tooltip = "Grab your free use slut and have some fun with her.")
         return [freeuse_fuck]
+    def get_nora_role_actions():
+        nora_student_exam_rewrite_request_action = Action("Ask her about the exam rewrite.", nora_student_exam_rewrite_request_requirement, "nora_student_exam_rewrite_request",
+            menu_tooltip = "Ask if she can set up a new exam for your student.")
+        return [nora_student_exam_rewrite_request_action]
 
 label instantiate_roles(): #This section instantiates all of the key roles in the game. It is placed here to ensure it is properly created, saved, ect. by Renpy.
     #All of the role labels and requirements are defined in their own file, but their Action representations are stored here for saving purposes.
@@ -255,9 +276,10 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
 
         steph_role = Role("Stephanie", [], hidden = True) #Used to hold any Stephanie specific actions not tied to another role, and to guarantee this is Steph even if she undergoes a personality change.
 
+        student_role = Role("Student", get_student_role_actions())
         #NORA ROLE#
         # Note: Nora's role actions are assigned through Stephanie's events.
-        nora_role = Role("Nora", [], hidden = True)
+        nora_role = Role("Nora", get_nora_role_actions(), hidden = True)
 
         alexia_role = Role("Alexia", get_alexia_role_actions(), hidden = True) #Hide her role because we don't want to display it.
 
@@ -301,9 +323,13 @@ label instantiate_roles(): #This section instantiates all of the key roles in th
         # Fallout if your girlfriend catches you with someone else.
 
 
-        girlfriend_role = Role("Girlfriend", get_girlfriend_role_actions()) #Your girlfriend, and she's not in a relationship with anyone else
+        girlfriend_role = Role("Girlfriend", get_girlfriend_role_actions(), role_dates = get_girlfriend_role_dates()) #Your girlfriend, and she's not in a relationship with anyone else
         #Getting married is some kind of victory for the game?
 
+
+        sister_girlfriend_role = Role("Girlfriend", get_girlfriend_role_actions(), role_dates = get_girlfriend_role_dates(), looks_like = girlfriend_role) #Sister specific girlfriend role.
+
+        mom_girlfriend_role = Role("Girlfriend", get_girlfriend_role_actions(), role_dates = get_girlfriend_role_dates(), looks_like = girlfriend_role) #Sister specific girlfriend role.
 
         #affair ACTIONS
         # Sneaky versions of all of the normal girlfriend stuff
