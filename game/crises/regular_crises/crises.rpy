@@ -992,7 +992,7 @@ init 1 python:
             exclude_tags.extend(trait.exclude_tags)
 
         for trait in list_of_traits:
-            if trait.researched and trait not in the_design.traits and not trait.slots_added > 0 and not any([x for x in trait.exclude_tags if x in exclude_tags]):
+            if trait.researched and trait not in the_design.traits and not trait.slots > 0 and not any([x for x in trait.exclude_tags if x in exclude_tags]):
                 list_of_valid_traits.append([trait, __builtin__.int(trait.mastery_level)])
 
         return (get_random_from_weighted_list(list_of_valid_traits), get_random_from_list(list_of_side_effects))
