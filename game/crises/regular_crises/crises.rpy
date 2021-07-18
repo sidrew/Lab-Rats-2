@@ -967,7 +967,7 @@ label extra_mastery_crisis_label():
             the_person "Understood, sorry to have bothered you."
 
     $ del the_research
-    $ del the_trait
+    $ the_trait = None
     $ clear_scene()
     return
 
