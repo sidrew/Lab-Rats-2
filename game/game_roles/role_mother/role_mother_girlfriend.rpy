@@ -206,7 +206,7 @@ label mom_girlfriend_intro(the_person):
     if convinced:
         "She takes a deep breath and nods her final approval."
         the_person "Okay then, I'll be your girlfriend [the_person.mc_title]!"
-        call mom_girlfriend_setup(the_person, lily_knows = False)
+        call mom_girlfriend_setup(the_person, lily_knows = False) from _call_mom_girlfriend_setup_1
 
     return
 
@@ -219,7 +219,7 @@ label mom_girlfriend_return(the_person):
         mc.name "She said she's happy for us, and wants us to give this a try."
         "[the_person.possessive_title] smiles and presses her hands to her heart."
         the_person "Oh, oh that's such good news! This is really it then, we're a couple!"
-        call mom_girlfriend_setup(the_person, lily_knows = True)
+        call mom_girlfriend_setup(the_person, lily_knows = True) from _call_mom_girlfriend_setup_2
     else:
         mc.name "She was a little more upset than I expected her to be."
         $ the_person.draw_person(emotion = "sad")

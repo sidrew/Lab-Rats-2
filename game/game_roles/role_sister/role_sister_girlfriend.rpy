@@ -245,7 +245,7 @@ label sister_girlfriend_intro(the_person):
             the_person "I'm sorry, but it's just not the right time. I don't know if it ever will be..."
 
     if convinced:
-        call sister_girlfriend_setup(the_person, mom_knows = False)
+        call sister_girlfriend_setup(the_person, mom_knows = False) from _call_sister_girlfriend_setup_1
     return
 
 label sister_girlfriend_return(the_person):
@@ -255,7 +255,7 @@ label sister_girlfriend_return(the_person):
         mc.name "A little, at first, but I talked it out with her and she agrees with us."
         mc.name "She gave us her blessing, she won't give us any trouble."
         #TOOD: A little more dialogue here
-        call sister_girlfriend_setup(mom_knows = True)
+        call sister_girlfriend_setup(the_person, mom_knows = True) from _call_sister_girlfriend_setup_2
 
     else:
         mc.name "I tried, but she was a lot more resistant than I was expecting."
