@@ -963,7 +963,7 @@ label shopping_date_underwear(the_person):
                 the_person "I want to go try some of this on. The changing rooms are at the back."
 
 
-        "Pick out some lingerie for her\n{color=#ff0000}{size=18}Requires: 110 Obedience{/size}{/color} (disabled)" if the_person.obedience < 120:
+        "Pick out some lingerie for her\n{color=#ff0000}{size=18}Requires: 120 Obedience{/size}{/color} (disabled)" if the_person.obedience < 120:
             pass
 
         "Let her do her own shopping":
