@@ -1769,8 +1769,9 @@ label student_test(the_person): #TODO: Hook this up
                 "[the_person.title] thinks about it for a moment, then nods."
                 the_person "Yeah, let's do it!"
                 mc.name "That's great to hear. I'll just need to ask you a few questions to confirm you're a good fit for the company..."
-                call hire_select_process([the_person,make_person()]) #Padded with extra random person to prevent hiring crash
-                if _return is not None:
+                call hire_select_process([the_person, 1]) #Padded with extra random person to prevent hiring crash
+                if _return == the_person:
+                    call hire_someone(the_person) from _call_hire_someone_student_test
                     mc.name "It's a deal then, I'll see you at the office."
                     the_person "Sounds good to me!"
 
@@ -1817,8 +1818,9 @@ label student_offer_job_reintro(the_person):
         the_person "Yeah, let's do it!"
 
     mc.name "Alright, I'm just going to need to ask you a few questions to confirm you're a good fit for the company."
-    call hire_select_process([the_person,make_person()]) #Padded with extra random person to prevent hiring crash
-    if _return is not None:
+    call hire_select_process([the_person, 1]) #Padded with extra random person to prevent hiring crash
+    if _return == the_person:
+        call hire_someone(the_person) from _call_hire_someone_student_offer_job_reintro
         mc.name "It's a deal then, I'll see you at the office."
         the_person "Sounds good to me!"
         $ the_person.event_triggers_dict["student_offer_job_enabled"] = False
