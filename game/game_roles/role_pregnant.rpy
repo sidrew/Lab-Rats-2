@@ -98,9 +98,6 @@ label pregnant_announce(the_person):
         the_person "I have some big news."
         mc.name "Okay, what's up?"
 
-    if not the_person.event_triggers_dict.get("immaculate_conception", False):
-        $ the_person.event_triggers_dict["preg_your_kids_known"] = the_person.event_triggers_dict.get("preg_your_kids_known", 0) + 1
-
     if girlfriend_role in the_person.special_role:
         if the_person.event_triggers_dict.get("immaculate_conception", False):
             $ mc.change_locked_clarity(100)
@@ -260,6 +257,9 @@ init 2 python:
         person.event_triggers_dict["preg_knows"] = True
         person.tits = get_larger_tits(person.tits) #Her tits start to swell.
         person.personal_region_modifiers["breasts"] = person.personal_region_modifiers["breasts"] + 0.1 #As her tits get larger they also become softer, unlike large fake tits. (Although even huge fake tits get softer)
+
+        if not person.event_triggers_dict.get("immaculate_conception", False):
+            person.event_triggers_dict["preg_your_kids_known"] = person.event_triggers_dict.get("preg_your_kids_known", 0) + 1
 
         pregnant_tits_announce_action = Action("Announce Pregnant Tits", pregnant_tits_announcement_requirement, "pregnant_tits_announce", args = day)
         person.on_talk_event_list.append(Limited_Time_Action(pregnant_tits_announce_action, 15))
