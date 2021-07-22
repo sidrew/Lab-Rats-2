@@ -263,7 +263,7 @@ label broken_AC_crisis_label():
 
             #First, we'll get a copy of the lead girls outfit to use as a tester.
             $ test_outfit = the_person.outfit.get_copy()
-            $ removed_anything = False
+            $ removed_something = False
             $ the_clothing = test_outfit.remove_random_any(top_layer_first = True, exclude_feet = True) #Remove something from our test outfit.
             while the_clothing and the_person.judge_outfit(test_outfit, 20): #This will loop over and over until she is out of things to remove OR nolonger can strip something that is appropriate.
                 #Note: there can be some variation in this event depending on if the upper or lower was randomly checked first.
@@ -411,14 +411,14 @@ label broken_AC_crisis_label():
                     "The other girls exchange glances, and everyone seems decides it's best not to take this too far."
                     "They get back to work fully dressed, and soon the repair man has shown up. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
             else:
-                if removed_anything:
+                if removed_something:
                     "[the_person.title] gets back to work. Working in her stripped down attire seems to make her more comfortable with the idea in general."
                     "The repair man shows up early, and you lead him directly to the AC unit. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
                 else:
                     "[the_person.title] gets back to work, still fully clothed."
                     "The repair man shows up early, and you lead him directly to the the AC unit. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
 
-            if removed_anything:
+            if removed_something:
                 $ broken_AC_crisis_update_sluttiness();
 
         "Tell everyone to strip down and keep working\n{color=#ff0000}{size=18}Requires: [casual_uniform_policy.name]{/color} (disabled)" if not casual_uniform_policy.is_active():
