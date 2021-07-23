@@ -858,7 +858,7 @@ label shopping_date_overwear(the_person, skip_intro = False):
     the_person "Oh, look at this! I should try this on... and this... Check if they have this one in my size!"
     $ the_person.change_happiness(10)
     menu:
-        "Pick out an outfit for her\n{color=#ff0000}{size=18}Requires: 110 Obedience{/size}{/color}" if the_person.obedience >= 110:
+        "Pick out an outfit for her" if the_person.obedience >= 110:
             call outfit_master_manager(show_outfits = False, show_underwear = False)
             if _return:
                 $ new_overwear = _return
@@ -880,7 +880,7 @@ label shopping_date_overwear(the_person, skip_intro = False):
             pass
 
         "Let her pick out an outfit":
-            "She moves between the racks of clothes, picking out her favourites and handing them over to you to hold."
+            "She moves between the racks of clothes, picking out her favorites and handing them over to you to hold."
             $ the_person.draw_person()
             "When she feels like she had collected enough she leads you to the changing rooms at the back of the store."
             $ new_overwear = default_wardrobe.pick_random_overwear()
@@ -897,7 +897,7 @@ label shopping_date_overwear(the_person, skip_intro = False):
                 $ mc.business.funds -= cost
                 the_person "That's so sweet of you [the_person.mc_title]. Thank you!"
 
-            "Pay for the outfit\n{color=#ff0000}{size=18}Costs: $[cost]{/size}{/color} (disabled)" if mc.business.funds < cost:
+            "Pay for the outfit\n{color=#ff0000}{size=18}Requires: $[cost]{/size}{/color} (disabled)" if mc.business.funds < cost:
                 pass
 
             "Let [the_person.title] pay":
@@ -936,7 +936,7 @@ label shopping_date_underwear(the_person):
         "She leads the way and hurries in."
 
     menu:
-        "Pick out some lingerie for her\n{color=#ff0000}{size=18}Requires: 120 Obedience{/size}{/color}" if the_person.obedience >= 120:
+        "Pick out some lingerie for her" if the_person.obedience >= 120:
             "You move between the racks of bras and display boxes of panties, picking out a cute little outfit for [the_person.possessive_title]."
             call outfit_master_manager(show_outfits = False, show_overwear = False, show_underwear = True)
             if _return:
@@ -988,7 +988,7 @@ label shopping_date_underwear(the_person):
                 $ mc.business.funds += -cost
                 the_person "That's so sweet of you [the_person.mc_title]. Thank you!"
 
-            "Pay for the lingerie\n{color=#ff0000}{size=18}Costs: $[cost]{/size}{/color} (disabled)" if mc.business.funds < cost:
+            "Pay for the lingerie\n{color=#ff0000}{size=18}Requires: $[cost]{/size}{/color} (disabled)" if mc.business.funds < cost:
                 pass
 
             "Let [the_person.title] pay":
