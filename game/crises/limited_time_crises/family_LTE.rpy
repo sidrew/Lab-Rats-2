@@ -666,7 +666,7 @@ label sister_go_shopping_label(the_person): #TODO: Hook this up as an on_enter e
         the_person "Oh! Hey [the_person.mc_title], I was just heading to the mall."
         "She pushes past you and closes the door to her room behind her."
         menu:
-            "Ask to join.":
+            "Ask to join":
                 mc.name "That sounds like fun. Mind if I tag along?"
                 the_person "You really want to come on a shopping trip with your sister? Man, you must be {i}booooooored{/i}!"
                 "[the_person.possessive_title] smirks and shrugs."
@@ -674,7 +674,7 @@ label sister_go_shopping_label(the_person): #TODO: Hook this up as an on_enter e
                 the_person "I guess you can come with me though. I might need someone to carry my things!"
                 $ trigger_date = True
 
-            "Say goodbye.":
+            "Say goodbye":
                 mc.name "Alright, have fun out there."
                 "Tell [mom.title] where I am if she needs me, okay? See ya later!"
                 "[the_person.possessive_title] hurries past you and out of the house."
@@ -685,13 +685,13 @@ label sister_go_shopping_label(the_person): #TODO: Hook this up as an on_enter e
         the_person "I was going to head to the mall, but it's always more fun shopping with a friend."
         the_person "Wanna come with me?"
         menu:
-            "Go shopping.":
+            "Go shopping":
                 mc.name "Sure, that sounds like fun."
                 "[the_person.possessive_title] smiles and nods in agreement."
                 $ the_person.change_happiness(5)
                 $ trigger_date = True
 
-            "Not right now.":
+            "Not right now":
                 mc.name "Sorry [the_person.title], I'm busy right now actually."
                 the_person "Aww, alright. I've got to get going, see ya later!"
                 "[the_person.possessive_title] hurries past you and out of the house."
@@ -721,7 +721,7 @@ label mom_go_shopping_label(the_person):
     elif the_person.love < 30:
         the_person "I might be back late, but there's dinner in the fridge. All you need to do is warm it up."
         menu:
-            "Ask to join.":
+            "Ask to join":
                 mc.name "You know, I have some shopping to do too. Would you like some company?"
                 "[the_person.possessive_title] smiles and puts her hand on her chest."
                 $ the_person.change_love(1)
@@ -730,7 +730,7 @@ label mom_go_shopping_label(the_person):
                 the_person "I'll try not to embarrass you too badly."
                 $ trigger_date = True
 
-            "Say goodbye.":
+            "Say goodbye":
                 mc.name "Okay, have fun [the_person.title]."
                 the_person "Take care of your sister, and call me if you need me."
                 "She smiles and waves goodbye as she heads for the front door."
@@ -739,13 +739,13 @@ label mom_go_shopping_label(the_person):
         the_person "You have such good taste in clothing, would you like to come along and give me some advice?"
         the_person "If you aren't to embarrassed to be seen shopping with your mom, of course."
         menu:
-            "Go shopping.":
+            "Go shopping":
                 mc.name "I've got some shopping of my own to do too. Sure, I'll come along."
                 "She smiles happily."
                 the_person "It's always nice when we get to spend time together, just the two of us."
                 $ trigger_date = True
 
-            "Not right now.":
+            "Not right now":
                 mc.name "Sorry [the_person.title], I've made plans for the afternoon already."
                 the_person "Of course, you're a busy boy! Well then, there's dinner in the fridge."
                 the_person "I'll be back later tonight. Take care of your sister."
