@@ -56,7 +56,7 @@ init -2 python:
             #mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,1,0]) #Does this even do anything??? #TODO: Check that this does something. (Might have been used to ensure image values were capped properly)
 
             colour_pattern_matrix = im.matrix.tint(eye_colour[0], eye_colour[1], eye_colour[2]) * im.matrix.tint(*lighting)
-            shader_pattern_image = im.MatrixColor(mask_image, colour_pattern_matrix * im.matrix.opacity(.5))
+            shader_pattern_image = im.MatrixColor(base_image, colour_pattern_matrix * im.matrix.opacity(.8))
 
             base_image = im.MatrixColor(base_image, im.matrix.tint(*lighting)) #To support the lighting of the room we also retint it here.
             final_image = AlphaBlend(mask_image, base_image, shader_pattern_image, alpha=False)
