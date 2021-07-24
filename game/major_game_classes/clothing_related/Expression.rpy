@@ -43,7 +43,7 @@ init -2 python:
                 lighting = [1,1,1]
 
             if eye_colour is None:
-                eye_colour = [0.8,0.8,0.8,1] #grey by default.
+                eye_colour = [0.75, 0.75, 0.8, 1.0] #grey by default.
 
             # if renpy.mobile or test_zip: #On mobile platforms we use .zip files to hold all of the individual images to bypass the andorid file limit. This results in significantly slower animation (for reasons currently unknown), but android douesn't animate anyways.
 

@@ -421,7 +421,7 @@ init -2:
         list_of_eyes.append(["light blue",[0.60, 0.75, 0.98, 1.0]]) # 0.25, 0.32, 0.37, 1.0]])
         list_of_eyes.append(["green",[0.35, 0.68, 0.40, 1.0]])
         list_of_eyes.append(["brown",[0.6, 0.5, 0.3, 1.0]])
-        list_of_eyes.append(["grey",[0.95, 0.98, 0.98, 1.0]])
+        list_of_eyes.append(["grey",[0.75, 0.75, 0.8, 1.0]])
 
         def get_random_eye():
             return get_random_from_list(list_of_eyes)
