@@ -274,7 +274,7 @@ label sister_girlfriend_mom_blessing(the_person):
     $ convinced = False
     "[the_person.title], I have something important to tell you about me and [lily.title]."
     the_person "Oh? What is it?"
-    mc.name "Me and [the_person.title] are in love, and we are going to be spending more time together. As a couple."
+    mc.name "Me and [lily.title] are in love, and we are going to be spending more time together. As a couple."
     if the_person.event_triggers_dict.get("sister_girlfriend_asked_blessing_before", False):
         mc.name "I'm not joking this time, I really mean it."
 
