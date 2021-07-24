@@ -422,7 +422,7 @@ label photo_naked(the_person):
             mc.name "I want to get some more sensual shots of you. Lean back against the wall and touch yourself."
             call photo_touch(the_person) from _call_photo_touch_2
 
-        "Touch yourself\n{color=#ff0000}{size=18}Not slutty or obedient enough{/size}{/color} (disabled)" if slut_willingness < 60:
+        "Touch yourself\n{color=#ff0000}{size=18}Not slutty or obedient enough{/size}{/color} (disabled)" if slut_willingness < 45:
             pass
 
         "Finish the shoot":
