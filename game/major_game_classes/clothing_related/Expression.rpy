@@ -43,7 +43,7 @@ init -2 python:
                 lighting = [1,1,1]
 
             if eye_colour is None:
-                eye_colour = [0.75, 0.75, 0.8, 1.0] #grey by default.
+                eye_colour = [0.6, 0.4, 0.3, 1.0] #brown by default (most common).
 
             # if renpy.mobile or test_zip: #On mobile platforms we use .zip files to hold all of the individual images to bypass the andorid file limit. This results in significantly slower animation (for reasons currently unknown), but android douesn't animate anyways.
 
@@ -55,13 +55,16 @@ init -2 python:
 
             #mask_image = im.MatrixColor(mask_image, [1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,1,0]) #Does this even do anything??? #TODO: Check that this does something. (Might have been used to ensure image values were capped properly)
 
-            colour_pattern_matrix = im.matrix.tint(eye_colour[0], eye_colour[1], eye_colour[2]) * im.matrix.tint(*lighting)
-            shader_pattern_image = im.MatrixColor(base_image, colour_pattern_matrix * im.matrix.opacity(.8))
+            # correctly lighted
+            base_image = im.MatrixColor(base_image, im.matrix.tint(*lighting))
 
-            base_image = im.MatrixColor(base_image, im.matrix.tint(*lighting)) #To support the lighting of the room we also retint it here.
-            final_image = AlphaBlend(mask_image, base_image, shader_pattern_image, alpha=False)
+            # grey-scaled with slight brightness boost
+            shader_image = im.MatrixColor(base_image, im.matrix.saturation(0) * im.matrix.brightness(.2))
+            # colorized with eye colour
+            shader_pattern_image = im.MatrixColor(shader_image, im.matrix.tint(eye_colour[0], eye_colour[1], eye_colour[2]) * im.matrix.tint(*lighting))
 
-            return final_image
+            # blend shader pattern into base image (mask location only)
+            return AlphaBlend(mask_image, base_image, shader_pattern_image, alpha=False)
 
         def generate_raw_image(self, position, emotion, special_modifier = None): #Returns the raw ZipFileImage or Image, instead of the displayable (used for generating region masks)
             if not emotion in self.emotion_set:
