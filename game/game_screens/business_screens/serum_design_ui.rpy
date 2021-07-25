@@ -155,10 +155,10 @@ screen serum_design_ui(starting_serum,current_traits):
                     text "Value: $[starting_serum.value]" style "menu_text_style"
                     $ calculated_profit = (starting_serum.value*mc.business.batch_size)-starting_serum.production_cost
                     if calculated_profit > 0:
-                        text "Expected Profit:{color=#98fb98} $[calculated_profit]{/color}/dose" style "menu_text_style"
+                        text "Expected Profit:{color=#98fb98} $[calculated_profit]{/color}" style "menu_text_style"
                     else:
                         $ calculated_profit = 0 - calculated_profit
-                        text "Expected Profit:{color=#ff0000} -$[calculated_profit]{/color}/dose" style "menu_text_style"
+                        text "Expected Profit:{color=#ff0000} -$[calculated_profit]{/color}" style "menu_text_style"
                     text "Duration: [starting_serum.duration] Turns" style "menu_text_style"
                     text "Unlock Cost: [starting_serum.clarity_needed] Clarity" style "menu_text_style"
 
