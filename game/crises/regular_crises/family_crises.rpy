@@ -576,7 +576,7 @@ label mom_selfie_label():
                 the_person "I'm busy here at work but I really wish I could be spending time with you instead. Do you think I'm pretty enough to spend time with ;)"
                 $ the_person.outfit.remove_random_upper(top_layer_first = True)
                 $ the_person.draw_person(emotion = "happy")
-                "Mom sends you a selfie without her shirt on. It looks like she's taken in the bathroom of her office."
+                "Mom sends you a selfie without her shirt on. It looks like it's taken in the bathroom of her office."
             $ the_person.update_outfit_taboos()
 
         elif ran_num == 2:
