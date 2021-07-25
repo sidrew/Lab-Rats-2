@@ -587,8 +587,8 @@ init -2 python:
             items_to_strip = self.lower_body + self.upper_body
             if strip_feet:
                 items_to_strip.extend(self.feet)
-            if strip_accessories:
-                items_to_strip.extend(self.accessories)
+            if strip_accessories: # exclude make-up and earings
+                items_to_strip.extend([x for x in self.accessories if not x in earings_list])
             items_to_strip.sort(key= lambda clothing: clothing.tucked, reverse = True) #Tucked upper body stuff draws after lower body.
             items_to_strip.sort(key= lambda clothing: clothing.layer) #Sort the clothing so it is removed top to bottom based on layer.
 
