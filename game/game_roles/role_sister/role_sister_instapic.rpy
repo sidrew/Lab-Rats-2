@@ -1247,11 +1247,9 @@ label sister_new_boobs_brag_label(from_serum, the_person):
             else:
                 the_person "I guess you have done a lot for me... Alright, just a quick look!"
             if the_person.outfit.can_half_off_to_tits():
-                $ strip_list = the_person.outfit.get_half_off_to_tits_list()
-                $ generalised_strip_description(the_person, strip_list, half_off_instead = True)
+                $ generalised_strip_description(the_person, the_person.outfit.get_half_off_to_tits_list(), half_off_instead = True)
             else:
-                $ strip_list = the_person.outfit.get_tit_strip_list()
-                $ generalised_strip_description(the_person, strip_list)
+                $ generalised_strip_description(the_person, the_person.outfit.get_tit_strip_list())
             $ mc.change_locked_clarity(20)
             $ the_person.update_outfit_taboos()
             the_person "They're great, right? I'm so happy with them!"
