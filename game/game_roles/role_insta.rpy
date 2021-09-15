@@ -22,13 +22,13 @@ init -2 python:
 
     def comment_action_requirement(the_person):
         if the_person.event_triggers_dict.get("insta_commented_day",-1) >= day:
-            return "Already commented today."
+            return "Already commented today"
         else:
             return True
 
     def dm_action_requirement(the_person):
         if the_person.event_triggers_dict.get("insta_special_request_pending", False):
-            return "Waiting for her reply."
+            return "Waiting for her reply"
         return True
 
     def dm_option_specific_outfit_requirement(the_person):
