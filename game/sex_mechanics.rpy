@@ -2,7 +2,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
     # When called fuck_person starts a sex scene with someone. Sets up the encounter, mainly with situational modifiers.
     show screen person_info_ui(the_person)
     if report_log is None:
-        $ report_log = defaultdict(int) #Holds information about the encounter: what positiosn were tried, how many rounds it went, who came and how many times, etc. Defaultdict sets values to 0 if they don't exist when accessed
+        $ report_log = defaultdict(int) #Holds information about the encounter: what position were tried, how many rounds it went, who came and how many times, etc. Defaultdict sets values to 0 if they don't exist when accessed
         $ report_log["positions_used"] = [] #This is a list, not an int.
 
     $ finished = False #When True we exit the main loop (or never enter it, if we can't find anything to do)
@@ -183,7 +183,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
 
 
         # Now that a round_choice has been picked we can do something.
-        if round_choice == "Change" or round_choice == "Continue":
+        if round_choice == "Change" or round_choice == "Continue" or round_choice == "Hypno_Orgasm":
             if round_choice == "Change": # If we are changing we first select and transition/intro the position, then run a round of sex. If we are continuing we ignroe all of that
                 $ mc.condom = False # If we're changing position we want to be able to re-check if we need a condom.
                 if start_position is None: #The first time we get here,
@@ -334,7 +334,7 @@ label fuck_person(the_person, private = True, start_position = None, start_objec
         elif round_choice == "Girl Leave":
             $ finished = True
 
-        elif round_choice == "Hypno_Orgasm":
+        if round_choice == "Hypno_Orgasm":
             $ the_person.event_triggers_dict["hypno_orgasmed_recently"] = True
             $ the_word = the_person.event_triggers_dict.get("hypno_trigger_word","Cum")
             $ the_word.capitalize()
@@ -700,7 +700,7 @@ label describe_girl_climax(the_person, the_position, the_object, private, report
     $ the_person.change_arousal(-the_person.arousal/(report_log.get("girl orgasms", 0)+2)) # Repeated orgasms make it easier and easier to make a girl cum. It's possible to make her cum every single round!
     $ trance_chance_modifier += report_log.get("girl orgasms", 0)
     if not trance_chance_modifier == 0:
-        $ mc.log_event("Trance chance modified by " + str(trance_chance_modifier) + "%% due to position opinion and previous orgasms.", "float_text_grey")
+        $ mc.log_event("Trance chance modified by " + str(trance_chance_modifier) + "% due to position opinion and previous orgasms.", "float_text_grey")
     $ the_person.run_orgasm(trance_chance_modifier = trance_chance_modifier, sluttiness_increase_limit = the_position.slut_requirement)
     $ report_log["girl orgasms"] += 1
     return
