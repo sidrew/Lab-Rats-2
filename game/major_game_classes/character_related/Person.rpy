@@ -1569,6 +1569,7 @@ init -2 python:
                 amount = 100 - self.novelty
             elif amount + self.novelty < 0:
                 amount = self.novelty
+            self.novelty += amount
 
             if add_to_log and amount != 0:
                 display_name = self.create_formatted_title("???")
