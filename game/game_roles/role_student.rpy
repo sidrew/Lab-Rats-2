@@ -180,7 +180,6 @@ label student_reintro(the_person): #Called when you turned down the student in t
 
 label student_study_propose(the_person):
     if the_person in the_person.home.people: #ie. she's at home and the event has triggered.
-        $ lily_bedroom.show_background()    # reuse girl bedroom background
         mc.name "I've got time, if you're ready to do some studying."
         the_person "Oh yeah, that's probably a good idea. I've been having a really hard time with my assignment."
         "[the_person.title] leads you up to her room."
