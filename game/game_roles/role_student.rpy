@@ -386,8 +386,6 @@ label student_study_university(the_person):
 
 
 label student_study_home(the_person):
-    $ lily_bedroom.show_background()    # reuse girl bedroom background
-
     $ starting_focus = the_person.focus #Record her starting focus so we can compare it at the end (ie. after being given serum)
     $ starting_int = the_person.int
     $ took_serum = False #Set to true if you give her serum to study with. If the study session goes well (either from raised focus, int, or she orgasms) she'll want more in the future.
