@@ -13,7 +13,7 @@ init -1 python:
         if highest_active_priority != uniform_disobedience_priority: #ie. only run this function if we have the highest priority, otherwise some other policy is responsible for it.
             return
 
-        for person in [x for x in mc.business.get_employee_list() if x.should_wear_uniform() and x.is_wearing_uniform()]:
+        for person in [x for x in mc.business.get_employee_list() if x.should_wear_uniform() and x.planned_uniform and x.is_wearing_uniform()]:
             disobedience_chance = 0
             if not person.judge_outfit(person.planned_uniform):
                 disobedience_chance = person.planned_uniform.slut_requirement - __builtin__.int( person.effective_sluttiness() * (person.obedience / 120.0) ) #Girls who find the outfit too slutty might disobey, scaled by their obedience
