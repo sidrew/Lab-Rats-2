@@ -74,7 +74,7 @@ label relaxed_sex_responses_foreplay(the_person):
     elif response_value < 60:
         if the_person.sluttiness > 50:
             the_person "Oh that's it. Mmm."
-            "She purs warmly."
+            "She purrs warmly."
         else:
             the_person "Oh my god..."
             "It seems like she's trying not to moan too loudly."

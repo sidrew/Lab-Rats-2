@@ -69,7 +69,7 @@ label uniform_disobedience_event(planned_uniform, the_person):
             the_person "I just can't wear it [the_person.mc_title], it's demeaning!"
             the_person "If I wear your uniform I would have my tits out, all day long! How am I supposed to focus like that?"
         else:
-            the_person "I'm sorry [the_person.mc_title], I know I should be waring it, but..."
+            the_person "I'm sorry [the_person.mc_title], I know I should be wearing it, but..."
             the_person "It's just so revealing! If I could wear a bra, or anything, to keep me a little covered I would be more comfortable."
     elif planned_uniform.underwear_visible():
         if the_person.obedience < 120:
