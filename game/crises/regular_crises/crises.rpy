@@ -1838,7 +1838,7 @@ label work_chat_crisis_label:
                         if the_person.get_opinion_score("drinking cum") > 0:
                             "[the_person.possessive_title] gets up from her chair and kneels down between your legs."
                             $ the_person.draw_person(position="blowjob")
-                            the_person "Do you you want to cum in my mouth?"
+                            the_person "Do you want to cum in my mouth?"
                             $ the_person.draw_person(position="blowjob", special_modifier="blowjob")
                             $ climax_controller = ClimaxController(["Cum in her mouth","mouth"])
                             $ climax_controller.show_climax_menu()

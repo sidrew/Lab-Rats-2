@@ -1589,7 +1589,7 @@ label relaxed_anal_sex_taboo_break(the_person):
             the_person "Oh fuck..."
         else:
             the_person "Oh my god, you're actually going to do it! Fuck, I hope you even fit!"
-            mc.name "Don't worry, I'll stetch out your ass like I've stretched out all your other holes."
+            mc.name "Don't worry, I'll stretch out your ass like I've stretched out all your other holes."
     return
 
 label relaxed_condomless_sex_taboo_break(the_person):
