@@ -406,7 +406,7 @@ label broken_AC_crisis_label():
                     $ girl_choice = None
                     "The girls laugh and tease each other as they strip down, and they all seem to be more comfortable with the heat once they are less clothed."
                     "For a while all of the girls work in various states of undress while under your watchful eye."
-                    "The repair man shows up early, and you lead him directly to the the AC unit. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
+                    "The repair man shows up early, and you lead him directly to the AC unit. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
                 else:
                     "The other girls exchange glances, and everyone seems decides it's best not to take this too far."
                     "They get back to work fully dressed, and soon the repair man has shown up. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
@@ -416,7 +416,7 @@ label broken_AC_crisis_label():
                     "The repair man shows up early, and you lead him directly to the AC unit. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
                 else:
                     "[the_person.title] gets back to work, still fully clothed."
-                    "The repair man shows up early, and you lead him directly to the the AC unit. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
+                    "The repair man shows up early, and you lead him directly to the AC unit. The problem turns out to be a quick fix, and production is back to a comfortable temperature within a couple of hours."
 
             if removed_something:
                 $ broken_AC_crisis_update_sluttiness();
