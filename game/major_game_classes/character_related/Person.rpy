@@ -1327,11 +1327,12 @@ init -2 python:
                 if amount < 0: #Never subtract love because of a cap, only limit how much they gain.
                     amount = 0
 
+            if self.love + amount < -100:
+                amount = -100 - self.love
+            elif self.love + amount > 100:
+                amount = 100 - self.love
+
             self.love += amount
-            if self.love < -100:
-                self.love = -100
-            elif self.love > 100:
-                self.love = 100
 
             if add_to_log:
                 display_name = self.create_formatted_title("???")
@@ -1349,11 +1350,12 @@ init -2 python:
                 if amount < 0:
                     amount = 0
 
+            if self.sluttiness + amount < 0:
+                amount = -self.sluttiness
+            elif self.sluttiness + amount > 300:
+                amount = 300 - self.sluttiness
+
             self.sluttiness += amount
-            if self.sluttiness < 0:
-                self.sluttiness = 0
-            elif self.sluttiness > 300:
-                self.sluttiness = 300
 
             if add_to_log:
                 display_name = self.create_formatted_title("???")
