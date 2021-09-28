@@ -1067,7 +1067,7 @@ label sister_convince_mom_boobjob(the_mom, the_sister):
         "Order [the_mom.title] to allow it\n{color=#ff0000}{size=18}Requires: 140 Obedience{/size}{/color} (disabled)" if the_mom.obedience < 140:
             pass
 
-        "You got yourself implants already." if the_mom.event_triggers_dict.get("boobjob_count", 0) > 0:
+        "You got yourself implants already" if the_mom.event_triggers_dict.get("boobjob_count", 0) > 0:
             mc.name "Don't be a hypocrite [the_mom.title]. You were fine with getting implants for yourself."
             mc.name "If you can do it, why can't [the_sister.title]?"
             $ the_group.draw_person(the_mom, position = "kneeling1")
