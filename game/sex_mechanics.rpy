@@ -679,7 +679,6 @@ label watcher_check(the_person, the_position, the_object, the_report): # Check t
                     renpy.say(None,a_person.title + " gasps when she sees what you and " + the_person.title + " are doing.")
 
     $ the_watcher = get_random_from_list(other_people) #Get a random person from the people in the area, if there are any.
-    $ del other_people
     if the_watcher:
         # NOTE: the dialogue here often draws the person talking with various emotions or positions, so we redraw the scene after we call them.
         $ the_watcher.call_dialogue("sex_watch", the_sex_person = the_person, the_position = the_position) #Get the watcher's reaction to the people having sex. This might include dialogue calls from other personalities as well!
@@ -689,8 +688,9 @@ label watcher_check(the_person, the_position, the_object, the_report): # Check t
         $ the_person.discover_opinion("public sex")
 
     python:
-         for a_person in other_people:
-             a_person.clear_situational_slut("public sex watcher")
+        for a_person in other_people:
+            a_person.clear_situational_slut("public sex watcher")
+        del other_people
     return
 
 label describe_girl_climax(the_person, the_position, the_object, private, report_log):
