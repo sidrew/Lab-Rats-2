@@ -444,7 +444,7 @@ label pick_object(the_person, the_position, forced_object = None):
             picked_object = forced_object
         else:
             for object in mc.location.objects:
-                if object.has_trait(position_choice.requires_location):
+                if object.has_trait(the_position.requires_location):
                     object_option_list.append([object.get_formatted_name(),object]) #Displays a list of objects in the room related to that position and their appropriate bonuses/penalties
 
 
