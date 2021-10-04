@@ -1024,7 +1024,7 @@ label lactation_description(the_person, the_position, the_object, report_log): #
         elif strength <= 1.0:
             "[the_person.title]'s naked tits drip milk, a drop every couple of seconds."
         elif strength <= 1.5:
-            "[the_person.title]'s are leaking faster now. She shakes a couple of drops free with every movement." #Triggers at 100% arousal w/ 1 lactation source, 50% arousal w/ 2 sources or max sized tits.
+            "[the_person.title]'s tits are leaking faster now. With every move a couple of drops escape from her nipples." #Triggers at 100% arousal w/ 1 lactation source, 50% arousal w/ 2 sources or max sized tits.
         elif strength <= 2.0:
             "[the_person.title] has a steady trickle of milk running from her nipples and over her breasts."
         elif strength <= 3.0:
