@@ -93,11 +93,11 @@ init -1:
                 change_amount = 100 - the_person.love
             the_serum.effects_dict["love_potion_change"] = change_amount
 
-            the_person.change_love(change_amount, add_to_log)
+            the_person.change_love(change_amount, add_to_log = add_to_log)
 
         def love_potion_on_remove(the_person, the_serum, add_to_log):
             change_amount = the_serum.effects_dict.get("love_potion_change", 20)
-            the_person.change_love(-change_amount, add_to_log)
+            the_person.change_love(-change_amount, add_to_log = add_to_log)
 
         ## off_label_drugs_functions ##
         def off_label_drugs_on_apply(the_person, the_serum, add_to_log):
