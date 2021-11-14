@@ -1736,6 +1736,8 @@ label girl_shower_enter(the_person, surprised):
 
 init 1 python:
     def cousin_tease_crisis_requirement():
+        if not mc.phone.has_number(cousin): # she is not yet in the game
+            return False
         if cousin.effective_sluttiness() >= 30 and cousin.obedience < 120 and cousin.love < 10 and cousin not in mc.location.people:
             return True
         return False
