@@ -274,11 +274,12 @@ label sister_oral_taboo_break_revisit(the_person):
             mc.name "I'm sure I can manage it."
 
             $ the_person.event_triggers_dict["sister_oral_quest_active"] = True
+            $ the_person.event_triggers_dict["sister_oral_quest_progress"] = 0
             $ the_person.change_slut(-10)
             $ mc.log_event(the_person.title + "'s taboos restored!", "float_text_red")
 
-            #$ electronics_store.on_room_enter_event_list.append(Action("pi phone discover", sister_oral_quest_1_requirement, "sister_oral_taboo_break_revisit_quest_1", args = the_person, requirement_args = the_person))
-            $ electronics_store.actions.append(Action("Buy a πphone\n{color=#ff0000}{size=18}Costs: $1200{/size}{/color}", sister_oral_quest_2_requirement, "sister_oral_taboo_break_revisit_quest_2", args = the_person, requirement_args = the_person))
+            $ electronics_store.on_room_enter_event_list.append(Action("pi phone discover", sister_oral_quest_1_requirement, "sister_oral_taboo_break_revisit_quest_1", args = the_person, requirement_args = the_person))
+            $ electronics_store.add_action(Action("Buy a πphone\n{color=#ff0000}{size=18}Costs: $1200{/size}{/color}", sister_oral_quest_2_requirement, "sister_oral_taboo_break_revisit_quest_2", args = the_person, requirement_args = the_person))
 
             $ the_person.get_role_reference(sister_role).add_action(Action("Check back in...", sister_oral_revisit_quest_complete_requirement, "sister_oral_taboo_break_revisit_complete"))
 
@@ -375,6 +376,7 @@ label sister_oral_taboo_break_revisit_quest_2(the_person):
             "You get your phone, pay for it, and are directed towards the exit without any issues."
             $ mc.business.funds += -1200
             $ the_person.event_triggers_dict["sister_oral_quest_progress"] = 2
+            $ electronics_store.remove_action("sister_oral_taboo_break_revisit_quest_2")
             $ lead_girl = None
             $ other_girl_1 = None
             $ other_girl_2 = None
@@ -395,6 +397,7 @@ label sister_oral_taboo_break_revisit_quest_2(the_person):
             "A hell of a lot better than waiting in line for hours, you think to yourself."
             $ mc.business.funds += -2400
             $ the_person.event_triggers_dict["sister_oral_quest_progress"] = 2
+            $ electronics_store.remove_action("sister_oral_taboo_break_revisit_quest_2")
 
         "Buy one from a scalper\n{color=#ff0000}{size=18}Requires: $2400{/size}{/color} (disabled)" if mc.business.funds < 2400:
             pass
