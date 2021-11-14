@@ -375,6 +375,9 @@ label sister_oral_taboo_break_revisit_quest_2(the_person):
             "You get your phone, pay for it, and are directed towards the exit without any issues."
             $ mc.business.funds += -1200
             $ the_person.event_triggers_dict["sister_oral_quest_progress"] = 2
+            $ lead_girl = None
+            $ other_girl_1 = None
+            $ other_girl_2 = None
             call advance_time()
 
         "Keep waiting {image=gui/heart/Time_Advance.png}\n{color=#ff0000}{size=18}Not enough time{/size}{/color} (disabled)" if time_of_day == 4:
