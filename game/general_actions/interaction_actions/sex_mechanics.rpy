@@ -651,10 +651,10 @@ label apply_sex_slut_modifiers(the_person, in_private = True):
     return
 
 label clear_sex_slut_modifiers(the_person):
-    python:
-        if the_person is None:
-            return
+    if the_person is None:
+        return
 
+    python:
         the_person.clear_situational_slut("love_modifier")
         the_person.clear_situational_slut("happiness_modifier")
         the_person.clear_situational_slut("cheating")
