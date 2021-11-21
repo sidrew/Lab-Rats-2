@@ -443,7 +443,7 @@ label strip_tease(the_person, in_private = True, for_pay = False, start_girl_dir
         $ girl_state.call_intro(the_person, guy_state = guy_state, for_pay = False)
 
     $ should_continue = True
-    while should_continue:
+    while should_continue and not the_person is None:
         $ chosen_action = None
 
         if "action_mod_list" in globals():
