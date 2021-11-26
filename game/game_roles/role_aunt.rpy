@@ -553,7 +553,8 @@ label aunt_intro_moving_apartment_label(the_person):
 
 label aunt_intro_phase_final_label():
     #You have finished moving all of their stuff over so your aunt and cousin can move out of your house.
-
+    $ mc.change_location(kitchen)
+    $ mc.location.show_background()
     "When you get up for breakfast you find [aunt.title] and [mom.title] in the kitchen, both awake earlier than normal."
     $ the_group = GroupDisplayManager([mom, aunt], aunt)
     $ the_group.draw_group(position = "sitting")
