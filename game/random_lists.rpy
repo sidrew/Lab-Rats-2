@@ -1134,6 +1134,9 @@ init 1 python:
             eyes = "green", personality = relaxed_personality, stat_array = [6,2,1], skill_array = [1,4,0,0,1], sex_array = [4,4,0,0], \
             start_sluttiness = 5, start_obedience = -20, start_happiness = 120, start_love = 0, relationship = "Single", kids = 0)
 
+        iris.generate_home()
+        iris.home.add_person(iris)
+        iris.set_schedule(iris.home, times = [0, 1, 2, 3, 4]) # hide her from the world, until unlocked
         iris.add_role(instapic_role)
         iris.add_role(dikdok_role)
         # NOTE: SHe doesn't exist on the map until you run into her at the mall doing one of Lily's events. (TODO: Add an alternative way to intro that if you avoid that quest.)
