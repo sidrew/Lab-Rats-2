@@ -594,6 +594,8 @@ label aunt_intro_phase_final_label():
     "You join [aunt.possessive_title] and [mom.possessive_title] while they finish their drinks and chat with each other."
     "[aunt.title] certainly seems happier now than she did a few weeks ago when she arrived."
     $ clear_scene()
+    $ mc.change_location(hall)
+    $ mc.location.show_background()
     $ the_group = GroupDisplayManager([mom, lily, aunt, cousin], aunt)
     $ the_group.draw_group()
     "When her drink is done [aunt.title] collects [cousin.possessive_title] and heads to the door. [lily.title] joins you as you say goodbye."
@@ -633,6 +635,9 @@ label aunt_intro_phase_final_label():
 
         add_aunt_share_drink_intro()
         the_group = None
+
+        mc.change_location(bedroom)
+        mc.location.show_background()
     return
 
 
