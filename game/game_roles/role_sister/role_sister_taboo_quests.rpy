@@ -304,8 +304,9 @@ label sister_oral_taboo_break_revisit_quest_2(the_person):
     menu:
         "Keep waiting {image=gui/heart/Time_Advance.png}" if time_of_day < 4:
             python:
-                if not iris.home:
+                if not iris.home: # save compatible (no home, not added to game)
                     iris.generate_home()
+                    iris.home.add_person(iris)
                 iris.set_schedule(None, times = [1, 2, 3])
                 iris.set_schedule(university, times = [1,2], days = [0, 1, 2, 3, 4])
                 iris.location.move_person(iris, electronics_store)
