@@ -20,9 +20,9 @@ init:
         list_of_positions.append(doggy_anal)
 
 init 1:
-   python:
-       doggy_anal.link_positions(doggy,"transition_doggy_anal_doggy")
-       #Here is where you would put connections if they existed.
+    python:
+        doggy_anal.link_positions(doggy,"transition_doggy_anal_doggy")
+        #Here is where you would put connections if they existed.
 
 
 
