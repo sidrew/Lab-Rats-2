@@ -15,6 +15,8 @@ init -2 python:
     def mom_work_promotion_one_before_requirement(the_person, start_day):
         if not the_person.has_job(mom_associate_job):
             return False
+        if day < start_day:
+            return False
         elif mc.business.is_weekend(): #TODO: we really need to stop using the business to define what the weekend is.
             return False #No interview on the weekend
         elif mom.has_limited_time_event("sleeping_walk_in_label"):
@@ -119,8 +121,8 @@ init -2 python:
             return "Requires: 20 Love" # hide it until you're reasonably close, then show that you need at least 20 to get her to talk about it.
         return True #Are there any requirements for starting this conversationwe need to throw in?
 
-    def add_mom_work_promotion_one_before_crisis():
-        mom_work_promotion_one_before_crisis = Action("mom work promotion one before", mom_work_promotion_one_before_requirement, "mom_work_promotion_one_before", args = the_person, requirement_args = renpy.random.randint(day+3, day+8))
+    def add_mom_work_promotion_one_before_crisis(person):
+        mom_work_promotion_one_before_crisis = Action("mom work promotion one before", mom_work_promotion_one_before_requirement, "mom_work_promotion_one_before", args = person, requirement_args = [person, (day + renpy.random.randint(3, 8))])
         mc.business.mandatory_morning_crises_list.append(mom_work_promotion_one_before_crisis)
         return
 
@@ -174,7 +176,7 @@ label mom_work_promotion_one(the_person): #Mom is up for a promotion and asks yo
             mc.name "They won't have any choice but to give you the promotion."
             the_person "Thank you for your confidence [the_person.mc_title]. There are two interview stages, I'm just hoping to get through to the next round."
 
-    $ add_mom_work_promotion_one_before_crisis()
+    $ add_mom_work_promotion_one_before_crisis(the_person)
     $ the_person.apply_outfit() # If you've been trying out an outfit she changes back into it.
     # Leads to a line of events where she basically sleeps her way to a better job.
     # Could we have an alternative line where you find her boss and either A) Sleep with her or B) Fuck his wife?
