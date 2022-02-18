@@ -24,6 +24,10 @@ init -2 python:
         if the_person in stripclub_strippers:
             stripclub_strippers.remove(the_person)
 
+        # add new stripper to replace the one that left
+        new_stripper = create_random_person(start_sluttiness = renpy.random.randint(15,30), job = stripper_job)
+        new_stripper.generate_home().add_person(new_stripper)
+
 
 label stranger_hire_result(the_person): #Check to see if you want to hire someone.
     $ the_person.salary = the_person.calculate_base_salary()
