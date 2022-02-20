@@ -987,7 +987,7 @@ init -2 python:
                 candidate_dict["tits"] = "AA"
 
             if recruitment_short_policy.is_active():
-                candidate_dict["height"] = 0.85 + (renpy.random.random()/25)
+                candidate_dict["height"] = 0.81 + (renpy.random.random()/25)
             elif recruitment_tall_policy.is_active():
                 candidate_dict["height"] = 0.92 + (renpy.random.random()/25)
 
