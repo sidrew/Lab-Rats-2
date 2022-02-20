@@ -277,8 +277,8 @@ init -2 python:
                 person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("production work"), add_to_log = False)
 
             for person in [x for x in self.market_team if x in self.m_div.people]:
-                if person.should_wear_uniform():
-                    self.sale_progress(person.charisma,person.focus, person.market_skill, slut_modifier = person.outfit.slut_requirement) #If there is a uniform pass it's sluttiness along.
+                if person.should_wear_uniform() and male_focused_marketing_policy.is_active():
+                    self.sale_progress(person.charisma,person.focus, person.market_skill, slut_modifier = person.outfit.slut_requirement / 100.0) #If there is a uniform pass it's sluttiness along.
                 else:
                     self.sale_progress(person.charisma, person.focus, person.market_skill) #Otherwise their standard outfit provides no bonuses.
                 person.change_happiness(person.get_opinion_score("working")+person.get_opinion_score("marketing work"), add_to_log = False)
