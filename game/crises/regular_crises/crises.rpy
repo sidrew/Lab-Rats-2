@@ -1511,7 +1511,7 @@ label invest_rep_visit_label(rep_name):
         "He reaches out his hand and you shake it."
         rep_name "Before we get started I wanted to ask you some questions about what you do here."
         mc.name "I'll answer whatever I can."
-        rep_name "Your business licence says you're working in commercial pharmaceuticals. What, exactly, does that mean?"
+        rep_name "Your business license says you're working in commercial pharmaceuticals. What, exactly, does that mean?"
         $ lobby.show_background()
         "You lead [rep_name] into the office lobby."
         mc.name "We have a number of different products that we produce, but they're all based on the same fundamental principle."
@@ -2495,7 +2495,7 @@ label research_reminder_crisis_label():
                         menu:
                             "I need to cum":
                                 $ the_person.event_triggers_dict["head_researcher_cum_assistance"] = the_person.event_triggers_dict.get("head_researcher_cum_assistance", 0) + 1
-                                call apply_sex_slut_modifiers(the_person)
+                                call apply_sex_slut_modifiers(the_person) from _call_apply_sex_slut_modifiers_research_reminder_crisis
                                 if the_person.get_opinion_score("research work") > 0:
                                     $ the_person.add_situational_slut("science", 5*the_person.get_opinion_score("research work"), "I'll do whatever I need for the cause of science!")
                                 if the_person.event_triggers_dict.get("head_researcher_cum_assistance", 0) <= 1:

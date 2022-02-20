@@ -36,10 +36,10 @@ init -1 python:
 
 label downtown_search_label(advance_time = True):
     "You devote some time to wandering the city streets with no particular destination in mind."
-    call downtown_time_description from _call_downtown_time_description
+    call downtown_time_description() from _call_downtown_time_description
     #If there are events we want to trigger as soon as the first conditions are met they can go here.
     if time_of_day == 3 and not strip_club.visible:
-        call discover_stripclub_label from _call_discover_stripclub_label #Discover the strip club location
+        call discover_stripclub_label() from _call_discover_stripclub_label #Discover the strip club location
 
     #Otherwise we add some random events and draw from the list.
 
@@ -50,7 +50,7 @@ label downtown_search_label(advance_time = True):
         $ del the_event
 
     if advance_time:
-        call advance_time from _call_advance_time_26
+        call advance_time() from _call_advance_time_26
     return
 
 label downtown_time_description():
@@ -211,7 +211,7 @@ label meet_person_label():
                         menu:
                             "Convince her" if mc.charisma >= 3:
                                 "You smile and pour on the charm."
-                                mc.name "You're allowed to have men as friends, right? He can't seriously be that jelous."
+                                mc.name "You're allowed to have men as friends, right? He can't seriously be that jealous."
                                 the_person "Well... You're right. Here..."
                                 $ mc.phone.register_number(the_person)
                                 "She reaches out for your phone. You hand it over and wait for her to type in her number."
@@ -240,7 +240,7 @@ label meet_person_label():
 
         "Keep the cash\n{color=#00ff00}{size=18}Income: $200{/size}{/color}":
             $ mc.business.change_funds(200)
-            "You slip the cash out of the womans wallet and watch as she rushes to catch her bus."
+            "You slip the cash out of the woman's wallet and watch as she rushes to catch her bus."
             $ clear_scene()
             "She gets on and the bus pulls away. When you pass a mailbox you slide the wallet inside - at least she'll get it back."
 
