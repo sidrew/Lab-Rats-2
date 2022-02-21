@@ -297,7 +297,7 @@ label mom_oral_taboo_break_revisit(the_person):
     mc.name "Sure, what's up?"
     $ first_time = the_person.event_triggers_dict.get("oral_revisit_count", 0) <= 1
     $ noteable_taboo = "cunn"
-    if the_person.has_broken_taboo("sucking_cock"):
+    if "sucking_cock" in the_person.event_triggers_dict.get("oral_revisit_restore_taboos", []):
         $ noteable_taboo == "blowjob"
     if first_time:
         if noteable_taboo == "blowjob":
