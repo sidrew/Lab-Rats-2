@@ -54,7 +54,7 @@ label instantiate_jobs():
         nurse_job = Job("Nurse", unimportant_job_role, job_location = downtown, work_days = [0,1,2,3,4,5], work_times = [1,2])
         night_nurse_job = Job("Night Nurse", unimportant_job_role, job_location = downtown, work_days = [1,2,3,4,5,6], work_times = [3,4])
         gym_instructor_job = Job("Gym Instructor", unimportant_job_role, job_location = gym, work_days = [0,1,2,3,4], work_times = [1,2])
-        office_worker_job = Job("Office Worker", unimportant_job_role, job_location = mom_offices, work_days = [0,1,2,3,4], work_times = [1,2])
+        office_worker_job = Job("Office Worker", unimportant_job_role, job_location = mom_office_lobby, work_days = [0,1,2,3,4], work_times = [1,2])
 
 
         list_of_jobs.append([unemployed_job, 30])
