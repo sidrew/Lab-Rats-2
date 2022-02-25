@@ -30,12 +30,28 @@ init -2 python:
                 return True
         return False
 
+    def attention_pick_current_event():
+        attention_fine_action = Action("attention_fine", attention_fine_requirement, "attention_pay_fine")
+        attention_seize_inventory_action = Action("attention_seize_inventory", attention_seize_inventory_requirement, "attention_seize_inventory")
+        attention_seize_supplies_action = Action("attention_seize_supplies", attention_seize_supplies_requirement, "attention_seize_supplies")
+        attention_seize_research_action = Action("attention_seize_research", attention_seize_research_requirement, "attention_seize_research")
+        attention_illegal_serum_action = Action("attention_illegal_serum", attention_illegal_serum_requirement, "attention_illegal_serum")
+
+        attention_events = [attention_fine_action, attention_seize_inventory_action, attention_seize_supplies_action, attention_seize_research_action, attention_illegal_serum_action]
+        valid_events = []
+        for an_attention_event in attention_events:
+            if an_attention_event.is_action_enabled(city_rep):
+                valid_events.append(an_attention_event)
+
+        return get_random_from_list(valid_events)
+
+
 label attention_event():
+    $ mc.business.event_triggers_dict["attention_event_pending"] = False
 
     $ city_rep.event_triggers_dict["currently_interrogating"] = True #Set to False so we can use Role actions without them appearing when you meet her somewhere else.
     $ city_rep.event_triggers_dict["bribe_attempts"] = [] #Reset our list so we can avoid letting you repeatedly bribe her
     $ city_rep.event_triggers_dict["bribe_successful"] = None #Store the most recently used bribe option so we can have some specific dialogues
-
 
     if city_rep.event_triggers_dict.get("city_rep_forced_uniform", False):
         $ city_rep.apply_outfit(city_rep.event_triggers_dict.get("city_rep_forced_uniform", Outfit("Nude")))
@@ -50,22 +66,6 @@ label attention_event():
     call attention_visit(city_rep) from _call_attention_visit_attention_event
 
     #TODO: Have an option to have your girls "distract" the enforcers so they find nothing.
-
-    python:
-        attention_fine_action = Action("attention_fine", attention_fine_requirement, "attention_pay_fine")
-        attention_seize_inventory_action = Action("attention_seize_inventory", attention_seize_inventory_requirement, "attention_seize_inventory")
-        attention_seize_supplies_action = Action("attention_seize_supplies", attention_seize_supplies_requirement, "attention_seize_supplies")
-        attention_seize_research_action = Action("attention_seize_research", attention_seize_research_requirement, "attention_seize_research")
-        attention_illegal_serum_action = Action("attention_illegal_serum", attention_illegal_serum_requirement, "attention_illegal_serum")
-
-        attention_events = [attention_fine_action, attention_seize_inventory_action, attention_seize_supplies_action, attention_seize_research_action, attention_illegal_serum_action]
-        valid_events = []
-        for an_attention_event in attention_events:
-            if an_attention_event.is_action_enabled(city_rep):
-                valid_events.append(an_attention_event)
-
-
-    $ picked_event = get_random_from_list(valid_events)
 
     $ city_rep.draw_person()
 
@@ -86,16 +86,14 @@ label attention_event():
         city_rep "...satisfying agreement."
 
     else:
-        $ picked_event.call_action(city_rep)
+        $ attention_pick_current_event().call_action(city_rep)
 
     city_rep "I think we're done here men. Thank you for your cooperation [city_rep.mc_title]."
     "She leaves the building with her city thugs following behind her."
 
-
-    $ mc.business.event_triggers_dict["attention_event_pending"] = False
     $ mc.business.attention = int(mc.business.attention/2)
 
-    $ times_visited = mc.business.event_triggers_dict["attention_times_visited"] = mc.business.event_triggers_dict.get("attention_times_visited", 0) + 1
+    $ mc.business.event_triggers_dict["attention_times_visited"] = mc.business.event_triggers_dict.get("attention_times_visited", 0) + 1
     $ city_rep.event_triggers_dict["currently_interrogating"] = False #Set to False so we can use Role actions without them appearing when you meet her somewhere else.
     $ city_rep.event_triggers_dict["bribe_attempts"] = [] #Reset our list so we won't accidentally trigger something outside of this event.
     $ clear_scene()
