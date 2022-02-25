@@ -128,8 +128,8 @@ label attention_pay_fine(the_person):
     $ mc.log_event("$" + str(fine_amount) + " seized!", "float_text_red")
     return
 
-label attention_seize_inventory(the_person):
-    python:
+init 2 python:
+    def get_highest_attention_serum_design_from_inventory():
         inventories = [mc.business.inventory]
         for contract in mc.business.active_contracts:
             inventories.append(contract.inventory)
@@ -139,31 +139,35 @@ label attention_seize_inventory(the_person):
             for design in inventory.get_serum_type_list():
                 if highest_attention_design is None or design.attention > highest_attention_design.attention:
                     highest_attention_design = design
+        return highest_attention_design
 
-    if highest_attention_design:
-        $ doses_seized = 0
-        python:
-            inventories = [mc.business.inventory]
-            for contract in mc.business.active_contracts:
-                inventories.append(contract.inventory)
+    def get_inventory_doses_seized(highest_attention_design):
+        doses_seized = 0
+        inventories = [mc.business.inventory]
+        for contract in mc.business.active_contracts:
+            inventories.append(contract.inventory)
 
-            for inventory in inventories:
-                design_list = inventory.get_serum_type_list()
-                for design in design_list:
-                    if design.attention == highest_attention_design.attention:
-                        if the_person.event_triggers_dict.get("city_rep_reduced_penalties_trained", False):
-                            doses_seized += inventory.get_serum_count(design)/2
-                            inventory.change_serum(design, -inventory.get_serum_count(design)/2)
-                        else:
-                            doses_seized += inventory.get_serum_count(design)
-                            inventory.change_serum(design, -inventory.get_serum_count(design))
+        for inventory in inventories:
+            design_list = inventory.get_serum_type_list()
+            for design in design_list:
+                if design.attention == highest_attention_design.attention:
+                    if the_person.event_triggers_dict.get("city_rep_reduced_penalties_trained", False):
+                        doses_seized += inventory.get_serum_count(design)/2
+                        inventory.change_serum(design, -inventory.get_serum_count(design)/2)
+                    else:
+                        doses_seized += inventory.get_serum_count(design)
+                        inventory.change_serum(design, -inventory.get_serum_count(design))
+        return doses_seized
+
+label attention_seize_inventory(the_person):
+    $ highest_attention_design = get_highest_attention_serum_design_from_inventory()
+    $ doses_seized = get_inventory_doses_seized(highest_attention_design)
 
     "[the_person.title]'s enforcers return. One is holding one of the cardboard boxes you use to store ready-to-ship serum."
     "Enforcer" "Found it Ma'am, right where you said it would be."
     the_person "Good. Let me take a look..."
     "[the_person.possessive_title] flips open one of the boxes and pulls out the plastic vial inside."
-    $ highest_attention_design_name = highest_attention_design.name
-    the_person "Hmmm, [highest_attention_design_name]. How... descriptive."
+    the_person "Hmmm, [highest_attention_design.name]. How... descriptive."
     "She slips it back into it's box and turns back to you."
     if the_person.event_triggers_dict.get("city_rep_reduced_penalties_trained", False):
         the_person "We'll be taking..."
@@ -178,6 +182,7 @@ label attention_seize_inventory(the_person):
         "She shakes her head politely."
         the_person "No. You won't."
     $ mc.log_event(str(doses_seized) + " of serum seized!", "float_text_red")
+    $ highest_attention_design = None
     return
 
 label attention_seize_supplies(the_person):
@@ -199,20 +204,18 @@ label attention_seize_supplies(the_person):
     $ mc.log_event(str(supply_seized) + " serum supply seized!", "float_text_red")
     return
 
-label attention_seize_research(the_person):
-    $ highest_attention_design = None
-    python:
-        for design in mc.business.serum_designs:
-            if design.researched:
-                if highest_attention_design is None or design.attention > highest_attention_design.attention:
-                    highest_attention_design = design
+init 2 python:
+    def get_highest_attention_serum_design():
+        highest_attention_design = None
+        for design in [x for x in mc.business.serum_designs if x.researched]:
+            if highest_attention_design is None or design.attention > highest_attention_design.attention:
+                highest_attention_design = design
+        return highest_attention_design
 
-    if highest_attention_design:
-        if the_person.event_triggers_dict.get("city_rep_reduced_penalties_trained", False):
-            pass
-        else:
-            $ mc.business.remove_serum_design(highest_attention_design)
-    else:
+label attention_seize_research(the_person):
+    $ highest_attention_design = get_highest_attention_serum_design()
+
+    if not highest_attention_design:
         "They are unable to find any of the research they were looking for."
         return
 
@@ -220,8 +223,7 @@ label attention_seize_research(the_person):
     "Enforcer" "I think this is the right stuff, Ma'am. Not too sure, really"
     the_person "Let me take a look..."
     "[the_person.possessive_title] snatches the top file and flips through it."
-    $ highest_attention_design_name = highest_attention_design.name
-    the_person "\"Design and Manufacturing of [highest_attention_design_name]\". How very... descriptive."
+    the_person "\"Design and Manufacturing of [highest_attention_design.name]\". How very... descriptive."
     "She snaps the file closed again."
     if the_person.event_triggers_dict.get("city_rep_reduced_penalties_trained", False):
         the_person "This..."
@@ -232,50 +234,47 @@ label attention_seize_research(the_person):
         the_person "I said it's not what we're looking for! Our reports must have been wrong."
     else:
         the_person "Yes, this is it. Take it all."
-        $ mc.log_event(highest_attention_design_name + " design seized!", "float_text_red")
+        $ mc.business.remove_serum_design(highest_attention_design)
+        $ mc.log_event(highest_attention_design.name + " design seized!", "float_text_red")
 
+    $ highest_attention_design = None
     return
 
 label attention_illegal_serum(the_person):
-    $ highest_attention_design = None
-    python:
-        for design in mc.business.serum_designs:
-            if design.researched:
-                if highest_attention_design is None or design.attention > highest_attention_design.attention:
-                    highest_attention_design = design
+    $ highest_attention_design = get_highest_attention_serum_design()
+
+    if not highest_attention_design:
+        "They can't find any serum research, and eventually stop searching."
+        return #Just in case we've removed our highest design at some point so we don't crash out.
 
     $ highest_attention_design_change = 2
     if highest_attention_design:
         if the_person.event_triggers_dict.get("city_rep_reduced_penalties_trained", False):
             $ highest_attention_design_change = 1
-            # $ highest_attention_design.attention += 1
 
-    if not highest_attention_design:
-        "They can't find any serum research, and eventually stop searching."
-        return #Just in case we've removed our highest design at some point so we don't crash out.
     "[the_person.title]'s enforcers return. One is holding one of the cardboard boxes of serum vials."
     "Enforcer" "Here you go Ma'am."
     the_person "You found them? Good."
     "[the_person.possessive_title] takes one of the vial and looks it over."
-    $ highest_attention_design_name = highest_attention_design.name
     the_person "Yes, this what we're looking for."
 
     the_person "The city has signed a new law, banning the sale of substances like..."
     if the_person.event_triggers_dict.get("city_rep_reduced_penalties_trained", False):
         "She pauses to read the label, then glances at you. You can see the trance-planted obedience taking hold of her."
-        the_person "[highest_attention_design_name]. It's a shame, if you ask me."
+        the_person "[highest_attention_design.name]. It's a shame, if you ask me."
         mc.name "So, are you going to be taking it from me?"
         the_person "No, no. I will have to put in a report listing it as a substance of potential concern."
         the_person "But what you do with your current stock, well... That's none of my concern."
     else:
         "She pauses to read the label pasted onto the vial."
-        the_person "[highest_attention_design_name]. Not soon enough, if you ask me."
+        the_person "[highest_attention_design.name]. Not soon enough, if you ask me."
         mc.name "So what, you're taking all of it?"
         the_person "Oh no, disposal is your responsibility. As long as we don't see any on the open market there are no issues."
         "She gives you a cold smile and hands the vial over to you."
         the_person "But if we do I'll have to come down for another visit. I don't think either of us want that."
     $ highest_attention_design.attention += highest_attention_design_change
-    $ mc.log_event(highest_attention_design_name + " made illegal, +"+str(highest_attention_design_change)+" Attention!", "float_text_red")
+    $ mc.log_event(highest_attention_design.name + " made illegal, +"+str(highest_attention_design_change)+" Attention!", "float_text_red")
+    $ highest_attention_design = None
     return
 
 label attention_already_in(the_person):
