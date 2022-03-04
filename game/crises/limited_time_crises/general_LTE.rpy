@@ -599,13 +599,13 @@ label work_spank_opportunity(the_person):
                 the_person "Hello [the_person.mc_title]. Am I not working hard enough?"
                 $ mc.change_locked_clarity(10)
                 menu:
-                    "You're doing fine.":
+                    "You're doing fine":
                         "You rest your hand on her butt, squeezing it gently."
                         mc.name "You're doing fine. Pretend I'm not even here."
                         the_person "You're making that a little hard... ah..."
                         mc.name "The feeling's mutual."
 
-                    "No, you're not.":
+                    "No, you're not":
                         "You smack her ass again. She gasps, more for effect than actual surprise."
                         mc.name "No, you're not. Now get back to it."
                         the_person "Right away [the_person.mc_title]!"
