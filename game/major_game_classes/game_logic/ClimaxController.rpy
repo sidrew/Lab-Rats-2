@@ -59,15 +59,15 @@ init -2 python:
             return
 
         @staticmethod
-        def manual_clarity_release(climax_type = "masturbation", the_person = None):
+        def manual_clarity_release(climax_type = "masturbation", the_person = None, add_to_log = True):
             multiplier = ClimaxController.get_climax_multiplier(climax_type)
 
             if climax_type != "masturbation" and the_person is None:
                 renpy.say(None, "Error: called manual clarity release with " + climax_type + " without passing a person parameter.")
 
             if the_person:
-                mc.convert_locked_clarity(multiplier, with_novelty = the_person.novelty)
-                the_person.change_novelty(-5)
+                mc.convert_locked_clarity(multiplier, with_novelty = the_person.novelty, add_to_log = add_to_log)
+                the_person.change_novelty(-5, add_to_log = add_to_log)
             else:
                 mc.convert_locked_clarity(multiplier, with_novelty = mc.masturbation_novelty)
                 mc.change_masturbation_novelty(-5, add_to_log = False)
