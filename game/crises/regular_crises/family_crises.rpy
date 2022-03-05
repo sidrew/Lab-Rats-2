@@ -761,8 +761,6 @@ label mom_morning_surprise_label():
                                 the_person "I don't... That wasn't what we should do [the_person.mc_title]."
                                 mc.name "You were just being a loving mother and doing what I asked. That was amazing."
                                 $ the_person.change_obedience(5)
-                                $ the_person.change_slut(2 + the_person.get_opinion_score("drinking cum"), 50)
-                                $ the_person.discover_opinion("drinking cum")
                                 "I... I don't know. Just don't tell anyone, okay?"
                                 mc.name "Of course, I promise [the_person.title]."
                                 $ the_person.draw_person()
@@ -790,8 +788,6 @@ label mom_morning_surprise_label():
                                 $ the_person.draw_person()
                                 mc.name "It's okay Mom, you were just being a loving mother and doing what I asked."
                                 $ the_person.change_obedience(3)
-                                $ the_person.change_slut(2 + the_person.get_opinion_score("being covered in cum"), 50)
-                                $ the_person.discover_opinion("being covered in cum")
                                 "She smiles, seemingly proud of the compliment."
                                 the_person "Maybe you're right... Now hurry up and get dressed before you're late!"
 
