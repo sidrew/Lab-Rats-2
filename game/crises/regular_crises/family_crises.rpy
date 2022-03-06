@@ -963,9 +963,11 @@ label mom_morning_surprise_label():
         "You're woken up by your bed shifting under you and a sudden weight around your waist."
         $ the_person.draw_person(position = "cowgirl", emotion = "happy")
         $ mc.change_locked_clarity(25)
+        $ mc.change_arousal(10)
         "[the_person.possessive_title] has pulled down your sheets and underwear and is straddling you. The tip of your morning wood is brushing against her pussy."
         the_person "Good morning [the_person.mc_title]. I didn't hear your alarm go off and when I came to check on you I noticed this..."
         $ mc.change_locked_clarity(5)
+        $ mc.change_arousal(10)
         "She grinds her hips back and forth, rubbing your shaft along the lips of her cunt."
         the_person "Would you like me to take care of this for you?"
         menu:
@@ -979,6 +981,7 @@ label mom_morning_surprise_label():
                     the_person "Just this once... Mommy is going to take care of you in a very special way."
                     $ the_person.break_taboo("vaginal_sex")
 
+                $ mc.change_arousal(10)
                 "You lie back relax as [the_person.possessive_title] lowers herself down onto your hard cock."
                 call fuck_person(the_person, start_position = cowgirl, start_object = bedroom.get_object_with_name("bed"), skip_intro = True, girl_in_charge = True,position_locked=True,self_strip=False) from _call_fuck_person_15
                 $ the_report = _return
