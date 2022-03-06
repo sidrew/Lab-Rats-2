@@ -207,7 +207,7 @@ label mom_outfit_help_crisis_label():
                     "[the_person.possessive_title] finishes stripping down and starts to get dressed in her new outfit. After a few moments she's all put together again."
                     the_person "Okay [the_person.mc_title], you can turn around now."
 
-            "Wait until she's done.":
+            "Wait until she's done":
                 "You twiddle your thumbs until [the_person.possessive_title] is finished changing."
                 the_person "Okay, all done. You can turn around now."
 

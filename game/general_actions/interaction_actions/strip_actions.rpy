@@ -1810,7 +1810,7 @@ label strip_cum_question_loop(the_person, girl_state, girl_direction, girl_aware
                         "Pay her\n{color=#ff0000}{size=18}Requires: $[bribe_cost]{/size}{/color} (disabled)" if not mc.business.has_funds(bribe_cost):
                             pass
 
-                        "Refuse.":
+                        "Refuse":
                             mc.name "I'm not paying you, I've already gotten what I paid for."
                             "[the_person.title] glares at you, but quickly realizes she doesn't have much leverage right now."
                             $ the_person.change_happiness(-10 + 2*the_person.get_opinion_score("being submissive"))

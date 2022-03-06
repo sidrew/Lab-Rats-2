@@ -281,14 +281,14 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
 
         if office_punishment.is_active():
             menu:
-                "Punish her for her inappropriate behaviour.":
+                "Punish her for her inappropriate behaviour":
                     mc.name "That was completely inappropriate for the office. I'm going to have to mark this down on your record."
                     the_person "I... Come on [the_person.mc_title], can't you let this one go?"
                     mc.name "I wish I could, but the rules are the rules. Everyone has to follow them."
                     $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
                     "She sighs, but nods her understanding."
 
-                "Let it go.":
+                "Let it go":
                     pass
 
         else:
