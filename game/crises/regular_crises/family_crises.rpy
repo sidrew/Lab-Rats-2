@@ -783,9 +783,9 @@ label mom_morning_surprise_label():
 
                                 "You grunt and climax, firing your load out and right onto [the_person.possessive_title]'s chest."
                                 $ the_person.cum_on_tits()
+                                $ the_person.draw_person(position = "kneeling1")
                                 $ climax_controller.do_clarity_release(the_person)
                                 the_person "I... Oh [the_person.mc_title], I don't think I should have let you do that."
-                                $ the_person.draw_person()
                                 mc.name "It's okay Mom, you were just being a loving mother and doing what I asked."
                                 $ the_person.change_obedience(3)
                                 "She smiles, seemingly proud of the compliment."

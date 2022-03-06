@@ -717,6 +717,7 @@ label photo_sex(the_person):
             $ climax_controller.do_clarity_release(the_person)
             "You stay tight against her while you pump your hot load deep inside of her pussy. She closes her eyes and moans."
             $ mc.change_locked_clarity(10)
+            $ the_person.draw_person(position = "missionary")
             "For a few seconds you're both quiet, panting for breath. You make sure to get some pictures as you pull out and your cum drips out of her cunt."
             $ the_person.call_dialogue("cum_vagina")
             $ came_inside_mod = 10
