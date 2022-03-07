@@ -1782,13 +1782,13 @@ init -2 python:
                 return False
 
             return mc.business.get_uniform_wardrobe_for_person(self).get_count() > 0 \
-                or or self.event_triggers_dict.get("forced_uniform", False)
+                or self.event_triggers_dict.get("forced_uniform", False)
 
         def wear_uniform(self): #Puts the girl into her uniform, if it exists.
             if self.planned_uniform is None:
                 if self.event_triggers_dict.get("forced_uniform", False):
                     the_uniform = self.event_triggers_dict.get("forced_uniform")
-                else
+                else:
                     the_uniform = mc.business.get_uniform_wardrobe_for_person(self).decide_on_uniform(self)
                 self.set_uniform(the_uniform, False) #If we don't have a uniform planned for today get one.
 
