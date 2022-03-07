@@ -81,7 +81,7 @@ label plan_fuck_date_label(the_person):
         if day & 7 == 3:
             the_person "Mmm... Why wait? Come over tonight."
         else:
-            the_person "Mmm... Think you can wait until Friday?"
+            the_person "Mmm... Think you can wait until Thursday?"
 
     menu:
         "Plan a date for Thursday night":
