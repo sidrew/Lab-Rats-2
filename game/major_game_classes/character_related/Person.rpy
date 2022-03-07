@@ -1781,19 +1781,15 @@ init -2 python:
             if not mc.business.is_open_for_business():  # quick exit
                 return False
 
-            #Check to see if we are: 1) Employed by the PC. 2) At work right now. 3) there is a uniform set for our department.
-            employment_title = mc.business.get_employee_title(self)
-            if employment_title != "None":
-                if mc.business.get_uniform_wardrobe(employment_title).get_count() > 0 or self.event_triggers_dict.get("forced_uniform", False): #Check to see if there's anything stored in the uniform section.
-                    return True
-
-            return False #If we fail to meet any of the above conditions we should return false.
+            return mc.business.get_uniform_wardrobe_for_person(self).get_count() > 0 \
+                or or self.event_triggers_dict.get("forced_uniform", False)
 
         def wear_uniform(self): #Puts the girl into her uniform, if it exists.
             if self.planned_uniform is None:
-                the_uniform = mc.business.get_uniform_wardrobe(mc.business.get_employee_title(self)).decide_on_uniform(self)
                 if self.event_triggers_dict.get("forced_uniform", False):
                     the_uniform = self.event_triggers_dict.get("forced_uniform")
+                else
+                    the_uniform = mc.business.get_uniform_wardrobe_for_person(self).decide_on_uniform(self)
                 self.set_uniform(the_uniform, False) #If we don't have a uniform planned for today get one.
 
             if self.planned_uniform is not None: #If our planned uniform is STILL None it means we are unable to construct a valid uniform. Only assign it as our outfit if we have managed to construct a uniform.
