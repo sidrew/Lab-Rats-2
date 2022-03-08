@@ -1446,9 +1446,12 @@ init -2 python:
             self.add_situational_obedience(source, 0)
 
         def change_obedience(self,amount, add_to_log = True):
+            if self.obedience + amount < 0:
+                amount = -self.obedience
+            elif self.obedience + amount > 300:
+                amount = 300 - self.obedience
+
             self.obedience += amount
-            if self.obedience < 0:
-                self.obedience = 0
 
             if add_to_log and amount != 0: #If we don't know the title don't add it to the log, because we know nothing about the person
                 display_name = self.create_formatted_title("???")
