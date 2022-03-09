@@ -54,9 +54,9 @@ label attention_event():
     $ city_rep.event_triggers_dict["bribe_successful"] = None #Store the most recently used bribe option so we can have some specific dialogues
 
     if city_rep.event_triggers_dict.get("city_rep_forced_uniform", False):
-        $ city_rep.apply_outfit(city_rep.event_triggers_dict.get("city_rep_forced_uniform", Outfit("Nude")))
+        $ city_rep.apply_outfit(city_rep.event_triggers_dict.get("city_rep_forced_uniform", city_rep.wardrobe.get_random_appropriate_outfit(city_rep.sluttiness, guarantee_output = True)))
     else:
-        $ city_rep.apply_outfit(city_rep.wardrobe.build_appropriate_outfit(city_rep.sluttiness))
+        $ city_rep.apply_outfit(city_rep.wardrobe.decide_on_outfit(city_rep.sluttiness))
 
     if mc.is_at_work():
         call attention_already_in(city_rep) from _call_attention_already_in_attention_event

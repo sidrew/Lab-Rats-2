@@ -298,8 +298,6 @@ label movie_date_label(the_person):
                                     $ the_person.cum_in_mouth()
                                     $ the_person.draw_person(position = "sitting")
                                     "She waits until you're finished, then pulls off your cock, wipes her lips on the back of her hand, and sits down next to you."
-                                    $ the_person.change_slut(1 + the_person.get_opinion_score("drinking cum"), 60)
-                                    $ the_person.discover_opinion("drinking cum")
                                     the_person "Mmm, thank you. That was fun."
                                     "She takes your hand and holds it. You lean back, thoroughly spent, and zone out for the rest of the movie."
                                 elif the_choice == "Cum down her throat":
@@ -310,9 +308,7 @@ label movie_date_label(the_person):
                                         "You cum, pumping your load out in big, hot pulses right into her stomach. In the dim theater light you can see her flutter with each new deposit."
                                         $ the_person.cum_in_mouth()
                                         "When you're entirely spent you let go of [the_person.possessive_title]'s head and sit back with a sigh."
-                                        $ the_person.change_slut(2 + the_person.get_opinion_score("being submissive") + the_person.get_opinion_score("drinking cum"), 80)
                                         $ the_person.discover_opinion("being submissive")
-                                        $ the_person.discover_opinion("drinking cum")
                                         "[the_person.title] doesn't move for another few long seconds. You feel her throat constrict a few times as she swallows the last of your cum first."
                                         $ the_person.draw_person(position = "sitting")
                                         "She finally slides off of your dick and sits back down in her seat. She takes your hand and holds it tight in hers."
@@ -326,7 +322,6 @@ label movie_date_label(the_person):
                                         $ the_person.draw_person(position = "kneeling1", emotion = "angry")
                                         "When you're entirely spent you let go of [the_person.possessive_title]'s head and sit back with a sigh."
                                         $ the_person.change_love(-2)
-                                        $ the_person.change_slut(1, 80)
                                         $ the_person.change_obedience(1)
                                         "She pulls off your dick and gasps for breath. When she's recovered she glares up at you."
                                         mc.name "Sorry, I got carried away."
@@ -1150,7 +1145,7 @@ label shopping_date_changing_room(the_person, new_outfit, changing_type):
                 $ the_person.draw_person()
                 "A little more waiting, then the curtain slides open again."
 
-            elif the_person.effective_sluttiness() > 60 - 10*(the_person.get_opinion_score("skimpy outfits") + the_person.get_opinion_score("public sex")) and not new_outfit.tits_visible() and not new_outfit.vagina_visible():
+            elif the_person.effective_sluttiness() > 60 - 10*(the_person.get_opinion_score(["skimpy outfits", "public sex"])) and not new_outfit.tits_visible() and not new_outfit.vagina_visible():
                 if new_outfit.get_underwear_slut_score() <= 5:
                     if the_person.has_role(sister_role):
                         the_person "This is disappointing. It looks like something our grandmother would wear!"
@@ -1386,10 +1381,10 @@ label shopping_date_inside_changing_room(the_person, new_outfit, changing_type, 
                 mc.name "I won't be long, I just need to take care of this."
 
 
-            $ blowjob_slut_requirement = 40 - 5* (the_person.get_opinion_score("public sex") + the_person.get_opinion_score("giving blowjobs"))
+            $ blowjob_slut_requirement = 40 - 5* (the_person.get_opinion_score(["public sex", "giving blowjobs"]))
             $ blowjob_slut_token = get_red_heart(blowjob_slut_requirement)
 
-            $ sex_slut_requirement = 60 - 5* (the_person.get_opinion_score("public sex") + the_person.get_opinion_score("vaginal sex"))
+            $ sex_slut_requirement = 60 - 5* (the_person.get_opinion_score(["public sex", "vaginal sex"]))
             $ sex_slut_token = get_red_heart(sex_slut_requirement)
 
             menu:

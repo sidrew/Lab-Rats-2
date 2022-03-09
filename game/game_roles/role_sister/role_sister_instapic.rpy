@@ -524,7 +524,7 @@ label sister_instathot_special_underwear(the_person): #She's been asked to do an
     if strip_list:
         "[the_person.title] starts to pull her clothes off."
         $ generalised_strip_description(the_person, strip_list)
-        $ del strip_list
+        $ strip_list = None
     $ mc.change_locked_clarity(10)
 
     if the_person.outfit.tits_visible() or the_person.outfit.vagina_visible():
@@ -994,7 +994,7 @@ label sister_instathot_label_mom(the_sister, the_mom):
                                 mc.name "You cover up [the_sister.title] and she covers you up. Nothing that breaks the rules, but it still gets a lot of views."
                                 $ the_group.draw_person(the_sister)
                                 "[the_sister.possessive_title] nods encouragingly."
-                                the_sister "Yeah, that's it. You'll do ti for me, right [the_mom.title]?"
+                                the_sister "Yeah, that's it. You'll do it for me, right [the_mom.title]?"
                                 call sister_instathot_label_mom_shirtless(the_sister, the_mom, the_group) from _call_sister_instathot_mom_shirtless_sister_2
 
                             "We're just going to tease them\n{color=#00ff00}{size=18}Requires: [the_mom.title] [tease_token]{/size}{/color} (disabled)" if the_mom.effective_sluttiness() < tease_requirement:

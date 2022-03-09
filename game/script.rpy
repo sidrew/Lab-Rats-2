@@ -159,7 +159,7 @@ label start:
     "Vren" "[config.version] represents an early iteration of Lab Rats 2. Expect to run into limited content, unexplained features, and unbalanced game mechanics."
     "Vren" "Would you like to view the FAQ?"
     menu:
-        "View the FAQ.":
+        "View the FAQ":
             call faq_loop from _call_faq_loop
         "Get on with the game!":
             "You can access the FAQ from your bedroom at any time."
@@ -181,10 +181,10 @@ label start:
     call initialize_game_state(store.name,store.b_name,store.l_name,return_arrays[0],return_arrays[1],return_arrays[2]) from _call_initialize_game_state_1
     $ renpy.block_rollback()
     menu:
-        "Play introduction and tutorial.":
+        "Play introduction and tutorial":
             call tutorial_start from _call_tutorial_start_1
 
-        "Skip introduction and tutorial.":
+        "Skip introduction and tutorial":
             $ mc.business.event_triggers_dict["Tutorial_Section"] = False
     jump normal_start
 
@@ -739,7 +739,7 @@ init 0 python:
         return
 
 
-label initialize_game_state(character_name,business_name,last_name,stat_array,skill_array,_sex_array,max_num_of_random=5): #Gets all of the variables ready. TODO: Move some of this stuff to an init block?
+label initialize_game_state(character_name,business_name,last_name,stat_array,skill_array,_sex_array,max_num_of_random=3): #Gets all of the variables ready. TODO: Move some of this stuff to an init block?
 
     ##Global Variable Initialization##
     python:
@@ -999,7 +999,7 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
         city_hall.add_object(make_chair())
         city_hall.add_object(make_table())
 
-    call instantiate_jobs() #We need locations to exist before we can set up jobs, so we do that here.
+    call instantiate_jobs() from _call_instantiate_jobs_1 #We need locations to exist before we can set up jobs, so we do that here.
     $ c = 0
     while c < len(list_of_instantiation_labels):
         $ renpy.call(list_of_instantiation_labels[c])

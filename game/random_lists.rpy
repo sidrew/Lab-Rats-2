@@ -314,7 +314,6 @@ init -2:
         list_of_last_names.append("Llandry")
         list_of_last_names.append("Selkirk")
         list_of_last_names.append("James")
-        list_of_last_names.append("Laura")
         list_of_last_names.append("Belgazoo")
         list_of_last_names.append("Linden")
         list_of_last_names.append("Sov")
@@ -330,7 +329,6 @@ init -2:
         list_of_last_names.append("Holmes")
         list_of_last_names.append("Birch")
         list_of_last_names.append("Akira")
-        list_of_last_names.append("Holmes")
         list_of_last_names.append("Benson")
         list_of_last_names.append("Spitz")
         list_of_last_names.append("Rose")
@@ -350,7 +348,6 @@ init -2:
         list_of_last_names.append("Swann")
         list_of_last_names.append("Wildmoser")
         list_of_last_names.append("Sánchez")
-        list_of_last_names.append("Jones")
         list_of_last_names.append("Tanaka")
         list_of_last_names.append("DeVille")
         list_of_last_names.append("Onuki")
@@ -773,11 +770,11 @@ init -2:
                 if the_person.sex_record.get("Vaginal Creampies", 0) >= 20:
                     list_of_titles.append("Breeding Material")
 
-            if the_person.sluttiness > (70 - (the_person.get_opinion_score("drinking cum")*5 + the_person.get_opinion_score("creampies")*5 + the_person.get_opinion_score("cum facials")*5 + the_person.get_opinion_score("being covered in cum")*5)):
+            if the_person.sluttiness > (70 - (the_person.get_opinion_score(["drinking cum", "creampies", "cum facials","being covered in cum"])*5)):
                 if the_person.sex_record.get("Cum Facials", 0) > 5 or the_person.sex_record.get("Cum in Mouth", 0) > 5 or the_person.sex_record.get("Cum Covered", 0) > 5:
                     list_of_titles.append("Cumslut")
 
-            if the_person.sluttiness > (70 - (the_person.get_opinion_score("bareback sex")*5 + the_person.get_opinion_score("creampies")*5)):
+            if the_person.sluttiness > (70 - (the_person.get_opinion_score(["bareback sex", "creampies"])*5)):
                 if the_person.sex_record.get("Vaginal Creampies", 0) > 5 or the_person.sex_record.get("Anal Creampies", 0) > 5:
                     list_of_titles.append("Cumdump")
 
@@ -1207,7 +1204,9 @@ init 1 python:
             start_sluttiness = 10, start_obedience = 5, start_happiness = 85, start_love = 0, start_home = emily.home, relationship = "Married", kids = 1, base_outfit = christina_base)
 
         christina.set_schedule(christina.home) #She's a stay-at-home Mom.
-        christina.add_job(unemployed_job)
+        christina_job = Job("Throphy Wife", critical_job_role, christina.home, work_days = [0,1,2,3,4,5,6])
+
+        christina.add_job(christina_job)
         christina.home.add_person(christina)
         #Note: She plays an important role to Emily's story, but she is just given the normal affair role during the game.
 
@@ -1238,7 +1237,6 @@ init 1 python:
         city_rep.add_role(city_rep_role)
         city_rep.add_job(city_rep_job)
         city_rep.generate_home().add_person(city_rep)
-        city_rep.set_schedule(city_rep.home)
 
         ### LILY ###
         global lily

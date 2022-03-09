@@ -281,14 +281,14 @@ label work_walk_in_label(the_person): #Walk into the room and find someone mastu
 
         if office_punishment.is_active():
             menu:
-                "Punish her for her inappropriate behaviour.":
+                "Punish her for her inappropriate behaviour":
                     mc.name "That was completely inappropriate for the office. I'm going to have to mark this down on your record."
                     the_person "I... Come on [the_person.mc_title], can't you let this one go?"
                     mc.name "I wish I could, but the rules are the rules. Everyone has to follow them."
                     $ the_person.add_infraction(Infraction.inappropriate_behaviour_factory())
                     "She sighs, but nods her understanding."
 
-                "Let it go.":
+                "Let it go":
                     pass
 
         else:
@@ -599,13 +599,13 @@ label work_spank_opportunity(the_person):
                 the_person "Hello [the_person.mc_title]. Am I not working hard enough?"
                 $ mc.change_locked_clarity(10)
                 menu:
-                    "You're doing fine.":
+                    "You're doing fine":
                         "You rest your hand on her butt, squeezing it gently."
                         mc.name "You're doing fine. Pretend I'm not even here."
                         the_person "You're making that a little hard... ah..."
                         mc.name "The feeling's mutual."
 
-                    "No, you're not.":
+                    "No, you're not":
                         "You smack her ass again. She gasps, more for effect than actual surprise."
                         mc.name "No, you're not. Now get back to it."
                         the_person "Right away [the_person.mc_title]!"
@@ -660,7 +660,7 @@ label work_spank_opportunity(the_person):
                     "Keep fingering her":
                         mc.name "I think you have. Here let me help you..."
                         $ the_person.change_arousal(10+10*the_person.get_opinion_score("being fingered"))
-                        call fuck_person(the_person, start_position = standing_finger, skip_intro = True)
+                        call fuck_person(the_person, start_position = standing_finger, skip_intro = True) from _call_fuck_person_131
                         $ the_report = _return
                         $ the_person.call_dialogue("sex_review", the_report = the_report)
 

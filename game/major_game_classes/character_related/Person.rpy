@@ -1446,9 +1446,12 @@ init -2 python:
             self.add_situational_obedience(source, 0)
 
         def change_obedience(self,amount, add_to_log = True):
+            if self.obedience + amount < 0:
+                amount = -self.obedience
+            elif self.obedience + amount > 300:
+                amount = 300 - self.obedience
+
             self.obedience += amount
-            if self.obedience < 0:
-                self.obedience = 0
 
             if add_to_log and amount != 0: #If we don't know the title don't add it to the log, because we know nothing about the person
                 display_name = self.create_formatted_title("???")
@@ -1781,19 +1784,15 @@ init -2 python:
             if not mc.business.is_open_for_business():  # quick exit
                 return False
 
-            #Check to see if we are: 1) Employed by the PC. 2) At work right now. 3) there is a uniform set for our department.
-            employment_title = mc.business.get_employee_title(self)
-            if employment_title != "None":
-                if mc.business.get_uniform_wardrobe(employment_title).get_count() > 0 or self.event_triggers_dict.get("forced_uniform", False): #Check to see if there's anything stored in the uniform section.
-                    return True
-
-            return False #If we fail to meet any of the above conditions we should return false.
+            return mc.business.get_uniform_wardrobe_for_person(self).get_count() > 0 \
+                or self.event_triggers_dict.get("forced_uniform", False)
 
         def wear_uniform(self): #Puts the girl into her uniform, if it exists.
             if self.planned_uniform is None:
-                the_uniform = mc.business.get_uniform_wardrobe(mc.business.get_employee_title(self)).decide_on_uniform(self)
                 if self.event_triggers_dict.get("forced_uniform", False):
                     the_uniform = self.event_triggers_dict.get("forced_uniform")
+                else:
+                    the_uniform = mc.business.get_uniform_wardrobe_for_person(self).decide_on_uniform(self)
                 self.set_uniform(the_uniform, False) #If we don't have a uniform planned for today get one.
 
             if self.planned_uniform is not None: #If our planned uniform is STILL None it means we are unable to construct a valid uniform. Only assign it as our outfit if we have managed to construct a uniform.
@@ -1978,8 +1977,8 @@ init -2 python:
                 the_cumshot.layer = 0
                 self.outfit.add_accessory(the_cumshot)
 
-            self.change_slut(self.get_opinion_score("drinking cum"))
-            self.change_happiness(5*self.get_opinion_score("drinking cum"))
+            self.change_slut(self.get_opinion_score("drinking cum"), add_to_log = add_to_record)
+            self.change_happiness(5*self.get_opinion_score("drinking cum"), add_to_log = add_to_record)
             self.discover_opinion("drinking cum", add_to_log = add_to_record)
 
             if add_to_record:
@@ -1995,13 +1994,13 @@ init -2 python:
             slut_change_amount =  self.get_opinion_score("creampies")
 
             if self.wants_creampie():
-                self.change_happiness(5*self.get_opinion_score("creampies"))
+                self.change_happiness(5*self.get_opinion_score("creampies"), add_to_log = add_to_record)
             else:
-                self.change_happiness(-5 + (5*self.get_opinion_score("creampies")))
-                self.change_love(-2 + self.get_opinion_score("creampies"))
+                self.change_happiness(-5 + (5*self.get_opinion_score("creampies")), add_to_log = add_to_record)
+                self.change_love(-2 + self.get_opinion_score("creampies"), add_to_log = add_to_record)
                 slut_change_amount += self.get_opinion_score("being_submissive")
 
-            self.change_slut(slut_change_amount)
+            self.change_slut(slut_change_amount, add_to_log = add_to_record)
             self.discover_opinion("creampies", add_to_log = add_to_record)
 
             if add_to_record:
@@ -2040,10 +2039,10 @@ init -2 python:
                 self.outfit.add_accessory(the_cumshot)
 
             if not self.wants_creampie():
-                self.change_love(-2 + self.get_opinion_score("anal creampies"))
+                self.change_love(-2 + self.get_opinion_score("anal creampies"), add_to_log = add_to_record)
 
-            self.change_happiness(5 * self.get_opinion_score("anal creampies"))
-            self.change_slut_temp(self.get_opinion_score("anal creampies"))
+            self.change_happiness(5 * self.get_opinion_score("anal creampies"), add_to_log = add_to_record)
+            self.change_slut(self.get_opinion_score("anal creampies"), add_to_log = add_to_record)
             self.discover_opinion("anal creampies", add_to_log = add_to_record)
 
             if add_to_record:
@@ -2059,12 +2058,12 @@ init -2 python:
                 the_cumshot.layer = 0
                 self.outfit.add_accessory(the_cumshot)
 
-            self.change_slut(self.get_opinion_score("cum facials"))
-            self.change_happiness(5*self.get_opinion_score("cum facials"))
+            self.change_slut(self.get_opinion_score("cum facials"), add_to_log = add_to_record)
+            self.change_happiness(5*self.get_opinion_score("cum facials"), add_to_log = add_to_record)
             self.discover_opinion("cum facials", add_to_log = add_to_record)
 
-            self.change_slut(self.get_opinion_score("being covered in cum"))
-            self.change_happiness(5*self.get_opinion_score("being covered in cum"))
+            self.change_slut(self.get_opinion_score("being covered in cum"), add_to_log = add_to_record)
+            self.change_happiness(5*self.get_opinion_score("being covered in cum"), add_to_log = add_to_record)
             self.discover_opinion("being covered in cum", add_to_log = add_to_record)
 
             if add_to_record:
@@ -2080,8 +2079,8 @@ init -2 python:
                 the_cumshot.layer = top_layer+1 #The cumshot lives on a layer it hit, above the one it hit. Accessories are drawn first in the hirearchy, so they have to be on a level higehr than what they hit.
                 self.outfit.add_accessory(the_cumshot)
 
-            self.change_slut(self.get_opinion_score("being covered in cum"))
-            self.change_happiness(5*self.get_opinion_score("being covered in cum"))
+            self.change_slut(self.get_opinion_score("being covered in cum"), add_to_log = add_to_record)
+            self.change_happiness(5*self.get_opinion_score("being covered in cum"), add_to_log = add_to_record)
             self.discover_opinion("being covered in cum", add_to_log = add_to_record)
 
             if add_to_record:
@@ -2097,8 +2096,8 @@ init -2 python:
                 the_cumshot.layer = top_layer+1 #The cumshot lives on a layer it hit, above the one it hit. Accessories are drawn first in the hirearchy, so they have to be on a level higehr than what they hit.
                 self.outfit.add_accessory(the_cumshot)
 
-            self.change_slut(self.get_opinion_score("being covered in cum"))
-            self.change_happiness(5*self.get_opinion_score("being covered in cum"))
+            self.change_slut(self.get_opinion_score("being covered in cum"), add_to_log = add_to_record)
+            self.change_happiness(5*self.get_opinion_score("being covered in cum"), add_to_log = add_to_record)
             self.discover_opinion("being covered in cum", add_to_log = add_to_record)
 
             if add_to_record:
@@ -2114,8 +2113,8 @@ init -2 python:
                 the_cumshot.layer = top_layer+1 #The cumshot lives on a layer it hit, above the one it hit. Accessories are drawn first in the hirearchy, so they have to be on a level higehr than what they hit.
                 self.outfit.add_accessory(the_cumshot)
 
-            self.change_slut(self.get_opinion_score("being covered in cum"))
-            self.change_happiness(5*self.get_opinion_score("being covered in cum"))
+            self.change_slut(self.get_opinion_score("being covered in cum"), add_to_log = add_to_record)
+            self.change_happiness(5*self.get_opinion_score("being covered in cum"), add_to_log = add_to_record)
             self.discover_opinion("being covered in cum", add_to_log = add_to_record)
 
             if add_to_record:
