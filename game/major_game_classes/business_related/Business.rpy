@@ -357,15 +357,15 @@ init -2 python:
             if not person.job:
                 return None
 
-            if person.job.job_location == self.m_div:
+            if person.job == market_job:
                 return self.m_uniform
-            if person.job.job_location == self.r_div:
+            if person.job == rd_job:
                 return self.r_uniform
-            if person.job.job_location == self.p_div:
+            if person.job == production_job:
                 return self.p_uniform
-            if person.job.job_location == self.s_div:
+            if person.job == supply_job:
                 return self.s_uniform
-            if person.job.job_location == self.h_div:
+            if person.job == hr_job:
                 return self.h_uniform
             return None
 
