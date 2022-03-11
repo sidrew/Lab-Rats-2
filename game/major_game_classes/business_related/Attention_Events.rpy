@@ -204,7 +204,7 @@ label attention_seize_supplies(the_person):
 
 init 2 python:
     def city_rep_set_titles(person):
-        person.set_title("Ms." + person.last_name)
+        person.set_title("Mrs." + person.last_name)
         person.set_mc_title("Mr. " + mc.last_name)
         person.set_possessive_title("Your annoyance")
         return
