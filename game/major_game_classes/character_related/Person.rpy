@@ -1462,6 +1462,7 @@ init -2 python:
 
                 log_string = display_name + ": " + ("+" if amount > 0 else "") + str(amount) + " Obedience"
                 mc.log_event(log_string,"float_text_grey")
+            return amount
 
         def change_cha(self, amount, add_to_log = True):
             self.charisma += self.charisma_debt #Set our charisma to be our net score
