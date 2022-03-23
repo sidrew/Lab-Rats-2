@@ -70,8 +70,12 @@ init -1 python:
 
         if pubes_style is None:
             pubes_style = get_random_from_list(pube_styles).get_copy()
+        else:
+            pubes_style = pubes_style.get_copy()
 
-        pubes_colour = get_darkened_colour(hair_colour[1])
+        if pubes_colour is None:
+            pubes_colour = get_darkened_colour(hair_colour[1])
+
         pubes_style.colour = pubes_colour
 
         if eyes is None:
