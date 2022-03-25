@@ -337,7 +337,7 @@ label friends_help_friends_be_sluts_label():
         "You decide to take a walk, both to stretch your legs and to make sure your staff are staying on task."
         "You're passing by the break room when an unusual noise catches your attention. It sounds like distant and passionate feminine moaning."
         $ the_group.draw_group(position = "walking_away")
-        "Intrigued, you peak your head in and see [person_one.title] and [person_two.title]. They are staring intently at [person_one.title]'s phone while they stand next to the coffee machine."
+        "Intrigued, you peek your head in and see [person_one.title] and [person_two.title]. They are staring intently at [person_one.title]'s phone while they stand next to the coffee machine."
         menu:
             "Investigate":
                 if person_two.effective_sluttiness() < 30: #But the other girl is low sluttiness.
@@ -380,7 +380,7 @@ label friends_help_friends_be_sluts_label():
                     person_two "I hope you don't mind that we're watching... [person_one.name] just wanted to show me something quickly."
                     mc.name "I certainly don't mind."
                     $ the_group.draw_person(person_two)
-                    person_one "I told you it was fine. I found this last night and thought it was so hot. Do you want to take a look [person_one.mc_title]."
+                    person_one "I told you it was fine. I found this last night and thought it was so hot. Do you want to take a look, [person_one.mc_title]?"
                     "She holds her phone up for you to see. You lean in close and join the ladies watching porn on [person_one.title]'s phone."
                     # Discover something new about her sexuality
                     $ person_one.discover_opinion(person_one.get_random_opinion(include_known = True, include_sexy = True, include_normal = False, only_positive = True))
