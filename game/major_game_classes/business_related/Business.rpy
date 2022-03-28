@@ -354,8 +354,8 @@ init -2 python:
             return day%7 == 5 or day%7 == 6     #Checks to see if it is saturday or sunday. Note that days might eventually be both neither weekend or workday, or both weekend AND workday!
 
         def get_uniform_wardrobe_for_person(self, person):
-            if not person.job:
-                return None
+            if not person.job: # we have no job, so just pick from wardrobe
+                return person.wardrobe
 
             if person.job == market_job:
                 return self.m_uniform
@@ -367,7 +367,10 @@ init -2 python:
                 return self.s_uniform
             if person.job == hr_job:
                 return self.h_uniform
-            return None
+
+            # we didn't find a valid job related wardrobe ???
+            # pick a random job wardrobe
+            return renpy.random.choice([self.m_uniform, self.r_uniform, self.p_uniform, self.s_uniform, self.h_uniform])
 
         def get_uniform_limits(self): #Returns three values: the max sluttiness of a full outfit, max sluttiness of an underwear set, and if only overwear sets are allowed or notself.
             slut_limit = 0
