@@ -1,17 +1,13 @@
 ﻿#Aunt Role Action Requirements
 init -2 python:
     def aunt_intro_requirement(day_trigger):
-        if day >= day_trigger and day%7!=4 and time_of_day == 4:
-            return True
-        return False
+        return day >= day_trigger and day%7!=4 and time_of_day == 4
 
     def aunt_intro_phase_two_requirement(): #Always triggers the day after the initial intro event
         return True
 
     def aunt_intro_phase_three_requirement(day_trigger):
-        if day >= day_trigger:
-            return True
-        return False
+        return day >= day_trigger
 
     def aunt_intro_moving_apartment_requirement(the_person):
         if aunt.event_triggers_dict.get("moving_apartment",-1) >= 0:
@@ -32,58 +28,46 @@ init -2 python:
         return False
 
     def aunt_intro_phase_five_requirement(day_trigger):
-        if day >= day_trigger:
-            return True
-        return False
-
+        return day >= day_trigger
 
     def aunt_drink_intro_requirement(the_person):
-        if the_person in aunt_apartment.people:
-            return True
-        else:
-            return False
+        return aunt_apartment.has_person(the_person)
 
     def aunt_share_drinks_requirement(the_person):
         if not the_person.event_triggers_dict.get("invited_for_drinks", False):
             return False
-        elif the_person not in aunt_apartment.people:
+        elif not aunt_apartment.has_person(the_person):
             return False
         elif time_of_day < 3:
             return "Too early for drinks"
         elif time_of_day > 3:
             return "Too late for drinks"
-        else:
-            return True
+        return True
 
     def family_games_night_intro_requirement(the_person):
         if not the_person.event_triggers_dict.get("invited_for_drinks", False):
             return False
-        elif the_person not in aunt_apartment.people:
+        elif not aunt_apartment.has_person(the_person):
             return False
         elif time_of_day != 3:
             return False
         elif the_person.love < 20 or mom.love < 20:
             return False
-        else:
-            return True
+        return True
 
     def family_games_night_setup_requirement():
         if day%7 != 2: #Triggers Wednesday
             return False
         elif time_of_day != 3: #Only on the end of the 3rd time tick, which makes it active at the end of the day.
             return False
-        else:
-            return True
+        return True
 
     def family_games_night_requirement(the_mom, the_aunt):
-        if not the_mom in hall.people or not the_aunt in hall.people:
+        if day%7 != 2 or time_of_day != 4:
             return False
-        elif time_of_day != 4:
+        if not (hall.has_person(the_mom) and hall.has_person(the_aunt)):
             return False
-        elif day%7 != 2:
-            return False
-        else:
-            return True
+        return True
 
     def aunt_offer_hire_requirement(the_person):
         if not the_person.has_job(aunt_unemployed_job):
@@ -659,12 +643,12 @@ label aunt_intro_phase_final_label():
 
 label aunt_share_drink_intro_label(the_person):
     # On talk trigger after she has moved out and you visit her
-    # She invites you over to share some drinks. You can come by in the afternoon and share a drink with her.
+    # She invites you over to share some drinks. You can come by in the evening and share a drink with her.
     the_person "[the_person.mc_title], I'm so happy to see you! Come here, give me a hug."
     "[the_person.possessive_title] gives you a tight hug."
     mc.name "It's good to see you too [the_person.title]."
     the_person "We really should get together more often. I miss seeing my cute little nephew!"
-    the_person "Come by in the afternoon some time, you can join me for a glass of wine and we can chat."
+    the_person "Come by in the evening some time, you can join me for a glass of wine and we can chat."
     $ mc.change_locked_clarity(5)
     "She gives you a kiss on the cheek and smiles at you."
     $ the_person.change_happiness(1)
@@ -1458,7 +1442,7 @@ label family_games_night_drinks(the_mom, the_aunt): #Breakout function for the d
     # Get Lily and bring her back, gather around the kitchen table to play.
     return
 
-label family_games_night_cards(the_mom, the_aunt, the_sister): #Breakout function for the card game to keep things organized (and support adding new varients later)
+label family_games_night_cards(the_mom, the_aunt, the_sister): #Breakout function for the card game to keep things organized (and support adding new variants later)
 
     $ the_group = GroupDisplayManager([the_mom, the_aunt, the_sister], the_mom)
     $ the_group.draw_group()

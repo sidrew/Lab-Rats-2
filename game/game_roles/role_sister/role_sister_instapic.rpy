@@ -8,15 +8,14 @@ init -2 python:
             return False
         elif the_person.event_triggers_dict.get("insta_intro_finished", False):
             return False
-        elif the_person not in lily_bedroom.people:
+        elif not lily_bedroom.has_person(lily):
             return False
         elif __builtin__.len(lily_bedroom.people) > 1:
             return False
-        else:
-            return True
+        return True
 
     def instathot_requirement(the_person):
-        if lily not in lily_bedroom.people:
+        if not lily_bedroom.has_person(lily):
             return False
         elif __builtin__.len(lily_bedroom.people) > 1:
             return False
@@ -24,11 +23,10 @@ init -2 python:
             return "Too late to take pictures"
         elif time_of_day == 1:
             return "Too early to take pictures"
-        else:
-            return True
+        return True
 
     def sister_instapic_discover_requirement(the_person):
-        if lily not in lily_bedroom.people:
+        if not lily_bedroom.has_person(lily):
             return False #She's not at home, probably because of some other event
         elif not mc_at_home():
             return False #We're not at home, same deal.
@@ -38,8 +36,7 @@ init -2 python:
             return False #There's someone in our room, so she'll wait for another day
         elif the_person.event_triggers_dict.get("sister_instathot_mom_enabled", False):
             return False #She already knows, maybe this event got added twice somehow
-        else:
-            return True
+        return True
 
     def sister_instathot_mom_report_requirement(the_person, start_day):
         if day <= start_day:
@@ -48,8 +45,7 @@ init -2 python:
             return False #Don't talk to her in front of her face.
         elif not mc_at_home():
             return False #Don't talk about it outside of the house.
-        else:
-            return True
+        return True
 
     def sister_boobjob_give_serum_requirement(the_person):
         if not the_person.event_triggers_dict.get("sister_boobjob_serum_enabled", False):
@@ -58,26 +54,20 @@ init -2 python:
             return False
         elif the_person.event_triggers_dict.get("sister_boobjob_serum_last_day", -1) >= day:
             return "Already taken a dose today."
-        else:
-            return True
+        return True
 
     def sister_serum_new_boobs_check_requirement(the_person, starting_tits, end_day):
         if rank_tits(the_person.tits) - rank_tits(starting_tits) >= 2:
             return True #Her boobs grew, she'll trigger her brag event
         elif day >= end_day:
             return True #It's been too long, she'll trigger the fail/timeout event.
-        else:
-            return False #Don't trigger until one of those conditions is met.
+        return False #Don't trigger until one of those conditions is met.
 
     def sister_got_boobjob_requirement(start_day):
-        if day < start_day:
-            return False
-        return True
+        return day >= start_day
 
     def sister_get_boobjob_talk_requirment(the_person):
-        if the_person.event_triggers_dict.get("sister_boobjob_ask_enabled", False):
-            return True
-        return False
+        return the_person.event_triggers_dict.get("sister_boobjob_ask_enabled", False)
 
     def sister_boobjob_brag_requirement(the_person):
         return True
@@ -87,7 +77,7 @@ init -2 python:
 
     def add_sister_instahot_action():
         sister_instahot_action = Action("Help her take Insta-pics {image=gui/heart/Time_Advance.png}",instathot_requirement, "sister_instathot_label", menu_tooltip = "Help your sister grow her Insta-pic account by taking some pictures of her.")
-        sister_role.actions.append(sister_instahot_action)
+        sister_role.add_action(sister_instahot_action)
         return
 
     def add_sister_instathot_mom_report_action(person):
@@ -616,7 +606,7 @@ label sister_instathot_special_pictures(the_person, is_topless_shoot = True):
                 $ mc.change_locked_clarity(10)
                 the_person "Your big cock is making me cum! I'm such a dirty little slut, cumming on your huge dick!"
                 "[the_person.possessive_title] is panting loudly now as she continues to give a very convincing performance."
-                "...At least you're pretty sure it's a performance."
+                "... At least you're pretty sure it's a performance."
                 "You try to ignore the throbbing erection you have now and get a few more shots of [the_person.title]."
                 the_person "Cuuuumming! Aaaah! Ah... Ah...."
                 $ mc.change_locked_clarity(10)
@@ -635,7 +625,7 @@ label sister_instathot_special_pictures(the_person, is_topless_shoot = True):
             the_person "Oh, nothing. Sometimes I just wish my boobs were a little larger."
             the_person "Look at [mom.title], she's got huge boobs! These are..."
             "She grabs her chest and squeezes her tits in her hands."
-            the_person "...A little small. All the really popular girls on InstaPic have big boobs."
+            the_person "... A little small. All the really popular girls on InstaPic have big boobs."
             menu:
                 "Get bigger boobs" if rank_tits(the_person.tits) < 8:
                     mc.name "Then you should do something about it. You know you can just get fake boobs, right?"
@@ -734,7 +724,7 @@ label sister_instathot_mom_discover(the_person): # TODO: Hook this up as a night
     "You're getting ready for bed when your door is opened suddenly."
     $ the_person.draw_person(emotion = "angry")
     $ the_person.change_love(-2)
-    "[the_person.title] hurries in and slams the door behind her. She seems angry"
+    "[the_person.title] hurries in and slams the door behind her. She seems angry."
     the_person "Did you really tell [mom.title] about my InstaPic profile?"
     mc.name "Yeah, I did. She seems proud of you."
     the_person "I... You didn't tell her about the private pictures I've been sending, did you?"
@@ -754,7 +744,7 @@ label sister_instathot_mom_discover(the_person): # TODO: Hook this up as a night
             "[the_person.possessive_title] laughs and shakes her head."
             the_person "Oh my god, could you imagine? There's no way she would do it."
             mc.name "She wants a reason to spend time with you, I think she'd give it a try."
-            the_person "You really think so? But she's still my mom, isn't that a little weird."
+            the_person "You really think so? But she's still my mom, isn't that a little weird?"
             mc.name "It's just to keep your followers hooked. I bet that a bunch of them would be into an older woman."
             the_person "Eww, gross. Still..."
             $ the_person.change_slut(2, 60)
@@ -945,7 +935,7 @@ label sister_instathot_label_mom(the_sister, the_mom):
                 "Take your tits out": #TODO: Figure out what our requirements for this should be (mainly for Lily). Maybe a new event for Lily where she tells you people want shirtless shots.
 
                     mc.name "This is really good stuff, but I want just a little bit more."
-                    mc.name "How about you take your shirts off now girls."
+                    mc.name "How about you take your shirts off now, girls."
                     if the_mom.has_taboo("bare_tits"):#TODO: She's not okay with it until you've broken her taboo.
                         $ the_mom.change_obedience(-1)
                         $ the_group.draw_person(the_mom)
@@ -1176,7 +1166,7 @@ label sister_instathot_label_mom_shirtless(the_sister, the_mom, the_group): #Cal
                                 $ the_group.draw_person(the_sister)
                                 the_sister "Well I don't care. How do I look [the_sister.mc_title]?"
                                 if the_sister.has_large_tits():
-                                    "[the_sister.possessive_title] shakes her shoulders, jiggling her big for the camera."
+                                    "[the_sister.possessive_title] shakes her shoulders, jiggling her big tits for the camera."
                                 else:
                                     "[the_sister.possessive_title] shakes her shoulders, jiggling her little tits for the camera."
                                 the_sister "Come on [the_mom.title], just show them off a little!"
@@ -1201,7 +1191,7 @@ label sister_instathot_label_mom_shirtless(the_sister, the_mom, the_group): #Cal
                             #TODO: Here's where you can get them to start touching each other.
                             #TODO: Do that in the future.
 
-                        "Now show them to the camera\n{color=#00ff00}{size=18}Requires: both [red_heart_token] or likes incest{/size}{/color} (disabled)" if the_mom.effective_sluttiness < 55:
+                        "Now show them to the camera\n{color=#00ff00}{size=18}Requires: both [red_heart_token] or likes incest{/size}{/color} (disabled)" if the_mom.effective_sluttiness() < 55:
                             pass
 
                 else:
@@ -1260,7 +1250,7 @@ label sister_convince_mom_boobjob(the_mom, the_sister):
         $ the_group.draw_person(the_sister, position = "kneeling1")
         "[the_sister.possessive_title] shrugs."
         the_sister "No, he's right about that. All of the top influencers have big boobs. Bigger than me, at least."
-        mc.name "It can be real hard for flat chested girls like [the_sister.title] to make an impact."
+        mc.name "It can be real hard for flat-chested girls like [the_sister.title] to make an impact."
         $ the_group.draw_person(the_mom, position = "kneeling1")
         the_mom "[the_sister.title] isn't flat chested, they're just a bit little smaller than mine. I think they're the perfect size sweetheart."
         mc.name "I like them too, but that little bit makes all the difference to the InstaPic algorithm."

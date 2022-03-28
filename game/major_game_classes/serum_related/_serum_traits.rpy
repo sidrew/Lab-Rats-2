@@ -25,40 +25,48 @@ init -1:
 
         ## sedatives_trait_functions ##
         def sedatives_trait_on_apply(the_person, the_serum, add_to_log):
-            the_person.change_obedience(10, add_to_log = add_to_log)
+            change_amount = the_person.change_obedience(10, add_to_log = add_to_log)
+            the_serum.effects_dict["sedatives_trait"] = change_amount
             the_person.change_cha(-1, add_to_log = add_to_log)
             the_person.change_focus(-1, add_to_log = add_to_log)
             the_person.change_int(-1, add_to_log = add_to_log)
 
         def sedatives_trait_on_remove(the_person, the_serum, add_to_log):
-            the_person.change_obedience(-10, add_to_log = add_to_log)
+            change_amount = the_serum.effects_dict.get("sedatives_trait", 10) or 10
+            the_person.change_obedience(-change_amount, add_to_log = add_to_log)
             the_person.change_cha(1, add_to_log = add_to_log)
             the_person.change_focus(1, add_to_log = add_to_log)
             the_person.change_int(1, add_to_log = add_to_log)
 
         ## obedience_enhancer_functions ##
         def obedience_enhancer_on_apply(the_person, the_serum, add_to_log):
-            the_person.change_obedience(10, add_to_log = add_to_log)
+            change_amount = the_person.change_obedience(10, add_to_log = add_to_log)
+            the_serum.effects_dict["obedience_enhancer"] = change_amount
 
         def obedience_enhancer_on_remove(the_person, the_serum, add_to_log):
-            the_person.change_obedience(-10, add_to_log = add_to_log)
+            change_amount = the_serum.effects_dict.get("obedience_enhancer", 10) or 10
+            the_person.change_obedience(-change_amount, add_to_log = add_to_log)
 
         ## large_obedience_enhancer_functions ##
         def large_obedience_enhancer_on_apply(the_person, the_serum, add_to_log):
-            the_person.change_obedience(20, add_to_log = add_to_log)
+            change_amount = the_person.change_obedience(20, add_to_log = add_to_log)
+            the_serum.effects_dict["large_obedience_enhancer"] = change_amount
 
         def large_obedience_enhancer_on_remove(the_person, the_serum, add_to_log):
-            the_person.change_obedience(-20, add_to_log = add_to_log)
+            change_amount = the_serum.effects_dict.get("large_obedience_enhancer", 20) or 20
+            the_person.change_obedience(-change_amount, add_to_log = add_to_log)
 
         def large_obedience_enhancer_on_turn(the_person, the_serum, add_to_log):
             the_person.change_slut(-1, add_to_log = add_to_log)
 
         ## aphrodisiac_functions ##
         def aphrodisiac_on_apply(the_person, the_serum, add_to_log):
-            the_person.change_slut(15, add_to_log = add_to_log)
+            change_amount = the_person.change_slut(15, add_to_log = add_to_log)
+            the_serum.effects_dict["aphrodisiac"] = change_amount
 
         def aphrodisiac_on_remove(the_person, the_serum, add_to_log):
-            the_person.change_slut(-15, add_to_log = add_to_log)
+            change_amount = the_serum.effects_dict.get("aphrodisiac", 15) or 15
+            the_person.change_slut(-change_amount, add_to_log = add_to_log)
 
         def aphrodisiac_on_day(the_person, the_serum, add_to_log):
             the_person.change_obedience(-1, add_to_log = add_to_log)
@@ -85,23 +93,21 @@ init -1:
         def slutty_caffeine_trait_on_apply(the_person, the_serum, add_to_log):
             the_person.change_max_energy(20, add_to_log = add_to_log)
             the_person.change_energy(20, add_to_log = add_to_log)
-            the_person.change_slut(15, add_to_log = add_to_log)
+            change_amount = the_person.change_slut(15, add_to_log = add_to_log)
+            the_serum.effects_dict["slutty_caffeine"] = change_amount
 
         def slutty_caffeine_trait_on_remove(the_person, the_serum, add_to_log):
             the_person.change_max_energy(-20, add_to_log)
-            the_person.change_slut(-15, add_to_log = add_to_log)
+            change_amount = the_serum.effects_dict.get("slutty_caffeine", 15) or 15
+            the_person.change_slut(-change_amount, add_to_log = add_to_log)
 
         ## love_potion_functions ##
         def love_potion_on_apply(the_person, the_serum, add_to_log):
-            change_amount = 20
-            if the_person.love + change_amount > 100:
-                change_amount = 100 - the_person.love
+            change_amount = the_person.change_love(20, add_to_log = add_to_log)
             the_serum.effects_dict["love_potion_change"] = change_amount
 
-            the_person.change_love(change_amount, add_to_log = add_to_log)
-
         def love_potion_on_remove(the_person, the_serum, add_to_log):
-            change_amount = the_serum.effects_dict.get("love_potion_change", 20)
+            change_amount = the_serum.effects_dict.get("love_potion_change", 20) or 20
             the_person.change_love(-change_amount, add_to_log = add_to_log)
 
         ## off_label_drugs_functions ##
@@ -227,13 +233,13 @@ init -1:
             elif change_amount < 0:
                 change_amount = 0
 
-            the_person.change_slut(change_amount, add_to_log = add_to_log)
+            change_amount = the_person.change_slut(change_amount, add_to_log = add_to_log)
             the_serum.effects_dict["simple_aphrodesiac_amount"] = change_amount
 
             the_person.change_max_energy(-20, add_to_log = add_to_log)
 
         def simple_aphrodesiac_on_remove(the_person, the_serum, add_to_log):
-            change_amount = the_serum.effects_dict.get("simple_aphrodesiac_amount", 10)
+            change_amount = the_serum.effects_dict.get("simple_aphrodesiac_amount", 10) or 10
             the_person.change_slut(-change_amount, add_to_log = add_to_log)
 
             the_person.change_max_energy(20, add_to_log = add_to_log)
@@ -252,7 +258,7 @@ init -1:
             the_person.change_max_arousal(change_amount, add_to_log = add_to_log)
 
         def climax_enhancer_on_remove(the_person, the_serum, add_to_log):
-            change_amount = the_serum.effects_dict.get("climax_enhancer_amount", -20)
+            change_amount = the_serum.effects_dict.get("climax_enhancer_amount", -20) or -20
             the_person.change_max_arousal(-change_amount, add_to_log = add_to_log)
 
         def climax_enhancer_on_turn(the_person, the_serum, add_to_log):
@@ -410,11 +416,12 @@ init -1:
             the_person.change_obedience(change_amount)
 
         def nora_sluttiness_boost_on_apply(the_person, the_serum, add_to_log):
-            the_person.change_slut(20, add_to_log = add_to_log)
+            change_amount = the_person.change_slut(20, add_to_log = add_to_log)
+            the_serum.effects_dict["nora_sluttiness"] = change_amount
 
         def nora_sluttiness_boost_on_remove(the_person, the_serum, add_to_log):
-            the_person.change_slut(-20, add_to_log = add_to_log)
-
+            change_amount = the_serum.effects_dict.get("nora_sluttiness", 20) or 20
+            the_person.change_slut(-change_amount, add_to_log = add_to_log)
 
         ## nora_special_unlock_taits
         def nora_reward_mother_trait_on_turn(the_person, the_serum, add_to_log):
@@ -435,13 +442,16 @@ init -1:
 
         def nora_reward_nora_trait_on_apply(the_person, the_serum, add_to_log):
             amount = 5 * mc.int
-            the_person.change_slut(amount, add_to_log = add_to_log)
-            the_person.change_obedience(amount, add_to_log = add_to_log)
+            change_slut = the_person.change_slut(amount, add_to_log = add_to_log)
+            change_obed = the_person.change_obedience(amount, add_to_log = add_to_log)
+            the_serum.effects_dict["nora_reward_nora_slut"] = change_slut
+            the_serum.effects_dict["nora_reward_nora_obed"] = change_obed
 
         def nora_reward_nora_trait_on_remove(the_person, the_serum, add_to_log):
-            amount = 5 * mc.int
-            the_person.change_slut(-amount, add_to_log = add_to_log)
-            the_person.change_obedience(-amount, add_to_log = add_to_log)
+            change_slut = the_serum.effects_dict.get("nora_reward_nora_slut", 5 * mc.int) or 5 * mc.int
+            the_person.change_slut(-change_slut, add_to_log = add_to_log)
+            change_obed = the_serum.effects_dict.get("nora_reward_nora_obed", 5 * mc.int) or 5 * mc.int
+            the_person.change_obedience(-change_obed, add_to_log = add_to_log)
 
         def nora_reward_high_love_trait_on_turn(the_person, the_serum, add_to_log):
             if the_person.sluttiness > the_person.love and the_person.love < 100:
@@ -498,7 +508,7 @@ init -1:
             the_person.lactation_sources -= 3
 
             # restores original tit-size
-            tit_changes = the_serum.effects_dict.get("nora_hucow_tit_changes", 2)
+            tit_changes = the_serum.effects_dict.get("nora_hucow_tit_changes", 2) or 2
             for count in range(0, tit_changes):
                 the_person.tits = get_smaller_tits(the_person.tits) #Her tits start to swell.
 
@@ -665,7 +675,7 @@ init -1:
             mental_aspect = 1, physical_aspect = 0, sexual_aspect = 2, medical_aspect = 0, flaws_aspect = 0, attention = 1)
 
         foreplay_enhancer = SerumTrait(name = "Tactile Stimulator",
-            desc = "Tunes the subject's nerves, especially those in the extremities, to higher levels of precision. Increases a girls Foreplay skill for the duration.",
+            desc = "Tunes the subject's nerves, especially those in the extremities, to higher levels of precision. Increases a girl's Foreplay skill for the duration.",
             positive_slug = "+2 Foreplay Skill",
             negative_slug = "",
             research_added = 50,
@@ -1006,7 +1016,7 @@ init -1:
             mental_aspect = 0, physical_aspect = 0, sexual_aspect = 0, medical_aspect = 7, flaws_aspect = 0, attention = 1)
 
         breast_enhancement = SerumTrait(name = "Breast Enhancement",
-            desc = "Grows breasts overnight. Has a 25% chance of increasing a girls breast size by one step with each time unit.",
+            desc = "Grows breasts overnight. Has a 25% chance of increasing a girl's breast size by one step with each time unit.",
             positive_slug = "25% Chance/Turn Breast Growth",
             negative_slug = "",
             research_added = 125,
@@ -1019,7 +1029,7 @@ init -1:
             mental_aspect = 0, physical_aspect = 6, sexual_aspect = 2, medical_aspect = 1, flaws_aspect = 0, attention = 3)
 
         breast_reduction = SerumTrait(name = "Breast Reduction",
-            desc = "Shrinks breasts overnight. Has a 25% chance of decreasing a girls breast size by one step with each time unit.",
+            desc = "Shrinks breasts overnight. Has a 25% chance of decreasing a girl's breast size by one step with each time unit.",
             positive_slug = "25% Chance/Turn Breast Reduction",
             negative_slug = "",
             research_added = 125,
@@ -1471,8 +1481,8 @@ init -1:
             mental_aspect = 4, physical_aspect = 0, sexual_aspect = 7, medical_aspect = 0, flaws_aspect = 0, attention = 3)
 
         nora_reward_genius_trait = SerumTrait(name = "Natural Talent",
-            desc = "A special serum trait developed by Nora after studying someone who was a genius. Instantly and permanetly sets the recipients Intelligence, Charisma, and Focus to 5.",
-            positive_slug = "Sets Charisma, Intelligence, Focus to 5",
+            desc = "A special serum trait developed by Nora after studying someone who was a genius. Instantly and permanently raises the recipient's Intelligence, Charisma, and Focus to 7 if lower.",
+            positive_slug = "Raises Charisma, Intelligence, Focus to 7",
             negative_slug = "",
             research_added = 1000,
             base_side_effect_chance = 300,

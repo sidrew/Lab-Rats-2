@@ -65,7 +65,7 @@ init -2 python:
             self.free_work_points = 0
             self.free_sex_points = 0
 
-            #The maximum score you can have in each of the major skill catagories
+            #The maximum score you can have in each of the major skill categories
             self.max_stats = 8
             self.max_work_skills = 8
             self.max_sex_skills = 8
@@ -123,16 +123,17 @@ init -2 python:
 
         def change_energy(self, amount, add_to_log = True):
             amount = __builtin__.round(amount)
+            if amount + self.energy > self.max_energy:
+                amount = self.max_energy - self.energy
+            elif amount + self.energy < 0:
+                amount = -self.energy
+
             self.energy += amount
-            if self.energy > self.max_energy:
-                self.energy = self.max_energy
-            elif self.energy < 0:
-                self.energy = 0
 
             if add_to_log and amount != 0:
                 log_string = "You: " + ("+" if amount > 0 else "") + str(amount)  + " Energy"
                 mc.log_event(log_string, "float_text_yellow")
-            return
+            return amount
 
         def change_max_energy(self, amount, add_to_log = True):
             amount = __builtin__.round(amount)

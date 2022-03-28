@@ -185,7 +185,7 @@ init -2 python:
 
             ##Personality Stats##
             #Things like suggestibility, that change over the course of the game when the player interacts with the girl
-            self.suggestibility = 0 + suggest #How quickly/efficiently bleeding temporary sluttiness is turned into core sluttiness.
+            self.suggestibility = 0 + suggest #How likely a girl is to enter or deepen a trance when orgasming
             self.suggest_bag = [] #This will store a list of integers which are the different suggestion values fighting for control. Only the highest is used, maintained when serums are added and removed.
 
             self.happiness = happiness #Higher happiness makes a girl less likely to quit and more willing to put up with you pushing her using obedience.
@@ -1399,6 +1399,7 @@ init -2 python:
                 else:
                     log_string = ("+" if amount > 0 else "") + str(amount) + " Love"
                 mc.log_event(display_name + ": " + log_string, "float_text_pink")
+            return amount
 
         def change_slut(self, amount, max_modified_to = None, add_to_log = True):
             if max_modified_to and self.sluttiness + amount > max_modified_to:
@@ -1422,11 +1423,12 @@ init -2 python:
                 else: #It is exactly 0
                     log_string = ("+" if amount > 0 else "") + str(amount) + " Sluttiness"
                 mc.log_event(display_name + ": " + log_string, "float_text_pink")
+            return amount
 
         def change_slut_temp(self, amount, add_to_log = True):
-            self.change_slut(amount, add_to_log = add_to_log)
+            return self.change_slut(amount, add_to_log = add_to_log)
         def change_slut_core(self, amount, add_to_log = True, fire_event = True):
-            self.change_slut(amount, add_to_log = add_to_log)
+            return self.change_slut(amount, add_to_log = add_to_log)
 
         def add_situational_slut(self, source, amount, description = ""):
             self.situational_sluttiness[source] = (amount,description)
@@ -1460,6 +1462,7 @@ init -2 python:
 
                 log_string = display_name + ": " + ("+" if amount > 0 else "") + str(amount) + " Obedience"
                 mc.log_event(log_string,"float_text_grey")
+            return amount
 
         def change_cha(self, amount, add_to_log = True):
             self.charisma += self.charisma_debt #Set our charisma to be our net score
@@ -1629,14 +1632,16 @@ init -2 python:
                     display_name = self.title
                 log_string = display_name + ": " + ("+" if amount > 0 else "") + str(amount) + " Novelty"
                 mc.log_event(log_string, "float_text_yellow")
+            return amount
 
         def change_energy(self, amount, add_to_log = True):
             amount = __builtin__.round(amount)
+            if amount + self.energy > self.max_energy:
+                amount = self.max_energy - self.energy
+            elif amount + self.energy < 0:
+                amount = -self.energy
+
             self.energy += amount
-            if self.energy > self.max_energy:
-                self.energy = self.max_energy
-            elif self.energy < 0:
-                self.energy = 0
 
             if add_to_log and amount != 0:
                 display_name = self.create_formatted_title("???")
@@ -1644,7 +1649,7 @@ init -2 python:
                     display_name = self.title
                 log_string = display_name+ ": " + ("+" if amount > 0 else "") + str(amount) + " Energy"
                 mc.log_event(log_string, "float_text_yellow")
-            return
+            return amount
 
         def change_max_energy(self, amount, add_to_log = True):
             amount = __builtin__.round(amount)
@@ -1781,7 +1786,7 @@ init -2 python:
             return False
 
         def should_wear_uniform(self):
-            if not mc.business.is_open_for_business():  # quick exit
+            if not self.job or self.job.schedule.get_destination() is None:  # quick exit
                 return False
 
             if self.event_triggers_dict.get("forced_uniform", False):
@@ -1959,7 +1964,7 @@ init -2 python:
                 if add_to_log:
                     mc.log_event(display_name + " sinks deeper into a trance!", "float_text_red")
                 if show_dialogue:
-                    renpy.say(None, self.possessive_title + " eyes glaze over, and she sinks completely into a cum addled trance.")
+                    renpy.say(None, self.possessive_title + "'s eyes glaze over, and she sinks completely into a cum addled trance.")
 
             if reset_arousal:
                 self.reset_arousal() #TODO: Decide if resetting should only halve it, like making a girl cum yoruself.
@@ -2211,7 +2216,7 @@ init -2 python:
             return False
 
 
-        def add_job(self, new_job, job_known = True): #Start a new job, quitting your old one if nessesary #TODO: REname this to "change_job"?
+        def add_job(self, new_job, job_known = False): #Start a new job, quitting your old one if nessesary #TODO: REname this to "change_job"?
             if self.job and new_job == self.job: #Don't do anything if we already have this job.
                 return
 

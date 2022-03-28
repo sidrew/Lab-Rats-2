@@ -471,6 +471,8 @@ label small_talk_person(the_person, apply_energy_cost = True, is_phone = False):
     mc.name "So [the_person.title], what's been on your mind recently?"
     $ the_person.discover_opinion("small talk")
     $ ran_num = renpy.random.randint(0,100)
+    if not the_person.event_triggers_dict.get("job_known", True):
+        $ the_person.event_triggers_dict["job_known"] = True
     # TODO: Add a chance that she wants to talk about someone she knows.
     if ran_num < 60 + (the_person.get_opinion_score("small talk") * 20) + (mc.charisma * 5):
         if is_phone:
@@ -1238,7 +1240,7 @@ label bc_talk_label(the_person):
             "Start taking birth control" if not the_person.on_birth_control:
                 mc.name "You should probably start taking it, before something happens and you get pregnant."
                 if the_person.love >= needed_start or the_person.effective_sluttiness() >= needed_start:
-                    the_person "That's probably a good idea. I'll talk talk to my doctor as soon as possible about it."
+                    the_person "That's probably a good idea. I'll talk to my doctor as soon as possible about it."
                     $ manage_bc(the_person, start = True)
                 else:
                     if the_person.get_opinion_score("creampies") > 0 and the_person.get_opinion_score("bareback sex") > 0:
