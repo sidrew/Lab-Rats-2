@@ -77,7 +77,7 @@ init -2 python:
 
     def add_sister_instahot_action():
         sister_instahot_action = Action("Help her take Insta-pics {image=gui/heart/Time_Advance.png}",instathot_requirement, "sister_instathot_label", menu_tooltip = "Help your sister grow her Insta-pic account by taking some pictures of her.")
-        sister_role.actions.append(sister_instahot_action)
+        sister_role.add_action(sister_instahot_action)
         return
 
     def add_sister_instathot_mom_report_action(person):
