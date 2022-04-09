@@ -380,13 +380,13 @@ label game_loop(): ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS
         call change_location(new_location) from _call_change_location #_return is the location returned from the map manager.
 
         $ picked_room_event = main_loop_pick_location_event(new_location)
-
-        if new_location.people: #There are people in the room, let's see if there are any room events
+        if picked_room_event:   # the location enter event has higher priority
+            $ picked_room_event.call_action()
+            $ picked_room_event = None
+        elif new_location.people: #There are people in the room, let's see if there are any room events
             $ picked_event = main_loop_pick_room_event(new_location)
             if picked_event: #If there are room events to take care of run those right now.
                 $ picked_event[1].call_action(picked_event[0]) #Run the action with the person as an extra argument.
-            elif picked_room_event:
-                $ picked_room_event.call_action()
             elif renpy.random.randint(0,2) == 0 and new_location in [mc.business.m_div, mc.business.p_div, mc.business.r_div, mc.business.s_div, mc.business.h_div]: #There are no room events, so generate a quick room greeting from an employee if one is around.
                 $ the_greeter = main_loop_select_greeter(new_location)
                 if the_greeter:
@@ -395,9 +395,6 @@ label game_loop(): ##THIS IS THE IMPORTANT SECTION WHERE YOU DECIDE WHAT ACTIONS
                     $ clear_scene()
                     $ del the_greeter
             $ picked_event = None
-        elif picked_room_event:
-            $ picked_room_event.call_action()
-        $ picked_room_event = None
 
     elif picked_option == "Phone":
         call browse_internet() from _call_browse_internet
