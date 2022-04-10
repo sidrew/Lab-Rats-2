@@ -139,7 +139,7 @@ label ask_be_girlfriend_label(the_person):
                 "She kisses you, and you kiss her back just as happily."
                 $ the_person.add_role(aunt_girlfriend_role)
             else:
-                the_person "now if I was pregnant with your kiddo, I might have to reconsider this."
+                the_person "Now if I was pregnant with your kiddo, I might have to reconsider this."
 
         elif the_person.has_role(cousin_role):
             the_person "You and me being, like, boyfriend and girlfriend? Ha, you must be crazy! Have you been huffing fumes at work?"
@@ -235,13 +235,20 @@ label caught_cheating_label(the_other_girl, the_girlfriend): #Note: the_other_gi
     the_girlfriend "What the fuck [the_girlfriend.mc_title]! How could you do that to me?"
     mc.name "Calm down, everything's okay."
     #TODO: Add some dialogue in case she's a particularly important person (ie. friend, mother)
-    the_girlfriend "Really? Everything's okay while you're with another woman?"
+    if town_relationships.is_family(the_girlfriend, the_other_girl):
+        $ the_item = town_relationships.get_relationship_type(the_girlfriend, the_other_girl).lower()
+        the_girlfriend "Really? Everything's okay while you're have sex with my [the_item]?"
+        $ the_girlfriend.change_love(-25 + (5 * the_girlfriend.get_opinion_score("incest")))
+    else:
+        the_girlfriend "Really? Everything's okay while you're have sex with another woman?"
+        $ the_girlfriend.change_love(-25)
+
     # Note: This only happens if she saw something happening that was too slutty for her, slutty girls think it's totally fine and normal.
     mc.name "Just let me explain..."
-    $ the_girlfriend.change_love(-25)
-    $ the_girlfriend.change_happiness(-20)
     if the_girlfriend.love < 60:
         the_girlfriend "I don't want to hear it. You're a lying scumbag who broke my heart..."
+        $ the_girlfriend.change_happiness(-20)
+        $ the_girlfriend.draw_person(emotion = "sad")
         $ the_girlfriend.remove_role(girlfriend_role)
         the_girlfriend "We're done! Through! Finished!"
         "She turns around and storms off."
@@ -258,8 +265,9 @@ label caught_cheating_label(the_other_girl, the_girlfriend): #Note: the_other_gi
         the_girlfriend "And I never want to see that bitch anywhere around you, okay?"
         mc.name "Of course."
 
-    $ town_relationships.worsen_relationship(the_girlfriend, the_other_girl)
-    $ town_relationships.worsen_relationship(the_girlfriend, the_other_girl)
+    if not town_relationships.is_family(the_girlfriend, the_other_girl):
+        $ town_relationships.worsen_relationship(the_girlfriend, the_other_girl)
+        $ town_relationships.worsen_relationship(the_girlfriend, the_other_girl)
     return
 
 label ask_get_boobjob_label(the_person):
