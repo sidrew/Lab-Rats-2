@@ -1465,10 +1465,14 @@ label shopping_date_inside_changing_room(the_person, new_outfit, changing_type, 
         "Let her get dressed":
             pass
 
+    python:
+        sluttiness_token = None
+        sex_slut_token = None
+        blowjob_slut_token = None
+        mc.change_location(old_location)
+        the_person.apply_outfit()
+        the_person.draw_person()
 
-    $ mc.change_location(old_location)
-    $ the_person.apply_outfit()
-    $ the_person.draw_person()
     "[the_person.title] changes back into her original outfit and slides the curtain to the changing room open."
     the_person "Come on, let's get going."
     return wants_outfit
