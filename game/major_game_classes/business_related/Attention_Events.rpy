@@ -228,7 +228,7 @@ label attention_seize_research(the_person):
         return
 
     "[the_person.title]'s enforcers return. One is holding a box of files. They look like they're from your lab."
-    "Enforcer" "I think this is the right stuff, Ma'am. Not too sure, really"
+    "Enforcer" "I think this is the right stuff, Ma'am. Not too sure, really."
     the_person "Let me take a look..."
     "[the_person.possessive_title] snatches the top file and flips through it."
     the_person "\"Design and Manufacturing of [highest_attention_design.name]\". How very... descriptive."
@@ -494,7 +494,7 @@ label attention_coffee(the_person):
         the_person "No. Thank you."
 
     elif the_person.love < 15:
-        the_person "I'm not suppose to accept anything from the subject of an investigation, but..."
+        the_person "I'm not supposed to accept anything from the subject of an investigation, but..."
         "[the_person.possessive_title] considers it for a moment, then gives you a polite nod."
         the_person "I doubt anyone is going to complain about a cup of coffee. Thank you."
         mc.name "Right, I'll just go get that and..."
