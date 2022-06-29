@@ -149,6 +149,7 @@ init -2 python:
         return
 
     def add_cousin_stripping_and_setup_search_room_action(the_aunt, the_cousin):
+        stripclub_strippers.append(the_cousin)
         the_cousin.set_schedule(strip_club, the_times = [3, 4])
 
         the_cousin.event_triggers_dict["stripping"] = True #Used to flag the blackmail event.
