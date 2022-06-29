@@ -149,7 +149,6 @@ init -2 python:
         return
 
     def add_cousin_stripping_and_setup_search_room_action(the_aunt, the_cousin):
-        stripclub_strippers.append(the_cousin)
         the_cousin.set_schedule(strip_club, the_times = [3, 4])
 
         the_cousin.event_triggers_dict["stripping"] = True #Used to flag the blackmail event.
@@ -176,14 +175,6 @@ init -2 python:
         for role in cousin.special_role:
             role.remove_action("cousin_talk_boobjob_again_label")
         return
-
-    def special_stripper_hire(the_person):
-        strip_club_no_of_strippers += 1 #Increase the list target to account for Gabrielle
-        stripper_hire(the_person) #Add her to the stripper list
-
-    def special_stripper_leave(the_person):
-        strip_club_no_of_strippers -= 1 #Decrease the list target to account for Gabrielle leaving
-        stripper_replace(the_person) #Remove her from the pool and generate a replacement if necessary
 
 ###COUSIN ACTION LABELS###
 label cousin_intro_phase_one_label():
@@ -608,7 +599,7 @@ label cousin_blackmail_list(the_person):
             the_person "Shut up, I'll do it. But I'm not going to be cheap, alright?"
             the_person "I'm not one of those cheap skanks you keep around."
             $ the_person.salary_modifier = 2.0
-            $ special_stripper_leave(the_person) #Decrement the stripper target pool, and remove Gabriel, so that an extra replacement isn't generated
+            $ stripper_replace(the_person) #Decrement the stripper target pool, and remove Gabriel, so that an extra replacement isn't generated
             call stranger_hire_result(the_person) from _call_stranger_hire_result_cousin_blackmail_list
             if _return:
                 mc.name "Congratulations, you have a real job now."
@@ -621,7 +612,7 @@ label cousin_blackmail_list(the_person):
                         the_person "I don't need your permission! I was going to keep working there anyways."
                         $ the_person.set_schedule(strip_club, the_days = [5,6], the_times = [3,4])
                         $ the_person.add_role(stripper_role) #Add the role back specifically for her so when she's in the club she can give dances
-                        $ special_stripper_hire(the_person) #Add her to stripclub list and increase Stripclub target strippers to account for her presence
+                        $ stripper_hire(the_person) #Add her to stripclub list and increase Stripclub target strippers to account for her presence
                         "You shrug, content that either way she'll have her tits on display during the weekend."
 
                     "Demand she stop stripping":
@@ -632,7 +623,7 @@ label cousin_blackmail_list(the_person):
                         the_person "Ugh... Whatever."
 
             else:
-                $ special_stripper_hire(the_person) #Readd her
+                $ stripper_hire(the_person) #Readd her
                 mc.name "Man, I thought you might have been useful for something, but this is just dreadful."
                 the_person "Fuck you, you came to me!"
                 mc.name "Yeah, that was a mistake. Never mind, stripping is probably the best you can do with your life."
@@ -837,7 +828,7 @@ label cousin_blackmail_level_2_confront_label(the_person, in_club = False):
     the_person "God, you fucking perv. Fine, if you can keep quiet I might also let you... touch me. Deal?"
     mc.name "I think that might be enough."
     $ the_person.set_schedule(None, the_times = [3, 4]) # clear old scheduled stripping
-    $ special_stripper_hire(stripper_job)
+    $ stripper_hire(the_person)
     $ the_person.change_job(stripper_job) #She's a stripper now, officially.
     $ the_person.event_triggers_dict["blackmail_level"] = 2
     call begin_boobjob_story(the_person) from _call_begin_boobjob_story_2

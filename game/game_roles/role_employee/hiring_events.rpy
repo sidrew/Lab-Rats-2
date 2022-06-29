@@ -28,7 +28,7 @@ init -2 python:
         if the_person in stripclub_strippers:
             stripclub_strippers.remove(the_person)
 
-        if len(stripclub_strippers) < strip_club_no_of_strippers:
+        if len(stripclub_strippers) < 4:
             create_random_stripper()
 
 

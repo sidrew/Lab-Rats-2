@@ -735,7 +735,7 @@ init 0 python:
     stripclub_wardrobe = wardrobe_from_xml("Stripper_Wardrobe")
 
     def add_stripclub_strippers():
-        for i in __builtin__.range(0,strip_club_no_of_strippers):
+        for i in __builtin__.range(0, 4):
             create_random_stripper()
         return
 
@@ -751,8 +751,6 @@ label initialize_game_state(character_name,business_name,last_name,stat_array,sk
         list_of_nora_traits = []
         list_of_places = [] #By having this in an init block it may be set to null each time the game is reloaded, because the initialization stuff below is only called once.
         list_of_side_effects = []
-
-        strip_club_no_of_strippers = 4
 
     #NOTE: These need to be established in a separate label to ensure they are loaded/saved correctly
     call instantiate_serum_traits() from _call_instantiate_serum_traits #Creates all of the default LR2 serum traits. TODO: Create a mod loading list that has labels that can be externally added and called here.
