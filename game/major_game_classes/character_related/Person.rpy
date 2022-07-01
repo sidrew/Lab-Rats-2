@@ -2740,19 +2740,19 @@ init -2 python:
 
         def review_outfit(self, dialogue = True, draw_person = True):
             if self.should_wear_uniform() and not self.is_wearing_uniform():
+                if dialogue:
+                    self.call_dialogue("clothing_review")
                 self.wear_uniform()#Reset uniform
                 if draw_person:
                     self.draw_person()
-                if dialogue:
-                    self.call_dialogue("clothing_review")
 
             elif not self.judge_outfit(self.outfit):
+                if dialogue:
+                    self.call_dialogue("clothing_review")
                 self.apply_outfit()
                 if draw_person:
                     self.draw_person()
 
-                if dialogue:
-                    self.call_dialogue("clothing_review")
 
         def judge_outfit(self, outfit, temp_sluttiness_boost = 0, use_taboos = True, as_underwear = False, as_overwear = False): #Judge an outfit and determine if it's too slutty or not. Can be used to judge other people's outfits to determine if she thinks they look like a slut.
             # temp_sluttiness can be used in situations (mainly crises) where an outfit is allowed to be temporarily more slutty than a girl is comfortable wearing all the time.
