@@ -1341,7 +1341,7 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
     if the_person.get_job_happiness_score() >= 0:
         return #They've become happy with their job, so just clear this from the list and move on. They don't actually quit.
 
-    $ the_person.event_triggers_dict["last_quit_crisis_day"]
+    $ the_person.event_triggers_dict["last_quit_crisis_day"] = day
     "Your phone buzzes, grabbing your attention. It's an email from [the_person.title], marked \"Urgent, need to talk\"."
     "You open up the email and read through the body."
     the_person "[the_person.mc_title], there's something important I need to talk to you about. When can we have a meeting?"
