@@ -162,10 +162,7 @@ init 1 python:
         return False
 
     def person_at_work(the_person): #Returns True if the_person is at whatever location their work location is
-        if the_person.job and the_person.job.job_location and the_person.job.job_location.has_person(the_person):
-            return True
-        else:
-            return False
+        return the_person.is_at_work()
 
     #Defining the requirement to be tested.
     def broken_AC_crisis_requirement():
@@ -1332,7 +1329,7 @@ label home_fuck_crisis_label():
 
 init 1 python:
     def quiting_crisis_requirement(the_person): #We are only going to look at quitting actions if it is in the middle of the day when people are at work.
-        return mc.is_at_work() and the_person.job.job_location.has_person(the_person)
+        return mc.is_at_work() and the_person.is_at_work()
 
 label quitting_crisis_label(the_person): #The person tries to quit, you have a chance to keep her around for a hefty raise (Or by fucking her, if her sluttiness is high enough).
     if mc.business.get_employee_workstation(the_person) is None:

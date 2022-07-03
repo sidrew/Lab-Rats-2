@@ -6,10 +6,10 @@ init -2 python:
     def employee_on_turn(the_person):
         #Each turn check to see if the person wants to quit.
         for duty in the_person.duties:
-            if the_person.job.job_location.has_person(the_person) or not duty.only_at_work:
+            if the_person.is_at_work() or not duty.only_at_work:
                 duty.on_turn(the_person)
 
-        if mc.business.is_work_day() and the_person.job.job_location.has_person(the_person): #Only thinks about quitting/asking for a promotion when she's at work
+        if mc.business.is_work_day() and the_person.is_at_work(): #Only thinks about quitting/asking for a promotion when she's at work
             the_person.event_triggers_dict["worked_today"] = True
             happy_points = the_person.get_job_happiness_score()
             if happy_points < 0 and day > the_person.event_triggers_dict.get("last_quit_crisis_day", -1) + 7: #We have a chance of quitting.
@@ -35,7 +35,7 @@ init -2 python:
 
     def employee_on_move(the_person):
         for duty in the_person.duties:
-            if the_person.job.job_location.has_person(the_person) or not duty.only_at_work:
+            if the_person.is_at_work() or not duty.only_at_work:
                 duty.on_move(the_person)
         return
 
@@ -54,7 +54,7 @@ init -2 python:
 
     #EMPLOYEE ACTION REQUIREMENTS#
     def employee_set_duties_requirement(the_person):
-        if not the_person.job.job_location.has_person(the_person):
+        if not the_person.is_at_work():
             return "Only in the office"
 
         if the_person.event_triggers_dict.get("work_duties_last_set", -1) < day:
