@@ -328,7 +328,7 @@ label broken_AC_crisis_label():
                     "The rest of the department follows the lead of [the_person.title], stripping off various amounts of clothing."
                         #Gives you the chance to watch one of the other girls in the department strip.
 
-                    if "action_mod_list" in globals():
+                    if mod_installed:
                         call screen enhanced_main_choice_display(build_menu_items([broken_AC_crisis_get_watch_list_menu(the_person)]))
                     else:
                         call screen main_choice_display([broken_AC_crisis_get_watch_list_menu(the_person)])
@@ -1346,7 +1346,7 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
     "You open up the email and read through the body."
     the_person "[the_person.mc_title], there's something important I need to talk to you about. When can we have a meeting?"
     if mc.location == mc.business.h_div: #If you're already in your office just kick back and relax.
-        if ("ceo_office") in globals():
+        if mod_installed:
             $ ceo_office.show_background()
         else:
             $ mc.business.h_div.show_background()
@@ -1357,7 +1357,7 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
         "You type up a response."
         mc.name "I'm out of the office right now, but if it's important I can be back in a few minutes."
         the_person "It is. See you at your office."
-        if ("ceo_office") in globals():
+        if mod_installed:
             $ ceo_office.show_background()
         else:
             $ mc.business.h_div.show_background()
@@ -1595,7 +1595,7 @@ label invest_rep_visit_label(rep_name):
             $ del flirt_requires_string
             $ del seduce_requires_string
             $ clear_scene()
-            if ("ceo_office") in globals():
+            if mod_installed:
                 $ ceo_office.show_background()
             else:
                 $ office.show_background()
@@ -2676,7 +2676,8 @@ init 1 python:
         return True #Always true, this will always happen right after a serum is created, regardless of the time.
 
 label serum_creation_crisis_label(the_serum): # Called every time a new serum is created, test it on a R&D member.
-    if mc.business.head_researcher:
+    # MOD: prevent selecting head researcher when she's pregnant
+    if mc.business.head_researcher and (not mod_installed or mc.business.head_researcher.is_available):
         $ the_person = mc.business.head_researcher
     else:
         $ the_person = get_random_from_list(mc.business.r_div.people) #Get a random researcher from the R&D department. TODO: Replace this with the head researcher position.
@@ -2862,7 +2863,7 @@ label daughter_work_crisis_label():
     $ the_person.draw_person()
     the_person "[the_person.mc_title], could I talk to you for a moment in your office?"
     mc.name "Of course. What's up?"
-    if ("ceo_office") in globals():
+    if mod_installed:
         $ ceo_office.show_background()
     "You and [the_person.possessive_title] step into your office. You sit down at your desk while she closes the door."
     $ ran_num = renpy.random.randint(0,2)
@@ -3229,7 +3230,7 @@ label horny_at_work_crisis_label():
                 else:
                     $ exit_option = "Just have her watch."
 
-                if "action_mod_list" in globals():
+                if mod_installed:
                     call screen enhanced_main_choice_display(build_menu_items([build_helpful_people_menu(helpful_people, exit_option)]))
                 else:
                     call screen main_choice_display([build_helpful_people_menu(helpful_people, exit_option)]) #Shows a list of people w/ predictive imaging when you hover

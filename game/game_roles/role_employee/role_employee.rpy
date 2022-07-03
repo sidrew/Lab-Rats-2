@@ -240,7 +240,7 @@ label employee_performance_review(the_person):
     else:
         the_person "Uh, I guess. so."
 
-    if ("ceo_office") in globals():
+    if mod_installed:
         $ mc.change_location(ceo_office)
         $ ceo_office.show_background()
     else:
@@ -704,7 +704,7 @@ label employee_performance_review(the_person):
                                     else:
                                         $ the_person.add_situational_slut("seduction_approach", -5 + (-5*the_person.get_opinion_score("being submissive")), "I'm just a toy to him.")
                                     $ the_person.add_situational_obedience("seduction_approach", 25, "I'll do what I need to keep my job!")
-                                    if "SB_doggy_standing" in globals():
+                                    if mod_installed:
                                         call fuck_person(the_person, private = True, start_position = SB_doggy_standing, start_object = make_desk(), skip_intro = True, skip_condom = True) from _call_fuck_person_mod_only_1
                                     else:
                                         call fuck_person(the_person, private = True, start_position = SB_doggy_standing, start_object = make_desk(), skip_intro = True, skip_condom = True) from _call_fuck_person_106
@@ -862,7 +862,7 @@ label employee_punishment_hub(the_person):
     if selected_infraction == "Return":
         return
 
-    if "action_mod_list" in globals():
+    if mod_installed:
         call screen enhanced_main_choice_display(build_menu_items(build_employee_infraction_choice_menu(the_person, selected_infraction)))
     else:
         call screen main_choice_display(build_employee_infraction_choice_menu(the_person, selected_infraction))
@@ -895,7 +895,7 @@ label employee_generate_infraction_label(the_person):
 label request_promotion_crisis_label(the_person):
     $ the_person.draw_person()
     the_person "[the_person.mc_title], can we talk in your office for a second?"
-    if ("ceo_office") in globals():
+    if mod_installed:
         $ ceo_office.show_background()
     "You nod and take her into your office, closing the door behind you. You take a seat and motion for her to do the same."
     $ the_person.draw_person(position = "sitting")
@@ -1234,7 +1234,7 @@ label request_promotion_crisis_label(the_person):
                         elif the_person.get_opinion_score("taking control") < 0:
                             $ the_person.add_situational_slut("seduction_approach", -5 + (-5*the_person.get_opinion_score("taking control")), "I guess I need to do this to convince him...")
 
-                        if "SB_doggy_standing" in globals():
+                        if mod_installed:
                             call fuck_person(the_person, private = True, start_position = SB_doggy_standing, start_object = make_desk(), skip_intro = True, skip_condom = True) from _call_fuck_person_mod_only_2
                         else:
                             call fuck_person(the_person, private = True, start_position = SB_doggy_standing, start_object = make_desk(), skip_intro = True, skip_condom = True) from _call_fuck_person_106A
