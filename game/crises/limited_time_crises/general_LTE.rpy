@@ -29,10 +29,9 @@ init -1 python:
     def work_spank_opportunity_requirement(the_person):
         if not the_person.has_role(employee_role):
             return False
-        elif not person_at_work(the_person):
+        elif not the_person.is_at_work():
             return False
-        else:
-            return True
+        return True
 
     def ask_new_title_requirement(the_person):
         if the_person.obedience > 130: #If she has higher obedience she ONLY lets you change her title.
@@ -60,7 +59,7 @@ init -1 python:
             return False #Role exists
         elif the_person.effective_sluttiness() < (100 - the_person.personality.dikdok_chance) - 5 * the_person.get_opinion_score("showing her tits") - 5 * the_person.get_opinion_score("showing her ass"):
             return False #Personality type and Opinions has a large impact on chance to generate a new profile.
-        elif the_person.love < 15: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
+        elif the_person.love < 30: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
             return False
         return True
 
@@ -69,9 +68,9 @@ init -1 python:
             return False #We want explicit control of when these characters generate their OnlyFans accounts
         elif the_person.has_role(onlyfans_role) or the_person.has_role(girlfriend_role):
             return False #Role exists / she's your GF
-        elif the_person.effective_sluttiness() < 50 - 10 * the_person.get_opinion_score("showing her tits") - 5 * the_person.get_opinion_score("showing her ass") - 5 * the_person.get_opinion_score("public sex"):
+        elif the_person.effective_sluttiness() < 80 - 10 * the_person.get_opinion_score("showing her tits") - 5 * the_person.get_opinion_score("showing her ass") - 5 * the_person.get_opinion_score("public sex"):
             return False
-        elif the_person.love < 30: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
+        elif the_person.love < 40: #Girls who don't like you won't tell you they've made a profile (and are assumed to either have one or not depending on their starting generation)
             return False
         return True
 
@@ -660,7 +659,7 @@ label work_spank_opportunity(the_person):
                     "Keep fingering her":
                         mc.name "I think you have. Here let me help you..."
                         $ the_person.change_arousal(10+10*the_person.get_opinion_score("being fingered"))
-                        call fuck_person(the_person, start_position = standing_finger, skip_intro = True) from _call_fuck_person_131
+                        call fuck_person(the_person, start_position = standing_finger, private = False, skip_intro = True) from _call_fuck_person_131
                         $ the_report = _return
                         $ the_person.call_dialogue("sex_review", the_report = the_report)
 

@@ -46,7 +46,7 @@ init -2 python:
     def dm_response_requirement(the_person):
         if renpy.random.randint(0,100) < 60 and not the_person.event_triggers_dict.get("insta_special_request_asap", False): #Respond at a random time, not as soon as possible.
             return False
-        elif person_at_work(the_person) and the_person.obedience >= 110: #Obedient girls don't try and take pics at work.
+        elif the_person.is_at_work() and the_person.obedience >= 110: #Obedient girls don't try and take pics at work.
             return False
         elif mc.location.has_person(the_person) and mc.location.public:
             return False #If she's in the same location as us and we are in public she doesn't take the picture.
@@ -123,7 +123,10 @@ init -2 python:
 label check_insta():
     # TODO: Check if anyone you know has posted pictures on InstaPic
     # TODO: Ability to find new Insta girls who are posting revealing pics.
-    call screen main_choice_display(build_insta_menu(), draw_hearts_for_people = False, draw_person_previews = False)
+    if mod_installed:
+        call screen enhanced_main_choice_display(build_menu_items(build_insta_menu(), draw_hearts_for_people = False, draw_person_previews = False))
+    else:
+        call screen main_choice_display(build_insta_menu(), draw_hearts_for_people = False, draw_person_previews = False)
     $ picked_option = _return
     if isinstance(picked_option, Person):
         call view_insta(picked_option) from _call_view_insta
@@ -230,7 +233,10 @@ label view_insta(the_person):
     return
 
 label instapic_comment_loop(the_person, posted_today = False):
-    call screen main_choice_display(build_instapic_comment_actions(the_person, posted_today))
+    if mod_installed:
+        call screen enhanced_main_choice_display(build_menu_items(build_instapic_comment_actions(the_person, posted_today)))
+    else:
+        call screen main_choice_display(build_instapic_comment_actions(the_person, posted_today))
     $ the_choice = _return
     if isinstance(the_choice, Action):
         $ the_choice.call_action(the_person)
@@ -259,7 +265,10 @@ label comment_description(comment_type, the_person):
     return
 
 label dm_description(the_person):
-    call screen main_choice_display(build_dm_description_actions(the_person))
+    if mod_installed:
+        call screen enhanced_main_choice_display(build_menu_items(build_dm_description_actions(the_person)))
+    else:
+        call screen main_choice_display(build_dm_description_actions(the_person))
     $ the_choice = _return
     if isinstance(the_choice, Action):
         $ the_choice.call_action(the_person)
