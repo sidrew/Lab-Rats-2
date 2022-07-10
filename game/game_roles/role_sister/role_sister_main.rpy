@@ -336,9 +336,9 @@ label sister_offer_to_hire(the_person):
         mc.name "Why not? Do you really think your English degree is going to get you a better job?"
         "[the_person.possessive_title] pouts."
         the_person "Shut up. Mom would never let me drop out."
-        mc.name "Is that the only thing stopping you? If I convince [mom.title] you'll drop out and come work for me?"
+        mc.name "Is that the only thing stopping you? If I convince [mom.name] you'll drop out and come work for me?"
         "She rolls her eyes dramatically, but takes a few moments to think."
-        the_person "I don't know... Maybe. It doesn't matter, you'll never convince [mom.title]."
+        the_person "I don't know... Maybe. It doesn't matter, you'll never convince [mom.name]."
         mc.name "You leave that to me. I can be very convincing."
         if the_person.event_triggers_dict.get("dropout_convince_progress", 0) == 0:
             $ add_sister_dropout_convince_action(the_person)

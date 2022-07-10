@@ -131,7 +131,7 @@ label aunt_intro_label():
     $ mom.draw_person()
     "[mom.possessive_title] cracks your door open and leans in."
     mc.name "Sure [mom.title], what's up?"
-    mom "You remember your aunt [aunt.title], right? Well, she's been having a rough time with her husband lately and they're separating."
+    mom "You remember your aunt [aunt.name], right? Well, she's been having a rough time with her husband lately and they're separating."
     "You nod and listen. [aunt.possessive_title] never spent much time visiting when you were a kid and it's been years since you've seen her at all."
     mom "It seems like he's going to be keeping the house, so she's going to be staying with us for a few days while she finds a new place to live."
     mom "She'll be bringing your cousin [cousin.name], too. You two haven't seen each other since you were kids, have you?"
@@ -139,7 +139,7 @@ label aunt_intro_label():
     mom "I know it's going to be a little tight here while we sort this out, but she's family and I need to be there for her."
     mc.name "I understand [mom.title]. I'll help out however I can."
     $ mom.change_happiness(5)
-    mom "That's so nice to hear [mom.mc_title], thank you. [cousin.name] will be sharing [lily.title]'s room with her and [aunt.title] will be on the couch in the living room."
+    mom "That's so nice to hear [mom.mc_title], thank you. [cousin.name] will be sharing [lily.name]'s room with her and [aunt.name] will be on the couch in the living room."
     mom "They're going to be here in the morning. If you have a few minutes, could you help me pull out some sheets and get their beds made?"
     menu:
         "Help [mom.possessive_title] set up":
@@ -160,7 +160,7 @@ label aunt_intro_label():
 
 
         "Make [lily.possessive_title] do it":
-            mc.name "Sorry [mom.title], I've got an early morning tomorrow and really need to get to bed. I think [lily.title]'s free though."
+            mc.name "Sorry [mom.title], I've got an early morning tomorrow and really need to get to bed. I think [lily.name]'s free though."
             $ lily.change_obedience(2)
             $ lily.change_love(-1)
             mom "Of course, [mom.mc_title]. I'm sure your sister won't mind helping. You get a good night's sleep."
@@ -200,7 +200,7 @@ label aunt_intro_phase_two_label():
     $ the_group.draw_person(aunt)
     aunt "She's thrilled, really. Now who are these two little rascals I see?"
     "[aunt.possessive_title] steps into the house and throws her arms wide, pulling you and your sister in to a hug."
-    aunt "I mean, it must be [mc.name] and [lily.title], but you're both so much bigger than I remember!"
+    aunt "I mean, it must be [mc.name] and [lily.name], but you're both so much bigger than I remember!"
     $ mc.change_locked_clarity(10)
     "She hugs you both tight and then lets go. [aunt.title] looks at you in particular and laughs."
     aunt "I remember when you were just a little baby, and now you're a full grown man. Oh no, I'm showing my age, aren't I. Hahaha."
@@ -1303,7 +1303,7 @@ label family_games_night_drinks(the_mom, the_aunt): #Breakout function for the d
     the_aunt "He's getting free drinks. He should be pampering us like the refined wine moms we are."
     menu: #TODO: Have an option for Aunt at high obedience where you command her to do it for you.
         "Pour the drinks yourself":
-            mc.name "Don't worry about it [the_mom.title], I'll be back with drinks in a moment."
+            mc.name "Don't worry about it [the_mom.name], I'll be back with drinks in a moment."
             $ the_group.redraw_person(the_mom)
             the_mom "You're so sweet. Thank you."
             $ clear_scene()
@@ -1342,7 +1342,7 @@ label family_games_night_drinks(the_mom, the_aunt): #Breakout function for the d
             "You return to the living room and hand [the_mom.possessive_title] and [the_aunt.possessive_title] their drinks and sit back down beside them."
 
         "Let [mom.title] pour the drinks":
-            mc.name "You're right [the_mom.title], I could really use a break."
+            mc.name "You're right [the_mom.name], I could really use a break."
             "[the_mom.possessive_title] stands up and motions to the couch as she walks towards the kitchen."
             $ the_group.draw_person(the_mom, emotion = "happy")
             the_mom "You sit down, I'll be back in a moment with drinks for everyone."
@@ -1397,7 +1397,7 @@ label family_games_night_drinks(the_mom, the_aunt): #Breakout function for the d
                 $ lily.draw_person()
                 lily "What's up [lily.mc_title]?"
                 if mc.business.event_triggers_dict.get("family_games_cards",0) == 0:
-                    mc.name "[the_mom.title] and [the_aunt.title] want to play some cards, and we need a fourth player."
+                    mc.name "[the_mom.name] and [the_aunt.name] want to play some cards, and we need a fourth player."
                     mc.name "Do you want to come and play?"
                     "She sighs and rolls her eyes."
                     lily "Cards? Like poker?"
@@ -1406,7 +1406,7 @@ label family_games_night_drinks(the_mom, the_aunt): #Breakout function for the d
                     mc.name "They're having a good time together, let's just humour them, okay?"
                     lily "Fine, I wasn't doing anything tonight anyways."
                 else:
-                    mc.name "[the_mom.title] and [the_aunt.title] want to play cards again. Do you want to be our fourth player?"
+                    mc.name "[the_mom.name] and [the_aunt.name] want to play cards again. Do you want to be our fourth player?"
                     lily "Sure, I guess I'm not doing anything else."
                     "She sighs."
                     lily "How sad is that? The most exciting thing I have to be doing is playing cards with my mom?"
@@ -1540,7 +1540,7 @@ label family_games_night_cards(the_mom, the_aunt, the_sister): #Breakout functio
         "Play strip euchre" if the_mom.sluttiness >= 30 and the_sister.sluttiness >= 30 and the_aunt.sluttiness >= 30:
             if mc.business.event_triggers_dict.get("family_games_strip", 0) == 0:
                 mc.name "I know something that will make the game very interesting."
-                mc.name "[the_mom.title], [the_aunt.title], have you two ever played strip poker?"
+                mc.name "[the_mom.name], [the_aunt.name], have you two ever played strip poker?"
                 $ the_group.redraw_person(the_mom)
                 "[the_mom.possessive_title] gasps quietly and shakes her head."
                 the_mom "[the_mom.mc_title], I would never..."
@@ -1969,7 +1969,7 @@ label family_games_night_strip(the_mom, the_aunt, the_sister, partner):
                     the_aunt "It's good for his mental health to hear stuff like this."
                     $ the_group.redraw_person(the_mom)
                     the_mom "You shouldn't be commenting on my son's... penis. Especially not in front of me!"
-                    mc.name "What's wrong with my penis [the_mom.title]?"
+                    mc.name "What's wrong with my penis [the_mom.name]?"
                     $ mc.change_locked_clarity(10)
                     the_mom "Oh! Nothing is wrong with it sweetheart, it's very attractive."
                     $ the_group.redraw_person(the_aunt)
@@ -2112,9 +2112,9 @@ label aunt_offer_hire(the_person):
     the_person "Oh, I don't know... I have enough money from the divorce that I can survive as long as I'm careful."
     the_person "Can I be honest with you?"
     mc.name "Of course."
-    "She chuckles self-conciously before working up her courage to continue."
+    "She chuckles self-consciously before working up her courage to continue."
     the_person "I've never really worked a real job. When I was a teen I worked at a convenience store, and that's about all."
-    the_person "I got married, had [cousin.title], and that was my life."
+    the_person "I got married, had [cousin.name], and that was my life."
     the_person "So I'm not even sure how I would get started!"
     mc.name "Well, you could come work for me."
     the_person "Oh, you don't want me hanging around. I'll only get in the way and slow everything down."
@@ -2137,7 +2137,7 @@ label aunt_offer_hire(the_person):
             pass
 
         "Don't you want to work with [cousin.title]?" if cousin.has_role(employee_role):
-            mc.name "Don't you want to come work with [cousin.title]? You two get so little time together..."
+            mc.name "Don't you want to come work with [cousin.name]? You two get so little time together..."
             "She thinks about it for a moment."
             the_person "It would be nice to spend more time with her. You would be fine with that?"
             mc.name "Of course, I'd love to spend more time around both of you!"
