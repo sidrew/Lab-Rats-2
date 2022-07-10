@@ -250,7 +250,7 @@ label cousin_blackmail_intro_label(the_person):
     mc.name "What are you doing in here?"
     "[the_person.title] crosses her arms and looks away from you."
     the_person "Nothing. I was just... looking around."
-    mc.name "Uh huh. So I can tell [lily.name] about this and you won't mind?"
+    mc.name "Uh huh. So I can tell [lily.fname] about this and you won't mind?"
     "She glares at you."
     the_person "Sure. It's not even a big deal."
     "You shrug and get your phone out. You pull up [lily.possessive_title]'s contact information."
@@ -279,7 +279,7 @@ label cousin_blackmail_intro_label(the_person):
             "[the_person.title] gives you a suspicious look."
             the_person "Just like that?"
             "You shrug."
-            mc.name "You're right, [lily.name] wouldn't notice anything missing and you need it more."
+            mc.name "You're right, [lily.fname] wouldn't notice anything missing and you need it more."
             $ the_person.change_happiness(8)
             $ the_person.change_love(2)
             the_person "Okay. I better not find out you told someone."
