@@ -1344,7 +1344,8 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
     the_person "[the_person.mc_title], there's something important I need to talk to you about. When can we have a meeting?"
     if mc.location == mc.business.h_div: #If you're already in your office just kick back and relax.
         if mod_installed:
-            $ ceo_office.show_background()
+            $ mc.change_location(ceo_office)
+            $ mc.location.show_background()
         else:
             $ mc.business.h_div.show_background()
         "You type up a response."
@@ -1355,7 +1356,8 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
         mc.name "I'm out of the office right now, but if it's important I can be back in a few minutes."
         the_person "It is. See you at your office."
         if mod_installed:
-            $ ceo_office.show_background()
+            $ mc.change_location(ceo_office)
+            $ mc.location.show_background()
         else:
             $ mc.business.h_div.show_background()
         "You travel back to your office. You're just in the door when [the_person.title] comes in and closes the door behind her."
@@ -1431,6 +1433,9 @@ label quitting_crisis_label(the_person): #The person tries to quit, you have a c
             $ mc.business.remove_employee(the_person)
 
     $ clear_scene()
+    if mod_installed:
+        $ mc.change_location(office)
+        $ mc.location.show_background()
     return
 
 init 1 python:
@@ -1593,7 +1598,8 @@ label invest_rep_visit_label(rep_name):
             $ del seduce_requires_string
             $ clear_scene()
             if mod_installed:
-                $ ceo_office.show_background()
+                $ mc.change_location(ceo_office)
+                $ mc.location.show_background()
             else:
                 $ office.show_background()
             "Half an hour later there is a knock on your office door."
@@ -1627,6 +1633,10 @@ label invest_rep_visit_label(rep_name):
                 mc.name "I understand. Thank you for your time, I'll see you out."
                 "You walk [rep_name] back to his car and watch as he drives away."
             $ del helper
+
+        if mod_installed:
+            $ mc.change_location(lobby)
+            $ mc.location.show_background()
     return
 
 init 1 python:
@@ -2861,7 +2871,8 @@ label daughter_work_crisis_label():
     the_person "[the_person.mc_title], could I talk to you for a moment in your office?"
     mc.name "Of course. What's up?"
     if mod_installed:
-        $ ceo_office.show_background()
+        $ mc.change_location(lobby)
+        $ mc.location.show_background()
     "You and [the_person.possessive_title] step into your office. You sit down at your desk while she closes the door."
     $ ran_num = renpy.random.randint(0,2)
     if ran_num == 0: #TODO: Make this based on her stats?
@@ -2984,6 +2995,9 @@ label daughter_work_crisis_label():
 
     $ del the_daughter
     $ clear_scene()
+    if mod_installed:
+        $ mc.change_location(office)
+        $ mc.location.show_background()
     return
 
 init 1 python:
