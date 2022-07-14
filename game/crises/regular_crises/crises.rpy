@@ -1487,13 +1487,11 @@ label invest_opportunity_crisis_label():
 
 init 1 python:
     def update_investor_payment():
-        already_invested = False
-        for modifier_tuple in [x for x in mc.business.sales_multipliers if x[0] == "Investor Payment"]:
-            already_invested = True
-            modifier_tuple[1] -= 0.01 #Update the investment cost to be 1% worse than it was before. Note that this does not expire
-
-        if not already_invested:
+        investor_modifier = next((x for x in mc.business.sales_multipliers if x[0] == "Investor Payment"), None)
+        if not investor_modifier:
             mc.business.add_sales_multiplier("Investor Payment", 0.99)
+        else:
+            mc.business.update_sales_multiplier("Investor Payment", investor_modifier[1] - .01)
         return
 
 label invest_rep_visit_label(rep_name):
