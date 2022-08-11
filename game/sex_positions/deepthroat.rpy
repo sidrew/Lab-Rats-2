@@ -82,6 +82,7 @@ label scene_deepthroat_1(the_girl, the_location, the_object):
     $ deepthroat.redraw_scene(the_girl)
     if the_girl.sex_skills["Oral"] < 3: #Inexperienced
         "[the_girl.title] tries to look up at you while she goes down on your cock. You feel her throat spasm around you as she gags, struggling to take your length."
+        call blowjob_comment(the_girl, the_location, the_object) from call_blowjob_comment_scene_deepthroat_1_1
         menu:
             "You're doing a great job":
                 mc.name "God that feels good, you're doing a great job [the_girl.title]."
@@ -112,6 +113,7 @@ label scene_deepthroat_1(the_girl, the_location, the_object):
         $ deepthroat.current_modifier = None
         $ deepthroat.redraw_scene(the_girl)
         "She pushes you just a little bit deeper, then slides back and off. She pauses for a moment, panting while she tries to catch her breath."
+        call blowjob_comment(the_girl, the_location, the_object) from call_blowjob_comment_scene_deepthroat_1_2
         the_girl "Ah... Glad you like it."
         menu:
             "Stroke it for me":
@@ -263,6 +265,7 @@ label scene_deepthroat_2(the_girl, the_location, the_object):
 label scene_deepthroat_3(the_girl, the_location, the_object):
     if the_girl.sex_skills["Oral"] < 4:
         "[the_girl.title] is struggling to take the full length of your dick down her throat. She pulls off and pants for air."
+        call blowjob_comment(the_girl, the_location, the_object) from call_blowjob_comment_scene_deepthroat_3_1
         the_girl "Ah... let me see if I can fit this all down..."
         "Once she's caught her breath she slides your cock back into her mouth. She swirls her tongue around your tip, then slides you back until you tap the back of her throat."
         "[the_girl.possessive_title] pauses there for a second and closes her eyes in concentration."
@@ -277,6 +280,7 @@ label scene_deepthroat_3(the_girl, the_location, the_object):
             "She smiles and slips you back into her mouth."
     else:
         "[the_girl.title] stops throating you for a second."
+        call blowjob_comment(the_girl, the_location, the_object) from call_blowjob_comment_scene_deepthroat_3_2
         the_girl "I wonder how long I could keep you in my mouth. Want to find out?"
         "You nod and she smiles. [the_girl.possessive_title] plunges you back into her mouth and right down her throat. Your balls tap against her chin."
         "[the_girl.title] holds up a hand, counting with her fingers how long she's lasted."
@@ -394,17 +398,17 @@ label outro_deepthroat(the_girl, the_location, the_object):
             "[the_girl.title] sticks out her tongue for you and holds still, eager to take your hot load."
             $ the_girl.cum_on_face()
             $ the_girl.draw_person(position = "kneeling1")
-            "You let out a shudder moaning as you cum, pumping your sperm onto [the_girl.title]'s face and into her open mouth. She makes sure to wait until you're completely finished."
+            "You let out a shuddering moan as you cum, pumping your sperm onto [the_girl.title]'s face and into her open mouth. She makes sure to wait until you're completely finished."
         elif the_girl.sluttiness > 60:
             "[the_girl.title] closes her eyes and waits patiently for you to cum."
             $ the_girl.cum_on_face()
             $ the_girl.draw_person(position = "kneeling1")
-            "You let out a shudder moaning as you cum, pumping your sperm onto [the_girl.title]'s face. She waits until she's sure you're finished, then opens one eye and looks up at you."
+            "You let out a shuddering moan as you cum, pumping your sperm onto [the_girl.title]'s face. She waits until she's sure you're finished, then opens one eye and looks up at you."
         else:
             "[the_girl.title] closes her eyes and turns away, presenting her cheek to you as you finally climax."
             $ the_girl.cum_on_face()
             $ the_girl.draw_person(position = "kneeling1")
-            "You let out a shudder moaning as you cum, pumping your sperm onto [the_girl.title]'s face. She flinches as the first splash of warm liquid lands on her cheek, but doesn't pull away entirely."
+            "You let out a shuddering moan as you cum, pumping your sperm onto [the_girl.title]'s face. She flinches as the first splash of warm liquid lands on her cheek, but doesn't pull away entirely."
         $ climax_controller.do_clarity_release(the_girl)
         "You take a deep breath to steady yourself once you've finished cumming. [the_girl.possessive_title] looks up at you from her knees, face covered in your semen."
         $ the_girl.call_dialogue("cum_face")

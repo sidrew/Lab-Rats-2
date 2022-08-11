@@ -345,7 +345,7 @@ init -1:
             current_colour_raw = the_person.hair_colour[1] #NOTE: Hair colour also comes with a discriptor, but we need a way to override/replace that at some point in the future.
             current_colour = Color(rgb=(current_colour_raw[0], current_colour_raw[1], current_colour_raw[2]), alpha = current_colour_raw[3]) #Generate a proper Colour object
             new_colour = current_colour.tint(1.0 - change_per_turn) #Each turn it gets 30% closer to the goal (but never _quite_ gets there).
-            the_person.set_hair_colour(new_colour)
+            the_person.set_hair_colour(new_colour, change_pubes = False)
 
         def hair_darken_dye_on_turn(the_person, the_serum, add_to_log):
             change_per_turn = 0.3 #At 1 it changes in a single turn, at 0 it never changes at all. At 0.5 it gets 50% closer each turn.
@@ -353,7 +353,7 @@ init -1:
             current_colour_raw = the_person.hair_colour[1] #NOTE: Hair colour also comes with a discriptor, but we need a way to override/replace that at some point in the future.
             current_colour = Color(rgb=(current_colour_raw[0], current_colour_raw[1], current_colour_raw[2]), alpha = current_colour_raw[3]) #Generate a proper Colour object
             new_colour = current_colour.shade(1.0 - change_per_turn) #Each turn it gets 30% closer to the goal (but never _quite_ gets there).
-            the_person.set_hair_colour(new_colour)
+            the_person.set_hair_colour(new_colour, change_pubes = False)
 
         def weight_gain_on_apply(the_person, the_serum, add_to_log):
             the_person.change_max_energy(-20, add_to_log = add_to_log)
@@ -383,8 +383,8 @@ init -1:
 
         def height_increase_on_day(the_person, the_serum, add_to_log):
             the_person.height += the_person.get_height_step() #TODO: Decide what the maximum should be. You should be able to make giants with this. Currently 7" for practical concerns (being able to see face)
-            if the_person.height > the_person.get_height_ceiling(initial=False): #1.375 original cap
-                the_person.height = the_person.get_height_ceiling(initial=False)
+            if the_person.height > Person.get_height_ceiling(initial=False): #1.375 original cap
+                the_person.height = Person.get_height_ceiling(initial=False)
             if renpy.random.randint(0,100) < 10:
                 new_tits = the_person.get_larger_tit(the_person.tits)
                 if new_tits != the_person.tits: #Double check we don't already have them to avoid increasing breast weight infinitely
@@ -393,8 +393,8 @@ init -1:
 
         def height_decrease_on_day(the_person, the_serum, add_to_log):
             the_person.height -= the_person.get_height_step() #TODO: Decide what the minimum should be. Should be smaller than normal
-            if the_person.height < the_person.get_height_floor(initial=False): #0.7 original cap / 0.6 adjusted (changed to 0.72 for 4' 0")
-                the_person.height = the_person.get_height_floor(initial=False)
+            if the_person.height < Person.get_height_floor(initial=False): #0.7 original cap / 0.6 adjusted (changed to 0.72 for 4' 0")
+                the_person.height = Person.get_height_floor(initial=False)
             if renpy.random.randint(0,100) < 10:
                 new_tits = the_person.get_smaller_tit(the_person.tits)
                 if new_tits != the_person.tits:
@@ -560,7 +560,7 @@ init -1:
 
         primitive_serum_prod = SerumTrait(name = "Primitive Serum Production",
             desc = "The fundamental serum creation technique. The special carrier molecule can deliver one other serum trait with pinpoint accuracy.",
-            positive_slug = "1 Trait Slot, 3 Turn Duration",
+            positive_slug = "1 Trait Slot\n3 Turn Duration",
             negative_slug = "40 Production/Batch",
             research_added = 50,
             slots_added = 1,
@@ -723,7 +723,7 @@ init -1:
 
         improved_serum_prod = SerumTrait(name = "Improved Serum Production",
             desc = "General improvements to the basic serum creation formula. Allows for two serum traits to be delivered, but requires slightly more production to produce.",
-            positive_slug = "2 Trait Slots, 3 Turn Duration",
+            positive_slug = "2 Trait Slots\n3 Turn Duration",
             negative_slug = "70 Production/Batch",
             research_added = 50,
             slots_added = 2,
@@ -973,7 +973,7 @@ init -1:
 
         advanced_serum_prod = SerumTrait(name = "Advanced Serum Production",
             desc = "Advanced improvements to the basic serum design. Adds four serum trait slots, but requires even more production points.",
-            positive_slug = "4 Trait Slots, 3 Turn Duration",
+            positive_slug = "4 Trait Slots\n3 Turn Duration",
             negative_slug = "80 Production/Batch",
             research_added = 200,
             slots_added = 4,
@@ -1099,7 +1099,7 @@ init -1:
 
         slutty_caffeine_trait = SerumTrait(name = "Libido Stimulants",
             desc = "Careful engineering allows for the traditional side effects of stimulants to be redirected to the parasympathetic nervous system, causing an immediate spike in arousal as well as general energy levels.",
-            positive_slug = " +20 Max Energy, +15 Sluttiness",
+            positive_slug = " +20 Max Energy\n+15 Sluttiness",
             negative_slug = "",
             research_added = 150,
             base_side_effect_chance = 60,
@@ -1185,7 +1185,7 @@ init -1:
 
         rolling_orgasm = SerumTrait(name = "Climax Cycler",
             desc = "Linking the pleasure center of the brain to the subject's natural circadian rhythm causes periodic, low grade orgasms spaced several hours apart. In addition to being pleasant and slightly tiring, this can trigger other orgasm related effects if they exist.",
-            positive_slug = "+5 Happiness/Turn, 1 Forced Orgasm/Turn",
+            positive_slug = "+5 Happiness/Turn\n1 Forced Orgasm/Turn",
             negative_slug = "-10 Max Energy",
             research_added = 400,
             base_side_effect_chance = 50,
@@ -1233,7 +1233,7 @@ init -1:
 
         futuristic_serum_prod = SerumTrait(name = "Futuristic Serum Production",
             desc = "Space age technology makes the serum incredibly versatile. Adds seven serum trait slots at an increased production cost.",
-            positive_slug = "7 Trait Slots, 3 Turn Duration",
+            positive_slug = "7 Trait Slots\n3 Turn Duration",
             negative_slug = "135 Production/Batch",
             research_added = 500,
             slots_added = 7,
@@ -1496,7 +1496,7 @@ init -1:
 
         nora_reward_hucow_trait = SerumTrait(name = "Human Breeding Hormones",
             desc = "A special serum trait developed by Nora after studying someone who was in the later stages of pregnancy. Massively decreases birth control effectiveness, increases fertility, and triggers breast swelling and lactation.",
-            positive_slug = "+70% Fertility, -75% BC Effectiveness, Increased Breast Size, Massive Lactation",
+            positive_slug = "+70% Fertility\n-75% BC Effectiveness\nIncreased Breast Size\nMassive Lactation",
             negative_slug = "",
             research_added = 300,
             base_side_effect_chance = 80,
